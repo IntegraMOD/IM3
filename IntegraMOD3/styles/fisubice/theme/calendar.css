@@ -1,0 +1,95 @@
+/* --------------------------------------------------------------
+Style sheet for calendar mod
+-------------------------------------------------------------- */
+
+/* equivalent edits for bidi.css */
+/* Icon images
+---------------------------------------- */
+.rtl .icon-calendar {
+    background-position: 100% 50%;
+    padding: 1px 17px 0 0;
+}
+
+/* equivalent edits for buttons.css */
+/* Icon images
+---------------------------------------- */
+.icon-calendar {
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-image: none;
+    padding: 1px 0 0 17px;
+}
+
+/* equivalent edits for colours.css */
+/* Icon images
+---------------------------------------- */
+.icon-calendar { 
+	background-image: url("{T_THEME_PATH}/images/icon_mini_calendar.gif"); 
+}
+
+/* backgrounds
+---------------------------------------- */
+.bghover {
+	background-color: #F6F4D0; 
+}
+
+/* equivalent edits for portal.css */
+.cal_today {
+    background-color:#FFBBAA;
+    font-weight: bold;
+}
+.cal_birthday {
+    color:#FF8000;
+    font-weight: bold;
+}
+.cal_event {
+    color:#FF0000;
+    font-weight: bold;
+}
+
+table.calendar {
+    border:solid 0px;
+    border-color:#FFF;
+}
+
+td.calendar {
+    border:solid 1px;
+    border-color:#F9F9F9;
+}
+
+tr.calendar {
+    color:#0D97DC;
+    background-color:#F9F9F9;
+    height: 22px;
+    border:none;
+}
+
+tr.cal_block_header {
+	/*background-image: url('./images/cellpic3.gif');*/
+    background-color:#F9F9F9;
+    height:16px;
+    font-weight:bold;
+}
+
+#minical{
+    padding: 2px 10px 0 0;
+}
+
+.button_event_new_icon {
+ margin: 0 auto;
+ width: 100;
+ text-align:center;
+ display: block; 
+ width: 50px; height: 14px;
+ background: url('./images/new_event_small.png') 0 0 no-repeat;
+}
+.button_event_new_icon span {
+ display: none;
+ text-indent: -5000px;
+}
+
+.button_event_new_icon:hover {
+ background-position: 0 -14px;
+ cursor: hand;
+} 
+

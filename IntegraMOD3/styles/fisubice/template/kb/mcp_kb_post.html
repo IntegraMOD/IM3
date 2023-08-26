@@ -1,0 +1,144 @@
+<!-- INCLUDE mcp_header.html -->
+
+
+
+
+
+
+
+
+<!-- IF S_MCP_REPORT -->
+	<form method="post" name="mcp_report" action="{S_CLOSE_ACTION}">
+
+	<table width="100%" cellpadding="3" cellspacing="1" border="0" class="tablebg">
+	<tr>
+		<th colspan="2" align="center">{L_REPORT_DETAILS}</th>
+	</tr>
+	<tr>
+		<td class="row1"><b class="gen">{L_REPORT_REASON}: </b></td>
+		<td class="row2"><span class="gen">{REPORT_REASON_TITLE} &raquo; {REPORT_REASON_DESCRIPTION}</span></td>
+	</tr>
+	<tr>
+		<td class="row1" width="20%"><b class="gen">{L_REPORTER}: </b></td>
+		<td class="row2" width="80%"><span class="gen">[ {REPORTER_FULL} ]</span></td>
+	</tr>
+	<tr>
+		<td class="row1"><b class="gen">{L_REPORTED}: </b></td>
+		<td class="row2"><span class="postdetails">{REPORT_DATE}</span></td>
+	</tr>
+	<!-- IF REPORT_TEXT -->
+		<tr>
+			<th colspan="2" align="center">{L_MORE_INFO}</th>
+		</tr>
+		<tr>
+			<td class="row1" colspan="2"><div class="gen" style="overflow: auto; width: 100%; height: 80pt; border: 1px;">{REPORT_TEXT}</div></td>
+		</tr>
+	<!-- ENDIF -->
+	<tr>
+		<td class="cat" align="center" colspan="2"><!-- IF S_POST_REPORTED --><input class="btnmain" type="submit" value="{L_CLOSE_REPORT}" name="action[close]" /><!-- ELSE -->{L_REPORT_CLOSED}<!-- ENDIF --> &nbsp; <input class="btnlite" type="submit" value="{L_DELETE_REPORT}" name="action[delete]" /></td>
+	</tr>
+	</table>
+
+	<input type="hidden" name="report_id_list[]" value="{REPORT_ID}" />
+	{S_FORM_TOKEN}
+	</form>
+
+	<br clear="all"/>
+<!-- ENDIF -->
+
+
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="tablebg">
+<tr>
+	<th colspan="2" align="center">{L_POST_DETAILS}</th>
+</tr>
+<tr>
+	<td class="row3" colspan="2" align="center"><span class="gensmall"><!-- IF S_MCP_QUEUE -->{RETURN_QUEUE} | {RETURN_TOPIC_SIMPLE} | {RETURN_POST}<!-- ELSEIF S_MCP_REPORT -->{RETURN_REPORTS} | <a href="{U_VIEW_TOPIC}">{L_VIEW_TOPIC}</a><!-- ELSE -->{RETURN_TOPIC}<!-- ENDIF --></span></td>
+</tr>
+<tr>
+	<td class="row1"><b class="gen">{L_POST_SUBJECT}: </b></td>
+	<td class="row2"><span class="gen">{POST_SUBJECT}</span></td>
+</tr>
+<tr>
+	<td class="row1" width="20%"><b class="gen">{L_POSTER}: </b></td>
+	<td class="row2" width="80%"><span class="gen"> [ {POST_AUTHOR_FULL} ] </span></td>
+</tr>
+<tr>
+	<td class="row1"><b class="gen">{L_POSTED}: </b></td>
+	<td class="row2"><span class="postdetails">{POST_DATE}</span></td>
+</tr>
+<tr>
+	<th colspan="2" align="center">{L_PREVIEW}</th>
+</tr>
+<tr>
+	<td class="row1" colspan="2">
+	<!-- IF U_EDIT --><div class="gen ls_button" style="float: {S_CONTENT_FLOW_END};"><a href="{U_EDIT}">{L_EDIT}</a></div><!-- ENDIF -->
+
+	<div class="postbody">{POST_PREVIEW}</div>
+
+	<!-- IF S_HAS_ATTACHMENTS -->
+		<br clear="all" /><br />
+
+		<table class="tablebg" width="100%" cellspacing="1">
+		<tr>
+			<td class="row3"><b class="genmed">{L_ATTACHMENTS}: </b></td>
+		</tr>
+		<!-- BEGIN attachment -->
+			<tr>
+				<!-- IF attachment.S_ROW_COUNT is even --><td class="row2"><!-- ELSE --><td class="row1"><!-- ENDIF -->{attachment.DISPLAY_ATTACHMENT}</td>
+			</tr>
+		<!-- END attachment -->
+		</table>
+	<!-- ENDIF -->
+
+	</td>
+</tr>
+<!-- IF S_POST_UNAPPROVED -->
+	<form method="post" id="mcp_report" action="{S_CLOSE_ACTION}">
+	<tr>
+		<td class="cat" align="center" colspan="2"><input class="btnmain" type="submit" value="{L_APPROVE}" name="action[approve]" /> &nbsp; <input class="btnlite" type="submit" value="{L_DISAPPROVE}" name="action[disapprove]" /></td>
+	</tr>
+	<input type="hidden" name="post_id_list[]" value="{POST_ID}" />
+	</form>
+<!-- ENDIF -->
+</table>
+
+
+<!-- IF S_SHOW_EDITS -->
+
+<a name="log"></a>
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<form method="post" action="{U_ACTION}">
+	<table class="table1" cellspacing="1">
+	<thead>
+	<tr>
+		<th class="name">{L_LOG_TITEL}</th>
+		<!-- IF S_DELETE_LOG --><th class="posts">{L_MARK}</th><!-- ENDIF -->
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN log -->
+	<tr class="<!-- IF log.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+		<td>{L_CHANGED_AT} : {log.CHANGE_TIME} {L_FROM} {log.USER} {log.CHANGE_REASON}</td>
+		<!-- IF S_DELETE_LOG --><td class="posts"><input type="checkbox" class="radio" name="mark[]" value="{log.ID}" /></td><!-- ENDIF -->
+	</tr>
+	<!-- BEGINELSE -->
+		<tr>
+			<td colspan="2">{L_NO_MATCHES_FOUND}</td>
+		</tr>
+	<!-- END log -->
+	</tbody>
+	</table>
+	<!-- IF S_DELETE_LOG -->
+		<fieldset class="submit-buttons">
+			<input class="button2" type="submit" name="delall" value="{L_DELETE_ALL}" />&nbsp;
+			<input class="button2" type="submit" name="delmarked" value="{L_DELETE_MARKED}" /><br />
+		</fieldset>
+	<!-- ENDIF -->
+	</form>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+
+<!-- INCLUDE mcp_footer.html -->

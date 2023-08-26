@@ -1,0 +1,101 @@
+<!-- IF S_DL_MOD_OFFLINE_ADMINS -->
+<br />
+
+<div class="forumrules"><strong>{L_DL_OFF_MESSAGE_ADMIN}</strong></div>
+<!-- ENDIF -->
+
+<!-- BEGIN approve -->
+<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+<tr>
+	<td align="center" style="background-color: #FFAA44;"><a href="{approve.U_APPROVE_DOWNLOADS}" class="forumlink">{approve.L_APPROVE_DOWNLOADS}</a></td>
+</tr>
+</table>
+<br />
+<!-- END approve -->
+
+<!-- BEGIN approve_comments -->
+<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+<tr>
+	<td align="center" style="background-color: #FFAA44;"><a href="{approve_comments.U_APPROVE_COMMENTS}" class="forumlink">{approve_comments.L_APPROVE_COMMENTS}</a></td>
+</tr>
+</table>
+<br />
+<!-- END approve_comments -->
+
+{S_DL_JUMPBOX}
+
+<br />
+
+<table width="100%" cellspacing="0" cellpadding="3" border="0">
+<tr class="row2">
+	<td>&nbsp;</td>
+	<!-- IF U_DL_OVERALL_VIEW --><td align="center" height="25"><a href="{U_DL_OVERALL_VIEW}" class="forumlink">{L_DL_OVERVIEW}</a></td><!-- ENDIF -->
+	<!-- IF S_STATS_VIEW_ON --><td align="center" height="25"><a href="{U_DL_STATS}" class="forumlink">{L_DL_STATS}</a></td><!-- ENDIF -->
+	<!-- IF S_TODO_LINK --><td align="center" height="25"><a href="{U_DL_TODOLIST}" class="forumlink">{L_DL_MOD_TODO}</a></td><!-- ENDIF -->
+	<!-- IF S_U_CONFIG_LINK --><td align="center" height="25"><a href="{U_DL_CONFIG}" class="forumlink">{L_DL_CONFIG}</a></td><!-- ENDIF -->
+	<td>&nbsp;</td>
+</tr>
+</table>
+
+<!-- IF S_FOOTER_LEGEND -->
+<br /><p><strong>{L_LEGEND}</strong></p><hr />
+<table width="100%" cellspacing="0" cellpadding="3" border="0">
+<!-- IF S_DL_TRAFFIC_OFF -->
+<tr>
+	<td width="3%">{IMG_RED}</td><td width="14%">{L_DL_RED_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_GREEN}</td><td width="12%">{L_DL_GREEN_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_GREY}</td><td width="14%">{L_DL_GREY_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_WHITE}</td><td width="14%">{L_DL_WHITE_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_NEW_DL}</td><td width="14%">{L_DL_NEW}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_EDIT_DL}</td><td width="14%">{L_DL_EDIT}</td><td>&nbsp;</td>
+</dl>
+<!-- ELSE -->
+<tr>
+	<td width="3%">{IMG_BLUE}</td><td width="22%">{L_DL_BLUE_EXPLAIN_FOOT}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_RED}</td><td width="22%">{L_DL_RED_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_GREY}</td><td width="22%">{L_DL_GREY_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_WHITE}</td><td width="22%">{L_DL_WHITE_EXPLAIN}</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td width="3%">{IMG_YELLOW}</td><td width="22%">{L_DL_YELLOW_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_GREEN}</td><td width="22%">{L_DL_GREEN_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_NEW_DL}</td><td width="22%">{L_DL_NEW}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_EDIT_DL}</td><td width="22%">{L_DL_EDIT}</td><td>&nbsp;</td>
+</tr>
+<!-- ENDIF -->
+</table>
+<!-- ENDIF -->
+
+<br />
+
+<table width="100%" cellspacing="1" cellpadding="3" border="0">
+<tr class="row1">
+	<td width="100%" align="center"><span class="small"><!-- IF L_CAN_DOWNLOAD_AGAIN -->{L_CAN_DOWNLOAD_AGAIN}<br /><!-- ENDIF -->
+			<!-- IF L_CAN_DOWNLOAD_AGAIN -->{L_CAN_DOWNLOAD_AGAIN}<br /><!-- ENDIF -->
+			<!-- BEGIN userdata -->{userdata.ACCOUNT_TRAFFIC}<br /><!-- END userdata -->
+			<!-- BEGIN remain_traffic -->{remain_traffic.REMAIN_TRAFFIC}<br /><!-- END remain_traffic -->
+			<!-- BEGIN no_remain_traffic --><b><span style="text-decoration: underline">{no_remain_traffic.NO_OVERALL_TRAFFIC}</span></b><br /><!-- END no_remain_traffic -->
+			<!-- BEGIN remain_guest_traffic -->{remain_guest_traffic.REMAIN_GUEST_TRAFFIC}<br /><!-- END remain_guest_traffic -->
+			<!-- BEGIN no_remain_guest_traffic --><b><span style="text-decoration: underline">{no_remain_guest_traffic.NO_OVERALL_GUEST_TRAFFIC}</span></b><br /><!-- END no_remain_guest_traffic -->
+			<!-- IF not S_HIDE_FOOTER_DATA and S_SERARATE_STATS --><br /><!-- ENDIF -->
+			<!-- BEGIN total_stat -->{total_stat.TOTAL_STAT}<!-- END total_stat -->
+			<!-- IF not S_HIDE_FOOTER_DATA --><br /><!-- ENDIF -->
+			<strong>{DL_MOD_RELEASE}</strong>&nbsp;&bull;&nbsp;
+			<!-- IF S_DL_TRANSLATION -->{L_DL_TRANSLATION}&nbsp;&bull;&nbsp;<!-- ENDIF -->
+			<!-- IF U_DL_RSS_FEED --><a href="{U_DL_RSS_FEED}">{L_DL_ACP_CONF_RSS}</a><!-- ENDIF -->
+	</span></td>
+</tr>
+</table>
+
+<br />
+
+<script type="text/javascript">
+// <![CDATA[
+function help_popup(help_key)
+{
+	window.open('{U_HELP_POPUP}' + help_key, '_blank', 'height=400,resizable=yes,width=550');;
+}
+// ]]>
+</script>
+
+<!-- INCLUDE overall_footer.html -->

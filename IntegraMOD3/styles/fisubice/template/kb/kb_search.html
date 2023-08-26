@@ -1,0 +1,33 @@
+<!-- INCLUDE overall_header.html -->
+<h2>{SEARCH_TITLE}</h2>
+
+<br />
+<!-- IF RESULT_MESSAGE --><h2>{RESULT_MESSAGE}</h2><!-- ENDIF -->
+<!-- IF PAGINATION -->
+<div class="gensmall" style="float: left;"><span class="nav">{PAGE_NUMBER}</span> {PAGINATION}</div>
+<!-- ENDIF -->
+<table class="tablebg" width="100%" cellspacing="1">
+<!-- BEGIN result -->
+
+<tr class="row1">
+	<td valign="top" class="postbody" style="padding:5px;">
+		<b><a href="{result.U_ARTICLE}">{result.TITLE}</a></b><br />
+		{result.DESCRIPTION}<br /><br />
+		{L_FOUND_IN}: <a href="{result.U_CATEGORIE}">{result.CAT}</a>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2"><img src="images/spacer.gif" height="1" alt="" /></td>
+</tr>
+<!-- END result -->
+</table>
+<br />
+
+<table class="tablebg" cellspacing="1" width="100%">
+<tr>
+	<td align="center" class="row1" style="padding:5px 5px 5px 5px;"><b><a href="{U_KB}">{L_BACK_KB}</a></b></td>
+</tr>
+</table>
+<br />
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,159 @@
+<!-- IF S_DL_UCP -->
+<!-- INCLUDE ucp_header.html -->
+<!-- ELSE -->
+<!-- INCLUDE dl_mod/dl_header.html -->
+<!-- ENDIF -->
+
+<!-- IF S_FAV_BLOCK -->
+<script type="text/javascript">
+// <![CDATA[
+function select_switch(status)
+{
+	for (i = <!-- IF S_DL_UCP -->0<!-- ELSE -->15<!-- ENDIF -->; i < document.forms[0].length; i++)
+	{
+		document.forms[0].elements[i].checked = status;
+	}
+}
+// ]]>
+</script>
+<!-- ENDIF -->
+
+<!-- IF S_DL_UCP -->
+</form>
+
+<h2>{DL_MOD_RELEASE}</h2>
+<!-- ENDIF -->
+
+<form action="{S_FORM_ACTION}" method="post" id="user_dl_config">
+
+<!-- IF S_DL_UCP_CONFIG -->
+
+<!-- IF S_NO_DL_POPUP_NOTIFY -->
+<table width="100%" cellpadding="3" cellspacing="1" border="0" align="center" class="table1">
+<tr>
+	<td class="row2" style="width: 10%" rowspan="3"><span>{L_USER_DOWNLOAD_POPUP}</span></td>
+	<td class="row1" style="width: 60%"><span>{L_USER_ALLOW_NEW_DOWNLOAD_POPUP}</span></td>
+	<td class="row2" style="width: 30%">
+		<label><input type="radio" name="user_allow_new_download_popup" value="1" {ALLOW_NEW_DOWNLOAD_POPUP_YES}/>&nbsp;{L_YES}</label>
+		<label><input type="radio" name="user_allow_new_download_popup" value="0" {ALLOW_NEW_DOWNLOAD_POPUP_NO}/>&nbsp;{L_NO}</label>
+	</td>
+</tr>
+<tr>
+	<td class="row1" style="width: 60%"><span>{L_USER_ALLOW_FAV_DOWNLOAD_POPUP}</span></td>
+	<td class="row2" style="width: 30%">
+		<label><input type="radio" name="user_allow_fav_download_popup" value="1" {ALLOW_FAV_DOWNLOAD_POPUP_YES}/>&nbsp;{L_YES}</label>
+		<label><input type="radio" name="user_allow_fav_download_popup" value="0" {ALLOW_FAV_DOWNLOAD_POPUP_NO}/>&nbsp;{L_NO}</label>
+	</td>
+</tr>
+<tr>
+	<td class="row1" style="width: 60%"><span>{L_USER_DOWNLOAD_NOTIFY_TYPE}</span></td>
+	<td class="row2" style="width: 30%">
+		<label><input type="radio" name="user_dl_note_type" value="1" {USER_DL_NOTE_TYPE_POPUP}/>&nbsp;{L_USER_DOWNLOAD_NOTIFY_TYPE_POPUP}</label>
+		<label><input type="radio" name="user_dl_note_type" value="0" {USER_DL_NOTE_TYPE_MESSAGE}/>&nbsp;{L_USER_DOWNLOAD_NOTIFY_TYPE_MESSAGE}</label>
+	</td>
+</tr>
+</table>
+<!-- ENDIF -->
+
+<!-- IF S_NO_DL_EMAIL_NOTIFY -->
+<br />
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" align="center" class="table1">
+<tr>
+	<td class="row2" style="width: 10%" rowspan="2"><span>{L_USER_DOWNLOAD_EMAIL}</span></td>
+	<td class="row1" style="width: 60%"><span>{L_USER_ALLOW_NEW_DOWNLOAD_EMAIL}</span></td>
+	<td class="row2" style="width: 30%">
+		<label><input type="radio" name="user_allow_new_download_email" value="1" {ALLOW_NEW_DOWNLOAD_EMAIL_YES}/>&nbsp;{L_YES}</label>
+		<label><input type="radio" name="user_allow_new_download_email" value="0" {ALLOW_NEW_DOWNLOAD_EMAIL_NO}/>&nbsp;{L_NO}</label>
+	</td>
+</tr>
+<tr>
+	<td class="row1" style="width: 60%"><span>{L_USER_ALLOW_FAV_DOWNLOAD_EMAIL}</span></td>
+	<td class="row2" style="width: 30%">
+		<label><input type="radio" name="user_allow_fav_download_email" value="1" {ALLOW_FAV_DOWNLOAD_EMAIL_YES}/>&nbsp;{L_YES}</label>
+		<label><input type="radio" name="user_allow_fav_download_email" value="0" {ALLOW_FAV_DOWNLOAD_EMAIL_NO}/>&nbsp;{L_NO}</label>
+	</td>
+</tr>
+<tr>
+	<td class="row1" style="width: 60%"><span>{L_USER_ALLOW_FAV_COMMENT_EMAIL}</span></td>
+	<td class="row2" style="width: 30%">
+		<label><input type="radio" name="user_allow_fav_comment_email" value="1" {ALLOW_FAV_COMMENT_EMAIL_YES}/>&nbsp;{L_YES}</label>
+		<label><input type="radio" name="user_allow_fav_comment_email" value="0" {ALLOW_FAV_COMMENT_EMAIL_NO}/>&nbsp;{L_NO}</label>
+	</td>
+</tr>
+</table>
+<!-- ENDIF -->
+
+<!-- IF S_SORT_CONFIG_OPTIONS -->
+<br />
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" align="center" class="table1">
+<tr>
+	<td class="row1" style="width: 25%"><span>{L_DL_SORT_USER_OPT}</span></td>
+	<td class="row2" style="width: 75%">{S_DL_SORT_USER_OPT}&nbsp;{S_DL_SORT_USER_DIR}&nbsp;<label><input type="checkbox" class="permissions-checkbox" name="user_dl_sort_opt" value="1" {S_DL_SORT_USER_EXT} />&nbsp;{L_DL_SORT_USER_EXT}</label></td>
+</tr>
+</table>
+<!-- ENDIF -->
+
+<br />
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" align="center" class="table1">
+<tr>
+	<td class="row1" style="width: 25%"><span><b>{L_DL_SUB_ON_INDEX}</b></span></td>
+	<td class="row2" style="width: 75%">
+		<label><input type="radio" class="radio" name="user_dl_sub_on_index" value="1" {USER_DL_SUB_ON_INDEX_YES} />&nbsp;{L_YES}</label>
+		<label><input type="radio" class="radio" name="user_dl_sub_on_index" value="0" {USER_DL_SUB_ON_INDEX_NO} />&nbsp;{L_NO}</label>
+	</td>
+</tr>
+</table>
+<!-- IF not S_FAV_BLOCK -->
+<br />
+<!-- ENDIF -->
+<!-- ENDIF -->
+
+<!-- IF S_FAV_BLOCK -->
+<br />
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" align="center" class="table1">
+<tr>
+	<th>{L_DOWNLOADS}</th>
+	<th>{L_DL_DELETE}</th>
+</tr>
+<!-- BEGIN favorite_row -->
+<tr class="row<!-- IF favorite_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">
+	<td style="width: 90%">{favorite_row.DL_CAT}<a href="{favorite_row.U_DOWNLOAD}">{favorite_row.DOWNLOAD}</a></td>
+	<td style="width: 10%" align="center"><input type="checkbox" name="fav_id[]" value="{favorite_row.DL_ID}" /></td>
+</tr>
+<!-- END favorite_row -->
+</table>
+<table border="0" width="100%">
+<tr>
+	<td align="right" nowrap="nowrap">
+		<a href="javascript:select_switch(true);" class="gensmall">{L_DL_MARK_ALL}</a> ::
+		<a href="javascript:select_switch(false);" class="gensmall">{L_DL_UNMARK}</a>
+	</td>
+</tr>
+</table>
+<!-- ENDIF -->
+<br />
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" align="center" class="table1">
+<tr>
+	<td colspan="2" align="center"><input type="submit" name="submit" value="{L_SUBMIT}" class="btnmain" />&nbsp;<input type="reset" value="{L_RESET}" class="btnlite" /></td>
+</tr>
+</table>
+
+<!-- IF not S_DL_UCP -->
+{S_FORM_TOKEN}
+{S_HIDDEN_FIELDS}
+
+</form>
+<!-- ENDIF -->
+
+<br />
+
+<!-- IF S_DL_UCP -->
+<!-- INCLUDE ucp_footer.html -->
+<!-- ELSE -->
+<!-- INCLUDE dl_mod/dl_footer.html -->
+<!-- ENDIF -->

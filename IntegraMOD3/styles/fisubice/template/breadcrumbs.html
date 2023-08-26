@@ -1,0 +1,4 @@
+<span class="nav" style="font-size:.92em;">
+    <!-- IF STARGATE --><a href="{U_PORTAL}">{L_PORTAL}</a> &bull; <!-- ENDIF --><a href="{U_INDEX}">{L_INDEX}</a><!-- IF SCRIPT_NAME eq 'search' --><!-- IF SEARCH_TITLE --> &bull; {SEARCH_TITLE}<!-- ELSE --> {SEARCH_MATCHES}<!-- ENDIF --><!-- ENDIF --><!-- BEGIN navlinks --> &bull; <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --><!-- BEGIN meeting_nav --> &bull; <!-- IF meeting_nav.U_LINK --><a href="{meeting_nav.U_LINK}">{meeting_nav.NAME}</a><!-- ELSE -->{meeting_nav.NAME}<!-- ENDIF --><!-- END meeting_nav --><!-- BEGIN dl_nav --> &bull; <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav -->
+    <!-- IF SCRIPT_NAME != 'index' --><br clear="all" /><!-- ENDIF --><br />
+</span>

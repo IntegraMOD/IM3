@@ -1,0 +1,51 @@
+<br />
+
+<div class="forabg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<ul class="topiclist">
+		<li class="header">
+			<dl>
+				<dt>{L_DL_CAT_NAME} / {L_DL_FILE_DESCRIPTION}</dt>
+				<dd class="posts">{L_DL_CAT_FILES}</dd>
+				<dd class="lastpost"><span>{L_DL_LATEST_DOWNLOADS}</span></dd>
+			</dl>
+		</li>
+	</ul>
+	<ul class="topiclist forums">
+		<!-- BEGIN subcats -->
+		<li class="row">
+			<dl>
+				<dt><span class="forum-image">{subcats.MINI_IMG}</span>
+					<span class="forum-image"><img src="{subcats.CAT_ICON}" alt="" title="{subcats.CAT_NAME}" /></span>
+					<a href="{subcats.U_CAT_VIEW}" class="forumtitle">{subcats.CAT_NAME}</a><br />
+					<span class="small">{subcats.CAT_DESC}</span>
+					<!-- IF subcats.CAT_PAGES --><strong class="pagination"><span>{subcats.CAT_PAGES}</span></strong><!-- ENDIF -->
+					<!-- BEGIN sub -->
+					<table class="table1" cellspacing="0" border="0" width="100%" align="right">
+					<!-- BEGIN sublevel_row -->
+					<tr class="row bg<!-- IF subcats.sub.sublevel_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">
+						<td width="90%"><span class="forum-image">{subcats.sub.sublevel_row.M_SUBLEVEL}</span>
+							<span class="forum-image"><img src="{subcats.sub.sublevel_row.M_SUBLEVEL_ICON}" alt="" title="{subcats.sub.sublevel_row.L_SUBLEVEL}" /></span>
+							<a href="{subcats.sub.sublevel_row.U_SUBLEVEL}" class="small" style="font-size: 8pt;"><strong>{subcats.sub.sublevel_row.L_SUBLEVEL}</strong></a><br />
+							<span style="font-size: 7pt;">&nbsp;&nbsp;&nbsp;{subcats.sub.sublevel_row.SUBLEVEL_DESC}</span>
+						</td>
+						<td width="10%" align="right"><span class="small">{subcats.sub.sublevel_row.SUBLEVEL_COUNT}</span></td>
+					</tr>
+					<!-- END sublevel_row -->
+					</table>
+					<!-- END sub -->
+				</dt>
+				<dd class="posts"><span class="small"><b>{subcats.CAT_DL}</b></span></dd>
+				<!-- IF subcats.CAT_LAST_DL -->
+                <dd class="lastpost">
+                    <span><a href="{subcats.U_CAT_LAST_LINK}" class="small">{subcats.CAT_LAST_DL}</a></span><br />
+                    <span class="topicdetails"><a href="{subcats.U_CAT_LAST_USER}" class="small">{subcats.CAT_LAST_USER}</a>&nbsp;&bull;&nbsp;{subcats.CAT_LAST_TIME}</span>
+                </dd>
+                <!-- ENDIF -->
+			</dl>
+		</li>
+		<!-- END subcats -->
+	</ul>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>

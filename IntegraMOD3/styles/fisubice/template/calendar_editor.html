@@ -1,0 +1,268 @@
+<script type="text/javascript">
+
+function showHideGroups(obj)
+{
+    for(var i=0; i<obj.length; i++)
+    {
+        if(obj[i].checked)
+        {
+            var this_radio = obj[i].id;
+        }
+    }
+
+    switch(this_radio)
+    {
+        case 'group_public':
+            document.getElementById('users_list').style.display = 'none';
+            document.getElementById('group_list').style.display = 'none';
+        break;
+
+        case 'group_private':
+            document.getElementById('users_list').style.display = '';
+            document.getElementById('group_list').style.display = 'none';
+        break;
+
+        case 'group_groups':
+            document.getElementById('users_list').style.display = 'none';
+            document.getElementById('group_list').style.display = '';
+        break;
+    }
+}
+
+function showHideRepeatOptions(obj)
+{
+    document.getElementById('repeat_options').style.display = document.getElementById('event_repeat_yes').checked ? 'block' : 'none';
+
+    if(obj.id == 'event_repeat_when')
+    {
+        switch(obj.value)
+        {
+            case 'WM':
+                document.getElementById('nth_month_opts').style.display = 'none';
+                document.getElementById('nth_day_opts').style.display = 'block';
+            break;
+
+            case 'WY':
+                document.getElementById('nth_day_opts').style.display = 'none';
+                document.getElementById('nth_month_opts').style.display = 'block';
+            break;
+
+            default:
+                document.getElementById('nth_day_opts').style.display = 'none';
+                document.getElementById('nth_month_opts').style.display = 'none';
+            break;
+        }
+    }
+}
+
+</script>
+
+<div class="panel newboxes" id="event-panel" style="display: none;">
+	<fieldset>
+	<table width="100%" cellpadding="1" cellspacing="0" border="0">
+		<tr>
+			<td align="center" class="cat" colspan="2"><h4>{U_ADD_EDIT_TAB}</h4></td>
+		</tr>
+		<!-- DEFINE $EXTRA_POSTING_OPTIONS = 1 -->
+		<p class="error" id="error">{EVENT_ERROR}</p>
+			<!-- IF S_DELETE_ALLOWED -->
+			<tr>
+				<td class="row1" style="width:20%;"><label for="delete_event">{L_CALENDAR_DELETE_EVENT}:</label></td>
+				<td class="row2"><label for="delete_event"><input type="radio" class="radio" name="delete_event" id="delete_event" /> {L_CALENDAR_DELETE_WARN}</label></td>
+			</tr>
+			<!-- ENDIF -->
+			<!-- IF not S_POSTING_TOPIC -->
+			<tr>
+				<td class="row1"style="width:20%;"><b class="genmed">{L_CALENDAR_EVENT_NAME}:</b></td>
+				<td class="row2"><input class="post" style="width:450px" type="text" name="name" size="45" maxlength="64" tabindex="2" value="{SUBJECT}" /></td>
+			</tr>
+		<!-- ENDIF -->
+		<tr style="clear: left;">
+			<td class="row1" style="width:20%;"><label><b class="genmed">{L_CALENDAR_EVENT_START}:</b></label></td>
+			<td class="row2">
+				{L_DATE}:<input class="post" type="text" name="date" id="date" size="10" maxlength="10" tabindex="3" value="{DATE_IN}" readonly="readonly" onfocus="date_show(this);" onclick="event.cancelBubble=true;date_show(this);"/>
+				{L_TIME}:<input class="post" type="text" name="time" id="time" size="10" maxlength="10" tabindex="4" value="{TIME_IN}" readonly="readonly" onfocus="time_show(this);" onclick="event.cancelBubble=true;time_show(this);"/>
+			</td>
+		</tr>
+		<tr style="clear: left;">
+			<td class="row1" style="width:20%;"><label><b class="genmed">{L_CALENDAR_EVENT_END}:</b></label></td>
+			<td class="row2">
+				{L_DATE}:<input class="post" type="text" name="end_date" id="end_date" size="10" maxlength="10" tabindex="5" value="{DATE_OUT}" readonly="readonly" onfocus="date_show(this);" onclick="event.cancelBubble=true;date_show(this);"/>
+				{L_TIME}:<input class="post" type="text" name="end_time" id="end_time" size="10" maxlength="10" tabindex="6" value="{TIME_OUT}" readonly="readonly" onfocus="time_show(this);" onclick="event.cancelBubble=true;time_show(this);"/>
+			</td>
+		</tr>
+		<tr style="clear: left;">
+			<td class="row1" style="width:20%;"><label><b class="genmed">{L_CALENDAR_EVENT_REPEAT}:</b></label></td>
+			<td class="row2">
+				<label for="event_repeat_yes"><input type="radio" name="event_repeat" id="event_repeat_yes" value="1" onclick="document.getElementById('repeat_options').style.display = 'block'; validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');" <!-- IF S_EVENT_REPEAT --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label for="event_repeat_no"><input type="radio" name="event_repeat" id="event_repeat_no" value="0" onclick="document.getElementById('repeat_options').style.display = 'none';" <!-- IF not S_EVENT_REPEAT --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				<br />
+				<table>
+					<tr>
+						<td colspan="2" width="100%">
+							<!-- IF S_EVENT_REPEAT -->
+							<table id="repeat_options" style="display: block; height: 100%;">
+							<!-- ELSE -->
+							<table id="repeat_options" style="display: none; height: 100%;">
+							<!-- ENDIF -->
+								<tr>
+									<td class="row2" style="width:100%;"><label><b class="genmed">{L_CALENDAR_REPEAT_COUNT}:</b></label>
+										<select name="event_repeat_count" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value=0>--</option>
+										<!-- BEGIN repeat_count_options -->
+										<option value="{repeat_count_options.COUNT_VAL}" <!-- IF repeat_count_options.COUNT_VAL == REPEAT_COUNT_SELECTED -->selected="selected" <!-- ENDIF -->>{repeat_count_options.COUNT_VAL}</option>
+										<!-- END repeat_count_options -->
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="row2" style="width:100%;"><label><b class="genmed">{L_CALENDAR_REPEAT_PERIOD}:</b></label>
+										<select name="event_repeat_when" id="event_repeat_when" onchange="showHideRepeatOptions(this); validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="--">-------------------------</option>
+										<!-- BEGIN repeat_period_options -->
+										<option value="{repeat_period_options.REPEAT_OPT_CODE}" <!-- IF repeat_period_options.REPEAT_OPT_CODE == REPEAT_PERIOD_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_period_options.REPEAT_OPT}</option>
+										<!-- END repeat_period_options -->
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="row2" style="width:100%;"><label><b class="genmed">{L_CALENDAR_REPEAT_DATES}:</b></label><br /><span id="repeat_dates" style="color: red;"></span></td>
+								</tr>
+								<tr>
+									<td>
+								<div id="nth_day_opts" style="display: none;">
+
+								<select name="nth_day_position" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">------</option>
+								<!-- BEGIN repeat_nth_position_options -->
+										<option value="{repeat_nth_position_options.POSITION_CODE}" <!-- IF repeat_nth_position_options.POSITION_CODE == REPEAT_NTH_DAY_POSITION_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_position_options.POSITION_NAME}</option>
+								<!-- END repeat_nth_position_options -->
+								</select>
+								<select name="nth_weekday" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">---------</option>
+								<!-- BEGIN repeat_nth_day_options -->
+										<option value="{repeat_nth_day_options.DAY_CODE}" <!-- IF repeat_nth_day_options.DAY_CODE == REPEAT_NTH_DAY_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_day_options.DAY_NAME}</option>
+								<!-- END repeat_nth_day_options -->
+								</select>
+								{L_EVERY}
+								<select name="nth_count" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="--">--</option>
+								<!-- BEGIN repeat_nth_count_options -->
+										<option value="{repeat_nth_count_options.COUNT}" <!-- IF repeat_nth_count_options.COUNT == REPEAT_NTH_COUNT_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_count_options.COUNT}</option>
+								<!-- END repeat_nth_count_options -->
+								</select>
+								{L_MONTHS}
+
+								</div>
+
+								<div id="nth_month_opts" style="display: none;">
+								<select name="nth_month_position" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">------</option>
+								<!-- BEGIN repeat_nth_position_options -->
+										<option value="{repeat_nth_position_options.POSITION_CODE}" <!-- IF repeat_nth_position_options.POSITION_CODE == REPEAT_NTH_MONTH_POSITION_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_position_options.POSITION_NAME}</option>
+								<!-- END repeat_nth_position_options -->
+								</select>
+								<select name="nth_month_weekday" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">---------</option>
+								<!-- BEGIN repeat_nth_day_options -->
+										<option value="{repeat_nth_day_options.DAY_CODE}" <!-- IF repeat_nth_day_options.DAY_CODE == REPEAT_NTH_MONTH_DAY_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_day_options.DAY_NAME}</option>
+								<!-- END repeat_nth_day_options -->
+								</select>
+								{L_OF}
+								<select name="nth_month_month" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">---------</option>
+								<!-- BEGIN repeat_nth_month_options -->
+										<option value="{repeat_nth_month_options.MONTH_CODE}" <!-- IF repeat_nth_month_options.MONTH_CODE == REPEAT_NTH_MONTH_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_month_options.MONTH_NAME}</option>
+								<!-- END repeat_nth_month_options -->
+								</select>
+								{L_EVERY_YEAR}
+								</div>
+									</td>
+								</tr>
+							</table>
+			 			</td>
+					</tr>
+				</table>
+			 </td>
+		</tr>
+		<tr style="clear: left;">
+			<td class="row1" style="width:20%;"><label><b class="genmed">{L_CALENDAR_INVITE_ATTENDEES}:</b></label></td>
+			<td class="row2">
+				<label for="invite_attendees_yes"><input type="radio" name="invite_attendees" id="invite_attendees_yes" value="1" <!-- IF S_INVITE_ATTENDEES --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label for="invite_attendees_no"><input type="radio" name="invite_attendees" id="invite_attendees_no" value="0" <!-- IF not S_INVITE_ATTENDEES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			 </td>
+		</tr>
+		<tr style="clear: left;">
+			 <td class="row1" style="width:20%;"><label><b class="genmed">{L_GROUPS}:</b></label></td>
+			 <td class="row2">
+				<label for="group_public"><input type="radio" name="group_select" id="group_public" value="{EVENT_VIEW_BY_PUBLIC}" onclick="showHideGroups(group_select)" <!-- IF S_PUBLIC_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_GROUP_PUBLIC}</label>
+				<label for="group_private"><input type="radio" name="group_select" id="group_private" value="{EVENT_VIEW_BY_PRIVATE}" onclick="showHideGroups(group_select)" <!-- IF S_PRIVATE_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_GROUP_PRIVATE}</label>
+				<label for="group_groups"><input type="radio" name="group_select" id="group_groups" value="{EVENT_VIEW_BY_GROUPS}" onclick="showHideGroups(group_select)" <!-- IF S_GROUPS_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_GROUPS}</label>
+				<table>
+					<tr>
+		 				<td colspan="2" width="100%">
+							<table width="400">
+								<tr>
+							 		<td height="120" id="group_list" style="display: none;">
+										<select name="group[]" class="input" size="{NUM_GROUPS}" multiple="multiple" style="overflow:hidden;" >
+										 <!-- BEGIN group_row -->
+										<option value="{group_row.GROUP_ID}" {group_row.GROUP_SELECT}>{group_row.GROUP_NAME}</option>
+										 <!-- END group_row -->
+										</select>
+							 		</td>
+									<td id="users_list" style="display: none; height: 100%;">
+										<textarea id="username_list" name="username_list" class="inputbox" rows="5" cols="50">{PRIV_USER_LIST}</textarea><br />
+										<a onclick="find_username(this.href); return false;" href="{U_FIND_USERNAME}">{L_FIND_USERNAME}</a>
+							 		</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<script type="text/javascript">
+			// Initialise how everything is displayed
+			showHideGroups(document.postform.group_select);
+		</script>
+		<script type="text/javascript">
+
+			showHideRepeatOptions(document.getElementById('event_repeat_when'));
+			validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');
+		</script>
+		<!-- IF not S_POSTING_TOPIC -->
+		<form action="{U_POST_EVENT}" method="post" name="postform">
+			<table class="tablebg" width="100%" cellspacing="1">
+				<tr>
+					<th colspan="2" style="width:100%;text-align:left;"><label><b class="genmed">{L_CALENDAR_EVENT_DESC}:</b></label></th>
+
+				</tr>
+				<tr>
+					<td class="row1"><!-- INCLUDE quickreply_buttons.html --></td>
+				</tr>
+				<tr>
+					<td class="row1">
+					<br />
+					<span style="clear:both; width:20%; min-height: 60px; float:right; text-align:center; padding:8px; border-left: solid 1px #B4BAC0;">
+						<!-- INCLUDE quickreply_smilies.html -->
+					</span>
+					<span id="message-box" style="width:75%; float:left;">
+						<textarea style="height: 9em;" name="message" rows="7" cols="76" tabindex="3" class="inputbox"></textarea>
+					</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="row1">
+					<!-- INCLUDE quickreply_options.html -->
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;"	class="row2">
+						<!-- IF S_SHOW_SMILEY_LINK -->
+						<input class="button2" type="button" onclick="window.open('{U_MORE_SMILIES}', '_phpbbsmilies', 'HEIGHT=350,resizable=yes,scrollbars=yes,WIDTH=300'); return false;" value="{L_MORE_SMILIES}" /> &nbsp;
+						<!-- ENDIF -->
+						<div id="submit-panel">
+						<input type="submit" accesskey="c" tabindex="7" name="post" value="{L_SUBMIT}" class="button1" />&nbsp;
+						<input type="submit" accesskey="c" tabindex="7" name="cancel" value="{L_CANCEL}" class="button1" />
+						</div>
+					</td>
+				</tr>
+			</table>
+			{S_FORM_TOKEN}
+		</form>
+		<!-- ENDIF -->
+	 </fieldset>
+</div>
+<!-- INCLUDE calendar_datetime_picker.html -->

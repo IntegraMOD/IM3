@@ -1,0 +1,38 @@
+<!-- INCLUDE overall_header.html -->
+
+<div id="pagecontent">
+	<form method="get" action="{U_ACTION}">
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<th colspan="4">{L_SEARCH_QUERY}</th>
+	</tr>
+	<tr>
+		<td class="row1" colspan="2" width="50%"><b class="genmed">{L_SEARCH_KEYWORDS}: </b><br /><span class="gensmall">{L_SEARCH_KEYWORDS_DESC}</span></td>
+		<td class="row2" colspan="2" valign="top"><input type="text" class="inputbox" name="q" id="q" size="40" title="{L_SEARCH_KEYWORDS}" /><br /><input type="radio" class="radio" name="terms" value="all" checked="checked" /> <span class="genmed">{L_SEARCH_ALL_TERMS}</span><br /><input type="radio" class="radio" name="terms" value="any" /> <span class="genmed">{L_SEARCH_ANY_TERMS}</span></td>
+	</tr>
+	<tr>
+		<th colspan="4">{L_SEARCH_OPTIONS}</th>
+	</tr>
+	<tr>
+		<td class="row1" colspan="2" width="50%"><b class="genmed">{L_ARTICLE_TYPES}: </b><br /><span class="gensmall">{L_ARTICLE_TYPES_DESC}</span></td>
+		<td class="row2" colspan="2" valign="top"><select name="tid[]" id="tid" multiple="multiple" size="4" title="{L_ARTICLE_TYPES}">{TYPE_OPTION}</select></td>
+	</tr>
+	<tr>
+		<td class="row1" colspan="2" width="50%"><b class="genmed">{L_CATEGORIES}: </b><br /><span class="gensmall">{L_CATEGORIES_DESC}</span></td>
+		<td class="row2" colspan="2" valign="top"><select name="cid[]" id="cid" multiple="multiple" size="6" title="Artikeltypen">{CAT_OPTION}</select></td>
+	</tr>
+	<tr>
+		<td class="cat" colspan="4" align="center"><input class="btnmain" name="submit" type="submit" value="{L_SEARCH}" />&nbsp;&nbsp;<input class="btnlite" type="reset" value="{L_RESET}" /></td>
+	</tr>
+	</table>
+	</form>
+<br />
+<table class="tablebg" cellspacing="1" width="100%">
+<tr>
+ <td align="center" class="row1" style="padding:5px 5px 5px 5px;"><a href="{U_KB}">{L_BACK_KB}</a></td>
+</tr>
+</table>
+<br />
+</div>
+
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,14 @@
+<!-- IF S_RECAPTCHA_V2_AVAILABLE -->
+	<dl>
+	<dd>
+	<noscript>
+		<div>{L_RECAPTCHA_NOSCRIPT}</div>
+	</noscript>
+
+		<script src="https://www.google.com/recaptcha/api.js?hl={L_RECAPTCHA_V2_LANG}"></script>
+		<div class="g-recaptcha" data-sitekey="{RECAPTCHA_V2_PUBKEY}"></div>
+	</dd>
+	</dl>
+<!-- ELSE -->
+{L_RECAPTCHA_V2_NOT_AVAILABLE}
+<!-- ENDIF -->

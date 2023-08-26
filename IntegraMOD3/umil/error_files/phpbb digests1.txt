@@ -1,0 +1,35 @@
+phpBB Digests
+PHP Version: 7.4.30
+DBMS: MySQL(i) 10.6.12-MariaDB-0ubuntu0.22.04.1
+phpBB3 Version: 3.0.15
+
+Adding a new column named user_digest_new_posts_only to table phpbb_users
+ERROR: The column user_digest_new_posts_only already exists on table phpbb_users.
+
+Adding acp module: Digest settings
+ERROR: Module already exists.
+
+Adding ucp module: UCP_DIGESTS
+ERROR: Module already exists.
+
+Adding acp module: General settings
+ERROR: Module already exists.
+
+Adding acp module: User default settings
+ERROR: Module already exists.
+
+Adding ucp module: UCP_DIGESTS_BASICS
+ERROR: Module already exists.
+
+Adding ucp module: UCP_DIGESTS_FORUMS_SELECTION
+ERROR: Module already exists.
+
+Adding ucp module: UCP_DIGESTS_POST_FILTERS
+ERROR: Module already exists.
+
+Adding ucp module: UCP_DIGESTS_ADDITIONAL_CRITERIA
+ERROR: Module already exists.
+
+Adding a new column named user_digest_no_post_text to table phpbb_users
+ERROR: The column user_digest_no_post_text already exists on table phpbb_users.
+

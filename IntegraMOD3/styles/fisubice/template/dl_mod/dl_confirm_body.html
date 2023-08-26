@@ -1,0 +1,33 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+	<form action="{S_CONFIRM_ACTION}" method="post">
+
+	<h2>{MESSAGE_TITLE}</h2>
+
+	<table class="table1" width="100%" cellspacing="1" cellpadding="3">
+	<tr>
+		<td class="row1"><span class="gen">{MESSAGE_TEXT}</span></td>
+	</tr>
+	<tr>
+		<td class="row2" align="center"><input type="submit" name="confirm" value="{L_YES}" class="btnmain" />&nbsp;&nbsp;<input type="submit" name="cancel" value="{L_NO}" class="btnlite" /></td>
+	</tr>
+	<!-- IF S_DELETE_FILES_CONFIRM -->
+	<tr>
+		<td class="row1"><label>{L_DL_DELETE_FILE_CONFIRM}&nbsp;<input type="checkbox" name="del_file" value="1" /></label></td>
+	</tr>
+	<!-- ENDIF -->
+	<!-- IF S_CHOOSE_NEW_CAT -->
+	<tr>
+		<td class="row1"><label>{L_SWITCH_CAT}&nbsp;{S_SWITCH_CAT}</label></td>
+	</tr>
+	<!-- ENDIF -->
+	</table>
+
+	{S_FORM_TOKEN}
+	{S_HIDDEN_FIELDS}
+
+	</form>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

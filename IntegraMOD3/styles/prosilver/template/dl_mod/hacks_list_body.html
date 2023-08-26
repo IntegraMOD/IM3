@@ -1,0 +1,79 @@
+<!-- INCLUDE overall_header.html -->
+
+	<br />
+
+	<h2>{L_DL_HACKS_LIST}</h2>
+
+	<!-- IF PAGE_NUMBER -->
+	<ul class="linklist">
+		<li class="rightside pagination">
+			{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span>
+		</li>
+	</ul>
+	<!-- ENDIF -->
+
+	<div class="forabg">
+
+		<div class="inner"><span class="corners-top"><span></span></span>
+		<ul class="topiclist">
+			<li class="header">
+				<dl>
+					<dd class="info">{L_DL_NAME}</dd>
+					<dd class="info">{L_DL_FILE_DESCRIPTION}</dd>
+					<dd class="option">{L_DL_HACK_AUTOR}</dd>
+					<dd class="option">&nbsp;</dd>
+				</dl>
+			</li>
+		</ul>
+		<ul class="topiclist topics">
+		<!-- BEGIN listrow -->
+			<li class="row<!-- IF listrow.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+				<dl>
+					<dd class="info"><b>{listrow.HACK_NAME}</b></dd>
+					<dd class="info"><span style="text-decoration: underline">{listrow.CAT_NAME}</span><br />{listrow.HACK_DESCRIPTION}</dd>
+					<dd class="option">{listrow.HACK_AUTHOR}</dd>
+					<dd class="option">{listrow.HACK_AUTHOR_WEBSITE}<!-- IF listrow.HACK_AUTHOR_WEBSITE && listrow.HACK_DL_URL --><br /><!-- ENDIF -->{listrow.HACK_DL_URL}</dd>
+				</dl>
+			</li>
+		<!-- END listrow -->
+		</ul>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<form action="{S_FORM_ACTION}" method="post">
+
+	<fieldset class="display-options">
+			<label>{L_SORT_BY}</label>
+				<label>
+					<select name="sort_by" onchange="forms['hacklist'].submit()">
+					<option value="0"{SELECTED_0}>{L_DL_DEFAULT_SORT}</option>
+					<option value="1"{SELECTED_1}>{L_DL_FILE_DESCRIPTION}</option>
+					<option value="2"{SELECTED_2}>{L_DL_HACK_AUTOR}</option>
+					</select>
+				</label>
+				<label>{L_DL_ORDER}</label>
+				<label>
+					<select name="order" onchange="forms['hacklist'].submit()">
+					<option value="ASC"{SELECTED_SORT_0}>{L_ASCENDING}</option>
+					<option value="DESC"{SELECTED_SORT_1}>{L_DESCENDING}</option>
+					</select>
+				</label>
+			<label><input type="submit" class="button2" value="{L_GO}" /></label>
+	</fieldset>
+
+	</form>
+
+	<hr />
+
+	<!-- IF PAGE_NUMBER -->
+	<ul class="linklist">
+		<li class="rightside pagination">
+			{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span>
+		</li>
+	</ul>
+	<!-- ENDIF -->
+
+<!-- INCLUDE jumpbox.html -->
+
+<!-- INCLUDE overall_footer.html -->

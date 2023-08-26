@@ -1,0 +1,41 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_ACP_TYPES}</h1>
+<p>{L_ACP_TYPES_DESC}</p> 
+<form method="post" action="{U_ACTION}">
+	<fieldset>
+	<legend>{L_TYPES}</legend>
+	<dl>
+		<dt><label for="type">{L_TYPE}:</label><br /><span>{L_TYPE_DESC}</span></dt>
+		<dd><input type="text" id="type" name="name" size="41" value="{POST_TYPE_NAME}" /></dd>
+	</dl>
+
+	</fieldset> 
+	<fieldset class="submit-buttons">
+	<legend>{L_SUBMIT}</legend>
+	<input class="button1" id="submit" name="submit" value="{L_SUBMIT}" type="submit" />&nbsp;
+	<input class="button2" id="reset" name="reset" value="{L_RESET}" type="reset" />
+	</fieldset>
+</form>
+<br />
+<!-- IF .types -->
+	<table cellspacing="1">
+	<thead>
+	<tr>
+		<th>{L_TYPES}</th>
+		<th style="width:50px;">{L_ACTION}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN types -->
+		<!-- IF types.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+		<td>{types.NAME}</td>
+		<td>&nbsp;<a href="{types.U_TYPEEDIT}">{ICON_EDIT}</a> <a href="{types.U_TYPEDEL}">{ICON_DELETE}</a>&nbsp;</td>
+	</tr>
+	<!-- END main_in_system -->
+	</tbody>
+	</table>
+<br />
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,63 @@
+<form action="{S_FORM_ACTION}" method="post" id="filter_meetings">
+<fieldset>
+	<legend>{L_MEETING_SORT}</legend>
+	<dl>
+		<dt><label>{L_MEETING_SORT}:</label></dt>
+		<dd>{SORT_BY_FIELD}</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_MEETING_ORDER}:</label></dt>
+		<dd>{SORT_BY_ORDER}</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_MEETING_FILTER}:</label></dt>
+		<dd>{FILTER_BY_FIELD}&nbsp;&raquo;&nbsp;<input type="text" name="filter" value="{FILTER_FIELD}" class="inputbox autowidth" size="20" maxlength="50" /></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_MEETING_CLOSE_STATUS}:</label></dt>
+		<dd>
+			<p><label><input type="radio" class="radio" name="closed" value="1" {CLOSED_NO} />&nbsp;{L_MEETING_OPEN}</label></p>
+			<p><label><input type="radio" class="radio" name="closed" value="2" {CLOSED_YES} />&nbsp;{L_MEETING_CLOSED}</label></p>
+			<p><label><input type="radio" class="radio" name="closed" value="3" {CLOSED_PERIOD} />&nbsp;{L_MEETING_NO_PERIOD}</label></p>
+			<p><label><input type="radio" class="radio" name="closed" value="4" {CLOSED_NONE} />&nbsp;{L_MEETING_ALL}</label></p>
+		</dd>
+	</dl>
+</fieldset>
+<fieldset class="quick">
+	<input type="submit" name="submit_filter" class="button2" value="{L_SELECT}" />
+</fieldset>
+</form>
+
+<table cellspacing="1" class="type1">
+<thead>
+<tr>
+	<th>{L_MEETING_SUBJECT}</th>
+	<th>{L_MEETING_TIME}</th>
+	<th>{L_MEETING_UNTIL}</th>
+	<th>{L_MEETING_LOCATION}</th>
+	<th>{L_MEETING_CLOSED}</th>
+	<th>&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN meeting_row -->
+<tr class="row<!-- IF meeting_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">
+	<td>{meeting_row.MEETING_SUBJECT}</td>
+	<td>{meeting_row.MEETING_TIME}</td>
+	<td>{meeting_row.MEETING_UNTIL}</td>
+	<td>{meeting_row.MEETING_LOCATION}</td>
+	<td>{meeting_row.MEETING_CLOSED}</td>
+	<td><a href="{meeting_row.MEETING_EDIT}">{ICON_EDIT}</a>&nbsp;<a href="{meeting_row.MEETING_DELETE}">{ICON_DELETE}</a></td>
+</tr>
+<!-- END meeting_row -->
+<!-- IF S_NO_MEETING -->
+<tr class="row1">
+	<td colspan="6">{L_NO_MEETING}</td>
+</tr>
+<!-- ENDIF -->
+</tbody>
+</table>
+
+<!-- IF PAGINATION --><div style="text-align: right;" class="pagination">{PAGINATION}</div><!-- ENDIF -->
+
+

@@ -1,0 +1,90 @@
+<!-- INCLUDE mcp_header.html -->
+
+<!-- IF S_SHOW_UNAPPROVED -->
+	<div class="panel">
+		<div class="inner"><span class="corners-top"><span></span></span>
+		<h3>{L_LATEST_UNAPPROVED}</h3>
+		<!-- IF .article_row -->
+		<ul class="topiclist cplist">
+		<!-- BEGIN article_row -->
+			<li class="row<!-- IF article_row.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+				<dl>
+					<dt>
+						<a href="{article_row.U_SHOW}" class="topictitle">{article_row.TITLE}</a><br />
+						<span>{article_row.DESCRIPTION}</span>
+					</dt>
+					<dd class="moderation">
+						<span>{article_row.CAT}</span>
+					</dd>
+				</dl>
+			</li>
+		<!-- END article_row -->
+		</ul>
+		<!-- ELSE -->
+			<p>{L_UNAPPROVED_POSTS_ZERO_TOTAL}</p>
+		<!-- ENDIF -->
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_REPORTS -->
+	<div class="panel">
+		<div class="inner"><span class="corners-top"><span></span></span>
+		<h3>{L_LATEST_REPORTED}</h3>
+		<!-- IF .postrow -->
+			<ul class="topiclist">
+				<li class="header">
+					<dl>
+						<dt>{L_VIEW_DETAILS}</dt>
+						<dd class="moderation"><span>{L_REPORTER} &amp; {L_FORUM}</span></dd>
+					</dl>
+				</li>
+			</ul>
+		<ul class="topiclist cplist">
+
+		<!-- BEGIN postrow -->
+			<li class="row<!-- IF postrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+				<dl>
+					<dt>
+						<a href="{postrow.U_VIEW_DETAILS}" class="topictitle">{postrow.ARTICLE_TITLE}</a><br />
+						<span>{L_POSTED} {L_POST_BY_AUTHOR} {postrow.POST_AUTHOR_FULL} {L_POSTED_ON_DATE}  {postrow.POST_TIME}</span>
+					</dt>
+					<dd class="moderation">
+						<span>{postrow.REPORT_AUTHOR_FULL} {L_REPORTED_ON_DATE} {postrow.REPORT_TIME}<br />
+						{L_CATEGORIE}: <a href="{postrow.U_CATEGORIE}">{postrow.CATEGORIE_NAME}</a></span>
+					</dd>
+				</dl>
+			</li>
+		<!-- END postrow -->
+		</ul>
+		<!-- ELSE -->
+			<p>{L_REPORTS_ZERO_TOTAL}</p>
+		<!-- ENDIF -->
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_LOGS -->
+	<div class="panel">
+		<div class="inner"><span class="corners-top"><span></span></span>
+	
+		<h3>{L_LATEST_LOGS}</h3>
+		<table class="table1" cellspacing="1">
+		<tbody>
+		<!-- BEGIN log -->
+		<tr class="<!-- IF log.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+			<td>{L_CHANGED_AT} : {log.CHANGE_TIME} {L_FROM} {log.USER} {log.CHANGE_REASON} | <a href="{log.U_ARTICLE}">{log.ARTICLE}</a></td>
+		</tr>
+		<!-- BEGINELSE -->
+			<tr>
+				<td colspan="2">{L_NO_MATCHES_FOUND}</td>
+			</tr>
+		<!-- END log -->
+		</tbody>
+		</table>
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+<!-- ENDIF -->
+
+<!-- INCLUDE mcp_footer.html -->

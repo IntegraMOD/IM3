@@ -1,0 +1,64 @@
+<style type="text/css">
+p.page {background-color:#FFF;padding:10px 5px;margin:5px;border: solid 1px #EFEFEF;}
+</style>
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<div class="content">
+
+	<table width="100%" cellspacing="1">
+		<tr>
+			<th id="hg">Portal Pages</th>
+		</tr>
+		<tr>
+			<td>
+<br />
+
+<h2>This page will attempt to explain how to create portal pages using the KISS Portal system</h2>
+<p class="page">This page is an example of a portal page.... ({SITENAME}/portal.php?page=pages)<br />
+A portal page is a page that contains html code (It can be basic html or even an existing block) to create another page...
+</p>
+
+<p class="page">The page is normally wrapped with the normal header and footer but it doesn't have to be...<br />
+You can also include blocks, again you don't have to if you don't need them...<br />
+To control the display of blockes on your page, go to <strong>acp/portal/Manage phpBB pages</strong><br />
+At the bottom of the page, choose your portal pagle from the "dropdown" list. Now you can edit or add blocks and choose to display them on your new page, or not.
+</p>
+
+<p class="page"><strong>The basic operation is as follows:</strong><br />
+In order to know what page to load <strong>portal.php?page=name</strong><br />
+we must put the information in <strong>_portal_common/template/wrapper.html</strong><br />
+The wrapper.html must have an entry for portal pages...
+</p>
+<p class="page">
+So to begin we need to edit the wrapper.html and add the code below...<br />
+<textarea style="width:99%;height:60px; background-color:#DCDFE2 ;border:1px solid black;padding:0px;">
+	&lt;!-- IF PAGE == 'video' --&gt;
+		&lt;!-- INCLUDE wrappers/video.html --&gt;
+	&lt;!-- ENDIF --&gt;
+</textarea>
+<br />
+From the code above we can see that if <em>page = video</em>, we include wrappers/video.html file...
+
+The <em>video.html</em> is simply a copy of the <em>block_youtube.html</em> in _portal_common/template/blocks folder...<br />
+
+The only remaining step is to add a link to the page (portal.php?page=video)... add the link anywhere you like...<br />
+</p>
+<p class="page">
+If we are not using a block but have some html, we simply follow the same steps but this time we might add: 
+<textarea style="width:99%;height:60px; background-color:#DCDFE2 ;border:1px solid black;padding:0px;">
+	&lt;!-- IF PAGE == 'newpage' --&gt;
+		&lt;!-- INCLUDE wrappers/new_page.html --&gt;
+	&lt;!-- ENDIF --&gt;
+</textarea>
+to template/wrapper.html file and then add new_page.html to the template/wrappers folder...
+</p>
+
+			</td>
+		</tr>
+	</table>
+
+	</div>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<br />

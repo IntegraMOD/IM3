@@ -1,0 +1,42 @@
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="tablebg">
+<thead>
+<tr>
+	<th nowrap="nowrap" colspan="3">{L_DL_CAT_NAME} / {L_DL_FILE_DESCRIPTION}</th>
+	<th nowrap="nowrap">{L_DL_CAT_FILES}</th>
+	<th nowrap="nowrap">{L_DL_LATEST_DOWNLOADS}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN subcats -->
+<tr>
+	<td class="row1" style="width: 50px" align="center">{subcats.MINI_IMG}</td>
+	<td class="row1" style="width: 50px" align="center"><img src="{subcats.CAT_ICON}" border="0" alt="" title="{subcats.CAT_NAME}" /></td>
+	<td class="row1">
+		<a href="{subcats.U_CAT_VIEW}" class="topictitle">{subcats.CAT_NAME}</a><br />
+		<!-- IF subcats.CAT_PAGES --><p class="gensmall"> [ {L_GOTO_PAGE}: {subcats.CAT_PAGES} ] </p><!-- ENDIF -->
+		<p class="topicdetails">{subcats.CAT_DESC}</p>
+	</td>
+	<td class="row1" align="right"><p class="topicdetails"><strong>{subcats.CAT_DL}&nbsp;</strong></p></td>
+	<td class="row1" <!-- IF .subcats.sub -->rowspan="2"<!-- ENDIF --> valign="top"><!-- IF subcats.CAT_LAST_DL --><a href="{subcats.U_CAT_LAST_LINK}" class="small">{subcats.CAT_LAST_DL}</a><p class="topicdetails"><a href="{subcats.U_CAT_LAST_USER}" class="small">{subcats.CAT_LAST_USER}</a>&nbsp;&bull;&nbsp;{subcats.CAT_LAST_TIME}</p><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
+</tr>
+<!-- BEGIN sub -->
+<tr>
+	<td class="row2" colspan="5">
+		<table width="95%" align="right" cellpadding="2" cellspacing="0" border="0">
+		<!-- BEGIN sublevel_row -->
+		<tr>
+			<td class="row2" style="width: 50px" align="center">{subcats.sub.sublevel_row.M_SUBLEVEL}</td>
+			<td class="row2" style="width: 50px" align="center"><img src="{subcats.sub.sublevel_row.M_SUBLEVEL_ICON}" border="0" alt="" title="{subcats.sub.sublevel_row.L_SUBLEVEL}" /></td>
+			<td class="row2"><a href="{subcats.sub.sublevel_row.U_SUBLEVEL}" class="small">{subcats.sub.sublevel_row.L_SUBLEVEL}</a><br />{subcats.sub.sublevel_row.SUBLEVEL_DESC}</td>
+			<td align="right" class="row2"><p class="topicdetails">{subcats.sub.sublevel_row.SUBLEVEL_COUNT}&nbsp;</p></td>
+		</tr>
+		<!-- END sublevel_row -->
+		</table>
+	</td>
+</tr>
+<!-- END sub -->
+<!-- END subcats -->
+</tbody>
+</table>
+
+<br />

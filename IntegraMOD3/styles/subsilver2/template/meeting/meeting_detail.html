@@ -1,0 +1,151 @@
+<!-- IF U_GUEST_POPUP -->
+<script language="Javascript" type="text/javascript">
+<!--
+function openguestpopup(meeting, user)
+{
+	window.open('{U_GUEST_POPUP}&m_id='+meeting+'&u='+user, '_blank', 'height=600,resizable=yes,width=400');
+	}
+//-->
+</script>
+<!-- ENDIF -->
+
+<h2>{MEETING_SUBJECT}</h2>
+<!-- IF MEETING_CLOSED_STRING --><h3>{MEETING_CLOSED_STRING}</h3><!-- ENDIF -->
+<span>{MEETING_BY_USER}<br />{MEETING_EDIT_BY_USER}</span>
+<br /><br />
+
+<form action="{S_FORM_ACTION}" method="post" name="own_signs">
+
+<table width="100%" cellpadding="0" cellspacing="1" class="table1">
+<tbody>
+<tr>
+	<td class="row1"><b class="genmed">{L_MEETING_LOCATION}:</b></td>
+	<td class="row2"><!-- IF MEETING_LINK_D --><a href="{MEETING_LINK_D}" target="_blank"><!-- ENDIF -->{MEETING_LOCATION}<!-- IF MEETING_LINK_D --></a><!-- ENDIF --></td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_TIME}:</b></td>
+	<td class="row2">{MEETING_TIME}</td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_MEETING_UNTIL}:</b></td>
+	<td class="row2">{MEETING_UNTIL}</td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_MEETING_PLACES}:</b></td>
+	<td class="row2">{MEETING_PLACES}{MEETING_REMAIN_GUESTS}{MEETING_REMAIN_GUESTS_PLACES}</td>
+</tr>
+<tr>
+	<td class="row2" colspan="2">
+		<span>{U_MEETING_USER}</span>
+		<!-- IF U_MEETING_MAIL --><br /><br /><span><a href="{U_MEETING_MAIL}">{L_MEETING_MAIL}</a></span><!-- ENDIF -->
+	</td>
+</tr>
+<tr>
+	<td class="row1" colspan="2"><!-- IF MEETING_DESC --><span>{MEETING_DESC}</span><!-- ENDIF --></td>
+</tr>
+</tbody>
+</table>
+
+<!-- IF S_GUEST_NAMES_BLOCK -->
+<br />
+<h3>{L_MEETING_OWM_GUESTS}</h3>
+<!-- IF S_GUEST_BLOCK_HEADER -->
+<span>{L_MEETING_GUESTNAME_ENTERING_EXPLAIN}</span>
+<br /><br />
+<!-- ENDIF -->
+
+<table width="100%" cellpadding="0" cellspacing="1" class="table1">
+<thead>
+<tr>
+	<th>{L_MEETING_PRENAMES}</th>
+	<th>{L_MEETING_NAMES}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN guest_name_row -->
+<tr>
+	<td class="row<!-- IF guest_name_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><input type="text" name="meeting_guest_prename[]" class="post" size="50" maxlength="255" value="{guest_name_row.GUEST_PRENAME}" /></td>
+	<td class="row<!-- IF guest_name_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><input type="text" name="meeting_guest_name[]" class="post" size="50" maxlength="255" value="{guest_name_row.GUEST_NAME}" /></td>
+</tr>
+<!-- END guest_name_row -->
+<!-- BEGIN guest_name_row_read_only -->
+<tr>
+	<td class="row<!-- IF guest_name_row_read_only.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><input type="hidden" name="meeting_guest_prename[]" value="{guest_name_row_read_only.GUEST_PRENAME}" />{guest_name_row_read_only.GUEST_PRENAME}</td>
+	<td class="row<!-- IF guest_name_row_read_only.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><input type="hidden" name="meeting_guest_name[]" value="{guest_name_row_read_only.GUEST_NAME}" />{guest_name_row_read_only.GUEST_NAME}</td>
+</tr>
+<!-- END guest_name_row_read_only -->
+</tbody>
+</table>
+<!-- ENDIF -->
+
+<!-- IF S_SIGNED_ON_EDIT || S_SIGNED_OFF -->
+<br /><p align="center">
+	<!-- IF S_SIGNED_ON_EDIT --><input type="submit" name="sign_on_edit" class="btnmain" value="{S_SIGNED_ON_EDIT}" />{MEETING_SURE_USER}{S_REMAIN_GUESTS}<!-- ENDIF -->
+	<!-- IF S_SIGNED_OFF --> &bull; <input type="submit" name="sign_off" class="btnmain" value="{S_SIGNED_OFF}" /><!-- ENDIF -->
+</p>
+<!-- ENDIF -->
+
+{S_HIDDEN_FIELDS}
+</form>
+
+<!-- IF S_SIGN_ON_OTHER_USER -->
+<form action="{S_FORM_ACTION}" method="post" name="sign_on_other_user">
+<br /><p align="center">{S_NEW_USERS}&nbsp;{MEETING_SURE_USER}&nbsp;<input type="submit" name="sign_on_edit" class="btnlite" value="{L_MEETING_YES_SIGNON}" /></p>
+{S_HIDDEN_FIELDS_SON}
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_SIGN_OFF_USER -->
+<form action="{S_FORM_ACTION}" method="post" name="signoff_user">
+<br /><p align="center">{S_MEETING_SIGNOFFS}&nbsp;<input type="submit" name="sign_off" class="btnlite" value="{L_MEETING_SIGN_OFF}" /></p>
+{S_HIDDEN_FIELDS_SOFF}
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_MEETING_COMMENTS -->
+<br />
+<h3>{L_MEETING_COMMENTS}</h3>
+<table width="100%" cellpadding="0" cellspacing="1" class="table1">
+<tbody>
+<!-- BEGIN meeting_comments -->
+<tr class="row2">
+	<td width="50%">{meeting_comments.MEETING_COMMENT_USER}</td>
+	<td width="50%">{meeting_comments.MEETING_COMMENT_ACTION}</td>
+</tr>
+<tr class="row1">
+	<td colspan="2">{meeting_comments.MEETING_COMMENT}</td>
+</tr>
+<!-- END meeting_comments -->
+</tbody>
+</table>
+<!-- ENDIF -->
+
+<!-- IF S_EDIT_COMMENT -->
+<br />
+<p>{COMMENT_EDIT_MODE} &bull; {USERNAME}</p>
+<form action="{S_FORM_COMMENT_ACTION}" method="post">
+<br /><textarea class="post" rows="3" cols="100" name="meeting_comment">{MEETING_COMMENT}</textarea>
+<!-- IF S_COMMENT_HINT --><br /><strong>{L_MEETING_COMMENT_HINT}</strong><!-- ENDIF -->
+<p><br /><input type="submit" name="submit" class="btnmain" value="{L_SUBMIT}" /></p>
+{S_FORM_TOKEN}
+{S_HIDDEN_COMMENT_FIELDS}
+</form>
+<!-- ELSE -->
+<br />
+<form action="{S_FORM_COMMENT_ACTION}" method="post">
+<p align="center"><input type="submit" name="submit" class="btnlite" value="{L_MEETING_ENTER_COMMENT}" /></p>
+</form>
+<!-- ENDIF -->
+
+<br />
+
+<h3>{L_MEETING_STATISTIC}</h3>
+<table width="100%" cellpadding="0" cellspacing="1" class="tablebg">
+<tr class="row1">
+	<td>
+		<strong>{L_MEETING_FREE_PLACES}:</strong> <span>{MEETING_FREE_PLACES}{MEETING_FREE_GUESTS}</span><br />
+		<strong>{L_MEETING_SURE_TOTAL}:</strong> <span>{MEETING_SURE_TOTAL}</span><br />
+		<strong>{L_MEETING_SURE_TOTAL_USER}:</strong> <span>{MEETING_SURE_TOTAL_USER}</span>
+	</td>
+</tr>
+</table>

@@ -1,0 +1,326 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<!-- IF S_ENABLE_RATE -->
+<script type="text/javascript">
+// <![CDATA[
+var phpEx = '{PHPEX}';
+var S_SID = '{_SID}';
+var ajax_page_charset = '{S_CONTENT_ENCODING}';
+// ]]>
+</script>
+<script type="text/javascript" src="{ROOT_PATH}dl_mod/js/ajax/ajax_core.js"></script>
+<script type="text/javascript" src="{ROOT_PATH}dl_mod/js/ajax/ajax_dl.js"></script>
+<!-- ENDIF -->
+<script type="text/javascript" src="{ROOT_PATH}dl_mod/js/dl_main.js"></script>
+
+<table width="100%" cellspacing="2" cellpadding="2" border="0" align="center">
+<!-- IF S_CAT_TRAFFIC -->
+<tr>
+	<td colspan="2"><span> &bull; <b>{CAT_TRAFFIC}</b> &bull; </span></td>
+</tr>
+<!-- ENDIF -->
+<!-- IF S_CAT_RULE -->
+<tr>
+	<td colspan="2" class="forumrules"><span>{CAT_RULE}</span></td>
+</tr>
+<!-- ENDIF -->
+<tr>
+	<td align="right"><!-- IF S_FAV_BLOCK -->[ <a href="{U_FAVORITE}">{FAVORITE}</a>] &nbsp;&bull;&nbsp;<!-- ENDIF --><!-- IF S_EDIT_BUTTON -->[ <a href="{U_EDIT}">{EDIT_IMG}</a> ]&nbsp;&bull;&nbsp;<!-- ENDIF -->[ <a href="{U_DL_SEARCH}">{L_DL_SEARCH_DOWNLOAD}</a> ]</td>
+</tr>
+</table>
+
+<!-- BEGIN downloads -->
+<h2>{downloads.STATUS} <label>{L_DL_DOWNLOAD}</label> {downloads.DESCRIPTION}{downloads.HACK_VERSION} {downloads.MINI_IMG}</h2>
+
+<br />
+
+<p>
+	<span>{downloads.ADD_USER} {downloads.CHANGE_USER}&nbsp;&bull;{downloads.LAST_TIME}</span>
+</p>
+
+<br />
+
+<!-- IF downloads.LONG_DESC -->
+<h3>{L_DL_FILE_DESCRIPTION}</h3>
+
+<hr />
+
+<p>
+	<span>{downloads.LONG_DESC}</span>
+</p>
+
+<br />
+<!-- ENDIF -->
+
+<table width="100%" cellpadding="0" cellspacing="1" border="0">
+<tr>
+	<td valign="top" style="width: 70%">
+
+		<table width="100%" cellpadding="3" cellspacing="1" border="0" class="table1">
+		<tr>
+			<th style="width: 30%">{L_DL_FILE_DESCRIPTION}</th>
+			<th style="width: 70%">{L_DL_DETAIL}</th>
+		</tr>
+		<tr>
+			<td style="width: 30%" class="row1" nowrap="nowrap"><span class="gen">{L_DL_FILE_NAME}</span></td>
+			<td style="width: 70%" class="row2"><span class="gen">{downloads.FILE_NAME}</span></td>
+		</tr>
+		<tr>
+			<td style="width: 30%" class="row1" nowrap="nowrap"><span class="gen">{L_DL_FILE_SIZE}</span></td>
+			<td style="width: 70%" class="row2"><span class="gen">{downloads.FILE_SIZE}</span></td>
+		</tr>
+		<!-- BEGIN real_filetime -->
+		<tr>
+			<td style="width: 30%" class="row1" nowrap="nowrap"><span class="gen">{L_DL_REAL_FILETIME}</span></td>
+			<td style="width: 70%" class="row2"><span class="gen">{downloads.real_filetime.REAL_FILETIME}</span></td>
+		</tr>
+		<!-- END real_filetime -->
+		<tr>
+			<td style="width: 30%" class="row1" nowrap="nowrap"><span class="gen">{L_DL_KLICKS} / {L_DL_OVERALL_KLICKS}</span></td>
+			<td style="width: 70%" class="row2"><span class="gen">{downloads.FILE_KLICKS} / {downloads.FILE_OVERALL_KLICKS}</span></td>
+		</tr>
+		<!-- IF S_ENABLE_RATE -->
+		<tr>
+			<td style="width: 30%" class="row1"><span class="gen">{L_DL_RATING}{RATINGS}</span></td>
+			<td style="width: 70%" class="row2"><div id="rating_{DF_ID}">{RATING_IMG}</div></td>
+		</tr>
+		<!-- ENDIF -->
+		<!-- BEGIN bug_tracker -->
+		<tr>
+			<td style="width: 30%" class="row1"><span class="gen">{L_DL_BUG_TRACKER}</span></td>
+			<td style="width: 70%" class="row2"><a href="{downloads.bug_tracker.U_BUG_TRACKER}" class="gen">{downloads.bug_tracker.L_BUG_TRACKER_FILE}</a></td>
+		</tr>
+		<!-- END bug_tracker -->
+		<!-- IF S_SHOW_TOPIC_LINK -->
+		<tr>
+			<td style="width: 30%" class="row1"><span class="gen">{L_TOPIC}</span></td>
+			<td style="width: 70%" class="row2"><a href="{U_TOPIC}" class="gen">{L_VIEW_TOPIC}</a></td>
+		</tr>
+		<!-- ENDIF -->
+		<!-- END downloads -->
+		<!-- BEGIN hacklist -->
+		<tr>
+			<td style="width: 30%" class="row1"><span class="gen">{L_DL_HACK_AUTOR}</span></td>
+			<td style="width: 70%" class="row2"><span class="gen">{hacklist.HACK_AUTHOR}</span></td>
+		</tr>
+		<tr>
+			<td style="width: 30%" class="row1"><span class="gen">{L_DL_HACK_AUTOR_WEBSITE}</span></td>
+			<td style="width: 70%" class="row2"><span class="gen">{hacklist.HACK_AUTHOR_WEBSITE}</span></td>
+		</tr>
+		<tr>
+			<td style="width: 30%" class="row1"><span class="gen">{L_DL_HACK_DL_URL}</span></td>
+			<td style="width: 70%" class="row2"><span class="gen">{hacklist.HACK_DL_URL}</span></td>
+		</tr>
+		<!-- END hacklist -->
+		<!-- BEGIN downloads -->
+		</table>
+
+	</td>
+	<td style="width: 30%; vertical-align: center;" align="center">
+
+		<!-- BEGIN thumbnail -->
+		<!-- IF thumbnail.S_FIRST_ROW -->
+		<table width="50%" cellpadding="3" cellspacing="1" border="0" class="table1">
+		<tr>
+			<td class="row1" valign="center" align="center">&nbsp;
+			<!-- IF S_TOTAL_IMAGES -->
+				<script type="text/javascript">
+				// <![CDATA[
+				jQuery(document).ready(function() {
+					jQuery('#dl_thumbs').jcarousel({
+						visible: 1,
+						scroll: 1
+					});
+				});
+				// ]]>
+				</script>
+			<ul id="dl_thumbs" class="jcarousel-skin-tango">
+			<!-- ELSE -->
+			<ul id="dl_thumbs">
+			<!-- ENDIF -->
+			<!-- ENDIF -->
+				<!-- IF S_DL_LYTEBOX -->
+				<li><a href="{downloads.thumbnail.THUMBNAIL_LINK}" rel="lytebox<!-- IF S_TOTAL_IMAGES -->[DL_M]<!-- ENDIF -->" title="{downloads.thumbnail.THUMBNAIL_NAME}"><img src="{downloads.thumbnail.THUMBNAIL_LINK}" alt="{downloads.thumbnail.THUMBNAIL_NAME}" title="{downloads.thumbnail.THUMBNAIL_NAME}" style="max-weight: 150px; max-height: 100px;" /></a></li>
+				<!-- ELSE -->
+				<img src="{downloads.thumbnail.THUMBNAIL_LINK}" border="0" alt="{downloads.thumbnail.THUMBNAIL_NAME}" title="{downloads.thumbnail.THUMBNAIL_NAME}" style="max-weight: 150px; max-height: 100px;" />
+				<!-- ENDIF -->
+			<!-- IF thumbnail.S_LAST_ROW -->
+			</ul>
+			&nbsp;</td>
+		</tr>
+		</table>
+		<!-- ENDIF -->
+		<!-- END thumbnail -->
+		<!-- IF S_EDIT_THUMBS_BUTTON -->[ <a href="{U_EDIT_THUMBS}">{L_DL_EDIT_THUMBS}</a> ]<!-- ENDIF -->
+	&nbsp;</td>
+</tr>
+</table>
+<!-- END downloads -->
+
+<!-- BEGIN dl_error -->
+<div class="forumrules" style="width: 50%; text-align: center; margin-left: 25%;">
+	<strong>{dl_error.DL_ERROR}</strong>
+</div>
+<!-- END dl_error -->
+
+<!-- BEGIN download_button -->
+<div id="dl_mod_button">
+<form action="{download_button.U_DOWNLOAD}" method="post" id="download" {download_button.S_DL_WINDOW} onsubmit="hide_dl_button();">
+<table cellspacing="1" class="table1" style="width: 50%; margin-left: 25%;">
+<!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_CODE -->
+<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+<!-- ENDIF -->
+<tr>
+	<td align="center" colspan="2" <!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_CODE -->class="cat"<!-- ENDIF -->>
+		{download_button.S_DL_VERSION}&nbsp;&raquo;&nbsp;<input type="submit" name="submit" value="{L_DL_DOWNLOAD}" class="btnmain" />
+		<input type="hidden" name="hotlink_id" value="{download_button.S_HOTLINK_ID}" />
+	</td>
+</tr>
+<!-- END download_button -->
+<tr>
+	<td align="center" colspan="2">
+	<!-- BEGIN report_broken_dl --><a href="{report_broken_dl.U_BROKEN_DOWNLOAD}">{L_DL_BROKEN}</a><br /><!-- END report_broken_dl -->
+	<!-- BEGIN dl_broken_cur --><b style="color: #FF0000" class="small">{L_DL_BROKEN_CUR}</b><br /><!-- END dl_broken_cur -->
+	<!-- BEGIN dl_broken_mod --><a href="{dl_broken_mod.U_REPORT}"><b>{L_DL_BROKEN_MOD}</b></a><br /><!-- END dl_broken_mod -->
+	<!-- IF S_ALLOW_TRAFFICFREE_DOWNLOAD --><span class="small" style="color: #FF0000;"><b>{L_DL_CAN_DOWNLOAD_TRAFFIC}</b></span><!-- ENDIF -->
+	</td>
+</tr>
+<!-- BEGIN download_button -->
+</table>
+{download_button.S_HIDDEN_FIELDS}{S_HIDDEN_FIELDS}{S_FORM_TOKEN}
+</form>
+</div>
+<!-- END download_button -->
+
+<!-- IF S_DL_USERBAN -->
+<table width="100%" cellspacing="1" class="table1">
+<tr>
+	<td colspan="2" class="forumrules"><span>{L_DL_USER_BANNED}</span></td>
+</tr>
+</table>
+<!-- ENDIF -->
+
+<!-- IF S_COMMENTS_ON -->
+<form action="{comment_block.complete.S_COMMENT_ACTION}" method="post" id="comments">
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
+<thead>
+<tr>
+	<th colspan="2">{L_DL_LAST_COMMENT}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN comment_row -->
+<tr>
+	<td class="row<!-- IF comment_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" width="150"><span class="genmed">{comment_row.POSTER}</span><br /><span class="gensmall">{comment_row.POST_TIME}</span><br /><br />{comment_row.POSTER_AVATAR}</td>
+	<td class="row<!-- IF comment_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" valign="top"><span class="postbody">{comment_row.MESSAGE}</span><!-- IF comment_row.EDITED_BY --><hr /><span class="small">{comment_row.EDITED_BY}</span><!-- ENDIF --></td>
+</tr>
+<!-- END comment_row -->
+<!-- IF S_VIEW_COMMENTS -->
+<tr>
+	<td align="center" colspan="2"><input type="submit" name="show" value="{L_DL_COMMENT_SHOW}" class="btnlite"/></td>
+</tr>
+<!-- ENDIF -->
+</tbody>
+</table>
+
+{S_HIDDEN_COMMENT_FIELDS}
+
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_POST_COMMENT -->
+<br />
+
+<form action="{comment_block.post.S_COMMENT_ACTION}" method="post" id="comments_post">
+
+<table cellpadding="3" cellspacing="1" border="0" align="center" width="100%">
+<tr>
+	<td align="center"><input type="submit" name="post" value="{L_DL_COMMENT_WRITE}" class="btnmain"/></td>
+</tr>
+</table>
+
+{S_HIDDEN_POST_FIELDS}
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_MOD_LIST or S_MOD_TODO -->
+<br />
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
+<!-- BEGIN modlisttest -->
+<tr>
+	<td width="150" class="row1" valign="top" nowrap="nowrap"><span class="gen">{L_DL_MOD_TEST}</span></td>
+	<td class="row2"><span class="small"><b>{modlisttest.MOD_TEST}</b></span></td>
+</tr>
+<!-- END modlisttest -->
+<!-- BEGIN modrequire -->
+<tr>
+	<td width="150" class="row1" valign="top" nowrap="nowrap"><span class="gen">{L_DL_MOD_REQUIRE}</span></td>
+	<td class="row2"><span class="small">{modrequire.MOD_REQUIRE}</span></td>
+</tr>
+<!-- END modrequire -->
+<!-- BEGIN modtodo -->
+<tr>
+	<td width="150" class="row1" valign="top" nowrap="nowrap"><span class="gen">{L_DL_MOD_TODO}</span></td>
+	<td class="row2"><span class="small">{modtodo.MOD_TODO}</span></td>
+</tr>
+<!-- END modtodo -->
+<!-- BEGIN modlistdesc -->
+<tr>
+	<td width="150" class="row1" valign="top" nowrap="nowrap"><span class="gen">{L_DL_MOD_DESC}</span></td>
+	<td class="row2"><span class="small">{modlistdesc.MOD_DESC}</span></td>
+</tr>
+<!-- END modlistdesc -->
+<!-- BEGIN modwarning -->
+<tr>
+	<td width="150" class="row1" valign="top" nowrap="nowrap"><span class="gen">{L_DL_MOD_WARNING}</span></td>
+	<td class="row2"><span class="small" style="color: #FF0000">{modwarning.MOD_WARNING}</span></td>
+</tr>
+<!-- END modwarning -->
+</table>
+<!-- ENDIF -->
+
+<!-- IF S_DL_FIELDS -->
+<br />
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
+<!-- BEGIN custom_fields -->
+<tr>
+	<td width="150" class="row1" valign="top" nowrap="nowrap"><span class="gen">{custom_fields.DL_FIELD_NAME}</span></td>
+	<td class="row2"><span class="small" style="color: #FF0000">{custom_fields.DL_FIELD_VALUE}</span></td>
+</tr>
+<!-- END custom_fields -->
+</table>
+<!-- ENDIF -->
+
+<!-- IF HASH_TAB -->
+<br />
+<h3>{L_DL_MOD_FILE_HASH_TABLE}</h3>
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
+<!-- BEGIN hash_row -->
+<tr class="row<!-- IF hash_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">
+	<td width="33%">{hash_row.DL_VERSION}</td>
+	<td width="33%">{hash_row.DL_FILE_NAME}</td>
+	<td width="33%">[{hash_row.DL_HASH_METHOD}] {hash_row.DL_HASH}</td>
+</tr>
+<!-- END hash_row -->
+</table>
+<!-- ENDIF -->
+
+<!-- BEGIN similar_dl -->
+<!-- IF similar_dl.S_FIRST_ROW -->
+<br /><h3>{L_DL_SIMILAR_DL}</h3>
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
+<!-- ENDIF -->
+<tr>
+	<td><a href="{similar_dl.U_DOWNLOAD}">{similar_dl.DOWNLOAD}</a></td>
+</tr>
+<!-- IF similar_dl.S_LAST_ROW -->
+</table>
+<!-- ENDIF -->
+<!-- END similar_dl -->
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

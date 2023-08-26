@@ -1,0 +1,11 @@
+phpBB Digests
+PHP Version: 7.4.30
+DBMS: MySQL(i) 10.6.12-MariaDB-0ubuntu0.22.04.1
+phpBB3 Version: 3.0.15
+
+Adding new config variable: digests_enabled
+ERROR: Config variable digests_enabled already exists.
+
+Adding new config variable: digests_subscribe_unsubscribers
+ERROR: Config variable digests_subscribe_unsubscribers already exists.
+

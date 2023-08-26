@@ -1,0 +1,43 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<br />
+
+<form action="{S_CONFIRM_ACTION}" method="post" id="confirm_broken_dl">
+
+<table class="table1" width="100%" cellspacing="0" cellpadding="3" border="0">
+<thead>
+<tr>
+	<th class="thHead" height="25" valign="middle" colspan="2"><span class="tableTitle">{MESSAGE_TITLE}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td class="row1" valign="top"><span class="gen"><b>{L_DL_REPORT_REASON}:</b></span></td>
+	<td class="row2"><textarea class="inputbox" rows="5" cols="50" name="report_notify_text"></textarea></td>
+</tr>
+<!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_CODE -->
+</tbody>
+</table>
+<br />
+<table class="tablebg" width="100%" cellspacing="1">
+<tbody>
+<tr>
+	<td align="center" class="row1"<!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_CODE --> colspan="2"<!-- ENDIF -->>
+		<br /><span class="genmed">{L_DL_CONFIRM_EXPLAIN}</span><br /><br />
+	</td>
+</tr>
+<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+<!-- ENDIF -->
+<tr>
+	<td class="cat" <!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_CODE -->colspan="2" <!-- ENDIF -->align="right">{S_HIDDEN_FIELDS}<input type="submit" name="submit" value="{L_SUBMIT}" class="btnmain" /></td>
+</tr>
+</tbody>
+</table>
+
+{S_FORM_TOKEN}
+
+</form>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

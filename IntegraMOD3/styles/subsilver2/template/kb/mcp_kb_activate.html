@@ -1,0 +1,46 @@
+<!-- INCLUDE mcp_header.html -->
+<form id="mcp" method="post" action="{S_MCP_ACTION}">
+{TOTAL_REPORTS}<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+<table width="100%" class="tablebg" cellspacing="1" cellpadding="4" border="0">
+<tr>
+	<td class="row3" align="center" colspan="3"><b class="gen">{L_ARTICLE_NEW}</b></td>
+</tr> 
+<tr> 
+	<th>&nbsp;{L_ARTICLE}&nbsp;</th>
+	<th>&nbsp;{L_CATEGORIE}&nbsp;</th>
+	<th width="5%">&nbsp;{L_MARK}&nbsp;</th>
+</tr>
+<!-- BEGIN article_row -->
+
+	<!-- IF article_row.S_ROW_ is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+		<td style="padding: 4px;"><p class="topictitle"><a href="{article_row.U_SHOW}">{article_row.TITLE}</a></p><span class="gensmall">{article_row.DESCRIPTION}</span></td>
+		<td style="padding: 4px;" align="{S_CONTENT_FLOW_BEGIN}" valign="top" nowrap="nowrap"><a href="{article_row.U_CATEGORIE}">{article_row.CAT}</a></td>
+		<td style="padding: 4px;" align="{S_CONTENT_FLOW_BEGIN}" valign="top" nowrap="nowrap"><span class="gen"><input type="checkbox" name="article_id_list[]" value="{article_row.ARTICLE_ID}" /></td>
+	</tr>
+<!-- BEGINELSE -->
+	<tr>
+		<td class="row1" colspan="5" height="30" align="center" valign="middle"><span class="gen">{L_NO_POSTS}</span></td>
+	</tr>
+<!-- END article_row -->
+
+
+
+
+<tr>
+	<td class="cat" colspan="5" align="center">
+		<input class="button2" type="submit" value="{L_DELETE}" name="action[disapprove]" />
+		<!-- IF not S_CLOSED -->&nbsp;<input class="button1" type="submit" name="action[approve]" value="{L_AKTIVATE}" /><!-- ENDIF -->
+	</td>
+</tr>
+</table>
+{S_FORM_TOKEN}
+</form>
+
+<table width="100%" cellspacing="2" cellpadding="2" border="0" align="center">
+<tr>
+	<td align="{S_CONTENT_FLOW_END}" valign="top" nowrap="nowrap"><b class="gensmall"><a href="#" onclick="marklist('mcp', '', true); return false;">{L_MARK_ALL}</a> :: <a href="#" onclick="marklist('mcp', '', false); return false;">{L_UNMARK_ALL}</a></b></td>
+</tr>
+</table>
+</form>
+<br />
+<!-- INCLUDE mcp_footer.html -->

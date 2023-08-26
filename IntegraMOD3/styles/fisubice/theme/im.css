@@ -1,0 +1,150 @@
+#msg > li.row1 {
+	display : block;
+	list-style-type : none;
+	margin : 0;
+	height : auto;
+	width : 98%;
+	float : left;
+}
+
+#msg > li.row2 {
+	display : block;
+	list-style-type : none;
+	margin : 0;
+	height : auto;
+	width : 98%;
+	float : left;
+}
+
+#msg > li > dl {
+	vertical-align : middle;
+	width : 100%;
+}
+
+#msg > li > dl > dt {
+	width : auto !important ;
+	white-space : nowrap;
+	margin-right : 2px;
+}
+
+#msg > li > dl > dd > input {
+	margin : 3px;
+}
+
+#msg > li > dl > dd#msgbody {
+	display : inline;
+	padding : 3px 0 1px 0 !important ;
+	vertical-align : middle;
+	float : left !important ;
+}
+
+#base_ul {
+	list-style : none;
+	margin-left : 0;
+}
+
+#minical {
+	width : 200px;
+	height : 300px;
+	padding : 2px 10px 0 0;
+}
+
+.extra {
+	width : 100%;
+	padding : 10px 0 10px 0;
+}
+
+.iextras {
+	background-color : #F4F6FB;
+	border : #486386 solid 1px;
+	padding : 0;
+}
+
+.sbox {
+	background-color : #F4F6FB;
+	border : #486386 solid 0;
+	padding : 0;
+}
+
+td.l_button a {
+	text-decoration : none;
+}
+
+.l_button a div.b2 {
+	display : inline;
+}
+
+.l_button a, td.l_button a:hover {
+	color : #005D8C;
+}
+
+.l_button a div.b2, .l_button a div.b2:hover {
+	color : #45586E
+}
+
+.l_button a {
+	border : #839FBC solid 2px;
+	border-radius : 10px;
+	font-size : 12px;
+	font-family : arial, helvetica, sans-serif;
+	padding : 4px 12px;
+	margin : 2px 0;
+	display : inline-block;
+	font-weight : bold;
+	color : #587DA3;
+	background-color : #FDFDFD;
+	background-image : linear-gradient(to bottom, #FFFFFF, #CEDFE8);
+}
+
+.l_button a:hover {
+	color : #005D8C;
+	border : #839FBC solid 2px;
+	background-color : #e4e4e4;
+	background-image : linear-gradient(to bottom, #e4e4e4, #CACCCE);
+}
+
+div div.ls_button a {
+	display : inline-block;
+}
+
+.ls_button a {
+	text-decoration : none;
+}
+
+.ls_button a {
+	border : #005D8C solid 1px;
+	border-radius : 3px;
+	font-size : 11px;
+	font-family : arial, helvetica, sans-serif;
+	padding : 0 12px;
+	margin : 2px 0;
+	display : inline-block;
+	font-weight : bold;
+	color : #6687AA;
+	text-transform : lowercase;
+	background-color : #FDFDFD;
+	background-image : linear-gradient(to bottom, #EAF1F5, #C6D4E0);
+}
+
+.ls_button a:hover {
+	color : #6687AA;
+	border : #1D5387 solid 1px;
+	background-color : #e4e4e4;
+	background-image : linear-gradient(to bottom, #e4e4e4, #C6D4E0);
+}
+
+h6 {
+	display : inline-block;
+	font-size : 12px;
+	font-family : arial, helvetica, sans-serif;
+	font-weight : bold;
+	color : #45586E;
+}
+
+h6, h6:hover {
+	color : #45586E;
+}
+
+a.username {
+	color: #F44336 !important;
+}

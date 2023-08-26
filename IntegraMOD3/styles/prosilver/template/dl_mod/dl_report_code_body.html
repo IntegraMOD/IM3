@@ -1,0 +1,39 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<br />
+
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<form action="{S_CONFIRM_ACTION}" method="post" id="confirm_broken_dl">
+
+	<fieldset>
+
+		<h2 class="solo">{MESSAGE_TITLE}</h2>
+
+		<dl>
+			<dt><b>{L_DL_REPORT_REASON}:</b></dt>
+			<dd class="lastpost"><textarea class="inputbox autowidth" rows="5" cols="50" name="report_notify_text"></textarea></dd>
+		</dl>
+		<!-- IF CAPTCHA_TEMPLATE -->
+				<!-- DEFINE $CAPTCHA_TAB_INDEX = 8 -->
+				<br />{L_DL_CONFIRM_EXPLAIN}<br /><br />
+				<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+		<!-- ENDIF -->
+
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+		{S_FORM_TOKEN}
+		{S_HIDDEN_FIELDS}
+	</fieldset>
+
+	</form>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

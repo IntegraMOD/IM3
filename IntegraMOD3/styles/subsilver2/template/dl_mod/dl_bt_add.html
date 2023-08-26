@@ -1,0 +1,104 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<script type="text/javascript">
+// <![CDATA[
+var LANG_TOO_FEW_CHARS 		= '{L_TOO_FEW_CHARS}';
+var LANG_L_NO_TEXT_SELECTED	= '{L_NO_TEXT_SELECTED}';
+var	form_name 				= 'postform';
+var	text_name 				= 'message';
+// ]]>
+</script>
+<script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/editor.js" ></script>
+
+<h2>{L_NEW_POST}</h2>
+
+<br />
+
+<!-- IF S_PREVIEW -->
+<h3>{L_PREVIEW}</h3>
+<table class="tablebg" width="100%" cellspacing="1">
+<tr>
+	<td class="row1"><span class="postdetails"><strong>{PREVIEW_TITLE}</strong></span></td>
+</tr>
+<tr>
+	<td class="row1"><div class="postbody">{PREVIEW_TEXT}</div></td>
+</tr>
+</table>
+<br />
+<!-- ENDIF -->
+
+<form action="{S_FORM_ACTION}" method="post" id="postform">
+
+<table width="100%" cellpadding="2" cellspacing="1" border="0" class="forumline">
+<tr>
+	<td class="row1" style="width: 20%"><span class="gen"><b>{L_DL_BUG_REPORT_TITLE}</b></span></td>
+	<td class="row2" style="width: 80%"><input type="text" size="50" maxlength="255" class="post" name="report_title" value="{REPORT_TITLE}" /></td>
+</tr>
+<tr>
+	<td class="row1" style="width: 20%"><span class="gen"><b>{L_DL_BUG_REPORT_FILE}</b></span></td>
+	<td class="row2" style="width: 80%">{S_SELECT_DOWNLOAD}&nbsp;<span class="genmed">{L_DL_HACK_VERSION}</span>&nbsp;<input type="text" size="20" maxlength="50" class="post" name="report_file_ver" value="{REPORT_FILE_VER}" /></td>
+</tr>
+<tr>
+	<td class="row2" colspan="2">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+		<!-- INCLUDE posting_buttons.html -->
+		<tr>
+			<td valign="top" style="width: 100%;"><textarea name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 98%;">{REPORT_TEXT}</textarea></td>
+			<!-- IF S_BBCODE_ALLOWED -->
+			<td style="width: 80" align="center" valign="top">
+				<script type="text/javascript">
+				// <![CDATA[
+					colorPalette('v', 7, 6)
+				// ]]>
+				</script>
+			</td>
+			<!-- ENDIF -->
+		</tr>
+		</table>
+	</td>
+</tr>
+<!-- IF .smiley -->
+<tr>
+	<td class="row1" colspan="2">
+	<table width="100%" cellspacing="5" cellpadding="0" border="0" align="center">
+	<tr>
+		<td class="gensmall" align="center"><b>{L_SMILIES}</b></td>
+	</tr>
+	<tr>
+		<td align="center">
+			<!-- BEGIN smiley -->
+				<a href="#" onclick="insert_text('{smiley.A_SMILEY_CODE}', true); return false;" style="line-height: 20px;"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" hspace="2" vspace="2" /></a>
+			<!-- END smiley -->
+		</td>
+	</tr>
+	<tr>
+		<td align="center"><a class="nav" href="{U_MORE_SMILIES}" onclick="popup(this.href, 400, 200, '_blank'); return false;">{L_MORE_SMILIES}</a></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<!-- ENDIF -->
+<tr>
+	<td class="row1" style="width: 20%"><span class="gen"><b>{L_DL_BUG_REPORT_PHP}</b></span></td>
+	<td class="row2" style="width: 80%"><input type="text" size="50" maxlength="255" class="post" name="report_php" value="{REPORT_PHP}" /></td>
+</tr>
+<tr>
+	<td class="row1" style="width: 20%"><span class="gen"><b>{L_DL_BUG_REPORT_DB}</b></span></td>
+	<td class="row2" style="width: 80%"><input type="text" size="50" maxlength="255" class="post" name="report_db" value="{REPORT_DB}" /></td>
+</tr>
+<tr>
+	<td class="row1" style="width: 20%"><span class="gen"><b>{L_DL_BUG_REPORT_FORUM}</b></span></td>
+	<td class="row2" style="width: 80%"><input type="text" size="50" maxlength="255" class="post" name="report_forum" value="{REPORT_FORUM}" /></td>
+</tr>
+<tr>
+	<td class="catbottom" colspan="2" align="center"><input type="submit" name="submit" value="{L_SUBMIT}" class="btnmain" />&nbsp;<input type="reset" name="submit" value="{L_RESET}" class="btnlite" />&nbsp;<input type="submit" name="preview" value="{L_PREVIEW}" class="btnmain" /></td>
+</tr>
+</table>
+
+{S_FORM_TOKEN}
+{S_HIDDEN_FIELDS}
+</form>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

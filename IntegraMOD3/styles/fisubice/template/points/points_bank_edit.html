@@ -1,0 +1,30 @@
+<!-- INCLUDE overall_header.html -->
+<!-- $Id: points_bank_edit.html 584 2009-10-14 09:50:05Z Wuerzi $ -->
+
+<!-- BEGIN administer_bank -->
+<form action="{S_ACTION}" method="post">
+	<table class="tablebg" width="100%" cellspacing="1" cellpadding="0" border="0">
+		<thead>
+			<tr>
+				<th align="center" colspan="3">{L_EDIT_BANK_MODIFY}</th>
+			</tr>
+			<tr>
+				<td class="row1" align="center" colspan="3">{L_P_BANK_TITLE}</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="row1" align="{S_CONTENT_FLOW_END}">{L_USERNAME}: {USER_NAME}</td>
+				<td class="row1" align="center">{L_BANK_BALANCE}: {BANK_POINTS} {POINTS_NAME}</td>
+				<td class="row1">{L_SET_AMOUNT}: <input type="text" tabindex="1" maxlength="10" title="{L_POINTS_NUMBER_FORMAT_EXPLAIN}" class="inputbox" name="points" value="{CURRENT_VALUE}"/></td>
+			</tr>
+			<tr>
+				<td class="row1" align="center" colspan="3">{S_HIDDEN_FIELDS}<input type="submit" accesskey="s" tabindex="2" name="submit" value="{L_SUBMIT}" class="button1" />{S_FORM_TOKEN}</td>
+			</tr>
+		</tbody>
+	</table>
+<br clear="all"/>
+</form>
+<!-- END administer_bank -->
+
+<!-- INCLUDE overall_footer.html -->

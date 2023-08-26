@@ -1,0 +1,63 @@
+<!-- INCLUDE overall_header.html -->
+
+<div class="page-content">
+
+	<table width="100%" cellspacing="1" class="tablebg">
+	<tr>
+		<th nowrap="nowrap">{L_DL_NAME}</th>
+		<th nowrap="nowrap">{L_DL_FILE_DESCRIPTION}</th>
+		<th nowrap="nowrap" colspan="3">{L_DL_HACK_AUTOR}</th>
+	</tr>
+	<!-- BEGIN listrow -->
+	<tr valign="middle">
+		<td class="row1" align="center"><p class="topicdetails"><b>{listrow.HACK_NAME}</b></p></td>
+		<td class="row1" align="center">
+			<p class="topicdetails" style="text-decoration: underline">{listrow.CAT_NAME}</p>
+			<p class="topicdetails">{listrow.HACK_DESCRIPTION}</p>
+		</td>
+		<td class="row1" align="center"><p class="topicauthor">{listrow.HACK_AUTHOR}</p></td>
+		<td class="row1" align="center"><p class="topicdetails">{listrow.HACK_AUTHOR_WEBSITE}</p></td>
+		<td class="row1" align="center"><p class="topicdetails">{listrow.HACK_DL_URL}</p></td>
+	</tr>
+	<!-- END listrow -->
+	</table>
+
+	<form action="{S_FORM_ACTION}" method="post" id="hacklist">
+
+	<table width="100%" cellspacing="1" class="tablebg">
+	<tr>
+		<td align="center">
+			<span class="genmed">
+				{L_SORT_BY}
+				&nbsp;
+					<select name="sort_by" onchange="forms['hacklist'].submit()">
+					<option value="0"{SELECTED_0}>{L_DL_DEFAULT_SORT}</option>
+					<option value="1"{SELECTED_1}>{L_DL_FILE_DESCRIPTION}</option>
+					<option value="2"{SELECTED_2}>{L_DL_HACK_AUTOR}</option>
+					</select>
+				&nbsp;&nbsp;&nbsp;
+				{L_DL_ORDER}
+				&nbsp;
+					<select name="order" onchange="forms['hacklist'].submit()">
+					<option value="ASC"{SELECTED_SORT_0}>{L_ASCENDING}</option>
+					<option value="DESC"{SELECTED_SORT_1}>{L_DESCENDING}</option>
+					</select>
+			</span>
+			<input type="submit" class="btnlite" value="{L_GO}" />
+		</td>
+	</tr>
+	</table>
+
+	</form>
+
+	<div align="right">{PAGINATION}</div>
+
+	<!-- INCLUDE breadcrumbs.html -->
+
+	<br clear="all" />
+
+	<div align="left"><!-- INCLUDE jumpbox.html --></div>
+
+</div>
+
+<!-- INCLUDE overall_footer.html -->

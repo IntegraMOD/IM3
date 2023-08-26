@@ -1,0 +1,221 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<div class="page-content">
+
+	<form action="{S_DOWNLOADS_ACTION}" method="post" {ENCTYPE} id="dl_edit">
+
+	<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
+	<thead>
+	<tr>
+		<th colspan="3">{DL_FILES_TITLE}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- IF S_UPLOAD_TRAFFIC -->
+	<tr>
+		<td class="row3" colspan="3" align="center"><span class="gensmall"><b>{L_DL_UPLOAD_TRAFFIC}</b></span></td>
+	</tr>
+	<!-- ENDIF -->
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_NAME}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_NAME_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2"style="width: 68%"><input type="text" class="post" name="description" size="40" maxlength="255" value="{DESCRIPTION}" /></td>
+	</tr>
+	<!-- IF S_CAT_CHOOSE -->
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_CAT_NAME}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_CAT_NAME_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%">{SELECT_CAT}</td>
+	</tr>
+	<!-- ENDIF -->
+	<tr>
+		<td class="row1" style="width: 30%" valign="top"><span class="gen">{L_DL_FILE_DESCRIPTION}:</span></td>
+		<td class="row1" style="width: 2%" valign="top">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_DESCRIPTION_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><textarea name="long_desc" rows="4" cols="100" class="post">{LONG_DESC}</textarea></td>
+	</tr>
+	<tr><td class="row3" colspan="3" height="10"> </td></tr>
+	<tr>
+		<td class="row1" style="width: 30%" valign="top"><span class="gen">{L_DL_UPLOAD_FILE}:</span></td>
+		<td class="row1" style="width: 2%" valign="top">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_UPLOAD_FILE_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%">
+					<input type="file" name="dl_name" class="post" size="46" /><br />
+					<span class="gensmall">{MAX_UPLOAD_SIZE}{EXT_BLACKLIST}</span></td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_EXTERN}:</span></td>
+		<td class="row1" style="width: 2%">
+				&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_EXTERN_EXPLAIN}')" class="nav">?</a>]&nbsp;
+		</td>
+		<td class="row2" style="width: 68%">
+				<input type="checkbox" class="post" name="file_extern" {CHECKEXTERN} value="1" />
+				&nbsp;&nbsp;<input type="text" class="post" name="file_name" size="40" value="{URL}" />
+				&nbsp;<input type="text" class="post" size="10" maxlength="20" name="file_extern_size" value="{FILE_EXT_SIZE}" />&nbsp;{S_FILE_EXT_SIZE_RANGE}
+		</td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_HACK_VERSION}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_HACK_VERSION_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><input type="text" name="hack_version" size="10" maxlength="32" value="{HACK_VERSION}" /></td>
+	</tr>
+	<!-- IF S_VERSION_ON -->
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_VERSION}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;</td>
+		<td class="row2" style="width: 68%">
+			<p><label><input type="radio" name="file_ver_opt" class="radio" value="0" checked="checked" />&nbsp;{L_DL_VERSION_ADD_NEW}</label></p>
+			<p><label><input type="radio" name="file_ver_opt" class="radio" value="1" />&nbsp;{L_DL_VERSION_ADD_OLD}</label></p>
+			<p><label><input type="radio" name="file_ver_opt" class="radio" value="2" />&nbsp;{L_DL_VERSION_REPLACE}</label><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{S_SELECT_VERSION}</p>
+			<!-- IF S_SELECT_VER_DEL -->
+			<p><label><input type="radio" name="file_ver_opt" class="radio" value="3" />&nbsp;{L_DL_VERSION_DELETE}</label><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{S_SELECT_VER_DEL}<br /><br /><hr /><div class="notice">{L_DL_VERSION_DELETE_EXPLAIN}</div></p>
+			<!-- ENDIF -->
+		</td>
+	</tr>
+	<!-- ENDIF -->
+	<!-- IF S_ALLOW_THUMBS -->
+	<tr>
+		<td class="row1" style="width: 30%" valign="top"><span class="gen">{L_DL_THUMB}:</span></td>
+		<td class="row1" style="width: 2%" valign="top">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_THUMBNAIL_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%">
+			<!-- IF S_THUMBNAIL -->
+			<img src="{THUMBNAIL}" border="0" alt="" title="" style="max-weight: 150px; max-height: 100px;" />
+			<br /><label><input type="checkbox" name="del_thumb" value="1" />&nbsp;{L_DL_DELETE}</label>
+			<br /><br />
+			<!-- ENDIF -->
+			<input class="post" type="file" name="thumb_name" size="46" /><br />
+			<span class="gensmall">{DL_THUMBNAIL_SECOND}</span>
+		</td>
+	</tr>
+	<!-- ENDIF -->
+	<!-- IF S_MODCP -->
+	<tr><td class="row3" colspan="3" height="10"> </td></tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_IS_FREE}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_IS_FREE_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%">{S_CHECK_FREE}</td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_TRAFFIC}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_TRAFFIC_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><span class="gen"><input type="text" class="post" name="file_traffic" size="10" maxlength="10" value="{TRAFFIC}" />&nbsp;{S_TRAFFIC_RANGE}</span></td>
+	</tr>
+	<tr>
+		<td class="row1" width="100%" colspan="3">
+			<p align="center" class="row3">
+			&raquo;&nbsp;<span class="gensmall">{L_DL_APPROVE}:</span> [<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_APPROVE_EXPLAIN}')" class="nav">?</a>]&nbsp;<input type="checkbox" name="approve" value="1" {APPROVE} />
+	<!-- ENDIF -->
+			<!-- IF S_CHANGE_TIME -->
+			&nbsp;&nbsp;&nbsp;&raquo;&nbsp;<span class="genmed">{L_DL_NO_CHANGE_EDIT_TIME}:</span> [<a href="javascript:void(0)" onclick="javascript:help_popup('{L_CHANGE_TIME_EXPLAIN}')" class="nav">?</a>]&nbsp;<input type="checkbox" name="change_time" value="1" />
+			<!-- ENDIF -->
+			<!-- IF S_CLICK_RESET -->
+			&nbsp;&nbsp;&nbsp;&raquo;&nbsp;<span class="genmed">{L_DL_KLICKS_RESET}:</span> [<a href="javascript:void(0)" onclick="javascript:help_popup('{L_CLICK_RESET_EXPLAIN}')" class="nav">?</a>]&nbsp;<input type="checkbox" name="click_reset" value="1" />
+			<!-- ENDIF -->
+			</p>
+			<p align="center" class="row3">
+			<!-- IF S_POPUP_NOTIFY -->
+			&raquo;&nbsp;<span class="genmed">{L_DL_DISABLE_POPUP}:</span> [<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DISABLE_POPUP_EXPLAIN}')" class="nav">?</a>]&nbsp;<input type="checkbox" name="disable_popup_notify" value="1" />
+			<!-- ENDIF -->
+			<!-- IF S_EMAIL_BLOCK -->
+			&nbsp;&nbsp;&nbsp;&raquo;&nbsp;<span class="genmed">{L_DL_DISABLE_EMAIL}:</span> [<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_SEND_NOTIFY_EXPLAIN}')" class="nav">?</a>]&nbsp;<input type="checkbox" name="send_notify" value="1" />
+			<!-- ENDIF -->
+	<!-- IF S_MODCP -->
+			</p>
+		</td>
+	</tr>
+	<!-- ENDIF -->
+	<!-- IF S_USE_HACKLIST -->
+	<tr><td class="row3" colspan="3" height="10"> </td></tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_HACKLIST}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_HACKLIST_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%">{S_HACKLIST}</td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_HACK_AUTOR}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_HACK_AUTHOR_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><input type="text" name="hack_author" size="40" maxlength="255" value="{HACK_AUTHOR}" /></td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_HACK_AUTOR_EMAIL}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_HACK_AUTHOR_EMAIL_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><input type="text" name="hack_author_email" size="40" maxlength="255" value="{HACK_AUTHOR_EMAIL}" /></td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_HACK_AUTOR_WEBSITE}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_HACK_AUTHOR_WEBSITE_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><input type="text" name="hack_author_website" size="40" maxlength="255" value="{HACK_AUTHOR_WEBSITE}" /></td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_HACK_DL_URL}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_HACK_DL_URL_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><input type="text" name="hack_dl_url" size="40" maxlength="255" value="{HACK_DL_URL}" /></td>
+	</tr>
+	<!-- ENDIF -->
+	<!-- IF S_ALLOW_EDIT_MOD_DESC and S_TODO_LINK_ONOFF-->
+	<tr><td class="row3" colspan="3" height="10"> </td></tr>
+	<!-- ENDIF -->
+	<!-- IF S_ALLOW_EDIT_MOD_DESC -->
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_MOD_LIST}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_MOD_LIST_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><input type="checkbox" name="mod_list" {MOD_LIST} value="1" /></td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_MOD_TEST}:</span><br /></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_MOD_TEST_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><input type="text" name="test" size="40" maxlength="50" value="{MOD_TEST}" /></td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%"><span class="gen">{L_DL_MOD_REQUIRE}:</span></td>
+		<td class="row1" style="width: 2%">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_MOD_REQUIRE_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><input type="text" name="require" size="40" maxlength="255" value="{MOD_REQUIRE}" /></td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%" valign="top"><span class="gen">{L_DL_MOD_DESC}:</span><br /></td>
+		<td class="row1" style="width: 2%" valign="top">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_MOD_DESC_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><textarea name="mod_desc" rows="4" cols="100">{MOD_DESC}</textarea></td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 30%" valign="top"><span class="gen">{L_DL_MOD_WARNING}:</span><br /></td>
+		<td class="row1" style="width: 2%" valign="top">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_MOD_WARNING_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><textarea name="warning" rows="4" cols="100">{MOD_WARNING}</textarea></td>
+	</tr>
+	<!-- ENDIF -->
+	<!-- IF S_TODO_LINK_ONOFF -->
+	<tr>
+		<td class="row1" style="width: 30%" valign="top"><span class="gen">{L_DL_MOD_TODO}:</span></td>
+		<td class="row1" style="width: 2%" valign="top">&nbsp;[<a href="javascript:void(0)" onclick="javascript:help_popup('{L_DL_MOD_TODO_EXPLAIN}')" class="nav">?</a>]&nbsp;</td>
+		<td class="row2" style="width: 68%"><textarea name="todo" rows="4" cols="100">{MOD_TODO}</textarea></td>
+	</tr>
+	<!-- ENDIF -->
+	<!-- BEGIN download_fields -->
+	<!-- IF download_fields.S_FIRST_ROW -->
+	<tr><td class="row3" colspan="3" height="10"> </td></tr>
+	<!-- ENDIF -->
+	<tr>
+		<td class="row1" style="width: 32%" colspan="2"><label<!-- IF download_fields.FIELD_ID --> for="{download_fields.FIELD_ID}"<!-- ENDIF -->>{download_fields.LANG_NAME}:<!-- IF download_fields.S_REQUIRED --> *<!-- ENDIF --></label>
+		<!-- IF download_fields.LANG_EXPLAIN --><br /><span class="small">{download_fields.LANG_EXPLAIN}</span><!-- ENDIF --></td>
+		<!-- IF download_fields.ERROR --><br /><span class="error">{download_fields.ERROR}</span><!-- ENDIF -->
+		<td class="row2" style="width: 68%">{download_fields.FIELD}</td>
+	</tr>
+	<!-- IF download_fields.S_LAST_ROW -->
+	<!-- ENDIF -->
+	<!-- END download_fields -->
+	</tbody>
+	</table>
+
+	<br />
+	<p align="center"><input type="submit" name="submit" value="{L_SUBMIT}" class="btnmain" />&nbsp;&nbsp;<input type="reset" name="reset" value="{L_RESET}" class="btnlite" /></p>
+
+	{S_FORM_TOKEN}
+	{S_HIDDEN_FIELDS}
+	<!-- IF not S_TODO_LINK_ONOFF -->
+	<input type="hidden" name="todo" value="{MOD_TODO}" />
+	<!-- ENDIF -->
+
+	</form>
+
+</div>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

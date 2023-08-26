@@ -1,0 +1,59 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{DL_THUMBS_SECOND}</h2>
+
+<br />
+
+<form action="{S_FORMS_ACTION}" method="post" {ENCTYPE} id="dl_thumbs">
+
+<table width="100%" cellpadding="0" cellspacing="0" class="forumline">
+<thead>
+<tr>
+	<th colspan="2">{L_DL_EDIT_THUMBS}</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td width="50%" class="row1" valign="top"><span class="gen">{L_DL_FILE_NAME}</span></td>
+	<td width="50%" class="row2"><input type="file" name="img_link" class="inputbox" size="60" /><br /><span class="small">{DL_THUMB_MAX_SIZE}</span></td>
+</tr>
+<tr>
+	<td width="50%" class="row1" valign="top"><span class="gen">{L_DL_FILE_DESCRIPTION}</span></td>
+	<td width="50%" class="row2"><input type="text" name="img_title" size="70" maxlength="255" value="{EDIT_IMG_TITLE}" class="inputbox autowidth" /></td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<p align="center">
+	<input type="submit" name="submit" value="{L_SUBMIT}" class="btnmain" />&nbsp;&nbsp;<input type="reset" name="reset" value="{L_RESET}" class="btnlite" />
+</p>
+
+<div>{S_FORM_TOKEN}{S_HIDDEN_FIELDS}</div>
+
+</form>
+
+<!-- BEGIN thumbnails -->
+<!-- IF thumbnails.S_FIRST_ROW -->
+<br />
+
+<p class="forumrules">{L_DL_THUMB_HINTS}</p>
+
+<br />
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<!-- ENDIF -->
+<tr class="row<!-- IF thumbnails.S_ROW_COUNT is even -->2<!-- ELSE -->1<!-- ENDIF -->">
+	<td width="50%"><a href="{thumbnails.IMG_LINK}" rel="lytebox" title="{thumbnails.IMG_TITLE}"><img src="{thumbnails.IMG_LINK}" alt="{thumbnails.IMG_TITLE}" title="{thumbnails.IMG_TITLE}" style="max-weight: 150px; max-height: 100px;" /></a></td>
+	<td><a href="{thumbnails.U_DELETE}">{L_DL_DELETE}</a></td>
+	<td><a href="{thumbnails.U_EDIT}">{L_DL_EDIT_FILE}</a></td>
+</tr>
+<!-- IF thumbnails.S_LAST_ROW -->
+</table>
+<!-- ENDIF -->
+<!-- END thumbnails -->
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

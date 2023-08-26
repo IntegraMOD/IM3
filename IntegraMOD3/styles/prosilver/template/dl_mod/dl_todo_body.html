@@ -1,0 +1,37 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2 class="solo">{L_DL_MOD_TODO}</h2>
+
+<!-- IF S_TODO_EDIT --><ul class="linklist"><li class="rightside">[ <a href="{U_TODO_EDIT}">{L_DL_EDIT_FILE}</a> ]</li></ul><!-- ENDIF -->
+
+<div class="forabg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<table class="table1" cellspacing="0" width="100%">
+	<thead>
+	<tr style="color: #FFFFFF;">
+		<th style="width: 25%">{L_DL_FILE_DESCRIPTION}</th>
+		<th style="width: 75%">{L_DL_MOD_TODO}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN todolist_row -->
+	<tr class="row<!-- IF todolist_row.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+		<td style="width: 25%" valign="top"><a href="{todolist_row.FILE_LINK}"><strong>{todolist_row.FILENAME}</strong></a>&nbsp;<span>{todolist_row.HACK_VERSION}</span></td>
+		<td style="width: 75%" valign="top"><span class="small">{todolist_row.TODO}</span></td>
+	</tr>
+	<!-- END todolist_row -->
+	<!-- IF S_NO_TODOLIST -->
+	<tr class="row bg1">
+		<td valign="top" colspan="2"><span>{L_DL_NO_MOD_TODO}</span></td>
+	</tr>
+	<!-- ENDIF -->
+	</tbody>
+	</table>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

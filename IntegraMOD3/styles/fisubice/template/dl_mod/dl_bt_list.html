@@ -1,0 +1,80 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<!-- IF S_NO_BUG_TRACKER -->
+<h3 class="solo">{L_DL_NO_BUG_TRACKER}</h3>
+
+<br />
+<!-- ELSE -->
+
+<table width="100%" cellpadding="2" cellspacing="1" border="0" class="table1">
+<thead>
+<tr>
+	<th colspan="2">{L_DL_BUG_REPORT_TITLE_DETAILS}</th>
+	<th>{L_OPTIONS}</th>
+	<th>{L_DL_BUG_REPORT_FILE}</th>
+	<!-- IF S_REPORT_TEXT --><th>{L_DL_BUG_REPORT_PHP}&nbsp;&bull;&nbsp;{L_DL_BUG_REPORT_DB}&nbsp;&bull;&nbsp;{L_DL_BUG_REPORT_FORUM}</th><!-- ENDIF -->
+	<th colspan="2">{L_DL_BUG_REPORT_STATUS}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN bug_tracker_row -->
+<tr>
+	<td class="row<!-- IF bug_tracker_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><span class="nav">{bug_tracker_row.REPORT_ID}</span></td>
+	<td class="row<!-- IF bug_tracker_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><span class="gensmall"><b>{bug_tracker_row.REPORT_TITLE}</b><br />{L_DL_BUG_REPORT_DATE}: {bug_tracker_row.REPORT_DATE}<br />{L_DL_BUG_REPORT_AUTHOR}: {bug_tracker_row.REPORT_AUTHOR_LINK}</span><!-- IF S_REPORT_TEXT --><hr /><span class="gensmall"><i>{bug_tracker_row.REPORT_TEXT}</i></span><!-- ENDIF --></td>
+	<td class="row<!-- IF bug_tracker_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><span class="gensmall"><a href="{bug_tracker_row.REPORT_DETAIL}" class="gensmall">{L_DL_BUG_REPORT_DETAIL}</a><!-- BEGIN mod --><br /><br /><a href="{bug_tracker_row.mod.U_DELETE}" class="gensmall">{L_DL_DELETE}</a><!-- END mod --></span></td>
+	<td class="row<!-- IF bug_tracker_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><span class="nav"><a href="{bug_tracker_row.REPORT_FILE_LINK}" class="nav">{bug_tracker_row.REPORT_FILE} {bug_tracker_row.REPORT_FILE_VER}</a></span></td>
+	<!-- IF S_REPORT_TEXT --><td class="row<!-- IF bug_tracker_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><span class="gensmall">{bug_tracker_row.REPORT_PHP}<br />{bug_tracker_row.REPORT_DB}<br />{bug_tracker_row.REPORT_FORUM}</span></td><!-- ENDIF -->
+	<td class="row<!-- IF bug_tracker_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><span class="nav">{bug_tracker_row.REPORT_STATUS}</span><br /><span class="gensmall">{bug_tracker_row.REPORT_STATUS_DATE}</span></td>
+	<td class="row<!-- IF bug_tracker_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><span class="gensmall">
+	<!-- BEGIN assign -->
+		{bug_tracker_row.assign.REPORT_ASSIGN_LINK}<br />{bug_tracker_row.assign.REPORT_ASSIGN_DATE}<br />
+	<!-- END assign -->
+	<!-- IF S_NO_ASSIGN -->
+		{L_DL_BUG_REPORT_UNASSIGNED}&nbsp;
+	<!-- ENDIF -->
+
+	</span></td>
+</tr>
+<!-- END bug_tracker_row -->
+</tbody>
+</table>
+
+<br />
+<!-- ENDIF -->
+
+<table width="100%" cellpadding="2" cellspacing="1" border="0">
+<tr>
+	<td>
+		<form action="{S_FORM_ACTION}" method="post" name="filter_report">
+			{S_SELECT_FILTER}&nbsp;<input type="submit" name="submit" value="{L_DL_FILTER}" class="btnmain" />
+		</form>
+	</td>
+	<!-- IF S_OWN_REPORT -->
+	<td>
+		<form action="{S_FORM_OWN_ACTION}" method="post" name="filter_own_report">
+			<input type="submit" name="submit" value="{L_DL_FILTER_BT_OWN}" class="btnlite" />
+		</form>
+	</td>
+	<!-- ENDIF -->
+	<!-- IF S_ASSIGN_REPORT -->
+	<td>
+		<form action="{S_FORM_ASSIGN_ACTION}" method="post" name="filter_assign_report">
+			<input type="submit" name="submit" value="{L_DL_FILTER_BT_ASSIGN}" class="btnlite" />
+		</form>
+	</td>
+	<!-- ENDIF -->
+	<!-- IF S_ADD_NEW_REPORT -->
+	<td>
+		<form action="{S_FORM_ACTION}" method="post" name="add_new_report">
+			<input type="submit" name="submit" value="{L_NEW_POST}" class="btnmain" />
+		{S_HIDDEN_FIELDS}
+		</form>
+	</td>
+	<!-- ENDIF -->
+
+</tr>
+</table>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

@@ -1,0 +1,65 @@
+<h1>{L_DL_CAT_TITLE}</h1>
+
+<p>{L_DL_CAT_EDIT_EXPLAIN}</p>
+
+<form action="{S_CATEGORY_ACTION}" method="post" id="dl_cat">
+
+<table width="100%" cellpadding="3" cellspacing="1" class="table1">
+<thead>
+<tr>
+	<th colspan="2">{L_DL_CAT_NAME}</th>
+	<th colspan="2">{L_ACTION}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN categories -->
+<tr valign="top">
+	<td><!-- IF categories.CAT_ICON --><img src="{categories.CAT_ICON}" alt="" title="{categories.CAT_NAME}" /><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
+	<td><label>{categories.CAT_NAME}</label></td>
+	<td>
+		<!-- IF categories.S_FIRST_ROW && not categories.S_LAST_ROW -->
+		{ICON_MOVE_UP_DISABLED}
+		<a href="{categories.U_CATEGORY_MOVE_DOWN}">{ICON_MOVE_DOWN}</a>
+		<!-- ELSEIF not categories.S_FIRST_ROW && not categories.S_LAST_ROW-->
+		<a href="{categories.U_CATEGORY_MOVE_UP}">{ICON_MOVE_UP}</a>
+		<a href="{categories.U_CATEGORY_MOVE_DOWN}">{ICON_MOVE_DOWN}</a>
+		<!-- ELSEIF categories.S_LAST_ROW && not categories.S_FIRST_ROW -->
+		<a href="{categories.U_CATEGORY_MOVE_UP}">{ICON_MOVE_UP}</a>
+		{ICON_MOVE_DOWN_DISABLED}
+		<!-- ELSE -->
+		{ICON_MOVE_UP_DISABLED}
+		{ICON_MOVE_DOWN_DISABLED}
+		<!-- ENDIF -->
+		<a href="{categories.U_CAT_EDIT}">{ICON_EDIT}</a>
+		<!-- IF categories.U_CAT_DELETE -->
+			<a href="{categories.U_CAT_DELETE}">{ICON_DELETE}</a>
+		<!-- ELSE -->
+			{ICON_DELETE_DISABLED}
+		<!-- ENDIF -->
+	</td>
+	<td>
+		<!-- IF categories.L_DELETE_STATS -->&nbsp;&bull;&nbsp;<a href="{categories.U_DELETE_STATS}">{categories.L_DELETE_STATS}</a> <!-- ENDIF -->
+		<!-- IF categories.L_DELETE_COMMENTS -->&nbsp;&bull;&nbsp;<a href="{categories.U_DELETE_COMMENTS}">{categories.L_DELETE_COMMENTS}</a><!-- ENDIF -->
+		<!-- IF categories.L_SORT_ASC --><!-- IF categories.L_DELETE_STATS or categories.L_DELETE_COMMENTS --><br /><!-- ENDIF -->&nbsp;&bull;&nbsp;<a href="{categories.U_CATEGORY_ASC_SORT}">{categories.L_SORT_ASC}</a> <!-- ENDIF -->
+	&nbsp;</td>
+</tr>
+<!-- END categories -->
+</tbody>
+</table>
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0">
+<tr>
+	<!-- IF S_TOTAL_STATS --><td><a href="{U_DELETE_STATS_ALL}">{L_DELETE_STATS_ALL}</a></td><!-- ENDIF -->
+	<td><a href="{U_SORT_LEVEL_ZERO}">{L_DL_SUB_SORT_ASC_ZERO}</a></td>
+	<!-- IF S_TOTAL_COMMENTS --><td><a href="{U_DELETE_COMMENTS_ALL}">{L_DELETE_COMMENTS_ALL}</a></td><!-- ENDIF -->
+</tr>
+</table>
+
+<fieldset class="quick">
+	<input type="hidden" name="action" value="add" />
+	<input type="text" name="cat_name" size="40" maxlength="255" value="" />&nbsp;
+	<input type="submit" class="button1" name="submit" value="{L_DL_ADD_CATEGORY}" />
+</fieldset>
+
+</form>
+<br />

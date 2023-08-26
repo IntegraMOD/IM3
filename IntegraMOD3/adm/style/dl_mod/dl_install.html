@@ -1,0 +1,29 @@
+<!-- INCLUDE install_header.html -->
+
+	<form method="post" action="{U_ACTION}">
+
+	<h1>{TITLE}</h1>
+
+	<p>{BODY}</p>
+
+	<!-- IF not S_NOT_INSTALLED -->
+	<!-- IF L_SUBMIT -->
+		<fieldset class="submit-buttons">
+			<!-- IF L_SUBMIT --><input class="button1" type="submit" id="submit" onclick="this.className = 'button1 disabled';" onsubmit="this.disabled = 'disabled';" name="submit" value="{L_SUBMIT}" /><!-- ENDIF -->
+		</fieldset>
+	<!-- ENDIF -->
+
+	<!-- IF .update_prozess -->
+	<hr />
+	<!-- ENDIF -->
+
+	<!-- BEGIN update_prozess -->
+	<p><label>{update_prozess.TITLE}</label><span class="small">{update_prozess.BODY}</span></p>
+	<!-- END update_prozess -->
+
+	{S_HIDDEN_FIELDS}
+	<!-- ENDIF -->
+
+	</form>
+
+<!-- INCLUDE install_footer.html -->

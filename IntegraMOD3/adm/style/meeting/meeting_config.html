@@ -1,0 +1,68 @@
+<form action="{S_FORM_ACTION}" method="post" id="meeting_config">
+
+<fieldset>
+
+	<dl>
+		<dt><label>{L_USER_ALLOW_ENTER_MEETING}</label><br /><span>{L_USER_ALLOW_ENTER_MEETING_EXPLAIN}</span></dt>
+		<dd>
+			<input type="radio" class="radio" name="meeting_user_enter" value="1" {USER_ALLOW_ENTER_MEETING_YES} /> {L_YES}&nbsp; &nbsp;
+			<input type="radio" class="radio" name="meeting_user_enter" value="0" {USER_ALLOW_ENTER_MEETING_NO} /> {L_NO}&nbsp; &nbsp;
+			<input type="radio" class="radio" name="meeting_user_enter" value="2" {USER_ALLOW_ENTER_MEETING_GROUP} /> {L_GROUPS}
+		</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_MEETING_GROUP_CREATE}</label><br /><span>{L_MEETING_GROUP_CREATE_EXPLAIN}</span></dt>
+		<dd>{S_USERGROUPS_CREATE}</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_MEETING_GROUP_SELECT}</label><br /><span>{L_MEETING_GROUP_SELECT_EXPLAIN}</span></dt>
+		<dd>{S_USERGROUPS_SELECT}</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_MEETING_SIGN_OTHER_PERM}</label><br /><span>{L_MEETING_SIGN_OTHER_PERM_EXPLAIN}</span></dt>
+		<dd>{S_MEETING_SIGN_PERM}</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_USER_ALLOW_EDIT_MEETING}</label><br /><span>{L_USER_ALLOW_EDIT_MEETING_EXPLAIN}</span></dt>
+		<dd>
+			<input type="radio" class="radio" name="meeting_user_edit" value="1" {USER_ALLOW_EDIT_MEETING_YES} /> {L_YES}&nbsp; &nbsp;
+			<input type="radio" class="radio" name="meeting_user_edit" value="0" {USER_ALLOW_EDIT_MEETING_NO} /> {L_NO}
+		</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_USER_ALLOW_DELETE_MEETING}</label><br /><span>{L_USER_ALLOW_DELETE_MEETING_EXPLAIN}</span></dt>
+		<dd>
+			<input type="radio" class="radio" name="meeting_user_delete" value="1" {USER_ALLOW_DELETE_MEETING_YES} /> {L_YES}&nbsp; &nbsp;
+			<input type="radio" class="radio" name="meeting_user_delete" value="0" {USER_ALLOW_DELETE_MEETING_NO} /> {L_NO}
+		</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_USER_ALLOW_DELETE_MEETING_COMMENTS}</label><br /><span>{L_USER_ALLOW_DELETE_MEETING_COMMENTS_EXPLAIN}</span></dt>
+		<dd>
+			<input type="radio" class="radio" name="meeting_user_delete_comments" value="1" {USER_ALLOW_DELETE_MEETING_COMMENTS_YES} /> {L_YES}&nbsp; &nbsp;
+			<input type="radio" class="radio" name="meeting_user_delete_comments" value="0" {USER_ALLOW_DELETE_MEETING_COMMENTS_NO} /> {L_NO}
+		</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_MEETING_NOTIFY}</label><br /><span>{L_MEETING_NOTIFY_EXPLAIN}</span></dt>
+		<dd>
+			<input type="radio" class="radio" name="meeting_notify" value="1" {MEETING_NOTIFY_YES} /> {L_YES}&nbsp; &nbsp;
+			<input type="radio" class="radio" name="meeting_notify" value="0" {MEETING_NOTIFY_NO} /> {L_NO}
+		</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_MEETING_FIRST_WEEKDAY}</label></dt>
+		<dd>
+			<input type="radio" class="radio" name="meeting_first_weekday" value="m" {MEETING_FIRST_WEEKDAY_M} /> {L_MEETING_CAL_MONDAY}&nbsp; &nbsp;
+			<input type="radio" class="radio" name="meeting_first_weekday" value="s" {MEETING_FIRST_WEEKDAY_S} /> {L_MEETING_CAL_SUNDAY}
+		</dd>
+	</dl>
+
+</fieldset>
+
+<fieldset class="quick">
+	<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />&nbsp;<input type="reset" name="reset" value="{L_RESET}" class="button2" />
+	{S_FORM_TOKEN}
+</fieldset>
+
+</form>

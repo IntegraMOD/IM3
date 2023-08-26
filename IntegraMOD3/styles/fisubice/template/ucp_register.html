@@ -1,0 +1,160 @@
+<!-- INCLUDE overall_header.html -->
+
+<script type="text/javascript">
+// <![CDATA[
+	/**
+	* Change language
+	*/
+	function change_language(lang_iso)
+	{
+		document.forms['register'].change_lang.value = lang_iso;
+		document.forms['register'].submit.click();
+	}
+
+	/**
+	* Some functions for the AJAX checker
+	*/
+	function createRequestObject() {
+	    var ro;
+	    var browser = navigator.appName;
+	    if(browser == "Microsoft Internet Explorer"){
+	        ro = new ActiveXObject("Microsoft.XMLHTTP");
+	    } else {
+	        ro = new XMLHttpRequest();
+	    }
+	    return ro;
+	}
+	
+	var http = createRequestObject();
+	
+	function sndReq(mode, valuename1, value1, valuename2, value2) {
+		// Show that the request is running
+		if (mode == 'usernamecheck' && document.getElementById('username').value != ''){
+			document.getElementById('usernamecheck').innerHTML = '{AJAX_CHECKING_IMG}&nbsp;{L_AJAX_CHECKING_USERNAME}';
+		} else if (mode == 'passwordcheck' && document.getElementById('new_password').value != '' && document.getElementById('password_confirm').value != '') {
+			document.getElementById('passwordcheck').innerHTML = '{AJAX_CHECKING_IMG}&nbsp;{L_AJAX_CHECKING_PASSWORD}';
+		} else if (mode == 'emailcheck' && document.getElementById('email').value != '' && document.getElementById('email_confirm').value != '') {
+			document.getElementById('emailcheck').innerHTML = '{AJAX_CHECKING_IMG}&nbsp;{L_AJAX_CHECKING_EMAIL}';
+		} else {
+			return false;
+		}
+		
+		// Make the request
+	    http.open('get', '{AJAX_CHECKS_FILE}?mode='+mode+'&'+valuename1+'='+value1+'&'+valuename2+'='+value2);
+	    http.onreadystatechange = handleResponse;
+	    http.send(null);
+	}
+	
+	function handleResponse() {
+	    if(http.readyState == 4){
+	        var response = http.responseText;
+	        var update = new Array();
+	
+	        if(response.indexOf('|' != -1)) {
+	            update = response.split('|');
+	            document.getElementById(update[0]).innerHTML = update[1];
+	        }
+	    }
+	}
+// ]]>
+</script>
+
+<form name="register" method="post" action="{S_UCP_ACTION}">
+
+<table class="tablebg" width="100%" cellspacing="1">
+<tr>
+	<th colspan="2" valign="middle">{L_REGISTRATION}</th>
+</tr>
+
+<!-- IF ERROR -->
+	<tr>
+		<td class="row3" colspan="2" align="center"><span class="gensmall error">{ERROR}</span></td>
+	</tr>
+<!-- ENDIF -->
+
+<!-- IF L_REG_COND -->
+	<tr>
+		<td class="row2" colspan="2"><span class="gensmall">{L_REG_COND}</span></td>
+	</tr>
+<!-- ENDIF -->
+
+<tr>
+	<td class="row1" width="38%"><b class="genmed">{L_USERNAME}: </b><br /><span class="gensmall">{L_USERNAME_EXPLAIN}</span></td>
+	<td class="row2"><input class="post" type="text" id="username" name="username" size="25" value="{USERNAME}" title="{L_USERNAME}" onblur="sndReq('usernamecheck', 'username', this.value, 'ignore', 'ignore')" /><span id="usernamecheck"></span></td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_EMAIL_ADDRESS}: </b></td>
+	<td class="row2"><input class="post" type="text" id="email" name="email" size="25" maxlength="100" value="{EMAIL}" title="{L_EMAIL_ADDRESS}" onblur="sndReq('emailcheck', 'email1', this.value, 'email2', document.getElementById('email_confirm').value)" /><span id="emailcheck"></span></td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_CONFIRM_EMAIL}: </b></td>
+	<td class="row2"><input class="post" type="text" id="email_confirm" name="email_confirm" size="25" maxlength="100" value="{EMAIL_CONFIRM}" title="{L_CONFIRM_EMAIL}" onblur="sndReq('emailcheck', 'email1', document.getElementById('email').value, 'email2', this.value)" /></td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_PASSWORD}: </b><br /><span class="gensmall">{L_PASSWORD_EXPLAIN}</span></td>
+	<td class="row2"><input class="post" type="password" id="new_password" name="new_password" size="25" value="{PASSWORD}" title="{L_NEW_PASSWORD}" onblur="sndReq('passwordcheck', 'password1', this.value, 'password2', document.getElementById('password_confirm').value)" /><span id="passwordcheck"></span></td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_CONFIRM_PASSWORD}: </b></td>
+	<td class="row2"><input class="post" type="password" id="password_confirm" name="password_confirm" size="25" value="{PASSWORD_CONFIRM}" title="{L_CONFIRM_PASSWORD}" onblur="sndReq('passwordcheck', 'password1', document.getElementById('new_password').value, 'password2', this.value)" /></td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_LANGUAGE}: </b></td>
+	<td class="row2"><select name="lang" onchange="change_language(this.value); return false;">{S_LANG_OPTIONS}</select></td>
+</tr>
+<tr>
+	<td class="row1"><b class="genmed">{L_TIMEZONE}: </b></td>
+	<td class="row2"><select name="tz">{S_TZ_OPTIONS}</select></td>
+</tr>
+<!-- IF S_DIGESTS -->
+<tr>
+    <td class="row1"><b class="genmed">{L_DIGEST_REGISTER}:</b><br />{L_DIGEST_REGISTER_EXPLAIN}</td>
+    <td class="row2">
+        <label for="digest1"><input type="radio" name="digest" id="digest1" value="1"<!-- IF S_DIGEST_REGISTER_CHECKED_YES --> checked="checked"<!-- ENDIF --> /> {L_YES}</label> 
+        <label for="digest2"><input type="radio" name="digest" id="digest2" value="0"<!-- IF S_DIGEST_REGISTER_CHECKED_NO --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+    </td>
+<!-- ENDIF -->
+<!-- IF .profile_fields -->
+	<tr>
+		<td class="row2" colspan="2"><span class="gensmall">{L_ITEMS_REQUIRED}</span></td>
+	</tr>
+<!-- BEGIN profile_fields -->
+	<tr>
+		<td class="row1" width="35%">
+			<b class="genmed">{profile_fields.LANG_NAME}: </b>
+			<!-- IF profile_fields.S_REQUIRED --><b>*</b><!-- ENDIF -->
+			<!-- IF profile_fields.LANG_EXPLAIN --><br /><span class="gensmall">{profile_fields.LANG_EXPLAIN}</span><!-- ENDIF -->
+		</td>
+		<td class="row2">{profile_fields.FIELD}<!-- IF profile_fields.ERROR --><br /><span class="gensmall error">{profile_fields.ERROR}</span><!-- ENDIF --></td>
+	</tr>
+	
+<!-- END profile_fields -->
+<!-- ENDIF -->
+<!-- IF S_GROUPS_ON_REGISTRATION -->
+	<tr> 
+		<td class="row1" width="35%"><b class="genmed">{L_GROUPS_ON_REGISTRATION}: <!-- IF S_GROUPS_REQUIRED -->*<!-- ENDIF --></b><br /><span class="gensmall">{GROUPS_REGISTRATION_EXP}</span></td>
+		<td class="row2"><!-- IF S_GROUPS_ON_REG_MULTIPLE --><div style="height: 6em; width: 12em; overflow: auto;">{S_GROUP_MULTIPLE_OPTIONS}</div><!-- ELSE --><select name="reg_group_id" id="reg_group_id" class="autowidth">{S_GROUP_OPTIONS}</select><!-- ENDIF --></td>
+	</tr>
+<!-- ENDIF -->
+
+		<!-- IF CAPTCHA_TEMPLATE -->
+		<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+		<!-- ENDIF -->
+
+<!-- IF S_COPPA -->
+	<tr>
+		<th colspan="2" valign="middle">{L_COPPA_COMPLIANCE}</th>
+	</tr>
+	<tr>
+		<td class="row3" colspan="2"><span class="gensmall">{L_COPPA_EXPLAIN}</span></td>
+	</tr>
+<!-- ENDIF -->
+
+<tr>
+	<td class="cat" colspan="2" align="center">{S_HIDDEN_FIELDS}<input class="btnmain" type="submit" name="submit" id="submit" value="{L_SUBMIT}" />&nbsp;&nbsp;<input class="btnlite" type="reset" value="{L_RESET}" name="reset" /></td>
+</tr>
+</table>
+{S_FORM_TOKEN}
+</form>
+
+<!-- INCLUDE overall_footer.html -->

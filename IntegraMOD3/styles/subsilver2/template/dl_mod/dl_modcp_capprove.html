@@ -1,0 +1,58 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<script type="text/javascript">
+// <![CDATA[
+function select_switch(status)
+{
+	for (i = 0; i < document.forms.dl_modcp.length; i++)
+	{
+		document.forms.dl_modcp.elements[i].checked = status;
+	}
+}
+// ]]>
+</script>
+
+<form method="post" id="dl_modcp" action="{S_DL_MODCP_ACTION}" >
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="table1">
+<thead>
+<tr>
+	<th>{L_DL_DOWNLOAD} / {L_DL_CAT_NAME}</th>
+	<th>{L_DL_COMMENT}</th>
+	<th colspan="2">{L_OPTIONS}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN approve_row -->
+<tr>
+	<td class="row<!-- IF approve_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">{approve_row.MINI_ICON}&nbsp;<a href="{approve_row.U_DOWNLOAD}" class="topictitle">{approve_row.DESCRIPTION}</a><br /><span class="genmed"><a href="{approve_row.U_CAT_VIEW}" class="genmed">{approve_row.CAT_NAME}</a></span></td>
+	<td class="row<!-- IF approve_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><a href="{approve_row.U_USER_LINK}" class="nav">{approve_row.COMMENT_USERNAME}</a><br /><span class="gensmall">{approve_row.COMMENT_TEXT}</span></td>
+	<td class="row<!-- IF approve_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" align="center" width="10%"><a href="{approve_row.U_EDIT}">{L_DL_EDIT_FILE}</a></td>
+	<td class="row<!-- IF approve_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" align="center" width="5%"><input type="checkbox" name="dlo_id[]" value="{approve_row.COMMENT_ID}" /></td>
+</tr>
+<!-- END approve_row -->
+<tr>
+	<td colspan="4" align="right" class="row3" valign="top" nowrap="nowrap">
+		<input type="submit" name="cdelete" value="{L_DL_DELETE}" class="btnlite" />&nbsp;&nbsp;<input type="submit" name="submit" value="{L_DL_APPROVE}" class="btnmain"/>
+	</td>
+</tr>
+</tbody>
+</table>
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0">
+<tr>
+	<td colspan="1" align="right" valign="top" nowrap="nowrap"><span class="gensmall">
+		<a href="javascript:select_switch(true);" class="gensmall">{L_DL_MARK_ALL}</a> ::
+		<a href="javascript:select_switch(false);" class="gensmall">{L_DL_UNMARK}</a>
+		</span><br /><br /><span class="nav">{PAGINATION}</span>
+	</td>
+</tr>
+</table>
+
+{S_FORM_TOKEN}
+{S_HIDDEN_FIELDS}
+</form>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

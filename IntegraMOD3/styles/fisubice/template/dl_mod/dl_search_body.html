@@ -1,0 +1,56 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+	<form action="{S_DL_SEARCH_ACTION}" method="post" id="dl_search">
+
+		<table class="table1" width="100%" cellpadding="4" cellspacing="1">
+		<tr>
+			<th colspan="2">{L_SEARCH_FOR}</th>
+		</tr>
+		<tr>
+			<td class="row1" style="width: 50%" align="right"><span class="gen">{L_SEARCH_KEYWORDS}</span></td>
+			<td class="row2" valign="top"><span><input type="text" class="inputbox" name="search_keywords" size="50" maxlength="255" /></span></td>
+		</tr>
+		<tr>
+			<td class="row1" style="width: 50%" align="right"><span class="gen">{L_DL_SEARCH_AUTHOR}</span></td>
+			<td class="row2" valign="top"><span><input type="text" class="inputbox" name="search_author" size="50" maxlength="255" /></span></td>
+		</tr>
+		</table>
+
+		<br />
+
+		<table class="table1" width="100%" cellpadding="4" cellspacing="1">
+			<tr>
+			<th colspan="2">{L_SEARCH_OPTIONS}</th>
+		</tr>
+		<tr>
+			<td class="row1" style="width: 50%" align="right"><span class="gen">{L_DL_CAT_NAME}</span></td>
+			<td class="row2"><span>{S_DL_CATEGORY_OPTIONS}</span></td>
+		</tr>
+		<tr>
+			<td class="row1" style="width: 50%" align="right"><span class="gen">{L_SEARCH_WITHIN}</span></td>
+			<td class="row2"><span>{S_DL_SORT_OPTIONS}</span></td>
+		</tr>
+		<tr>
+			<td class="row1" style="width: 50%" align="right"><span class="gen">{L_DL_ORDER}</span></td>
+			<td class="row2"><span>{S_DL_SORT_ORDER}</span></td>
+		</tr>
+		<tr>
+			<td class="row1" style="width: 50%" align="right"><span class="gen">{L_DL_SEARCH_TYPE}</span></td>
+			<td class="row2">
+				<label><input type="radio" name="search_type" value="0" checked="checked" /> {L_DL_SEARCH_TYPE_ALL}</label><br />
+				<label><input type="radio" name="search_type" value="1" /> {L_DL_SEARCH_TYPE_SINGLE}</label>
+			</td>
+		</tr>
+		</table>
+
+		<table width="100%" cellspacing="10" cellpadding="0" border="0">
+		<tr>
+			<td align="right"><input type="submit" name="submit" class="btnmain" value="{L_SEARCH}" /></td>
+		</tr>
+		</table>
+
+	{S_FORM_TOKEN}
+
+	</form>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

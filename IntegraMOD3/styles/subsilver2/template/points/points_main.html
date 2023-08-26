@@ -1,0 +1,98 @@
+<!-- INCLUDE overall_header.html -->
+<!-- $Id: points_main.html 587 2009-10-14 18:36:12Z Wuerzi $ -->
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="20%" valign="top">
+
+			<table class="tablebg" width="100%" cellspacing="1">
+				<tr>
+					<th>{L_POINTS_OPTIONS}</th>
+				</tr>
+				<tr class="row1">
+					<td><a href="{U_POINTS}"><b>{L_POINTS_OVERVIEW}</b></a></td>
+				</tr>
+				<tr class="row1">
+					<td><a href="{U_INFO}">{L_POINTS_INFO}</a></td>
+				</tr>
+				<!-- IF TRANSFER_ENABLE and U_USE_TRANSFER -->
+				<tr class="row1">
+					<td><a href="{U_TRANSFER_USER}">{L_POINTS_TRANSFER}</a></td>
+				</tr>
+				<!-- ENDIF -->
+				<!-- IF LOGS_ENABLE and U_USE_LOGS -->
+				<tr class="row1">
+					<td><a href="{U_LOGS}">{L_POINTS_LOGS}</a></td>
+				</tr>
+				<!-- ENDIF -->
+				<!-- IF LOTTERY_ENABLE and U_USE_LOTTERY -->
+				<tr class="row1">
+					<td><a href="{U_LOTTERY}">{LOTTERY_NAME}</a></td>
+				</tr>
+				<!-- ENDIF -->
+				<!-- IF BANK_ENABLE and U_USE_BANK -->
+				<tr class="row1">
+					<td><a href="{U_BANK}">{BANK_NAME}</a></td>
+				</tr>
+				<!-- ENDIF -->
+				<!-- IF ROBBERY_ENABLE and U_USE_ROBBERY -->
+				<tr class="row1">
+					<td><a href="{U_ROBBERY}">{L_POINTS_ROBBERY}</a></td>
+				</tr>
+				<!-- ENDIF -->
+			</table>
+
+			<br clear="all" />
+
+			<table class="tablebg" width="100%" cellspacing="1">
+				<tr>
+					<th>{L_POINTS_MOST_RICH_CASH_USERS}</th>
+				</tr>
+				<tr class="row1">
+					<td>
+						<!-- IF S_DISPLAY_INDEX -->
+							<!-- BEGIN points -->
+							<span style="float:left; padding-left:5px; padding-top:2px;">{points.USERNAME}</span>
+							<span style="float:right;padding-right:10px; padding-top:2px;">{points.POINT}</span><br style="clear:both" />
+							<!-- END points -->
+						<!-- ELSE -->
+						{L_POINTS_MOST_RICH_USERS_DISABLED}
+						<!-- ENDIF -->
+					</td>
+				</tr>
+			</table>
+
+		</td>
+		<td width="80%" valign="top">
+
+			<table class="tablebg" width="100%" cellspacing="1">
+				<tr>
+					<th>{L_POINTS_OVERVIEW}</th>
+				</tr>
+				<tr class="row1">
+					<td align="center"><br /><br />
+					<p>{L_MAIN_HELLO_USERNAME}</p><br />
+					<!-- IF S_USER_LOGGED_IN -->
+					<p>{L_MAIN_ON_HAND}</p><br />
+						<!-- BEGIN has_bank_account -->
+						<p>{has_bank_account.L_MAIN_BANK_HAVE}</p><br />
+						<!-- END has_bank_account -->
+					<p>{L_MAIN_LOTTERY_TICKETS}</p><br /><br />
+					<!-- ENDIF -->
+					</td>
+				</tr>
+				<!-- IF not U_USE_POINTS -->
+				<tr class="row1">
+					<td align="center"><br /><span style="color: red;"><b>{L_MAIN_USERNAME_LOCKED}</b></span></td>
+				</tr>
+				<!-- ENDIF -->
+			</table>
+
+		</td>
+	</tr>
+</table>	
+
+<div class="copyright" style="text-align: center;"><i>{L_POINTS_COPYRIGHT}{POINT_VERS}</i></div>
+<br clear="all" />
+
+<!-- INCLUDE overall_footer.html -->

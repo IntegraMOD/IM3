@@ -1,0 +1,104 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h1>{DL_MANAGEMENT_TITLE}</h1>
+
+<!-- IF S_DL_OVERVIEW -->
+<h3>{DL_MANAGEMENT_EXPLAIN}</h3>
+
+<!-- IF S_DL_TRAFFIC_OFF -->
+<br />
+<div>{L_DL_TRAFFIC_OFF_EXPLAIN}</div>
+<!-- ENDIF -->
+
+<!-- BEGIN remain_traffic -->
+<br />
+<div>{remain_traffic.REMAIN_TRAFFIC}</div>
+<!-- END remain_traffic -->
+
+<!-- BEGIN no_remain_traffic -->
+<br />
+<div style="text-decoration: underline"><b>{no_remain_traffic.NO_OVERALL_TRAFFIC}</b></div>
+<!-- END no_remain_traffic -->
+
+<!-- BEGIN remain_guest_traffic -->
+<br />
+<div>{remain_guest_traffic.REMAIN_GUEST_TRAFFIC}</div>
+<!-- END remain_guest_traffic -->
+
+<!-- BEGIN no_remain_guest_traffic -->
+<br />
+<div style="text-decoration: underline"><b>{no_remain_guest_traffic.NO_OVERALL_GUEST_TRAFFIC}</b></div>
+<!-- END no_remain_guest_traffic -->
+
+<!-- BEGIN total_stat -->
+<br />
+<div>{total_stat.TOTAL_STAT}</div>
+<!-- END total_stat -->
+
+<br />
+<!-- ENDIF -->
+
+<script type="text/javascript">
+// <![CDATA[
+function help_popup(help_key, value)
+{
+	url = '{U_HELP_POPUP}{SID}&help_key=' + help_key;
+
+	if (value != '')
+	{
+		url = url + '&value=' + value;
+	}
+
+	window.open(url, '_blank', 'height=500,width=600,resizable=yes,toolbar=no,scrollbars=no,status=no,menubar=no');;
+}
+// ]]>
+</script>
+
+<!-- IF U_BACK --><a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a><!-- ENDIF -->
+
+<!-- IF S_DL_CONFIG --><!-- INCLUDE dl_mod/dl_config_body.html --><!-- ENDIF -->
+<!-- IF S_DL_TOOLBOX --><!-- INCLUDE dl_mod/dl_toolbox_body.html --><!-- ENDIF -->
+<!-- IF S_DL_THUMBS --><!-- INCLUDE dl_mod/dl_thumbs_body.html --><!-- ENDIF -->
+<!-- IF S_DL_BLACKLIST --><!-- INCLUDE dl_mod/dl_ext_blacklist_body.html --><!-- ENDIF -->
+<!-- IF S_DL_BANLIST --><!-- INCLUDE dl_mod/dl_banlist_body.html --><!-- ENDIF -->
+<!-- IF S_DL_CONFIRM --><!-- INCLUDE dl_mod/dl_confirm_body.html --><!-- ENDIF -->
+<!-- IF S_DL_TRAFFIC --><!-- INCLUDE dl_mod/dl_traffic_body.html --><!-- ENDIF -->
+<!-- IF S_DL_CATEGORIES --><!-- INCLUDE dl_mod/dl_cat_body.html --><!-- ENDIF -->
+<!-- IF S_DL_CATEGORY_EDIT --><!-- INCLUDE dl_mod/dl_cat_edit_body.html --><!-- ENDIF -->
+<!-- IF S_DL_FILES --><!-- INCLUDE dl_mod/dl_files_body.html --><!-- ENDIF -->
+<!-- IF S_DL_FILES_EDIT --><!-- INCLUDE dl_mod/dl_files_edit_body.html --><!-- ENDIF -->
+<!-- IF S_DL_STATS --><!-- INCLUDE dl_mod/dl_stats_admin_body.html --><!-- ENDIF -->
+<!-- IF S_DL_PERMISSIONS --><!-- INCLUDE dl_mod/dl_permissions_body.html --><!-- ENDIF -->
+<!-- IF S_DL_FIELDS --><!-- INCLUDE dl_mod/dl_fields_body.html --><!-- ENDIF -->
+<!-- IF S_DL_BROWSER --><!-- INCLUDE dl_mod/dl_browser_body.html --><!-- ENDIF -->
+
+<fieldset class="submit-buttons">{DL_MOD_RELEASE}</fieldset>
+
+<!-- BEGIN mods -->
+<fieldset>
+	<legend>{L_DL_VERSION_CHECK}</legend>
+	<p style="font-weight: bold; color: <!-- IF mods.S_UP_TO_DATE -->#228822<!-- ELSE -->#BC2A4D<!-- ENDIF -->;">{mods.UP_TO_DATE}</p>
+	<dl>
+		<dt><label>{L_DL_CURRENT_VERSION}</label></dt>
+		<dd><strong>{mods.CURRENT_VERSION}</strong></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_DL_LATEST_VERSION}</label></dt>
+		<dd><strong>{mods.LATEST_VERSION}</strong></dd>
+	</dl>
+	<!-- IF not mods.S_UP_TO_DATE -->
+		<dl>
+			<dt><label>{L_DL_DOWNLOAD_LATEST}</label></dt>
+			<dd><strong><a href="{mods.DOWNLOAD}">{L_DOWNLOAD} {mods.TITLE} {mods.LATEST_VERSION}</a></strong></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_DL_ANNOUNCEMENT_TOPIC}</label></dt>
+			<dd><strong><a href="{mods.ANNOUNCEMENT}">{L_DL_RELEASE_ANNOUNCEMENT}</a></strong></dd>
+		</dl>
+	<!-- ENDIF -->
+</fieldset>
+<!-- END mods -->
+
+<!-- INCLUDE overall_footer.html -->

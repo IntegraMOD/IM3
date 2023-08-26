@@ -1,0 +1,42 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h1>{L_TITLE}</h1>
+
+<p>{L_TITLE_EXPLAIN}</p>
+
+<form id="acp_imod_config" method="post" action="{U_ACTION}">
+
+<!-- IF S_OPT  == "Configure" -->
+<fieldset>
+	<legend>{L_IMOD_CONFIG_HEADING}</legend>
+	<dl>
+		<dt><label for="imod_version">{L_IMOD_VERSION}:</label><br /><span>{L_IMOD_VERSION_EXPLAIN}</span></dt>
+		<dd><input class="post" size="10" maxlength="10" name="imod_version" value="{S_IMOD_VERSION}" type="text"></dd>
+	</dl>
+<!--	
+	<dl>
+		<dt><label for="imod_enabled">{L_IMOD_ENABLED}:</label><br /><span>{L_IMOD_ENABLED_EXPLAIN}</span></dt>
+		<dd><input class="post" size="5" maxlength="3" name="imod_enabled" value="{S_IMOD_ENABLED}" type="text"></dd>
+	</dl>
+-->	
+</fieldset>
+
+<!-- ENDIF -->
+</table>
+
+
+<!-- IF S_OPT == 'Config Data Saved' || S_OPT == 'File Created' || S_OPT == 'Saved' -->
+<b>{S_OPT}<br /></b>
+<!-- ELSE -->
+<!-- IF S_OPT != "" -->
+<fieldset class="submit-buttons">
+	<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />&nbsp;
+</fieldset>
+<!-- ENDIF -->
+<!-- ENDIF -->
+{S_FORM_TOKEN}
+</form>
+<!-- INCLUDE overall_footer.html -->

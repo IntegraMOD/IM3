@@ -1,0 +1,84 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<script type="text/javascript">
+// <![CDATA[
+function select_switch(status)
+{
+	doc_length = {MAX_DOWNLOADS};
+
+	for (i = 0; i < doc_length; i++)
+	{
+		dl_file = document.getElementById('dlo_id_' + i);
+		if (status)
+		{
+			dl_file.checked = 'checked';
+		}
+		else
+		{
+			dl_file.checked = '';
+		}
+	}
+}
+// ]]>
+</script>
+
+<form method="post" id="dl_modcp" action="{S_DL_MODCP_ACTION}" >
+
+<h2>{L_DL_MODCP_MANAGE}</h2>
+
+<br />
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0" class="table1">
+<thead>
+<tr>
+	<th>{L_DL_DOWNLOAD}</th>
+	<th colspan="4">{L_OPTIONS}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN manage_row -->
+<tr>
+	<td class="row<!-- IF manage_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->"><a href="{manage_row.U_DOWNLOAD}" class="topictitle">{manage_row.DESCRIPTION}</a>&nbsp;{manage_row.MINI_ICON}</td>
+	<td class="row<!-- IF manage_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" align="center" width="10%"><!-- IF SORT --><a href="{manage_row.U_UP}" class="gensmall">{DL_UP}</a><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
+	<td class="row<!-- IF manage_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" align="center" width="10%"><!-- IF SORT --><a href="{manage_row.U_DOWN}" class="gensmall">{DL_DOWN}</a><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
+	<td class="row<!-- IF manage_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" align="center" width="10%"><a href="{manage_row.U_EDIT}">{L_DL_EDIT_FILE}</a></td>
+	<td class="row<!-- IF manage_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" align="center" width="5%"><input type="checkbox" name="dlo_id[]" id="dlo_id_{manage_row.S_ROW_COUNT}" value="{manage_row.FILE_ID}" /></td>
+</tr>
+<!-- END manage_row -->
+<tr>
+	<td colspan="5" align="right" class="row3"><span class="genmed">
+		<!-- IF S_ORDER_BUTTON -->
+		<input type="submit" name="sort" value="{L_DL_ORDER}" class="mainoption" />&nbsp;&nbsp;
+		<!-- ENDIF -->
+		<!-- IF S_MODCP_BUTTON -->
+		<input type="submit" value="{L_DL_MODCP_MANAGE}" class="mainoption" />&nbsp;&nbsp;
+		<!-- ENDIF -->
+		<input type="submit" name="move" value="{L_DL_MOVE}" class="mainoption" />&nbsp;{S_CAT_SELECT}&nbsp;&nbsp;
+		<input type="submit" name="delete" value="{L_DL_DELETE}" class="liteoption" />
+		&nbsp;&nbsp;
+		<input type="submit" name="lock" value="{L_DL_LOCK}" class="liteoption" />
+		</span>
+	</td>
+</tr>
+</tbody>
+</table>
+
+<table width="100%" cellpadding="3" cellspacing="1" border="0">
+<tr>
+	<td colspan="1" align="right" valign="top" nowrap="nowrap"><span class="gensmall">
+		<!-- BEGIN sort_asc -->
+		<a href="{U_SORT_ASC}" class="gensmall">{DL_ABC}</a> ::
+		<!-- END sort_asc -->
+		<a href="javascript:select_switch(true);" class="gensmall">{L_DL_MARK_ALL}</a> ::
+		<a href="javascript:select_switch(false);" class="gensmall">{L_DL_UNMARK}</a>
+		</span><br /><br /><span class="nav">&nbsp;{PAGINATION}</span>
+	</td>
+</tr>
+</table>
+
+{S_HIDDEN_FIELDS}
+</form>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

@@ -1,0 +1,66 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{L_DL_MOD_TODO}</h2>
+
+<table width="100%" cellspacing="1" cellpadding="3" border="0" align="center" class="table1">
+<thead>
+<tr>
+	<th style="width: 25%">{L_DL_FILE_DESCRIPTION}</th>
+	<th style="width: 65%">{L_DL_MOD_TODO}</th>
+	<th style="width: 10%">{L_OPTIONS}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN todolist_row -->
+<tr>
+	<td style="width: 25%" class="row<!-- IF todolist_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" valign="top"><a href="{todolist_row.FILE_LINK}" class="forumtitle">{todolist_row.FILENAME}</a>&nbsp;<span>{todolist_row.HACK_VERSION}</span></td>
+	<td style="width: 65%" class="row<!-- IF todolist_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" valign="top"><span class="small">{todolist_row.TODO}</span></td>
+	<td style="width: 10%" class="row<!-- IF todolist_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->" valign="top" align="center"><a href="{todolist_row.U_TODO_EDIT}" class="small">{L_DL_EDIT_FILE}</a><br /><a href="{todolist_row.U_TODO_DELETE}" class="small">{L_DL_DELETE}</a></td>
+</tr>
+<!-- END todolist_row -->
+<!-- IF S_NO_TODOLIST -->
+<tr>
+	<td class="row1" style="vertical-align: top;" align="center" colspan="3"><span>{L_DL_NO_MOD_TODO}</span></td>
+</tr>
+<!-- ENDIF -->
+</tbody>
+</table>
+
+<!-- IF S_TODO_ADD -->
+<br />
+
+<form action="{S_FORM_ACTION}" method="post" id="todo_edit">
+
+	<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
+	<thead>
+	<tr>
+		<th colspan="2"><!-- IF S_ADD_TODO -->{L_DL_NEW}<!-- ELSE -->{L_DL_EDIT_FILE}<!-- ENDIF --></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td class="row1" style="width: 15%"><span class="gen">{L_DL_FILE_DESCRIPTION}:</span></td>
+		<td class="row2" style="width: 85%">{S_DOWNLOAD}</td>
+	</tr>
+	<tr>
+		<td class="row1" style="width: 15%; vertical-align: top;"><span class="gen">{L_DL_MOD_TODO}:</span></td>
+		<td class="row2" style="width: 85%"><textarea name="todo" rows="10" cols="100">{TODO_TEXT}</textarea></td>
+	</tr>
+	</tbody>
+	</table>
+
+	<table width="100%" cellpadding="3" cellspacing="1" border="0" align="center" class="table1">
+	<tr>
+		<td align="center"><input type="submit" name="submit" value="{L_SUBMIT}" class="btnmain" />&nbsp;&nbsp;<input type="reset" name="reset" value="{L_RESET}" class="btnlite" /></td>
+	</tr>
+	</table>
+
+	{S_FORM_TOKEN}
+	{S_HIDDEN_FIELDS}
+
+</form>
+<!-- ENDIF -->
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

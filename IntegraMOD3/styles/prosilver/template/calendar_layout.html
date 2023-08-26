@@ -1,0 +1,379 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{L_CALENDAR_MONTH}</h2>
+<!-- IF S_FORUM_RULES -->
+    <div class="rules">
+        <div class="inner"><span class="corners-top"><span></span></span>
+
+        <!-- IF U_FORUM_RULES -->
+            <a href="{U_FORUM_RULES}">{L_FORUM_RULES}</a>
+        <!-- ELSE -->
+            <strong>{L_FORUM_RULES}</strong><br />
+            {FORUM_RULES}
+        <!-- ENDIF -->
+
+        <span class="corners-bottom"><span></span></span></div>
+    </div>
+<!-- ENDIF -->
+
+<ul class="linklist rightside">
+    <a href="{U_ICAL_LINK}" title="{L_CALENDAR_EXPORT_ICAL_EXPLAIN}">{L_CALENDAR_EXPORT_ICAL}</a>
+    &bull; <a href="{U_CSV_LINK}" title="{L_CALENDAR_EXPORT_CSV_EXPLAIN}">{L_CALENDAR_EXPORT_CSV}&nbsp;</a>
+</ul>
+<br />
+<ul class="linklist rightside">
+    <a href="{U_SUBSCRIBE_PRIV_CAL}" title="{L_CALENDAR_SUBSCRIBE_PRIV_CAL_EXPLAIN}">{L_CALENDAR_SUBSCRIBE_PRIV_CAL}</a>
+    &bull; <a href="{U_SUBSCRIBE_PUBLIC_CAL}" title="{L_CALENDAR_SUBSCRIBE_PUBLIC_CAL_EXPLAIN}">{L_CALENDAR_SUBSCRIBE_PUBLIC_CAL}</a>
+    <!-- IF U_PUBLISH_RSS_CAL -->&bull; <a href="{U_PUBLISH_RSS_CAL}" title="{L_CALENDAR_PUBLISH_RSS_EXPLAIN}">{L_CALENDAR_PUBLISH_RSS}&nbsp;</a><!-- ENDIF -->
+</ul>
+
+<div id="tabs">
+    <ul>
+        <li id="calendar-panel-tab" class="activetab"><a href="#tabs" onclick="subPanels('calendar-panel'); showAppropriate('calendar-panel'); return false;"><span>{L_LANG_CALENDAR}</span></a></li>
+		<!-- IF S_NEW_EVENT -->
+        <li id="event-panel-tab"><a href="#tabs" onclick="subPanels('event-panel'); showAppropriate('event-panel'); return false;"><span>{U_ADD_EDIT_TAB}</span></a></li>
+		<!-- ENDIF -->
+
+        <!-- IF not S_OVERRIDE_USER --><li id="settings-panel-tab"><a href="#tabs" onclick="subPanels('settings-panel'); showAppropriate('settings-panel'); return false;"><span>{L_CALENDAR_SETTINGS}</span></a></li><!-- ENDIF -->
+    </ul>
+</div>
+
+<form name="postform" id="postform" method="post" action="{S_POST_ACTION}"{S_FORM_ENCTYPE}>
+
+    <div class="panel bg3" id="calendar-panel" style="display: none">
+        <div class="inner"><span class="corners-top"><span></span></span>
+           <div align="center">
+
+                <table width="100%" cellpadding="2" cellspacing="0" border="0">
+                <tr>
+                    <td align="left"><a href="{U_PREV_MONTH}" class="gen"><img src="{T_IMAGESET_PATH}/arrowleftmonth.gif"></a></td>
+                    <td align="right"><a href="{U_NEXT_MONTH}" class="gen"><img src="{T_IMAGESET_PATH}/arrowrightmonth.gif"></a></td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+                            <tr>
+                                <!-- IF S_SHOW_WEEK_NUMS -->
+                                    <td class="row3" align="center" width="2%"><b></b></td>
+                                <!-- ENDIF -->
+                                <!-- IF not S_MONDAY_FIRST -->
+                                    <td class="row1" align="center" width="14%"><b>{L_SUN}</b></td>
+                                <!-- ENDIF -->
+                                <td class="row1" align="center" width="14%"><b>{L_MON}</b></td>
+                                <td class="row1" align="center" width="14%"><b>{L_TUE}</b></td>
+                                <td class="row1" align="center" width="14%"><b>{L_WED}</b></td>
+                                <td class="row1" align="center" width="14%"><b>{L_THU}</b></td>
+                                <td class="row1" align="center" width="14%"><b>{L_FRI}</b></td>
+                                <td class="row1" align="center" width="14%"><b>{L_SAT}</b></td>
+                                <!-- IF S_MONDAY_FIRST -->
+                                    <td class="row1" align="center" width="14%"><b>{L_SUN}</b></td>
+                                <!-- ENDIF -->
+                            </tr>
+                            <!-- BEGIN calendar_week -->
+                            <tr>
+                                <!-- IF S_SHOW_WEEK_NUMS -->
+                                    <td class="row1" align="center">
+                                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td height="15" title="{L_WEEK_NUM_EXPLAIN}">
+                                                    <a href="https://www.iso.org/iso/date_and_time_format">{L_WEEK_NUM}<br />{calendar_week.WEEK_NUM}</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                <!-- ENDIF -->
+                                <!-- IF not S_MONDAY_FIRST -->
+                                    <td class="row1" align="center">
+                                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td height="15" class="row3">
+                                                    {calendar_week.DAY0}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td NOWRAP valign="top" class="row1">
+                                                    {calendar_week.DAY0_EVENTS}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                <!-- ENDIF -->
+                                <td class="row1" align="center">
+                                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                        <tr>
+                                            <td height="15" class="row3">
+                                                {calendar_week.DAY1}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td NOWRAP valign="top" class="row1">
+                                                {calendar_week.DAY1_EVENTS}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="row1" align="center">
+                                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                        <tr>
+                                            <td height="15" class="row3">
+                                                {calendar_week.DAY2}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td NOWRAP valign="top" class="row1">
+                                                {calendar_week.DAY2_EVENTS}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="row1" align="center">
+                                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                        <tr>
+                                            <td height="15" class="row3">
+                                                {calendar_week.DAY3}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td NOWRAP valign="top" class="row1">
+                                                {calendar_week.DAY3_EVENTS}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="row1" align="center">
+                                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                        <tr>
+                                            <td height="15" class="row3">
+                                                {calendar_week.DAY4}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td NOWRAP valign="top" class="row1">
+                                                {calendar_week.DAY4_EVENTS}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="row1" align="center">
+                                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                        <tr>
+                                            <td height="15" class="row3">
+                                                {calendar_week.DAY5}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td NOWRAP valign="top" class="row1">
+                                                {calendar_week.DAY5_EVENTS}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="row1" align="center">
+                                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                        <tr>
+                                            <td height="15" class="row3">
+                                                {calendar_week.DAY6}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td NOWRAP valign="top" class="row1">
+                                                {calendar_week.DAY6_EVENTS}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <!-- IF S_MONDAY_FIRST -->
+                                    <td class="row1" align="center">
+                                        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                            <tr>
+                                                <td height="15" class="row3">
+                                                    {calendar_week.DAY7}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td NOWRAP valign="top" class="row1">
+                                                    {calendar_week.DAY7_EVENTS}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                <!-- ENDIF -->
+                            </tr>
+                        <!-- END calendar_week -->
+                    </table>
+                </td>
+              </tr>
+           </table>
+           </div>
+           <span class="corners-bottom"><span></span></span>
+        </div>
+    </div>
+<!-- IF S_NEW_EVENT --><!-- INCLUDE calendar_editor.html --><!-- ENDIF -->
+</form>
+
+<!-- IF not S_OVERRIDE_USER -->
+<form name="settings_form" id = "settings_form">
+    <div class="panel bg3" id="settings-panel" style="display: none">
+        <div class="inner"><span class="corners-top"><span></span></span>
+
+        <h3>{L_CALENDAR_SETTINGS}</h3>
+        <div>
+        <fieldset>
+        <dl>
+            <dt><label for="cal_first_day">{L_CAL_START_DAY}:</label></dt>
+            <dd>
+                <label for="cal_start_sunday"><input type="radio" name="cal_start_day" id="cal_start_sunday" value="0" <!-- IF not S_MONDAY_FIRST --> checked="checked"<!-- ENDIF --> /> {L_SUN}</label>
+                <label for="cal_start_monday"><input type="radio" name="cal_start_day" id="cal_start_monday" value="1" <!-- IF S_MONDAY_FIRST --> checked="checked"<!-- ENDIF --> /> {L_MON}</label>
+            </dd>
+        </dl>
+        <dl>
+            <dt><label for="cal_week_nums">{L_SHOW_WEEK_NUMS}:</label></dt>
+            <dd>
+                <label for="week_nums_on"><input type="radio" name="cal_week_nums" id="week_nums_on" value="1" <!-- IF S_SHOW_WEEK_NUMS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                <label for="week_nums_off"><input type="radio" name="cal_week_nums" id="week_nums_off" value="0" <!-- IF not S_SHOW_WEEK_NUMS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+            </dd>
+        </dl>
+        <hr />
+        <dl>
+            <dt><label for="cal_events_list">{L_SHOW_UPCOMING_EVENTS}:</label></dt>
+            <dd>
+                <label for="events_list_on"><input type="radio" name="cal_events_list" id="events_list_on" value="1" <!-- IF S_SHOW_UPCOMING_EVENTS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                <label for="events_list_off"><input type="radio" name="cal_events_list" id="events_list_off" value="0" <!-- IF not S_SHOW_UPCOMING_EVENTS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+            </dd>
+        </dl>
+        <dl>
+            <dt><label for="upcoming_events_days">{L_UPCOMING_EVENTS_DAYS}:</label></dt>
+            <dd>
+                <input type="text" name="cal_upcoming_events_days" id="cal_upcoming_events_days" size="2" maxlength="2" value="{UPCOMING_EVENTS_DAYS}" class="post" onkeyup="CheckMax(this, {EVENTS_LIST_MAX_DAYS})" />
+            </dd>
+        </dl>
+        <hr />
+        <dl>
+            <dt><label for="cal_birthdays">{L_SHOW_BIRTHDAYS}:</label></dt>
+            <dd>
+                <label for="birthdays_on"><input type="radio" name="cal_birthdays" id="birthdays_on" value="1" <!-- IF S_SHOW_BIRTHDAYS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                <label for="birthdays_off"><input type="radio" name="cal_birthdays" id="birthdays_off" value="0" <!-- IF not S_SHOW_BIRTHDAYS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+            </dd>
+        </dl>
+        <dl>
+            <dt><label for="cal_birthdays_list">{L_SHOW_UPCOMING_BIRTHDAYS}:</label></dt>
+            <dd>
+                <label for="birthdays_list_on"><input type="radio" name="cal_birthdays_list" id="birthdays_list_on" value="1" <!-- IF S_SHOW_UPCOMING_BIRTHDAYS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                <label for="birthdays_list_off"><input type="radio" name="cal_birthdays_list" id="birthdays_list_off" value="0" <!-- IF not S_SHOW_UPCOMING_BIRTHDAYS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+            </dd>
+        </dl>
+        <dl>
+            <dt><label for="upcoming_birthdays_days">{L_UPCOMING_BIRTHDAYS_DAYS}:</label></dt>
+            <dd>
+                <input type="text" name="cal_upcoming_birthdays_days" id="cal_upcoming_birthdays_days" size="2" maxlength="2" value="{UPCOMING_BIRTHDAYS_DAYS}" class="post" onkeyup="CheckMax(this, {BDAYS_LIST_MAX_DAYS})" />
+            </dd>
+        </dl>
+        <hr />
+        <br />
+        <dl>
+            <dt></dt>
+            <dd><input type="submit" name="submit_settings" value="{L_SUBMIT}" class="button1" />
+            </dd>
+        </dl>
+
+        </fieldset>
+        </div>
+        <span class="corners-bottom"><span></span></span></div>
+    </div>
+<!-- ENDIF -->
+
+</form>
+
+<div class="panel bg2" id="bday-panel">
+    <div class="inner"><span class="corners-top"><span></span></span>
+        <!-- IF S_SHOW_UPCOMING_EVENTS -->
+            <h3>{L_UPCOMING_EVENTS}{L_EVENTS_TIMEFRAME}</h3>
+            <div>
+                <!-- IF S_IS_EVENTS -->
+                    <!-- BEGIN event_list -->{event_list.TITLE} ({L_ON} {event_list.DATE} {L_AT} {event_list.TIME})<!-- IF not event_list.S_LAST_ROW -->, <!-- ENDIF --><!-- END event_list -->
+                <!-- ELSE -->
+                    {L_NO_UPCOMING_EVENTS}
+                <!-- ENDIF -->
+            </div>
+            <br />
+        <!-- ENDIF -->
+        <!-- IF S_SHOW_UPCOMING_BIRTHDAYS -->
+            <h3>{L_UPCOMING_BIRTHDAYS}{L_BIRTHDAYS_TIMEFRAME}</h3>
+            <div>
+                <!-- IF S_IS_BIRTHDAYS -->
+                    {L_CONGRATULATIONS}: <!-- BEGIN bday_list -->{bday_list.USERNAME_FULL} ({bday_list.AGE} {L_ON} {bday_list.ON_DAY})<!-- IF not bday_list.S_LAST_ROW -->, <!-- ENDIF --><!-- END bday_list -->
+                <!-- ELSE -->
+                    {L_NO_UPCOMING_BIRTHDAYS}
+                <!-- ENDIF -->
+            </div>
+        <!-- ENDIF -->
+    <span class="corners-bottom"><span></span></span></div>
+</div>
+
+<div class="panel bg2" id="notes-panel">
+    <div class="inner"><span class="corners-top"><span></span></span>
+        <h3>{L_CALENDAR_NOTES}</h3>
+        <div>
+            {L_WEEK_NUM_NOTES}
+        </div>
+    <span class="corners-bottom"><span></span></span></div>
+</div>
+
+<script type="text/javascript">
+// <![CDATA[
+var panels = new Array('calendar-panel', 'event-panel', 'bday-panel', 'notes-panel', 'settings-panel');
+var show_panel = '{ACTIVE_TAB}';
+subPanels(show_panel);
+showAppropriate(show_panel);
+
+function showAppropriate(p)
+{
+    if(p == 'calendar-panel')
+    {
+        document.getElementById('submit-panel').style.display = 'none';
+        document.getElementById('options-panel').style.display = 'none';
+        if({S_SHOW_UPCOMING_BIRTHDAYS} || {S_SHOW_UPCOMING_EVENTS})
+            document.getElementById('bday-panel').style.display = 'block';
+        else
+            document.getElementById('bday-panel').style.display = 'none';
+        if({S_MONDAY_FIRST})
+            document.getElementById('notes-panel').style.display = 'none';
+        else
+            document.getElementById('notes-panel').style.display = 'block';
+        if(!{S_OVERRIDE_USER})
+            document.getElementById('settings-panel').style.display = 'none';
+    }
+    else if(p == 'event-panel')
+    {
+        document.getElementById('submit-panel').style.display = 'block';
+        document.getElementById('options-panel').style.display = 'block';
+        document.getElementById('bday-panel').style.display = 'none';
+        document.getElementById('notes-panel').style.display = 'none';
+        if(!{S_OVERRIDE_USER})
+            document.getElementById('settings-panel').style.display = 'none';
+    }
+    else if(p == 'settings-panel')
+    {
+        document.getElementById('submit-panel').style.display = 'none';
+        document.getElementById('options-panel').style.display = 'none';
+        document.getElementById('bday-panel').style.display = 'none';
+        if({S_MONDAY_FIRST})
+            document.getElementById('notes-panel').style.display = 'none';
+        else
+            document.getElementById('notes-panel').style.display = 'block';
+        if(!{S_OVERRIDE_USER})
+            document.getElementById('settings-panel').style.display = 'block';
+    }
+}
+
+function CheckMax(obj, max)
+{
+    if(parseInt(obj.value) > parseInt(max))
+    {
+        obj.value = max;
+    }
+}
+// ]]>
+</script>
+
+<!-- INCLUDE overall_footer.html -->

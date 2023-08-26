@@ -1,0 +1,51 @@
+<!-- INCLUDE overall_header.html -->
+<!-- IF U_MCP -->
+	<div id="pageheader">
+		<p class="linkmcp">[ <a href="{U_MCP}">{L_MCP}</a> ]</p>
+	</div>
+
+	<br clear="all" /><br />
+<!-- ENDIF -->
+<h2>{CAT_TITLE}</h2>
+<p>{CAT_DESCRIPTION}</p>
+
+<!-- IF CLASSIC_INDEX -->
+	<!-- INCLUDE kb/kb_index_clasic.html -->
+<!-- ELSE -->
+	<!-- INCLUDE kb/kb_index_modern.html -->
+<!-- ENDIF -->
+
+<!-- IF PAGINATION -->
+<b>{PAGE_NUMBER}</b> <div style="text-align:right"><b>{PAGINATION}</b></div>
+<!-- ENDIF -->
+	<table class="tablebg" cellspacing="1" width="100%">
+		<thead>
+		<tr>
+			<th colspan="2">{L_ARTICLE}</th>
+			<th width="100">{L_VIEWED}</th>
+			<th width="150">{L_RELASED}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN article_row -->
+		<tr>
+			<td class="row1" width="25"><img src="{T_IMAGESET_PATH}/topic_read.gif" alt=""></td>
+			<td class="row1"><a class="topictitle" href="{article_row.U_ARTICLE}">{article_row.TITLE}</a><p class="forumdesc">{article_row.DESCRIPTION}</p></td>
+			<td class="row2" align="center">{article_row.HITS}</td>
+			<td class="row1">{article_row.TIME}<br />{L_FROM} {article_row.AUTHOR_FULL}</td>
+		</tr>
+		<!-- END article_row -->
+		</tbody>
+	</table>
+
+<!-- IF S_ADD_ARTICLE -->
+<br />
+<table class="tablebg" cellspacing="1" width="100%">
+<tr>
+   <td align="center" class="row1" style="padding:5px 5px 5px 5px;"><b><!-- IF S_ADD_ARTICLE --><a href="{U_ADD_ARTICLE}">{L_ARTICLE_ADD}</a>&nbsp; &bull; &nbsp;  <!-- ENDIF --><a href="{U_KB}">{L_BACK_KB}</a></b></td>
+</tr>
+</table>
+<!-- ENDIF -->
+
+<br />
+<!-- INCLUDE overall_footer.html -->

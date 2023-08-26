@@ -1,0 +1,159 @@
+<!-- IF U_GUEST_POPUP -->
+<script type="text/javascript">
+<!--
+function openguestpopup(meeting, user)
+{
+	window.open('{U_GUEST_POPUP}&m_id='+meeting+'&u='+user, '_blank', 'height=600,resizable=yes,width=400');
+	}
+//-->
+</script>
+<!-- ENDIF -->
+
+<h3>{MEETING_SUBJECT}</h3>
+<!-- IF MEETING_CLOSED_STRING --><h3>{MEETING_CLOSED_STRING}</h3><!-- ENDIF -->
+<span>{MEETING_BY_USER}<br />{MEETING_EDIT_BY_USER}</span>
+<br /><br />
+
+<form action="{S_FORM_ACTION}" method="post" id="own_signs">
+
+<div class="panel bg1">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<fieldset>
+	
+		<dl>
+			<dt><label>{L_MEETING_LOCATION}:</label></dt>
+			<dd><!-- IF MEETING_LINK_D --><a href="{MEETING_LINK_D}"><!-- ENDIF -->{MEETING_LOCATION}<!-- IF MEETING_LINK_D --></a><!-- ENDIF --></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_TIME}:</label></dt>
+			<dd>{MEETING_TIME}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_MEETING_UNTIL}:</label></dt>
+			<dd>{MEETING_UNTIL}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_MEETING_PLACES}:</label></dt>
+			<dd>{MEETING_PLACES}{MEETING_REMAIN_GUESTS}{MEETING_REMAIN_GUESTS_PLACES}</dd>
+		</dl>
+		<hr /><span>{U_MEETING_USER}</span>
+		<!-- IF U_MEETING_MAIL --><br /><br /><span><a href="{U_MEETING_MAIL}">{L_MEETING_MAIL}</a></span><!-- ENDIF -->
+		<!-- IF MEETING_DESC --><hr /><span>{MEETING_DESC}</span><!-- ENDIF -->
+	</fieldset>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<!-- IF S_GUEST_NAMES_BLOCK -->
+<div class="panel bg2">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<fieldset>
+	
+	<h3>{L_MEETING_OWM_GUESTS}</h3>
+
+	<!-- IF S_GUEST_BLOCK_HEADER -->
+	<span>{L_MEETING_GUESTNAME_ENTERING_EXPLAIN}</span>
+
+	<br /><br />
+	<!-- ENDIF -->
+	
+	<dl>
+		<dt><strong>{L_MEETING_PRENAMES}</strong></dt>
+		<dd><strong>{L_MEETING_NAMES}</strong></dd>
+	</dl>
+	<!-- BEGIN guest_name_row -->
+	<dl>
+		<dt><input type="text" name="meeting_guest_prename[]" class="inputbox autowidth" size="50" maxlength="255" value="{guest_name_row.GUEST_PRENAME}" /></dt>
+		<dd><input type="text" name="meeting_guest_name[]" class="inputbox autowidth" size="50" maxlength="255" value="{guest_name_row.GUEST_NAME}" /></dd>
+	</dl>
+	<!-- END guest_name_row -->
+	<!-- BEGIN guest_name_row_read_only -->
+	<dl>
+		<dt><input type="hidden" name="meeting_guest_prename[]" value="{guest_name_row_read_only.GUEST_PRENAME}" />{guest_name_row_read_only.GUEST_PRENAME}</dt>
+		<dd><input type="hidden" name="meeting_guest_name[]" value="{guest_name_row_read_only.GUEST_NAME}" />{guest_name_row_read_only.GUEST_NAME}</dd>
+	</dl>
+	<!-- END guest_name_row_read_only -->
+
+	</fieldset>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_SIGNED_ON_EDIT || S_SIGNED_OFF -->
+<br /><p class="submit-buttons">
+	<!-- IF S_SIGNED_ON_EDIT --><input type="submit" name="sign_on_edit" class="button1" value="{S_SIGNED_ON_EDIT}" />{MEETING_SURE_USER}{S_REMAIN_GUESTS}<!-- ENDIF -->
+	<!-- IF S_SIGNED_OFF --> &bull; <input type="submit" name="sign_off" class="button1" value="{S_SIGNED_OFF}" /><!-- ENDIF -->
+	{S_HIDDEN_FIELDS}
+</p>
+<!-- ENDIF -->
+
+</form>
+
+<!-- IF S_SIGN_ON_OTHER_USER -->
+<form action="{S_FORM_ACTION}" method="post" id="sign_on_other_user">
+<p class="submit-buttons">{S_NEW_USERS}&nbsp;{MEETING_SURE_USER}&nbsp;<input type="submit" name="sign_on_edit" class="button2" value="{L_MEETING_YES_SIGNON}" /></p>
+{S_HIDDEN_FIELDS_SON}
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_SIGN_OFF_USER -->
+<form action="{S_FORM_ACTION}" method="post" id="signoff_user">
+<p class="submit-buttons">{S_HIDDEN_FIELDS_SOFF}{S_MEETING_SIGNOFFS}&nbsp;<input type="submit" name="sign_off" class="button2" value="{L_MEETING_SIGN_OFF}" /></p>
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_MEETING_COMMENTS -->
+<div class="panel bg1">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<fieldset>
+	
+	<h3>{L_MEETING_COMMENTS}</h3>
+
+	<!-- BEGIN meeting_comments -->
+	<dl class="row bg3">
+		<dt>&nbsp;{meeting_comments.MEETING_COMMENT_USER}</dt>
+		<dd>&nbsp;{meeting_comments.MEETING_COMMENT_ACTION}</dd>
+	</dl>
+	<p>{meeting_comments.MEETING_COMMENT}</p>
+	<!-- END meeting_comments -->
+
+	</fieldset>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_EDIT_COMMENT -->
+<form action="{S_FORM_COMMENT_ACTION}" method="post">
+<div class="panel bg2">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<fieldset>
+		<legend>{COMMENT_EDIT_MODE} &bull; {USERNAME}</legend>
+		<br /><textarea class="inputbox autowidth" rows="3" cols="100" name="meeting_comment">{MEETING_COMMENT}</textarea>
+		<!-- IF S_COMMENT_HINT --><br /><strong>{L_MEETING_COMMENT_HINT}</strong><!-- ENDIF -->
+		<p class="submit-buttons"><input type="submit" name="submit" class="button1" value="{L_SUBMIT}" /></p>
+		{S_FORM_TOKEN}
+		{S_HIDDEN_COMMENT_FIELDS}
+	</fieldset>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+</form>
+<!-- ELSE -->
+<form action="{S_FORM_COMMENT_ACTION}" method="post">
+<p class="submit-buttons"><input type="submit" name="submit" class="button2" value="{L_MEETING_ENTER_COMMENT}" /></p>
+</form>
+<!-- ENDIF -->
+
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<h3>{L_MEETING_STATISTIC}</h3>
+	<strong>{L_MEETING_FREE_PLACES}:</strong> <span>{MEETING_FREE_PLACES}{MEETING_FREE_GUESTS}</span><br />
+	<strong>{L_MEETING_SURE_TOTAL}:</strong> <span>{MEETING_SURE_TOTAL}</span><br />
+	<strong>{L_MEETING_SURE_TOTAL_USER}:</strong> <span>{MEETING_SURE_TOTAL_USER}</span>
+	<span class="corners-bottom"><span></span></span></div>
+</div>

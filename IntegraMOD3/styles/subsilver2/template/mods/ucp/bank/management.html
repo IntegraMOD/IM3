@@ -1,0 +1,27 @@
+<!-- INCLUDE ucp_header.html -->
+<form action="{U_ACTION}" method="post">
+	<table class="tablebg" width="100%" cellspacing="1">
+		<tr>
+			<th colspan="2">{L_BANK_MANAGEMENT}</th>
+		</tr>
+		<tr>
+			<td class="row1" colspan="2"><span class="genmed">{USERNAME_FULL}</span></td>
+		</tr>
+		<tr>
+			<td class="cat">{L_NAME}</td>
+			<td class="cat">{L_AMOUNT}</td>
+		</tr>
+		<!-- BEGIN cashrow -->
+			<tr>
+				<td class="row<!-- IF S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">{cashrow.CASH_NAME}:</td>
+				<td class="row<!-- IF S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">
+					<input type="text" id="cash_amt[{cashrow.CASH_ID}]" name="cash_amt[{cashrow.CASH_ID}]" value="{cashrow.CASH_AMT}" />
+				</td>
+			</tr>
+		<!-- END cashrow -->
+		<tr>
+			<th colspan="2"><input type="submit" name="update" value="{L_SUBMIT}" class="button1" /></td>
+		</tr>
+	</table>
+</form>
+<!-- INCLUDE ucp_footer.html -->

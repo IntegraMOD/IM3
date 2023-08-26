@@ -1,0 +1,217 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{L_DL_STATS}</h2>
+
+<br />
+
+<!-- IF S_LATEST_DOWNLOADS -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_LATEST_DOWNLOADS}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_DL_FILE_DESCRIPTION}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_DL_TIME}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_latest -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_latest.POS}</span></td>
+	<td style="width: 60%" class="row2"><a href="{top_ten_latest.U_FILE_LINK}">{top_ten_latest.DESCRIPTION}</a><br /><span class="small">{top_ten_latest.CAT_NAME}</span></td>
+	<td style="width: 30%" class="row2" align="center">{top_ten_latest.USER_LINK}<br /><span class="small">{top_ten_latest.DL_TIME}</span></td>
+</tr>
+<!-- END top_ten_latest -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_LATEST_UPLOADS -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_LATEST_UPLOADS}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_DL_FILE_DESCRIPTION}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_DL_TIME}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_uploads -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_uploads.POS}</span></td>
+	<td style="width: 60%" class="row2"><a href="{top_ten_uploads.U_FILE_LINK}">{top_ten_uploads.DESCRIPTION}</a><br /><span class="small">{top_ten_uploads.CAT_NAME}</span></td>
+	<td style="width: 30%" class="row2" align="center">{top_ten_uploads.USER_LINK}<br /><span class="small">{top_ten_uploads.DL_TIME}</span></td>
+</tr>
+<!-- END top_ten_uploads -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_DOWN_MONTH -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_DOWNLOADS_CUR_MONTH}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_DL_FILE_DESCRIPTION}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_DL_KLICKS}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_dl_cur_month -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_dl_cur_month.POS}</span></td>
+	<td style="width: 60%" class="row2"><a href="{top_ten_dl_cur_month.U_FILE_LINK}">{top_ten_dl_cur_month.DESCRIPTION}</a><br /><span class="small">{top_ten_dl_cur_month.CAT_NAME}</span></td>
+	<td style="width: 30%" class="row2" align="center"><span class="gen">{top_ten_dl_cur_month.DL_KLICKS}</span></td>
+</tr>
+<!-- END top_ten_dl_cur_month -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_DOWN_ALL -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_DOWNLOADS_OVERALL}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_DL_FILE_DESCRIPTION}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_DL_OVERALL_KLICKS}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_dl_overall -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_dl_overall.POS}</span></td>
+	<td style="width: 60%" class="row2"><a href="{top_ten_dl_overall.U_FILE_LINK}">{top_ten_dl_overall.DESCRIPTION}</a><br /><span class="small">{top_ten_dl_overall.CAT_NAME}</span></td>
+	<td style="width: 30%" class="row2" align="center"><span class="gen">{top_ten_dl_overall.DL_KLICKS}</span></td>
+</tr>
+<!-- END top_ten_dl_overall -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_TRAFFIC_MONTH -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_TRAFFIC_CUR_MONTH}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_DL_FILE_DESCRIPTION}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_DL_TRAFFIC_CUR_MONTH}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_traffic_cur_month -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_traffic_cur_month.POS}</span></td>
+	<td style="width: 60%" class="row2"><a href="{top_ten_traffic_cur_month.U_FILE_LINK}">{top_ten_traffic_cur_month.DESCRIPTION}</a><br /><span class="small">{top_ten_traffic_cur_month.CAT_NAME}</span></td>
+	<td style="width: 30%" class="row2" align="center"><span class="gen">{top_ten_traffic_cur_month.DL_TRAFFIC}</span></td>
+</tr>
+<!-- END top_ten_traffic_cur_month -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_TRAFFIC_ALL -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_TRAFFIC_OVERALL}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_DL_FILE_DESCRIPTION}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_DL_TRAFFIC_OVERALL}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_traffic_overall -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_traffic_overall.POS}</span></td>
+	<td style="width: 60%" class="row2"><a href="{top_ten_traffic_overall.U_FILE_LINK}">{top_ten_traffic_overall.DESCRIPTION}</a><br /><span class="small">{top_ten_traffic_overall.CAT_NAME}</span></td>
+	<td style="width: 30%" class="row2" align="center"><span class="gen">{top_ten_traffic_overall.DL_TRAFFIC}</span></td>
+</tr>
+<!-- END top_ten_traffic_overall -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_DOWN_CLICKS -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_DOWNLOADS_COUNT}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_USERNAME}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_DL_DOWNLOADS_COUNT}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_dl_counts -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_dl_counts.POS}</span></td>
+	<td style="width: 60%" class="row2">{top_ten_dl_counts.USER_LINK}</td>
+	<td style="width: 30%" class="row2" align="center"><span class="gen">{top_ten_dl_counts.DL_COUNTS}</span></td>
+</tr>
+<!-- END top_ten_dl_counts -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_DOWN_TRAFFIC -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_DOWNLOADS_TRAFFIC}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_USERNAME}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_TRAFFIC}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_dl_traffic -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_dl_traffic.POS}</span></td>
+	<td style="width: 60%" class="row2">{top_ten_dl_traffic.USER_LINK}</td>
+	<td style="width: 30%" class="row2" align="center"><span class="gen">{top_ten_dl_traffic.DL_TRAFFIC}</span></td>
+</tr>
+<!-- END top_ten_dl_traffic -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_UP_COUNT -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_UPLOADS_COUNT}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_USERNAME}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_DL_UPLOADS_COUNT}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_up_counts -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_up_counts.POS}</span></td>
+	<td style="width: 60%" class="row2">{top_ten_up_counts.USER_LINK}</td>
+	<td style="width: 30%" class="row2" align="center"><span class="gen">{top_ten_up_counts.DL_COUNTS}</span></td>
+</tr>
+<!-- END top_ten_up_counts -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_UP_TRAFFIC -->
+<table width="100%" cellspacing="1" cellpadding="3" class="table1">
+<tr>
+	<th colspan="3" width="100%">{L_DL_UPLOADS_TRAFFIC}</th>
+</tr>
+<tr>
+	<td style="width: 10%" class="row1"><span><b>{DL_POS}</b></span></td>
+	<td style="width: 60%" class="row1"><span><b>{L_USERNAME}</b></span></td>
+	<td style="width: 30%" class="row1" align="center"><span><b>{L_TRAFFIC}</b></span></td>
+</tr>
+<!-- BEGIN top_ten_up_traffic -->
+<tr>
+	<td style="width: 10%" class="row2" align="center"><span>{top_ten_up_traffic.POS}</span></td>
+	<td style="width: 60%" class="row2">{top_ten_up_traffic.USER_LINK}</td>
+	<td style="width: 30%" class="row2" align="center"><span class="gen">{top_ten_up_traffic.DL_TRAFFIC}</span></td>
+</tr>
+<!-- END top_ten_up_traffic -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

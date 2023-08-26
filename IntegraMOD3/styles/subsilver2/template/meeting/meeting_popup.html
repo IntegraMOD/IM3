@@ -1,0 +1,27 @@
+<!-- INCLUDE simple_header.html -->
+
+<h3>{MEETING_TITLE}</h3>
+<p>{MEETING_TIME} &bull; {USERNAME}</p>
+
+<br />
+
+<table width="100%" cellpadding="0" cellspacing="1" border="0" class="table1">
+<thead>
+<tr>
+	<th>{L_MEETING_PRENAMES}</th>
+	<th>{L_MEETING_NAMES}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN guest_name_row -->
+<tr class="row<!-- IF guest_name_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">
+	<td>{guest_name_row.GUEST_PRENAME}</td>
+	<td>{guest_name_row.GUEST_NAME}</td>
+</tr>
+<!-- END guest_name_row -->
+</tbody>
+</table>
+
+<br /><p><input type="submit" onclick="javascript:window.close();" value="{L_CLOSE_WINDOW}" class="btnlite" /></p>
+
+<!-- INCLUDE simple_footer.html -->

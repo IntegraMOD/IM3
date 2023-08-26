@@ -1,0 +1,152 @@
+<!-- INCLUDE overall_header.html -->
+<!-- IF U_MCP -->
+	<div id="pageheader">
+		<p class="linkmcp">[ <a href="{U_MCP}">{L_MCP}</a> ]</p>
+	</div>
+
+	<br clear="all" /><br />
+<!-- ENDIF -->
+<br />
+
+<table class="tablebg" cellspacing="1" width="100%">
+<tr class="row1">
+	<td colspan="2" class="cat" align="center"><h4>{TITEL}</h4></td>
+</tr>
+<tr>
+	<td valign="top" class="row1" width="160">
+                {L_RELASED}: {ARTICLE_TIME} <br />
+                {L_FROM}: {USER}<br />
+                <!-- IF LAST_CHANGE -->
+                {L_CHANGED_AT}: {LAST_CHANGE} <br />
+                {L_FROM}: {CHANGE_USER}<br />
+                <!-- ENDIF -->
+                <!-- IF TYPE -->
+                {L_TYPE}: {TYPE}<br />
+                <!-- ENDIF -->
+                {L_VIEWED}: {HITS}<br />
+                <!-- IF  S_RATING_ACTIV -->
+                {L_RATING}: {ARTICLE_POINTS}/5 ({TOTAL_RATINGS} {L_RATINGS})<br />
+                <!-- IF OWN_RATING -->
+                {L_YOU_RATED}: {OWN_RATING}<br />
+                <!-- ENDIF -->
+                <!-- ENDIF -->
+
+                <!-- IF S_RATE_ARTICLE and not OWN_RATING and S_RATING_ACTIV -->
+                <form id="rate" method="post" action="{S_POST_ACTION}">
+                <h3>{L_RATE_ARTICLE}</h3>
+                <p><select name="points">
+                <option value="5">5 - {L_RATE_GOOD}</option>
+                <option value="4">4</option>
+                <option value="3">3 - {L_RATE_ACCEPTABLE}</option>
+                <option value="2">2</option>
+                <option value="1">1 - {L_RATE_BAD}</option>
+                </select>
+                <input type="submit" name="add_file" value="{L_RATE}" class="button1" />
+                </p></form>
+                <!-- ENDIF -->
+
+                <!-- IF ADS -->
+                <h3>{L_ADS}</h3>
+                {ADS}
+                <!-- ENDIF -->
+
+	</td>
+	<td valign="top" class="row1" style="padding:5px 5px 5px 5px;">
+
+		<div class="gensmall" style="float: right;">
+			<table width="100%" cellspacing="0">
+			<tr>
+				<!-- IF S_EDIT_ARTICLE --><td class="gensmall ls_button"><a href="{U_EDIT_ARTICLE}" title="{L_EDIT_POST}">{L_EDIT}</a></td><!-- ENDIF -->
+				<!-- IF S_DELETE_ARTICLE --><td class="gensmall"><a href="{U_DELETE_ARTICLE}" title="{L_DELETE_POST}">{DELETE_IMG}</a></td><!-- ENDIF -->
+				<!-- IF S_ARTICLE_LOG --><td class="gensmall"><a href="{U_ARTICLE_HISTORY}" title="{L_ARTICLE_HISTORY}">{INFO_IMG}</a></td><!-- ENDIF -->
+				<!-- IF S_ARTICLE_REPORT --><td class="gensmall"><a href="{U_REPORT}">{REPORT_IMG}</a></td><!-- ENDIF -->
+				<td></td>
+			</tr>
+			</table>
+		</div>
+
+		<br />
+		<!-- IF S_POST_REPORTED -->
+			<table width="100%" cellspacing="0">
+			<tr>
+				<td class="gensmall"><span class="postreported">{REPORTED_IMG} <a href="{U_MCP_REPORT}">{L_POST_REPORTED}</a></span></td>
+			</tr>
+			</table>
+			<br clear="all" />
+		<!-- ENDIF -->
+		<div class="postbody">
+			<!-- IF DIFF_MESSAGE -->
+				<h3>{DIFFERENCE}</h3>
+				{DIFF_MESSAGE}
+			<!-- ELSE -->
+				{ARTICLE}
+			<!-- ENDIF -->
+			<!-- IF .attachment -->
+				<br clear="all" /><br />
+
+				<table class="tablebg" width="100%" cellspacing="1">
+				<tr>
+					<td class="row3"><b class="genmed">{L_ATTACHMENTS}: </b></td>
+				</tr>
+				<!-- BEGIN attachment -->
+					<tr>
+						<!-- IF attachment.S_ROW_COUNT is even --><td class="row2"><!-- ELSE --><td class="row1"><!-- ENDIF -->{attachment.DISPLAY_ATTACHMENT}</td>
+					</tr>
+				<!-- END attachment -->
+				</table>
+			<!-- ENDIF -->
+		</div>
+    </td>
+</tr>
+</table>
+
+<!-- IF .diff_row -->
+
+
+<table class="tablebg" cellspacing="1" width="100%">
+	<tr>
+		<td class="cat" align="center">{L_TIME}</td>
+		<td class="cat" align="center">{L_USER}</td>
+		<td class="cat" align="center">{L_EDIT_REASON}</td>
+		<!-- IF S_DELETE_DIFF or S_RESTORE_ARTICLE --><td class="cat" align="center">{L_ACTION}</td><!-- ENDIF -->
+	</tr>
+	<!-- BEGIN diff_row -->
+	<tr class="bg1">
+		<td class="row1"><strong><a href="{diff_row.U_DIFF}">{L_CHANGED_AT} {diff_row.TIME}</a></strong></td>
+		<td class="row1">{diff_row.USER}</td>
+		<td class="row1">{diff_row.EDIT_REASON}</td>
+		<!-- IF S_DELETE_DIFF or S_RESTORE_ARTICLE --><td class="row1"><!-- IF S_DELETE_DIFF -->[<a href="{diff_row.U_DELETE}">{L_DELETE}</a>]<!-- ENDIF --><!-- IF S_RESTORE_ARTICLE --> &nbsp; [<a href="{diff_row.U_RESTORE}">{L_RESTORE}</a>]<!-- ENDIF --></td><!-- ENDIF -->
+	</tr>
+	<!-- END diff_row -->
+</table>
+<!-- ENDIF -->
+
+
+<!-- IF .similar -->
+<br />
+<h3>{L_SIMILAR_ARTICLES}</h3>
+
+<table width="100%">
+<tr>
+	<!-- BEGIN similar -->
+	<td valign="top"><a href="{similar.U_TOPIC}" class="topictitle">{similar.TOPIC_TITLE}</a><br />
+		{L_CATEGORIE}: <a href="{similar.U_CATEGORIE}">{similar.CATEGORIE}</a><br />
+		{L_AUTHOR}: {similar.USER}<br />
+	</td>
+	<!-- END similar -->
+</tr>
+</table>
+
+<br />
+<!-- ENDIF -->
+
+
+<br />
+<table class="tablebg" cellspacing="1" width="100%">
+<tr>
+	<td align="center" class="row1" style="padding:5px 5px 5px 5px;"><b><!-- IF S_ADD_ARTICLE --><a href="{U_ADD_ARTICLE}">{L_ARTICLE_ADD}</a>&nbsp; &bull; &nbsp;  <!-- ENDIF --><a href="{U_KB}">{L_BACK_KB}</a></b></td>
+</tr>
+</table>
+
+<br />
+<!-- INCLUDE overall_footer.html -->

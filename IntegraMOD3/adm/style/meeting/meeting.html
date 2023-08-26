@@ -1,0 +1,21 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h1>{MODULE_NAME}</h1>
+
+<!-- IF MODULE_EXPLAIN -->
+<p>{MODULE_EXPLAIN}</p>
+<!-- ENDIF -->
+
+<br />
+
+<!-- IF S_MEETING_CONFIG --><!-- INCLUDE meeting/meeting_config.html --><!-- ENDIF -->
+<!-- IF S_MEETING_EDIT --><!-- INCLUDE meeting/meeting_edit.html --><!-- ENDIF -->
+<!-- IF S_MEETING_MANAGE --><!-- INCLUDE meeting/meeting_manage.html --><!-- ENDIF -->
+
+<br />
+
+<div style="text-align: center;" class="copyright">{MEETING_VERSION}<br />{L_MEETING_TIMEZONE_HINT}</div>
+
+<!-- INCLUDE overall_footer.html -->

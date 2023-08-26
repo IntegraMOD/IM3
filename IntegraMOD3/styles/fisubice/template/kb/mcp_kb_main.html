@@ -1,0 +1,82 @@
+<!-- INCLUDE mcp_header.html -->
+
+<!-- IF S_SHOW_UNAPPROVED -->
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<td class="row3" colspan="6" align="center"><b class="gen">{L_LATEST_UNAPPROVED}</b></td>
+	</tr>
+	<!-- IF .unapproved -->
+	<tr>
+		<th>&nbsp;{L_TOPIC}&nbsp;</th>
+		<th>&nbsp;&nbsp;</th>
+	</tr>
+	<!-- ENDIF -->
+	<!-- BEGIN unapproved -->
+		<tr>
+			<td class="row1" width="15%" valign="top"><span class="gen"><a href="{article_row.U_SHOW}">{article_row.TITLE}</a></span><br />
+			<span>{article_row.DESCRIPTION}</span></td>
+			<td class="row2" valign="top"><span class="gen">{article_row.CAT}</span></td>
+		</tr>
+		<!-- BEGINELSE -->
+		<tr>
+			<td class="row1" colspan="6" align="center"><span class="gen">{L_UNAPPROVED_POSTS_ZERO_TOTAL}</span></td>
+		</tr>
+	<!-- END unapproved -->
+	</table>
+
+	<br clear="all" /><br />
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_REPORTS -->
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<td class="row3" colspan="5" align="center"><b class="gen">{L_LATEST_REPORTED}</b></td>
+	</tr>
+	<!-- IF .postrow -->
+	<tr>
+		<th>&nbsp;{L_VIEW_DETAILS}&nbsp;</th>
+		<th>&nbsp;{L_REPORTER} &amp; {L_FORUM}&nbsp;</th>
+	</tr>
+	<!-- ENDIF -->
+		<!-- BEGIN postrow -->
+		<tr>
+			<td class="row1" valign="top"><span class="gen"><a href="{postrow.U_VIEW_DETAILS}">{postrow.ARTICLE_TITLE}</a></span><br />
+			<span>{L_POSTED} {L_POST_BY_AUTHOR} {postrow.POST_AUTHOR_FULL} {L_POSTED_ON_DATE}  {postrow.POST_TIME}</span></td>
+			<td class="row2" valign="top"><span>{postrow.REPORT_AUTHOR_FULL} {L_REPORTED_ON_DATE} {postrow.REPORT_TIME}<br />
+			{L_CATEGORIE}: <a href="{postrow.U_CATEGORIE}">{postrow.CATEGORIE_NAME}</a></span></td>
+
+		</tr>
+		<!-- BEGINELSE -->
+		<tr>
+			<td class="row1" colspan="5" align="center"><span class="gen">{L_REPORTS_ZERO_TOTAL}</span></td>
+		</tr>
+		<!-- END postrow -->
+	</table>
+
+	<br clear="all" /><br />
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_LOGS -->
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<td class="row3" colspan="5" align="center"><b class="gen">{L_LATEST_LOGS}</b></td>
+	</tr>
+	<!-- IF .log -->
+	<tr>
+		<th>&nbsp;{L_VIEW_DETAILS}&nbsp;</th>
+	</tr>
+	<!-- ENDIF -->
+		<!-- BEGIN log -->
+		<tr>
+			<td class="row2" valign="top">{L_CHANGED_AT} : {log.CHANGE_TIME} {L_FROM} {log.USER} {log.CHANGE_REASON} | <a href="{log.U_ARTICLE}">{log.ARTICLE}</a></td>
+
+		</tr>
+		<!-- BEGINELSE -->
+		<tr>
+			<td class="row1" colspan="5" align="center"><span class="gen">{L_NO_MATCHES_FOUND}</span></td>
+		</tr>
+		<!-- END log -->
+	</table>
+<!-- ENDIF -->
+
+<!-- INCLUDE mcp_footer.html -->

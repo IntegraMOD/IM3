@@ -1,0 +1,31 @@
+<!-- IF S_UCATS -->
+<!-- BEGIN maincat -->
+<table class="tablebg" cellspacing="1" width="100%">
+<tr class="row1">
+	<td class="cat" align="center"><h4>{maincat.TITLE}</h4></td>
+</tr>
+<tr>
+   <td class="row1" style="padding:5px 5px 5px 5px;">
+		<p>{maincat.DESCRIPTION}</p>
+		<table border="0" width="100%" cellspacing="7">
+		<!-- BEGIN ucat -->
+			<!-- IF maincat.ucat.S_ROW_COUNT is even --><tr><!-- ENDIF -->
+			<td valign="top" width="50%">
+			<h3>{maincat.ucat.TITLE}</h3>
+			<!-- BEGIN article -->
+				<b><a href="{maincat.ucat.article.U_ARTICLE}">{maincat.ucat.article.TITLE}</a></b><br />
+				{maincat.ucat.article.DESCRIPTION}<br />
+				<br />
+			<!-- END article -->
+			<!-- IF maincat.ucat.SUB_CAT} --><strong>{L_SUB_CATGEGORIES}: {maincat.ucat.SUB_CAT}</strong><br /><!-- ENDIF -->
+			<!-- IF maincat.ucat.S_MORE_LINK --><br />[ <a href="{maincat.ucat.U_CATEGORIE}">{maincat.ucat.READ_MORE}</a> ]<!-- ENDIF -->
+			</td>
+			<!-- IF maincat.ucat.S_ROW_COUNT is not even --></tr><!-- ENDIF -->
+		<!-- END ucat -->
+		</table>
+    </td>
+</tr>
+</table>
+<br />
+<!-- END maincat -->
+<!-- ENDIF -->

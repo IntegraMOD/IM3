@@ -1,0 +1,10 @@
+/* Download MOD buttons */
+.icon-dl-upload, .icon-dl-search, .icon-dl-upload a, .icon-dl-search a { background: none top left no-repeat; }
+.buttons div.icon-dl-search { width: {IMG_BUTTON_DOWNLOAD_SEARCH_WIDTH}px; height: {IMG_BUTTON_DOWNLOAD_SEARCH_HEIGHT}px; }
+.buttons div.icon-dl-upload { width: {IMG_BUTTON_DOWNLOAD_UPLOAD_WIDTH}px; height: {IMG_BUTTON_DOWNLOAD_UPLOAD_HEIGHT}px; }
+.icon-dl-upload span { background-image: url("{IMG_BUTTON_DOWNLOAD_UPLOAD_SRC}"); }
+.icon-dl-search span { background-image: url("{IMG_BUTTON_DOWNLOAD_SEARCH_SRC}"); }
+
+.dl-help, .dl-help a { background: none top left no-repeat; }
+.buttons div.dl-help { position: absolute; right: 5px; width: {IMG_ICON_POST_INFO_WIDTH}px; height: {IMG_ICON_POST_INFO_HEIGHT}px; }
+.dl-help span { background-image: url("{IMG_ICON_POST_INFO_SRC}"); }

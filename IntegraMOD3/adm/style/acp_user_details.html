@@ -1,0 +1,109 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h2>{L_ACP_USER_DETAILS}</h2>
+
+<p>{USER_DETAILS_EXPLAIN}</p>
+
+<!-- IF S_INSTALL_CHECK -->
+	<div class="errorbox">
+		<p>{L_INSTALL_NOT_DELETED}</p>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF U_SELECT -->
+	<form id="user_data" method="post" action="{U_ACTION}">
+
+	<input class="button2" type="submit" value="{L_DISPLAY}" name="display" />
+	<input class="button2" type="reset" value="{L_CLEAR_ATTRIB}" onclick="marklist('user_data', 'mark', false); return false;" />
+
+	<br /><br />
+
+	<table cellspacing="1">
+	<thead>
+
+		<tr>
+			<th>{L_SELECT}</th>
+			<th>{L_ATTRIBUTE}</th>
+			<th>{L_ATTRIBUTE_EXPLAIN}</th>
+			<th>{L_SIZE}</th>
+			<th>{L_CAN_FILTER}</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<!-- BEGIN select_row -->
+		<!-- IF select_row.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+			<td style="text-align: center;"><input type="checkbox" class="radio" name="mark[]" value="{select_row.ID}" <!-- IF select_row.OPT_SET --> checked <!-- ENDIF --> /></td>
+			<td><strong>{select_row.ATTRIBUTE}</strong></td>
+			<td>{select_row.ATTRIBUTE_EXPLAIN}</td>
+			<td>{select_row.SIZE}</td>
+			<td>{select_row.FILTER}</td>
+		</tr>
+		<!-- END select_row -->
+	</tbody>
+	</table>
+
+	<br />
+	
+	<input class="button2" type="submit" value="{L_DISPLAY}" name="display" />
+	<input class="button2" type="reset" value="{L_CLEAR_ATTRIB}" onclick="marklist('user_data', 'mark', false); return false;" />
+
+	</form>
+<!-- ENDIF -->
+
+<!-- IF U_DISPLAY -->
+	<form id="list" method="post" action="{U_ACTION}">
+
+	<div class="pagination">
+		[ {L_TOTAL_USERS} : {TOTAL_USERS} ]
+		<!-- IF PAGINATION -->
+			&bull; <a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{S_ON_PAGE}</a> &bull; <span>{PAGINATION}</span>
+		<!-- ENDIF -->
+	</div>
+
+	<!-- IF U_TOO_LONG -->
+		<div class="successbox">
+			<p>{L_OPTS_TOO_LONG}</p>
+		</div>
+	<!-- ENDIF -->
+
+	<fieldset class="display-options">
+		<strong>{L_FILTER_BY} :</strong> {S_FILTER_BY} <strong>{L_FILTER_CHAR} :</strong> {S_FILTER_CHAR}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{L_SORT_BY} :</strong> {S_SORT_KEY} {S_SORT_DIR}
+		<input class="button2" type="submit" value="{L_GO}" name="sort" />
+	</fieldset>
+
+	<table cellspacing="1">
+	<thead>
+	<tr>
+		<th>{L_USERNAME}</th>
+		{HEADINGS}
+	</tr>
+	</thead>
+
+	<tbody>
+		<!-- BEGIN user_data -->
+		<!-- IF user_data.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+			<td>{user_data.USERNAME}</td>
+			{user_data.OUTPUT_DATA}
+		</tr>
+		<!-- END user_data -->
+	</tbody>
+	</table>
+
+	<br />
+
+	<!-- IF PAGINATION -->
+	<div class="pagination">
+		<a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{S_ON_PAGE}</a> &bull; <span>{PAGINATION}</span>
+	</div>
+
+	<br />
+	<!-- ENDIF -->
+
+	</form>
+
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

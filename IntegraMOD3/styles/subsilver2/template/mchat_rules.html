@@ -1,0 +1,28 @@
+<!--**
+*
+* @package mChat
+* @version $Id: mchat_rules.html,v 1.3.0 27/08/2010 RMcGirr83 Exp $
+* @copyright (c) 2010 Rich McGirr
+* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+*
+*/-->
+<!-- INCLUDE simple_header.html -->
+
+<table class="tablebg" width="100%" cellspacing="1">
+<tr> 
+	<th>{L_MCHAT_HELP}</th>
+</tr>
+<tr>
+	<td class="row1">	
+		<!-- IF MCHAT_RULES and not .rule -->
+		{MCHAT_RULES}
+		<!-- ENDIF -->
+		<!-- BEGIN rule -->
+		{rule.MCHAT_RULE}<!-- IF !rule.S_LAST_ROW --><br /><!-- ENDIF -->
+		<!-- END rule --><br />
+		<a class="nav" href="#" onclick="window.close(); return false;">{L_CLOSE_WINDOW}</a>
+	</td>
+</tr>
+</table>
+
+<!-- INCLUDE simple_footer.html -->

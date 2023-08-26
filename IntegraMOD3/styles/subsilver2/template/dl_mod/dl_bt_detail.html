@@ -1,0 +1,129 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<form action="{S_FORM_ASSIGN_ACTION}" id="assign_user" method="post">
+<table width="100%" cellpadding="0" cellspacing="10" border="0" class="table1">
+<tbody>
+<tr>
+	<td width="80%" valign="top">
+
+		<table width="100%" cellpadding="2" cellspacing="1" border="0">
+		<tr>
+			<td class="row2"><span class="genmed">{L_DL_BUG_REPORT_TITLE}</span><br /><span class="topictitle">{REPORT_TITLE}</span></td>
+		</tr>
+		</table>
+		<br />
+		<table width="100%" cellpadding="2" cellspacing="1" border="0">
+		<tr>
+			<td class="row1"><span class="genmed">{L_DL_BUG_REPORT_TEXT}</span><hr /><span class="postbody">{REPORT_TEXT}</span><!-- IF U_BUG_REPORT_EDIT --><br /><br /><a href="{U_BUG_REPORT_EDIT}">{I_BUG_REPORT}</a><!-- ENDIF --></td>
+		</tr>
+		</table>
+
+	</td>
+	<td width="20%" valign="top">
+
+		<table width="100%" cellpadding="2" cellspacing="1" border="0">
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_ID}</b><br />{REPORT_ID}</span></td>
+		</tr>
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_FILE}</b><br /><a href="{U_DOWNLOAD_FILE}" class="genmed" target="_blank">{REPORT_FILE}</a></span></td>
+		</tr>
+		<!-- IF REPORT_FILE_VER -->
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_HACK_VERSION}</b><br />{REPORT_FILE_VER}</span></td>
+		</tr>
+		<!-- ENDIF -->
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_DATE}</b><br />{REPORT_DATE}</span></td>
+		</tr>
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_AUTHOR}</b><br />{REPORT_AUTHOR}</span></td>
+		</tr>
+		<!-- IF REPORT_PHP -->
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_PHP}</b><br />{REPORT_PHP}</span></td>
+		</tr>
+		<!-- ENDIF -->
+		<!-- IF REPORT_DB -->
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_DB}</b><br />{REPORT_DB}</span></td>
+		</tr>
+		<!-- ENDIF -->
+		<!-- IF REPORT_FORUM -->
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_FORUM}</b><br />{REPORT_FORUM}</span></td>
+		</tr>
+		<!-- ENDIF -->
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_STATUS}</b><br />{REPORT_STATUS}</span></td>
+		</tr>
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_STATUS_DATE}</b><br />{STATUS_DATE}</span></td>
+		</tr>
+		<!-- BEGIN assign -->
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_ASSIGNED}</b><br />{assign.ASSIGN_TO}</span></td>
+		</tr>
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_ASSIGN_DATE}</b><br />{assign.ASSIGN_DATE}</span></td>
+		</tr>
+		<!-- END assign -->
+		<!-- IF S_NO_ASSIGN -->
+		<tr>
+			<td class="row1"><span class="genmed"><b>{L_DL_BUG_REPORT_UNASSIGNED}</b></span></td>
+		</tr>
+		<!-- ENDIF -->
+		<!-- IF S_ASSIGN_MOD -->
+		<tr>
+			<td class="row1">{S_SELECT_ASSIGN_USER}<br /><input type="submit" name="submit" value="{L_DL_BUG_REPORT_ASSIGN}" class="btnlite" /></td>
+		</tr>
+		<!-- ENDIF -->
+		<!-- BEGIN delete -->
+		<tr>
+			<td class="row1"><a href="{delete.U_DELETE}" class="genmed">{L_DL_DELETE}</a></td>
+		</tr>
+		<!-- END delete -->
+		</table>
+
+	</td>
+</tr>
+</tbody>
+</table>
+{S_FORM_TOKEN}
+</form>
+
+<!-- IF S_SELECT_STATUS -->
+<br />
+
+<form action="{S_FORM_STATUS_ACTION}" method="post" name="status_change">
+
+<h3>{L_DL_BUG_REPORT_STATUS}</h3>
+
+<table width="100%" cellpadding="0" cellspacing="10" border="0" class="table1">
+<tr>
+	<td class="row1" style="width: 20%" valign="top">{S_SELECT_STATUS}<br /><input type="submit" name="submit" value="{L_DL_BUG_REPORT_STATUS_UPDATE}" class="btnlite" /></td>
+	<td class="row2" style="width: 80%"><span class="genmed">{L_DL_BUG_REPORT_STATUS_TEXT}</span><br /><textarea cols="75" rows="3" class="post" name="new_status_text"></textarea></td>
+</tr>
+</table>
+{S_FORM_TOKEN}
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_HISTORY -->
+<br />
+
+<h3>{L_DL_BUG_REPORT_HISTORY}</h3>
+
+<table width="100%" cellpadding="0" cellspacing="10" border="0" class="table1">
+<!-- BEGIN history_row -->
+<tr>
+	<td class="row1" style="width: 20%" valign="top"><span class="nav">{history_row.VALUE}</span><br /><span class="gensmall">{history_row.DATE}</span></td>
+	<td class="row2" style="width: 80%" valign="top"><span class="gen">{history_row.TEXT}</span></td>
+</tr>
+<!-- END history_row -->
+</table>
+<!-- ENDIF -->
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" xml:lang="{S_USER_LANG}">
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
+<meta http-equiv="content-language" content="{S_USER_LANG}" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+{META}
+<title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
+<link rel="icon" type="image/x-icon" href="{ROOT_PATH}images/favicon.ico">
+<!-- IF S_ENABLE_FEEDS -->
+	<!-- IF S_ENABLE_FEEDS_OVERALL --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_FORUMS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_FORUMS}" href="{U_FEED}?mode=forums" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPICS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_TOPICS_NEW}" href="{U_FEED}?mode=topics" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPICS_ACTIVE --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_TOPICS_ACTIVE}" href="{U_FEED}?mode=topics_active" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
+<!-- ENDIF -->
+
+<link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{T_THEME_PATH}/style_wide.css" />
+<!-- fontawesome 6.4.0 CSS-->  
+<link rel="stylesheet" href="{ROOT_PATH}styles/assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="alternate stylesheet" type="text/css" media="screen" title="fixed" href="{T_THEME_PATH}/style_fixed.css" />
+
+<script src="{ROOT_PATH}styles/assets/js/jquery-3.7.0.min.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-migrate-1.2.1.min.js"></script>
+
+<script src="{ROOT_PATH}styles/assets/js/forum_fn.js"></script>
+
+<script>
+// <![CDATA[
+<!-- IF S_USER_PM_POPUP and S_NEW_PM -->
+	popup('{UA_POPUP_PM}', 400, 225, '_phpbbprivmsg');
+<!-- ENDIF -->
+
+function popup(url, width, height, name)
+{
+	if (!name)
+	{
+		name = '_popup';
+	}
+
+	window.open(url.replace(/&amp;/g, '&'), name, 'height=' + height + ',resizable=yes,scrollbars=yes,width=' + width);
+	return false;
+}
+
+function jumpto()
+{
+	var page = prompt('{LA_JUMP_PAGE}:', '{ON_PAGE}');
+	var per_page = '{PER_PAGE}';
+	var base_url = '{A_BASE_URL}';
+
+	if (page !== null && !isNaN(page) && page == Math.floor(page) && page > 0)
+	{
+		if (base_url.indexOf('?') == -1)
+		{
+			document.location.href = base_url + '?start=' + ((page - 1) * per_page);
+		}
+		else
+		{
+			document.location.href = base_url.replace(/&amp;/g, '&') + '&start=' + ((page - 1) * per_page);
+		}
+	}
+}
+
+/**
+* Find a member
+*/
+function find_username(url)
+{
+	popup(url, 760, 570, '_usersearch');
+	return false;
+}
+
+/**
+* Mark/unmark checklist
+* id = ID of parent container, name = name prefix, state = state [true/false]
+*/
+function marklist(id, name, state)
+{
+	var parent = document.getElementById(id);
+	if (!parent)
+	{
+		eval('parent = document.' + id);
+	}
+
+	if (!parent)
+	{
+		return;
+	}
+
+	var rb = parent.getElementsByTagName('input');
+	
+	for (var r = 0; r < rb.length; r++)
+	{
+		if (rb[r].name.substr(0, name.length) == name)
+		{
+			rb[r].checked = state;
+		}
+	}
+}
+
+<!-- IF ._file -->
+
+	/**
+	* Play quicktime file by determining it's width/height
+	* from the displayed rectangle area
+	*
+	* Only defined if there is a file block present.
+	*/
+	function play_qt_file(obj)
+	{
+		var rectangle = obj.GetRectangle();
+
+		if (rectangle)
+		{
+			rectangle = rectangle.split(',')
+			var x1 = parseInt(rectangle[0]);
+			var x2 = parseInt(rectangle[2]);
+			var y1 = parseInt(rectangle[1]);
+			var y2 = parseInt(rectangle[3]);
+
+			var width = (x1 < 0) ? (x1 * -1) + x2 : x2 - x1;
+			var height = (y1 < 0) ? (y1 * -1) + y2 : y2 - y1;
+		}
+		else
+		{
+			var width = 200;
+			var height = 0;
+		}
+
+		obj.width = width;
+		obj.height = height + 16;
+
+		obj.SetControllerVisible(true);
+
+		obj.Play();
+	}
+<!-- ENDIF -->
+
+// ]]>
+</script>
+
+<!-- IF S_MCHAT_ENABLE and (S_MCHAT_ON_INDEX or U_MCHAT) -->
+<script src="{ROOT_PATH}assets/js/jquery_cookie_mini.js"></script>
+<!-- ENDIF -->
+
+<!-- IF S_NEW_DL_POPUP -->
+<script>
+// <![CDATA[
+	window.open('{U_NEW_DOWNLOAD_POPUP}', '_blank', 'HEIGHT=225,resizable=yes,WIDTH=400');
+// ]] >
+</script>
+<!-- ENDIF -->
+<script> 
+// 
+function notes() { 
+	window.open("{U_PERS_NOTES_POPUP}", "_blank", "width=800,height=600,scrollbars=yes,resizable=no");
+} 
+// 
+</script>
+<!-- IF S_DL_LYTEBOX -->
+<script src="{ROOT_PATH}assets/js/lytebox/lytebox.js"></script>
+<link rel="stylesheet" type="text/css" href="{ROOT_PATH}assets/js/lytebox/lytebox.css" />
+<!-- ENDIF -->
+
+<!-- IF S_TOTAL_IMAGES -->
+<script src="{ROOT_PATH}assets/js/jquery/jquery-1.6.min.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery.jcarousel.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{ROOT_PATH}assets/js/jquery/skins/tango/skin.css" />
+<!-- ENDIF -->
+<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+<!-- INCLUDE ./../../abbcode/abbcode_header.html -->
+<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
+<!-- INCLUDE ads/ads.js -->
+<!-- IF STARGATE --><!-- INCLUDE portal_scripts.html --><!-- ENDIF -->
+
+</head>
+<body class="{S_CONTENT_DIRECTION}">
+<a name="top"></a>
+<!-- IF ADS_1 -->{ADS_1}<br /><!-- ENDIF -->
+<!-- IF STARGATE --><div class="stylewidth"><!-- ENDIF -->
+<table class="bodyline" width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+	    <td style="padding: 0px;">
+		<div id="wrapheader">
+			<div id="logodesc">
+				<table class="topbkg" width="100%" cellspacing="0">
+					<tr>
+						<td><!-- IF STARGATE --><a href="{U_PORTAL}" title="{L_PORTAL}"><!-- ELSE --><a href="{U_INDEX}"><!-- ENDIF -->{SITE_LOGO_IMG}</a></td>
+						<td width="100%" align="center"><h1>{SITENAME}</h1><span class="gen">{SITE_DESCRIPTION}</span></td>
+					</tr>
+				</table>
+			</div>
+		
+			<!-- INCLUDE menu.html -->
+
+			<div id="datebar">
+				<!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN -->
+				<table width="100%" cellspacing="0">
+					<tr>
+						<td class="gen"><span style="color: red;">{L_BOARD_DISABLED}</span></td>
+					</tr>
+				</table>		
+				<!-- ENDIF -->
+				<!-- IF S_NEW_DL_MESSAGE -->
+				<table width="100%" cellspacing="0">
+					<tr>
+						<td class="gensmall">{NEW_DOWNLOAD_MESSAGE}</td>
+					</tr>
+				</table>
+				<!-- ENDIF -->
+				<!-- IF S_NOTES_MEM -->
+				<table width="100%" cellspacing="0">
+					<tr>
+						<td class="gensmall">{NOTES_MEM}</td>
+					</tr>
+				</table>
+				<!-- ENDIF -->
+				<table width="100%" cellspacing="0">
+					<tr>
+						<!-- IF S_USER_LOGGED_IN --><td class="gensmall">{LAST_VISIT_DATE}</td><!-- ENDIF -->
+						<td class="gensmall" align="{S_CONTENT_FLOW_END}">{CURRENT_TIME}<br /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- IF ADS_2 -->{ADS_2}<br /><!-- ENDIF -->
+		<div id="wrapcentre">
+			<!-- INCLUDE breadcrumbs.html -->
+			<br />
+				<!-- IF STARGATE -->
+					<!-- INCLUDE portal_header.html -->
+				<!-- ENDIF -->

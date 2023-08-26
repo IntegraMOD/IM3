@@ -1,0 +1,41 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+	<h2>{L_DOWNLOADS} {L_SEARCH}</h2>
+
+	<table width="100%" cellpadding="4" cellspacing="1" border="0" class="table1" align="center">
+	<thead>
+	<tr>
+		<th>{L_DL_INFO}</th>
+		<th>{L_DL_FILE_DESCRIPTION}<br />{L_DL_DETAIL}</th>
+		<th>{L_DL_CAT_NAME}</th>
+		<th>{L_DL_FILE_NAME}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN searchresults -->
+	<tr>
+		<td class="row1" align="center" valign="middle">{searchresults.STATUS}</td>
+		<td class="row1">{searchresults.MINI_ICON}<a href="{searchresults.U_FILE_LINK}" class="topictitle">{searchresults.DESCRIPTION}</a>&nbsp;{searchresults.MINI_ICON}<br /><span class="small">{searchresults.LONG_DESC}</span></td>
+		<td class="row1"><a href="{searchresults.U_CAT_LINK}" class="forumtitle">{searchresults.CAT_NAME}</a></td>
+		<td class="row1"><span class="small">{searchresults.FILE_NAME}</span></td>
+	</tr>
+	<!-- END searchresults -->
+	<!-- IF S_NO_RESULTS -->
+	<tr>
+		<td class="row1" align="center" valign="middle" colspan="4">{L_NO_SEARCH_RESULTS}</td>
+	</tr>
+	<!-- ENDIF -->
+	</tbody>
+	</table>
+
+	<!-- IF PAGINATION -->
+	<table width="100%" cellpadding="3" cellspacing="1" border="0" class="table1">
+	<tr>
+		<td align="right">{L_GOTO_PAGE}: {PAGINATION}</td>
+	</tr>
+	</table>
+	<!-- ENDIF -->
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->
