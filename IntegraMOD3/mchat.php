@@ -267,7 +267,7 @@ switch ($mchat_mode)
 						$row['message'] = sprintf($user->lang['MCHAT_FOE'], get_username_string('full', $row['user_id'], $row['username'], $row['user_colour'], $user->lang['GUEST']));
 					}
 				}
-				$row['username'] = mb_ereg_replace("'", "&#146;", $row['username']);
+				$row['username'] = preg_replace("/'/u", "/&#146;/u", $row['username']);
 				$template->assign_block_vars('mchatrow', array(
 					'MCHAT_ALLOW_BAN'		=> $mchat_ban,
 					'MCHAT_ALLOW_EDIT'		=> $mchat_edit,
@@ -373,7 +373,7 @@ switch ($mchat_mode)
 			$message_edit = $row['message'];
 			decode_message($message_edit, $row['bbcode_uid']);
 			$message_edit = str_replace('"', '&quot;', $message_edit);
-				$message_edit = mb_ereg_replace("'", "&#146;", $message_edit);				// Edit Fix ;)
+				$message_edit = preg_replace("/'/u", "/&#146;/u", $message_edit);				// Edit Fix ;)
 			if (sizeof($foes_array))
 			{
 				if (in_array($row['user_id'], $foes_array))
@@ -381,7 +381,7 @@ switch ($mchat_mode)
 					$row['message'] = sprintf($user->lang['MCHAT_FOE'], get_username_string('full', $row['user_id'], $row['username'], $row['user_colour'], $user->lang['GUEST']));
 				}
 			}
-			$row['username'] = mb_ereg_replace("'", "&#146;", $row['username']);
+			$row['username'] = preg_replace("/'/u", "/&#146;/u", $row['username']);
 			$template->assign_block_vars('mchatrow', array(
 				'MCHAT_ALLOW_BAN'		=> $mchat_ban,
 				'MCHAT_ALLOW_EDIT'		=> $mchat_edit,
@@ -671,7 +671,7 @@ switch ($mchat_mode)
 		
 		decode_message($message_edit, $row['bbcode_uid']);
 		$message_edit = str_replace('"', '&quot;', $message_edit); // Edit Fix ;)
-		$message_edit = mb_ereg_replace("'", "&#146;", $message_edit);				// Edit Fix ;)
+		$message_edit = preg_replace("/'/u", "/&#146;/u", $message_edit);				// Edit Fix ;)
 		$mchat_ban = ($auth->acl_get('a_authusers') && $user->data['user_id'] != $row['user_id']) ? true : false;
  		$mchat_avatar = $row['user_avatar'] ? get_user_avatar($row['user_avatar'], $row['user_avatar_type'], ($row['user_avatar_width'] > $row['user_avatar_height']) ? 40 : (40 / $row['user_avatar_height']) * $row['user_avatar_width'], ($row['user_avatar_height'] > $row['user_avatar_width']) ? 40 : (40 / $row['user_avatar_width']) * $row['user_avatar_height']) : '';   
 		$template->assign_block_vars('mchatrow', array(
@@ -872,7 +872,7 @@ switch ($mchat_mode)
 				$message_edit = $row['message'];
 				decode_message($message_edit, $row['bbcode_uid']);
 				$message_edit = str_replace('"', '&quot;', $message_edit); // Edit Fix ;)
-				$message_edit = mb_ereg_replace("'", "&#146;", $message_edit);				
+				$message_edit = preg_replace("/'/u", "/&#146;/u", $message_edit);				
 				if (sizeof($foes_array))
 				{
 					if (in_array($row['user_id'], $foes_array))
@@ -880,7 +880,7 @@ switch ($mchat_mode)
 						$row['message'] = sprintf($user->lang['MCHAT_FOE'], get_username_string('full', $row['user_id'], $row['username'], $row['user_colour'], $user->lang['GUEST']));
 					}
 				}
-				$row['username'] = mb_ereg_replace("'", "&#146;", $row['username']);
+				$row['username'] = preg_replace("/'/u", "/&#146;/u", $row['username']);
 				$message = str_replace('\'', '&rsquo;', $row['message']);
 				$template->assign_block_vars('mchatrow', array(
 					'MCHAT_ALLOW_BAN'		=> $mchat_ban,
