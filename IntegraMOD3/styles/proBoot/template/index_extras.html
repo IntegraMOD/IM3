@@ -1,0 +1,45 @@
+<table width="100%" cellspacing="10" cellpadding="0" border="0">
+	<tr>
+<!-- IF S_SHOW_MINICAL -->
+		<td id="minical" align="left" valign="top" >
+			<div class="forabg" style="width:200px;">
+				<div class="inner"><span class="corners-top"><span></span></span>
+					<ul class="topiclist">
+						<li class="header">
+							<dl>
+								<dt><a href="{U_CALENDAR}">{L_LANG_CALENDAR}</a></dt>
+							</dl>
+						</li>
+					</ul>
+					<div style="padding: 5px 5px 2px 5px; font-size: 1.1em; background-color: #ECF1F3; margin: 0px auto; text-align: center;">
+					<!-- INCLUDE blocks/block_calendar.html -->
+					</div>
+				<span class="corners-bottom"><span></span></span></div>
+			</div>
+		</td>
+<!-- ENDIF -->
+<!-- IF S_SHOW_SHOUTBOX and S_CAN_VIEW_AS-->
+
+		<td width="100%" valign="top">
+
+		<div class="forabg">
+			<div class="inner"><span class="corners-top"><span></span></span>
+			<ul class="topiclist">
+				<li class="header">
+					<dl>
+						<dt><a href="{U_SHOUTPAGE}">{L_SHOUTBOX}</a></dt>
+					</dl>
+				</li>
+			</ul>
+			<span id="shoutbox"></span>
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+<script type="text/javascript">
+display_shoutbox = true;
+load_shout();
+</script>
+
+		</td>
+<!-- ENDIF -->
+	  </tr>
+	</table>

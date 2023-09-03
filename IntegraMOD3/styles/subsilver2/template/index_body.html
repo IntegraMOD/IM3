@@ -8,6 +8,7 @@
 	<br clear="all" /><br />
 <!-- ENDIF -->
 
+<span class="genmed"><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a><!-- IF S_USER_LOGGED_IN --> &bull; <a href="{U_SEARCH_UNREAD}">{L_UNREAD_POSTS}</a> &bull; <a href="{U_SEARCH_NEW}">{L_NEW_POSTS}</a><!-- ENDIF --> &bull; <a href="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</a></span>
 <!-- INCLUDE forumlist_body.html -->
 
 <!-- INCLUDE index_extras.html -->
@@ -83,7 +84,7 @@
 </table>
 <!-- ENDIF -->
 <!-- End Ultimate Points -->
-
+<!-- INCLUDE mchat_stats.html -->
 <!-- IF not S_USER_LOGGED_IN and not S_IS_BOT -->
 	<br clear="all" />
 

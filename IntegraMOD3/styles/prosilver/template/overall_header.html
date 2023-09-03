@@ -215,10 +215,10 @@ function notes() {
 
 			<!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
 			<ul class="linklist leftside">
-			
 				<li>
-					<!-- IF S_DISPLAY_PM --> <a href="{U_PRIVATEMSGS}"><i class="fa-regular fa-message fa-lg"></i> ({PRIVATE_MESSAGE_INFO})</a><!-- ENDIF -->
-				    <!-- IF S_SHOW_MEETING and L_MEETING_LINK_N --> &bull;
+					<!-- IF S_DISPLAY_PM --> <a href="{U_PRIVATEMSGS}"><i class="fa-regular fa-message fa-lg"></i> {PRIVATE_MESSAGE_INFO}</a><!-- ENDIF -->
+                    <a href="{U_SEARCH_NEW}">{L_NEW_POST}</a>					
+					<!-- IF S_SHOW_MEETING and L_MEETING_LINK_N --> &bull;
 				    <a href="{U_MEETING_LINK_N}" title="{L_MEETING}">{L_MEETING_LINK_N}</a>
 				    <!-- ENDIF -->
 					<!-- IF U_RESTORE_PERMISSIONS --> &bull;

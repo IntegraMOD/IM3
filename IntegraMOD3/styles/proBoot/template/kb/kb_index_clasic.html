@@ -1,0 +1,31 @@
+<!-- IF S_UCATS -->
+<!-- BEGIN maincat -->
+<div class="forabg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<ul class="topiclist">
+		<li class="header">
+			<dl class="icon">
+				<dt>{maincat.TITLE}</dt>
+				<dd class="posts">{L_TOPICS}</dd>
+				<dd class="lastpost"><span>{L_LAST_POST}</span></dd>
+			</dl>
+		</li>
+	</ul>
+
+	<ul class="topiclist forums">
+	<!-- BEGIN ucat -->
+		<li class="row">
+				<dl class="icon" style="background-image: url({maincat.ucat.FORUM_FOLDER_IMG_SRC}); background-repeat: no-repeat;">
+					<dt ><!-- IF maincat.ucat.CAT_IMAGE --><span class="forum-image"><img src="{maincat.ucat.CAT_IMAGE}" alt="" /></span><!-- ENDIF -->
+					<a href="{maincat.ucat.U_CATEGORIE}" class="forumtitle">{maincat.ucat.TITLE}</a><br />{maincat.ucat.DESCRIPTION}
+					<!-- IF maincat.ucat.SUB_CAT} --><br /><strong>{L_SUB_CATGEGORIES}: {maincat.ucat.SUB_CAT}</strong><!-- ENDIF --></dt>
+					<dd class="posts">{maincat.ucat.ARTICLES}</dd>
+					<dd class="lastpost"><!-- IF maincat.ucat.NEWEST_ARTICLE --><span><a href="{maincat.ucat.U_NEWEST_ARTICLE}">{maincat.ucat.NEWEST_ARTICLE}</a><br />{L_FROM}: {maincat.ucat.AUTHOR_FULL}<br />{L_POSTED_ON_DATE} {maincat.ucat.NEWEST_TIME}</span><!-- ENDIF --></dd>
+				</dl>
+		</li>
+	<!-- END ucat -->
+	</ul>
+	<span class="corners-bottom"><span></span></span></div>
+	</div>
+<!-- END maincat -->
+<!-- ENDIF -->

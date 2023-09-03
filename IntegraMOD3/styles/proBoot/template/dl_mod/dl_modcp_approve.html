@@ -1,0 +1,72 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<script type="text/javascript">
+// <![CDATA[
+function select_switch(status)
+{
+	for (i = 0; i < document.forms.dl_modcp.length; i++)
+	{
+		document.forms.dl_modcp.elements[i].checked = status;
+	}
+}
+// ]]>
+</script>
+
+<form action="{S_DL_MODCP_ACTION}" method="post" id="dl_modcp">
+
+<div class="forabg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<ul class="topiclist">
+		<li class="header">
+			<dl>
+				<dd class="lastpost">{L_DL_CAT_NAME}</dd>
+				<dt>{L_DL_DOWNLOAD}</dt>
+				<dd class="options">{L_OPTIONS}</dd>
+			</dl>
+		</li>
+	</ul>
+	<ul class="topiclist forums">
+	<!-- BEGIN approve_row -->
+		<li class="row<!-- IF approve_row.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+			<dl>
+				<dd class="lastpost"><a href="{approve_row.U_CAT_VIEW}">{approve_row.CAT_NAME}</a></dd>
+				<dt>{approve_row.MINI_ICON}&nbsp;<a href="{approve_row.U_DOWNLOAD}">{approve_row.DESCRIPTION}</a></dt>
+				<dd class="options">
+					<!-- IF approve_row.U_EDIT --><a href="{approve_row.U_EDIT}">{L_DL_EDIT_FILE}</a>&nbsp;&nbsp;<!-- ENDIF -->
+					<input type="checkbox" class="permissions-checkbox" name="dlo_id[]" value="{approve_row.FILE_ID}" />
+				</dd>
+ 			</dl>
+ 		</li>
+	<!-- END approve_row -->
+	</ul>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<ul class="linklist">
+	<li class="rightside">
+		<span><a href="javascript:select_switch(true);">{L_DL_MARK_ALL}</a> :: <a href="javascript:select_switch(false);">{L_DL_UNMARK}</a></span>
+	</li>
+</ul>
+
+<!-- IF PAGE_NUMBER -->
+<ul class="linklist">
+	<li class="rightside pagination">
+		{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span>
+	</li>
+</ul>
+<!-- ENDIF -->
+
+<fieldset class="submit-buttons">
+	<input type="submit" name="delete" value="{L_DL_DELETE}" class="button2" />&nbsp;&nbsp;
+	<input type="submit" name="submit" value="{L_DL_APPROVE}" class="button1"/>
+	{S_FORM_TOKEN}
+	{S_HIDDEN_FIELDS}
+</fieldset>
+
+</form>
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->
