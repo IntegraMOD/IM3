@@ -4965,6 +4965,77 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		));
 	}
 	// End Ultimate Points
+	
+    //
+    // + new posts since last visit & you post number
+    //
+    if ($user->data['is_registered'])
+    {
+        $ex_fid_ary = array_unique(array_merge(array_keys($auth->acl_getf('!f_read', true)), array_keys($auth->acl_getf('!f_search', true))));
+        
+        if ($auth->acl_get('m_approve'))
+        {
+         $m_approve_fid_ary = array(-1);
+         $m_approve_fid_sql = '';
+        }
+        else if ($auth->acl_getf_global('m_approve'))
+        {
+         $m_approve_fid_ary = array_diff(array_keys($auth->acl_getf('!m_approve', true)), $ex_fid_ary);
+         $m_approve_fid_sql = ' AND (p.post_approved = 1' . ((sizeof($m_approve_fid_ary)) ? ' OR ' . $db->sql_in_set('p.forum_id', $m_approve_fid_ary, true) : '') . ')';
+        }
+        else
+        {
+         $m_approve_fid_ary = array();
+         $m_approve_fid_sql = ' AND p.post_approved = 1';
+        }
+
+        $sql = 'SELECT COUNT(distinct t.topic_id) as total
+             FROM ' . TOPICS_TABLE . ' t
+             WHERE t.topic_last_post_time > ' . $user->data['user_lastvisit'] . '
+               AND t.topic_moved_id = 0
+               ' . str_replace(array('p.', 'post_'), array('t.', 'topic_'), $m_approve_fid_sql) . '
+               ' . ((sizeof($ex_fid_ary)) ? 'AND ' . $db->sql_in_set('t.forum_id', $ex_fid_ary, true) : '');
+        $result = $db->sql_query($sql);
+        $new_posts_count = (int) $db->sql_fetchfield('total');
+
+        // your post number
+        $sql = "SELECT user_posts
+         FROM " . USERS_TABLE . "
+         WHERE user_id = " . $user->data['user_id'];
+        $result = $db->sql_query($sql);
+        $you_posts_count = (int) $db->sql_fetchfield('user_posts');
+        
+        // unread posts
+        $sql_where = 'AND t.topic_moved_id = 0
+               ' . str_replace(array('p.', 'post_'), array('t.', 'topic_'), $m_approve_fid_sql) . '
+               ' . ((sizeof($ex_fid_ary)) ? 'AND ' . $db->sql_in_set('t.forum_id', $ex_fid_ary, true) : '');
+        $unread_list = array();
+        $unread_list = get_unread_topics($user->data['user_id'], $sql_where, 'ORDER BY t.topic_id DESC');
+        
+        if (!empty($unread_list))
+        {
+         $sql = 'SELECT COUNT(distinct t.topic_id) as total
+           FROM ' . TOPICS_TABLE . ' t
+           WHERE ' . $db->sql_in_set('t.topic_id', array_keys($unread_list));
+         $result = $db->sql_query($sql);
+         $unread_posts_count = (int) $db->sql_fetchfield('total');
+        }
+        else
+        {
+         $unread_posts_count = 0;
+        }
+
+       $template->assign_vars(array(
+            'L_NEW_POST'        => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_NEW'],
+            'L_NEW_POSTS'        => $user->lang['SEARCH_NEW'] . '&nbsp;<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>',
+            'L_UNREAD_POSTS'=>   $user->lang['SEARCH_UNREAD'] . '&nbsp;<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $unread_posts_count . '</strong></span>',
+            'L_SELF_POSTS'        => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $you_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_SELF'],
+            ));
+    }
+    //
+    // - new posts since last visit & you post number
+    //       
+	
 	// The following assigns all _common_ variables that may be used at any point in a template.
 	$template->assign_vars(array(
 		'SITENAME'						=> $config['sitename'],

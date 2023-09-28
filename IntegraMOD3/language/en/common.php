@@ -359,8 +359,8 @@ $lang = array_merge($lang, array(
 	'NEWEST_USER'				=> 'Our newest member <strong>%s</strong>',
 	'NEW_MESSAGE'				=> 'New message',
 	'NEW_MESSAGES'				=> 'New messages',
-	'NEW_PM'					=> '<strong>%d</strong> new message',
-	'NEW_PMS'					=> '<strong>%d</strong> new messages',
+	'NEW_PM'					=> '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>%d</strong></span> New message',
+	'NEW_PMS'					=> '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>%d</strong></span> New messages',
 	'NEW_POST'					=> 'New post',	// Not used anymore
 	'NEW_POSTS'					=> 'New posts',	// Not used anymore
 	'NEXT'						=> 'Next',		// Used in pagination
@@ -394,7 +394,7 @@ $lang = array_merge($lang, array(
 	'NO_MODE'					=> 'No mode specified.',
 	'NO_MODERATORS'				=> 'There are no moderators.',
 	'NO_NEW_MESSAGES'			=> 'No new messages',
-	'NO_NEW_PM'					=> '<strong>0</strong> new messages',
+	'NO_NEW_PM'					=> '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>0</strong></span> New messages',
 	'NO_NEW_POSTS'				=> 'No new posts',	// Not used anymore
 	'NO_ONLINE_USERS'			=> 'No registered users',
 	'NO_POSTS'					=> 'No posts',
@@ -540,7 +540,7 @@ $lang = array_merge($lang, array(
 	'SEARCH_ACTIVE_TOPICS'		=> 'View active topics',
 	'SEARCH_FOR'				=> 'Search for',
 	'SEARCH_FORUM'				=> 'Search this forum…',
-	'SEARCH_NEW'				=> 'View new posts',
+	'SEARCH_NEW'				=> 'New posts',
 	'SEARCH_POSTS_BY'			=> 'Search posts by',
 	'SEARCH_SELF'				=> 'View your posts',
 	'SEARCH_TOPIC'				=> 'Search this topic…',
