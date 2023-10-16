@@ -64,7 +64,7 @@ $lang = array_merge($lang, array(
 // Forum part
 	'CLICKMEETINGBACK'						=> '%sClick here to return to the meeting list%s',
 	'MEETING'								=> 'Meeting Management',
-	'MEETING_UNTIL'							=> 'Peroid for registration',
+	'MEETING_UNTIL'							=> 'Period for registration',
 	'MEETING_LOCATION'						=> 'Location',
 	'MEETING_SUBJECT'						=> 'Title',
 	'MEETING_CLOSED'						=> 'Closed',
