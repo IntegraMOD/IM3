@@ -12,7 +12,7 @@ $acm_type = 'file';
 $load_extensions = '';
 
 @define('PHPBB_INSTALLED', true);
-@define('DEBUG', true);
-@define('DEBUG_EXTRA', true);
-@define('DEBUG_TEMPLATES', true); 
-@define('DEBUG_CACHE', true);
+//@define('DEBUG', true);
+//@define('DEBUG_EXTRA', true);
+//@define('DEBUG_TEMPLATES', true); 
+//@define('DEBUG_CACHE', true);
