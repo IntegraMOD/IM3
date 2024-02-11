@@ -1,0 +1,52 @@
+<?php if (!defined('IN_PHPBB')) exit; $this->_tpl_include('overall_header.html'); ?>
+
+
+<p class="<?php echo $this->_rootref['S_CONTENT_FLOW_END'] ?? ''; if (($this->_rootref['S_USER_LOGGED_IN'] ?? null)) {  ?> rightside<?php } ?>"><?php if (($this->_rootref['S_USER_LOGGED_IN'] ?? null)) {  echo $this->_rootref['LAST_VISIT_DATE'] ?? ''; } else { echo $this->_rootref['CURRENT_TIME'] ?? ''; } ?></p>
+<?php if (($this->_rootref['U_MCP'] ?? null)) {  ?><p><?php echo $this->_rootref['CURRENT_TIME'] ?? ''; ?> <br />[&nbsp;<a href="<?php echo $this->_rootref['U_MCP'] ?? ''; ?>"><?php echo ((isset($this->_rootref['L_MCP'])) ? $this->_rootref['L_MCP'] : ((isset($user->lang['MCP'])) ? $user->lang['MCP'] : '{ MCP }')); ?></a>&nbsp;]</p><?php } else if (($this->_rootref['S_USER_LOGGED_IN'] ?? null)) {  ?><p><?php echo $this->_rootref['CURRENT_TIME'] ?? ''; ?></p><?php } if (($this->_rootref['S_DISPLAY_SEARCH'] ?? null) || ( ($this->_rootref['S_USER_LOGGED_IN'] ?? null) && ! ($this->_rootref['S_IS_BOT'] ?? null) )) {  ?>
+
+<ul class="linklist">
+	<?php if (($this->_rootref['S_DISPLAY_SEARCH'] ?? null)) {  ?>
+
+        <li><a href="<?php echo $this->_rootref['U_SEARCH_UNANSWERED'] ?? ''; ?>"><?php echo ((isset($this->_rootref['L_SEARCH_UNANSWERED'])) ? $this->_rootref['L_SEARCH_UNANSWERED'] : ((isset($user->lang['SEARCH_UNANSWERED'])) ? $user->lang['SEARCH_UNANSWERED'] : '{ SEARCH_UNANSWERED }')); ?></a><?php if (($this->_rootref['S_USER_LOGGED_IN'] ?? null)) {  ?> &bull; <a href="<?php echo $this->_rootref['U_SEARCH_UNREAD'] ?? ''; ?>"><?php echo ((isset($this->_rootref['L_UNREAD_POSTS'])) ? $this->_rootref['L_UNREAD_POSTS'] : ((isset($user->lang['UNREAD_POSTS'])) ? $user->lang['UNREAD_POSTS'] : '{ UNREAD_POSTS }')); ?></a> &bull; <a href="<?php echo $this->_rootref['U_SEARCH_NEW'] ?? ''; ?>"><?php echo ((isset($this->_rootref['L_NEW_POSTS'])) ? $this->_rootref['L_NEW_POSTS'] : ((isset($user->lang['NEW_POSTS'])) ? $user->lang['NEW_POSTS'] : '{ NEW_POSTS }')); ?></a><?php } ?> &bull; <a href="<?php echo $this->_rootref['U_SEARCH_ACTIVE_TOPICS'] ?? ''; ?>"><?php echo ((isset($this->_rootref['L_SEARCH_ACTIVE_TOPICS'])) ? $this->_rootref['L_SEARCH_ACTIVE_TOPICS'] : ((isset($user->lang['SEARCH_ACTIVE_TOPICS'])) ? $user->lang['SEARCH_ACTIVE_TOPICS'] : '{ SEARCH_ACTIVE_TOPICS }')); ?></a></li>
+	<?php } if (! ($this->_rootref['S_IS_BOT'] ?? null) && ($this->_rootref['U_MARK_FORUMS'] ?? null)) {  ?><li class="rightside"><a href="<?php echo $this->_rootref['U_MARK_FORUMS'] ?? ''; ?>" accesskey="m"><?php echo ((isset($this->_rootref['L_MARK_FORUMS_READ'])) ? $this->_rootref['L_MARK_FORUMS_READ'] : ((isset($user->lang['MARK_FORUMS_READ'])) ? $user->lang['MARK_FORUMS_READ'] : '{ MARK_FORUMS_READ }')); ?></a></li><?php } ?>
+
+</ul>
+<?php } if (($this->_rootref['STARGATE'] ?? null)) {  $this->_tpl_include('portal_center.html'); } if (($this->_rootref['S_MCHAT_ENABLE'] ?? null) && ($this->_rootref['S_MCHAT_ON_INDEX'] ?? null) && ($this->_rootref['S_MCHAT_LOCATION'] ?? null)) {  $this->_tpl_include('mchat_body.html'); } $this->_tpl_include('forumlist_body.html'); $this->_tpl_include('index_extras.html'); if (! ($this->_rootref['S_USER_LOGGED_IN'] ?? null) && ! ($this->_rootref['S_IS_BOT'] ?? null)) {  ?>
+
+	<form method="post" action="<?php echo $this->_rootref['S_LOGIN_ACTION'] ?? ''; ?>" class="headerspace">
+	<h3><a href="<?php echo $this->_rootref['U_LOGIN_LOGOUT'] ?? ''; ?>"><?php echo ((isset($this->_rootref['L_LOGIN_LOGOUT'])) ? $this->_rootref['L_LOGIN_LOGOUT'] : ((isset($user->lang['LOGIN_LOGOUT'])) ? $user->lang['LOGIN_LOGOUT'] : '{ LOGIN_LOGOUT }')); ?></a><?php if (($this->_rootref['S_REGISTER_ENABLED'] ?? null)) {  ?>&nbsp; &bull; &nbsp;<a href="<?php echo $this->_rootref['U_REGISTER'] ?? ''; ?>"><?php echo ((isset($this->_rootref['L_REGISTER'])) ? $this->_rootref['L_REGISTER'] : ((isset($user->lang['REGISTER'])) ? $user->lang['REGISTER'] : '{ REGISTER }')); ?></a><?php } ?></h3>
+		<fieldset class="quick-login">
+			<label for="username"><?php echo ((isset($this->_rootref['L_USERNAME'])) ? $this->_rootref['L_USERNAME'] : ((isset($user->lang['USERNAME'])) ? $user->lang['USERNAME'] : '{ USERNAME }')); ?>:</label>&nbsp;<input type="text" name="username" id="username" size="10" class="inputbox" title="<?php echo ((isset($this->_rootref['L_USERNAME'])) ? $this->_rootref['L_USERNAME'] : ((isset($user->lang['USERNAME'])) ? $user->lang['USERNAME'] : '{ USERNAME }')); ?>" />
+			<label for="password"><?php echo ((isset($this->_rootref['L_PASSWORD'])) ? $this->_rootref['L_PASSWORD'] : ((isset($user->lang['PASSWORD'])) ? $user->lang['PASSWORD'] : '{ PASSWORD }')); ?>:</label>&nbsp;<input type="password" name="password" id="password" size="10" class="inputbox" title="<?php echo ((isset($this->_rootref['L_PASSWORD'])) ? $this->_rootref['L_PASSWORD'] : ((isset($user->lang['PASSWORD'])) ? $user->lang['PASSWORD'] : '{ PASSWORD }')); ?>" />
+			<?php if (($this->_rootref['S_AUTOLOGIN_ENABLED'] ?? null)) {  ?>
+
+				| <label for="autologin"><?php echo ((isset($this->_rootref['L_LOG_ME_IN'])) ? $this->_rootref['L_LOG_ME_IN'] : ((isset($user->lang['LOG_ME_IN'])) ? $user->lang['LOG_ME_IN'] : '{ LOG_ME_IN }')); ?> <input type="checkbox" name="autologin" id="autologin" /></label>
+			<?php } ?>
+
+			<input type="submit" name="login" value="<?php echo ((isset($this->_rootref['L_LOGIN'])) ? $this->_rootref['L_LOGIN'] : ((isset($user->lang['LOGIN'])) ? $user->lang['LOGIN'] : '{ LOGIN }')); ?>" class="button2" />
+			<?php echo $this->_rootref['S_LOGIN_REDIRECT'] ?? ''; ?>
+
+		</fieldset>
+	</form>
+<?php } if (($this->_rootref['S_DISPLAY_ONLINE_LIST'] ?? null)) {  if (($this->_rootref['U_VIEWONLINE'] ?? null)) {  ?><h3><a href="<?php echo $this->_rootref['U_VIEWONLINE'] ?? ''; ?>"><?php echo ((isset($this->_rootref['L_WHO_IS_ONLINE'])) ? $this->_rootref['L_WHO_IS_ONLINE'] : ((isset($user->lang['WHO_IS_ONLINE'])) ? $user->lang['WHO_IS_ONLINE'] : '{ WHO_IS_ONLINE }')); ?></a></h3><?php } else { ?><h3><?php echo ((isset($this->_rootref['L_WHO_IS_ONLINE'])) ? $this->_rootref['L_WHO_IS_ONLINE'] : ((isset($user->lang['WHO_IS_ONLINE'])) ? $user->lang['WHO_IS_ONLINE'] : '{ WHO_IS_ONLINE }')); ?></h3><?php } ?>
+
+	<p><?php echo $this->_rootref['TOTAL_USERS_ONLINE'] ?? ''; ?> (<?php echo ((isset($this->_rootref['L_ONLINE_EXPLAIN'])) ? $this->_rootref['L_ONLINE_EXPLAIN'] : ((isset($user->lang['ONLINE_EXPLAIN'])) ? $user->lang['ONLINE_EXPLAIN'] : '{ ONLINE_EXPLAIN }')); ?>)<br /><?php echo $this->_rootref['RECORD_USERS'] ?? ''; ?><br /> <br /><?php echo $this->_rootref['LOGGED_IN_USER_LIST'] ?? ''; ?><br /><br /><?php echo $this->_rootref['USERS_OF_THE_DAY_LIST'] ?? ''; ?><br /><a href="./uod.php"><?php echo ((isset($this->_rootref['L_USERS_OF_THE_DAY_TITLE'])) ? $this->_rootref['L_USERS_OF_THE_DAY_TITLE'] : ((isset($user->lang['USERS_OF_THE_DAY_TITLE'])) ? $user->lang['USERS_OF_THE_DAY_TITLE'] : '{ USERS_OF_THE_DAY_TITLE }')); ?></a><br />
+	<?php if (($this->_rootref['LEGEND'] ?? null)) {  ?><br /><em><?php echo ((isset($this->_rootref['L_LEGEND'])) ? $this->_rootref['L_LEGEND'] : ((isset($user->lang['LEGEND'])) ? $user->lang['LEGEND'] : '{ LEGEND }')); ?>: <?php echo $this->_rootref['LEGEND'] ?? ''; ?></em><?php } ?></p>
+<?php } if (($this->_rootref['S_DISPLAY_BIRTHDAY_LIST'] ?? null) && ($this->_rootref['BIRTHDAY_LIST'] ?? null)) {  ?>
+
+	<h3><?php echo ((isset($this->_rootref['L_BIRTHDAYS'])) ? $this->_rootref['L_BIRTHDAYS'] : ((isset($user->lang['BIRTHDAYS'])) ? $user->lang['BIRTHDAYS'] : '{ BIRTHDAYS }')); ?></h3>
+	<p><?php if (($this->_rootref['BIRTHDAY_LIST'] ?? null)) {  echo ((isset($this->_rootref['L_CONGRATULATIONS'])) ? $this->_rootref['L_CONGRATULATIONS'] : ((isset($user->lang['CONGRATULATIONS'])) ? $user->lang['CONGRATULATIONS'] : '{ CONGRATULATIONS }')); ?>: <strong><?php echo $this->_rootref['BIRTHDAY_LIST'] ?? ''; ?></strong><?php } else { echo ((isset($this->_rootref['L_NO_BIRTHDAYS'])) ? $this->_rootref['L_NO_BIRTHDAYS'] : ((isset($user->lang['NO_BIRTHDAYS'])) ? $user->lang['NO_BIRTHDAYS'] : '{ NO_BIRTHDAYS }')); } ?></p>
+<?php } if (($this->_rootref['NEWEST_USER'] ?? null)) {  ?>
+
+	<h3><?php echo ((isset($this->_rootref['L_STATISTICS'])) ? $this->_rootref['L_STATISTICS'] : ((isset($user->lang['STATISTICS'])) ? $user->lang['STATISTICS'] : '{ STATISTICS }')); ?></h3>
+	<p><?php echo $this->_rootref['TOTAL_POSTS'] ?? ''; ?> &bull; <?php echo $this->_rootref['TOTAL_TOPICS'] ?? ''; if (($this->_rootref['TOTAL_IMAGES'] ?? null)) {  ?> &bull; <?php echo $this->_rootref['TOTAL_IMAGES'] ?? ''; } ?> &bull; <?php echo $this->_rootref['TOTAL_USERS'] ?? ''; ?> &bull; <?php echo $this->_rootref['NEWEST_USER'] ?? ''; ?></p>
+<?php } ?><!-- Start Ultimate Points --><?php if (($this->_rootref['S_DISPLAY_POINTS_STATS'] ?? null)) {  ?>
+
+<h3><?php echo ((isset($this->_rootref['L_POINTS_STATISTICS'])) ? $this->_rootref['L_POINTS_STATISTICS'] : ((isset($user->lang['POINTS_STATISTICS'])) ? $user->lang['POINTS_STATISTICS'] : '{ POINTS_STATISTICS }')); ?></h3>
+<p><?php echo $this->_rootref['TOTAL_POINTS_USER'] ?? ''; ?> &bull; <?php echo $this->_rootref['TOTAL_BANK_USER'] ?? ''; ?> &bull; <?php echo $this->_rootref['TOTAL_BANK_POINTS'] ?? ''; ?> <?php if (($this->_rootref['S_DISPLAY_LOTTERY'] ?? null)) {  ?> &bull; <?php echo $this->_rootref['LOTTERY_TIME'] ?? ''; ?> <?php } ?></p>
+
+<?php if (($this->_rootref['S_DISPLAY_INDEX'] ?? null)) {  ?>
+
+<h3><?php echo ((isset($this->_rootref['L_POINTS_MOST_RICH_USERS'])) ? $this->_rootref['L_POINTS_MOST_RICH_USERS'] : ((isset($user->lang['POINTS_MOST_RICH_USERS'])) ? $user->lang['POINTS_MOST_RICH_USERS'] : '{ POINTS_MOST_RICH_USERS }')); ?></h3>
+<p><?php $_rich_user_count = (isset($this->_tpldata['rich_user']) && is_array($this->_tpldata['rich_user'])) ? count($this->_tpldata['rich_user']) : 0;if ($_rich_user_count) {for ($_rich_user_i = 0; $_rich_user_i < $_rich_user_count; ++$_rich_user_i){$_rich_user_val = &$this->_tpldata['rich_user'][$_rich_user_i]; if (! $_rich_user_val['S_FIRST_ROW']) {  ?> &bull; <?php } echo $_rich_user_val['USERNAME']; ?> (<?php echo $_rich_user_val['SUM_POINTS']; ?> <?php echo $_rich_user_val['SUM_POINTS_NAME']; ?>)<?php }} ?></p>
+<?php } } ?><!-- End Ultimate Points --><?php $this->_tpl_include('mchat_stats.html'); $this->_tpl_include('overall_footer.html'); ?>

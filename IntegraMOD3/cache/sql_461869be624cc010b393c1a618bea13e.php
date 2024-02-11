@@ -1,0 +1,5 @@
+<?php exit; ?>
+1707634757
+SELECT u.user_id, u.username, u.user_allow_viewonline, u.user_colour, u.user_type, u.user_avatar, u.user_avatar_type, u.user_lastvisit, s.session_user_id, MAX(s.session_time) AS session_time FROM phpbb_users u LEFT JOIN phpbb_sessions s ON (u.user_id = s.session_user_id AND session_time >= 1707630857) WHERE u.user_type <> 2 AND u.user_lastvisit <> 0 AND u.user_allow_viewonline <> 0 GROUP BY s.session_user_id, u.user_id ORDER BY session_time DESC, u.user_lastvisit DESC LIMIT 10
+353
+a:1:{i:0;a:10:{s:7:"user_id";s:1:"2";s:8:"username";s:6:"Helter";s:21:"user_allow_viewonline";s:1:"1";s:11:"user_colour";s:6:"AA0000";s:9:"user_type";s:1:"3";s:11:"user_avatar";s:25:"red/fi_av_smiles_y_10.gif";s:16:"user_avatar_type";s:1:"3";s:14:"user_lastvisit";s:10:"1707583334";s:15:"session_user_id";s:1:"2";s:12:"session_time";s:10:"1707634438";}}

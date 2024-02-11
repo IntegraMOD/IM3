@@ -1,0 +1,5 @@
+<?php if (!defined('IN_PHPBB')) exit; if (($this->_rootref['S_MCHAT_ENABLE'] ?? null) && ($this->_rootref['MCHAT_INDEX_STATS'] ?? null) && ($this->_rootref['U_MCHAT'] ?? null)) {  ?>
+
+	<h3><a href="<?php echo $this->_rootref['U_MCHAT'] ?? ''; ?>#mChat"><?php echo ((isset($this->_rootref['L_WHO_IS_CHATTING'])) ? $this->_rootref['L_WHO_IS_CHATTING'] : ((isset($user->lang['WHO_IS_CHATTING'])) ? $user->lang['WHO_IS_CHATTING'] : '{ WHO_IS_CHATTING }')); ?></a></h3>
+	<p><?php echo $this->_rootref['MCHAT_INDEX_USERS_COUNT'] ?? ''; ?> <?php echo ((isset($this->_rootref['L_MCHAT_ONLINE_EXPLAIN'])) ? $this->_rootref['L_MCHAT_ONLINE_EXPLAIN'] : ((isset($user->lang['MCHAT_ONLINE_EXPLAIN'])) ? $user->lang['MCHAT_ONLINE_EXPLAIN'] : '{ MCHAT_ONLINE_EXPLAIN }')); ?><br /><?php echo $this->_rootref['MCHAT_INDEX_USERS_LIST'] ?? ''; ?></p>
+<?php } ?>

@@ -1,0 +1,25 @@
+<table width="100%" class="extra" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+<!-- IF S_SHOW_MINICAL -->
+		<td id="minical" align="left" valign="top"  style="padding-right: 5px;">
+			<div class="forabg" style="width:200px;">
+				<div class="inner">
+					<ul class="topiclist">
+						<li class="header">
+							<dl>
+								<dt><a href="{U_CALENDAR}">{L_LANG_CALENDAR}</a></dt>
+							</dl>
+						</li>
+					</ul>
+					<div style="padding: 5px 4px 2px 4px; font-size: 1.1em; background-color: #ECF1F3; margin: 0px auto; text-align: center;" class="panel">
+					<!-- INCLUDE blocks/block_calendar.html -->
+					</div>
+				</div>
+			</div>
+		</td>
+<!-- ENDIF -->
+<!-- IF S_MCHAT_ENABLE and S_MCHAT_ON_INDEX and not S_MCHAT_LOCATION -->
+		<td width="100%" valign="top"><!-- INCLUDE mchat_body.html --></td>
+<!-- ENDIF -->
+	</tr>
+</table>
