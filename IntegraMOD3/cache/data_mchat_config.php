@@ -1,4 +1,0 @@
-<?php exit; ?>
-1739157329
-660
-a:23:{s:13:"archive_limit";s:2:"25";s:7:"avatars";s:1:"1";s:17:"bbcode_disallowed";s:0:"";s:13:"custom_height";s:3:"500";s:11:"custom_page";s:1:"1";s:4:"date";s:14:"D M d, Y g:i a";s:10:"flood_time";s:2:"10";s:12:"index_height";s:3:"250";s:8:"location";s:1:"0";s:17:"max_message_lngth";s:3:"500";s:13:"message_limit";s:2:"10";s:11:"message_num";s:2:"20";s:23:"override_min_post_chars";s:1:"0";s:21:"override_smilie_limit";s:1:"0";s:14:"pause_on_input";s:1:"0";s:12:"prune_enable";s:1:"0";s:9:"prune_num";s:1:"0";s:7:"refresh";s:1:"5";s:5:"rules";s:0:"";s:14:"static_message";s:4:"test";s:7:"timeout";s:1:"0";s:5:"whois";s:1:"1";s:13:"whois_refresh";s:3:"300";}

@@ -1,7 +1,0 @@
-<?php if (!defined('IN_PHPBB')) exit; ?><!-- quickreply_smilies.html (SGP) 16 September 2009 starts --><?php if (!empty($this->_tpldata['smiley'])) {  $_smiley_count = (isset($this->_tpldata['smiley']) && is_array($this->_tpldata['smiley'])) ? count($this->_tpldata['smiley']) : 0;if ($_smiley_count) {for ($_smiley_i = 0; $_smiley_i < $_smiley_count; ++$_smiley_i){$_smiley_val = &$this->_tpldata['smiley'][$_smiley_i]; ?>
-
-	<a href="#" onclick="insert_text('<?php echo $_smiley_val['A_SMILEY_CODE']; ?>', true); return false;"><img src="<?php echo $_smiley_val['SMILEY_IMG']; ?>" width="<?php echo $_smiley_val['SMILEY_WIDTH']; ?>" height="<?php echo $_smiley_val['SMILEY_HEIGHT']; ?>" alt="<?php echo $_smiley_val['SMILEY_CODE']; ?>" title="<?php echo $_smiley_val['SMILEY_DESC']; ?>" /></a>
-	<?php }} } if (($this->_rootref['S_SHOW_SMILEY_LINK'] ?? null)) {  ?>
-
-	<div style="text-align:center;"><input class="button2" type="button" onclick="window.open('<?php echo $this->_rootref['U_MORE_SMILIES'] ?? ''; ?>', '_phpbbsmilies', 'HEIGHT=350,resizable=yes,scrollbars=yes,WIDTH=300'); return false;" value="<?php echo ((isset($this->_rootref['L_MORE_SMILIES'])) ? $this->_rootref['L_MORE_SMILIES'] : ((isset($user->lang['MORE_SMILIES'])) ? $user->lang['MORE_SMILIES'] : '{ MORE_SMILIES }')); ?>" /></div>
-<?php } ?><!-- quickreply_smilies.html (SGP) 16 September 2009 ends -->
