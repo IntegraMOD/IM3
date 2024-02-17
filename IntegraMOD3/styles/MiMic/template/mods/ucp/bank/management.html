@@ -1,0 +1,31 @@
+<!-- INCLUDE ucp_header.html -->
+<h2>{L_BANK_MANAGEMENT}</h2>
+<div class="panel">
+	<div class="inner">
+		
+			<form action="{U_ACTION}" method="post">
+				<fieldset>
+					<dl>
+						<dt><label for="username">{L_USERNAME}:</label></dt>
+						<dd>
+							{USERNAME_FULL}
+						</dd>
+					</dl>				
+					<!-- BEGIN cashrow -->
+						<dl>
+							<dt>
+								<label for="cash_name">{cashrow.CASH_NAME}:</label>
+							</dt>
+							<dd>
+								<input type="text" id="cash_amt[{cashrow.CASH_ID}]" name="cash_amt[{cashrow.CASH_ID}]" value="{cashrow.CASH_AMT}" />
+							</dd>
+						</dl>
+					<!-- END cashrow -->
+				</fieldset>
+				<fieldset class="submit-buttons">
+					<input type="submit" name="update" value="{L_SUBMIT}" class="button1" />
+				</fieldset>
+			</form>	
+	</div>
+</div>
+<!-- INCLUDE ucp_footer.html -->

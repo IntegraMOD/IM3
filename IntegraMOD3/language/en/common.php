@@ -161,7 +161,6 @@ $lang = array_merge($lang, array(
 	'VIEWED_COUNTS'			=> 'Viewed %d times',
 	'VIEWED_COUNT_NONE'		=> 'Not viewed yet',
 
-	'EDIT'								=> 'Edit',
 	'EDIT_POST'							=> 'Edit post',
 	'EMAIL'								=> 'E-mail', // Short form for EMAIL_ADDRESS
 	'EMAIL_ADDRESS'						=> 'E-mail address',
@@ -348,7 +347,6 @@ $lang = array_merge($lang, array(
 	'MODERATE'				=> 'Moderate',
 	'MODERATOR'				=> 'Moderator',
 	'MODERATORS'			=> 'Moderators',
-	'MODS_DB'				=> 'Mods Database', //lefty74
 	'MODULE_NOT_ACCESS'		=> 'Module not accessible',
 	'MODULE_NOT_FIND'		=> 'Cannot find module %s',
 	'MODULE_FILE_INCORRECT_CLASS'	=> 'Module file %s does not contain correct class [%s]',
@@ -360,8 +358,8 @@ $lang = array_merge($lang, array(
 	'NEWEST_USER'				=> 'Our newest member <strong>%s</strong>',
 	'NEW_MESSAGE'				=> 'New message',
 	'NEW_MESSAGES'				=> 'New messages',
-	'NEW_PM'					=> '<strong>%d</strong> new message',
-	'NEW_PMS'					=> '<strong>%d</strong> new messages',
+	'NEW_PM'					=> '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>%d</strong></span> New message',
+	'NEW_PMS'					=> '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>%d</strong></span> New messages',
 	'NEW_POST'					=> 'New post',	// Not used anymore
 	'NEW_POSTS'					=> 'New posts',	// Not used anymore
 	'NEXT'						=> 'Next',		// Used in pagination
@@ -395,7 +393,7 @@ $lang = array_merge($lang, array(
 	'NO_MODE'					=> 'No mode specified.',
 	'NO_MODERATORS'				=> 'There are no moderators.',
 	'NO_NEW_MESSAGES'			=> 'No new messages',
-	'NO_NEW_PM'					=> '<strong>0</strong> new messages',
+	'NO_NEW_PM'					=> '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>0</strong></span> New messages',
 	'NO_NEW_POSTS'				=> 'No new posts',	// Not used anymore
 	'NO_ONLINE_USERS'			=> 'No registered users',
 	'NO_POSTS'					=> 'No posts',
@@ -541,7 +539,7 @@ $lang = array_merge($lang, array(
 	'SEARCH_ACTIVE_TOPICS'		=> 'View active topics',
 	'SEARCH_FOR'				=> 'Search for',
 	'SEARCH_FORUM'				=> 'Search this forum…',
-	'SEARCH_NEW'				=> 'View new posts',
+	'SEARCH_NEW'				=> 'New posts',
 	'SEARCH_POSTS_BY'			=> 'Search posts by',
 	'SEARCH_SELF'				=> 'View your posts',
 	'SEARCH_TOPIC'				=> 'Search this topic…',

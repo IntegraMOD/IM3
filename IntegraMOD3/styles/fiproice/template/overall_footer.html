@@ -2,7 +2,6 @@
 <!-- INCLUDE portal_footer.html -->
 <div id="p_footer"><!-- PUT FOOTER BLOCKS HERE --></div>
 	</div>
-
 <!-- IF ADS_7 -->
 <div class="forabg">
 	<div class="inner"><span class="corners-top"><span></span></span>
@@ -33,7 +32,7 @@
 					<!-- IF U_BOOKMARK_TOPIC --><li class="icon-bookmark"><a href="{U_BOOKMARK_TOPIC}" title="{L_BOOKMARK_TOPIC}">{L_BOOKMARK_TOPIC}</a></li><!-- ENDIF -->
 					<!-- IF U_BUMP_TOPIC --><li class="icon-bump"><a href="{U_BUMP_TOPIC}" title="{L_BUMP_TOPIC}">{L_BUMP_TOPIC}</a></li><!-- ENDIF -->
 				<!-- ENDIF -->
-			<li class="rightside"><!-- IF U_TEAM --><a href="{U_TEAM}">{L_THE_TEAM}</a> <!-- IF S_MOD_DISPLAY--> &bull; <a href="{U_MODS_DB}">{L_MODS_DB}</a><!-- ENDIF --> &bull; <!-- ENDIF --><!-- IF not S_IS_BOT --><a href="{U_DELETE_COOKIES}">{L_DELETE_COOKIES}</a> &bull; <!-- ENDIF -->{S_TIMEZONE}</li>
+			<li class="rightside"><!-- IF U_TEAM --><a href="{U_TEAM}">{L_THE_TEAM}</a> <!-- IF S_MOD_DISPLAY--> &bull; <a href="{U_MODS_DB}">{L_MODS_DB}</a><!-- ENDIF -->   &bull; <!-- ENDIF --><!-- IF not S_IS_BOT --><a href="{U_DELETE_COOKIES}">{L_DELETE_COOKIES}</a> &bull; <!-- ENDIF -->{S_TIMEZONE}</li>
 		</ul>
 
 		<span class="corners-bottom"><span></span></span></div>
@@ -45,9 +44,7 @@
 		<!-- IF DEBUG_OUTPUT --><br />{DEBUG_OUTPUT}<!-- ENDIF -->
 		<!-- IF U_ACP --><br /><strong><a href="{U_ACP}">{L_ACP}</a></strong><!-- ENDIF -->
 	</div>
-	
-<!-- IF ADS_8 -->{ADS_8}<!-- ENDIF -->
-
+	{ADS_8}
 </div>
 
 </div>
@@ -61,6 +58,10 @@
 <!-- IF STARGATE -->
 </div><!-- stylewidth -->
 <!-- ENDIF -->
-<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD --><!-- INCLUDE password_strength.html --><!-- ENDIF -->
+
+
+<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
+	<!-- INCLUDE password_strength.html -->
+<!-- ENDIF -->
 </body>
 </html>

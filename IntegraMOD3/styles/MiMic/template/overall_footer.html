@@ -1,0 +1,96 @@
+
+<!-- INCLUDE portal_footer.html -->
+<div id="p_footer"><!-- PUT FOOTER BLOCKS HERE --></div>
+	</div>
+<!-- IF ADS_7 -->
+<div class="forabg">
+	<div class="inner">
+		<ul class="topiclist">
+			<li class="header">
+				<dl class="icon">
+					<dt>{L_ADVERTISEMENT}</dt>
+				</dl>
+			</li>
+		</ul>
+		<div style="padding: 5px 5px 2px 5px; font-size: 1.1em; background-color: #ECF1F3; margin: 0px auto; text-align: center;">
+			{ADS_7}
+		</div>
+	</div>
+</div>
+<!-- ENDIF -->
+
+<div id="page-footer">
+
+	<div class="navbar">
+		<div class="inner">
+
+		<ul class="linklist">
+			<li class="icon-home"><!-- IF STARGATE --><a href="{U_PORTAL}">{L_PORTAL}</a> &bull; <!-- ENDIF --><a href="{U_INDEX}" accesskey="h">{L_INDEX}</a></li>
+				<!-- IF not S_IS_BOT -->
+					<!-- IF S_WATCH_FORUM_LINK --><li <!-- IF S_WATCHING_FORUM -->class="icon-unsubscribe"<!-- ELSE -->class="icon-subscribe"<!-- ENDIF -->><a href="{S_WATCH_FORUM_LINK}" title="{S_WATCH_FORUM_TITLE}">{S_WATCH_FORUM_TITLE}</a></li><!-- ENDIF -->
+					<!-- IF U_WATCH_TOPIC --><li <!-- IF S_WATCHING_TOPIC -->class="icon-unsubscribe"<!-- ELSE -->class="icon-subscribe"<!-- ENDIF -->><a href="{U_WATCH_TOPIC}" title="{L_WATCH_TOPIC}">{L_WATCH_TOPIC}</a></li><!-- ENDIF -->
+					<!-- IF U_BOOKMARK_TOPIC --><li class="icon-bookmark"><a href="{U_BOOKMARK_TOPIC}" title="{L_BOOKMARK_TOPIC}">{L_BOOKMARK_TOPIC}</a></li><!-- ENDIF -->
+					<!-- IF U_BUMP_TOPIC --><li class="icon-bump"><a href="{U_BUMP_TOPIC}" title="{L_BUMP_TOPIC}">{L_BUMP_TOPIC}</a></li><!-- ENDIF -->
+				<!-- ENDIF -->
+			<li class="rightside"><!-- IF U_TEAM --><a href="{U_TEAM}">{L_THE_TEAM}</a> <!-- IF S_MOD_DISPLAY--> &bull; <a href="{U_MODS_DB}">{L_MODS_DB}</a><!-- ENDIF -->   &bull; <!-- ENDIF --><!-- IF not S_IS_BOT --><a href="{U_DELETE_COOKIES}">{L_DELETE_COOKIES}</a> &bull; <!-- ENDIF -->{S_TIMEZONE}</li>
+		</ul>
+
+		</div>
+	</div>
+		<p class="footer-row">
+		    <div class="wrapd">
+			<a href="#M"><i class="fa-solid fa-paintbrush" title="style:"></i><span>MiMic</span></a>
+			    <div id="M" class="modal">
+			        <div>
+						<a href="#" title="Close Menu" class="close">&#9747;</a>
+						<p>
+						<h4>MiMic &copy; ForumImages, 2009 - 2024</h4> Originaly written for php3.0.5, MiMic was created by HelterSkelter to "mimic" the <a href="https://www.phpbb.com/">phpbb.com</a> support forums
+						</p>
+						<a href="http://integramod.com/phpbb/" >integramod.com/phpbb</a>
+					</div>
+				<a href="#" title="Close Menu" class="bodyclose"></a>
+			    </div>
+		    </div>
+		</p>
+	<div class="copyright">{CREDIT_LINE}
+		<!-- IF STARGATE --><!-- INCLUDE portal_copyright.html --><!-- ENDIF -->
+		<!-- IF TRANSLATION_INFO --><br />{TRANSLATION_INFO}<!-- ENDIF -->
+		<!-- IF DEBUG_OUTPUT --><br />{DEBUG_OUTPUT}<!-- ENDIF -->
+		<!-- IF U_ACP --><br /><strong><a href="{U_ACP}">{L_ACP}</a></strong><!-- ENDIF -->
+	</div>
+	{ADS_8}
+</div>
+
+</div>
+
+<div>
+	<a id="bottom" name="bottom" accesskey="z"></a>
+	<!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->
+</div>
+
+
+<!-- IF STARGATE -->
+</div><!-- stylewidth -->
+<!-- ENDIF -->
+
+<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
+	<!-- INCLUDE password_strength.html -->
+<!-- ENDIF -->
+
+<script src="{ROOT_PATH}assets/js/styleswitcher.js"></script>
+<script src="{T_TEMPLATE_PATH}/js/forum_fn.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-1.10.2.min.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-migrate-1.4.1.min.js"></script>
+<script src="{T_TEMPLATE_PATH}/js/core.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery.hoverIntent.minified.js"></script>
+<script src="{T_TEMPLATE_PATH}/js/scripts.js"></script>
+<script src="{T_TEMPLATE_PATH}/js/ajax.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- RANDOM HEADER BACKGROUND IMAGES -->
+<script>
+var images = ['header.jpg', 'header2.jpg', 'header3.jpg'];
+	$('#bground').css({'background-image': 'url({T_THEME_PATH}/images/bg/' + images[Math.floor(Math.random() * images.length)] + ')'});
+</script>
+
+</body>
+</html>

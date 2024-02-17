@@ -30,7 +30,7 @@
 	phpBB style name: fiproice
 	Based on style:   prosilver (this is the default phpBB3 style)
 	Original author:  Tom Beddard ( http://www.subBlue.com/ )
-	Modified by: Helter
+	Modified by:	  IntegraTeam ( https://www.integramod.com/ )
 -->
 
 <script>
@@ -68,6 +68,15 @@
 			eval(onload_functions[i]);
 		}
 	};
+
+	window.onunload = function()
+	{
+		for (var i = 0; i < onunload_functions.length; i++)
+		{
+			eval(onunload_functions[i]);
+		}
+	};
+
 // ]]>
 </script>
 <script src="{ROOT_PATH}assets/js/styleswitcher.js"></script>
@@ -140,7 +149,7 @@ function notes() {
 <div id="wrap">
 	<a id="top" name="top" accesskey="t"></a>
 	<div id="page-header">
-<!-- IF ADS_1 --><br />{ADS_1}<!-- ENDIF -->
+		{ADS_1}
 		<div class="headerbar">
 			<div class="inner"><span class="corners-top"><span></span></span>
 
@@ -202,7 +211,6 @@ function notes() {
 
 			<!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
 			<ul class="linklist leftside">
-			
 				<li>
 					<!-- IF S_DISPLAY_PM --> <a href="{U_PRIVATEMSGS}"><i class="fa-regular fa-message fa-lg"></i> {PRIVATE_MESSAGE_INFO}</a><!-- ENDIF -->
                     <a href="{U_SEARCH_NEW}">{L_NEW_POST}</a>					
@@ -239,7 +247,7 @@ function notes() {
 				<!-- IF S_POINTS_ENABLE -->
 				<li style="--delay: 5;"><a href="{U_POINTS}" title="{L_POINTS_EXPLAIN}"><i class="fa-solid fa-sack-dollar fa-lg"></i> {POINTS_LINK}<!-- IF S_USER_LOGGED_IN and S_USE_POINTS --> [ {USER_POINTS} ] <!-- ENDIF --></a></li>
 				<!-- ENDIF -->
-				<!-- End Ultimate Points -->				
+				<!-- End Ultimate Points -->
 				<li style="--delay: 6;"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a></li>
 			</ul>
 			</div>
@@ -285,6 +293,9 @@ function notes() {
 		</div>
 	</div>
 
+
+
+
 	<!-- IF ADS_2 -->
 	<br />
 	<div class="forabg">
@@ -302,7 +313,6 @@ function notes() {
 		<span class="corners-bottom"><span></span></span></div>
 	</div>
 	<!-- ENDIF -->
-
 	<a name="start_here"></a>
 	<div id="page-body">
 

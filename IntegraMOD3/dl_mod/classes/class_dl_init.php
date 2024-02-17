@@ -284,7 +284,7 @@ class dl_init extends dl_mod
 		*/
 		$dl_index = dl_cache::obtain_dl_cats();
 
-		if (!empty($dl_index) > 0 && is_array($dl_index))
+		if (sizeof($dl_index) > 0 && is_array($dl_index))
 		{
 			foreach($dl_index as $key => $value)
 			{

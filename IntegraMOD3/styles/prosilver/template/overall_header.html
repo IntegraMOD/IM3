@@ -68,6 +68,15 @@
 			eval(onload_functions[i]);
 		}
 	};
+
+	window.onunload = function()
+	{
+		for (var i = 0; i < onunload_functions.length; i++)
+		{
+			eval(onunload_functions[i]);
+		}
+	};
+
 // ]]>
 </script>
 <script src="{ROOT_PATH}assets/js/styleswitcher.js"></script>
