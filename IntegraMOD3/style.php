@@ -270,7 +270,7 @@ if ($id)
 				break;
 
 				default:
-					continue;
+					continue 2;
 			}
 		}
 
