@@ -71,4 +71,3 @@ $lang = array_merge($lang, array(
 	'FILE_SELECT_ERROR'		=> 'You must select at least one file.',
 ));
 
-?>

@@ -44,4 +44,3 @@ $lang = array_merge($lang, array(
 	'acl_a_ads' => array('lang' => 'Can Manage Advertisements', 'cat' => 'settings'),
 ));
 
-?>

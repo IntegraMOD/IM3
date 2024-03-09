@@ -49,4 +49,3 @@ $lang = array_merge($lang, array(
 	'RECAPTCHA_V2_EXPLAIN'			=> 'In an effort to prevent automatic submissions, we require that you complete the following challenge.',
 ));
 
-?>

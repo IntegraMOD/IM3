@@ -43,4 +43,4 @@ $lang = array_merge($lang, array(
 	'ACP_KB_ROLES'			=> 'Knowledge Base Roles',
 ));
 
-?>
+

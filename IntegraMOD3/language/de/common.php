@@ -904,4 +904,71 @@ $lang = array_merge($lang, array(
 
 ));
 
-?>
+// IntegraMod
+$lang = array_merge($lang, array(
+	'ACP_CAT_IMOD'					=> 'Integramod',
+	'ACP_IMOD_CONFIG'				=> 'Integramod Config',
+	'ACP_IMOD_KB'					=> 'Knowledge Base',
+	'ACP_IMOD_DOWNLOADS'			=> 'Downloads Mod',
+	'ACP_IMOD_ALBUM'				=> 'phpBB Gallery','CONNECT_SOCKET_ERROR_INTEGRA'   => 'Error connecting to IntegraMod News Feed',
+	'ACP_SHORT'						=> 'ACP',	
+	'BOTTOM' 						=> 'Go to the bottom of the page',
+	'CONNECT_SOCKET_ERROR_INTEGRA'  => 'Error connecting to IntegraMod News Feed',
+	'CONTACT_BOARD_ADMIN'		    => 'Contact Board Administration',
+	'CONTACT_BOARD_ADMIN_SHORT'	    => 'Contact',
+	'DOWNLOAD' 						=> '<h6>download</h6>',
+	'EDIT' 							=> 'edit',
+	'ENABLE_IMOD'					=> 'Enable IntegraMod',
+	'FAST_REPLY'					=> 'quick<h6>reply</h6>',
+	'IFS' 							=> 'downloads',
+	'IFS_EXPLAIN' 					=> 'IntegraFileShare',
+	'INTEGRA_NEWS'					=> 'News',
+	'INTEGRA_TITLE'					=> '<a href="http://www.integramod.com">News from IntegraMOD</a>',
+	'INTEGRA_WELCOME'				=> 'Welcome to IntegraMOD3',
+	'LANG_CALENDAR'					=> 'Calendar',
+	'MCHAT_TITLE'					=> 'Chatroom',
+	'MCP_SHORT'						=> 'MCP',	
+	'MODS_DB'						=> 'Mods Database', //lefty74	
+	'NEW_IMAGE' 					=> 'new<h6>image</h6>',
+	'PM_FORWARD' 					=> '<h6>forward</h6>',	
+	'PM_NEW' 						=> 'new<h6>pm</h6>',
+	'PM_REPLY' 						=> 'send<h6>reply</h6>',
+	'PM_REPLY_ALL' 					=> 'send<h6>reply</h6>',
+	'POST_REPLY'					=> 'post<h6>reply</h6>',
+	'POST_TOPIC'					=> 'new<h6>topic</h6>',
+	'QREPLY' 						=> 'quick<h6>reply</h6>',
+	'QREPLY_NO' 					=> 'hide quick<h6>reply</h6>',
+	'QUOTE' 						=> 'quote',
+	'QUICK_LINKS' 					=> 'Quick links',
+	'SOCKET_FUNCTIONS_DISABLED' 	=> 'Socket Disabled.',
+	'TOPIC_LOCKED' 					=> '<h6>locked</h6>',
+	'TOPIC_NEW' 					=> 'new<h6>topic</h6>',	
+	'TOPIC_REPLY' 					=> 'post<h6>reply</h6>',
+	'UPLOAD' 						=> '<h6>upload</h6>',
+));
+
+// Notes settings by OXPUS
+$lang = array_merge($lang, array(
+	'NOTES'			=> 'Notes',
+	'POPUP_NOTES'	=> 'Display Personal Notes as Popup',
+	'FILTER_NOTES'	=> '<strong>Filter mode</strong><br />Press the search button again or change the sort method to display all notes.',
+	'NOTES_MEM'		=> 'Memory time',
+	'NOTES_MEMTEXT'	=> '<strong>You have entered notes with a memory time.</strong><br />%sClick here to list this notes.%s<br />(You will not be remembered for these notes again)',
+	'NO_NOTES'		=> 'You have currently no notes',
+));
+
+$lang = array_merge($lang, array(
+	'DAY_USERS' => '%d registered users visit during the last %d hours:',
+	'NOT_DAY_USERS' => '%d registered users <span style="color:red">DIDN\'T</span> visit during the last %d hours:',
+	'USERS_OF_THE_DAY_TITLE' => 'Users of the day',
+));
+
+$lang = array_merge($lang, array(
+	// ajaxlike
+	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',	// header link message
+	'AL_LIKE_NEW_TITLE'				    => 'List of new likes',				// notification dialog title
+    'AL_LIKE_INFO'					    => 'Likes your&nbsp;',				// userX `likes your` post
+	'AL_LIKE_SELF'				        => 'View your post',
+	'AL_NO_LIKE_RECEIVED'				=> 'No like received yet.',
+	// ajaxlike
+));

@@ -31,4 +31,3 @@ $lang = array_merge($lang, array(
 	'UCP_GALLERY_WATCH'					=> 'Manage subscriptions',
 ));
 
-?>

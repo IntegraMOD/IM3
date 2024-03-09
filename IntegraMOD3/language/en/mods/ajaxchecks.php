@@ -58,4 +58,3 @@ $lang = array_merge($lang, array(
 	'AJAX_CHECK_EMAIL_FORMAT_FALSE'	=>	'Your email address format is incorrect',
 ));
 
-?>

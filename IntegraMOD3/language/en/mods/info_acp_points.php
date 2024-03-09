@@ -239,4 +239,3 @@ $lang = array_merge($lang, array(
 	'USER_POINTS_EXPLAIN'				=> 'Amount of points the user owns',
 ));
 
-?>

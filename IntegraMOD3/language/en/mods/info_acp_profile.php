@@ -23,4 +23,3 @@ $lang = array_merge($lang, array(
 	'FIELD_MULTI_MAX_CHARS'		=> 'Minimum number of options selected',
 ));
 
-?>

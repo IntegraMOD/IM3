@@ -386,4 +386,3 @@ After the installtion you will find additional settings in the Blog Mod settings
 	),	
 );
 
-?>

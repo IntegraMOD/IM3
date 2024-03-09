@@ -31,4 +31,3 @@ $lang = array_merge($lang, array(
 	'acl_a_k_tools'		=> array('lang' => 'Can manage portal tools', 'cat' => 'portal'),
 ));
 
-?>

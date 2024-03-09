@@ -309,8 +309,7 @@ $lang = array_merge($lang, array(
 	'NO_LOCATION'	=> 'No se puede determinar la ubicación. Si está seguro de que Imagemagick está instalado, tiene que especificar su ubicación más tarde con el Panel de Administración (ACP)',
 	'NO_TABLES_FOUND'	=> 'No se encontraron tablas.',
 // TODO: Write some explanatory introduction text
-	'OVERVIEW_BODY'				=> '¡Bienvenido a phpBB3!<br /><br />phpBB® es la solución de foros libres más usada en el mundo. phpBB3 es el último instalador en una línea de paquetes que comenzó en el año 2000. Como sus predecesores phpBB3 es rico en implementaciones, amigable para el usuario y con soporte completo por el phpBB Team. phpBB3 mejora, y mucho, lo que ya hizo popular a phpBB2 y añade implementaciones ampliamente solicitadas que no estaban presentes en versiones previas. Esperamos que cumpla de sobra con sus espectativas. <br /><br />Este sistema de instalación le guiará para instalar phpBB3, actualizando a la última versión de phpBB3 desde versiones anteriores, así como convirtiendo a phpBB3 desde otros sistemas de foros (incluyendo phpBB2). Para más información, le aconsejamos que lea <a href="../docs/INSTALL.html">la guía de instalación</a>.<br /><br />Para leer la licencia de phpBB3 o para saber como obtener soporte y nuestras condiciones al respecto, por favor seleccione las opciones deseadas del menú lateral. Para continuar, por favor seleccione la pestaña apropiada de arriba.',
-
+	'OVERVIEW_BODY'				=> '¡Bienvenido a IntegraMOD!<br /><br />IntegraMOD está construido en phpBB. phpBB® es la solución de tablón de anuncios de código abierto más utilizada en el mundo. phpBB3 es la última entrega de una línea de paquetes iniciada en 2000. Al igual que sus predecesores, phpBB3 tiene muchas funciones, es fácil de usar y cuenta con el respaldo total del equipo phpBB. phpBB3 mejora enormemente lo que hizo popular a phpBB2 y agrega características comúnmente solicitadas que no estaban presentes en versiones anteriores. Esperamos que supere sus expectativas.<br /><br />Portal KISS&copy; es el sistema de portal phpBB3 original. Kiss Portal fue el primer mod escrito para phpBB3 (desarrollado durante las etapas alfa/beta de phpBB3)...<br />KISS Portal ha estado en continuo desarrollo desde 2005 y es el único portal phpBB3 totalmente integrado disponible. KISS Portal es el mod más grande escrito para phpBB3, por lo que te llevará un poco de tiempo familiarizarte con él. No te dejes llevar por su tamaño, es bastante fácil de aprender. para la mayoría de las personas, todo lo que se necesita son algunas configuraciones de administrador y no es necesario volver a tocarlas.<br /><br />Este sistema de instalación lo guiará a través de la instalación de phpBB3/KISS Portal. actualizar a la última versión de phpBB3 de versiones anteriores, así como convertir a phpBB3 desde un sistema de foro de discusión diferente (incluido phpBB2). Para obtener más información, le recomendamos que lea <a href="../docs/INSTALL.html">la guía de instalación</a>.<br /><br />Para leer la licencia de phpBB3 o obtener información sobre cómo obtener soporte y nuestra postura al respecto, seleccione las opciones respectivas en el menú lateral. Para continuar, seleccione la pestaña correspondiente arriba.',
 	'PCRE_UTF_SUPPORT'	=> 'Soporte PCRE UTF-8',
 	'PCRE_UTF_SUPPORT_EXPLAIN'	=> 'phpBB <strong>no</strong> funcionará si su instalación PHP no está compilada con soporte para UTF-8 en la extensión PCRE.',
 	'PHP_GETIMAGESIZE_SUPPORT'	=> 'La función PHP getimagesize() está disponible',
@@ -323,10 +322,10 @@ $lang = array_merge($lang, array(
 	'PHP_REGISTER_GLOBALS_EXPLAIN'	=> 'phpBB3 funcionará aún si estos parámetros están habilitados, pero si es posible, se recomiendo que register_globals este deshabilitado en su instalación PHP por razones de seguridad.',
 	'PHP_SAFE_MODE'	=> 'Modo seguro',
 	'PHP_SETTINGS'	=> 'Versión y parámetros PHP',
-	'PHP_SETTINGS_EXPLAIN'	=> '<strong>Obligatorio</strong> - Necesitá al menos la versión 4.3.3 de PHP con el fin de instalar phpBB3. Si <var>safe mode</var> se muestra debajo su instalación PHP está funcionando en ese modo. Esto provocará limitaciones en la administración remota y en implementaciones similares.',
+	'PHP_SETTINGS_EXPLAIN'	=> '<strong>Obligatorio</strong> - Necesitá al menos la versión 7.0 de PHP con el fin de instalar phpBB3. Si <var>safe mode</var> se muestra debajo su instalación PHP está funcionando en ese modo. Esto provocará limitaciones en la administración remota y en implementaciones similares.',
 	'PHP_URL_FOPEN_SUPPORT'	=> 'Parámetro PHP <var>allow_url_fopen</var> está habilitado',
 	'PHP_URL_FOPEN_SUPPORT_EXPLAIN'	=> '<strong>Opcional</strong> - Este parámetro es opcional, sin embargo ciertas funciones de phpBB como avatares fuera del sitio no funcionarán adecuadamente sin él.',
-	'PHP_VERSION_REQD'	=> 'Versióm PHP >= 4.3.3',
+	'PHP_VERSION_REQD'	=> 'Versióm PHP >= 7.0',
 	'POST_ID'	=> 'Post ID',
 	'PREFIX_FOUND'	=> 'Una revisión de sus tablas ha mostrado una instalación válida usando <strong>%s</strong> como prefijo de tabla.',
 	'PREPROCESS_STEP'	=> 'Ejecutando funciones/consultas previas',
@@ -650,4 +649,3 @@ $lang = array_merge($lang, array(
 	'TOPICS_TOPIC_TITLE'	=> 'Bienvenido a phpBB3',
 ));
 
-?>

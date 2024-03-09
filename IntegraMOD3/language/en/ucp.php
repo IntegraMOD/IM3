@@ -58,6 +58,9 @@ $lang = array_merge($lang, array(
 
 // Common language entries
 $lang = array_merge($lang, array(
+	// ajaxlike
+	'AJ_SHOW_LIKES'					=> 'Display last likes in profile',
+	// ajaxlike
 	'ACCOUNT_ACTIVE'				=> 'Your account has now been activated. Thank you for registering.',
 	'ACCOUNT_ACTIVE_ADMIN'			=> 'The account has now been activated.',
 	'ACCOUNT_ACTIVE_PROFILE'		=> 'Your account has now been successfully reactivated.',
@@ -575,10 +578,9 @@ $lang = array_merge($lang, array(
 $lang = array_merge($lang, array(
 	'UCP_CAT_MCHAT'		=> 'mChat',
 	'UCP_MCHAT_CONFIG'	=> 'Preferences',
-));
-
+// ajaxlike
+	'AJ_SHOW_LIKES'		=> 'Display last likes in profile',
 //Begin : Show Password Strength
-$lang = array_merge($lang, array(
 	'PS_VERY_WEAK'		=> 'Very Weak',
 	'PS_WEAK'			=> 'Weak',
 	'PS_GOOD'			=> 'Good',

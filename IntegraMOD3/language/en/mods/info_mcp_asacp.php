@@ -60,4 +60,3 @@ $lang = array_merge($lang, array(
 	'LOG_USER_UNFLAGGED'			=> 'The flag on %s was removed.',
 ));
 
-?>

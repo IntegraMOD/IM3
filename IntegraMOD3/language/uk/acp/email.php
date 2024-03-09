@@ -66,4 +66,3 @@ $lang = array_merge($lang, array(
 	'NO_EMAIL_SUBJECT'		=> 'Вам необхідно ввести тему вашого повідомлення.',
 ));
 
-?>

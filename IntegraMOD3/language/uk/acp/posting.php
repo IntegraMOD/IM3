@@ -277,5 +277,3 @@ $lang = array_merge($lang, array(
 
 	'USED_IN_REPORTS'		=> 'Використовується в скаргах',
 ));
-
-?>

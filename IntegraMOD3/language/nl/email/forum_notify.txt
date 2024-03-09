@@ -1,0 +1,19 @@
+Subject: Nieuwe reactie in forum: {FORUM_NAME}
+
+Hallo {USERNAME},
+
+Je ontvangt deze e-mail omdat je geabonneerd bent op het forum "{FORUM_NAME}" op "{SITENAME}". In dit forum heeft het onderwerp "{TOPIC_TITLE}" een nieuwe reactie ontvangen<!-- IF AUTHOR_NAME !== '' --> van {AUTHOR_NAME}<!-- ENDIF --> sinds je laatste bezoek. Je kunt de volgende link gebruiken om de nieuwe reactie te lezen. Je ontvangt geen e-mails meer over dit forum totdat je dit onderwerp hebt bezocht.
+
+{U_NEWEST_POST}
+
+Als je naar het onderwerp wilt gaan, klik dan op de volgende link:
+{U_TOPIC}
+
+Als je naar het forum wilt gaan, klik dan op de volgende link:
+{U_FORUM}
+
+Als je niet langer geabonneerd wilt zijn op dit forum klik dan op de volgende link:
+
+{U_STOP_WATCHING_FORUM}
+
+{EMAIL_SIG}

@@ -130,4 +130,3 @@ $lang = array_merge($lang, array(
 	'USER_GROUP_LEADER'	=> 'Зробити лідером групи',
 ));
 
-?>

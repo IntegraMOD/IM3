@@ -36,6 +36,17 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
+	// ajaxlike
+	'AL_TITLE'				=> 'Last Likes',
+	'AL_NO_LIKE'			=> 'No post liked yet.',
+	'AL_BY'					=> 'posted by',			// like by
+	'AL_AT'					=> 'Liked at',			// like date
+	'AL_VIEW'				=> '[View Post]',
+	'AL_LIKE_COUNT_TEXT'	=> 'Likes',				// number of likes
+	'AL_LIKED_COUNT_TEXT'	=> 'Liked in',			// number of recieved likes
+	'AL_POSTS_TEXT'			=> 'posts',
+	'AL_POST_TEXT'			=> 'post',
+	// ajaxlike
 	'ABOUT_USER'			=> 'Profile',
 	'ACTIVE_IN_FORUM'		=> 'Most active forum',
 	'ACTIVE_IN_TOPIC'		=> 'Most active topic',
@@ -144,4 +155,18 @@ $lang = array_merge($lang, array(
 	'VISITED'				=> 'Last visited',
 
 	'WWW'					=> 'Website',
+));
+
+$lang = array_merge($lang, array(
+	// ajaxlike
+	'AL_TITLE'				=> 'Last Likes',
+	'AL_NO_LIKE'			=> 'No post liked yet.',
+	'AL_BY'					=> 'posted by',			// like by
+	'AL_AT'					=> 'Liked at',			// like date
+	'AL_VIEW'				=> '[View Post]',
+	'AL_LIKE_COUNT_TEXT'	=> 'Likes',				// number of likes
+	'AL_LIKED_COUNT_TEXT'	=> 'Liked in',			// number of recieved likes
+	'AL_POSTS_TEXT'			=> 'posts',
+	'AL_POST_TEXT'			=> 'post',
+	// ajaxlike
 ));

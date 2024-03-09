@@ -92,4 +92,3 @@ $lang = array_merge($lang, array(
 	'VIEW_FORUM_TOPICS'		=> '%d temas',
 ));
 
-?>

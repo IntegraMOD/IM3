@@ -261,4 +261,3 @@ $lang = array_merge($lang, array(
 	'TEAMPAGE_DISP_DEFAULT' => 'Show users in their default group only.',
 	'TEAMPAGE_MEMBERSHIPS'  => 'Group membership display options',
 ));
-?>

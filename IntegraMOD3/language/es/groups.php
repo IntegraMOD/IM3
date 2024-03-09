@@ -118,4 +118,3 @@ $lang = array_merge($lang, array(
 	'USER_GROUP_DEMOTED'			=> 'Liderazgo depuesto correctamente.',
 ));
 
-?>

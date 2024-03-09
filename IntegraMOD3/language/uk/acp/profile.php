@@ -155,4 +155,3 @@ $lang = array_merge($lang, array(
 	'VISIBILITY_OPTION'				=> 'Видимість поля',
 ));
 
-?>

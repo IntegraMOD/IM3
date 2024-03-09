@@ -181,4 +181,3 @@ $lang = array_merge($lang, array(
 	'COMPLETE'						=> 'Install complete ...',
 ));
 
-?>

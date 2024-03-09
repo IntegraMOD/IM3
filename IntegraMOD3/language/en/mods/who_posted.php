@@ -33,4 +33,3 @@ $lang = array_merge($lang, array(
 	'WHOPOSTED_OR'		=> 'or',
 ));
 
-?>

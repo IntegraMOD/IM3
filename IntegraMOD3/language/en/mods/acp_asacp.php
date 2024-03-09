@@ -172,4 +172,3 @@ $lang = array_merge($lang, array(
 	'WEBSITE_POST_COUNT_EXPLAIN'				=> 'If Website is set to Post Count, the user will be able to fill in that field after they have reached this many posts.',
 ));
 
-?>

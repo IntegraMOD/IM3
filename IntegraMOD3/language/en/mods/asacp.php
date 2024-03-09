@@ -69,4 +69,3 @@ $lang = array_merge($lang, array(
 	'USER_UNFLAG_SUCCESS'	=> 'The flag has been removed from this user successfully.',
 ));
 
-?>

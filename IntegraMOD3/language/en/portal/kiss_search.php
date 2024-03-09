@@ -43,4 +43,3 @@ $lang = array_merge($lang, array(
 	'LOGIN_TO_USE_SEARCH'	=> 'There are no public forums, search has been disabled...',
 ));
 
-?>

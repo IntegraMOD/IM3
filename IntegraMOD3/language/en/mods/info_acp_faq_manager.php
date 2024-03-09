@@ -26,4 +26,3 @@ $lang = array_merge($lang, array(
 	'ACP_FAQ_MANAGER'			=> 'FAQ Manager',
 ));
 
-?>

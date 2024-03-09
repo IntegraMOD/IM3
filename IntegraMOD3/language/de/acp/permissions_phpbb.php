@@ -243,4 +243,67 @@ $lang = array_merge($lang, array(
 	'acl_a_search'		=> array('lang' => 'Kann Such-Backends verwalten und einstellen', 'cat' => 'misc'),
 ));
 
-?>
+//---BEGIN CALENDAR MOD---
+// Add new category for permissions
+$lang['permission_cat']['calendar'] = 'Calendar';
+
+$lang = array_merge($lang, array(
+    'acl_u_view_event'    		=> array('lang' => 'Can view events', 'cat' => 'calendar'),
+    'acl_u_new_event'     		=> array('lang' => 'Can post a new event', 'cat' => 'calendar'),
+    'acl_u_edit_event'    		=> array('lang' => 'Can edit own events', 'cat' => 'calendar'),
+    'acl_u_delete_event'  		=> array('lang' => 'Can delete own events', 'cat' => 'calendar'),
+	'acl_u_allow_index_minical'	=> array('lang' => 'Can view the minical on the index page', 'cat' => 'calendar'),
+ 	'acl_m_edit_event'    		=> array('lang' => 'Can edit other\'s events', 'cat' => 'calendar'),
+    'acl_m_delete_event'  		=> array('lang' => 'Can delete other\'s events', 'cat' => 'calendar'),
+    'acl_a_calendar_manage'		=> array('lang' => 'Can manage calendar', 'cat' => 'calendar'),
+    'acl_a_edit_event'    		=> array('lang' => 'Can edit other\'s events', 'cat' => 'calendar'),
+    'acl_a_delete_event'  		=> array('lang' => 'Can delete other\'s events', 'cat' => 'calendar'),
+	'acl_a_publish_rss'   		=> array('lang' => 'Can publish calendar RSS feeds', 'cat' => 'calendar'),
+));
+//---END CALENDAR MOD---
+
+//---BEGIN KNOWLEDGE BASE MOD---
+// Adding the permissions
+$lang['permission_cat']['kb'] = 'Knowledge Base';
+$lang['permission_cat']['read'] = 'read';
+$lang['permission_cat']['write'] = 'write';
+$lang['permission_type']['kb_'] = 'Knowledge Base';
+$lang = array_merge($lang, array(
+	'acl_kb_print_article'		=> array('lang' => 'Can print articles', 'cat' => 'read'),
+	'acl_kb_view_article'		=> array('lang' => 'Can view articles in this category', 'cat' => 'read'),
+	'acl_kb_download'			=> array('lang' => 'Can download attachements', 'cat' => 'read'),
+	'acl_kb_report_article'		=> array('lang' => 'Can report article', 'cat' => 'read'),
+	'acl_kb_rate_article'		=> array('lang' => 'Can rate article', 'cat' => 'read'),
+	'acl_u_rate_kb'				=> array('lang' => 'Can rate article', 'cat' => 'read'),
+	'acl_kb_attache_article'	=> array('lang' => 'Can upload attachements', 'cat' => 'write'),
+	'acl_kb_edit_article'		=> array('lang' => 'Can edit own articles', 'cat' => 'write'),
+	'acl_kb_del_article'		=> array('lang' => 'Can delete own articles', 'cat' => 'write'),
+	'acl_kb_add_article'		=> array('lang' => 'Can add articles', 'cat' => 'write'),
+	'acl_kb_add_article_direct'	=> array('lang' => 'Can add articles without activation', 'cat' => 'write'),
+	'acl_kb_edit_all_article'	=> array('lang' => 'Can edit all articles', 'cat' => 'write'),
+	'acl_m_delete_diff_kb'		=> array('lang' => 'Can delete old versions of an article', 'cat' => 'kb'),
+	'acl_m_restore_kb'			=> array('lang' => 'Can restore old versions of an article', 'cat' => 'kb'),
+	'acl_m_log_kb'				=> array('lang' => 'Can view article log', 'cat' => 'kb'),
+	'acl_m_log_kb_delete'		=> array('lang' => 'Can delete article log', 'cat' => 'kb'),
+	'acl_m_report_kb'			=> array('lang' => 'Can manage reported articles', 'cat' => 'kb'),
+	'acl_m_activate_kb'			=> array('lang' => 'Can activate article', 'cat' => 'kb'),
+	'acl_m_edit_kb'				=> array('lang' => 'Can edit article', 'cat' => 'kb'),
+	'acl_m_del_kb'				=> array('lang' => 'Can delete article', 'cat' => 'kb'),
+	'acl_m_ch_poster'			=> array('lang' => 'Can change the author of an article', 'cat' => 'kb'),
+	'acl_a_config_kb'			=> array('lang' => 'Can edit configuration', 'cat' => 'kb'),
+	'acl_a_categorie_kb'		=> array('lang' => 'Can edit categories', 'cat' => 'kb'),
+	'acl_a_types_kb'			=> array('lang' => 'Can edit types', 'cat' => 'kb'),
+	'acl_a_permissions_kb'		=> array('lang' => 'Can edit category permissions', 'cat' => 'kb'),
+//---END KNOWLEDGE BASE MOD---
+
+// Meeting MOD Permissions
+	'acl_a_meeting_config'	=> array('lang' => 'Can manage the meeting configuration', 'cat' => 'meeting'),
+	'acl_a_meeting_add'		=> array('lang' => 'Can add new meetings', 'cat' => 'meeting'),
+	'acl_a_meeting_manage'	=> array('lang' => 'Can manage existing meetings', 'cat' => 'meeting'),
+	'acl_u_meeting'			=> array('lang' => 'Can edit meetings', 'cat' => 'meeting'),
+
+// ajaxlike
+	'acl_u_ajaxlike_mod'	=>	array('lang' => 'Can like posts', 'cat' => 'misc'),
+	'acl_f_ajaxlike_mod'	=>	array('lang' => 'Can like posts in forum', 'cat' => 'misc'),
+	'acl_a_ajaxlike_mod'	=>	array('lang' => 'Can manage likes', 'cat' => 'misc'),
+));

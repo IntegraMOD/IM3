@@ -601,4 +601,16 @@ $lang = array_merge($lang, array(
 	'NO_NONMEMBER'	=> 'Es gibt keine Gruppe, in der du nicht Mitglied bist',
 ));
 
-?>
+// mChat MOD
+$lang = array_merge($lang, array(
+	'UCP_CAT_MCHAT'		=> 'mChat',
+	'UCP_MCHAT_CONFIG'	=> 'Preferences',
+// ajaxlike
+	'AJ_SHOW_LIKES'		=> 'Display last likes in profile',
+//Begin : Show Password Strength
+	'PS_VERY_WEAK'		=> 'Very Weak',
+	'PS_WEAK'			=> 'Weak',
+	'PS_GOOD'			=> 'Good',
+	'PS_STRONG'			=> 'Strong',
+	'PS_VERY_STRONG'	=> 'Very Strong',
+));

@@ -80,4 +80,3 @@ $lang = array_merge($lang, array(
 	'URL_UNAUTHED'		=> 'You can not post urls, please remove or rename:<br /><em>%1$s</em>',
 ));
 
-?>

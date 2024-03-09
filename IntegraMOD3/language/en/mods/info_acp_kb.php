@@ -43,4 +43,4 @@ $lang = array_merge($lang, array(
 	'CATEGORIES'			=> 'Categories',
 ));
 
-?>
+

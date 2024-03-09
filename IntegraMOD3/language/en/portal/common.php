@@ -53,4 +53,3 @@ $lang = array_merge($lang, array(
 	'VIEW_TOPIC_NEWS'		 => 'News: ',
 ));
 
-?>

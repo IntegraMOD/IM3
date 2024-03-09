@@ -139,4 +139,4 @@ $lang = array_merge($lang, array(
 	'TRUE'										=> 'True',
 ));
 
-?>
+

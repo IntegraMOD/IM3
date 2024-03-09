@@ -88,4 +88,3 @@ $lang = array_merge($lang, array(
 	'WATCH_OWN'						=> 'Subscribe own images by default',
 ));
 
-?>

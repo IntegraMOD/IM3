@@ -56,4 +56,3 @@ $lang = array_merge($lang, array(
 	'VAR_NOT_EXIST'				=> 'The requested variable does not exist.',
 ));
 
-?>

@@ -58,4 +58,3 @@ $lang = array_merge($lang, array(
 	'SGPRA_NO_ERRORS'		=> '<br /><strong class="green">SGP Refresh ALL completed without any errors!...</strong><br />',
 ));
 
-?>

@@ -275,4 +275,3 @@ $lang = array_merge($lang, array(
 	'UP_UPDATE_SUCCESFUL'				=> 'The tables were updated successfully',
 ));
 
-?>

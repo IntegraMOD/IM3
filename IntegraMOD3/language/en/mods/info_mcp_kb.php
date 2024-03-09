@@ -44,4 +44,4 @@ $lang = array_merge($lang, array(
 	'MCP_KB_MAIN'			=> 'Overview',
 ));
 
-?>
+

@@ -142,4 +142,3 @@ $lang = array_merge($lang, array(
 	'USER_TOOLS'					=> 'Основні інструменти',
 ));
 
-?>

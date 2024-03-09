@@ -46,4 +46,3 @@ $lang = array_merge($lang, array(
 	'MCP_MAKE_NEWSS_GLOBAL_CONFIRM'	=> 'Are you sure you want to change these topics to a Global News Items”?',
 ));
 
-?>

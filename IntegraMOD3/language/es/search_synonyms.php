@@ -227,4 +227,3 @@ $synonyms = array(
 	'yeild'	=> 'yield',
 );
 */
-?>

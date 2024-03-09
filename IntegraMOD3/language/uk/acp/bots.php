@@ -68,4 +68,3 @@ $lang = array_merge($lang, array(
 	'NO_BOT_GROUP'	=> 'Неможливо знайти спеціальної групи ботів.',
 ));
 
-?>

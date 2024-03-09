@@ -182,4 +182,3 @@ $lang = array_merge($lang, array(
 	'INSTALLER_BBVIDEO_UPDATER'			=> 'BBvideos have been updated',
 ));
 
-?>

@@ -336,4 +336,3 @@ $lang = array_merge($lang, array(
 	'YOUR_RATING'					=> 'Your rating',
 ));
 
-?>

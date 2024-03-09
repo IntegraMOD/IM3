@@ -71,4 +71,4 @@ $lang = array_merge($lang, array(
 	'acl_a_permissions_kb'		=> array('lang' => 'Can edit category permissions', 'cat' => 'kb'),
 
 ));
-?>
+

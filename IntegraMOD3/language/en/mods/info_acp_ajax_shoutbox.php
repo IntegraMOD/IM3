@@ -54,4 +54,4 @@ $lang = array_merge($lang, array(
 	'LOG_AS_PRUNED'             => '<strong>Pruned Ajax Shoutbox</strong>',
 	'LOG_AS_REMOVED'            => '<strong>Removed automaticlly %1$s messages</strong>',
 ));
-?>
+

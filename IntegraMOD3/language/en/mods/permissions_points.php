@@ -50,4 +50,3 @@ $lang = array_merge($lang, array(
 	'acl_a_points'			=> array('lang' => 'Can administrate Ultimate Points', 'cat' => 'points'),
 ));
 
-?>

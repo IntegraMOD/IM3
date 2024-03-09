@@ -96,4 +96,3 @@ $lang = array_merge($lang, array(
 	'USER_GROUP_DEMOTED'		=> 'Die Führung wurde erfolgreich niedergelegt.',
 ));
 
-?>

@@ -68,4 +68,3 @@ $lang = array_merge($lang, array(
 	'TABLE_SELECT'	=> 'Вибір таблиць',
 ));
 
-?>

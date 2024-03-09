@@ -190,4 +190,3 @@ $lang = array_merge($lang, array(
 	'HELP_NUMBER_RECENT_DL_ON_PORTAL'	=> 'The number of latest downloads the user which see on the portal.<br />The block uses the last edit time for this list, so it can be possible to have an older download on top of this list.',
 ));
 
-?>

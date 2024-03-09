@@ -40,6 +40,13 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
+	// ajaxlike
+	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',	// header link message
+	'AL_LIKE_NEW_TITLE'				    => 'List of new likes',				// notification dialog title
+    'AL_LIKE_INFO'					    => 'Likes your&nbsp;',				// userX `likes your` post
+	'AL_LIKE_SELF'				        => 'View your post',
+	'AL_NO_LIKE_RECEIVED'				=> 'No like received yet.',
+	// ajaxlike
 	'TRANSLATION_INFO'	=> '',
 	'DIRECTION'			=> 'ltr',
 	'DATE_FORMAT'		=> '|d M Y|',	// 01 Jan 2007 (with Relative days enabled)
@@ -963,4 +970,14 @@ $lang = array_merge($lang, array(
 	'DAY_USERS' => '%d registered users visit during the last %d hours:',
 	'NOT_DAY_USERS' => '%d registered users <span style="color:red">DIDN\'T</span> visit during the last %d hours:',
 	'USERS_OF_THE_DAY_TITLE' => 'Users of the day',
+));
+
+$lang = array_merge($lang, array(
+	// ajaxlike
+	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',	// header link message
+	'AL_LIKE_NEW_TITLE'				    => 'List of new likes',				// notification dialog title
+    'AL_LIKE_INFO'					    => 'Likes your&nbsp;',				// userX `likes your` post
+	'AL_LIKE_SELF'				        => 'View your post',
+	'AL_NO_LIKE_RECEIVED'				=> 'No like received yet.',
+	// ajaxlike
 ));

@@ -71,4 +71,3 @@ $lang = array_merge($lang, array(
 	// Manage pages permission
 	'acl_a_manage_pages'			=> array('lang' => 'Can create, edit and delete static pages', 'cat' => 'misc'),
 ));
-?>

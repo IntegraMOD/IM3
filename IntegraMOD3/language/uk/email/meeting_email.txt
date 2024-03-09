@@ -1,0 +1,21 @@
+Subject: {MEETING_MAIL_SUBJECT}
+
+Hello {USERNAME},
+
+the following is an email sent to you about the meeting {MEETING_SUBJECT}
+from {FROM_USER} of {SITENAME}.
+
+If this message is spam, contains abusive or other comments you find offensive please contact the webmaster of the board at the following address:
+
+{BOARD_EMAIL}
+
+This message is sent to you:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{MEETING_MAIL_TEXT}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To take a look at the meeting, please follow this link:
+
+{U_MEETING_MAIL_LINK}

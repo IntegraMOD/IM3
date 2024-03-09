@@ -85,4 +85,4 @@ $lang = array_merge($lang, array(
 	'ALREADY_UPTODATE'	=> 'The database is already up to date.',
 	
 ));
-?>
+

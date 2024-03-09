@@ -460,4 +460,3 @@ $lang = array_merge($lang, array(
 	'VERSION_CHECK'			=> 'MOD Version Check',
 ));
 
-?>

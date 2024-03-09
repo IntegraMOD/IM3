@@ -287,4 +287,3 @@ $lang = array_merge($lang, array(
 	'WRONG_PERMISSION_TYPE'	=> 'Обрано невірний тип прав доступу.',
 ));
 
-?>

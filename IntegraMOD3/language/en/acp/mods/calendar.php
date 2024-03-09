@@ -67,4 +67,3 @@ $lang = array_merge($lang, array(
 	'SUNDAY'								=> 'Sunday',
 	'MONDAY'								=> 'Monday',
 ));
-?>

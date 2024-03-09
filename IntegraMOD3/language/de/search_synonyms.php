@@ -157,4 +157,3 @@ $synonyms = array(
 	'Win'	=> 'Windows',
 
 	'zeitaufwendig'	=> 'zeitaufwändig',);
-?>

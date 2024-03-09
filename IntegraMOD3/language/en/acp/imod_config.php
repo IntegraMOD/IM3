@@ -37,4 +37,3 @@ $lang = array_merge($lang, array(
 	'IMOD_VERSION_EXPLAIN'	=> 'This is the currently installed version.',
 	'IMOD_ENABLED_EXPLAIN'	=> '0 (zero) disables, 1 Enables. All other positive numbers enable with debug options.',
 ));
-?>
