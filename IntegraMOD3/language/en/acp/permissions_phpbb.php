@@ -309,10 +309,10 @@ $lang = array_merge($lang, array(
 	'acl_m_edit_kb'				=> array('lang' => 'Can edit article', 'cat' => 'kb'),
 	'acl_m_del_kb'				=> array('lang' => 'Can delete article', 'cat' => 'kb'),
 	'acl_m_ch_poster'			=> array('lang' => 'Can change the author of an article', 'cat' => 'kb'),
+	'acl_a_permissions_kb'		=> array('lang' => 'Can edit category permissions', 'cat' => 'kb'),
 	'acl_a_config_kb'			=> array('lang' => 'Can edit configuration', 'cat' => 'kb'),
 	'acl_a_categorie_kb'		=> array('lang' => 'Can edit categories', 'cat' => 'kb'),
 	'acl_a_types_kb'			=> array('lang' => 'Can edit types', 'cat' => 'kb'),
-	'acl_a_permissions_kb'		=> array('lang' => 'Can edit category permissions', 'cat' => 'kb'),
 //---END KNOWLEDGE BASE MOD---
 
 // Meeting MOD Permissions

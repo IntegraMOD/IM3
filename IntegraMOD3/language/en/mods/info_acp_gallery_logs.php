@@ -56,4 +56,3 @@ $lang = array_merge($lang, array(
 	'LOGVIEW_VIEWALBUM'					=> 'View album',
 	'LOGVIEW_VIEWIMAGE'					=> 'View image',
 ));
-

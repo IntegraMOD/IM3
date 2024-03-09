@@ -89,4 +89,3 @@ $lang = array_merge($lang, array(
 
 	'SHOW_EXIF'					=> 'show/hide',
 ));
-

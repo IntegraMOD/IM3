@@ -459,4 +459,3 @@ $lang = array_merge($lang, array(
 	'UP_TO_DATE'			=> '%s is up to date',
 	'VERSION_CHECK'			=> 'MOD Version Check',
 ));
-
