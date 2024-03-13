@@ -5,63 +5,13 @@
 # run it.
 BEGIN TRANSACTION;
 
-# Table: 'phpbb_ads'
-CREATE TABLE phpbb_ads (
-	ad_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
-	ad_name varchar(255) NOT NULL DEFAULT '',
-	ad_code mediumtext(16777215) NOT NULL DEFAULT '',
-	ad_views bigint(20) NOT NULL DEFAULT '0',
-	ad_priority INTEGER UNSIGNED NOT NULL DEFAULT '5',
-	ad_enabled INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	all_forums INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ad_clicks bigint(20) NOT NULL DEFAULT '0',
-	ad_note mediumtext(16777215) NOT NULL DEFAULT '',
-	ad_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ad_time_end INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ad_view_limit bigint(20) NOT NULL DEFAULT '0',
-	ad_click_limit bigint(20) NOT NULL DEFAULT '0',
-	ad_owner INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	PRIMARY KEY (ad_id)
-);
-
-CREATE INDEX phpbb_ads_ad_priority ON phpbb_ads (ad_priority);
-CREATE INDEX phpbb_ads_ad_enabled ON phpbb_ads (ad_enabled);
-CREATE INDEX phpbb_ads_ad_owner ON phpbb_ads (ad_owner);
-
-
-# Table: 'phpbb_attachments'
-CREATE TABLE phpbb_attachments (
-	attach_id INTEGER PRIMARY KEY NOT NULL ,
-	post_msg_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	topic_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	in_message INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	poster_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	is_orphan INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	physical_filename varchar(255) NOT NULL DEFAULT '',
-	real_filename varchar(255) NOT NULL DEFAULT '',
-	download_count INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	attach_comment text(65535) NOT NULL DEFAULT '',
-	extension varchar(100) NOT NULL DEFAULT '',
-	mimetype varchar(100) NOT NULL DEFAULT '',
-	filesize INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	filetime INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	thumbnail INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE INDEX phpbb_attachments_filetime ON phpbb_attachments (filetime);
-CREATE INDEX phpbb_attachments_post_msg_id ON phpbb_attachments (post_msg_id);
-CREATE INDEX phpbb_attachments_topic_id ON phpbb_attachments (topic_id);
-CREATE INDEX phpbb_attachments_poster_id ON phpbb_attachments (poster_id);
-CREATE INDEX phpbb_attachments_is_orphan ON phpbb_attachments (is_orphan);
-
 # Table: 'phpbb_acl_groups'
 CREATE TABLE phpbb_acl_groups (
 	group_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	forum_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	auth_option_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	auth_role_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	auth_setting tinyint(2) NOT NULL DEFAULT '0',
-	is_kb tinyint(1) NOT NULL DEFAULT '0'
+	auth_setting tinyint(2) NOT NULL DEFAULT '0'
 );
 
 CREATE INDEX phpbb_acl_groups_group_id ON phpbb_acl_groups (group_id);
@@ -107,13 +57,100 @@ CREATE TABLE phpbb_acl_users (
 	forum_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	auth_option_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	auth_role_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	auth_setting tinyint(2) NOT NULL DEFAULT '0',
-	is_kb tinyint(1) NOT NULL DEFAULT '0'
+	auth_setting tinyint(2) NOT NULL DEFAULT '0'
 );
 
 CREATE INDEX phpbb_acl_users_user_id ON phpbb_acl_users (user_id);
 CREATE INDEX phpbb_acl_users_auth_option_id ON phpbb_acl_users (auth_option_id);
 CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users (auth_role_id);
+
+# Table: 'phpbb_ads'
+CREATE TABLE phpbb_ads (
+	ad_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
+	ad_name varchar(255) NOT NULL DEFAULT '',
+	ad_code mediumtext(16777215) NOT NULL DEFAULT '',
+	ad_views bigint(20) NOT NULL DEFAULT '0',
+	ad_priority INTEGER UNSIGNED NOT NULL DEFAULT '5',
+	ad_enabled INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	all_forums INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ad_clicks bigint(20) NOT NULL DEFAULT '0',
+	ad_note mediumtext(16777215) NOT NULL DEFAULT '',
+	ad_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ad_time_end INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ad_view_limit bigint(20) NOT NULL DEFAULT '0',
+	ad_click_limit bigint(20) NOT NULL DEFAULT '0',
+	ad_owner INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (ad_id)
+);
+
+CREATE INDEX phpbb_ads_ad_priority ON phpbb_ads (ad_priority);
+CREATE INDEX phpbb_ads_ad_enabled ON phpbb_ads (ad_enabled);
+CREATE INDEX phpbb_ads_ad_owner ON phpbb_ads (ad_owner);
+
+# Table: 'phpbb_ads_forums'
+CREATE TABLE phpbb_ads_forums (
+	ad_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
+	forum_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment'
+);
+
+CREATE INDEX phpbb_ads_forums_ad_id ON phpbb_ads_forums (ad_id);
+CREATE INDEX phpbb_ads_forums_forum_id ON phpbb_ads_forums (forum_id);
+
+# Table: 'phpbb_ads_groups'
+CREATE TABLE phpbb_ads_groups (
+	ad_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
+	group_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment'
+);
+
+CREATE INDEX phpbb_ads_groups_ad_id ON phpbb_ads_groups (ad_id);
+CREATE INDEX phpbb_ads_groups_group_id ON phpbb_ads_groups (group_id);
+
+# Table: 'phpbb_ads_in_positions'
+CREATE TABLE phpbb_ads_in_positions (
+	ad_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
+	position_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
+	ad_priority tinyint(1) NOT NULL DEFAULT '5',
+	ad_enabled	 tinyint(1) NOT NULL DEFAULT '1',
+	all_forums	 tinyint(1) NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_ads_in_positions_ad_position ON phpbb_ads_in_positions (ad_id, position_id);
+CREATE INDEX phpbb_ads_in_positions_ad_priority ON phpbb_ads_in_positions (ad_priority);
+CREATE INDEX phpbb_ads_in_positions_ad_enabled ON phpbb_ads_in_positions (ad_enabled);
+CREATE INDEX phpbb_ads_in_positions_all_forums ON phpbb_ads_in_positions (all_forums);
+
+# Table: 'phpbb_ads_positions'
+CREATE TABLE phpbb_ads_positions (
+	position_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
+	lang_key text(65535) NOT NULL DEFAULT '',
+	PRIMARY KEY (position_id)
+);
+
+
+# Table: 'phpbb_attachments'
+CREATE TABLE phpbb_attachments (
+	attach_id INTEGER PRIMARY KEY NOT NULL ,
+	post_msg_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	topic_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	in_message INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	poster_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	is_orphan INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	physical_filename varchar(255) NOT NULL DEFAULT '',
+	real_filename varchar(255) NOT NULL DEFAULT '',
+	download_count INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	attach_comment text(65535) NOT NULL DEFAULT '',
+	extension varchar(100) NOT NULL DEFAULT '',
+	mimetype varchar(100) NOT NULL DEFAULT '',
+	filesize INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	filetime INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	thumbnail INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_attachments_filetime ON phpbb_attachments (filetime);
+CREATE INDEX phpbb_attachments_post_msg_id ON phpbb_attachments (post_msg_id);
+CREATE INDEX phpbb_attachments_topic_id ON phpbb_attachments (topic_id);
+CREATE INDEX phpbb_attachments_poster_id ON phpbb_attachments (poster_id);
+CREATE INDEX phpbb_attachments_is_orphan ON phpbb_attachments (is_orphan);
 
 # Table: 'phpbb_banlist'
 CREATE TABLE phpbb_banlist (
@@ -145,10 +182,17 @@ CREATE TABLE phpbb_bbcodes (
 	first_pass_replace mediumtext(16777215) NOT NULL DEFAULT '',
 	second_pass_match mediumtext(16777215) NOT NULL DEFAULT '',
 	second_pass_replace mediumtext(16777215) NOT NULL DEFAULT '',
+	display_on_pm INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	display_on_sig INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	abbcode INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	bbcode_image varchar(255) NOT NULL DEFAULT '',
+	bbcode_order INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	bbcode_group varchar(255) NOT NULL DEFAULT '0',
 	PRIMARY KEY (bbcode_id)
 );
 
 CREATE INDEX phpbb_bbcodes_display_on_post ON phpbb_bbcodes (display_on_posting);
+CREATE INDEX phpbb_bbcodes_display_order ON phpbb_bbcodes (bbcode_order);
 
 # Table: 'phpbb_bookmarks'
 CREATE TABLE phpbb_bookmarks (
@@ -172,36 +216,86 @@ CREATE INDEX phpbb_bots_bot_active ON phpbb_bots (bot_active);
 
 # Table: 'phpbb_calendar'
 CREATE TABLE phpbb_calendar (
-	event_id INTEGER PRIMARY KEY NOT NULL ,
+	event_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
 	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	event_name varchar(255) NOT NULL DEFAULT '',
 	event_desc mediumtext(16777215) NOT NULL DEFAULT '',
 	event_groups varchar(255) NOT NULL DEFAULT '',
 	group_cats INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	priv_users mediumtext(16777215) NOT NULL DEFAULT '',
-	enable_bbcode INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	enable_html INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	enable_smilies INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	enable_magic_url INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	enable_bbcode tinyint(1) NOT NULL DEFAULT '1',
+	enable_html tinyint(1) NOT NULL DEFAULT '1',
+	enable_smilies tinyint(1) NOT NULL DEFAULT '1',
+	enable_magic_url tinyint(1) NOT NULL DEFAULT '1',
 	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
 	bbcode_uid varchar(8) NOT NULL DEFAULT '',
 	event_start INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	event_end INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	event_repeat varchar(8) NOT NULL DEFAULT '',
-	invite_attendees INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	invite_attendees tinyint(1) NOT NULL DEFAULT '1',
 	event_attendees mediumtext(16777215) NOT NULL DEFAULT '',
-	event_non_attendees mediumtext(16777215) NOT NULL DEFAULT ''
+	event_non_attendees mediumtext(16777215) NOT NULL DEFAULT '',
+	PRIMARY KEY (event_id)
 );
 
 
 # Table: 'phpbb_calendar_repeat_events'
 CREATE TABLE phpbb_calendar_repeat_events (
-	id INTEGER PRIMARY KEY NOT NULL ,
+	id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
 	repeat_id varchar(8) NOT NULL DEFAULT '',
 	event_start_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	event_end_time INTEGER UNSIGNED NOT NULL DEFAULT '0'
+	event_end_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (id)
 );
 
+
+# Table: 'phpbb_captcha_answers'
+CREATE TABLE phpbb_captcha_answers (
+	question_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	answer_text varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (question_id)
+);
+
+
+# Table: 'phpbb_captcha_questions'
+CREATE TABLE phpbb_captcha_questions (
+	question_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	strict INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_iso varchar(30) NOT NULL DEFAULT '',
+	question_text varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (question_id)
+);
+
+
+# Table: 'phpbb_cash'
+CREATE TABLE phpbb_cash (
+	cash_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cash_name varchar(255) NOT NULL DEFAULT '',
+	cash_value INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	cash_trade INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	PRIMARY KEY (cash_id)
+);
+
+
+# Table: 'phpbb_cash_amt'
+CREATE TABLE phpbb_cash_amt (
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cash_id INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	cash_amt INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_cash_amt_cash_user ON phpbb_cash_amt (user_id, cash_id);
+
+# Table: 'phpbb_clicks'
+CREATE TABLE phpbb_clicks (
+	id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	url varchar(255) NOT NULL DEFAULT '',
+	clicks INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (id)
+);
+
+CREATE INDEX phpbb_clicks_md5 ON phpbb_clicks (url);
 
 # Table: 'phpbb_config'
 CREATE TABLE phpbb_config (
@@ -226,10 +320,350 @@ CREATE TABLE phpbb_confirm (
 
 CREATE INDEX phpbb_confirm_confirm_type ON phpbb_confirm (confirm_type);
 
+# Table: 'phpbb_contact_config'
+CREATE TABLE phpbb_contact_config (
+	contact_confirm INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	contact_confirm_guests INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	contact_max_attempts INTEGER UNSIGNED NOT NULL DEFAULT '3',
+	contact_method INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	contact_bot_user INTEGER UNSIGNED NOT NULL DEFAULT '2',
+	contact_bot_forum INTEGER UNSIGNED NOT NULL DEFAULT '2',
+	contact_reasons mediumtext(16777215) NOT NULL DEFAULT '',
+	contact_founder_only INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	contact_bbcodes_allowed INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	contact_smilies_allowed INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	contact_bot_poster INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	contact_attach_allowed INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	contact_urls_allowed INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	contact_username_chk INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	contact_email_chk INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_digests_subscribed_forums'
+CREATE TABLE phpbb_digests_subscribed_forums (
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	forum_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (user_id, forum_id)
+);
+
+
 # Table: 'phpbb_disallow'
 CREATE TABLE phpbb_disallow (
 	disallow_id INTEGER PRIMARY KEY NOT NULL ,
 	disallow_username varchar(255) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_dl_auth'
+CREATE TABLE phpbb_dl_auth (
+	cat_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	group_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	auth_view INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	auth_dl INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	auth_up INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	auth_mod INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_dl_banlist'
+CREATE TABLE phpbb_dl_banlist (
+	ban_id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_ip varchar(40) NOT NULL DEFAULT '',
+	user_agent varchar(50) NOT NULL DEFAULT '',
+	username varchar(25) NOT NULL DEFAULT '',
+	guests INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_dl_bug_history'
+CREATE TABLE phpbb_dl_bug_history (
+	report_his_id INTEGER PRIMARY KEY NOT NULL ,
+	df_id int(11) NOT NULL DEFAULT '0',
+	report_id int(11) NOT NULL DEFAULT '0',
+	report_his_type char(10) NOT NULL DEFAULT '',
+	report_his_date INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_his_value mediumtext(16777215) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_dl_bug_tracker'
+CREATE TABLE phpbb_dl_bug_tracker (
+	report_id INTEGER PRIMARY KEY NOT NULL ,
+	df_id int(11) NOT NULL DEFAULT '0',
+	report_title varchar(255) NOT NULL DEFAULT '',
+	report_text mediumtext(16777215) NOT NULL DEFAULT '',
+	report_file_ver varchar(50) NOT NULL DEFAULT '',
+	report_date INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_author_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_assign_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_assign_date INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_status INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_status_date INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_php varchar(50) NOT NULL DEFAULT '',
+	report_db varchar(50) NOT NULL DEFAULT '',
+	report_forum varchar(50) NOT NULL DEFAULT '',
+	bug_uid char(8) NOT NULL DEFAULT '',
+	bug_bitfield varchar(255) NOT NULL DEFAULT '',
+	bug_flags INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_dl_cat_traf'
+CREATE TABLE phpbb_dl_cat_traf (
+	cat_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cat_traffic_use bigint(20) NOT NULL DEFAULT '0',
+	PRIMARY KEY (cat_id)
+);
+
+
+# Table: 'phpbb_dl_comments'
+CREATE TABLE phpbb_dl_comments (
+	dl_id INTEGER PRIMARY KEY NOT NULL ,
+	id int(11) NOT NULL DEFAULT '0',
+	cat_id int(11) NOT NULL DEFAULT '0',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	username varchar(32) NOT NULL DEFAULT '',
+	comment_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	comment_edit_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	comment_text mediumtext(16777215) NOT NULL DEFAULT '',
+	approve INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	com_uid char(8) NOT NULL DEFAULT '',
+	com_bitfield varchar(255) NOT NULL DEFAULT '',
+	com_flags INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_dl_ext_blacklist'
+CREATE TABLE phpbb_dl_ext_blacklist (
+	extention char(10) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_dl_favorites'
+CREATE TABLE phpbb_dl_favorites (
+	fav_id INTEGER PRIMARY KEY NOT NULL ,
+	fav_dl_id int(11) NOT NULL DEFAULT '0',
+	fav_dl_cat int(11) NOT NULL DEFAULT '0',
+	fav_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_dl_fields'
+CREATE TABLE phpbb_dl_fields (
+	field_id INTEGER PRIMARY KEY NOT NULL ,
+	field_name mediumtext(16777215) NOT NULL DEFAULT '',
+	field_type int(4) NOT NULL DEFAULT '0',
+	field_ident varchar(20) NOT NULL DEFAULT '',
+	field_length varchar(20) NOT NULL DEFAULT '',
+	field_minlen varchar(255) NOT NULL DEFAULT '',
+	field_maxlen varchar(255) NOT NULL DEFAULT '',
+	field_novalue mediumtext(16777215) NOT NULL DEFAULT '',
+	field_default_value mediumtext(16777215) NOT NULL DEFAULT '',
+	field_validation varchar(60) NOT NULL DEFAULT '',
+	field_required INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	field_active INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	field_order INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_dl_fields_data'
+CREATE TABLE phpbb_dl_fields_data (
+	df_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (df_id)
+);
+
+
+# Table: 'phpbb_dl_fields_lang'
+CREATE TABLE phpbb_dl_fields_lang (
+	field_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	option_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	field_type int(4) NOT NULL DEFAULT '0',
+	lang_value mediumtext(16777215) NOT NULL DEFAULT '',
+	PRIMARY KEY (field_id, lang_id, option_id)
+);
+
+
+# Table: 'phpbb_dl_hotlink'
+CREATE TABLE phpbb_dl_hotlink (
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	session_id varchar(32) NOT NULL DEFAULT '',
+	hotlink_id varchar(32) NOT NULL DEFAULT '',
+	code varchar(10) NOT NULL DEFAULT '-'
+);
+
+
+# Table: 'phpbb_dl_images'
+CREATE TABLE phpbb_dl_images (
+	img_id INTEGER PRIMARY KEY NOT NULL ,
+	dl_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	img_name varchar(255) NOT NULL DEFAULT '',
+	img_title mediumtext(16777215) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_dl_lang'
+CREATE TABLE phpbb_dl_lang (
+	field_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_name mediumtext(16777215) NOT NULL DEFAULT '',
+	lang_explain mediumtext(16777215) NOT NULL DEFAULT '',
+	lang_default_value mediumtext(16777215) NOT NULL DEFAULT '',
+	PRIMARY KEY (field_id, lang_id)
+);
+
+
+# Table: 'phpbb_dl_notraf'
+CREATE TABLE phpbb_dl_notraf (
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	dl_id int(11) NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_dl_ratings'
+CREATE TABLE phpbb_dl_ratings (
+	dl_id int(11) NOT NULL DEFAULT '0',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	rate_point char(10) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_dl_rem_traf'
+CREATE TABLE phpbb_dl_rem_traf (
+	config_name varchar(255) NOT NULL DEFAULT '',
+	config_value varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (config_name)
+);
+
+
+# Table: 'phpbb_dl_stats'
+CREATE TABLE phpbb_dl_stats (
+	dl_id INTEGER PRIMARY KEY NOT NULL ,
+	id int(11) NOT NULL DEFAULT '0',
+	cat_id int(11) NOT NULL DEFAULT '0',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	username varchar(32) NOT NULL DEFAULT '',
+	traffic bigint(20) NOT NULL DEFAULT '0',
+	direction INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_ip varchar(40) NOT NULL DEFAULT '',
+	browser varchar(255) NOT NULL DEFAULT '',
+	time_stamp INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_dl_versions'
+CREATE TABLE phpbb_dl_versions (
+	ver_id INTEGER PRIMARY KEY NOT NULL ,
+	dl_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ver_file_name varchar(255) NOT NULL DEFAULT '',
+	ver_real_file varchar(255) NOT NULL DEFAULT '',
+	ver_file_size bigint(20) NOT NULL DEFAULT '0',
+	ver_version varchar(32) NOT NULL DEFAULT '',
+	ver_change_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ver_add_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ver_add_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ver_change_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ver_file_hash varchar(255) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_downloads'
+CREATE TABLE phpbb_downloads (
+	id INTEGER PRIMARY KEY NOT NULL ,
+	description mediumtext(16777215) NOT NULL DEFAULT '',
+	file_name varchar(255) NOT NULL DEFAULT '',
+	klicks int(11) NOT NULL DEFAULT '0',
+	free INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	extern INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	long_desc mediumtext(16777215) NOT NULL DEFAULT '',
+	sort int(11) NOT NULL DEFAULT '0',
+	cat int(11) NOT NULL DEFAULT '0',
+	hacklist INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	hack_author varchar(255) NOT NULL DEFAULT '',
+	hack_author_email varchar(255) NOT NULL DEFAULT '',
+	hack_author_website text(65535) NOT NULL DEFAULT '',
+	hack_version varchar(32) NOT NULL DEFAULT '',
+	hack_dl_url text(65535) NOT NULL DEFAULT '',
+	test varchar(50) NOT NULL DEFAULT '',
+	req mediumtext(16777215) NOT NULL DEFAULT '',
+	todo mediumtext(16777215) NOT NULL DEFAULT '',
+	warning mediumtext(16777215) NOT NULL DEFAULT '',
+	mod_desc mediumtext(16777215) NOT NULL DEFAULT '',
+	mod_list INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	file_size bigint(20) NOT NULL DEFAULT '0',
+	change_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	rating int(5) NOT NULL DEFAULT '0',
+	file_traffic bigint(20) NOT NULL DEFAULT '0',
+	overall_klicks int(11) NOT NULL DEFAULT '0',
+	approve INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	add_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	add_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	change_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	last_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	down_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	thumbnail varchar(255) NOT NULL DEFAULT '',
+	broken INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	mod_desc_uid char(8) NOT NULL DEFAULT '',
+	mod_desc_bitfield varchar(255) NOT NULL DEFAULT '',
+	mod_desc_flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	long_desc_uid char(8) NOT NULL DEFAULT '',
+	long_desc_bitfield varchar(255) NOT NULL DEFAULT '',
+	long_desc_flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	desc_uid char(8) NOT NULL DEFAULT '',
+	desc_bitfield varchar(255) NOT NULL DEFAULT '',
+	desc_flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	warn_uid char(8) NOT NULL DEFAULT '',
+	warn_bitfield varchar(255) NOT NULL DEFAULT '',
+	warn_flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	dl_topic INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	real_file varchar(255) NOT NULL DEFAULT '',
+	todo_uid char(8) NOT NULL DEFAULT '',
+	todo_bitfield varchar(255) NOT NULL DEFAULT '',
+	todo_flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	file_hash varchar(255) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_downloads_desc_search ON phpbb_downloads (description);
+
+# Table: 'phpbb_downloads_cat'
+CREATE TABLE phpbb_downloads_cat (
+	id INTEGER PRIMARY KEY NOT NULL ,
+	parent int(11) NOT NULL DEFAULT '0',
+	path varchar(255) NOT NULL DEFAULT '',
+	cat_name varchar(255) NOT NULL DEFAULT '',
+	sort int(11) NOT NULL DEFAULT '0',
+	description mediumtext(16777215) NOT NULL DEFAULT '',
+	rules mediumtext(16777215) NOT NULL DEFAULT '',
+	auth_view INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	auth_dl INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	auth_up INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	auth_mod INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	must_approve INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	allow_mod_desc INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	statistics INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	stats_prune INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	comments INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	cat_traffic bigint(20) NOT NULL DEFAULT '0',
+	allow_thumbs INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	auth_cread INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	auth_cpost INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	approve_comments INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	bug_tracker INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	desc_uid char(8) NOT NULL DEFAULT '',
+	desc_bitfield varchar(255) NOT NULL DEFAULT '',
+	desc_flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	rules_uid char(8) NOT NULL DEFAULT '',
+	rules_bitfield varchar(255) NOT NULL DEFAULT '',
+	rules_flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	dl_topic_forum int(11) NOT NULL DEFAULT '0',
+	dl_topic_text mediumtext(16777215) NOT NULL DEFAULT '',
+	cat_icon varchar(255) NOT NULL DEFAULT '',
+	diff_topic_user bigint(20) NOT NULL DEFAULT '0',
+	topic_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	topic_more_details INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	show_file_hash INTEGER UNSIGNED NOT NULL DEFAULT '1'
 );
 
 
@@ -353,12 +787,12 @@ CREATE TABLE phpbb_gallery_albums (
 	left_id INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	right_id INTEGER UNSIGNED NOT NULL DEFAULT '2',
 	album_parents mediumtext(16777215) NOT NULL DEFAULT '',
-	album_type tinyint(3) NOT NULL DEFAULT '1',
-	album_status tinyint(1) NOT NULL DEFAULT '1',
+	album_type INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	album_status INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	album_contest INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	album_name varchar(255) NOT NULL DEFAULT '',
 	album_desc mediumtext(16777215) NOT NULL DEFAULT '',
-	album_desc_options tinyint(3) NOT NULL DEFAULT '7',
+	album_desc_options INTEGER UNSIGNED NOT NULL DEFAULT '7',
 	album_desc_uid varchar(8) NOT NULL DEFAULT '',
 	album_desc_bitfield varchar(255) NOT NULL DEFAULT '',
 	album_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
@@ -366,24 +800,24 @@ CREATE TABLE phpbb_gallery_albums (
 	album_images_real INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	album_last_image_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	album_image varchar(255) NOT NULL DEFAULT '',
-	album_last_image_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	album_last_image_time int(11) NOT NULL DEFAULT '0',
 	album_last_image_name varchar(255) NOT NULL DEFAULT '',
 	album_last_username varchar(255) NOT NULL DEFAULT '',
 	album_last_user_colour varchar(6) NOT NULL DEFAULT '',
 	album_last_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	album_watermark tinyint(1) NOT NULL DEFAULT '1',
+	album_watermark INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	album_sort_key varchar(8) NOT NULL DEFAULT '',
 	album_sort_dir varchar(8) NOT NULL DEFAULT '',
-	display_in_rrc tinyint(1) NOT NULL DEFAULT '1',
-	display_on_index tinyint(1) NOT NULL DEFAULT '1',
-	display_subalbum_list tinyint(1) NOT NULL DEFAULT '1',
-	album_feed tinyint(1) NOT NULL DEFAULT '1',
+	display_in_rrc INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	display_on_index INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	display_subalbum_list INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	album_feed INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	album_auth_access tinyint(1) NOT NULL DEFAULT '0'
 );
 
 
-# Table: 'phpbb_gallery_albums_track'
-CREATE TABLE phpbb_gallery_albums_track (
+# Table: 'phpbb_albums_track'
+CREATE TABLE phpbb_albums_track (
 	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	album_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	mark_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
@@ -394,12 +828,12 @@ CREATE TABLE phpbb_gallery_albums_track (
 # Table: 'phpbb_gallery_comments'
 CREATE TABLE phpbb_gallery_comments (
 	comment_id INTEGER PRIMARY KEY NOT NULL ,
-	comment_image_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	comment_image_id INTEGER UNSIGNED NOT NULL ,
 	comment_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	comment_username varchar(255) NOT NULL DEFAULT '',
 	comment_user_colour varchar(6) NOT NULL DEFAULT '',
 	comment_user_ip varchar(40) NOT NULL DEFAULT '',
-	comment_signature tinyint(1) NOT NULL DEFAULT '0',
+	comment_signature INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	comment_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	comment mediumtext(16777215) NOT NULL DEFAULT '',
 	comment_uid varchar(8) NOT NULL DEFAULT '',
@@ -436,6 +870,26 @@ CREATE TABLE phpbb_gallery_contests (
 );
 
 
+# Table: 'phpbb_gallery_copyts_albums'
+CREATE TABLE phpbb_gallery_copyts_albums (
+	album_id INTEGER PRIMARY KEY NOT NULL ,
+	parent_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	left_id INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	right_id INTEGER UNSIGNED NOT NULL DEFAULT '2',
+	album_name varchar(255) NOT NULL DEFAULT '',
+	album_desc mediumtext(16777215) NOT NULL DEFAULT '',
+	album_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_gallery_copyts_users'
+CREATE TABLE phpbb_gallery_copyts_users (
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	personal_album_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (user_id)
+);
+
+
 # Table: 'phpbb_gallery_favorites'
 CREATE TABLE phpbb_gallery_favorites (
 	favorite_id INTEGER PRIMARY KEY NOT NULL ,
@@ -463,12 +917,12 @@ CREATE TABLE phpbb_gallery_images (
 	image_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	image_album_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	image_view_count INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	image_status tinyint(3) NOT NULL DEFAULT '0',
-	image_contest tinyint(1) NOT NULL DEFAULT '0',
+	image_status INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	image_contest INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	image_contest_end INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	image_contest_rank tinyint(3) NOT NULL DEFAULT '0',
-	image_filemissing tinyint(3) NOT NULL DEFAULT '0',
-	image_has_exif tinyint(3) NOT NULL DEFAULT '2',
+	image_contest_rank INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	image_filemissing INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	image_has_exif INTEGER UNSIGNED NOT NULL DEFAULT '2',
 	image_exif_data text(65535) NOT NULL DEFAULT '',
 	image_rates INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	image_rate_points INTEGER UNSIGNED NOT NULL DEFAULT '0',
@@ -507,7 +961,7 @@ CREATE TABLE phpbb_gallery_permissions (
 	perm_album_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	perm_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	perm_group_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	perm_system tinyint(3) NOT NULL DEFAULT '0'
+	perm_system int(3) NOT NULL DEFAULT '0'
 );
 
 
@@ -516,7 +970,7 @@ CREATE TABLE phpbb_gallery_rates (
 	rate_image_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	rate_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	rate_user_ip varchar(40) NOT NULL DEFAULT '',
-	rate_point tinyint(3) NOT NULL DEFAULT '0',
+	rate_point INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	PRIMARY KEY (rate_image_id, rate_user_id)
 );
 
@@ -530,52 +984,52 @@ CREATE TABLE phpbb_gallery_reports (
 	report_manager INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	report_note mediumtext(16777215) NOT NULL DEFAULT '',
 	report_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	report_status tinyint(3) NOT NULL DEFAULT '0'
+	report_status INTEGER UNSIGNED NOT NULL DEFAULT '0'
 );
 
 
 # Table: 'phpbb_gallery_roles'
 CREATE TABLE phpbb_gallery_roles (
 	role_id INTEGER PRIMARY KEY NOT NULL ,
-	a_list tinyint(3) NOT NULL DEFAULT '0',
-	i_view tinyint(3) NOT NULL DEFAULT '0',
-	i_watermark tinyint(3) NOT NULL DEFAULT '0',
-	i_upload tinyint(3) NOT NULL DEFAULT '0',
-	i_edit tinyint(3) NOT NULL DEFAULT '0',
-	i_delete tinyint(3) NOT NULL DEFAULT '0',
-	i_rate tinyint(3) NOT NULL DEFAULT '0',
-	i_approve tinyint(3) NOT NULL DEFAULT '0',
-	i_lock tinyint(3) NOT NULL DEFAULT '0',
-	i_report tinyint(3) NOT NULL DEFAULT '0',
+	a_list INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_view INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_watermark INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_upload INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_edit INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_delete INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_rate INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_approve INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_lock INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	i_report INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	i_count INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	i_unlimited tinyint(3) NOT NULL DEFAULT '0',
-	c_read tinyint(3) NOT NULL DEFAULT '0',
-	c_post tinyint(3) NOT NULL DEFAULT '0',
-	c_edit tinyint(3) NOT NULL DEFAULT '0',
-	c_delete tinyint(3) NOT NULL DEFAULT '0',
-	m_comments tinyint(3) NOT NULL DEFAULT '0',
-	m_delete tinyint(3) NOT NULL DEFAULT '0',
-	m_edit tinyint(3) NOT NULL DEFAULT '0',
-	m_move tinyint(3) NOT NULL DEFAULT '0',
-	m_report tinyint(3) NOT NULL DEFAULT '0',
-	m_status tinyint(3) NOT NULL DEFAULT '0',
+	i_unlimited INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	c_read INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	c_post INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	c_edit INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	c_delete INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	m_comments INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	m_delete INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	m_edit INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	m_move INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	m_report INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	m_status INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	a_count INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	a_unlimited tinyint(3) NOT NULL DEFAULT '0',
-	a_restrict tinyint(3) NOT NULL DEFAULT '0'
+	a_unlimited INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	a_restrict INTEGER UNSIGNED NOT NULL DEFAULT '0'
 );
 
 
 # Table: 'phpbb_gallery_users'
 CREATE TABLE phpbb_gallery_users (
 	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	watch_own tinyint(3) NOT NULL DEFAULT '0',
-	watch_favo tinyint(3) NOT NULL DEFAULT '0',
-	watch_com tinyint(3) NOT NULL DEFAULT '0',
+	watch_own INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	watch_favo INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	watch_com INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_images INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	personal_album_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_lastmark INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_last_update INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	user_viewexif tinyint(1) NOT NULL DEFAULT '0',
+	user_viewexif INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_permissions mediumtext(16777215) NOT NULL DEFAULT '',
 	user_permissions_changed INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_allow_comments tinyint(1) NOT NULL DEFAULT '1',
@@ -631,15 +1085,22 @@ CREATE TABLE phpbb_icons (
 	icons_width tinyint(4) NOT NULL DEFAULT '0',
 	icons_height tinyint(4) NOT NULL DEFAULT '0',
 	icons_order INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	display_on_posting INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	icons_group INTEGER UNSIGNED NOT NULL DEFAULT '0'
+	display_on_posting INTEGER UNSIGNED NOT NULL DEFAULT '1'
 );
 
 CREATE INDEX phpbb_icons_display_on_posting ON phpbb_icons (display_on_posting);
 
+# Table: 'phpbb_imod_config'
+CREATE TABLE phpbb_imod_config (
+	id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	imod_version varchar(8) NOT NULL DEFAULT '3.0.15',
+	imod_enabled INTEGER UNSIGNED NOT NULL DEFAULT '1'
+);
+
+
 # Table: 'phpbb_kb_article'
 CREATE TABLE phpbb_kb_article (
-	article_id INTEGER PRIMARY KEY NOT NULL ,
+	article_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
 	cat_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	type_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	hits INTEGER UNSIGNED NOT NULL DEFAULT '0',
@@ -661,7 +1122,8 @@ CREATE TABLE phpbb_kb_article (
 	post_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	has_attachment INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	reported_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	rating INTEGER UNSIGNED NOT NULL DEFAULT '0'
+	rating INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (article_id)
 );
 
 CREATE INDEX phpbb_kb_article_activ ON phpbb_kb_article (activ);
@@ -669,7 +1131,7 @@ CREATE INDEX phpbb_kb_article_titel ON phpbb_kb_article (titel);
 
 # Table: 'phpbb_kb_article_diff'
 CREATE TABLE phpbb_kb_article_diff (
-	diff_id INTEGER PRIMARY KEY NOT NULL ,
+	diff_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
 	article_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	article mediumtext(16777215) NOT NULL DEFAULT '',
 	bbcode_uid varchar(8) NOT NULL DEFAULT '',
@@ -694,7 +1156,7 @@ CREATE INDEX phpbb_kb_article_track_user_id ON phpbb_kb_article_track (user_id);
 
 # Table: 'phpbb_kb_categorie'
 CREATE TABLE phpbb_kb_categorie (
-	cat_id INTEGER PRIMARY KEY NOT NULL ,
+	cat_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
 	right_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	left_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	parent_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
@@ -706,7 +1168,7 @@ CREATE TABLE phpbb_kb_categorie (
 	description varchar(255) NOT NULL DEFAULT '',
 	bbcode_uid varchar(8) NOT NULL DEFAULT '',
 	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
-	bbcode_options INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	bbcode_options int(4) NOT NULL DEFAULT '0',
 	image varchar(255) NOT NULL DEFAULT '',
 	display_on_index INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	cat_articles INTEGER UNSIGNED NOT NULL DEFAULT '0',
@@ -715,26 +1177,28 @@ CREATE TABLE phpbb_kb_categorie (
 	last_article_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	last_article_poster_name varchar(255) NOT NULL DEFAULT '',
 	last_article_poster_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	last_article_poster_colour varchar(8) NOT NULL DEFAULT '',
+	last_article_poster_colour INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	last_article_title varchar(255) NOT NULL DEFAULT '',
-	ads mediumtext(16777215) NOT NULL DEFAULT ''
+	ads mediumtext(16777215) NOT NULL DEFAULT '',
+	PRIMARY KEY (cat_id)
 );
 
 
 # Table: 'phpbb_kb_changelog'
 CREATE TABLE phpbb_kb_changelog (
-	log_id INTEGER PRIMARY KEY NOT NULL ,
+	log_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
 	article_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	time INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	reason mediumtext(16777215) NOT NULL DEFAULT ''
+	reason mediumtext(16777215) NOT NULL DEFAULT '',
+	PRIMARY KEY (log_id)
 );
 
 
 # Table: 'phpbb_kb_config'
 CREATE TABLE phpbb_kb_config (
-	config_name varchar(100) NOT NULL DEFAULT '',
-	config_value mediumtext(16777215) NOT NULL DEFAULT '',
+	config_name INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
+	config_value INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	config_type INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	PRIMARY KEY (config_name)
 );
@@ -751,21 +1215,23 @@ CREATE TABLE phpbb_kb_rating (
 
 # Table: 'phpbb_kb_reports'
 CREATE TABLE phpbb_kb_reports (
-	report_id INTEGER PRIMARY KEY NOT NULL ,
+	report_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
 	reason_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	article_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_notify INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	report_closed INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	report_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	report_text mediumtext(16777215) NOT NULL DEFAULT ''
+	report_text mediumtext(16777215) NOT NULL DEFAULT '',
+	PRIMARY KEY (report_id)
 );
 
 
 # Table: 'phpbb_kb_types'
 CREATE TABLE phpbb_kb_types (
-	type_id INTEGER PRIMARY KEY NOT NULL ,
-	name varchar(255) NOT NULL DEFAULT ''
+	type_id INTEGER UNSIGNED NOT NULL DEFAULT 'auto_increment',
+	name varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (type_id)
 );
 
 
@@ -776,19 +1242,19 @@ CREATE TABLE phpbb_k_blocks (
 	title varchar(50) NOT NULL DEFAULT '',
 	position char(1) NOT NULL DEFAULT 'L',
 	type char(1) NOT NULL DEFAULT 'H',
-	active tinyint(1) NOT NULL DEFAULT '1',
+	active INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	html_file_name varchar(255) NOT NULL DEFAULT '',
 	var_file_name varchar(255) NOT NULL DEFAULT 'none.gif',
 	img_file_name varchar(255) NOT NULL DEFAULT 'none.gif',
-	view_all tinyint(1) NOT NULL DEFAULT '1',
+	view_all INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	view_groups varchar(100) NOT NULL DEFAULT '',
 	view_pages varchar(100) NOT NULL DEFAULT '',
 	groups INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	scroll tinyint(1) NOT NULL DEFAULT '0',
+	scroll INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	block_height INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	has_vars tinyint(1) NOT NULL DEFAULT '0',
-	is_static tinyint(1) NOT NULL DEFAULT '0',
-	minimod_based tinyint(1) NOT NULL DEFAULT '0',
+	has_vars INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	is_static INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	minimod_based INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	mod_block_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	block_cache_time INTEGER UNSIGNED NOT NULL DEFAULT '600'
 );
@@ -797,9 +1263,9 @@ CREATE TABLE phpbb_k_blocks (
 # Table: 'phpbb_k_blocks_config'
 CREATE TABLE phpbb_k_blocks_config (
 	id INTEGER PRIMARY KEY NOT NULL ,
-	use_external_files tinyint(1) NOT NULL DEFAULT '0',
-	update_files tinyint(1) NOT NULL DEFAULT '0',
-	layout_default tinyint(1) NOT NULL DEFAULT '2',
+	use_external_files INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	update_files INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	layout_default INTEGER UNSIGNED NOT NULL DEFAULT '2',
 	portal_config varchar(10) NOT NULL DEFAULT 'Site'
 );
 
@@ -821,14 +1287,14 @@ CREATE TABLE phpbb_k_menus (
 	menu_type INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	name varchar(50) NOT NULL DEFAULT '',
 	link_to varchar(255) NOT NULL DEFAULT '',
-	extern tinyint(1) NOT NULL DEFAULT '0',
+	extern INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	menu_icon varchar(30) NOT NULL DEFAULT 'none.gif',
-	append_sid tinyint(1) NOT NULL DEFAULT '1',
-	append_uid tinyint(1) NOT NULL DEFAULT '0',
-	view_all tinyint(1) NOT NULL DEFAULT '1',
+	append_sid INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	append_uid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	view_all INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	view_groups varchar(100) NOT NULL DEFAULT '',
-	soft_hr tinyint(1) NOT NULL DEFAULT '0',
-	sub_heading tinyint(1) NOT NULL DEFAULT '0'
+	soft_hr INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	sub_heading INTEGER UNSIGNED NOT NULL DEFAULT '0'
 );
 
 
@@ -858,6 +1324,19 @@ CREATE TABLE phpbb_lang (
 );
 
 CREATE INDEX phpbb_lang_lang_iso ON phpbb_lang (lang_iso);
+
+# Table: 'phpbb_likes'
+CREATE TABLE phpbb_likes (
+	like_id INTEGER PRIMARY KEY NOT NULL ,
+	post_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	topic_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	poster_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	like_date int(11) NOT NULL DEFAULT '',
+	like_state INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	like_read INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
 
 # Table: 'phpbb_log'
 CREATE TABLE phpbb_log (
@@ -897,6 +1376,103 @@ CREATE INDEX phpbb_login_attempts_att_for ON phpbb_login_attempts (attempt_forwa
 CREATE INDEX phpbb_login_attempts_att_time ON phpbb_login_attempts (attempt_time);
 CREATE INDEX phpbb_login_attempts_user_id ON phpbb_login_attempts (user_id);
 
+# Table: 'phpbb_mchat'
+CREATE TABLE phpbb_mchat (
+	message_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_ip varchar(40) NOT NULL DEFAULT '',
+	message mediumtext(16777215) NOT NULL DEFAULT '',
+	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	bbcode_uid varchar(8) NOT NULL DEFAULT '',
+	bbcode_options INTEGER UNSIGNED NOT NULL DEFAULT '7',
+	message_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	forum_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	post_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (message_id)
+);
+
+CREATE INDEX phpbb_mchat_user_id ON phpbb_mchat (user_id);
+
+# Table: 'phpbb_mchat_config'
+CREATE TABLE phpbb_mchat_config (
+	config_name varchar(255) NOT NULL DEFAULT '',
+	config_value varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (config_name)
+);
+
+
+# Table: 'phpbb_mchat_sessions'
+CREATE TABLE phpbb_mchat_sessions (
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_lastupdate INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_ip varchar(40) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_meeting_comment'
+CREATE TABLE phpbb_meeting_comment (
+	comment_id INTEGER PRIMARY KEY NOT NULL ,
+	meeting_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_id int(8) NOT NULL DEFAULT '0',
+	meeting_comment mediumtext(16777215) NOT NULL DEFAULT '',
+	meeting_edit_time int(11) NOT NULL DEFAULT '0',
+	approve INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	uid varchar(8) NOT NULL DEFAULT '',
+	bitfield varchar(255) NOT NULL DEFAULT '',
+	flags INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_meeting_data'
+CREATE TABLE phpbb_meeting_data (
+	meeting_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	meeting_time int(11) NOT NULL DEFAULT '0',
+	meeting_until int(11) NOT NULL DEFAULT '0',
+	meeting_location varchar(255) NOT NULL DEFAULT '',
+	meeting_subject text(65535) NOT NULL DEFAULT '',
+	meeting_desc mediumtext(16777215) NOT NULL DEFAULT '',
+	meeting_link varchar(255) NOT NULL DEFAULT '',
+	meeting_places INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	meeting_by_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	meeting_edit_by_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	meeting_start_value INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	meeting_recure_value INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	meeting_notify INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	meeting_guest_overall int(8) NOT NULL DEFAULT '0',
+	meeting_guest_single int(8) NOT NULL DEFAULT '0',
+	meeting_guest_names INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	uid char(8) NOT NULL DEFAULT '',
+	bitfield varchar(255) NOT NULL DEFAULT '',
+	flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (meeting_id)
+);
+
+
+# Table: 'phpbb_meeting_guestnames'
+CREATE TABLE phpbb_meeting_guestnames (
+	meeting_id int(8) NOT NULL DEFAULT '0',
+	user_id int(8) NOT NULL DEFAULT '0',
+	guest_prename varchar(255) NOT NULL DEFAULT '',
+	guest_name varchar(255) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_meeting_user'
+CREATE TABLE phpbb_meeting_user (
+	meeting_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_id int(8) NOT NULL DEFAULT '0',
+	meeting_sure tinyint(4) NOT NULL DEFAULT '0',
+	meeting_guests int(8) NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_meeting_usergroup'
+CREATE TABLE phpbb_meeting_usergroup (
+	meeting_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	meeting_group int(8) NOT NULL DEFAULT '0'
+);
+
+
 # Table: 'phpbb_moderator_cache'
 CREATE TABLE phpbb_moderator_cache (
 	forum_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
@@ -909,6 +1485,45 @@ CREATE TABLE phpbb_moderator_cache (
 
 CREATE INDEX phpbb_moderator_cache_disp_idx ON phpbb_moderator_cache (display_on_index);
 CREATE INDEX phpbb_moderator_cache_forum_id ON phpbb_moderator_cache (forum_id);
+
+# Table: 'phpbb_mods'
+CREATE TABLE phpbb_mods (
+	mod_id INTEGER PRIMARY KEY NOT NULL ,
+	mod_active INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	mod_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	mod_dependencies mediumtext(16777215) NOT NULL DEFAULT '',
+	mod_name text(65535) NOT NULL DEFAULT '',
+	mod_description text(65535) NOT NULL DEFAULT '',
+	mod_version varchar(25) NOT NULL DEFAULT '',
+	mod_author_notes text(65535) NOT NULL DEFAULT '',
+	mod_author_name varchar(100) NOT NULL DEFAULT '',
+	mod_author_email varchar(100) NOT NULL DEFAULT '',
+	mod_author_url varchar(100) NOT NULL DEFAULT '',
+	mod_actions mediumtext(16777215) NOT NULL DEFAULT '',
+	mod_languages varchar(255) NOT NULL DEFAULT '',
+	mod_template varchar(255) NOT NULL DEFAULT '',
+	mod_path varchar(255) NOT NULL DEFAULT '',
+	mod_contribs varchar(255) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_mods_database'
+CREATE TABLE phpbb_mods_database (
+	mod_id INTEGER PRIMARY KEY NOT NULL DEFAULT '5',
+	mod_title varchar(50) NOT NULL DEFAULT '',
+	mod_version varchar(10) NOT NULL DEFAULT '',
+	mod_version_type varchar(10) NOT NULL DEFAULT '',
+	mod_desc text(65535) NOT NULL DEFAULT '',
+	mod_url varchar(100) NOT NULL DEFAULT '',
+	mod_author varchar(50) NOT NULL DEFAULT '',
+	mod_download varchar(255) NOT NULL DEFAULT '',
+	mod_phpbb_version varchar(10) NOT NULL DEFAULT '',
+	mod_comments text(65535) NOT NULL DEFAULT '',
+	mod_access INTEGER UNSIGNED NOT NULL DEFAULT '',
+	mod_author_email varchar(100) NOT NULL DEFAULT '',
+	mod_install_date INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
 
 # Table: 'phpbb_modules'
 CREATE TABLE phpbb_modules (
@@ -928,6 +1543,128 @@ CREATE TABLE phpbb_modules (
 CREATE INDEX phpbb_modules_left_right_id ON phpbb_modules (left_id, right_id);
 CREATE INDEX phpbb_modules_module_enabled ON phpbb_modules (module_enabled);
 CREATE INDEX phpbb_modules_class_left_id ON phpbb_modules (module_class, left_id);
+
+# Table: 'phpbb_notes'
+CREATE TABLE phpbb_notes (
+	note_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	note_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	note_subject text(65535) NOT NULL DEFAULT '',
+	note_text mediumtext(16777215) NOT NULL DEFAULT '',
+	note_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	note_uid char(8) NOT NULL DEFAULT '1',
+	note_bitfield varchar(255) NOT NULL DEFAULT '',
+	note_flags INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (note_id)
+);
+
+
+# Table: 'phpbb_pages'
+CREATE TABLE phpbb_pages (
+	page_id INTEGER PRIMARY KEY NOT NULL ,
+	page_title varchar(255) NOT NULL DEFAULT '',
+	page_desc mediumtext(16777215) NOT NULL DEFAULT '',
+	page_content mediumtext(16777215) NOT NULL DEFAULT '',
+	page_url varchar(255) NOT NULL DEFAULT '',
+	bbcode_uid varchar(8) NOT NULL DEFAULT '',
+	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	page_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	page_order INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	page_display INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	page_display_guests INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	page_author INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_points_bank'
+CREATE TABLE phpbb_points_bank (
+	id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	holding decimal(20,2) NOT NULL DEFAULT '0',
+	totalwithdrew decimal(20,2) NOT NULL DEFAULT '0',
+	totaldeposit decimal(20,2) NOT NULL DEFAULT '0',
+	opentime INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	fees char(5) NOT NULL DEFAULT 'on'
+);
+
+
+# Table: 'phpbb_points_config'
+CREATE TABLE phpbb_points_config (
+	config_name varchar(255) NOT NULL DEFAULT '',
+	config_value varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (config_name)
+);
+
+
+# Table: 'phpbb_points_log'
+CREATE TABLE phpbb_points_log (
+	id INTEGER PRIMARY KEY NOT NULL ,
+	point_send INTEGER UNSIGNED NOT NULL ,
+	point_recv INTEGER UNSIGNED NOT NULL ,
+	point_amount decimal(20,2) NOT NULL DEFAULT '0',
+	point_sendold decimal(20,2) NOT NULL DEFAULT '0',
+	point_recvold decimal(20,2) NOT NULL DEFAULT '0',
+	point_comment mediumtext(16777215) NOT NULL DEFAULT '',
+	point_type INTEGER UNSIGNED NOT NULL ,
+	point_date INTEGER UNSIGNED NOT NULL 
+);
+
+
+# Table: 'phpbb_points_lottery_history'
+CREATE TABLE phpbb_points_lottery_history (
+	id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_name varchar(255) NOT NULL DEFAULT '',
+	time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	amount decimal(20,2) NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_points_lottery_tickets'
+CREATE TABLE phpbb_points_lottery_tickets (
+	ticket_id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_points_values'
+CREATE TABLE phpbb_points_values (
+	bank_cost decimal(10,2) NOT NULL DEFAULT '0',
+	bank_fees decimal(10,2) NOT NULL DEFAULT '0',
+	bank_interest decimal(10,2) NOT NULL DEFAULT '0',
+	bank_interestcut decimal(20,2) NOT NULL DEFAULT '0',
+	bank_last_restocked INTEGER UNSIGNED NOT NULL ,
+	bank_min_deposit decimal(10,2) NOT NULL DEFAULT '0',
+	bank_min_withdraw decimal(10,2) NOT NULL DEFAULT '0',
+	bank_name varchar(100) NOT NULL ,
+	bank_pay_period INTEGER UNSIGNED NOT NULL DEFAULT '2592000',
+	lottery_base_amount decimal(10,2) NOT NULL DEFAULT '0',
+	lottery_chance decimal(5,2) NOT NULL DEFAULT '50',
+	lottery_draw_period INTEGER UNSIGNED NOT NULL DEFAULT '3600',
+	lottery_jackpot decimal(20,2) NOT NULL DEFAULT '50',
+	lottery_last_draw_time INTEGER UNSIGNED NOT NULL ,
+	lottery_max_tickets INTEGER UNSIGNED NOT NULL DEFAULT '10',
+	lottery_name varchar(100) NOT NULL DEFAULT '',
+	lottery_prev_winner varchar(255) NOT NULL DEFAULT '',
+	lottery_prev_winner_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lottery_ticket_cost decimal(10,2) NOT NULL DEFAULT '0',
+	lottery_winners_total INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	number_show_per_page INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	number_show_top_points INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	points_dl_cost_per_attach decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_attach decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_attach_file decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_poll decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_poll_option decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_post_character decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_post_word decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_topic_character decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_topic_word decimal(10,2) NOT NULL DEFAULT '0',
+	points_per_warn decimal(10,2) NOT NULL DEFAULT '0',
+	reg_points_bonus decimal(10,2) NOT NULL DEFAULT '0',
+	robbery_chance decimal(5,2) NOT NULL DEFAULT '0',
+	robbery_loose decimal(5,2) NOT NULL DEFAULT '0'
+);
+
 
 # Table: 'phpbb_poll_options'
 CREATE TABLE phpbb_poll_options (
@@ -1119,6 +1856,21 @@ CREATE TABLE phpbb_profile_lang (
 );
 
 
+# Table: 'phpbb_qa_confirm'
+CREATE TABLE phpbb_qa_confirm (
+	session_id char(32) NOT NULL DEFAULT '',
+	confirm_id char(32) NOT NULL DEFAULT '',
+	lang_iso varchar(30) NOT NULL DEFAULT '',
+	question_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	attempts INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	confirm_type INTEGER UNSIGNED NOT NULL DEFAULT '',
+	PRIMARY KEY (confirm_id)
+);
+
+CREATE INDEX phpbb_qa_confirm_session_id ON phpbb_qa_confirm (session_id);
+CREATE INDEX phpbb_qa_confirm_confirm_id ON phpbb_qa_confirm (confirm_id);
+CREATE INDEX phpbb_qa_confirm_lang_iso ON phpbb_qa_confirm (lang_iso);
+
 # Table: 'phpbb_ranks'
 CREATE TABLE phpbb_ranks (
 	rank_id INTEGER PRIMARY KEY NOT NULL ,
@@ -1230,7 +1982,7 @@ CREATE TABLE phpbb_shoutbox (
 	shout_text mediumtext(16777215) NOT NULL DEFAULT '',
 	shout_bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
 	shout_bbcode_uid varchar(8) NOT NULL DEFAULT '',
-	shout_bbcode_flags INTEGER UNSIGNED NOT NULL DEFAULT '7'
+	shout_bbcode_flags int(11) NOT NULL DEFAULT '7'
 );
 
 
@@ -1252,11 +2004,327 @@ CREATE TABLE phpbb_smilies (
 	smiley_width INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	smiley_height INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	smiley_order INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	display_on_posting INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	smiley_group INTEGER UNSIGNED NOT NULL DEFAULT '0'
+	display_on_posting INTEGER UNSIGNED NOT NULL DEFAULT '1'
 );
 
 CREATE INDEX phpbb_smilies_display_on_post ON phpbb_smilies (display_on_posting);
+
+# Table: 'phpbb_sn_config'
+CREATE TABLE phpbb_sn_config (
+	config_name varchar(255) NOT NULL DEFAULT '',
+	config_value varchar(255) NOT NULL DEFAULT '',
+	is_dynamic INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (config_name)
+);
+
+CREATE INDEX phpbb_sn_config_a ON phpbb_sn_config (is_dynamic);
+
+# Table: 'phpbb_sn_users'
+CREATE TABLE phpbb_sn_users (
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_status text(65535) NOT NULL DEFAULT '',
+	user_im_online INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_zebra_alert_friend INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_note text(65535) NOT NULL DEFAULT '',
+	user_im_sound tinyint(1) NOT NULL DEFAULT '1',
+	user_im_soundname varchar(255) NOT NULL DEFAULT 'IM_New-message-1.mp3',
+	hometown varchar(255) NOT NULL DEFAULT '',
+	sex tinyint(1) NOT NULL DEFAULT '0',
+	interested_in tinyint(1) NOT NULL DEFAULT '0',
+	languages text(65535) NOT NULL DEFAULT '',
+	about_me text(65535) NOT NULL DEFAULT '',
+	employer text(65535) NOT NULL DEFAULT '',
+	university text(65535) NOT NULL DEFAULT '',
+	high_school text(65535) NOT NULL DEFAULT '',
+	religion text(65535) NOT NULL DEFAULT '',
+	political_views text(65535) NOT NULL DEFAULT '',
+	quotations text(65535) NOT NULL DEFAULT '',
+	music text(65535) NOT NULL DEFAULT '',
+	books text(65535) NOT NULL DEFAULT '',
+	movies text(65535) NOT NULL DEFAULT '',
+	games text(65535) NOT NULL DEFAULT '',
+	foods text(65535) NOT NULL DEFAULT '',
+	sports text(65535) NOT NULL DEFAULT '',
+	sport_teams text(65535) NOT NULL DEFAULT '',
+	activities text(65535) NOT NULL DEFAULT '',
+	skype varchar(32) NOT NULL DEFAULT '',
+	facebook varchar(255) NOT NULL DEFAULT '',
+	twitter varchar(255) NOT NULL DEFAULT '',
+	youtube varchar(255) NOT NULL DEFAULT '',
+	profile_views INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	profile_last_change INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (user_id)
+);
+
+
+# Table: 'phpbb_sn_im'
+CREATE TABLE phpbb_sn_im (
+	uid_from INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	uid_to INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	message text(65535) NOT NULL DEFAULT '',
+	sent decimal(20,3) NOT NULL DEFAULT '0',
+	recd INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	bbcode_uid varchar(8) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_im_a ON phpbb_sn_im (sent);
+
+# Table: 'phpbb_sn_im_chatboxes'
+CREATE TABLE phpbb_sn_im_chatboxes (
+	uid_from INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	uid_to INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	username_to varchar(255) NOT NULL DEFAULT '',
+	starttime INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE UNIQUE INDEX phpbb_sn_im_chatboxes_a ON phpbb_sn_im_chatboxes (uid_from, uid_to);
+CREATE INDEX phpbb_sn_im_chatboxes_b ON phpbb_sn_im_chatboxes (uid_from, uid_to, starttime);
+
+# Table: 'phpbb_sn_status'
+CREATE TABLE phpbb_sn_status (
+	status_id INTEGER PRIMARY KEY NOT NULL ,
+	poster_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	status_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	status_text text(65535) NOT NULL DEFAULT '',
+	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	bbcode_uid varchar(8) NOT NULL DEFAULT '',
+	page_data text(65535) NOT NULL ,
+	wall_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_sn_status_b ON phpbb_sn_status (poster_id, status_time);
+
+# Table: 'phpbb_sn_entries'
+CREATE TABLE phpbb_sn_entries (
+	entry_id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	entry_target INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	entry_type INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	entry_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	entry_additionals text(65535) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_entries_a ON phpbb_sn_entries (user_id, entry_target, entry_type, entry_time);
+
+# Table: 'phpbb_sn_notify'
+CREATE TABLE phpbb_sn_notify (
+	ntf_id INTEGER PRIMARY KEY NOT NULL ,
+	ntf_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_type INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_poster INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_read INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_change INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_data text(65535) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_notify_a ON phpbb_sn_notify (ntf_read, ntf_user);
+CREATE INDEX phpbb_sn_notify_b ON phpbb_sn_notify (ntf_read, ntf_time);
+CREATE INDEX phpbb_sn_notify_c ON phpbb_sn_notify (ntf_read, ntf_change);
+
+# Table: 'phpbb_sn_reports'
+CREATE TABLE phpbb_sn_reports (
+	report_id INTEGER PRIMARY KEY NOT NULL ,
+	reason_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_text text(65535) NOT NULL DEFAULT '',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	reporter INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_closed tinyint(1) NOT NULL DEFAULT '0'
+);
+
+
+# Table: 'phpbb_sn_reports_reasons'
+CREATE TABLE phpbb_sn_reports_reasons (
+	reason_id INTEGER PRIMARY KEY NOT NULL ,
+	reason_text text(65535) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_sn_menu'
+CREATE TABLE phpbb_sn_menu (
+	button_id INTEGER PRIMARY KEY NOT NULL ,
+	button_url text(65535) NOT NULL DEFAULT '',
+	button_name varchar(255) NOT NULL DEFAULT '',
+	button_external INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	button_display INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	button_only_registered INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	button_only_guest INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	left_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	right_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	parent_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+ phpbb_sn_menu_a ON phpbb_sn_menu ();
+ phpbb_sn_menu_b ON phpbb_sn_menu ();
+ phpbb_sn_menu_c ON phpbb_sn_menu ();
+ phpbb_sn_menu_d ON phpbb_sn_menu (left_id);
+
+# Table: 'phpbb_sn_family'
+CREATE TABLE phpbb_sn_family (
+	id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	relative_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	status_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	approved tinyint(1) NOT NULL DEFAULT '0',
+	anniversary varchar(10) NOT NULL DEFAULT '',
+	family tinyint(1) NOT NULL DEFAULT '0',
+	name varchar(255) NOT NULL DEFAULT ''
+);
+
+ phpbb_sn_family_a ON phpbb_sn_family ();
+ phpbb_sn_family_b ON phpbb_sn_family ();
+ phpbb_sn_family_c ON phpbb_sn_family ();
+ phpbb_sn_family_d ON phpbb_sn_family ();
+
+# Table: 'phpbb_sn_profile_visitors'
+CREATE TABLE phpbb_sn_profile_visitors (
+	profile_uid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	visitor_uid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	visit_time INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+ phpbb_sn_profile_visitors_a ON phpbb_sn_profile_visitors ();
+ phpbb_sn_profile_visitors_b ON phpbb_sn_profile_visitors ();
+ phpbb_sn_profile_visitors_c ON phpbb_sn_profile_visitors ();
+
+# Table: 'phpbb_sn_fms_groups'
+CREATE TABLE phpbb_sn_fms_groups (
+	fms_gid INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	fms_name varchar(255) NOT NULL DEFAULT '',
+	fms_clean varchar(255) NOT NULL DEFAULT '',
+	fms_collapse INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE UNIQUE INDEX phpbb_sn_fms_groups_a ON phpbb_sn_fms_groups (user_id, fms_name);
+CREATE INDEX phpbb_sn_fms_groups_b ON phpbb_sn_fms_groups (fms_gid, user_id);
+CREATE INDEX phpbb_sn_fms_groups_c ON phpbb_sn_fms_groups (user_id);
+CREATE INDEX phpbb_sn_fms_groups_d ON phpbb_sn_fms_groups (fms_gid, user_id, fms_clean);
+CREATE INDEX phpbb_sn_fms_groups_e ON phpbb_sn_fms_groups (fms_gid, user_id, fms_clean, fms_collapse);
+CREATE UNIQUE INDEX phpbb_sn_fms_groups_f ON phpbb_sn_fms_groups (user_id, fms_clean);
+
+# Table: 'phpbb_sn_fms_users_group'
+CREATE TABLE phpbb_sn_fms_users_group (
+	fms_gid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	owner_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (fms_gid, user_id, owner_id)
+);
+
+CREATE INDEX phpbb_sn_fms_users_group_a ON phpbb_sn_fms_users_group (user_id);
+CREATE INDEX phpbb_sn_fms_users_group_b ON phpbb_sn_fms_users_group (fms_gid);
+CREATE INDEX phpbb_sn_fms_users_group_c ON phpbb_sn_fms_users_group (fms_gid, owner_id);
+
+# Table: 'phpbb_sn_comments_modules'
+CREATE TABLE phpbb_sn_comments_modules (
+	cmtmd_id INTEGER PRIMARY KEY NOT NULL ,
+	cmtmd_name varchar(255) NOT NULL DEFAULT ''
+);
+
+CREATE UNIQUE INDEX phpbb_sn_comments_modules_a ON phpbb_sn_comments_modules (cmtmd_name);
+
+# Table: 'phpbb_sn_comments'
+CREATE TABLE phpbb_sn_comments (
+	cmt_id INTEGER PRIMARY KEY NOT NULL ,
+	cmt_module INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cmt_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cmt_mid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cmt_poster INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cmt_text text(65535) NOT NULL DEFAULT '',
+	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	bbcode_uid varchar(8) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_comments_a ON phpbb_sn_comments (cmt_module);
+CREATE INDEX phpbb_sn_comments_b ON phpbb_sn_comments (cmt_time);
+CREATE INDEX phpbb_sn_comments_c ON phpbb_sn_comments (cmt_module, cmt_mid);
+CREATE INDEX phpbb_sn_comments_d ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time);
+CREATE INDEX phpbb_sn_comments_e ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time, cmt_poster);
+
+# Table: 'phpbb_sn_emotes'
+CREATE TABLE phpbb_sn_emotes (
+	emote_id INTEGER PRIMARY KEY NOT NULL ,
+	emote_name varchar(255) NOT NULL DEFAULT '',
+	emote_image varchar(255) NOT NULL DEFAULT '',
+	emote_order INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE UNIQUE INDEX phpbb_sn_emotes_u ON phpbb_sn_emotes (emote_name);
+CREATE INDEX phpbb_sn_emotes_a ON phpbb_sn_emotes (emote_name, emote_order);
+CREATE INDEX phpbb_sn_emotes_b ON phpbb_sn_emotes (emote_order);
+
+# Table: 'phpbb_sn_addons_placeholder'
+CREATE TABLE phpbb_sn_addons_placeholder (
+	ph_id INTEGER PRIMARY KEY NOT NULL ,
+	ph_script varchar(64) NOT NULL DEFAULT '',
+	ph_block varchar(16) NOT NULL DEFAULT ''
+);
+
+CREATE UNIQUE INDEX phpbb_sn_addons_placeholder_u ON phpbb_sn_addons_placeholder (ph_script, ph_block);
+CREATE INDEX phpbb_sn_addons_placeholder_a ON phpbb_sn_addons_placeholder (ph_script);
+CREATE INDEX phpbb_sn_addons_placeholder_b ON phpbb_sn_addons_placeholder (ph_block);
+
+# Table: 'phpbb_sn_addons'
+CREATE TABLE phpbb_sn_addons (
+	addon_id INTEGER PRIMARY KEY NOT NULL ,
+	addon_placeholder INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	addon_name varchar(64) NOT NULL DEFAULT '',
+	addon_php varchar(32) NOT NULL DEFAULT '',
+	addon_function varchar(32) NOT NULL DEFAULT '',
+	addon_active INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	addon_order INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE UNIQUE INDEX phpbb_sn_addons_u ON phpbb_sn_addons (addon_placeholder, addon_name, addon_php, addon_function);
+CREATE INDEX phpbb_sn_addons_a ON phpbb_sn_addons (addon_name, addon_php, addon_active);
+CREATE INDEX phpbb_sn_addons_b ON phpbb_sn_addons (addon_order);
+
+# Table: 'phpbb_sn_smilies'
+CREATE TABLE phpbb_sn_smilies (
+	smiley_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	smiley_allowed tinyint(1) NOT NULL DEFAULT '0',
+	PRIMARY KEY (smiley_id)
+);
+
+
+# Table: 'phpbb_sortables_answers'
+CREATE TABLE phpbb_sortables_answers (
+	answer_id INTEGER PRIMARY KEY NOT NULL ,
+	question_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	answer_sort INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	answer_text text(65535) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sortables_answers_qid ON phpbb_sortables_answers (question_id);
+CREATE INDEX phpbb_sortables_answers_asort ON phpbb_sortables_answers (answer_sort);
+
+# Table: 'phpbb_sortables_confirm'
+CREATE TABLE phpbb_sortables_confirm (
+	session_id char(32) NOT NULL DEFAULT '',
+	confirm_id char(32) NOT NULL DEFAULT '',
+	lang_iso varchar(30) NOT NULL DEFAULT '',
+	question_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	attempts INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	confirm_type INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (confirm_id)
+);
+
+CREATE INDEX phpbb_sortables_confirm_sid ON phpbb_sortables_confirm (session_id);
+CREATE INDEX phpbb_sortables_confirm_lookup ON phpbb_sortables_confirm (confirm_id, session_id, lang_iso);
+
+# Table: 'phpbb_sortables_questions'
+CREATE TABLE phpbb_sortables_questions (
+	question_id INTEGER PRIMARY KEY NOT NULL ,
+	sort INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_iso varchar(30) NOT NULL DEFAULT '',
+	question_text text(65535) NOT NULL DEFAULT '',
+	name_left text(65535) NOT NULL DEFAULT '0',
+	name_right text(65535) NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_sortables_questions_iso ON phpbb_sortables_questions (lang_iso);
 
 # Table: 'phpbb_spam_log'
 CREATE TABLE phpbb_spam_log (
@@ -1286,7 +2354,6 @@ CREATE TABLE phpbb_spam_words (
 	word_regex_auto INTEGER UNSIGNED NOT NULL DEFAULT '0'
 );
 
-CREATE INDEX phpbb_spam_words_word_text ON phpbb_spam_words (word_text);
 
 # Table: 'phpbb_styles'
 CREATE TABLE phpbb_styles (
@@ -1401,13 +2468,7 @@ CREATE TABLE phpbb_topics (
 	poll_length INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	poll_max_options tinyint(4) NOT NULL DEFAULT '1',
 	poll_last_vote INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	poll_vote_change INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	topic_calendar_time int(11) NOT NULL ,
-	topic_calendar_duration int(11) NOT NULL ,
-	event_repeat varchar(8) NOT NULL ,
-	invite_attendees INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	event_attendees mediumtext(16777215) NOT NULL DEFAULT '',
-	event_non_attendees mediumtext(16777215) NOT NULL DEFAULT ''
+	poll_vote_change INTEGER UNSIGNED NOT NULL DEFAULT '0'
 );
 
 CREATE INDEX phpbb_topics_forum_id ON phpbb_topics (forum_id);
@@ -1539,12 +2600,7 @@ CREATE TABLE phpbb_users (
 	user_new INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	user_reminded tinyint(4) NOT NULL DEFAULT '0',
 	user_reminded_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	user_left_blocks varchar(255) NOT NULL DEFAULT '',
-	user_center_blocks varchar(255) NOT NULL DEFAULT '',
-	user_right_blocks varchar(255) NOT NULL DEFAULT '',
-	user_flagged INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	user_flag_new INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	user_im3_config int(10) NOT NULL DEFAULT '1743781891'
+	show_likes tinyint(3) NOT NULL DEFAULT '1'
 );
 
 CREATE INDEX phpbb_users_user_birthday ON phpbb_users (user_birthday);
@@ -1576,9 +2632,11 @@ CREATE TABLE phpbb_zebra (
 	zebra_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	friend INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	foe INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	approval INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	PRIMARY KEY (user_id, zebra_id)
 );
 
+ phpbb_zebra_c ON phpbb_zebra (zebra_id);
 
 
 COMMIT;
