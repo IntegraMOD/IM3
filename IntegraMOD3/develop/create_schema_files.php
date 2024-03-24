@@ -1741,7 +1741,7 @@ function get_schema_struct()
 		'PRIMARY_KEY'	=> 'album_id',
 	);
 	
-	$schema_data['phpbb_albums_track'] = array(
+	$schema_data['phpbb_gallery_albums_track'] = array(
 		'COLUMNS'		=> array(
 			'user_id'				=> array('UINT', 0),
 			'album_id'				=> array('UINT', 0),
