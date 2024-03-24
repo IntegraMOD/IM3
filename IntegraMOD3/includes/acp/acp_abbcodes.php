@@ -276,7 +276,7 @@ class acp_abbcodes
 		}
 
 		$board_path = generate_board_url() . '/' . str_replace($phpbb_root_path, '', $this->dir) . '/';
-	
+
 		$template->assign_vars(array(
 			'S_EDIT'			=> true,
 
@@ -402,16 +402,16 @@ class acp_abbcodes
 		$bbcode_tag_ary =  array('font=', 'size', 'highlight=', 'color');
 		$next_bbcode_order = sizeof($bbcode_tag_ary) + 1;
 
-		$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_order 
-				FROM ' . BBCODES_TABLE . ' 
-				WHERE ' . $db->sql_in_set('bbcode_tag', $bbcode_tag_ary, true) . ' 
+		$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_order
+				FROM ' . BBCODES_TABLE . '
+				WHERE ' . $db->sql_in_set('bbcode_tag', $bbcode_tag_ary, true) . '
 				ORDER BY bbcode_order';
 		$result = $db->sql_query($sql);
 
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$sql = 'UPDATE ' . BBCODES_TABLE . " 
-					SET bbcode_order = $next_bbcode_order 
+			$sql = 'UPDATE ' . BBCODES_TABLE . "
+					SET bbcode_order = $next_bbcode_order
 					WHERE bbcode_id = {$row['bbcode_id']}";
 			$db->sql_query($sql);
 
@@ -509,8 +509,8 @@ class acp_abbcodes
 		}
 		$db->sql_freeresult($result);
 
-		$sql = 'SELECT abbcode, bbcode_order, bbcode_id, bbcode_group, bbcode_tag, bbcode_helpline, bbcode_image, display_on_posting, display_on_pm, display_on_sig 
-				FROM ' . BBCODES_TABLE . ' 
+		$sql = 'SELECT abbcode, bbcode_order, bbcode_id, bbcode_group, bbcode_tag, bbcode_helpline, bbcode_image, display_on_posting, display_on_pm, display_on_sig
+				FROM ' . BBCODES_TABLE . '
 				ORDER BY bbcode_order';
 		$result = $db->sql_query($sql);
 
@@ -733,7 +733,7 @@ function video_select($current, $name, $u_action, $ide = 'ABBC3_VIDEO_OPTIONS')
 		}
 		$video_options .= ($video_optgroup) ? '</optgroup>' . "\n" : '';
 	}
-	
+
 	return '<select id="' . $ide .'" name="' . $name . '" multiple="multiple" size="10">' . "\n" . $video_options . '</select>
 	<br /><a href="#" onclick="selector(true, \'' . $ide . '\'); return false;">' . $user->lang['ABBCODES_SELECT_ALL'] . '</a> :: <a href="#" onclick="selector(false, \'' . $ide . '\'); return false;">' . $user->lang['ABBCODES_DESELECT_ALL'] . '</a>
 	<br /><br />' . $user->lang['ABBCODES_VIDEO_ALLOWED_NOTE'];
@@ -777,7 +777,7 @@ function get_radio($name, $input_ary, $input_default = false, $id = false, $key 
 	foreach ($input_ary as $value => $title)
 	{
 		$value = strtolower($value);
-		
+
 		$selected = ($input_default !== false && $value == $input_default) ? ' checked="checked"' : '';
 		$html .= ' <label><input class="radio" type="radio" name="' . $name . '"' . (($id && !$id_assigned) ? ' id="' . $id . '"' : '') . ' value="' . $value . '"' . $selected . (($key) ? ' accesskey="' . $key . '"' : '') . ' />&nbsp;' . $title . '&nbsp;</label>';
 		$id_assigned = true;
@@ -792,7 +792,7 @@ function groups_select_options($select_id = false, $exclude_ids = false)
 
 	$sql = 'SELECT group_id, group_name, group_type
 			FROM ' . GROUPS_TABLE . '
-			WHERE ' . $db->sql_in_set('group_id', array_map('intval', $exclude_ids), true) .' 
+			WHERE ' . $db->sql_in_set('group_id', array_map('intval', $exclude_ids), true) .'
 			ORDER BY group_type DESC, group_name ASC';
 	$result = $db->sql_query($sql);
 

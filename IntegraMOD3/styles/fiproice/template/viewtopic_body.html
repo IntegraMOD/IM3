@@ -12,7 +12,7 @@
 
 <!-- IF S_FORUM_RULES -->
 	<div class="rules">
-		<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="inner">
 
 		<!-- IF U_FORUM_RULES -->
 			<a href="{U_FORUM_RULES}">{L_FORUM_RULES}</a>
@@ -21,14 +21,14 @@
 			{FORUM_RULES}
 		<!-- ENDIF -->
 
-		<span class="corners-bottom"><span></span></span></div>
+		</div>
 	</div>
 <!-- ENDIF -->
 
 
 <!-- IF ADS_3 -->
 <div class="forabg">
-	<div class="inner"><span class="corners-top"><span></span></span>
+	<div class="inner">
 		<ul class="topiclist">
 			<li class="header">
 				<dl class="icon">
@@ -39,7 +39,7 @@
 		<div style="padding: 5px 5px 2px 5px; font-size: 1.1em; background-color: #ECF1F3; margin: 0px auto; text-align: center;">
 			{ADS_3}
 		</div>
-	<span class="corners-bottom"><span></span></span></div>
+	</div>
 </div>
 <br />
 <!-- ENDIF -->
@@ -76,7 +76,7 @@
 
 <!-- IF S_HAS_EVENT -->
     <div class="panel bg2">
-        <div class="inner"><span class="corners-top"><span></span></span>
+        <div class="inner">
             <a href="{U_ASSOCIATED_EVENT}"><h4>{L_HAS_ASSOCIATED_EVENT}</h4></a><hr /><br />
             <div>
                 <dl style="clear: left;">
@@ -114,14 +114,14 @@
                   <!-- ENDIF -->
               <!-- ENDIF -->
             <a href="{U_ASSOCIATED_EVENT}">{L_GO_TO_EVENT}</a>
-        <span class="corners-bottom"><span></span></span></div>
+        </div>
     </div>
 <!-- ENDIF -->
 <!-- IF S_HAS_POLL -->
 	<form method="post" action="{S_POLL_ACTION}">
 
 	<div class="panel">
-		<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="inner">
 
 		<div class="content">
 			<h2>{POLL_QUESTION}</h2>
@@ -160,7 +160,7 @@
 			</fieldset>
 		</div>
 
-		<span class="corners-bottom"><span></span></span></div>
+		</div>
 		{S_FORM_TOKEN}
 		{S_HIDDEN_FIELDS}
 	</div>
@@ -175,7 +175,7 @@
 	<span class="<!-- IF postrow.S_ONLINE and not postrow.S_IGNORE_POST -->online_member" title="{L_ONLINE}"<!-- ELSE -->offline_member" title="{L_OFFLINE}"<!-- ENDIF -->></span>
 	<!-- IF postrow.S_FIRST_UNREAD --><a id="unread"></a><!-- ENDIF -->
 	<div id="p{postrow.POST_ID}" class="post <!-- IF postrow.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF postrow.S_UNREAD_POST --> unreadpost<!-- ENDIF --><!-- IF postrow.S_POST_REPORTED --> reported<!-- ENDIF -->">
-		<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="inner">
 
 		<div class="postbody">
 			<!-- IF postrow.S_IGNORE_POST -->
@@ -226,6 +226,33 @@
 			<!-- IF postrow.BUMPED_MESSAGE --><div class="notice"><br /><br />{postrow.BUMPED_MESSAGE}</div><!-- ENDIF -->
 			<!-- IF postrow.SIGNATURE --><div id="sig{postrow.POST_ID}" class="signature">{postrow.SIGNATURE}</div><!-- ENDIF -->
 		<!-- ENDIF -->
+			<!-- ajaxlike -->
+			<!-- IF postrow.TOTAL_LIKES > 0 -->
+			<hr />
+			<div class="ajaxlike_container" id="ajaxlike_content{postrow.POST_ID}">
+			<!-- IF ALTER_MODE_LIKE_LIST == 1 -->
+					<!-- IF postrow.YOU_LIKED -->
+						<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS and ALLOW_UNLIKE --><a href="#" onclick="ajaxlike_unlike({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_unlike_button">{L_AL_UNLIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;" class="ajaxlike_link ajaxlike_tooltip" title="{L_AL_YOU_TEXT}<br />{postrow.LIKE_LIST}">{postrow.TOTAL_LIKES} <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_LIKE_POST_TEXT}<!-- ENDIF -->
+					<!-- ELSE -->
+					<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS --><a href="#" onclick="ajaxlike_like({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_like_button">{L_AL_LIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;" class="ajaxlike_link ajaxlike_tooltip" title="{postrow.LIKE_LIST}">{postrow.TOTAL_LIKES} <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_LIKE_POST_TEXT}<!-- ENDIF -->
+					<!-- ENDIF -->
+			<!-- ELSE -->
+				<!-- IF postrow.YOU_LIKED and not S_IS_BOT and S_USER_LOGGED_IN -->
+					<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS and ALLOW_UNLIKE --><a href="#" onclick="ajaxlike_unlike({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_unlike_button">{L_AL_UNLIKE_TEXT}</a> &middot; <!-- ENDIF -->{L_AL_YOU_TEXT} <!-- IF postrow.POST_LIKES > 0 -->{L_AL_AND_TEXT} <a href="{postrow.LAST_LIKE_URL}" <!-- IF postrow.TOTAL_LIKES > 1 -->onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;"<!-- ENDIF --> class="ajaxlike_link ajaxlike_tooltip" <!-- IF postrow.LIKE_LIST -->title="{postrow.LIKE_LIST}"<!-- ENDIF -->>{postrow.POST_LIKES} <!-- IF postrow.POST_LIKES > 1 -->{L_AL_OTHERS_TEXT}<!-- ELSE -->{L_AL_OTHER_TEXT}<!-- ENDIF --></a> <!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_YOU_LIKE_TEXT}<!-- ELSE -->{L_AL_LIKE_POST_WITH_YOU_TEXT}<!-- ENDIF -->
+				<!-- ELSE -->
+					<!-- IF not S_IS_BOT and S_USER_LOGGED_IN and postrow.NO_OWN_POST and LIKE_ACCESS --><a href="#" onclick="ajaxlike_like({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_like_button">{L_AL_LIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" <!-- IF postrow.TOTAL_LIKES > 1 -->onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;"<!-- ENDIF --> class="ajaxlike_link ajaxlike_tooltip" <!-- IF postrow.LIKE_LIST -->title="{postrow.LIKE_LIST}"<!-- ENDIF -->><!-- IF postrow.TOTAL_LIKES == 1 -->{postrow.LIKE_LIST}<!-- ELSE -->{postrow.TOTAL_LIKES} {L_AL_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ONE_LIKE_POST_TEXT}<!-- ELSE -->{L_AL_LIKE_POST_TEXT}<!-- ENDIF -->
+				<!-- ENDIF -->
+			<!-- ENDIF -->
+			</div>
+			<!-- ELSE -->
+				<!-- IF not S_IS_BOT and S_USER_LOGGED_IN and postrow.NO_OWN_POST and LIKE_ACCESS -->
+				<hr />
+				<div class="ajaxlike_container" id="ajaxlike_content{postrow.POST_ID}">
+					<a href="#" onclick="ajaxlike_like({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_like_button">{L_AL_LIKE_TEXT}</a>
+				</div>
+				<!-- ENDIF -->
+			<!-- ENDIF -->
+			<!-- ajaxlike -->
 
 		</div>
 
@@ -243,6 +270,10 @@
 		<dd>&nbsp;</dd>
 
 		<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->
+		<!-- ajaxlike -->
+		<dd><strong>{L_AL_LIKE_COUNT_TEXT}:</strong> {postrow.LIKES} <!-- IF postrow.LIKES > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></dd>
+		<dd><strong>{L_AL_LIKED_COUNT_TEXT}:</strong> {postrow.LIKED} <!-- IF postrow.LIKED > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></dd>
+		<!-- ajaxlike -->
 		<!-- IF postrow.GALLERY_IMAGES != '' --><dd><strong>{L_IMAGES}:</strong> <!-- IF postrow.U_GALLERY_SEARCH --><a href="{postrow.U_GALLERY_SEARCH}">{postrow.GALLERY_IMAGES}</a><!-- ELSE -->{postrow.GALLERY_IMAGES}<!-- ENDIF --></dd><!-- ENDIF -->
 		<!-- IF postrow.POSTER_JOINED --><dd><strong>{L_JOINED}:</strong> {postrow.POSTER_JOINED}</dd><!-- ENDIF -->
 		<!-- Begin Ultimate Points -->
@@ -283,14 +314,14 @@
 
 		<div class="back2top"><a href="#wrap" class="top" title="{L_BACK_TO_TOP}">{L_BACK_TO_TOP}</a></div>
 
-		<span class="corners-bottom"><span></span></span></div>
+		</div>
 	</div>
 
 	<hr class="divider" />
 
 	<!-- IF (ADS_5 and postrow.S_FIRST_ROW) or (ADS_6 and not postrow.S_FIRST_ROW) -->
 	<div class="post bg3">
-		<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="inner">
 			<div class="postbody" style="width: 100%;">
 				<h3>{L_ADVERTISEMENT}</h3>
 
@@ -298,7 +329,7 @@
 					<!-- IF postrow.S_FIRST_ROW -->{ADS_5}<!-- ELSE -->{ADS_6}<!-- ENDIF -->
 				</div>
 			</div>
-		<span class="corners-bottom"><span></span></span></div>
+		</div>
 	</div>
 	<!-- ENDIF -->
 <!-- END postrow -->
@@ -347,7 +378,7 @@
 <!-- IF ADS_4 -->
 <br />
 <div class="forabg">
-	<div class="inner"><span class="corners-top"><span></span></span>
+	<div class="inner">
 		<ul class="topiclist">
 			<li class="header">
 				<dl class="icon">
@@ -358,7 +389,7 @@
 		<div style="padding: 5px 5px 2px 5px; font-size: 1.1em; background-color: #ECF1F3; margin: 0px auto; text-align: center;">
 			{ADS_4}
 		</div>
-	<span class="corners-bottom"><span></span></span></div>
+	</div>
 </div>
 <br />
 <!-- ENDIF -->
@@ -377,5 +408,14 @@
 	<h3><!-- IF U_VIEWONLINE --><a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a><!-- ELSE -->{L_WHO_IS_ONLINE}<!-- ENDIF --></h3>
 	<p>{LOGGED_IN_USER_LIST}</p>
 <!-- ENDIF -->
-
+<!-- ajaxlike -->
+<script>
+// <![CDATA[
+jQuery(function() {
+	load_tips('.ajaxlike_tooltip');
+});
+// ]]>
+</script>
+	<div id="ajaxlike-dialog" title="{L_AL_PEOPLE_LIKE_THIS_TEXT}"></div>
+<!-- ajaxlike -->
 <!-- INCLUDE overall_footer.html -->

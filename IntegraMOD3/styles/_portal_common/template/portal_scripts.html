@@ -27,9 +27,6 @@
 // ]]>
 </script>
 
-<link rel="shortcut icon" href="{ROOT_PATH}images/favicon.ico" />
-<link rel="icon" href="{ROOT_PATH}images/favicon.ico" type="image/x-icon" />
-
 <script src="{ROOT_PATH}assets/js/scroller.js"></script>
 
 <!-- IF S_IS_PORTAL and S_ARRANGE or S_SGP_AJAX -->
@@ -84,25 +81,18 @@
 <link rel="stylesheet" href="{T_STYLESHEET_PORTAL_COMMON}" type="text/css" />
 <link rel="stylesheet" href="{T_STYLESHEET_PORTAL_OVERLOAD}" type="text/css" />
 
-<script src="{ROOT_PATH}assets/js/jquery/jquery.hoverIntent.minified.js"></script>
 <script src="{ROOT_PATH}assets/js/jquery/imgbubbles.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery.hoverIntent.js"></script>
 
 <script>
 //<![CDATA[
-
-	var $css_file_append = 'fix_ff.css';
 
 	if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
 	{
 		var ieversion = new Number(RegExp.$1)
 		$css_file_append = 'fix_ie_' + ieversion + '.css';
 	}
-	else if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent))
-	{
-		var ffversion=new Number(RegExp.$1)
-		$css_file_append = 'fix_ff.css';
-	}
-	else if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent))
+		else if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent))
 	{
 		var oprversion=new Number(RegExp.$1)
 		$css_file_append = 'fix_opera.css';
@@ -120,7 +110,6 @@
 
 //]]>
 </script>
-
 <!-- agent script end -->
 
 
@@ -258,10 +247,10 @@ jQuery(document).ready(function(){
 </script>
 <!-- ENDIF -->
 
+<!--
 <!-- IF S_SHOW_SHOUTBOX and S_CAN_VIEW_AS-->
 <script src="{ROOT_PATH}assets/js/static.js"></script>
 <script src="{ROOT_PATH}assets/js/editor.js"></script>
 <script src="{U_SHOUT}"></script>
 <!-- ENDIF -->
-
-<!-- INCLUDE gallery/plugins_header.html -->
+-->

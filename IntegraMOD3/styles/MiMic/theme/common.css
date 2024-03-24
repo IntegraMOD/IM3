@@ -104,7 +104,7 @@ p.right {
 	border: 1px solid transparent;
 	border-radius: 8px;
 	margin: 0 auto;
-	max-width: 1152px;
+	max-width: 1220px;
 	min-width: 625px;
 	padding: 15px;
 }
@@ -1054,25 +1054,6 @@ p.rules img {
 p.rules a {
 	vertical-align: middle;
 	clear: both;
-}
-
-.badge {
-	border-radius: 10px;
-	opacity: 0.8;
-	text-align: center;
-	white-space: nowrap;
-	font-size: 10px;
-	line-height: 1;
-	display: inline-block;
-	margin-left: 3px;
-	vertical-align: 3px;
-	position: relative;
-	top: 3px;
-	padding: 4px 6px;
-}
-
-.badge.hidden {
-	display: none;
 }
 
 /* Navbar specific list items

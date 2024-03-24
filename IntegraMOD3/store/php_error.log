@@ -1,0 +1,7 @@
+-------------[ Begin General Error]-------------
+[02-Mar-2024  04:00:20 0] [phpBB Error] [client ] [file ] /var/www/vhosts/integramod.com/httpdocs/im3_SN/includes/db/dbal.php:757
+SQL ERROR [ mysqli ]
+Table 'im3_SN.phpbb_points_config' doesn't exist [1146]
+SQL
+SELECT config_name, config_value
+				FROM phpbb_points_config-------------[ End of General Error]-------------

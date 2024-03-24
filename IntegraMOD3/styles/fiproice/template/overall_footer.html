@@ -4,7 +4,7 @@
 	</div>
 <!-- IF ADS_7 -->
 <div class="forabg">
-	<div class="inner"><span class="corners-top"><span></span></span>
+	<div class="inner">
 		<ul class="topiclist">
 			<li class="header">
 				<dl class="icon">
@@ -15,14 +15,14 @@
 		<div style="padding: 5px 5px 2px 5px; font-size: 1.1em; background-color: #ECF1F3; margin: 0px auto; text-align: center;">
 			{ADS_7}
 		</div>
-	<span class="corners-bottom"><span></span></span></div>
+	</div>
 </div>
 <!-- ENDIF -->
 
 <div id="page-footer">
 
 	<div class="navbar">
-		<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="inner">
 
 		<ul class="linklist">
 			<li class="icon-home"><!-- IF STARGATE --><a href="{U_PORTAL}">{L_PORTAL}</a> &bull; <!-- ENDIF --><a href="{U_INDEX}" accesskey="h">{L_INDEX}</a></li>
@@ -35,7 +35,7 @@
 			<li class="rightside"><!-- IF U_TEAM --><a href="{U_TEAM}">{L_THE_TEAM}</a> <!-- IF S_MOD_DISPLAY--> &bull; <a href="{U_MODS_DB}">{L_MODS_DB}</a><!-- ENDIF -->   &bull; <!-- ENDIF --><!-- IF not S_IS_BOT --><a href="{U_DELETE_COOKIES}">{L_DELETE_COOKIES}</a> &bull; <!-- ENDIF -->{S_TIMEZONE}</li>
 		</ul>
 
-		<span class="corners-bottom"><span></span></span></div>
+		</div>
 	</div>
 
 	<div class="copyright">{CREDIT_LINE}
@@ -52,16 +52,33 @@
 <div>
 	<a id="bottom" name="bottom" accesskey="z"></a>
 	<!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->
+	<!-- ajaxlike -->
+	<!-- IF AJAXLIKE_ENABLE -->
+	<div id="ajaxlike_not-dialog"></div>
+	<div id="ajaxlike-not-dialog" title="{L_AL_LIKE_NEW_TITLE}"></div>
+	<!-- IF AJAXLIKE_NOTIFY_ENABLE and META == '' -->
+	<script>
+	// <![CDATA[
+		ajaxlike_init_notify({AJAXLIKE_NOTIFY_INTERVAL},'{AJAXLIKE_NOTIFY_CALLBACK}');
+	// ]]>
+	</script>
+	<!-- ENDIF -->
+	<!-- ENDIF -->
+	<!-- ajaxlike -->	
 </div>
 
 
 <!-- IF STARGATE -->
 </div><!-- stylewidth -->
 <!-- ENDIF -->
-
-
 <!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
 	<!-- INCLUDE password_strength.html -->
+<!-- ENDIF -->
+
+<script src="{ROOT_PATH}assets/js/jquery/jquery.hoverIntent.minified.js"></script>
+
+<!-- IF SN_MODULE_IM_ENABLED -->
+    <!-- INCLUDE socialnet/im.html -->
 <!-- ENDIF -->
 </body>
 </html>

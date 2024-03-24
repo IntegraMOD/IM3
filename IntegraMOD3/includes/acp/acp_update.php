@@ -83,5 +83,3 @@ class acp_update
 		));
 	}
 }
-
-?>

@@ -171,6 +171,11 @@
 					<!-- ELSE -->
 					<img src="images/vars_no_edit.gif" title="{L_VARS_NO_EDIT}" alt="" />
 					<!-- ENDIF -->
+					<!-- IF bdata.S_MINIMOD_BASED -->
+						<a href="{U_LINK_MINIMOD}{bdata.S_MOD_BLOCK_ID}"><img src="images/minimod_edit.gif" title="{L_MINIMOD_DETAILS_SHOW}" border="0" alt="" /></a>
+					<!-- ELSE -->
+					<img src="images/minimod_no_edit.gif" title="{L_MINIMOD_DETAILS_NO_EDIT}" border="0" alt="" />
+					<!-- ENDIF -->					
 				</div>
 			</td>
 		</tr>
@@ -468,6 +473,28 @@
 		</dd>
 	</dl>
 	</div>
+	<hr />
+	<dl>
+		<dt><label for="has_vars">{L_MINIMOD_BASED}:</label><br /><span>{L_MINIMOD_BASED_EXPLAIN}</dt>
+		<dd>
+		<br />
+			<label><input onclick="ShowHide('show');" type="radio" name="minimod_based" value="1" <!-- IF S_MINIMOD_BASED -->checked="checked" <!-- ENDIF --> /> {L_YES}</label>
+			<label><input onclick="ShowHide('show');" type="radio" name="minimod_based" value="0" <!-- IF not S_MINIMOD_BASED -->checked="checked" <!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
+	<div style="display:<!-- IF not S_MINIMOD_BASED -->none<!-- ELSE -->block<!-- ENDIF -->" id="show">
+ 	<dl>
+		<dt><label for="mod_block_id">{L_MINIMOD_OPTIONS}:</label><br />{L_MINIMOD_OPTIONS_EXPLAIN}</dt>
+		<dd><label>
+		<select name="mod_block_id" class="post">
+			<!-- BEGIN minimods -->
+			<option value="{minimods.MINIMOD_ID}" <!-- IF minimods.MINIMOD_ID == S_MOD_BLOCK_ID -->selected <!-- ENDIF -->>{minimods.MINIMOD_ID} ({minimods.MINIMOD_NAME})</option>
+			<!-- END minimods -->
+		</select>
+		</dd>
+	</dl>
+	</div>
+
 	<hr />
 	<dl>
 		<dt><label for="block_cache_time">{L_BLOCK_CACHE_TIME}:</label><br />{L_BLOCK_CACHE_TIME_EXPLAIN}</dt>

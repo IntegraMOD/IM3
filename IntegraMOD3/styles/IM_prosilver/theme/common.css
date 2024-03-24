@@ -252,44 +252,13 @@ a#logo:hover {
 	background-color: #eaeaea;
 }
 
-span.corners-top, span.corners-bottom, span.corners-top span, span.corners-bottom span {
-	font-size: 1px;
-	line-height: 1px;
-	display: block;
-	height: 5px;
-	background-repeat: no-repeat;
-}
-
-span.corners-top {
-	background-image: none;
-	background-position: 0 0;
-	margin: 0 -5px;
-}
-
-span.corners-top span {
-	background-image: none;
-	background-position: 100% 0;
-}
-
-span.corners-bottom {
-	background-image: none;
-	background-position: 0 100%;
-	margin: 0 -5px;
-	clear: both;
-}
-
-span.corners-bottom span {
-	background-image: none;
-	background-position: 100% 100%;
-}
-
-.headbg span.corners-bottom {
-	margin-bottom: -1px;
-}
-
-.post span.corners-top, .post span.corners-bottom, .panel span.corners-top, .panel span.corners-bottom, .navbar span.corners-top, .navbar span.corners-bottom {
-	margin: 0 -10px;
-}
+span.corners-top, span.corners-bottom, span.corners-top span, span.corners-bottom span {}
+span.corners-top {}
+span.corners-top span {}
+span.corners-bottom {}
+span.corners-bottom span {}
+.headbg span.corners-bottom {}
+.post span.corners-top, .post span.corners-bottom, .panel span.corners-top, .panel span.corners-bottom, .navbar span.corners-top, .navbar span.corners-bottom {}
 
 .rules span.corners-top {
 	margin: 0 -10px 5px -10px;

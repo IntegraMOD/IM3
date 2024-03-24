@@ -27,7 +27,7 @@ class acp_imod_config_info
 			'title'		=> 'ACP_IMOD_CONFIG',
 			'version'	=> '3.0.15',
 			'modes'		=> array(
-				'config' 	=> array('title' => 'ACP_IMOD_CONFIG', 'auth' => 'acl_a_imod',	'cat' => array('ACP_CAT_IMOD')),
+				'config' 	=> array('title' => 'ACP_IMOD_CONFIG', 'auth' => 'acl_a_imod',	'cat' => array('ACP_IMOD_CONFIG')),
 			),
 		);
 	}
@@ -40,4 +40,3 @@ class acp_imod_config_info
 	{
 	}
 }
-?>

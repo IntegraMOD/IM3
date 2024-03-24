@@ -116,3 +116,47 @@ h6 {
 h6, h6:hover {
 	font-weight : 800;
 }
+
+.badge {
+	background-color: #D31141;
+	color: #ffffff;	
+	border-radius: 10px;
+	opacity: 0.8;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 10px;
+	line-height: 1;
+	display: inline-block;
+	margin-left: 3px;
+	vertical-align: 3px;
+	position: relative;
+	top: 3px;
+	padding: 4px 6px;
+}
+
+.snbadge {
+	background-color: #D31141;
+	color: #ffffff;	
+	border-radius: 10px;
+	opacity: 0.8;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 10px;
+	line-height: 1;
+	display: inline-block;
+	margin-left: 3px;
+	vertical-align: 3px;
+	position: relative;
+	top: 3px;
+	padding: 4px 6px;
+}
+
+a.snbadge {
+	color: #ffffff !important;	
+	font-weight: 700;
+	margin-left: 3px;	
+}
+
+.badge.hidden {
+	display: none;
+}

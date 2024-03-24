@@ -1,13 +1,13 @@
 /*  phpBB3 Style Sheet
     --------------------------------------------------------------
-	Style name:			prosilver (the default phpBB 3.0.x style)
+	Style name:			fiproice
 	Based on style:		
 	Original author:	Tom Beddard ( http://www.subblue.com/ )
-	Modified by:		phpBB Group ( https://www.phpbb.com/ )
+	Modified by:		IntegraTeam ( https://integramod.com/ )
     --------------------------------------------------------------
 */
-
 @import url("common.css");
+@import url("ajaxlike.css");
 @import url("links.css");
 @import url("content.css");
 @import url("buttons.css");
@@ -16,8 +16,11 @@
 @import url("tweaks.css");
 @import url("calendar.css");
 @import url("colours.css");
+@import url("socialnet.css");
+@import url("jquery.jgrowl.css");
+@import url("mchat.css");
 @import url("tcal.css");
 @import url("dlmod.css");
 @import url("gallery.css");
-@import url("mchat.css");
 @import url("im.css");
+@import url("clock.css");

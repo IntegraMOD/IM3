@@ -67,12 +67,12 @@ $lang = array_merge($lang, array(
 	'ACP_CAPTCHA'				=> 'CAPTCHA',
 
 	'ACP_CAT_DATABASE'			=> 'Database',
-	// Begin Digests Mod
 	'ACP_CAT_DIGESTS'			=> 'Digests',
-	// End Digests Mod
 	'ACP_CAT_DOT_MODS'			=> '.MODs',
+	'ACP_CAT_FILES'				=> 'Files',
 	'ACP_CAT_FORUMS'			=> 'Forums',
 	'ACP_CAT_GENERAL'			=> 'General',
+	'ACP_IMOD'					=> 'IntegraMOD',
 	'ACP_CAT_KB'				=> 'Knowledge Base',	
 	'ACP_CAT_MAINTENANCE'		=> 'Maintenance',
 	'ACP_CAT_PERMISSIONS'		=> 'Permissions',
@@ -401,7 +401,7 @@ $lang = array_merge($lang, array(
 	'VIEW_ADMIN_LOG'			=> 'View administrator log',
 	'VIEW_INACTIVE_USERS'		=> 'View inactive users',
 
-	'WELCOME_PHPBB'			=> 'Welcome to phpBB',
+	'WELCOME_PHPBB'			=> 'Welcome to IntegraMOD',
 	'WRITABLE_CONFIG'		=> 'Your config file (config.php) is currently world-writable. We strongly encourage you to change the permissions to 640 or at least to 644 (for example: <a href="http://en.wikipedia.org/wiki/Chmod" rel="external">chmod</a> 640 config.php).',
 ));
 

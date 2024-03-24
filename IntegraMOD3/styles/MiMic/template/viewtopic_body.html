@@ -226,6 +226,33 @@
 			<!-- IF postrow.BUMPED_MESSAGE --><div class="notice"><br /><br />{postrow.BUMPED_MESSAGE}</div><!-- ENDIF -->
 			<!-- IF postrow.SIGNATURE --><div id="sig{postrow.POST_ID}" class="signature">{postrow.SIGNATURE}</div><!-- ENDIF -->
 		<!-- ENDIF -->
+			<!-- ajaxlike -->
+			<!-- IF postrow.TOTAL_LIKES > 0 -->
+			<hr />
+			<div class="ajaxlike_container" id="ajaxlike_content{postrow.POST_ID}">
+			<!-- IF ALTER_MODE_LIKE_LIST == 1 -->
+					<!-- IF postrow.YOU_LIKED -->
+						<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS and ALLOW_UNLIKE --><a href="#" onclick="ajaxlike_unlike({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_unlike_button">{L_AL_UNLIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;" class="ajaxlike_link ajaxlike_tooltip" title="{L_AL_YOU_TEXT}<br />{postrow.LIKE_LIST}">{postrow.TOTAL_LIKES} <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_LIKE_POST_TEXT}<!-- ENDIF -->
+					<!-- ELSE -->
+					<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS --><a href="#" onclick="ajaxlike_like({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_like_button">{L_AL_LIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;" class="ajaxlike_link ajaxlike_tooltip" title="{postrow.LIKE_LIST}">{postrow.TOTAL_LIKES} <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_PEOPLE_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ALTER_ONE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 2 -->{L_AL_ALTER_TWO_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 3 -->{L_AL_ALTER_THREE_LIKE_POST_TEXT}<!-- ENDIF --><!-- IF postrow.TOTAL_LIKES > 3 -->{L_AL_ALTER_MORE_LIKE_POST_TEXT}<!-- ENDIF -->
+					<!-- ENDIF -->
+			<!-- ELSE -->
+				<!-- IF postrow.YOU_LIKED and not S_IS_BOT and S_USER_LOGGED_IN -->
+					<!-- IF postrow.NO_OWN_POST and LIKE_ACCESS and ALLOW_UNLIKE --><a href="#" onclick="ajaxlike_unlike({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_unlike_button">{L_AL_UNLIKE_TEXT}</a> &middot; <!-- ENDIF -->{L_AL_YOU_TEXT} <!-- IF postrow.POST_LIKES > 0 -->{L_AL_AND_TEXT} <a href="{postrow.LAST_LIKE_URL}" <!-- IF postrow.TOTAL_LIKES > 1 -->onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;"<!-- ENDIF --> class="ajaxlike_link ajaxlike_tooltip" <!-- IF postrow.LIKE_LIST -->title="{postrow.LIKE_LIST}"<!-- ENDIF -->>{postrow.POST_LIKES} <!-- IF postrow.POST_LIKES > 1 -->{L_AL_OTHERS_TEXT}<!-- ELSE -->{L_AL_OTHER_TEXT}<!-- ENDIF --></a> <!-- ENDIF --><!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_YOU_LIKE_TEXT}<!-- ELSE -->{L_AL_LIKE_POST_WITH_YOU_TEXT}<!-- ENDIF -->
+				<!-- ELSE -->
+					<!-- IF not S_IS_BOT and S_USER_LOGGED_IN and postrow.NO_OWN_POST and LIKE_ACCESS --><a href="#" onclick="ajaxlike_like({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_like_button">{L_AL_LIKE_TEXT}</a> &middot; <!-- ENDIF --><a href="{postrow.LAST_LIKE_URL}" <!-- IF postrow.TOTAL_LIKES > 1 -->onclick="ajaxlike_fulllistbox({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},'{LIKE_CALLBACK}','{L_AL_LIKE_AT_TEXT}'); return false;"<!-- ENDIF --> class="ajaxlike_link ajaxlike_tooltip" <!-- IF postrow.LIKE_LIST -->title="{postrow.LIKE_LIST}"<!-- ENDIF -->><!-- IF postrow.TOTAL_LIKES == 1 -->{postrow.LIKE_LIST}<!-- ELSE -->{postrow.TOTAL_LIKES} {L_AL_PEOPLE_TEXT}<!-- ENDIF --></a> <!-- IF postrow.TOTAL_LIKES == 1 -->{L_AL_ONE_LIKE_POST_TEXT}<!-- ELSE -->{L_AL_LIKE_POST_TEXT}<!-- ENDIF -->
+				<!-- ENDIF -->
+			<!-- ENDIF -->
+			</div>
+			<!-- ELSE -->
+				<!-- IF not S_IS_BOT and S_USER_LOGGED_IN and postrow.NO_OWN_POST and LIKE_ACCESS -->
+				<hr />
+				<div class="ajaxlike_container" id="ajaxlike_content{postrow.POST_ID}">
+					<a href="#" onclick="ajaxlike_like({postrow.POST_ID},{TOPIC_ID},{FORUM_ID},{LIKE_FROM},'{LIKE_CALLBACK}'); return false;" class="ajaxlike_link ajaxlike_like_button">{L_AL_LIKE_TEXT}</a>
+				</div>
+				<!-- ENDIF -->
+			<!-- ENDIF -->
+			<!-- ajaxlike -->
 
 		</div>
 
@@ -243,6 +270,10 @@
 		<dd>&nbsp;</dd>
 
 		<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->
+		<!-- ajaxlike -->
+		<dd><strong>{L_AL_LIKE_COUNT_TEXT}:</strong> {postrow.LIKES} <!-- IF postrow.LIKES > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></dd>
+		<dd><strong>{L_AL_LIKED_COUNT_TEXT}:</strong> {postrow.LIKED} <!-- IF postrow.LIKED > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></dd>
+		<!-- ajaxlike -->
 		<!-- IF postrow.GALLERY_IMAGES != '' --><dd><strong>{L_IMAGES}:</strong> <!-- IF postrow.U_GALLERY_SEARCH --><a href="{postrow.U_GALLERY_SEARCH}">{postrow.GALLERY_IMAGES}</a><!-- ELSE -->{postrow.GALLERY_IMAGES}<!-- ENDIF --></dd><!-- ENDIF -->
 		<!-- IF postrow.POSTER_JOINED --><dd><strong>{L_JOINED}:</strong> {postrow.POSTER_JOINED}</dd><!-- ENDIF -->
 		<!-- Begin Ultimate Points -->
@@ -377,5 +408,14 @@
 	<h3><!-- IF U_VIEWONLINE --><a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a><!-- ELSE -->{L_WHO_IS_ONLINE}<!-- ENDIF --></h3>
 	<p>{LOGGED_IN_USER_LIST}</p>
 <!-- ENDIF -->
-
+<!-- ajaxlike -->
+<script>
+// <![CDATA[
+jQuery(function() {
+	load_tips('.ajaxlike_tooltip');
+});
+// ]]>
+</script>
+	<div id="ajaxlike-dialog" title="{L_AL_PEOPLE_LIKE_THIS_TEXT}"></div>
+<!-- ajaxlike -->
 <!-- INCLUDE overall_footer.html -->

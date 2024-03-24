@@ -32,7 +32,158 @@ $post_id	= request_var('p', 0);
 $voted_id	= request_var('vote_id', array('' => 0));
 
 $voted_id = (sizeof($voted_id) > 1) ? array_unique($voted_id) : $voted_id;
+// ajaxlike
 
+if(!function_exists('get_fulllist'))
+{
+	include($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
+}
+
+$ajaxlike_enable = (isset($config['ajaxlike_enable']) ? ($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable']) : 0);
+
+if($ajaxlike_enable)
+{
+	$ajaxlike_like_from	= request_var('like_from', 0);
+	$ajaxlike_action	= request_var('ajaxlike_action', '');
+	$ajaxlike_data		= request_var('ajaxlike_data', '');
+	
+	if($ajaxlike_action != '')
+	{
+	
+		if($ajaxlike_action != 'notifications' && $ajaxlike_action != 'liked_list')
+		{
+			// get real forum_id from table and not ajax/request input
+			$sql = 'SELECT forum_id
+				FROM ' . TOPICS_TABLE . "
+				WHERE topic_id = $topic_id";
+			$result = $db->sql_query($sql);
+			$forum_id = (int) $db->sql_fetchfield('forum_id');
+			$db->sql_freeresult($result);
+			
+			if (!$forum_id)
+			{
+				ajaxlike_die('', AL_ERROR_INVALID_REQUEST);
+			}
+			
+		}
+	
+		switch($ajaxlike_action)
+		{
+			case 'fulllist':
+			ajaxlike_die(get_fulllist($post_id));
+			
+			break;
+			
+			case 'notifications':
+			ajaxlike_die(get_notifications());
+			
+			break;
+			
+			case 'liked_list':
+			ajaxlike_die(get_liked_list());
+			
+			break;
+			
+			default:
+				
+			if (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS) && ($user->data['user_id']==$ajaxlike_like_from))
+			{
+			
+				if($ajaxlike_action	== 'like')
+				{
+					ajaxlike_die(ajaxlike_like_post($post_id));
+				}
+			
+				if(($ajaxlike_action	== 'unlike') && $config['ajaxlike_allow_unlike'])
+				{
+					ajaxlike_die(ajaxlike_unlike_post($post_id));
+				}
+			
+			} else {
+				ajaxlike_die('', AL_ERROR_ACCESS_DENIED);
+			}
+			
+		}
+
+	}
+}
+// ajaxlike
+
+// ajaxlike
+if(!function_exists('get_fulllist'))
+{
+	include($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
+}
+
+$ajaxlike_enable = (isset($config['ajaxlike_enable']) ? ($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable']) : 0);
+
+if($ajaxlike_enable)
+{
+	$ajaxlike_like_from	= request_var('like_from', 0);
+	$ajaxlike_action	= request_var('ajaxlike_action', '');
+	$ajaxlike_data		= request_var('ajaxlike_data', '');
+	
+	if($ajaxlike_action != '')
+	{
+	
+		if($ajaxlike_action != 'notifications' && $ajaxlike_action != 'liked_list')
+		{
+			// get real forum_id from table and not ajax/request input
+			$sql = 'SELECT forum_id
+				FROM ' . TOPICS_TABLE . "
+				WHERE topic_id = $topic_id";
+			$result = $db->sql_query($sql);
+			$forum_id = (int) $db->sql_fetchfield('forum_id');
+			$db->sql_freeresult($result);
+			
+			if (!$forum_id)
+			{
+				ajaxlike_die('', AL_ERROR_INVALID_REQUEST);
+			}
+			
+		}
+	
+		switch($ajaxlike_action)
+		{
+			case 'fulllist':
+			ajaxlike_die(get_fulllist($post_id));
+			
+			break;
+			
+			case 'notifications':
+			ajaxlike_die(get_notifications());
+			
+			break;
+			
+			case 'liked_list':
+			ajaxlike_die(get_liked_list());
+			
+			break;
+			
+			default:
+				
+			if (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS) && ($user->data['user_id']==$ajaxlike_like_from))
+			{
+			
+				if($ajaxlike_action	== 'like')
+				{
+					ajaxlike_die(ajaxlike_like_post($post_id));
+				}
+			
+				if(($ajaxlike_action	== 'unlike') && $config['ajaxlike_allow_unlike'])
+				{
+					ajaxlike_die(ajaxlike_unlike_post($post_id));
+				}
+			
+			} else {
+				ajaxlike_die('', AL_ERROR_ACCESS_DENIED);
+			}
+			
+		}
+
+	}
+}
+// ajaxlike
 
 $start		= request_var('start', 0);
 $view		= request_var('view', '');
@@ -1443,6 +1594,39 @@ $prev_post_id = '';
 $template->assign_vars(array(
 	'S_NUM_POSTS' => sizeof($post_list))
 );
+// ajaxlike
+
+if($ajaxlike_enable)
+{
+	$likes_data = fetch_topic_likes();
+
+		$template->assign_vars(array(
+				'ALTER_MODE_LIKE_LIST'	=> isset($config['ajaxlike_alter_mode']) ? $config['ajaxlike_alter_mode'] : 0,
+				'LIKE_ACCESS'	=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id) && $topic_data['topic_type'] != POST_GLOBAL) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
+				'ALLOW_UNLIKE'	=> ($config['ajaxlike_allow_unlike']?true:false),
+				'LIKE_FROM'		=> $user->data['user_id'],
+				'LIKE_CALLBACK'	=> append_sid("{$phpbb_root_path}viewtopic.$phpEx")
+			)
+		);
+}
+// ajaxlike
+
+// ajaxlike
+
+if($ajaxlike_enable)
+{
+	$likes_data = fetch_topic_likes();
+
+		$template->assign_vars(array(
+				'ALTER_MODE_LIKE_LIST'	=> isset($config['ajaxlike_alter_mode']) ? $config['ajaxlike_alter_mode'] : 0,
+				'LIKE_ACCESS'	=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id) && $topic_data['topic_type'] != POST_GLOBAL) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
+				'ALLOW_UNLIKE'	=> ($config['ajaxlike_allow_unlike']?true:false),
+				'LIKE_FROM'		=> $user->data['user_id'],
+				'LIKE_CALLBACK'	=> append_sid("{$phpbb_root_path}viewtopic.$phpEx")
+			)
+		);
+}
+// ajaxlike
 
 // Output the posts
 $first_unread = $post_unread = false;
@@ -1654,6 +1838,27 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 	}
 	
 	$postrow = array(
+		// ajaxlike
+		'TOTAL_LIKES'			=> ($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0),
+		'POST_LIKES'			=> ($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']] - (in_array($row['post_id'], $likes_data[1]) ? 1 : 0) : 0) : 0),
+		'YOU_LIKED'				=> ($ajaxlike_enable ? (in_array($row['post_id'], $likes_data[1]) ? true : false) : 0),
+		'LIKE_LIST'				=> ($ajaxlike_enable ? build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false) : ''),
+		'NO_OWN_POST'			=> ($poster_id != $user->data['user_id']),
+		'LIKES'					=> ($ajaxlike_enable ? get_user_likes($row['user_id']) : 0),
+		'LIKED'					=> ($ajaxlike_enable ? get_user_liked($row['user_id']) : 0),
+		'LAST_LIKE_URL'			=> (($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0) > 1 ? "#" : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . urlencode(build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false)))),
+		// ajaxlike
+	// ajaxlike
+		'TOTAL_LIKES'			=> ($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0),
+		'POST_LIKES'			=> ($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']] - (in_array($row['post_id'], $likes_data[1]) ? 1 : 0) : 0) : 0),
+		'YOU_LIKED'				=> ($ajaxlike_enable ? (in_array($row['post_id'], $likes_data[1]) ? true : false) : 0),
+		'LIKE_LIST'				=> ($ajaxlike_enable ? build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false) : ''),
+		'NO_OWN_POST'			=> ($poster_id != $user->data['user_id']),
+		'LIKES'					=> ($ajaxlike_enable ? get_user_likes($row['user_id']) : 0),
+		'LIKED'					=> ($ajaxlike_enable ? get_user_liked($row['user_id']) : 0),
+		'LAST_LIKE_URL'			=> (($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0) > 1 ? "#" : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . urlencode(build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false)))),
+	// ajaxlike
+		
 		'POST_AUTHOR_FULL'		=> ($poster_id != ANONYMOUS) ? $user_cache[$poster_id]['author_full'] : get_username_string('full', $poster_id, $row['username'], $row['user_colour'], $row['post_username']),
 		'POST_AUTHOR_COLOUR'	=> ($poster_id != ANONYMOUS) ? $user_cache[$poster_id]['author_colour'] : get_username_string('colour', $poster_id, $row['username'], $row['user_colour'], $row['post_username']),
 		'POST_AUTHOR'			=> ($poster_id != ANONYMOUS) ? $user_cache[$poster_id]['author_username'] : get_username_string('username', $poster_id, $row['username'], $row['user_colour'], $row['post_username']),

@@ -1004,5 +1004,3 @@ if (!$mchat_include_index)
 		$template->set_filenames(array('body' => 'mchat_body.html'));
 	page_footer();
 }
-
-?>

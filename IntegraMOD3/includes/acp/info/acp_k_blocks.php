@@ -48,5 +48,3 @@ class acp_k_blocks_info
 	{
 	}
 }
-
-?>

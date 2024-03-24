@@ -105,6 +105,14 @@
 					<!-- IF POSTS_PCT --><br />({POSTS_PCT} / {POSTS_DAY})<!-- ENDIF -->
 					<!-- IF POSTS_IN_QUEUE and U_MCP_QUEUE --><br />(<a href="{U_MCP_QUEUE}">{L_POSTS_IN_QUEUE}</a>)<!-- ELSEIF POSTS_IN_QUEUE --><br />({L_POSTS_IN_QUEUE})<!-- ENDIF -->
 				</dd>
+			<!-- ajaxlike -->
+			<!-- IF LIKE_STATUS -->
+			<dt>{L_AL_LIKE_COUNT_TEXT}:</dt>
+				<dd><strong>{LIKES}</strong> <!-- IF LIKES > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></dd>
+			<dt>{L_AL_LIKED_COUNT_TEXT}:</dt>
+				<dd><strong>{LIKED}</strong> <!-- IF LIKED > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></dd>
+			<!-- ENDIF -->
+			<!-- ajaxlike -->				
 			<!-- IF TOTAL_IMAGES -->
 				<dt>{L_TOTAL_IMAGES}:</dt>
 					<dd>{IMAGES} | <strong><a href="{U_SEARCH_GALLERY}">{L_SEARCH_USER_IMAGES}</a></strong>
@@ -131,9 +139,39 @@
 	</div>
 </div>
 <!-- ENDIF -->
-
+<!-- ajaxlike -->
+<!-- IF SHOW_LIKES -->
+<div class="panel bg2">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<h3>{L_AL_TITLE}</h3>
+	<!-- IF .last_likes -->
+	<!-- BEGIN last_likes -->
+	<div class="ajaxlike_listing_item">
+		<a href="{last_likes.LINK}" class="ajaxlike_profile_listing_title">{last_likes.TITLE}</a>
+		<div class="ajaxlike_profile_listing_by">{L_AL_BY} {last_likes.POSTER} . {L_AL_AT} {last_likes.DATE}</div>
+		<div class="ajaxlike_profile_listing_item">{last_likes.DETAIL}</span>&nbsp;<b><a href="{last_likes.LINK}">{L_AL_VIEW}</a></b></div>
+	</div>
+	<!-- END last_likes -->
+	<!-- ELSE -->
+	<div class="ajaxlike_listing_item">{L_AL_NO_LIKE}</div>
+	<!-- ENDIF -->
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+<!-- ajaxlike -->
 </form>
-
+<!-- IF SN_MODULE_APPROVAL_ENABLED && SN_FMS_BLOCK_FRIEND_IS_NOT_EMPTY -->
+<div class="panel bg1">
+	<div class="inner"><span class="corners-top"><span></span></span>
+		<h3>{L_SN_FAS_FRIEND_LIST}</h3>
+    {SN_FMS_BLOCK_FRIEND_CONTENT}<div class="clear"></div>
+    {SN_FMS_BLOCK_FRIEND_PAGINATION_STRING}<div class="clear"></div>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+<!-- IF SN_MODULE_USERSTATUS_ENABLED && SN_MODULE_USERSTATUS_VIEWPROFILE_ENABLE -->
+  <!-- INCLUDE socialnet/userstatus_memberlist.html -->
+<!-- ENDIF -->
 
 <!-- INCLUDE gallery/recent_body.html -->
 <!-- INCLUDE jumpbox.html -->

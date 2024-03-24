@@ -70,7 +70,7 @@
 <!-- ENDIF -->
 
 <!-- IF S_BBCODES -->
-		/** 
+		/**
 		* Implementing some kind of jump to y position in the current page
 		* Code based off
 		*	http://www.issuetrackerproduct.com/About/smoothscrolling.js
@@ -117,19 +117,19 @@
 		}
 
 	// ]]>
-	
+
 	</script>
-	
+
 <a name="maincontent"></a>
 
 <!-- IF S_EDIT -->
 
 	<span style="float: {S_CONTENT_FLOW_END};">&laquo; {U_ABBC3} &raquo;</span>
-	
+
 	<h1>{L_TITLE_EDIT}</h1>
-	
+
 	<p>{L_TITLE_EXPLAIN}</p>
-	
+
 	<!-- IF S_ERROR -->
 	<div class="errorbox">
 		<h3>{L_WARNING}</h3>
@@ -172,13 +172,13 @@
 	<!-- IF options.S_ROW_COUNT eq 9 --><!-- DEFINE $SHOW_WARNING = '1' --><!-- ENDIF -->
 
 	<!-- END options -->
-	
+
 	<!-- IF S_AUTH -->
 		<!-- BEGIN auth_tpl -->
 			{auth_tpl.TPL}
 		<!-- END auth_tpl -->
 	<!-- ENDIF -->
-	
+
 		</fieldset>
 
 		<fieldset>
@@ -201,10 +201,10 @@
 	// ]]>
 	</script>
 	<script type="text/javascript" src="style/acp_abbcodes.js?{S_ABBC3_VERSION}"></script>
-	<!-- ENDIF -->	
+	<!-- ENDIF -->
 
 	<span style="float: {S_CONTENT_FLOW_END};">&laquo; <!-- IF U_BACK --><a href="{U_BACK}">{L_BACK}</a><!-- ELSE -->{U_ABBC3}<!-- ENDIF --> &raquo;</span>
-	
+
 	<!-- IF S_ERROR -->
 	<div class="errorbox">
 		<h3>{L_WARNING}</h3>
@@ -217,7 +217,7 @@
 		<h3>{L_INFORMATION}</h3>
 		<p>{L_ABBCODES_RESYNC_SUCCESS}</p>
     </div>
-	
+
 	<!-- IF S_BBCODE_EDIT -->
 	<h1>{L_ABBCODES_EDIT}</h1>
 
@@ -256,12 +256,12 @@
 					</tr>
 						<!-- ENDIF -->
 				</thead>
-				
+
 				<tbody style="vertical-align:top;">
 				<!-- BEGIN items -->
-				
+
 				<tr id="bbcode_{items.ID}" class="<!-- IF items.S_NOMOVE -->nodrag nodrop <!-- ENDIF --><!-- IF items.S_ROW_COUNT is even -->row1<!-- ELSE -->row2<!-- ENDIF -->">
-					
+
 					<!-- IF not S_BBCODE_EDIT --><td><!-- IF items.TAG_NAME --><strong>{items.TAG_NAME}</strong><!-- ENDIF --></td><!-- ENDIF -->
 					<td>
 					<!-- IF items.IMG_SRC and not S_BBCODE_EDIT --><img src="{items.IMG_SRC}" title="{items.NAME}" alt="{items.NAME}" style="float: right;" /><!-- ENDIF -->
@@ -269,7 +269,7 @@
 					<input type="hidden" name="id[{items.ID}]" value="{items.ID}" />
 					<input type="hidden" name="name[{items.ID}]" value="{items.NAME}" />
 					</td>
-					
+
 				<!-- IF S_BBCODE_EDIT -->
 					<td>
 						<input type="checkbox" class="radio" name="display_on_posting[{items.ID}]" {items.POSTING_CHECKED} />
@@ -280,7 +280,7 @@
 					<td>
 						<input type="checkbox" class="radio" name="display_on_sig[{items.ID}]" {items.SIG_CHECKED} />
 					</td>
-					
+
 					<td>
 					<!-- IF items.IMG_SRC and not items.S_NOMOVE -->
 						{items.S_NEW_IMG}
@@ -328,11 +328,11 @@
 					</td>
 				<!-- ENDIF -->
 				</tr>
-				
+
 				<!-- END items -->
 			</tbody>
 		</table>
-		
+
 		<p class="submit-buttons" >
 			<!-- IF S_BBCODE_EDIT -->
 			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;

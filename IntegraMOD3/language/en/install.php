@@ -195,9 +195,9 @@ $lang = array_merge($lang, array(
 		<p>The phpBB Unified Convertor Framework supports the conversion of phpBB 2.0.x and other board systems to phpBB3. If you have an existing board that you wish to convert, please <a href="%2$s">proceed to the convertor</a>.</p>
 		<h2>Go live with your phpBB3!</h2>
 		<p>Clicking the button below will take you to a form for submitting statistical data to phpBB in your Administration Control Panel (ACP). We would appreciate it if you could help us by sending that information. Afterwards you should take some time to examine the options available to you. Remember that help is available online via the <a href="https://www.phpbb.com/support/documentation/3.0/">Documentation</a>, <a href="%3$s">README</a> and the <a href="https://www.phpbb.com/community/viewforum.php?f=46">Support Forums</a>.</p><p><strong>Please delete, move or rename the install directory before using your board. While this directory exists, only the Administration Control Panel (ACP) will be accessible.</strong>',
-	'INSTALL_INTRO'				=> 'Welcome to Installation',
+	'INSTALL_INTRO'				=> 'Welcome to your IntegraMOD Installation',
 
-	'INSTALL_INTRO_BODY'		=> 'With this option, it is possible to install phpBB3 onto your server.</p><p>In order to proceed, you will need your database settings. If you do not know your database settings, please contact your host and ask for them. You will not be able to continue without them. You need:</p>
+	'INSTALL_INTRO_BODY'		=> 'With this option, it is possible to install IntegraMOD onto your server.</p><p>In order to proceed, you will need your database settings. If you do not know your database settings, please contact your host and ask for them. You will not be able to continue without them. You need:</p>
 
 	<ul>
 		<li>The Database Type - the database you will be using.</li>
@@ -315,7 +315,7 @@ $lang = array_merge($lang, array(
 	'REFRESH_PAGE'				=> 'Refresh page to continue conversion',
 	'REFRESH_PAGE_EXPLAIN'		=> 'If set to yes, the convertor will refresh the page to continue the conversion after having finished a step. If this is your first conversion for testing purposes and to determine any errors in advance, we suggest to set this to No.',
 	'REQUIREMENTS_TITLE'		=> 'Installation compatibility',
-	'REQUIREMENTS_EXPLAIN'		=> 'Before proceeding with the full installation phpBB will carry out some tests on your server configuration and files to ensure that you are able to install and run phpBB. Please ensure you read through the results thoroughly and do not proceed until all the required tests are passed. If you wish to use any of the features depending on the optional tests, you should ensure that these tests are passed also.',
+	'REQUIREMENTS_EXPLAIN'		=> 'Before proceeding with the full installation, IntegraMOD will carry out some tests on your server configuration and files to ensure that you are able to install and run IntegraMOD. Please ensure you read through the results thoroughly and do not proceed until all the required tests are passed. If you wish to use any of the features depending on the optional tests, you should ensure that these tests are passed also.',
 	'RETRY_WRITE'				=> 'Retry writing config',
 	'RETRY_WRITE_EXPLAIN'		=> 'If you wish you can change the permissions on config.php to allow phpBB to write to it. Should you wish to do that you can click Retry below to try again. Remember to return the permissions on config.php after phpBB has finished installation.',
 
@@ -367,7 +367,7 @@ $lang = array_merge($lang, array(
 	'VERIFY_OPTIONS'			=> 'Verifying conversion options',
 	'VERSION'					=> 'Version',
 
-	'WELCOME_INSTALL'			=> 'Welcome to phpBB3 Installation',
+	'WELCOME_INSTALL'			=> 'Welcome to IntegraMOD Installation',
 	'WRITABLE'					=> 'Writable',
 ));
 

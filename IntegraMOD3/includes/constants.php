@@ -325,6 +325,26 @@ define('WORDS_TABLE',				$table_prefix . 'words');
 define('ZEBRA_TABLE',				$table_prefix . 'zebra');
 
 // Additional tables
+	// ajaxlike
+if(!defined('LIKES_TABLE'))
+{
+	define('LIKES_TABLE',				$table_prefix . 'likes');
+	define('AL_ERROR_INVALID_REQUEST',	-1);
+	define('AL_ERROR_ACCESS_DENIED',	-2);
+	define('AL_LIKE_STATE_UNREAD',	1);
+	define('AL_LIKE_STATE_READ',	2);
+}
+// ajaxlike
+// ajaxlike
+if(!defined('LIKES_TABLE'))
+{
+	define('LIKES_TABLE',				$table_prefix . 'likes');
+	define('AL_ERROR_INVALID_REQUEST',	-1);
+	define('AL_ERROR_ACCESS_DENIED',	-2);
+	define('AL_LIKE_STATE_UNREAD',	1);
+	define('AL_LIKE_STATE_READ',	2);
+}
+// ajaxlike
 // Ultimate Points
 define('IN_ULTIMATE_POINTS', true);
 define('POINTS_BANK_TABLE',				$table_prefix . 'points_bank');
@@ -405,7 +425,7 @@ define('K_BLOCKS_CONFIG_VAR_TABLE',	$table_prefix . 'k_config_vars');
 define('K_RESOURCES_TABLE',			$table_prefix . 'k_resources');
 define('K_PAGES_TABLE',				$table_prefix . 'k_pages');
 define('K_ACRONYMS_TABLE',			$table_prefix . 'k_acronyms');
-
+define('K_MODULES_TABLE',			$table_prefix . 'k_modules');
 define('SHOUTBOX_TABLE', $table_prefix . 'shoutbox');
 
 /*

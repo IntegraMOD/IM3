@@ -72,15 +72,15 @@ function abbcode_show_help()
 
 	$user->add_lang(array('viewtopic', 'posting', 'mods/abbcode'));
 
-	$sql = "SELECT abbcode, bbcode_order, bbcode_id, bbcode_group, bbcode_tag, bbcode_helpline, bbcode_image, display_on_posting 
+	$sql = "SELECT abbcode, bbcode_order, bbcode_id, bbcode_group, bbcode_tag, bbcode_helpline, bbcode_image, display_on_posting
 			FROM " . BBCODES_TABLE . "
-			WHERE display_on_posting = 1 
+			WHERE display_on_posting = 1
 			ORDER BY bbcode_order";
 	$result = $db->sql_query($sql);
 
 	$count = 0;
 	while ($row = $db->sql_fetchrow($result))
-	{		
+	{
 		// Some fixes
 		$tag_name		= str_replace('=', '', trim($row['bbcode_tag']));
 		$abbcode_name	= (($row['abbcode']) ? 'ABBC3_' : '') . strtoupper(str_replace('=', '', trim($row['bbcode_tag'])));
@@ -92,10 +92,10 @@ function abbcode_show_help()
 			continue;
 		}
 
-		// Parse text 
+		// Parse text
 		// Check phpbb permissions status
 		// Check ABBC3 groups permission
-		// try to make it as quicky as it can be 
+		// try to make it as quicky as it can be
 		if ($text = force_parse($user->lang[$abbcode_name . '_VIEW']))
 		{
 			$count++;
@@ -147,10 +147,10 @@ function force_parse($text)
 
 /**
 * Upload files - Simple way
-* 
+*
 * @return bbcode tag with link
-* 
-* THIS FUNCTION IS DEPRECATED AS OF VERSION 3.0.7! suggested by MOD Team 
+*
+* THIS FUNCTION IS DEPRECATED AS OF VERSION 3.0.7! suggested by MOD Team
 * So warn the user about this if he is still using the old database
 */
 function abbcode_upload_file($form_name, $text_name)
@@ -186,8 +186,8 @@ function abbcode_click_file()
 		'id' => $id,
 	);
 
-	$sql = 'SELECT url, clicks 
-			FROM ' . CLICKS_TABLE . ' 
+	$sql = 'SELECT url, clicks
+			FROM ' . CLICKS_TABLE . '
 			WHERE ' . $db->sql_build_array('SELECT', $data_select);
 	$result = $db->sql_query($sql);
 	$row = $db->sql_fetchrow($result);
@@ -197,7 +197,7 @@ function abbcode_click_file()
 		'clicks' => $row['clicks'] + 1,
 	);
 
-	$sql = 'UPDATE ' . CLICKS_TABLE . ' 
+	$sql = 'UPDATE ' . CLICKS_TABLE . '
 			SET ' . $db->sql_build_array('UPDATE', $data_update) . '
 			WHERE id = ' . $id;
 	$db->sql_query($sql);
@@ -252,7 +252,7 @@ function abbcode_tigra_color_picker()
 
 /**
 * Some bbcodes have help wizards :)
-* 
+*
 * @return bbcode tag with link
 * @version 3.0.8
 */

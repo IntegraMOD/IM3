@@ -137,19 +137,19 @@ class bbcode_firstpass extends bbcode
 		// To parse multiline URL we enable dotall option setting only for URL text
 		// but not for link itself, thus [url][/url] is not affected.
 		$this->bbcodes = array(
-			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z]+))?\](.+\[/code\])#uis' => function($matches){return $this->bbcode_code($matches[1], $matches[2]);})),
-			'quote'			=> array('bbcode_id' => 0,	'regexp' => array('#\[quote(?:=&quot;(.*?)&quot;)?\](.+)\[/quote\]#uis' => function($matches){return $this->bbcode_quote($matches[0]);})),
-			'attachment'	=> array('bbcode_id' => 12,	'regexp' => array('#\[attachment=([0-9]+)\](.*?)\[/attachment\]#uis' => function($matches){return $this->bbcode_attachment($matches[1], $matches[2]);})),
-			'b'				=> array('bbcode_id' => 1,	'regexp' => array('#\[b\](.*?)\[/b\]#uis' => function($matches){return $this->bbcode_strong($matches[1]);})),
-			'i'				=> array('bbcode_id' => 2,	'regexp' => array('#\[i\](.*?)\[/i\]#uis' => function($matches){return $this->bbcode_italic($matches[1]);})),
-			'url'			=> array('bbcode_id' => 3,	'regexp' => array('#\[url(=(.*))?\](?(1)((?s).*(?-s))|(.*))\[/url\]#uiU' => function($matches){return $this->validate_url($matches[2], ($matches[3]) ? $matches[3] : $matches[4]);})),
-			'img'			=> array('bbcode_id' => 4,	'regexp' => array('#\[img\](.*)\[/img\]#uiU' => function($matches){return $this->bbcode_img($matches[1]);})),
-			'size'			=> array('bbcode_id' => 5,	'regexp' => array('#\[size=([\-\+]?\d+)\](.*?)\[/size\]#uis' => function($matches){return $this->bbcode_size($matches[1], $matches[2]);})),
-			'color'			=> array('bbcode_id' => 6,	'regexp' => array('!\[color=(#[0-9a-f]{3}|#[0-9a-f]{6}|[a-z\-]+)\](.*?)\[/color\]!uis' => function($matches){return $this->bbcode_color($matches[1], $matches[2]);})),
-			'u'				=> array('bbcode_id' => 7,	'regexp' => array('#\[u\](.*?)\[/u\]#uis' => function($matches){return $this->bbcode_underline($matches[1]);})),
-			'list'			=> array('bbcode_id' => 9,	'regexp' => array('#\[list(?:=(?:[a-z0-9]|disc|circle|square))?].*\[/list]#uis' => function($matches){return $this->bbcode_parse_list($matches[0]);})),
-			'email'			=> array('bbcode_id' => 10,	'regexp' => array('#\[email=?(.*?)?\](.*?)\[/email\]#uis' => function($matches){return $this->validate_email($matches[1], $matches[2]);})),
-			'flash'			=> array('bbcode_id' => 11,	'regexp' => array('#\[flash=([0-9]+),([0-9]+)\](.*?)\[/flash\]#ui' => function($matches){return $this->bbcode_flash($matches[1], $matches[2], $matches[3]);})),
+			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z]+))?\](.+\[/code\])#uis' => fn($matches) => $this->bbcode_code($matches[1], $matches[2]))),
+			'quote'			=> array('bbcode_id' => 0,	'regexp' => array('#\[quote(?:=&quot;(.*?)&quot;)?\](.+)\[/quote\]#uis' => fn($matches) => $this->bbcode_quote($matches[0]))),
+			'attachment'	=> array('bbcode_id' => 12,	'regexp' => array('#\[attachment=([0-9]+)\](.*?)\[/attachment\]#uis' => fn($matches) => $this->bbcode_attachment($matches[1], $matches[2]))),
+			'b'				=> array('bbcode_id' => 1,	'regexp' => array('#\[b\](.*?)\[/b\]#uis' => fn($matches) => $this->bbcode_strong($matches[1]))),
+			'i'				=> array('bbcode_id' => 2,	'regexp' => array('#\[i\](.*?)\[/i\]#uis' => fn($matches) => $this->bbcode_italic($matches[1]))),
+			'url'			=> array('bbcode_id' => 3,	'regexp' => array('#\[url(=(.*))?\](?(1)((?s).*(?-s))|(.*))\[/url\]#uiU' => fn($matches) => $this->validate_url($matches[2], ($matches[3]) ? $matches[3] : $matches[4]))),
+			'img'			=> array('bbcode_id' => 4,	'regexp' => array('#\[img\](.*)\[/img\]#uiU' => fn($matches) => $this->bbcode_img($matches[1]))),
+			'size'			=> array('bbcode_id' => 5,	'regexp' => array('#\[size=([\-\+]?\d+)\](.*?)\[/size\]#uis' => fn($matches) => $this->bbcode_size($matches[1], $matches[2]))),
+			'color'			=> array('bbcode_id' => 6,	'regexp' => array('!\[color=(#[0-9a-f]{3}|#[0-9a-f]{6}|[a-z\-]+)\](.*?)\[/color\]!uis' => fn($matches) => $this->bbcode_color($matches[1], $matches[2]))),
+			'u'				=> array('bbcode_id' => 7,	'regexp' => array('#\[u\](.*?)\[/u\]#uis' => fn($matches) => $this->bbcode_underline($matches[1]))),
+			'list'			=> array('bbcode_id' => 9,	'regexp' => array('#\[list(?:=(?:[a-z0-9]|disc|circle|square))?].*\[/list]#uis' => fn($matches) => $this->bbcode_parse_list($matches[0]))),
+			'email'			=> array('bbcode_id' => 10,	'regexp' => array('#\[email=?(.*?)?\](.*?)\[/email\]#uis' => fn($matches) => $this->validate_email($matches[1], $matches[2]))),
+			'flash'			=> array('bbcode_id' => 11,	'regexp' => array('#\[flash=([0-9]+),([0-9]+)\](.*?)\[/flash\]#ui' => fn($matches) => $this->bbcode_flash($matches[1], $matches[2], $matches[3]))),
 		);
 
 		// Zero the parsed items array
@@ -555,13 +555,13 @@ class bbcode_firstpass extends bbcode
 				{
 					$out .= substr($in, 0, $pos);
 					$in = substr($in, $pos);
-					$stx = (isset($buffer[3])) ? $buffer[3] : '';
+					$stx = $buffer[3] ?? '';
 					$code_block = '';
 				}
 				else
 				{
 					// Already opened block, just append to the current block
-					$code_block .= substr($in, 0, $pos) . ((isset($buffer[2])) ? $buffer[2] : '');
+					$code_block .= substr($in, 0, $pos) . ($buffer[2] ?? '');
 					$in = substr($in, $pos);
 				}
 
@@ -764,7 +764,7 @@ class bbcode_firstpass extends bbcode
 		}
 
 		// To let the parser not catch tokens within quote_username quotes we encode them before we start this...
-		$in = preg_replace_callback('#quote=&quot;(.*?)&quot;\]#i', function($matches) {return 'quote=&quot;' . str_replace(array('[', ']', '"'), array('&#91;', '&#93;', '\"'), $matches[1]) . '&quot;]';}, $in);
+		$in = preg_replace_callback('#quote=&quot;(.*?)&quot;\]#i', fn($matches) => 'quote=&quot;' . str_replace(array('[', ']', '"'), array('&#91;', '&#93;', '\"'), $matches[1]) . '&quot;]', $in);
 
 		$tok = ']';
 		$out = '[';
@@ -1017,7 +1017,7 @@ class bbcode_firstpass extends bbcode
 			}
 
 			// Is this a link to somewhere inside this board? If so then remove the session id from the url
-			if (strpos($url, generate_board_url()) !== false && strpos($url, 'sid=') !== false)
+			if (strpos($url, (string) generate_board_url()) !== false && strpos($url, 'sid=') !== false)
 			{
 				$url = preg_replace('/(&amp;|\?)sid=[0-9a-f]{32}&amp;/', '\1', $url);
 				$url = preg_replace('/(&amp;|\?)sid=[0-9a-f]{32}$/', '', $url);
@@ -1052,7 +1052,7 @@ class bbcode_firstpass extends bbcode
 		}
 
 		// Is the user trying to link to a php file in this domain and script path?
-		if (strpos($url, ".{$phpEx}") !== false && strpos($url, $check_path) !== false)
+		if (strpos($url, ".{$phpEx}") !== false && strpos($url, (string) $check_path) !== false)
 		{
 			$server_name = $user->host;
 
@@ -1064,8 +1064,8 @@ class bbcode_firstpass extends bbcode
 
 			// Check again in correct order...
 			$pos_ext = strpos($url, ".{$phpEx}");
-			$pos_path = strpos($url, $check_path);
-			$pos_domain = strpos($url, $server_name);
+			$pos_path = strpos($url, (string) $check_path);
+			$pos_domain = strpos($url, (string) $server_name);
 
 			if ($pos_domain !== false && $pos_path >= $pos_domain && $pos_ext >= $pos_path)
 			{
@@ -1199,7 +1199,7 @@ class parse_message extends bbcode_firstpass
 			$auth_tag = preg_replace('#\=(.*)?#', '', strtoupper(trim($bbcode_name)));
 			if ((isset($bbcode_data['bbcode_group']) && $bbcode_data['bbcode_group']) || in_array($auth_tag, $this->need_permissions))
 			{
-				if (!$this->abbcode_permissions($auth_tag, (isset($bbcode_data['bbcode_group']) ? $bbcode_data['bbcode_group'] : 0)))
+				if (!$this->abbcode_permissions($auth_tag, ($bbcode_data['bbcode_group'] ?? 0)))
 				{
 					$this->bbcodes[$bbcode_name]['disabled'] = true;
 				}
@@ -1487,7 +1487,7 @@ class parse_message extends bbcode_firstpass
 					);
 
 					$this->attachment_data = array_merge(array(0 => $new_entry), $this->attachment_data);
-					$this->message = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', function($matches) {return '[attachment=' . ($matches[1] + 1) . "]{$matches[2]}[/attachment]";}, $this->message);
+					$this->message = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', fn($matches) => '[attachment=' . ($matches[1] + 1) . "]{$matches[2]}[/attachment]", $this->message);
 
 					$this->filename_data['filecomment'] = '';
 
@@ -1550,7 +1550,7 @@ class parse_message extends bbcode_firstpass
 					}
 
 					unset($this->attachment_data[$index]);
-					$this->message = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', function($matches) use ($index) {return ($matches[1] == $index) ? '' : (($matches[1] > $index) ? '[attachment=' . ($matches[1] - 1) . "]{$matches[2]}[/attachment]" : $matches[0]);}, $this->message);
+					$this->message = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', fn($matches) => ($matches[1] == $index) ? '' : (($matches[1] > $index) ? '[attachment=' . ($matches[1] - 1) . "]{$matches[2]}[/attachment]" : $matches[0]), $this->message);
 
 					// Reindex Array
 					$this->attachment_data = array_values($this->attachment_data);
@@ -1589,7 +1589,7 @@ class parse_message extends bbcode_firstpass
 						);
 
 						$this->attachment_data = array_merge(array(0 => $new_entry), $this->attachment_data);
-						$this->message = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', function($matches) {return '[attachment=' . ($matches[1] + 1) . "]{$matches[2]}[/attachment]";}, $this->message);
+						$this->message = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', fn($matches) => '[attachment=' . ($matches[1] + 1) . "]{$matches[2]}[/attachment]", $this->message);
 						$this->filename_data['filecomment'] = '';
 					}
 				}
@@ -1614,7 +1614,7 @@ class parse_message extends bbcode_firstpass
 		global $user, $db, $phpbb_root_path, $phpEx, $config;
 
 		$this->filename_data['filecomment'] = utf8_normalize_nfc(request_var('filecomment', '', true));
-		$attachment_data = (isset($_POST['attachment_data'])) ? $_POST['attachment_data'] : array();
+		$attachment_data = $_POST['attachment_data'] ?? array();
 		$this->attachment_data = array();
 
 		$check_user_id = ($check_user_id === false) ? $user->data['user_id'] : $check_user_id;

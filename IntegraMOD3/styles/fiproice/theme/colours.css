@@ -86,7 +86,7 @@ hr.dashed {
 }
 
 .panel {
-	background-color: #fbfcfc;
+	background-color: #F0F0F0;
 	color: #454851;
 }
 
@@ -98,8 +98,8 @@ hr.dashed {
 	color: #000000;
 }
 
-.bg1	{ background-color: #fcfcfd; }
-.bg2	{ background-color: #f9fafa;  }
+.bg1	{ background-color: #E7E7E7; }
+.bg2	{ background-color: #F0F0F0;  }
 .bg3	{ background-color: #f2f3f6; }
 
 .ucprowbg {
@@ -247,7 +247,7 @@ Colours and backgrounds for links.css
 
 a:link		{ color: #006597; }
 a:visited	{ color: #005784; }
-a:hover		{ color: #D46400; }
+a:hover		{ color: #AABDCF; }
 a:active	{ color: #005784; }
 
 /* Links on gradient backgrounds */

@@ -42,5 +42,3 @@ class acp_calendar_info
 	{
 	}
 }
-
-?>

@@ -64,7 +64,7 @@ if (!function_exists('sgp_get_rand_logo'))
 
 		while (false !== ($file = readdir($handle)))
 		{
-			if (stripos($file, ".gif") || stripos($file, ".jpg") || stripos($file, ".png") && stripos($file ,"ogo_") || stripos($file ,"logo"))
+			if (stripos($file, ".svg") || stripos($file, ".gif") || stripos($file, ".jpg") || stripos($file, ".png") && stripos($file ,"ogo_") || stripos($file ,"logo"))
 			{
 				$imglist .= "$file ";
 			}
@@ -312,6 +312,187 @@ if (!function_exists('process_for_vars'))
 	}
 }
 
+
+
+/**
+* Build all minimods added 307-001 Mike
+*/
+if (!function_exists('sgp_build_minimods'))
+{
+	function sgp_build_minimods()
+	{
+		global $phpbb_root_path, $user, $template, $db, $k_config, $config, $k_config, $phpEx;
+		$block_cache_time = $k_config['block_cache_time_default'];
+
+		$queries = $cached_queries = $i = $j= 0;
+		$same_mod_count = 1;
+		$stored_mod_type = $mod_type = '';
+		$mod_bbcode_bitfield = '';
+		$filename = '';
+
+		$select_allow = ($config['override_user_style']) ? false : true;
+
+		$sql = "SELECT * FROM " . K_MODULES_TABLE . "
+			WHERE mod_status > 0
+				ORDER BY mod_type, mod_origin DESC ";
+
+		if (!$result1 = $db->sql_query($sql, $block_cache_time))
+		{
+			trigger_error($user->lang['ERROR_PORTAL_MENUS'] . basename(dirname(__FILE__)) . '/' . basename(__FILE__) . ', line ' . __LINE__);
+		}
+
+		$mod = array();
+
+		while ($row = $db->sql_fetchrow($result1))
+		{
+			$mods[] = $row;
+		}
+
+		foreach ($mods as $mod)
+		{
+			$mod_type = $mod['mod_type'];
+
+			switch ($mod['mod_download_count'])
+			{
+				case 0:		$mod['mod_download_count'] = sprintf($user->lang['DOWNLOAD_COUNT_NONE'], $mod['mod_download_count']); break;
+				case 1:		$mod['mod_download_count'] = sprintf($user->lang['DOWNLOAD_COUNT'], $mod['mod_download_count']); break;
+				default:	$mod['mod_download_count'] = sprintf($user->lang['DOWNLOAD_COUNTS'], $mod['mod_download_count']); break;
+			}
+
+			if ($mod_type == $stored_mod_type)
+			{
+				$same_mod_count++;
+			}
+			else
+			{
+				$same_mod_count = 1;
+			}
+
+			$info = process_for_vars(htmlspecialchars_decode($mod['mod_details']));
+			$info = acronym_pass($info);
+
+			$mod_bbcode_bitfield = $mod_bbcode_bitfield | base64_decode($mod['mod_bbcode_bitfield']);
+
+			// Instantiate BBCode class
+			if (!isset($bbcode) && $mod_bbcode_bitfield !== '')
+			{
+				if (!class_exists('bbcode'))
+				{
+					include($phpbb_root_path . 'includes/bbcode.' . $phpEx);
+				}
+				$bbcode = new bbcode(base64_encode($mod_bbcode_bitfield));
+			}
+
+			if ($mod['mod_bbcode_bitfield'])
+			{
+				$bbcode->bbcode_second_pass($info, $mod['mod_bbcode_uid'], $mod['mod_bbcode_bitfield']);
+			}
+
+			$info = bbcode_nl2br($info);
+			$info = smiley_text($info);
+
+			$filename = $phpbb_root_path . 'download/file.php?name=' . $mod['mod_filename'] . '.zip';
+
+			// separate out our mods //
+			if ($mod['mod_origin'])
+			{
+				$template->assign_block_vars('our_mod_'. $mod['mod_type'] . '_row', array(
+					'MOD_NAME'				=> $mod['mod_name'],
+					'MOD_TYPE'				=> $mod['mod_type'],
+					'MOD_ORIGIN'			=> $mod['mod_origin'],
+					'MOD_VERSION'			=> $mod['mod_version'],
+					'MOD_IMG'				=> $phpbb_root_path . 'images/style_thumbs/' . $mod['mod_thumb'],
+					'MOD_THUMB'				=> $phpbb_root_path . 'images/style_thumbs/thumbs/' . $mod['mod_thumb'],
+					'MOD_UPDATED'			=> $mod['mod_last_update'],
+					'MOD_AUTHOR'			=> $mod['mod_author'],
+					'MOD_AUTHOR_CO'			=> $mod['mod_author_co'],
+					'MOD_DETAILS'			=> $info,
+					'MOD_THIS'				=> $i++,
+					'MOD_COUNT'				=> ($mod['mod_type'] == 'style') ? $j++ : $j,
+					'MOD_DOWNLOAD_COUNT'	=> $mod['mod_download_count'],
+					'MOD_STATUS'			=> k_progress_bar($mod['mod_status']),
+					'MOD_COUNT'				=> $same_mod_count,
+					'U_MOD_FILENAME'		=> $filename,
+					'U_MOD_LINK'			=> htmlspecialchars_decode($mod['mod_link']),// . $mod['mod_name'],
+					'U_MOD_SUPPORT'			=> htmlspecialchars_decode($mod['mod_support_link']),
+					'U_MOD_TEST_IT'			=> ($mod['mod_link_id'] && $select_allow) ? $phpbb_root_path . 'portal.php?style=' . $mod['mod_link_id'] : '',
+				));
+			}
+			else
+			{
+				$template->assign_block_vars('mod_'. $mod['mod_type'] . '_row', array(
+					'MOD_NAME'				=> $mod['mod_name'],
+					'MOD_TYPE'				=> $mod['mod_type'],
+					'MOD_ORIGIN'			=> $mod['mod_origin'],
+					'MOD_VERSION'			=> $mod['mod_version'],
+					'MOD_IMG'				=> $phpbb_root_path . 'images/style_thumbs/' . $mod['mod_thumb'],
+					'MOD_THUMB'				=> $phpbb_root_path . 'images/style_thumbs/thumbs/' . $mod['mod_thumb'],
+					'MOD_UPDATED'			=> $mod['mod_last_update'],
+					'MOD_AUTHOR'			=> $mod['mod_author'],
+					'MOD_AUTHOR_CO'			=> $mod['mod_author_co'],
+					'MOD_DETAILS'			=> $info,
+					'MOD_THIS'				=> $i++,
+					'MOD_COUNT'				=> ($mod['mod_type'] == 'style') ? $j++ : $j,
+					'MOD_DOWNLOAD_COUNT'	=> $mod['mod_download_count'],
+					'MOD_STATUS'			=> k_progress_bar($mod['mod_status']),
+					'MOD_COUNT'				=> $same_mod_count,
+					'U_MOD_FILENAME'		=> $filename,
+					'U_MOD_LINK'			=> htmlspecialchars_decode($mod['mod_link']),// . $mod['mod_name'],
+					'U_MOD_SUPPORT'			=> htmlspecialchars_decode($mod['mod_support_link']),
+					'U_MOD_TEST_IT'			=> ($mod['mod_link_id'] && $select_allow) ? $phpbb_root_path . 'portal.php?style=' . $mod['mod_link_id'] : '',
+				));
+			}
+			$stored_mod_type = $mod['mod_type'];
+		}
+
+		$template->assign_vars(array(
+			'DOWNLOAD_IMG'		=> '<img src="' . $phpbb_root_path . 'images/2download-box-32.png" title="Download" alt="" />',
+			'TEST_IT_IMG'		=> '<img src="' . $phpbb_root_path . 'images/gnome-view-fullscreen-32.png" title="Check it out!" alt="" />',
+			'PINFO_IMG'			=> '<img src="' . $phpbb_root_path . 'images/information-32.png" title="Info" alt="" />',
+		));
+	}
+}
+
+if (!function_exists('ready_text_for_storage'))
+{
+	function ready_text_for_storage($data)
+	{
+		$uid = $bitfield = $options = '';
+		$allow_bbcode = $allow_urls = $allow_smilies = true;
+
+		generate_text_for_storage($data, $uid, $bitfield, $options, $allow_bbcode, $allow_urls, $allow_smilies);
+
+		$data_array = array(
+			'mod_text'				=> $data,
+			'mod_bbcode_uid'		=> $uid,
+			'mod_bbcode_bitfield'	=> $bitfield,
+			'mod_bbcode_options'	=> $options,
+		);
+		return($data_array);
+	}
+}
+
+if (!function_exists('ready_text_from_storage'))
+{
+	function ready_text_from_storage($row)
+	{
+		/*
+		$sql = 'SELECT text, bbcode_uid, bbcode_bitfield, enable_bbcode, enable_smilies, enable_magic_url
+			FROM ' . $table;
+			$result = $db->sql_query($sql);
+			$row = $db->sql_fetchrow($result);
+			$db->sql_freeresult($result);
+		*/
+
+		$row['mod_bbcode_options'] = (($row['mod_enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
+			(($row['mod_enable_smilies']) ? OPTION_FLAG_SMILIES : 0) +
+			(($row['mod_enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
+
+		$text = generate_text_for_display($row['mod_text'], $row['mod_bbcode_uid'], $row['mod_bbcode_bitfield'], $row['mod_bbcode_options']);
+
+		return($text);
+	}
+}
 
 // Stargate Random Banner mod //
 if (!function_exists('get_user_data'))
@@ -750,5 +931,43 @@ if (!function_exists('Readthisfile'))
 	}
 }
 
+if (!function_exists('ready_text_for_storage'))
+{
+	function ready_text_for_storage($data)
+	{
+		$uid = $bitfield = $options = '';
+		$allow_bbcode = $allow_urls = $allow_smilies = true;
 
-?>
+		generate_text_for_storage($data, $uid, $bitfield, $options, $allow_bbcode, $allow_urls, $allow_smilies);
+
+		$data_array = array(
+			'mod_text'				=> $data,
+			'mod_bbcode_uid'		=> $uid,
+			'mod_bbcode_bitfield'	=> $bitfield,
+			'mod_bbcode_options'	=> $options,
+		);
+		return($data_array);
+	}
+}
+
+if (!function_exists('ready_text_from_storage'))
+{
+	function ready_text_from_storage($row)
+	{
+		/*
+		$sql = 'SELECT text, bbcode_uid, bbcode_bitfield, enable_bbcode, enable_smilies, enable_magic_url
+			FROM ' . $table;
+			$result = $db->sql_query($sql);
+			$row = $db->sql_fetchrow($result);
+			$db->sql_freeresult($result);
+		*/
+
+		$row['mod_bbcode_options'] = (($row['mod_enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
+			(($row['mod_enable_smilies']) ? OPTION_FLAG_SMILIES : 0) +
+			(($row['mod_enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
+
+		$text = generate_text_for_display($row['mod_text'], $row['mod_bbcode_uid'], $row['mod_bbcode_bitfield'], $row['mod_bbcode_options']);
+
+		return($text);
+	}
+}

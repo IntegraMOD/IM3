@@ -1,0 +1,299 @@
+phpBB Social Network
+PHP Version: 7.4.33
+DBMS: MySQL(i) 8.0.31
+phpBB3 Version: 3.0.15
+
+Adding a new database table: phpbb_sn_config
+ERROR: Database table phpbb_sn_config already exists.
+
+Adding a new database table: phpbb_sn_users
+ERROR: Database table phpbb_sn_users already exists.
+
+Adding a new database table: phpbb_sn_im
+ERROR: Database table phpbb_sn_im already exists.
+
+Adding a new database table: phpbb_sn_im_chatboxes
+ERROR: Database table phpbb_sn_im_chatboxes already exists.
+
+Adding a new database table: phpbb_sn_status
+ERROR: Database table phpbb_sn_status already exists.
+
+Adding a new database table: phpbb_sn_entries
+ERROR: Database table phpbb_sn_entries already exists.
+
+Adding a new database table: phpbb_sn_notify
+ERROR: Database table phpbb_sn_notify already exists.
+
+Adding a new database table: phpbb_sn_reports
+ERROR: Database table phpbb_sn_reports already exists.
+
+Adding a new database table: phpbb_sn_reports_reasons
+ERROR: Database table phpbb_sn_reports_reasons already exists.
+
+Adding a new database table: phpbb_sn_menu
+ERROR: Database table phpbb_sn_menu already exists.
+
+Adding a new database table: phpbb_sn_family
+ERROR: Database table phpbb_sn_family already exists.
+
+Adding a new database table: phpbb_sn_profile_visitors
+ERROR: Database table phpbb_sn_profile_visitors already exists.
+
+Adding a new database table: phpbb_sn_fms_groups
+ERROR: Database table phpbb_sn_fms_groups already exists.
+
+Adding a new database table: phpbb_sn_fms_users_group
+ERROR: Database table phpbb_sn_fms_users_group already exists.
+
+Adding a new database table: phpbb_sn_comments_modules
+ERROR: Database table phpbb_sn_comments_modules already exists.
+
+Adding a new database table: phpbb_sn_comments
+ERROR: Database table phpbb_sn_comments already exists.
+
+Adding a new database table: phpbb_sn_emotes
+ERROR: Database table phpbb_sn_emotes already exists.
+
+Adding a new database table: phpbb_sn_addons_placeholder
+ERROR: Database table phpbb_sn_addons_placeholder already exists.
+
+Adding a new database table: phpbb_sn_addons
+ERROR: Database table phpbb_sn_addons already exists.
+
+Adding a new database table: phpbb_sn_smilies
+ERROR: Database table phpbb_sn_smilies already exists.
+
+Adding a new column named approval to table phpbb_zebra
+ERROR: The column approval already exists on table phpbb_zebra.
+
+Adding a key named c to table phpbb_zebra
+ERROR: The index c already exists on table phpbb_zebra.
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_global_enable' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_cb_enable' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_cb_resize' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_cb_draggable' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_cb_modal' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_cb_width' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_myprofile' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_menu' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_search' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_friends_suggestions' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_friend_requests' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_birthday' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_recent_discussions' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_statistics' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_block_online_users' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'sn_dialog_browseroutdated' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'module_im' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'module_userstatus' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'module_approval' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'module_activitypage' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'module_profile' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'module_notify' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'userstatus_comments_load_last' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'block_uo_all_users' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'block_uo_check_every' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'im_only_friends' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'im_allow_sound' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'im_url_new_window' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'im_msg_purged_time' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'im_msg_purged_automatic_time' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'im_colour_username' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'im_checkTime_min' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'im_checkTime_max' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'us_colour_username' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'fas_friendlist_limit' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'fas_colour_username' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ntf_theme' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ntf_colour_username' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ntf_life' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ntf_checktime' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'report_user_enable' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'up_enable_report' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_show_new_friendships' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_num_last_topics' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_display_welcome' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_hide_for_guest' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_colour_username' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_show_profile_updated' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_show_new_family' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_show_new_relationship' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_num_last_posts' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'ap_max_profile_value' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_config database table.
+SQL ERROR Duplicate entry 'up_enable_subscriptions' for key 'phpbb_sn_config.PRIMARY'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Poke' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Hug' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'High five' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Kiss' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Cuddle' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Flirt' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Love' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Sorry' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Applaud' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Beer' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Slap' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_emotes database table.
+SQL ERROR Duplicate entry 'Boo' for key 'phpbb_sn_emotes.u'
+
+Inserting data in the phpbb_sn_addons_placeholder database table.
+SQL ERROR Duplicate entry 'activitypage-header' for key 'phpbb_sn_addons_placeholder.u'
+
+Inserting data in the phpbb_sn_addons_placeholder database table.
+SQL ERROR Duplicate entry 'activitypage-leftcolumn' for key 'phpbb_sn_addons_placeholder.u'
+
+Inserting data in the phpbb_sn_addons_placeholder database table.
+SQL ERROR Duplicate entry 'activitypage-rightcolumn' for key 'phpbb_sn_addons_placeholder.u'
+
+Inserting data in the phpbb_sn_addons_placeholder database table.
+SQL ERROR Duplicate entry 'profile-tab statistics' for key 'phpbb_sn_addons_placeholder.u'
+
+Inserting data in the phpbb_sn_addons_placeholder database table.
+SQL ERROR Duplicate entry 'profile-tab info' for key 'phpbb_sn_addons_placeholder.u'
+
+Adding new permission option: a_sn_settings
+ERROR: Permission option a_sn_settings already exists.
+
+Adding new permission option: u_sn_userstatus
+ERROR: Permission option u_sn_userstatus already exists.
+
+Adding new permission option: m_sn_close_reports
+ERROR: Permission option m_sn_close_reports already exists.
+
+Adding acp module: Social Network
+ERROR: Module already exists.
+
+Adding new permission option: u_sn_notify
+ERROR: Permission option u_sn_notify already exists.
+
+Adding new permission option: u_sn_im
+ERROR: Permission option u_sn_im already exists.
+

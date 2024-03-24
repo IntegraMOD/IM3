@@ -7,6 +7,7 @@
     --------------------------------------------------------------
 */
 @import url("common.css");
+@import url("ajaxlike.css");
 @import url("links.css");
 @import url("content.css");
 @import url("buttons.css");
@@ -15,11 +16,12 @@
 @import url("tweaks.css");
 @import url("calendar.css");
 @import url("colours.css");
+@import url("socialnet.css");
+@import url("jquery.jgrowl.css");
 @import url("mchat.css");
 @import url("tcal.css");
 @import url("dlmod.css");
 @import url("gallery.css");
 @import url("im.css");
-@import url("MiMic.css");
 @import url("clock.css");
 

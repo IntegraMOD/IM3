@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package acp Stargate Portal
+* @package acp IntegraMOD
 * @version $Id: acp_imod_config.php 312 2009-01-02 02:51:12Z Michealo $
 * @copyright (c) 2007 Michael O'Toole aka michaelo
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License

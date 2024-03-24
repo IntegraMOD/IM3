@@ -588,11 +588,15 @@ function phpbb_create_config_file_data($data, $dbms, $load_extensions, $debug = 
 	{
 		$config_data .= "@define('DEBUG', true);\n";
 		$config_data .= "@define('DEBUG_EXTRA', true);\n";
+		$config_data .= "@define('DEBUG_TEMPLATES', true);\n";
+		$config_data .= "@define('DEBUG_CACHE', true);\n";
 	}
 	else
 	{
 		$config_data .= "// @define('DEBUG', true);\n";
 		$config_data .= "// @define('DEBUG_EXTRA', true);\n";
+		$config_data .= "// @define('DEBUG_TEMPLATES', true);\n";
+		$config_data .= "// @define('DEBUG_CACHE', true);\n";		
 	}
 
 	if ($debug_test)

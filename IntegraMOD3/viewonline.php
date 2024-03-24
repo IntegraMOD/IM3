@@ -300,6 +300,11 @@ while ($row = $db->sql_fetchrow($result))
 			$location_url = append_sid("{$phpbb_root_path}index.$phpEx");
 		break;
 
+		case 'activitypage':
+			$location = isset($user->lang['SN_AP_VIEWING_ACTIVITYPAGE']) ? $user->lang['SN_AP_VIEWING_ACTIVITYPAGE'] : 'Viewing Activity Page';
+			$location_url = append_sid("{$phpbb_root_path}activitypage.$phpEx");
+		break;
+		
 		case 'ucp':
 			$location = $user->lang['VIEWING_UCP'];
 
