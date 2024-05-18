@@ -50,7 +50,7 @@ class phpbb_recaptcha_v2 extends phpbb_default_captcha
 		return $instance;
 	}
 
-	function is_available()
+	static function is_available()
 	{
 		global $config, $user;
 		$user->add_lang('mods/captcha_recaptcha_v2');
@@ -65,7 +65,7 @@ class phpbb_recaptcha_v2 extends phpbb_default_captcha
 		return true;
 	}
 
-	function get_name()
+	static function get_name()
 	{
 		return 'CAPTCHA_RECAPTCHA_V2';
 	}
