@@ -45,7 +45,7 @@ else
 
 if(in_array($func, $allowed_funcs))
 {
-    list($func_location, $func_name) = explode(':', $func);
+    [$func_location, $func_name] = explode(':', (string) $func);
     $function_path = $phpbb_root_path . 'includes/sgp_ajax/ajax_' . $func_location . '.' . $phpEx;
     include_once($function_path);
     $returned_data = $func_name();
@@ -65,5 +65,3 @@ else
     die('Not so fast, buddy!');
 }
 die;
-
-?>

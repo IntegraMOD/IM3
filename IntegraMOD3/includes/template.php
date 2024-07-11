@@ -294,10 +294,10 @@ class template
 					global $user, $phpbb_root_path;
 
 					$missing_file = $this->files[$handle];
-					$missing_filename = basename($missing_file);
+					$missing_filename = basename((string) $missing_file);
 
 					$style_folder = $user->theme['template_path'];
-					$missing_file = str_replace($style_folder, '_portal_common', $missing_file);
+					$missing_file = str_replace($style_folder, '_portal_common', (string) $missing_file);
 
 					$this->files[$handle] = $missing_file;
 					// Stargate Common files Mod

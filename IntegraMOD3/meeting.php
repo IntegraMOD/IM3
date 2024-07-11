@@ -45,7 +45,7 @@ if (($auth->acl_get('a_') && $user->data['is_registered']))
 	$is_mod		= false;
 	$is_user	= false;
 
-	if ($config['meeting_sign_perm'] >= 1)
+	if ($config['meeting_sign_perm'] ?? null >= 1)
 	{
 		$allow_sign_onoff = true;
 	}
@@ -69,7 +69,7 @@ else
 }
 
 // And about this check the meeting permissions
-if ($config['meeting_user_enter'] == 1 || $is_admin || $is_mod)
+if ($config['meeting_user_enter'] ?? null == 1 || $is_admin || $is_mod)
 {
 	$allow_add = true;
 }

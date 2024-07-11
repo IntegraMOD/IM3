@@ -32,7 +32,7 @@ $block_cache_time = $k_config['k_block_cache_time_default'];
 $blocks_width 	= $config['blocks_width'];
 $blocks_enabled = $config['blocks_enabled'];
 
-$use_block_cookies = (isset($k_config['use_block_cookies'])) ? $k_config['use_block_cookies'] : 0;
+$use_block_cookies = $k_config['use_block_cookies'] ?? 0;
 
 // if block disabled, generate message and return... //
 if (!$blocks_enabled)
@@ -55,7 +55,7 @@ $big_image_path = $phpbb_root_path . 'images/block_images/large/';
 
 $user->add_lang('portal/kiss_block_variables');
 
-$this_page = explode(".", $user->page['page']);
+$this_page = explode(".", (string) $user->page['page']);
 $user_id = $user->data['user_id'];
 
 // Grab data for this user //
@@ -73,11 +73,11 @@ if ($result = $db->sql_query($sql))
 	$groupid = $row['group_id'];
 
 	$left = $row['user_left_blocks'];
-	$LB = explode(',', $left);
+	$LB = explode(',', (string) $left);
 	$center = $row['user_center_blocks'];
-	$CB = explode(',', $center);
+	$CB = explode(',', (string) $center);
 	$right = $row['user_right_blocks'];
-	$RB = explode(',', $right);
+	$RB = explode(',', (string) $right);
 
 	$LCR = array_merge((array)$LB, (array)$CB, (array)$RB);
 	$left .= ',';
@@ -96,17 +96,17 @@ if ($row['group_id'] != ANONYMOUS)
 	if (isset($_COOKIE[$config['cookie_name'] . '_sgp_left']) || isset($_COOKIE[$config['cookie_name'] . '_sgp_center']) || isset($_COOKIE[$config['cookie_name'] . '_sgp_right']) && $use_block_cookies)
 	{
 		$left = request_var($config['cookie_name'] . '_sgp_left', '', false, true);
-		$left = str_replace("left[]=", "", $left);
+		$left = str_replace("left[]=", "", (string) $left);
 		$left = str_replace("&amp;", ',', $left);
 		$LBA = explode(',', $left);
 
 		$center = request_var($config['cookie_name'] . '_sgp_center', '', false, true);
-		$center = str_replace("center[]=", "", $center);
+		$center = str_replace("center[]=", "", (string) $center);
 		$center = str_replace("&amp;", ',', $center);
 		$CBA = explode(',', $center);
 
 		$right = request_var($config['cookie_name'] . '_sgp_right', '', false, true);
-		$right = str_replace("right[]=", "", $right);
+		$right = str_replace("right[]=", "", (string) $right);
 		$right = str_replace("&amp;", ',', $right);
 		$RBA = explode(',', $right);
 
@@ -156,7 +156,7 @@ $result = $db->sql_query($sql, $block_cache_time);
 while ($row = $db->sql_fetchrow($result))
 {
 	$active_blocks[] = $row;
-	$arr[$row['id']] = explode(','  , $row['view_pages']);
+	$arr[$row['id']] = explode(','  , (string) $row['view_pages']);
 }
 
 // process phpbb common data //
@@ -166,7 +166,7 @@ $this_page_name = $this_page[0];
 
 foreach ($active_blocks as $active_block)
 {
-	$filename = substr($active_block['html_file_name'], 0, strpos($active_block['html_file_name'], '.'));
+	$filename = substr((string) $active_block['html_file_name'], 0, strpos((string) $active_block['html_file_name'], '.'));
 
 	if (file_exists($phpbb_root_path . 'blocks/' . $filename . '.' . $phpEx))
 	{
@@ -221,8 +221,8 @@ if ($active_blocks)
 		$img_file_name      = $row['img_file_name'];
 		$view_pages         = $row['view_pages'];
 
-		$arr = explode(',', $view_pages);
-		$grps = explode(",", $block_view_groups);
+		$arr = explode(',', (string) $view_pages);
+		$grps = explode(",", (string) $block_view_groups);
 
 		$process_block = false;
 		$block_title = get_menu_lang_name($row['title']);
@@ -346,7 +346,7 @@ if (isset($center_block_ary) && $show_center)
 
 		if (file_exists($my_file_wide))
 		{
-			$value = str_replace('.html', '_wide.html', $value);
+			$value = str_replace('.html', '_wide.html', (string) $value);
 		}
 		else
 		{
@@ -354,7 +354,7 @@ if (isset($center_block_ary) && $show_center)
 			$my_file_wide = str_replace('.html', '_wide.html', $my_file_wide);
 			if (file_exists($my_file_wide))
 			{
-				$value = str_replace('.html', '_wide.html', $value);
+				$value = str_replace('.html', '_wide.html', (string) $value);
 			}
 		}
 
@@ -453,5 +453,3 @@ if ($this_page[0] == 'viewtopic')
 		'QUOTE_IMG'           => $user->img('icon_post_quote', 'REPLY_WITH_QUOTE'),
 	));
 }
-
-?>

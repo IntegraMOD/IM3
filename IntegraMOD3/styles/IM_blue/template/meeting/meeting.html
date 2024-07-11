@@ -1,0 +1,25 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{L_PAGE_TITLE}</h2>
+
+<!-- IF U_MEETING_VIEW --><p style="float: left;"><a href="{U_MEETING_VIEW}">{MEETING_VIEW}</a></p><!-- ENDIF -->
+<!-- IF S_M_CAN_ADD --><p style="float: right;"><a href="{U_MEETING_ADD}">{L_MEETING_ADD}</a></p><!-- ENDIF -->
+
+<div style="clear: both;"></div>
+
+<!-- IF S_MEETING_EDIT --><!-- INCLUDE meeting/meeting_edit.html --><!-- ENDIF -->
+<!-- IF S_MEETING_DETAIL --><!-- INCLUDE meeting/meeting_detail.html --><!-- ENDIF -->
+<!-- IF S_MEETING_MANAGE --><!-- INCLUDE meeting/meeting_manage.html --><!-- ENDIF -->
+<!-- IF S_MEETING_CAL --><!-- INCLUDE meeting/meeting_cal.html --><!-- ENDIF -->
+
+<br />
+
+<!-- IF S_M_CAN_ADD --><p style="text-align: right;"><a href="{U_MEETING_ADD}">{L_MEETING_ADD}</a></p><!-- ENDIF -->
+
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<div class="copyright">{MEETING_VERSION}<br />{L_MEETING_TIMEZONE_HINT}</div>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<!-- INCLUDE overall_footer.html -->

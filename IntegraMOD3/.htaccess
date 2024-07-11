@@ -55,3 +55,17 @@
 		</Files>
 	</IfModule>
 </IfModule>
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+Rewriterule ^blog/(.+)/(.+).html$		./blog/view/blog.php?page=$1&mode=$2 [NC]
+Rewriterule ^blog/(.+).html$			./blog/blog.php?page=$1 [NC]
+Rewriterule ^blog/(.+)/$				./blog/view/blog.php?page=$1 [NC]
+Rewriterule ^blog/$						./blog/blog.php [NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+Rewriterule ^blog/(.+)/(.+)$		./blog/view/blog.php?page=$1&mode=$2 [NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^blog/(.+)$ ./blog/blog.php?page=$1 [NC]
+</IfModule>

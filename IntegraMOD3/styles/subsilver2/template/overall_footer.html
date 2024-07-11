@@ -7,11 +7,35 @@
 <div id="wrapfooter">
 	<!-- IF U_ACP --><span class="gensmall">[ <a href="{U_ACP}">{L_ACP}</a> ]</span><br /><br /><!-- ENDIF -->
 	<span class="copyright">{L_ASACP_CREDITS}<br />{CREDIT_LINE}
-		<!-- IF STARGATE --><br /><!-- INCLUDE portal_copyright.html --><!-- ENDIF -->
+	<!-- IF SCRIPT_NAME eq 'activitypage' or SCRIPT_NAME eq 'profile' -->Powered by <a href="#" title="phpBB Social Network">phpBB Social Network</a> &copy; phpBB SN Group'<!-- ENDIF -->	
+	<!-- IF STARGATE --><br /><!-- INCLUDE portal_copyright.html --><!-- ENDIF -->
 	<!-- IF TRANSLATION_INFO --><br />{TRANSLATION_INFO}<!-- ENDIF -->
 	<!-- IF DEBUG_OUTPUT --><br /><bdo dir="ltr">[ {DEBUG_OUTPUT} ]</bdo><!-- ENDIF --></span>
 </div>
-
+<div>
+	<a id="bottom" name="bottom" accesskey="z"></a>
+	<!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->
+	<!-- ajaxlike -->
+	<!-- IF AJAXLIKE_ENABLE -->
+	<div id="ajaxlike_not-dialog"></div>
+	<div id="ajaxlike-not-dialog" title="{L_AL_LIKE_NEW_TITLE}"></div>
+	<!-- IF AJAXLIKE_NOTIFY_ENABLE and META == '' -->
+	<script>
+	// <![CDATA[
+		ajaxlike_init_notify({AJAXLIKE_NOTIFY_INTERVAL},'{AJAXLIKE_NOTIFY_CALLBACK}');
+	// ]]>
+	</script>
+	<!-- ENDIF -->
+	<!-- ENDIF -->
+	<!-- ajaxlike -->	
+</div>	
+<!-- IF SN_MODULE_IM_ENABLED -->
+    <!-- INCLUDE socialnet/im.html -->
+<!-- ENDIF -->
+</table>
+<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD --><!-- INCLUDE password_strength.html --><!-- ENDIF -->
+</body>
+</html>
 
 <!-- IF STARGATE--></div><!-- ENDIF -->
 

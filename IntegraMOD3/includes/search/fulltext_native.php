@@ -915,7 +915,7 @@ class fulltext_native extends search_backend
 						if ($db->sql_layer == 'sqlite')
 						{
 							$sql = 'SELECT COUNT(topic_id) as total_results
-								FROM (SELECT DISTINCT t.topic_id';
+								FROM (ANY_VALUE t.topic_id';
 						}
 						else
 						{
@@ -988,7 +988,7 @@ class fulltext_native extends search_backend
 		if (!$total_results && $is_mysql)
 		{
 			// Count rows for the executed queries. Replace $select within $sql with SQL_CALC_FOUND_ROWS, and run it.
-			$sql = str_replace('SELECT ' . $select, 'SELECT DISTINCT SQL_CALC_FOUND_ROWS p.post_id', $sql);
+//			$sql = str_replace('SELECT ' . $select, 'ANY_VALUE SQL_CALC_FOUND_ROWS p.post_id', $sql);
 
 			$result = $db->sql_query($sql);
 			$db->sql_freeresult($result);

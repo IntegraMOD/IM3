@@ -48,7 +48,7 @@ if (!function_exists('sgp_get_rand_logo'))
 			return $user->img('site_logo');
 		}
 
-		mt_srand((double)microtime()*1000001);
+		mt_srand((double)microtime()*1_000_001);
 
 		$logos_dir = "{$phpbb_root_path}styles/" . $user->theme['theme_path'] . '/theme/images/logos';
 
@@ -78,7 +78,7 @@ if (!function_exists('sgp_get_rand_logo'))
 			return $user->img('site_logo');
 		}
 
-		$random = mt_rand(0, (mt_rand(0, (sizeof($imglist)-2))));
+		$random = random_int(0, (random_int(0, (sizeof($imglist)-2))));
 
 		$image = $imglist[$random];
 
@@ -208,7 +208,7 @@ if (!function_exists('sgp_checksize'))
 {
 	function sgp_checksize($txt,$len)
 	{
-		if (strlen($txt) > $len)
+		if (strlen((string) $txt) > $len)
 		{
 			$txt = truncate_string($txt, $len);
 			$txt .= '...';
@@ -224,14 +224,9 @@ if (!function_exists('sgp_checksize'))
 if (!function_exists('smiley_sort'))
 {
 	function smiley_sort($a, $b)
-	{
-		if ( strlen($a['code']) == strlen($b['code']) )
-		{
-			return 0;
-		}
-
-		return ( strlen($a['code']) > strlen($b['code']) ) ? -1 : 1;
-	}
+ {
+     return strlen((string) $b['code']) <=> strlen((string) $a['code']);
+ }
 }
 
 /***
@@ -248,7 +243,7 @@ if (!function_exists('search_block_func'))
 		$template->assign_vars(array(
 			"L_SEARCH_ADV"     => $lang['SEARCH_ADV'],
 			"L_SEARCH_OPTION"  => (!empty($portal_config['search_option_text'])) ? $portal_config['search_option_text'] : $board_config ['sitename'],
-			'U_SEARCH'         => append_sid("{$phpbb_root_path}search.$phpEx", 'keywords=' . urlencode($keywords)),
+			'U_SEARCH'         => append_sid("{$phpbb_root_path}search.$phpEx", 'keywords=' . urlencode((string) $keywords)),
 		));
 	}
 }
@@ -294,18 +289,18 @@ if (!function_exists('process_for_vars'))
 			$find = $search;
 
 			// convert to normal text //
-			$search = str_replace($a, $b, $search);
+			$search = str_replace($a, $b, (string) $search);
 			$search = strtolower($search);
 
 			if (isset($k_config[$search]))
 			{
-				$replace = (isset($k_config[$search])) ? $k_config[$search] : '';
-				$data = str_replace($find, $replace, $data);
+				$replace = $k_config[$search] ?? '';
+				$data = str_replace($find, $replace, (string) $data);
 			}
 			else if (isset($config[$search]))
 			{
-				$replace = (isset($config[$search])) ? $config[$search] : '';
-				$data = str_replace($find, $replace, $data);
+				$replace = $config[$search] ?? '';
+				$data = str_replace($find, $replace, (string) $data);
 			}
 		}
 		return($data);
@@ -352,12 +347,11 @@ if (!function_exists('sgp_build_minimods'))
 		{
 			$mod_type = $mod['mod_type'];
 
-			switch ($mod['mod_download_count'])
-			{
-				case 0:		$mod['mod_download_count'] = sprintf($user->lang['DOWNLOAD_COUNT_NONE'], $mod['mod_download_count']); break;
-				case 1:		$mod['mod_download_count'] = sprintf($user->lang['DOWNLOAD_COUNT'], $mod['mod_download_count']); break;
-				default:	$mod['mod_download_count'] = sprintf($user->lang['DOWNLOAD_COUNTS'], $mod['mod_download_count']); break;
-			}
+			$mod['mod_download_count'] = match ($mod['mod_download_count']) {
+       0 => sprintf($user->lang['DOWNLOAD_COUNT_NONE'], $mod['mod_download_count']),
+       1 => sprintf($user->lang['DOWNLOAD_COUNT'], $mod['mod_download_count']),
+       default => sprintf($user->lang['DOWNLOAD_COUNTS'], $mod['mod_download_count']),
+   };
 
 			if ($mod_type == $stored_mod_type)
 			{
@@ -368,10 +362,10 @@ if (!function_exists('sgp_build_minimods'))
 				$same_mod_count = 1;
 			}
 
-			$info = process_for_vars(htmlspecialchars_decode($mod['mod_details']));
+			$info = process_for_vars(htmlspecialchars_decode((string) $mod['mod_details']));
 			$info = acronym_pass($info);
 
-			$mod_bbcode_bitfield = $mod_bbcode_bitfield | base64_decode($mod['mod_bbcode_bitfield']);
+			$mod_bbcode_bitfield = $mod_bbcode_bitfield | base64_decode((string) $mod['mod_bbcode_bitfield']);
 
 			// Instantiate BBCode class
 			if (!isset($bbcode) && $mod_bbcode_bitfield !== '')
@@ -413,8 +407,8 @@ if (!function_exists('sgp_build_minimods'))
 					'MOD_STATUS'			=> k_progress_bar($mod['mod_status']),
 					'MOD_COUNT'				=> $same_mod_count,
 					'U_MOD_FILENAME'		=> $filename,
-					'U_MOD_LINK'			=> htmlspecialchars_decode($mod['mod_link']),// . $mod['mod_name'],
-					'U_MOD_SUPPORT'			=> htmlspecialchars_decode($mod['mod_support_link']),
+					'U_MOD_LINK'			=> htmlspecialchars_decode((string) $mod['mod_link']),// . $mod['mod_name'],
+					'U_MOD_SUPPORT'			=> htmlspecialchars_decode((string) $mod['mod_support_link']),
 					'U_MOD_TEST_IT'			=> ($mod['mod_link_id'] && $select_allow) ? $phpbb_root_path . 'portal.php?style=' . $mod['mod_link_id'] : '',
 				));
 			}
@@ -437,8 +431,8 @@ if (!function_exists('sgp_build_minimods'))
 					'MOD_STATUS'			=> k_progress_bar($mod['mod_status']),
 					'MOD_COUNT'				=> $same_mod_count,
 					'U_MOD_FILENAME'		=> $filename,
-					'U_MOD_LINK'			=> htmlspecialchars_decode($mod['mod_link']),// . $mod['mod_name'],
-					'U_MOD_SUPPORT'			=> htmlspecialchars_decode($mod['mod_support_link']),
+					'U_MOD_LINK'			=> htmlspecialchars_decode((string) $mod['mod_link']),// . $mod['mod_name'],
+					'U_MOD_SUPPORT'			=> htmlspecialchars_decode((string) $mod['mod_support_link']),
 					'U_MOD_TEST_IT'			=> ($mod['mod_link_id'] && $select_allow) ? $phpbb_root_path . 'portal.php?style=' . $mod['mod_link_id'] : '',
 				));
 			}
@@ -556,11 +550,11 @@ if (!function_exists('process_for_admin_bbcodes'))
 
 		if ($user->data['user_id'] == ANONYMOUS)
 		{
-			$data = str_replace("[you]", $user->lang['GUEST'], $data);
+			$data = str_replace("[you]", $user->lang['GUEST'], (string) $data);
 		}
 		else
 		{
-			$data = str_replace("[you]", ('<span style="font-weight:bold; color:#' . $user->data['user_colour'] . ';">' . $user->data['username'] . '</span>'), $data);
+			$data = str_replace("[you]", ('<span style="font-weight:bold; color:#' . $user->data['user_colour'] . ';">' . $user->data['username'] . '</span>'), (string) $data);
 		}
 		return($data);
 	}
@@ -615,7 +609,7 @@ if (!function_exists('get_menu_lang_name'))
 		}
 
 		$block_title = $input;
-		$name = strtoupper($input);
+		$name = strtoupper((string) $input);
 		$name = str_replace(" ","_", $name);
 		$block_title = (!empty($user->lang[$name])) ? $user->lang[$name] : $block_title;
 
@@ -690,17 +684,17 @@ if (!function_exists('get_link_from_image_name'))
 {
 	function get_link_from_image_name($image)
 	{
-		if (strpos($image, '.gif'))
+		if (strpos((string) $image, '.gif'))
 		{
-			$lnk = explode(".gif", $image);
+			$lnk = explode(".gif", (string) $image);
 		}
-		else if (strpos($image, '.png'))
+		else if (strpos((string) $image, '.png'))
 		{
-			$lnk = explode(".png", $image);
+			$lnk = explode(".png", (string) $image);
 		}
-		else if (strpos($image, '.jpg'))
+		else if (strpos((string) $image, '.jpg'))
 		{
-			$lnk = explode(".jpg", $image);
+			$lnk = explode(".jpg", (string) $image);
 		}
 
 		$lnk = str_replace('+','/', $lnk);
@@ -763,7 +757,7 @@ if (!function_exists('generate_menus'))
 
 				if (!$process_menu_item)
 				{
-					$grps = explode(",", $menu_view_groups);
+					$grps = explode(",", (string) $menu_view_groups);
 
 					if ($memberships)
 					{
@@ -793,11 +787,11 @@ if (!function_exists('generate_menus'))
 
 				if ($process_menu_item)
 				{
-					$name = strtoupper($k_menus[$i]['name']);														// convert to uppercase //
+					$name = strtoupper((string) $k_menus[$i]['name']);														// convert to uppercase //
 					$tmp_name = str_replace(' ','_', $name);														// replace spaces with underscore //
 					$name = (!empty($user->lang[$tmp_name])) ? $user->lang[$tmp_name] : $k_menus[$i]['name'];		// get language equivalent //
 
-					if (strstr($k_menus[$i]['link_to'], 'http'))
+					if (strstr((string) $k_menus[$i]['link_to'], 'http'))
 					{
 						$link = ($k_menus[$i]['link_to']) ? $k_menus[$i]['link_to'] : '';
 					}
@@ -805,7 +799,7 @@ if (!function_exists('generate_menus'))
 					{
 						if ($k_menus[$i]['append_sid'])
 						{
-							if (strpos($k_menus[$i]['link_to'], 'hash')) // allow Mark forums read //
+							if (strpos((string) $k_menus[$i]['link_to'], 'hash')) // allow Mark forums read //
 							{
 								$link = ($user->data['is_registered'] || $config['load_anon_lastread']) ? append_sid("{$phpbb_root_path}index.$phpEx", 'hash=' . generate_link_hash('global') . '&amp;mark=forums') : '';
 							}
@@ -823,20 +817,11 @@ if (!function_exists('generate_menus'))
 					$is_sub_heading = ($k_menus[$i]['sub_heading']) ? true : false;
 
 					// we use js to manage open ibn tab //
-					switch ($k_menus[$i]['extern'])
-					{
-						case 1:
-							$link_option = 'rel="external"';
-						break;
-
-						case 2:
-							$link_option = ' onclick="window.open(this.href); return false;"';
-						break;
-
-						default:
-							 $link_option = '';
-						break;
-					}
+					$link_option = match ($k_menus[$i]['extern']) {
+         1 => 'rel="external"',
+         2 => ' onclick="window.open(this.href); return false;"',
+         default => '',
+     };
 
 					// can be reduce later...
 					if ($k_menus[$i]['menu_type'] == NAV_MENUS)
@@ -905,7 +890,7 @@ if (!function_exists('tools_image_attached'))
 		global $_FILES, $_POST;
 
 		//Look for image to handle from either upload or remotely linked
-		if (((isset($_FILES['FILE_UPLOAD'])) && ($_FILES['FILE_UPLOAD']['name'])) || ((!preg_match("/^http:\/\/$/i", $_POST['url_image'])) && (!empty($_POST['url_image']))))
+		if (((isset($_FILES['FILE_UPLOAD'])) && ($_FILES['FILE_UPLOAD']['name'])) || ((!preg_match("/^http:\/\/$/i", (string) $_POST['url_image'])) && (!empty($_POST['url_image']))))
 		{
 			return true;
 		}

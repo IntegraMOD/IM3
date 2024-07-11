@@ -271,7 +271,7 @@ class phpbb_gallery_image_file
 		if (!$this->image_content_type)
 		{
 			// We don't have the image, so we guess the mime_type by filename
-			$this->image_content_type = $this->mimetype_by_filename($this->image_source);
+			$this->image_content_type = static::mimetype_by_filename($this->image_source);
 			if (!$this->image_content_type)
 			{
 				trigger_error('NO_MIMETYPE_MATCHED');
@@ -563,5 +563,3 @@ class phpbb_gallery_image_file
 		}
 	}
 }
-
-?>

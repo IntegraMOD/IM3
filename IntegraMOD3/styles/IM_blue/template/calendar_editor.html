@@ -1,0 +1,280 @@
+<script type="text/javascript">
+
+function showHideGroups(obj)
+{
+	for(var i=0; i<obj.length; i++)
+	{
+		if(obj[i].checked)
+		{
+			var this_radio = obj[i].id;
+		}
+	}
+
+	switch(this_radio)
+	{
+		case 'group_public':
+			document.getElementById('users_list').style.display = 'none';
+			document.getElementById('group_list').style.display = 'none';
+		break;
+
+		case 'group_private':
+			document.getElementById('users_list').style.display = '';
+			document.getElementById('group_list').style.display = 'none';
+		break;
+
+		case 'group_groups':
+			document.getElementById('users_list').style.display = 'none';
+			document.getElementById('group_list').style.display = '';
+		break;
+	}
+}
+
+function showHideRepeatOptions(obj)
+{
+	document.getElementById('repeat_options').style.display = document.getElementById('event_repeat_yes').checked ? 'block' : 'none';
+
+	if(obj.id == 'event_repeat_when')
+	{
+		switch(obj.value)
+		{
+			case 'WM':
+				document.getElementById('nth_month_opts').style.display = 'none';
+				document.getElementById('nth_day_opts').style.display = 'block';
+			break;
+
+			case 'WY':
+				document.getElementById('nth_day_opts').style.display = 'none';
+				document.getElementById('nth_month_opts').style.display = 'block';
+			break;
+
+			default:
+				document.getElementById('nth_day_opts').style.display = 'none';
+				document.getElementById('nth_month_opts').style.display = 'none';
+			break;
+		}
+	}
+}
+
+</script>
+
+<div class="panel bg3" id="event-panel" style="display: none">
+	<div class="inner">
+		<h3>{L_CALENDAR_ADD_EVENT}</h3>
+
+		<!-- DEFINE $EXTRA_POSTING_OPTIONS = 1 -->
+		<fieldset class="fields1">
+		<p class="error" id="error">{EVENT_ERROR}</p>
+
+		<!-- IF S_DELETE_ALLOWED -->
+			<dl>
+				<dt><label for="delete_event">{L_CALENDAR_DELETE_EVENT}:</label></dt>
+				<dd><label for="delete_event"><input type="checkbox" name="delete_event" id="delete_event" /> {L_CALENDAR_DELETE_WARN}</label></dd>
+			</dl>
+		<!-- ENDIF -->
+
+		<!-- IF not S_POSTING_TOPIC -->
+		<dl style="clear: left;">
+			<dt><label for="subject">{L_CALENDAR_EVENT_NAME}:</label></dt>
+			<dd><input type="text" name="name" size="45" maxlength="64" tabindex="2" value="{SUBJECT}" class="inputbox autowidth" /></dd>
+		</dl>
+		<!-- ENDIF -->
+
+		<fieldset id="repeat_params">
+			<dl style="clear: left;">
+				<dt><label for="subject">{L_CALENDAR_EVENT_START}:</label></dt>
+				<dd>
+				{L_DATE}:<input class="post" type="text" name="date" id="date" size="10" maxlength="10" tabindex="3" value="{DATE_IN}" readonly="readonly" onfocus="date_show(this);" onclick="event.cancelBubble=true;date_show(this);"/>
+				{L_TIME}:<input class="post" type="text" name="time" id="time" size="10" maxlength="10" tabindex="4" value="{TIME_IN}" readonly="readonly" onfocus="time_show(this);" onclick="event.cancelBubble=true;time_show(this);"/></dd>
+			</dl>
+			<dl style="clear: left;">
+				<dt><label for="subject">{L_CALENDAR_EVENT_END}:</label></dt>
+				<dd>
+				{L_DATE}:<input class="post" type="text" name="end_date" id="end_date" size="10" maxlength="10" tabindex="3" value="{DATE_OUT}" readonly="readonly" onfocus="date_show(this);" onclick="event.cancelBubble=true;date_show(this);"/>
+				{L_TIME}:<input class="post" type="text" name="end_time" id="end_time" size="10" maxlength="10" tabindex="4" value="{TIME_OUT}" readonly="readonly" onfocus="time_show(this);" onclick="event.cancelBubble=true;time_show(this);"/></dd>
+			</dl>
+			<dl style="clear: left;">
+				<dt><label for="event_repeat">{L_CALENDAR_EVENT_REPEAT}:</label></dt>
+				<dd>
+				<label for="event_repeat_yes"><input type="radio" name="event_repeat" id="event_repeat_yes" value="1" onclick="document.getElementById('repeat_options').style.display = 'block'; validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');" <!-- IF S_EVENT_REPEAT --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label for="event_repeat_no"><input type="radio" name="event_repeat" id="event_repeat_no" value="0" onclick="document.getElementById('repeat_options').style.display = 'none';" <!-- IF not S_EVENT_REPEAT --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<!-- IF S_EVENT_REPEAT -->
+			<dl id="repeat_options" style="display: block; height: 100%;">
+			<!-- ELSE -->
+			<dl id="repeat_options" style="display: none; height: 100%;">
+			<!-- ENDIF -->
+				<dt><label for="repeat_count">{L_CALENDAR_REPEAT_COUNT}:</label></dt>
+				<dd>
+					<select name="event_repeat_count" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value=0>--</option>
+					<!-- BEGIN repeat_count_options -->
+						<option value="{repeat_count_options.COUNT_VAL}" <!-- IF repeat_count_options.COUNT_VAL == REPEAT_COUNT_SELECTED -->selected="selected" <!-- ENDIF -->>{repeat_count_options.COUNT_VAL}</option>
+					<!-- END repeat_count_options -->
+					</select>
+				</dd>
+				<dt><label for="repeat_when">{L_CALENDAR_REPEAT_PERIOD}:</label></dt>
+				<dd>
+					<select name="event_repeat_when" id="event_repeat_when" onchange="showHideRepeatOptions(this); validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="--">-------------------------</option>
+					<!-- BEGIN repeat_period_options -->
+						<option value="{repeat_period_options.REPEAT_OPT_CODE}" <!-- IF repeat_period_options.REPEAT_OPT_CODE == REPEAT_PERIOD_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_period_options.REPEAT_OPT}</option>
+					<!-- END repeat_period_options -->
+					</select>
+				</dd>
+
+				<dd id="nth_day_opts" style="display: none;">
+					<select name="nth_day_position" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">------</option>
+					<!-- BEGIN repeat_nth_position_options -->
+						<option value="{repeat_nth_position_options.POSITION_CODE}" <!-- IF repeat_nth_position_options.POSITION_CODE == REPEAT_NTH_DAY_POSITION_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_position_options.POSITION_NAME}</option>
+					<!-- END repeat_nth_position_options -->
+					</select>
+					<select name="nth_weekday" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">---------</option>
+					<!-- BEGIN repeat_nth_day_options -->
+						<option value="{repeat_nth_day_options.DAY_CODE}" <!-- IF repeat_nth_day_options.DAY_CODE == REPEAT_NTH_DAY_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_day_options.DAY_NAME}</option>
+					<!-- END repeat_nth_day_options -->
+					</select>
+					{L_EVERY}
+					<select name="nth_count" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="--">--</option>
+					<!-- BEGIN repeat_nth_count_options -->
+						<option value="{repeat_nth_count_options.COUNT}" <!-- IF repeat_nth_count_options.COUNT == REPEAT_NTH_COUNT_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_count_options.COUNT}</option>
+					<!-- END repeat_nth_count_options -->
+					</select>
+					{L_MONTHS}
+				</dd>
+				<dd id="nth_month_opts" style="display: none;">
+					<select name="nth_month_position" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">------</option>
+					<!-- BEGIN repeat_nth_position_options -->
+						<option value="{repeat_nth_position_options.POSITION_CODE}" <!-- IF repeat_nth_position_options.POSITION_CODE == REPEAT_NTH_MONTH_POSITION_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_position_options.POSITION_NAME}</option>
+					<!-- END repeat_nth_position_options -->
+					</select>
+					<select name="nth_month_weekday" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">---------</option>
+					<!-- BEGIN repeat_nth_day_options -->
+						<option value="{repeat_nth_day_options.DAY_CODE}" <!-- IF repeat_nth_day_options.DAY_CODE == REPEAT_NTH_MONTH_DAY_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_day_options.DAY_NAME}</option>
+					<!-- END repeat_nth_day_options -->
+					</select>
+					{L_OF}
+					<select name="nth_month_month" onchange="validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');"><option value="-">---------</option>
+					<!-- BEGIN repeat_nth_month_options -->
+						<option value="{repeat_nth_month_options.MONTH_CODE}" <!-- IF repeat_nth_month_options.MONTH_CODE == REPEAT_NTH_MONTH_SELECTED -->selected="selected"<!-- ENDIF -->>{repeat_nth_month_options.MONTH_NAME}</option>
+					<!-- END repeat_nth_month_options -->
+					</select>
+					{L_EVERY_YEAR}
+				</dd>
+
+				<dt><label for="repeat_dates">{L_CALENDAR_REPEAT_DATES}:</label></dt>
+				<dd id="repeat_dates" style="font-family: courier;"></dd>
+			</dl>
+		</fieldset>
+		<p class="sep" id="repeat_dates"></p>
+
+		<dl style="clear: left;">
+			<dt><label for="invite_attendees">{L_CALENDAR_INVITE_ATTENDEES}:</label></dt>
+			<dd>
+			<label for="invite_attendees_yes"><input type="radio" name="invite_attendees" id="invite_attendees_yes" value="1" <!-- IF S_INVITE_ATTENDEES --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label for="invite_attendees_no"><input type="radio" name="invite_attendees" id="invite_attendees_no" value="0" <!-- IF not S_INVITE_ATTENDEES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			</dd>
+		</dl>
+
+		<!-- IF not S_POSTING_TOPIC -->
+			<dl style="clear: left;">
+				<dt><label for="group_select">{L_GROUPS}:</label></dt>
+				<dd>
+					<label for="group_public"><input type="radio" name="group_select" id="group_public" value="{EVENT_VIEW_BY_PUBLIC}" onclick="showHideGroups(group_select)" <!-- IF S_PUBLIC_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_GROUP_PUBLIC}</label>
+					<label for="group_private"><input type="radio" name="group_select" id="group_private" value="{EVENT_VIEW_BY_PRIVATE}" onclick="showHideGroups(group_select)" <!-- IF S_PRIVATE_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_GROUP_PRIVATE}</label>
+					<label for="group_groups"><input type="radio" name="group_select" id="group_groups" value="{EVENT_VIEW_BY_GROUPS}" onclick="showHideGroups(group_select)" <!-- IF S_GROUPS_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_GROUPS}</label>
+				</dd>
+			</dl>
+			<dl style="width:400px; <!-- .group_row ->height:100px;<!-- else -->height:auto;<!-- endif --> ">
+				<dl id="group_list" style="display: none; height: 100%;">
+					<dd>
+						<select name="group[]" class="input" size="{NUM_GROUPS}" multiple="multiple" style="overflow:hidden;" >
+						<!-- BEGIN group_row -->
+						<option value="{group_row.GROUP_ID}" {group_row.GROUP_SELECT}>{group_row.GROUP_NAME}</option>
+						<!-- END group_row -->
+						</select>
+					</dd>
+				</dl>
+				<dl id="users_list" style="display: none; height: 100%;">
+					<dd>
+						<textarea id="username_list" name="username_list" class="inputbox" rows="5" cols="50">{PRIV_USER_LIST}</textarea>
+					</dd>
+					<dd>
+						<a onclick="find_username(this.href); return false;" href="{U_FIND_USERNAME}">{L_FIND_USERNAME}</a>
+					</dd>
+				</dl>
+			</dl>
+			<dl style="clear: left;">
+				<dt><label for="subject">{L_CALENDAR_EVENT_DESC}:</label></dt>
+			</dl>
+			<script type="text/javascript">
+				// Initialise how everything is displayed
+				showHideGroups(document.postform.group_select);
+			</script>
+		<!-- ENDIF -->
+
+		<script type="text/javascript">
+			showHideRepeatOptions(document.getElementById('event_repeat_when'));
+			validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');
+		</script>
+
+	<!-- IF not S_POSTING_TOPIC -->
+		<!-- INCLUDE posting_buttons.html -->
+		<div id="smiley-box">
+			<!-- IF S_SMILIES_ALLOWED and .smiley -->
+				<strong>{L_SMILIES}</strong><br />
+				<!-- BEGIN smiley -->
+					<a href="#" onclick="insert_text('{smiley.A_SMILEY_CODE}', true); return false;"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+				<!-- END smiley -->
+			<!-- ENDIF -->
+			<!-- IF S_SHOW_SMILEY_LINK and S_SMILIES_ALLOWED-->
+				<br /><a href="{U_MORE_SMILIES}" onclick="window.open('{U_MORE_SMILIES}', '_phpbbsmilies', 'HEIGHT=350,resizable=yes,scrollbars=yes,WIDTH=300'); return false;">{L_MORE_SMILIES}</a>
+			<!-- ENDIF -->
+
+			<!-- IF BBCODE_STATUS -->
+				<!-- IF .smiley --><hr /><!-- ENDIF -->
+				{BBCODE_STATUS}<br />
+				<!-- IF S_BBCODE_ALLOWED -->
+				{URL_STATUS}<br />
+				{SMILIES_STATUS}
+				<!-- ENDIF -->
+			<!-- ENDIF -->
+		</div>
+		<div id="message-box">
+			<textarea name="message" id="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" class="inputbox">{MESSAGE}</textarea>
+		</div>
+	<!-- ENDIF -->
+
+	</fieldset>
+	</div>
+</div>
+
+<div id="submit-panel" class="panel bg2">
+	<div class="inner">
+	<fieldset class="submit-buttons">
+		<input type="submit" accesskey="s" tabindex="6" name="post" value="{L_SUBMIT}" class="button1" />&nbsp;
+		<input type="submit" accesskey="c" tabindex="7" name="cancel" value="{L_CANCEL}" class="button1" />
+	</fieldset>
+	</div>
+</div>
+
+<div id="options-panel" class="panel bg3">
+	<div class="inner">
+	<fieldset class="fields1">
+	<!-- IF not S_POSTING_TOPIC -->
+		<!-- IF S_BBCODE_ALLOWED -->
+			<div><label for="disable_bbcode"><input type="checkbox" name="disable_bbcode" id="disable_bbcode"{S_BBCODE_CHECKED} /> {L_DISABLE_BBCODE}</label></div>
+		<!-- ENDIF -->
+
+		<!-- IF S_SMILIES_ALLOWED -->
+			<div><label for="disable_smilies"><input type="checkbox" name="disable_smilies" id="disable_smilies"{S_SMILIES_CHECKED} /> {L_DISABLE_SMILIES}</label></div>
+		<!-- ENDIF -->
+
+		<!-- IF S_LINKS_ALLOWED -->
+			<div><label for="disable_magic_url"><input type="checkbox" name="disable_magic_url" id="disable_magic_url"{S_MAGIC_URL_CHECKED} /> {L_DISABLE_MAGIC_URL}</label></div>
+		<!-- ENDIF -->
+
+	<!-- ENDIF -->
+	</fieldset>
+	</div>
+</div>
+
+<!-- INCLUDE calendar_datetime_picker.html -->

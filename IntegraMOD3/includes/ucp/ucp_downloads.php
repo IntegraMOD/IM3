@@ -268,4 +268,3 @@ class ucp_downloads
 	}
 }
 
-?>

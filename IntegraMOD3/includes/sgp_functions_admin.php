@@ -69,7 +69,7 @@ if (!function_exists('get_all_groups'))
 			$group_id = $row['group_id'];
 			$group_name = $row['group_name'];
 
-			$group_name = ($user->lang(strtoupper('G_'.$group_name))) ? $user->lang(strtoupper('G_'.$group_name)) : $user->lang(strtoupper($group_name));
+			$group_name = ($user->lang(strtoupper('G_'.$group_name))) ? $user->lang(strtoupper('G_'.$group_name)) : $user->lang(strtoupper((string) $group_name));
 
 			$template->assign_block_vars('groups', array(
 				'GROUP_NAME' => $group_name,
@@ -88,10 +88,9 @@ if (!function_exists('phpbb_preg_quote'))
 {
 	function phpbb_preg_quote($str, $delimiter)
 	{
-		$text = preg_quote($str);
+		$text = preg_quote((string) $str);
 		$text = str_replace($delimiter, '\\' . $delimiter, $text);
 
 		return $text;
 	}
 }
-?>

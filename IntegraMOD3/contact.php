@@ -645,7 +645,7 @@ if ($config_contact['contact_method'] != CONTACT_METHOD_EMAIL)
 
 // Visual Confirmation - Show images
 // BEGIN Anti Bot Mod by CoC addon
-if (($config['enable_abquestion'] && $config_contact['contact_confirm']) && $solved_abq === false)
+if (($config['enable_abquestion'] ?? null && $config_contact['contact_confirm']) && $solved_abq === false)
 {
 	$ab_question = '';
 	$template->assign_vars(array(
@@ -739,6 +739,8 @@ $template->set_filenames(array(
 	'body' => 'contact_body.html')
 );
 
-page_footer();
+$template->assign_var(
+    'S_IN_CONTACT', true
+);
 
-?>
+page_footer();

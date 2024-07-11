@@ -25,6 +25,7 @@ $user->session_begin();
 $auth->acl($user->data);
 $user->setup();
 
+$template->assign_var('S_IN_HACKLIST', true);
 /*
 * init and get various values
 */
@@ -134,5 +135,3 @@ if (sizeof($dl_files))
 }
 
 page_footer();
-
-?>

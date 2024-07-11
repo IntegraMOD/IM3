@@ -55,3 +55,4 @@ $lang = array_merge($lang, array(
 	'acl_a_mchat'				=> array('lang' => 'Can manage mChat settings', 'cat' => 'permissions'), // Using a phpBB category here
 ));
 
+?>

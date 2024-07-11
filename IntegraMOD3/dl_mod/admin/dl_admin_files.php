@@ -1339,5 +1339,3 @@ if (!isset($dl_confirm))
 {
 	$template->assign_display('files');
 }
-
-?>

@@ -118,7 +118,8 @@ class acp_mchat
 			}
 
 			// Replace "error" strings with their real, localised form
-            $error = array_map(array($user, 'lang'), $error);
+			$error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", $error);			
+
 
 			if (!sizeof($error))
 			{
@@ -230,3 +231,5 @@ class acp_mchat
 		);
 	}	
 }
+
+?>

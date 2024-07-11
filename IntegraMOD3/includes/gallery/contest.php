@@ -19,7 +19,7 @@ if (!defined('IN_PHPBB'))
 
 class phpbb_gallery_contest
 {
-	const NUM_IMAGES = 3;
+	public const NUM_IMAGES = 3;
 
 	/**
 	* There are different modes to calculate who won the contest.
@@ -30,11 +30,11 @@ class phpbb_gallery_contest
 	/**
 	* The image with the highest average wins.
 	*/
-	const MODE_AVERAGE = 1;
+	public const MODE_AVERAGE = 1;
 	/**
 	* The image with the highest number of total points wins.
 	*/
-	const MODE_SUM = 2;
+	public const MODE_SUM = 2;
 
 	/**
 	* Get the contest row from the table

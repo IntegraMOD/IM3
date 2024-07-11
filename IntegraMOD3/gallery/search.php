@@ -685,5 +685,3 @@ $template->set_filenames(array(
 );
 
 page_footer();
-
-?>

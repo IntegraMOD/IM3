@@ -172,7 +172,7 @@ class ucp_k_blocks
 			'DATA_LEFT'        => $dataleft,
 			'DATA_CENTER'      => $datacenter,
 			'DATA_RIGHT'       => $dataright,
-			'L_TITLE'          => $user->lang['UCP_K_BLOCKS_' . strtoupper($mode)],
+			'L_TITLE'          => $user->lang['UCP_K_BLOCKS_' . strtoupper((string) $mode)],
 			'S_HIDDEN_FIELDS'  => $s_hidden_fields,
 			'S_UCP_ACTION'     => $this->u_action,
 		));
@@ -215,13 +215,13 @@ function get_default_block_layout($id)
 	{
 		while ($row = $db->sql_fetchrow($result))
 		{
-			if ($row['view_all'] == '1' || strpos($row['view_pages'], $user->data['group_id']))
+			if ($row['view_all'] == '1' || strpos((string) $row['view_pages'], (string) $user->data['group_id']))
 			{
 				if ($row['position'] == 'L')
 				{
 //					$count = count($row['view_pages']);
 
-					if (strpos($existing['user_left_blocks'], $row['id']))
+					if (strpos((string) $existing['user_left_blocks'], (string) $row['id']))
 					{
 						$dataleft .= $row['id'] . ',';
 					}
@@ -234,7 +234,7 @@ function get_default_block_layout($id)
 				}
 				else if ($row['position'] == 'C')
 				{
-					if (!strpos($existing['user_center_blocks'], $row['id']))
+					if (!strpos((string) $existing['user_center_blocks'], (string) $row['id']))
 					{
 						$datacenter .= '<strong>';
 						$datacenter .= $row['id'];
@@ -247,7 +247,7 @@ function get_default_block_layout($id)
 				}
 				else if ($row['position'] == 'R')
 				{
-					if (!strpos($existing['user_right_blocks'], $row['id']))
+					if (!strpos((string) $existing['user_right_blocks'], (string) $row['id']))
 					{
 						$dataright .= '<strong>';
 						$dataright .= $row['id'];
@@ -263,4 +263,4 @@ function get_default_block_layout($id)
 	}
 	$db->sql_freeresult($result);
 }
-?>
+ 

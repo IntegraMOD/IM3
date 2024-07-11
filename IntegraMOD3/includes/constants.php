@@ -25,11 +25,10 @@ if (!defined('IN_PHPBB'))
 */
 
 // phpBB Version
-define('PHPBB_VERSION', '3.0.14');
+define('PHPBB_VERSION', '3.0.15');
 
 // QA-related
 // define('PHPBB_QA', 1);
-
 // User related
 define('ANONYMOUS', 1);
 
@@ -325,16 +324,6 @@ define('WORDS_TABLE',				$table_prefix . 'words');
 define('ZEBRA_TABLE',				$table_prefix . 'zebra');
 
 // Additional tables
-	// ajaxlike
-if(!defined('LIKES_TABLE'))
-{
-	define('LIKES_TABLE',				$table_prefix . 'likes');
-	define('AL_ERROR_INVALID_REQUEST',	-1);
-	define('AL_ERROR_ACCESS_DENIED',	-2);
-	define('AL_LIKE_STATE_UNREAD',	1);
-	define('AL_LIKE_STATE_READ',	2);
-}
-// ajaxlike
 // ajaxlike
 if(!defined('LIKES_TABLE'))
 {
@@ -358,7 +347,7 @@ define('CLICKS_TABLE',				$table_prefix . 'clicks');
 // mChat MOD
 define('MCHAT_TABLE',				$table_prefix . 'mchat');
 define('MCHAT_CONFIG_TABLE',		$table_prefix . 'mchat_config');
-define('MCHAT_SESSIONS_TABLE',			$table_prefix . 'mchat_sessions');
+define('MCHAT_SESSIONS_TABLE',		$table_prefix . 'mchat_sessions');
 // Meeting MOD 2
 define('MEETING_COMMENT_TABLE', 	$table_prefix . 'meeting_comment');
 define('MEETING_DATA_TABLE', 		$table_prefix . 'meeting_data');
@@ -495,5 +484,3 @@ define('KB_ARTICLE_DIFF_TABLE', 		$table_prefix . 'kb_article_diff');
 define('KB_ARTICLE_TRACK_TABLE',        $table_prefix . 'kb_article_track');
 define('KB_RATING_TABLE',               $table_prefix . 'kb_rating');
 define('KB_FOLDER',                     'knowledge');
-
-?>

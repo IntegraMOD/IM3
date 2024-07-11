@@ -37,7 +37,7 @@ class phpbb_gallery_user
 	/**
 	* Users data in the table
 	*/
-	private $data = array();
+	private array $data = array();
 
 	/**
 	* Constructor
@@ -67,7 +67,7 @@ class phpbb_gallery_user
 		$result = $this->db->sql_query($sql);
 		if ($row = $this->db->sql_fetchrow($result))
 		{
-			$this->data			= $this->validate_data($row);
+			$this->data			= static::validate_data($row);
 			$this->entry_exists	= true;
 		}
 		$this->db->sql_freeresult($result);
@@ -172,7 +172,7 @@ class phpbb_gallery_user
 	*/
 	private function update($data)
 	{
-		$sql_ary = array_merge($this->validate_data($data), array(
+		$sql_ary = array_merge(static::validate_data($data), array(
 			'user_last_update'	=> time(),
 		));
 		unset($sql_ary['user_id']);
@@ -222,7 +222,7 @@ class phpbb_gallery_user
 	*/
 	private function insert($data)
 	{
-		$sql_ary = array_merge(self::$default_values, $this->validate_data($data), array(
+		$sql_ary = array_merge(self::$default_values, static::validate_data($data), array(
 			'user_id'			=> $this->id,
 			'user_last_update'	=> time(),
 		));
@@ -458,7 +458,7 @@ class phpbb_gallery_user
 			$user_cache[$user_id] = array(
 				'joined'		=> $user->format_date($row['user_regdate']),
 				'posts'			=> $row['user_posts'],
-				'warnings'		=> (isset($row['user_warnings'])) ? $row['user_warnings'] : 0,
+				'warnings'		=> $row['user_warnings'] ?? 0,
 				'from'			=> (!empty($row['user_from'])) ? $row['user_from'] : '',
 
 				'sig'					=> $user_sig,
@@ -517,7 +517,7 @@ class phpbb_gallery_user
 
 			if ($config['allow_birthdays'] && !empty($row['user_birthday']))
 			{
-				list($bday_day, $bday_month, $bday_year) = array_map('intval', explode('-', $row['user_birthday']));
+				[$bday_day, $bday_month, $bday_year] = array_map('intval', explode('-', $row['user_birthday']));
 
 				if ($bday_year)
 				{

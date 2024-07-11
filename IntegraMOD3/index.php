@@ -305,20 +305,21 @@ $template->assign_vars(array(
 	'TOTAL_USERS'	=> sprintf($user->lang[$l_total_user_s], $total_users),
 	'NEWEST_USER'	=> sprintf($user->lang['NEWEST_USER'], get_username_string('full', $config['newest_user_id'], $config['newest_username'], $config['newest_user_colour'])),
 	
-	'LEGEND'		=> $legend,
-	'BIRTHDAY_LIST'	=> $birthday_list,
-	'USERS_OF_THE_DAY_LIST' => $day_userlist,
-	
-	'FORUM_IMG'				=> $user->img('forum_read', 'NO_UNREAD_POSTS'),
+	'LEGEND'					=> $legend,
+	'BIRTHDAY_LIST'				=> $birthday_list,
+	'USERS_OF_THE_DAY_LIST' 	=> $day_userlist,
+		
+	'FORUM_IMG'					=> $user->img('forum_read', 'NO_UNREAD_POSTS'),
 	'FORUM_UNREAD_IMG'			=> $user->img('forum_unread', 'UNREAD_POSTS'),
-	'FORUM_LOCKED_IMG'		=> $user->img('forum_read_locked', 'NO_UNREAD_POSTS_LOCKED'),
+	'FORUM_LOCKED_IMG'			=> $user->img('forum_read_locked', 'NO_UNREAD_POSTS_LOCKED'),
 	'FORUM_UNREAD_LOCKED_IMG'	=> $user->img('forum_unread_locked', 'UNREAD_POSTS_LOCKED'),
 
+	'S_IS_INDEX'				=> true,
 	'S_LOGIN_ACTION'			=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=login'),
 	'S_DISPLAY_BIRTHDAY_LIST'	=> ($config['load_birthdays']) ? true : false,
 
-	'U_MARK_FORUMS'		=> ($user->data['is_registered'] || $config['load_anon_lastread']) ? append_sid("{$phpbb_root_path}index.$phpEx", 'hash=' . generate_link_hash('global') . '&amp;mark=forums') : '',
-	'U_MCP'				=> ($auth->acl_get('m_') || $auth->acl_getf_global('m_')) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=main&amp;mode=front', true, $user->session_id) : '')
+	'U_MARK_FORUMS'				=> ($user->data['is_registered'] || $config['load_anon_lastread']) ? append_sid("{$phpbb_root_path}index.$phpEx", 'hash=' . generate_link_hash('global') . '&amp;mark=forums') : '',
+	'U_MCP'						=> ($auth->acl_get('m_') || $auth->acl_getf_global('m_')) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=main&amp;mode=front', true, $user->session_id) : '')
 );
 
 // Output page

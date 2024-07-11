@@ -76,4 +76,4 @@ define('SN_COMMENTS_TABLE', $table_prefix_socialnet . 'comments');
 define('SN_COMMENTS_MODULES_TABLE', $table_prefix_socialnet . 'comments_modules');
 define('SN_EMOTES_TABLE', $table_prefix_socialnet . 'emotes');
 define('SN_SMILIES_TABLE', $table_prefix_socialnet . 'smilies');
-?>
+

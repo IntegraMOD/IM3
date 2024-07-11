@@ -66,12 +66,12 @@ class acp_k_resources
 
 				if (isset($k_config[$new_word]))
 				{
-					$value = (isset($k_config[$new_word])) ? $k_config[$new_word] : '';
+					$value = $k_config[$new_word] ?? '';
 					$table = $user->lang['K_CONFIG'];
 				}
 				else if (isset($config[$new_word]))
 				{
-					$value = (isset($config[$new_word])) ? $config[$new_word] : '';
+					$value = $config[$new_word] ?? '';
 					$table = $user->lang['CONFIG'];
 				}
 				else
@@ -85,7 +85,7 @@ class acp_k_resources
 				{
 					$template->assign_var('L_PROCESS_REPORT', sprintf($user->lang['VAR_ADDED'], $new_word));
 
-					$start .= strtoupper($new_word) . $end;
+					$start .= strtoupper((string) $new_word) . $end;
 
 					$sql_array = array(
 						'word'	=> $start,
@@ -129,17 +129,17 @@ class acp_k_resources
 
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$name = strtolower($row['word']);
+			$name = strtolower((string) $row['word']);
 			$name = str_replace($a, $b, $name);
 
 			if (isset($k_config[$name]))
 			{
-				$value = (isset($k_config[$name])) ? $k_config[$name] : '';
+				$value = $k_config[$name] ?? '';
 				$table = $user->lang['K_CONFIG'];
 			}
 			else if (isset($config[$name]))
 			{
-				$value = (isset($config[$name])) ? $config[$name] : '';
+				$value = $config[$name] ?? '';
 				$table = $user->lang['CONFIG'];
 			}
 			else
@@ -161,5 +161,3 @@ class acp_k_resources
 
 
 }
-
-?>

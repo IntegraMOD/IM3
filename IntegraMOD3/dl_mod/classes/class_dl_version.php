@@ -42,76 +42,6 @@ class dl_version extends dl_mod
 			}
 		}
 
-		// load version files
-		$class_functions = array();
-		if (!class_exists('download_mod_version'))
-		{
-			include(dl_init::phpbb_root_path() . 'adm/mods/download_mod_version' . dl_init::phpEx());
-		}
-		$class_name = 'download_mod_version';
-
-		$var = call_user_func(array($class_name, 'version'));
-
-		// Get current and latest version
-		$errstr = '';
-		$errno = 0;
-
-		$mod_version = '0.0.0';
-
-		$mod_version = $user->lang['DL_NO_INFO'];
-
-		$data = array(
-			'title'			=> $var['title'],
-			'description'	=> $user->lang['DL_NO_INFO'],
-			'download'		=> $user->lang['DL_NO_INFO'],
-			'announcement'	=> $user->lang['DL_NO_INFO'],
-		);
-
-		$file = get_remote_file($var['file'][0], '/' . $var['file'][1], $var['file'][2], $errstr, $errno);
-
-		if ($file)
-		{
-			if (version_compare(strtolower(PHP_VERSION), '5.0.0', '<'))
-			{
-				$row = array();
-				$data_array = self::_dl_setup_array($file);
-
-				$row = $data_array['mods'][$var['tag']];
-				$mod_version = $row['mod_version'];
-				$mod_version = $mod_version['major'] . '.' . $mod_version['minor'] . '.' . $mod_version['revision'] . $mod_version['release'];
-
-				$data = array(
-					'title'			=> $row['title'],
-					'description'	=> $row['description'],
-					'download'		=> $row['download'],
-					'announcement'	=> $row['announcement'],
-				);
-			}
-			else
-			{
-				// let's not stop the page from loading if a mod author messed up their mod check file
-				// also take care of one of the easiest ways to mess up an xml file: "&"
-				$mod = @simplexml_load_string(str_replace('&', '&amp;', $file));
-				if (isset($mod->$var['tag']))
-				{
-					$row = $mod->$var['tag'];
-					$mod_version = $row->mod_version->major . '.' . $row->mod_version->minor . '.' . $row->mod_version->revision . $row->mod_version->release;
-
-					$data = array(
-						'title'			=> $row->title,
-						'description'	=> $row->description,
-						'download'		=> $row->download,
-						'announcement'	=> $row->announcement,
-					);
-				}
-			}
-		}
-
-		// remove spaces from the version in the mod file stored locally
-		$version			= strtolower($config['dl_mod_version']);
-		$mod_version		= strtolower($mod_version);
-		$version_compare	= (version_compare($version, $mod_version, '<')) ? false : true;
-
 		if ($art == 'acp')
 		{
 			$template->assign_block_vars('mods', array(
@@ -130,15 +60,6 @@ class dl_version extends dl_mod
 				'U_AUTHOR'			=> 'http://www.phpbb.com/community/memberlist.php?mode=viewprofile&un=' . $var['author'],
 			));
 		}
-		else if ($art == 'check' && $user->data['user_type'] == USER_FOUNDER && !$version_compare)
-		{
-			$user->add_lang('install');
-
-			$template->assign_vars(array(
-				'NOT_UP_TO_DATE'	=> sprintf($user->lang['DL_NOT_UP_TO_DATE'], $data['title']),
-				'S_MODS_CHECK'		=> true,
-			));
-		}
 	}
 
 	/**
@@ -153,7 +74,7 @@ class dl_version extends dl_mod
 		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
 
 		// this takes care of one possible xml error
-		$xml = str_replace('&', '&amp;', $xml);
+		$xml = str_replace('&', '&amp;', (string) $xml);
 
 		// Set tag names and values
 		xml_parse_into_struct($parser, $xml, $values, $index);
@@ -165,7 +86,7 @@ class dl_version extends dl_mod
 
 		foreach ($values as $value)
 		{
-			switch (trim($value['level']))
+			switch (trim((string) $value['level']))
 			{
 				case 1:
 					if ($value['type'] == 'open')
@@ -203,7 +124,7 @@ class dl_version extends dl_mod
 				case 4:
 					if ($value['type'] == 'complete')
 					{
-						$ary[$one][$two][$three][$value['tag']] = isset($value['value']) ? $value['value'] : '';
+						$ary[$one][$two][$three][$value['tag']] = $value['value'] ?? '';
 					}
 				break;
 			}
@@ -211,5 +132,4 @@ class dl_version extends dl_mod
 		return $ary;
 	}
 }
-
-?>
+ 

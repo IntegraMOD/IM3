@@ -45,7 +45,7 @@ class p_master
 		$this->include_path = ($include_path !== false) ? $include_path : $phpbb_root_path . 'includes/';
 
 		// Make sure the path ends with /
-		if (substr($this->include_path, -1) !== '/')
+		if (!str_ends_with((string) $this->include_path, '/'))
 		{
 			$this->include_path .= '/';
 		}
@@ -63,7 +63,7 @@ class p_master
 		$this->include_path = $include_path;
 
 		// Make sure the path ends with /
-		if (substr($this->include_path, -1) !== '/')
+		if (!str_ends_with($this->include_path, '/'))
 		{
 			$this->include_path .= '/';
 		}
@@ -84,7 +84,7 @@ class p_master
 		global $config, $phpbb_root_path, $phpEx;
 
 		// Sanitise for future path use, it's escaped as appropriate for queries
-		$this->p_class = str_replace(array('.', '/', '\\'), '', basename($p_class));
+		$this->p_class = str_replace(array('.', '/', '\\'), '', basename((string) $p_class));
 
 		// Get cached modules
 		if (($this->module_cache = $cache->get('_modules_' . $this->p_class)) === false)
@@ -273,7 +273,7 @@ class p_master
 	*
 	* @return bool Returns true if module is loaded and accessible, else returns false
 	*/
-	function loaded($module_basename, $module_mode = false)
+	function loaded($module_basename, mixed $module_mode = false)
 	{
 		if (empty($this->loaded_cache))
 		{
@@ -315,7 +315,7 @@ class p_master
 	{
 		global $auth, $config;
 
-		$module_auth = trim($module_auth);
+		$module_auth = trim((string) $module_auth);
 
 		// Generally allowed to access module if module_auth is empty
 		if (!$module_auth)
@@ -345,7 +345,7 @@ class p_master
 				break;
 
 				default:
-					if (!preg_match('#(?:acl_([a-z0-9_]+)(,\$id)?)|(?:\$id)|(?:aclf_([a-z0-9_]+))|(?:cfg_([a-z0-9_]+))|(?:request_([a-zA-Z0-9_]+))#', $token))
+					if (!preg_match('#(?:acl_([a-z0-9_]+)(,\$id)?)|(?:\$id)|(?:aclf_([a-z0-9_]+))|(?:cfg_([a-z0-9_]+))|(?:request_([a-zA-Z0-9_]+))#', (string) $token))
 					{
 						$token = '';
 					}
@@ -532,7 +532,7 @@ class p_master
 		$row = &$this->module_ary[$this->active_module_row_id];
 
 		// We check for the same url_extra in $row['url_extra'] to overcome doubled additions...
-		if (strpos($row['url_extra'], $url_extra) === false)
+		if (!str_contains((string) $row['url_extra'], $url_extra))
 		{
 			$row['url_extra'] .= $url_extra;
 		}
@@ -654,7 +654,7 @@ class p_master
 		$current_id = $right_id = false;
 
 		// Make sure the module_url has a question mark set, effectively determining the delimiter to use
-		$delim = (strpos($module_url, '?') === false) ? '?' : '&amp;';
+		$delim = (!str_contains((string) $module_url, '?')) ? '?' : '&amp;';
 
 		$current_padding = $current_depth = 0;
 		$linear_offset 	= 'l_block1';
@@ -737,7 +737,7 @@ class p_master
 			$u_title = $module_url . $delim . 'i=' . (($item_ary['cat']) ? $item_ary['id'] : $item_ary['name'] . (($item_ary['is_duplicate']) ? '&amp;icat=' . $current_id : '') . '&amp;mode=' . $item_ary['mode']);
 
 			// Was not allowed in categories before - /*!$item_ary['cat'] && */
-			$u_title .= (isset($item_ary['url_extra'])) ? $item_ary['url_extra'] : '';
+			$u_title .= $item_ary['url_extra'] ?? '';
 
 			// Only output a categories items if it's currently selected
 			if (!$depth || ($depth && (in_array($item_ary['parent'], array_values($this->module_cache['parents'])) || $item_ary['parent'] == $this->p_parent)))
@@ -785,7 +785,7 @@ class p_master
 			return '';
 		}
 
-		return (isset($user->lang[$this->module->page_title])) ? $user->lang[$this->module->page_title] : $this->module->page_title;
+		return $user->lang[$this->module->page_title] ?? $this->module->page_title;
 	}
 
 	/**
@@ -864,9 +864,9 @@ class p_master
 			{
 				while (($entry = readdir($dir)) !== false)
 				{
-					if (strpos($entry, 'info_' . strtolower($module_class) . '_') === 0 && substr(strrchr($entry, '.'), 1) == $phpEx)
+					if (str_starts_with($entry, 'info_' . strtolower((string) $module_class) . '_') && substr(strrchr($entry, '.'), 1) == $phpEx)
 					{
-						$add_files[] = 'mods/' . substr(basename($entry), 0, -(strlen($phpEx) + 1));
+						$add_files[] = 'mods/' . substr(basename($entry), 0, -(strlen((string) $phpEx) + 1));
 					}
 				}
 				closedir($dir);

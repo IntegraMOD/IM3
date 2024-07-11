@@ -130,7 +130,7 @@ class phpbb_gallery_class_loader
 			$parts[] = $parts[$i - 1];
 		}
 
-		$relative_path = $dirs . implode(array_slice($parts, $i, sizeof($parts) - $i), '_');
+		$relative_path = $dirs . implode('_', array_slice($parts, $i, sizeof($parts) - $i));
 
 		if (!file_exists($path_prefix . $relative_path . $this->php_ext))
 		{

@@ -17,9 +17,9 @@ if (!defined('IN_PHPBB'))
 }
 
 // Uncomment these and comment out "error_reporting" to debug errors
-ini_set('display_startup_errors',0); 
-ini_set('display_errors',0);
-error_reporting(-0);
+ini_set('display_startup_errors',1); 
+ini_set('display_errors',1);
+error_reporting(-1);
 
 require($phpbb_root_path . 'includes/startup.' . $phpEx);
 

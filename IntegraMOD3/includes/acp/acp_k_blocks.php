@@ -85,8 +85,7 @@ class acp_k_blocks
 		else
 		{
 			$sql = 'SELECT config_name, config_value
-				FROM ' . K_BLOCKS_CONFIG_VAR_TABLE . "
-				WHERE config_name = 'k_adm_block'";
+				FROM ' . K_BLOCKS_CONFIG_VAR_TABLE . " WHERE config_name = 'k_adm_block'";
 
 			$result = $db->sql_query($sql);
 
@@ -108,8 +107,7 @@ class acp_k_blocks
 				$out_of_wack = false;
 
 				// get current block data using $block var //
-				$sql = "SELECT id, ndx, position
-					FROM " . K_BLOCKS_TABLE . "
+				$sql = "SELECT id, ndx, position FROM " . K_BLOCKS_TABLE . "
 					WHERE id = " . (int)$block;
 
 				$result = $db->sql_query_limit($sql, 1);
@@ -168,8 +166,7 @@ class acp_k_blocks
 				$to_move = $move_to = array();
 
 				// get current block data//
-				$sql = "SELECT id, ndx, position
-					FROM " . K_BLOCKS_TABLE . "
+				$sql = "SELECT id, ndx, position FROM " . K_BLOCKS_TABLE . "
 					WHERE id = " . (int)$block;
 
 				if (!$result = $db->sql_query_limit($sql, 1))
@@ -202,8 +199,7 @@ class acp_k_blocks
 
 				// get move_to block data//
 				$sql = "SELECT id, ndx, position FROM " . K_BLOCKS_TABLE . "
-					WHERE ndx =  '" . (int)$temp . "'
-						AND position = '" . $db->sql_escape($position) . "'";
+					WHERE ndx =  '" . (int)$temp . "' AND position = '" . $db->sql_escape($position) . "'";
 
 				if (!$result = $db->sql_query_limit($sql, 1))
 				{
@@ -256,8 +252,7 @@ class acp_k_blocks
 
 					// get move_to block data//
 					$sql = "SELECT id, ndx, position FROM " . K_BLOCKS_TABLE . "
-						WHERE ndx =  '" . (int)$temp . "'
-							AND position = '" . $db->sql_escape($position) . "'";
+						WHERE ndx =  '" . (int)$temp . "' AND position = '" . $db->sql_escape($position) . "'";
 
 					if (!$result = $db->sql_query_limit($sql, 1))
 					{
@@ -541,11 +536,11 @@ class acp_k_blocks
 
 					if ($type == 1)
 					{
-						$type = 'H'; //html
+						$type = 'H';
 					}
 					else
 					{
-						$type = 'B'; //bbcode
+						$type = 'B';
 					}
 
 					if ($view_all)
@@ -947,7 +942,15 @@ class acp_k_blocks
 
 			case 'reset':
 			{
-				$sql = "UPDATE " . USERS_TABLE . " SET user_left_blocks = '', user_center_blocks = '', user_right_blocks = '';";
+				/*
+				$sql = "UPDATE phpbb_users SET user_left_blocks = '' WHERE user_left_blocks != '';";
+				$result = $db->sql_query($sql);
+				$sql = "UPDATE phpbb_users SET user_center_blocks = '' WHERE user_center_blocks != '';";
+				$result = $db->sql_query($sql);
+				$sql = "UPDATE phpbb_users SET user_right_blocks = '' WHERE user_right_blocks != '';";
+				*/
+
+				$sql = "UPDATE phpbb_users SET user_left_blocks = '', user_center_blocks = '', user_right_blocks = '';";
 
 				if (!$result = $db->sql_query($sql))
 				{
@@ -1213,8 +1216,6 @@ function parse_all_groups()
 		$group_id = $row['group_id'];
 		$group_name = $row['group_name'];
 
-		$group_name = ($user->lang(strtoupper('G_'.$group_name))) ? $user->lang(strtoupper('G_'.$group_name)) : $user->lang(strtoupper($group_name));
-
 		$template->assign_block_vars('groups', array(
 			'GROUP_NAME' => $group_name,
 			'GROUP_ID'   => $group_id,
@@ -1273,6 +1274,7 @@ function index_column_fix($position)
 			{
 				trigger_error($user->lang['COULD_NOT_REINDEX_BLOCKS'] . basename(dirname(__FILE__)) . '/' . basename(__FILE__) . $user->lang['LINE'] . __LINE__);
 			}
+
 		}
 	}
 }

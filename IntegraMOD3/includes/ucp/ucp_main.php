@@ -287,7 +287,7 @@ class ucp_main
 					}
 					else
 					{
-						$tracking_topics = (isset($_COOKIE[$config['cookie_name'] . '_track'])) ? ((STRIP) ? stripslashes($_COOKIE[$config['cookie_name'] . '_track']) : $_COOKIE[$config['cookie_name'] . '_track']) : '';
+						$tracking_topics = (isset($_COOKIE[$config['cookie_name'] . '_track'])) ? ((STRIP) ? stripslashes((string) $_COOKIE[$config['cookie_name'] . '_track']) : $_COOKIE[$config['cookie_name'] . '_track']) : '';
 						$tracking_topics = ($tracking_topics) ? tracking_unserialize($tracking_topics) : array();
 					}
 
@@ -304,7 +304,7 @@ class ucp_main
 						}
 						else
 						{
-							$forum_check = (isset($tracking_topics['f'][$forum_id])) ? (int) (base_convert($tracking_topics['f'][$forum_id], 36, 10) + $config['board_startdate']) : $user->data['user_lastmark'];
+							$forum_check = (isset($tracking_topics['f'][$forum_id])) ? (int) (base_convert((string) $tracking_topics['f'][$forum_id], 36, 10) + $config['board_startdate']) : $user->data['user_lastmark'];
 						}
 
 						$unread_forum = ($row['forum_last_post_time'] > $forum_check) ? true : false;
@@ -613,10 +613,10 @@ class ucp_main
 
 
 		$template->assign_vars(array(
-			'L_TITLE'			=> $user->lang['UCP_MAIN_' . strtoupper($mode)],
+			'L_TITLE'			=> $user->lang['UCP_MAIN_' . strtoupper((string) $mode)],
 
 			'S_DISPLAY_MARK_ALL'	=> ($mode == 'watched' || ($mode == 'drafts' && !isset($_GET['edit']))) ? true : false,
-			'S_HIDDEN_FIELDS'		=> (isset($s_hidden_fields)) ? $s_hidden_fields : '',
+			'S_HIDDEN_FIELDS'		=> $s_hidden_fields ?? '',
 			'S_UCP_ACTION'			=> $this->u_action,
 
 			'LAST_POST_IMG'			=> $user->img('icon_topic_latest', 'VIEW_LATEST_POST'),
@@ -625,7 +625,7 @@ class ucp_main
 
 		// Set desired template
 		$this->tpl_name = 'ucp_main_' . $mode;
-		$this->page_title = 'UCP_MAIN_' . strtoupper($mode);
+		$this->page_title = 'UCP_MAIN_' . strtoupper((string) $mode);
 	}
 
 	/**
@@ -727,7 +727,7 @@ class ucp_main
 		$topic_list = $topic_forum_list = $global_announce_list = $rowset = array();
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$topic_id = (isset($row['b_topic_id'])) ? $row['b_topic_id'] : $row['topic_id'];
+			$topic_id = $row['b_topic_id'] ?? $row['topic_id'];
 
 			$topic_list[] = $topic_id;
 			$rowset[$topic_id] = $row;
@@ -763,7 +763,7 @@ class ucp_main
 			$row = &$rowset[$topic_id];
 
 			$forum_id = $row['forum_id'];
-			$topic_id = (isset($row['b_topic_id'])) ? $row['b_topic_id'] : $row['topic_id'];
+			$topic_id = $row['b_topic_id'] ?? $row['topic_id'];
 
 			$unread_topic = (isset($topic_tracking_info[$topic_id]) && $row['topic_last_post_time'] > $topic_tracking_info[$topic_id]) ? true : false;
 

@@ -130,7 +130,7 @@ class phpbb_gallery_integration
 		}
 	}
 
-	static private $session_page = '';
+	static private string $session_page = '';
 
 	static public function viewonline_pre_switch(&$on_page, $session_page = '')
 	{

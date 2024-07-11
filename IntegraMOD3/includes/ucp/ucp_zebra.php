@@ -31,7 +31,7 @@ class ucp_zebra
 		$submit	= (isset($_POST['submit']) || isset($_GET['add']) || isset($_GET['remove'])) ? true : false;
 		$s_hidden_fields = '';
 
-		$l_mode = strtoupper($mode);
+		$l_mode = strtoupper((string) $mode);
 
 		if ($submit)
 		{
@@ -70,7 +70,7 @@ class ucp_zebra
 					// Add users
 					if ($data['add'])
 					{
-						$data['add'] = array_map('trim', array_map('utf8_clean_string', explode("\n", $data['add'])));
+						$data['add'] = array_map('trim', array_map('utf8_clean_string', explode("\n", (string) $data['add'])));
 
 						// Do these name/s exist on a list already? If so, ignore ... we could be
 						// 'nice' and automatically handle names added to one list present on
@@ -262,3 +262,4 @@ class ucp_zebra
 		$this->page_title = 'UCP_ZEBRA_' . $l_mode;
 	}
 }
+ 

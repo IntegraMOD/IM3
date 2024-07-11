@@ -32,3 +32,5 @@ class acp_file_backup_info
 	{
 	}
 }
+
+?>

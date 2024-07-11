@@ -809,7 +809,7 @@ class auth_admin extends auth
 
 		// Because we just changed the options and also purged the options cache, we instantly update/regenerate it for later calls to succeed.
 		$this->acl_options = array();
-		$this->auth_admin();
+//		$this->auth_admin();
 
 		return true;
 	}

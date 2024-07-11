@@ -1,0 +1,104 @@
+
+PHP Version: 8.3.2
+DBMS: MySQL(i) 8.0.36
+phpBB3 Version: 3.0.15
+
+Adding a new database table: phpbb_blogs
+ERROR: Database table phpbb_blogs already exists.
+
+Adding a new database table: phpbb_blogs_attachment
+ERROR: Database table phpbb_blogs_attachment already exists.
+
+Adding a new database table: phpbb_blogs_categories
+ERROR: Database table phpbb_blogs_categories already exists.
+
+Adding a new database table: phpbb_blogs_in_categories
+ERROR: Database table phpbb_blogs_in_categories already exists.
+
+Adding a new database table: phpbb_blogs_plugins
+ERROR: Database table phpbb_blogs_plugins already exists.
+
+Adding a new database table: phpbb_blogs_poll_options
+ERROR: Database table phpbb_blogs_poll_options already exists.
+
+Adding a new database table: phpbb_blogs_poll_votes
+ERROR: Database table phpbb_blogs_poll_votes already exists.
+
+Adding a new database table: phpbb_blogs_ratings
+ERROR: Database table phpbb_blogs_ratings already exists.
+
+Adding a new database table: phpbb_blogs_reply
+ERROR: Database table phpbb_blogs_reply already exists.
+
+Adding a new database table: phpbb_blogs_subscription
+ERROR: Database table phpbb_blogs_subscription already exists.
+
+Adding a new database table: phpbb_blogs_users
+ERROR: Database table phpbb_blogs_users already exists.
+
+Adding a new database table: phpbb_blog_search_wordlist
+ERROR: Database table phpbb_blog_search_wordlist already exists.
+
+Adding a new database table: phpbb_blog_search_wordmatch
+ERROR: Database table phpbb_blog_search_wordmatch already exists.
+
+Adding a new column named blog_count to table phpbb_users
+ERROR: The column blog_count already exists on table phpbb_users.
+
+Adding a new column named allow_in_blog to table phpbb_extension_groups
+ERROR: The column allow_in_blog already exists on table phpbb_extension_groups.
+
+Adding acp module: ACP_BLOGS
+ERROR: Module already exists.
+
+Adding acp module: ACP_BLOG_SETTINGS
+ERROR: Module already exists.
+
+Adding acp module: ACP_BLOG_CATEGORIES
+ERROR: Module already exists.
+
+Adding acp module: ACP_BLOG_PLUGINS
+ERROR: Module already exists.
+
+Adding acp module: ACP_BLOG_SEARCH
+ERROR: Module already exists.
+
+Adding acp module: Manage extension groups
+ERROR: Module already exists.
+
+Adding mcp module: MCP_BLOG
+ERROR: Module already exists.
+
+Adding mcp module: MCP_BLOG_REPORTED_BLOGS
+ERROR: Module already exists.
+
+Adding mcp module: MCP_BLOG_REPORTED_REPLIES
+ERROR: Module already exists.
+
+Adding mcp module: MCP_BLOG_DISAPPROVED_BLOGS
+ERROR: Module already exists.
+
+Adding mcp module: MCP_BLOG_DISAPPROVED_REPLIES
+ERROR: Module already exists.
+
+Adding ucp module: UCP_BLOG
+ERROR: Module already exists.
+
+Adding ucp module: UCP_BLOG_SETTINGS
+ERROR: Module already exists.
+
+Adding ucp module: UCP_BLOG_TITLE_DESCRIPTION
+ERROR: Module already exists.
+
+Adding ucp module: UCP_BLOG_PERMISSIONS
+ERROR: Module already exists.
+
+Adding new permission option: u_blogview
+ERROR: Permission option u_blogview already exists.
+
+Adding new permission option: u_blogpost
+ERROR: Permission option u_blogpost already exists.
+
+Adding new permission option: u_blogedit
+ERROR: Permission option u_blogedit already exists.
+

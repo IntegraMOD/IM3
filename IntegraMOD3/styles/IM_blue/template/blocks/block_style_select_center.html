@@ -1,0 +1,16 @@
+<div style="display: inline-block;">
+		<form method="post" id="style_select" action="{S_SELECT_ACTION}">
+			<!-- IF S_USER_LOGGED_IN --><!-- IF S_SHOW_PERM -->
+			<div>
+			<select id="style_select" onchange="document.location.href = this.options[this.selectedIndex].value + '&amp;y=' + y.checked;">
+				{STYLE_SELECT}
+			</select>
+			{L_PERMANENT} <input type="checkbox" title="{L_MAKE_PERMANENT}" class="radio" id="y" name="y" value="" />&nbsp;{L_TOTAL_STYLES}: {STYLE_COUNT}
+			</div>
+			<!-- ENDIF --><!-- ELSE -->
+			<select id="style_select" onchange="document.location.href = this.options[this.selectedIndex].value;">
+				{STYLE_SELECT}&nbsp;{L_TOTAL_STYLES}: {STYLE_COUNT}
+			</select>
+			<!-- ENDIF -->
+		</form>
+</div>

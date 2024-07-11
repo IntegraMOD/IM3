@@ -51,8 +51,8 @@ $phpEx = substr(strrchr(__FILE__, '.'), 1);
 $template->assign_vars(array(
 	'S_SEARCH'			=> $allow_search,
 	'L_SEARCH_ADV' 		=> $user->lang['SEARCH_ADV'],
-	'L_SEARCH_OPTION' 	=> (!empty($portal_config['search_option_text'])) ? $portal_config['search_option_text'] : $board_config ['sitename'],
-	'U_SEARCH'			=> append_sid("{$phpbb_root_path}search.$phpEx", 'keywords=' . urlencode($keywords)),
+//	'L_SEARCH_OPTION' 	=> (!empty($portal_config['search_option_text'])) ? $portal_config['search_option_text'] : $board_config['sitename'],
+	'U_SEARCH'			=> append_sid("{$phpbb_root_path}search.$phpEx", 'keywords=' . urlencode((string) $keywords)),
 ));
 
 $template->assign_vars(array(
@@ -63,5 +63,3 @@ $template->assign_vars(array(
 	'U_SEARCH_BOOKMARKS'=> ($user->data['user_id'] != ANONYMOUS) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=main&mode=bookmarks') : '',
 	'SEARCH_DEBUG'		=> sprintf($user->lang['PORTAL_DEBUG_QUERIES'], ($queries) ? $queries : '0', ($cached_queries) ? $cached_queries : '0', ($total_queries) ? $total_queries : '0'),
 ));
-
-?>

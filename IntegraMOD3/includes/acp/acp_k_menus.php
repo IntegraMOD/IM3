@@ -117,7 +117,7 @@ class acp_k_menus
 						}
 					}
 
-					if (strstr($menu_icon, '..'))
+					if (strstr((string) $menu_icon, '..'))
 					{
 						$menu_icon = 'default.png';
 					}
@@ -147,22 +147,14 @@ class acp_k_menus
 
 					$cache->destroy('sql', K_MENUS_TABLE);
 
-					switch ($menu_type)
-					{
-						case 1: $mode = 'nav';
-						break;
-						case 2: $mode = 'sub';
-						break;
-						case 3: $mode= 'head';
-						break;
-						case 3: $mode= 'foot';
-						break;
-						case 5: $mode= 'link';
-						break;
-
-						default: $mode = $mode;
-						break;
-					}
+					$mode = match ($menu_type) {
+         1 => 'nav',
+         2 => 'sub',
+         3 => 'head',
+         3 => 'foot',
+         5 => 'link',
+         default => $mode,
+     };
 
 					$template->assign_vars(array(
 						'L_MENU_REPORT' => $user->lang['SAVED'] . '<br />',
@@ -360,23 +352,12 @@ class acp_k_menus
 
 				$cache->destroy('sql', K_MENUS_TABLE);
 
-				switch ($type)
-				{
-					/*
-					case HEAD_MENUS: $current_menu_type = 'head';
-					break;
-					case FOOT_MENUS: $current_menu_type = 'foot';
-					break;
-					*/
-					case NAV_MENUS:	$current_menu_type = 'nav';
-					break;
-					case SUB_MENUS:	$current_menu_type = 'sub';
-					break;
-					case LINKS_MENUS: $current_menu_type = 'link';
-					break;
-					default: $current_menu_type = 'nav';
-					break;
-				}
+				$current_menu_type = match ($type) {
+        NAV_MENUS => 'nav',
+        SUB_MENUS => 'sub',
+        LINKS_MENUS => 'link',
+        default => 'nav',
+    };
 
 				meta_refresh (1, append_sid("{$phpbb_admin_path}index.$phpEx", 'i=k_menus&amp;mode=' . $current_menu_type));
 
@@ -411,7 +392,7 @@ class acp_k_menus
 						return;
 					}
 
-					if (strstr($menu_icon, '..') && !$sub_heading)
+					if (strstr((string) $menu_icon, '..') && !$sub_heading)
 					{
 						$menu_icon = 'default.png';
 					}
@@ -666,7 +647,7 @@ function parse_all_groups()
 		$group_id = $row['group_id'];
 		$group_name = $row['group_name'];
 
-		$group_name = ($user->lang(strtoupper('G_'.$group_name))) ? $user->lang(strtoupper('G_'.$group_name)) : $user->lang(strtoupper($group_name));
+		$group_name = ($user->lang(strtoupper('G_'.$group_name))) ? $user->lang(strtoupper('G_'.$group_name)) : $user->lang(strtoupper((string) $group_name));
 
 		$template->assign_block_vars('groups', array(
 			'GROUP_NAME' => $group_name,
@@ -718,5 +699,3 @@ function reindex_menus($menu_type)
 	}
 }
 */
-
-?>

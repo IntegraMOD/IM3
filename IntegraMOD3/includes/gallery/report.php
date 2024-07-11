@@ -19,9 +19,9 @@ if (!defined('IN_PHPBB'))
 
 class phpbb_gallery_report
 {
-	const UNREPORTED = 0;
-	const OPEN = 1;
-	const LOCKED = 2;
+	public const UNREPORTED = 0;
+	public const OPEN = 1;
+	public const LOCKED = 2;
 
 	/**
 	* Report an image

@@ -33,6 +33,8 @@ $username	= request_var('un', '', true);
 $group_id	= request_var('g', 0);
 $topic_id	= request_var('t', 0);
 
+$template->assign_var('S_IN_MEMBERLIST', true);
+
 // Check our mode...
 if (!in_array($mode, array('', 'group', 'viewprofile', 'email', 'contact', 'searchuser', 'leaders')))
 {

@@ -18,8 +18,15 @@ include('common.' . $phpEx);
 include($phpbb_root_path . 'common.' . $phpEx);
 
 phpbb_gallery::setup(array('mods/gallery'));
-phpbb_gallery_url::_include('functions_display', 'phpbb');
 
+$template->assign_var('S_IN_GALLERY', true);
+
+global $phpbb_gallery_url;
+  
+if(function_exists($phpbb_gallery_url))
+{
+phpbb_gallery_url::_include('functions_display', 'phpbb');
+}
 /**
 * Display albums
 */
@@ -228,7 +235,7 @@ if ($config['allow_birthdays'] && phpbb_gallery_config::get('disp_birthdays'))
 	{
 		$birthday_list .= (($birthday_list != '') ? ', ' : '') . get_username_string('full', $row['user_id'], $row['username'], $row['user_colour']);
 
-		if ($age = (int) substr($row['user_birthday'], -4))
+		if ($age = (int) substr((string) $row['user_birthday'], -4))
 		{
 			$birthday_list .= ' (' . ($now['year'] - $age) . ')';
 		}
@@ -283,5 +290,3 @@ $template->set_filenames(array(
 );
 
 page_footer();
-
-?>

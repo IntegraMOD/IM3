@@ -111,10 +111,10 @@ function adm_page_header($page_title)
    $errno = 0;
    $errstr = $news = '';
 
-   if ($fsock = @fsockopen('www.integramod.com', 80, $errno, $errstr))
+   if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
    {
       @fputs($fsock, "GET /version/im3_news.txt HTTP/1.1\r\n");
-      @fputs($fsock, "HOST: www.integramod.com\r\n");
+      @fputs($fsock, "HOST:integramod.com\r\n");
       @fputs($fsock, "Connection: close\r\n\r\n");
 
       $get_info = false;
@@ -149,10 +149,10 @@ function adm_page_header($page_title)
    $errno = 0;
    $errstr = $lver = '';
 
-   if ($fsock = @fsockopen('www.integramod.com', 80, $errno, $errstr))
+   if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
    {
       @fputs($fsock, "GET /version/3.0.x.txt HTTP/1.1\r\n");
-      @fputs($fsock, "HOST: www.integramod.com\r\n");
+      @fputs($fsock, "HOST:integramod.com\r\n");
       @fputs($fsock, "Connection: close\r\n\r\n");
 
       $get_info = false;
@@ -308,7 +308,7 @@ function adm_page_footer($copyright_html = true)
 		'DEBUG_OUTPUT'		=> (defined('DEBUG')) ? $debug_output : '',
 		'TRANSLATION_INFO'	=> (!empty($user->lang['TRANSLATION_INFO'])) ? $user->lang['TRANSLATION_INFO'] : '',
 		'S_COPYRIGHT_HTML'	=> $copyright_html,
-		'CREDIT_LINE'		=> $user->lang('POWERED_BY', '<a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group'),
+		'CREDIT_LINE'		=> $user->lang('POWERED_BY', '<a href="#">phpBB</a>&reg; Forum Software &copy; phpBB Group'),
 		'VERSION'			=> $config['version'])
 	);
 
@@ -743,5 +743,3 @@ function validate_range($value_ary, &$error)
 		}
 	}
 }
-
-?>

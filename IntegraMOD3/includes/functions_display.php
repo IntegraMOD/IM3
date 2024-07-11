@@ -913,6 +913,9 @@ function display_custom_bbcodes($abbc3 = true)
 
 	// Start counting from 22 for the bbcode ids (every bbcode takes two ids - opening/closing)
 	$num_predefined_bbcodes = 22;
+	
+    $user->add_lang('mods/info_acp_gallery');
+	
 // MOD : MSSTI ABBC3 - Start
 	global $config, $mode, $abbcode;
 
@@ -942,8 +945,7 @@ function display_custom_bbcodes($abbc3 = true)
 		$template->assign_vars(array('S_ABBC3_DISABLED' => true));
 	}
 // MOD : MSSTI ABBC3 - End
-	$user->add_lang('mods/info_acp_gallery');
-
+	
 	$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_helpline, bbcode_group
 		FROM ' . BBCODES_TABLE . '
 		WHERE ' . $sql_where . '
@@ -987,10 +989,10 @@ function display_custom_bbcodes($abbc3 = true)
 	}
 	$db->sql_freeresult($result);
 
-if (class_exists('phpbb_gallery_integration'))
-	{
-		phpbb_gallery_integration::posting_display_popup();
-	}
+    if (class_exists('phpbb_gallery_integration'))
+    {
+        phpbb_gallery_integration::posting_display_popup();
+    }
 }
 
 /**
@@ -1392,13 +1394,13 @@ function get_user_avatar($avatar, $avatar_type, $avatar_width, $avatar_height, $
 					// do we wish to resize? 28 January 2010 should not require else...? will look later //
 					if ($avatar_width || $avatar_height)
 					{
-						if (strpos($poster_avatar, '/>"'))
+						if (strpos((string) $poster_avatar, '/>"'))
 						{
-							$poster_avatar = str_replace('/>"', '" height="' . $avatar_height . '" width="' . $avatar_width . '" />', $poster_avatar);
+							$poster_avatar = str_replace('/>"', '" height="' . $avatar_height . '" width="' . $avatar_width . '" />', (string) $poster_avatar);
 						}
-						elseif (strpos($poster_avatar, '/>'))
+						elseif (strpos((string) $poster_avatar, '/>'))
 						{
-							$poster_avatar = str_replace('/>', ' height="' . $avatar_height . '" width="' . $avatar_width . '" />', $poster_avatar);
+							$poster_avatar = str_replace('/>', ' height="' . $avatar_height . '" width="' . $avatar_width . '" />', (string) $poster_avatar);
 						}
 					}
 

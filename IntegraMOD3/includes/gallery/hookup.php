@@ -20,9 +20,9 @@ if (!defined('IN_PHPBB'))
 class phpbb_gallery_hookup
 {
 	// Edit your amounts here.
-	const GALLERY_ADD_CASH = 10;
-	const GALLERY_DELETE_CASH = 10;
-	const GALLERY_VIEW_CASH = 1;
+	public const GALLERY_ADD_CASH = 10;
+	public const GALLERY_DELETE_CASH = 10;
+	public const GALLERY_VIEW_CASH = 1;
 
 	/**
 	* Hookup image counter

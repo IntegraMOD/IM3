@@ -403,12 +403,13 @@ class ucp_pm
 		}
 
 		$template->assign_vars(array(
-			'L_TITLE'			=> $user->lang['UCP_PM_' . strtoupper($mode)],
+			'L_TITLE'			=> $user->lang['UCP_PM_' . strtoupper((string) $mode)],
 			'S_UCP_ACTION'		=> $this->u_action . ((isset($action)) ? "&amp;action=$action" : ''))
 		);
 
 		// Set desired template
 		$this->tpl_name = $tpl_file;
-		$this->page_title = 'UCP_PM_' . strtoupper($mode);
+		$this->page_title = 'UCP_PM_' . strtoupper((string) $mode);
 	}
 }
+ 

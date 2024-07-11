@@ -45,8 +45,8 @@ class ucp_profile
 
 				$data = array(
 					'username'			=> utf8_normalize_nfc(request_var('username', $user->data['username'], true)),
-					'email'				=> strtolower(request_var('email', $user->data['user_email'])),
-					'email_confirm'		=> strtolower(request_var('email_confirm', '')),
+					'email'				=> strtolower((string) request_var('email', $user->data['user_email'])),
+					'email_confirm'		=> strtolower((string) request_var('email_confirm', '')),
 					'new_password'		=> request_var('new_password', '', true),
 					'cur_password'		=> request_var('cur_password', '', true),
 					'password_confirm'	=> request_var('password_confirm', '', true),
@@ -141,7 +141,7 @@ class ucp_profile
 
 							$server_url = generate_board_url();
 
-							$user_actkey = gen_rand_string(mt_rand(6, 10));
+							$user_actkey = gen_rand_string(random_int(6, 10));
 
 							$messenger = new messenger(false);
 
@@ -153,7 +153,7 @@ class ucp_profile
 							$messenger->anti_abuse_headers($config, $user);
 
 							$messenger->assign_vars(array(
-								'USERNAME'		=> htmlspecialchars_decode($data['username'], ENT_COMPAT),
+								'USERNAME'		=> htmlspecialchars_decode((string) $data['username'], ENT_COMPAT),
 								'U_ACTIVATE'	=> "$server_url/ucp.$phpEx?mode=activate&u={$user->data['user_id']}&k=$user_actkey")
 							);
 
@@ -185,7 +185,7 @@ class ucp_profile
 									$messenger->im($row['user_jabber'], $row['username']);
 
 									$messenger->assign_vars(array(
-										'USERNAME'			=> htmlspecialchars_decode($data['username'], ENT_COMPAT),
+										'USERNAME'			=> htmlspecialchars_decode((string) $data['username'], ENT_COMPAT),
 										'U_USER_DETAILS'	=> "$server_url/memberlist.$phpEx?mode=viewprofile&u={$user->data['user_id']}",
 										'U_ACTIVATE'		=> "$server_url/ucp.$phpEx?mode=activate&u={$user->data['user_id']}&k=$user_actkey")
 									);
@@ -295,7 +295,7 @@ class ucp_profile
 
 					if ($user->data['user_birthday'])
 					{
-						list($data['bday_day'], $data['bday_month'], $data['bday_year']) = explode('-', $user->data['user_birthday']);
+						[$data['bday_day'], $data['bday_month'], $data['bday_year']] = explode('-', (string) $user->data['user_birthday']);
 					}
 
 					$data['bday_day'] = request_var('bday_day', $data['bday_day']);
@@ -580,8 +580,8 @@ class ucp_profile
 				include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 
 				$display_gallery = request_var('display_gallery', '0');
-				$avatar_select = basename(request_var('avatar_select', ''));
-				$category = basename(request_var('category', ''));
+				$avatar_select = basename((string) request_var('avatar_select', ''));
+				$category = basename((string) request_var('category', ''));
 
 				$can_upload = (file_exists($phpbb_root_path . $config['avatar_path']) && phpbb_is_writable($phpbb_root_path . $config['avatar_path']) && $auth->acl_get('u_chgavatar') && (@ini_get('file_uploads') || strtolower(@ini_get('file_uploads')) == 'on')) ? true : false;
 
@@ -653,7 +653,7 @@ class ucp_profile
 		}
 
 		$template->assign_vars(array(
-			'L_TITLE'	=> $user->lang['UCP_PROFILE_' . strtoupper($mode)],
+			'L_TITLE'	=> $user->lang['UCP_PROFILE_' . strtoupper((string) $mode)],
 
 			'S_HIDDEN_FIELDS'	=> $s_hidden_fields,
 			'S_UCP_ACTION'		=> $this->u_action)
@@ -661,6 +661,7 @@ class ucp_profile
 
 		// Set desired template
 		$this->tpl_name = 'ucp_profile_' . $mode;
-		$this->page_title = 'UCP_PROFILE_' . strtoupper($mode);
+		$this->page_title = 'UCP_PROFILE_' . strtoupper((string) $mode);
 	}
 }
+ 

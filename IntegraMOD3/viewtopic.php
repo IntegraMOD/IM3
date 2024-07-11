@@ -627,8 +627,8 @@ $highlight_match = $highlight = '';
 if ($hilit_words)
 {
 	$highlight_match = phpbb_clean_search_string($hilit_words);
-	$highlight = urlencode($highlight_match);
-	$highlight_match = str_replace('\*', '\w+?', preg_quote($highlight_match, '#'));
+	$highlight = urlencode((string) $highlight_match);
+	$highlight_match = str_replace('\*', '\w+?', preg_quote((string) $highlight_match, '#'));
 	$highlight_match = preg_replace('#(?<=^|\s)\\\\w\*\?(?=\s|$)#', '\w+?', $highlight_match);
 	$highlight_match = str_replace(' ', '|', $highlight_match);
 }
@@ -828,9 +828,10 @@ $template->assign_vars(array(
 	'S_SINGLE_MODERATOR'	=> (!empty($forum_moderators[$forum_id]) && sizeof($forum_moderators[$forum_id]) > 1) ? false : true,
 	'S_TOPIC_ACTION' 		=> append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id" . (($start == 0) ? '' : "&amp;start=$start")),
 	'S_TOPIC_MOD' 			=> ($topic_mod != '') ? '<select name="action" id="quick-mod-select">' . $topic_mod . '</select>' : '',
-	'S_MOD_ACTION' 			=> append_sid("{$phpbb_root_path}mcp.$phpEx", "f=$forum_id&amp;t=$topic_id" . (($start == 0) ? '' : "&amp;start=$start") . "&amp;quickmod=1&amp;redirect=" . urlencode(str_replace('&amp;', '&', $viewtopic_url)), true, $user->session_id),
+	'S_MOD_ACTION' 			=> append_sid("{$phpbb_root_path}mcp.$phpEx", "f=$forum_id&amp;t=$topic_id" . (($start == 0) ? '' : "&amp;start=$start") . "&amp;quickmod=1&amp;redirect=" . urlencode(str_replace('&amp;', '&', (string) $viewtopic_url)), true, $user->session_id),
 
 	'S_VIEWTOPIC'			=> true,
+	'S_IS_VIEWTOPIC'		=> true,	
 	'S_DISPLAY_SEARCHBOX'	=> ($auth->acl_get('u_search') && $auth->acl_get('f_search', $forum_id) && $config['load_search']) ? true : false,
 	'S_SEARCHBOX_ACTION'	=> append_sid("{$phpbb_root_path}search.$phpEx"),
 	'S_SEARCH_LOCAL_HIDDEN_FIELDS'	=> build_hidden_fields($s_search_hidden_fields),
@@ -993,7 +994,7 @@ if (!empty($topic_data['poll_start']))
 
 		if ($user->data['user_id'] == ANONYMOUS && !$user->data['is_bot'])
 		{
-			$user->set_cookie('poll_' . $topic_id, implode(',', $voted_id), time() + 31536000);
+			$user->set_cookie('poll_' . $topic_id, implode(',', $voted_id), time() + 31_536_000);
 		}
 
 		$sql = 'UPDATE ' . TOPICS_TABLE . '
@@ -1296,12 +1297,12 @@ while ($row = $db->sql_fetchrow($result))
 	);
 
 	// Define the global bbcode bitfield, will be used to load bbcodes
-	$bbcode_bitfield = $bbcode_bitfield | base64_decode($row['bbcode_bitfield']);
+	$bbcode_bitfield = $bbcode_bitfield | base64_decode((string) $row['bbcode_bitfield']);
 
 	// Is a signature attached? Are we going to display it?
 	if ($row['enable_sig'] && $config['allow_sig'] && $user->optionget('viewsigs'))
 	{
-		$bbcode_bitfield = $bbcode_bitfield | base64_decode($row['user_sig_bbcode_bitfield']);
+		$bbcode_bitfield = $bbcode_bitfield | base64_decode((string) $row['user_sig_bbcode_bitfield']);
 	}
 
 	// Cache various user specific data ... so we don't have to recompute
@@ -1402,9 +1403,10 @@ while ($row = $db->sql_fetchrow($result))
 				'www'			=> $row['user_website'],
 				'aim'			=> ($row['user_aim'] && $auth->acl_get('u_sendim')) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=aim&amp;u=$poster_id") : '',
 				'msn'			=> ($row['user_msnm'] && $auth->acl_get('u_sendim')) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=msnm&amp;u=$poster_id") : '',
-				'yim'			=> ($row['user_yim']) ? 'http://edit.yahoo.com/config/send_webmesg?.target=' . urlencode($row['user_yim']) . '&amp;.src=pg' : '',
+				'yim'			=> ($row['user_yim']) ? 'http://edit.yahoo.com/config/send_webmesg?.target=' . urlencode((string) $row['user_yim']) . '&amp;.src=pg' : '',
 				'jabber'		=> ($row['user_jabber'] && $auth->acl_get('u_sendim')) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=jabber&amp;u=$poster_id") : '',
 				'search'		=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$poster_id&amp;sr=posts") : '',
+				'blog_count'	=> ((isset($row['blog_count'])) ? $row['blog_count'] : 0),
 				// START Anti-Spam ACP
 				'user_flagged'	=> $row['user_flagged'] ? true : false,
 				// END Anti-Spam ACP
@@ -1431,7 +1433,7 @@ while ($row = $db->sql_fetchrow($result))
 
 			if (!empty($row['user_icq']))
 			{
-				$user_cache[$poster_id]['icq'] = 'http://www.icq.com/people/' . urlencode($row['user_icq']) . '/';
+				$user_cache[$poster_id]['icq'] = 'http://www.icq.com/people/' . urlencode((string) $row['user_icq']) . '/';
 				$user_cache[$poster_id]['icq_status_img'] = '<img src="http://web.icq.com/whitepages/online?icq=' . $row['user_icq'] . '&amp;img=5" width="18" height="18" alt="" />';
 			}
 			else
@@ -1442,7 +1444,7 @@ while ($row = $db->sql_fetchrow($result))
 
 			if ($config['allow_birthdays'] && !empty($row['user_birthday']))
 			{
-				list($bday_day, $bday_month, $bday_year) = array_map('intval', explode('-', $row['user_birthday']));
+				[$bday_day, $bday_month, $bday_year] = array_map('intval', explode('-', (string) $row['user_birthday']));
 
 				if ($bday_year)
 				{
@@ -1463,6 +1465,20 @@ while ($row = $db->sql_fetchrow($result))
 	}
 }
 $db->sql_freeresult($result);
+
+// Start Add User Blog Mod ------------------
+if (isset($config['user_blog_enable']) && $config['user_blog_enable'])
+{
+	include($phpbb_root_path . 'blog/includes/constants.' . $phpEx);
+	include($phpbb_root_path . 'blog/plugins/plugins.' . $phpEx);
+	include($phpbb_root_path . 'blog/includes/functions.' . $phpEx);
+	include($phpbb_root_path . 'blog/includes/functions_view.' . $phpEx);
+	$user->add_lang('mods/blog/common');
+	new blog_plugins();
+	get_zebra_info($user->data['user_id'], true);
+	get_user_settings($id_cache);
+}
+// End Add User Blog Mod --------------------
 
 // Load custom profile fields
 if ($config['load_cpf_viewtopic'])
@@ -1601,7 +1617,7 @@ if($ajaxlike_enable)
 	$likes_data = fetch_topic_likes();
 
 		$template->assign_vars(array(
-				'ALTER_MODE_LIKE_LIST'	=> isset($config['ajaxlike_alter_mode']) ? $config['ajaxlike_alter_mode'] : 0,
+				'ALTER_MODE_LIKE_LIST'	=> $config['ajaxlike_alter_mode'] ?? 0,
 				'LIKE_ACCESS'	=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id) && $topic_data['topic_type'] != POST_GLOBAL) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
 				'ALLOW_UNLIKE'	=> ($config['ajaxlike_allow_unlike']?true:false),
 				'LIKE_FROM'		=> $user->data['user_id'],
@@ -1618,7 +1634,7 @@ if($ajaxlike_enable)
 	$likes_data = fetch_topic_likes();
 
 		$template->assign_vars(array(
-				'ALTER_MODE_LIKE_LIST'	=> isset($config['ajaxlike_alter_mode']) ? $config['ajaxlike_alter_mode'] : 0,
+				'ALTER_MODE_LIKE_LIST'	=> $config['ajaxlike_alter_mode'] ?? 0,
 				'LIKE_ACCESS'	=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id) && $topic_data['topic_type'] != POST_GLOBAL) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
 				'ALLOW_UNLIKE'	=> ($config['ajaxlike_allow_unlike']?true:false),
 				'LIKE_FROM'		=> $user->data['user_id'],
@@ -1680,8 +1696,8 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 	// Highlight active words (primarily for search)
 	if ($highlight_match)
 	{
-		$message = preg_replace('#(?!<.*)(?<!\w)(' . $highlight_match . ')(?!\w|[^<>]*(?:</s(?:cript|tyle))?>)#is', '<span class="posthilit">\1</span>', $message);
-		$row['post_subject'] = preg_replace('#(?!<.*)(?<!\w)(' . $highlight_match . ')(?!\w|[^<>]*(?:</s(?:cript|tyle))?>)#is', '<span class="posthilit">\1</span>', $row['post_subject']);
+		$message = preg_replace('#(?!<.*)(?<!\w)(' . $highlight_match . ')(?!\w|[^<>]*(?:</s(?:cript|tyle))?>)#is', '<span class="posthilit">\1</span>', (string) $message);
+		$row['post_subject'] = preg_replace('#(?!<.*)(?<!\w)(' . $highlight_match . ')(?!\w|[^<>]*(?:</s(?:cript|tyle))?>)#is', '<span class="posthilit">\1</span>', (string) $row['post_subject']);
 	}
 
 	// Editing information
@@ -1787,7 +1803,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 			WHERE user_id = '$poster_id'";
 		$result = $db->sql_query($sql);
 		$bank_row = $db->sql_fetchrow($result);
-		$holding[$poster_id] = ( $bank_row['holding'] ) ? $bank_row['holding'] : '0';
+		$holding[$poster_id] = isset( $bank_row['holding'] ) ? $bank_row['holding'] : '0';
 		$bank_row = '';
 	}
 	// End Ultimate Points
@@ -1839,24 +1855,24 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 	
 	$postrow = array(
 		// ajaxlike
-		'TOTAL_LIKES'			=> ($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0),
+		'TOTAL_LIKES'			=> ($ajaxlike_enable ? ($likes_data[0][$row['post_id']] ?? 0) : 0),
 		'POST_LIKES'			=> ($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']] - (in_array($row['post_id'], $likes_data[1]) ? 1 : 0) : 0) : 0),
 		'YOU_LIKED'				=> ($ajaxlike_enable ? (in_array($row['post_id'], $likes_data[1]) ? true : false) : 0),
-		'LIKE_LIST'				=> ($ajaxlike_enable ? build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false) : ''),
+		'LIKE_LIST'				=> ($ajaxlike_enable ? build_like_list($likes_data[2][$row['post_id']] ?? false) : ''),
 		'NO_OWN_POST'			=> ($poster_id != $user->data['user_id']),
 		'LIKES'					=> ($ajaxlike_enable ? get_user_likes($row['user_id']) : 0),
 		'LIKED'					=> ($ajaxlike_enable ? get_user_liked($row['user_id']) : 0),
-		'LAST_LIKE_URL'			=> (($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0) > 1 ? "#" : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . urlencode(build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false)))),
+		'LAST_LIKE_URL'			=> (($ajaxlike_enable ? ($likes_data[0][$row['post_id']] ?? 0) : 0) > 1 ? "#" : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . urlencode((string) build_like_list($likes_data[2][$row['post_id']] ?? false)))),
 		// ajaxlike
 	// ajaxlike
-		'TOTAL_LIKES'			=> ($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0),
+		'TOTAL_LIKES'			=> ($ajaxlike_enable ? ($likes_data[0][$row['post_id']] ?? 0) : 0),
 		'POST_LIKES'			=> ($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']] - (in_array($row['post_id'], $likes_data[1]) ? 1 : 0) : 0) : 0),
 		'YOU_LIKED'				=> ($ajaxlike_enable ? (in_array($row['post_id'], $likes_data[1]) ? true : false) : 0),
-		'LIKE_LIST'				=> ($ajaxlike_enable ? build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false) : ''),
+		'LIKE_LIST'				=> ($ajaxlike_enable ? build_like_list($likes_data[2][$row['post_id']] ?? false) : ''),
 		'NO_OWN_POST'			=> ($poster_id != $user->data['user_id']),
 		'LIKES'					=> ($ajaxlike_enable ? get_user_likes($row['user_id']) : 0),
 		'LIKED'					=> ($ajaxlike_enable ? get_user_liked($row['user_id']) : 0),
-		'LAST_LIKE_URL'			=> (($ajaxlike_enable ? (isset($likes_data[0][$row['post_id']]) ? $likes_data[0][$row['post_id']]  : 0) : 0) > 1 ? "#" : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . urlencode(build_like_list(isset($likes_data[2][$row['post_id']]) ? $likes_data[2][$row['post_id']]  : false)))),
+		'LAST_LIKE_URL'			=> (($ajaxlike_enable ? ($likes_data[0][$row['post_id']] ?? 0) : 0) > 1 ? "#" : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . urlencode((string) build_like_list($likes_data[2][$row['post_id']] ?? false)))),
 	// ajaxlike
 		
 		'POST_AUTHOR_FULL'		=> ($poster_id != ANONYMOUS) ? $user_cache[$poster_id]['author_full'] : get_username_string('full', $poster_id, $row['username'], $row['user_colour'], $row['post_username']),
@@ -1960,8 +1976,16 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 
 	// Dump vars into template
 	$template->assign_block_vars('postrow', $postrow);
+
+	// Start Add User Blog Mod ------------------
+	if (isset($config['user_blog_enable']) && $config['user_blog_enable'])
+	{
+		add_blog_links($poster_id, 'postrow.custom_fields', $user_cache[$poster_id]);
+	}
+	// End Add User Blog Mod --------------------
+
 	// START Anti-Spam ACP
-	if ($row['user_type'] == 0 && $poster_id != $user->data['user_id'])
+	if ($row['user_type'] ?? null == 0 && $poster_id != $user->data['user_id'])
 	{
 	antispam::flagged_output($poster_id, $user_cache[$poster_id], 'postrow.custom_fields', $row['post_id']);
 	}
@@ -1997,7 +2021,7 @@ if(!empty($topic_data['topic_calendar_time']) && !empty($topic_data['topic_calen
 {
     include_once($phpbb_root_path . 'includes/functions_calendar.' . $phpEx);
     $user->add_lang('mods/calendar');
-    list($date['mon'], $date['mday'], $date['year']) = explode('-', gmdate('m-d-Y', $topic_data['topic_calendar_time'] + $user->timezone + $user->dst));
+    [$date['mon'], $date['mday'], $date['year']] = explode('-', gmdate('m-d-Y', $topic_data['topic_calendar_time'] + $user->timezone + $user->dst));
     
     // Get users who are signed up for event
     $sql = 'SELECT username, user_id, user_colour FROM ' . USERS_TABLE . '
@@ -2074,7 +2098,7 @@ if(!empty($topic_data['topic_calendar_time']) && !empty($topic_data['topic_calen
 //---END CALENDAR MOD---
 
 // Update topic view and if necessary attachment view counters ... but only for humans and if this is the first 'page view'
-if (isset($user->data['session_page']) && !$user->data['is_bot'] && (strpos($user->data['session_page'], '&t=' . $topic_id) === false || isset($user->data['session_created'])))
+if (isset($user->data['session_page']) && !$user->data['is_bot'] && (!str_contains((string) $user->data['session_page'], '&t=' . $topic_id) || isset($user->data['session_created'])))
 {
 	$sql = 'UPDATE ' . TOPICS_TABLE . '
 		SET topic_views = topic_views + 1, topic_last_view_time = ' . time() . "
@@ -2234,3 +2258,4 @@ $template->set_filenames(array(
 make_jumpbox(append_sid("{$phpbb_root_path}viewforum.$phpEx"), $forum_id);
 
 page_footer();
+ 

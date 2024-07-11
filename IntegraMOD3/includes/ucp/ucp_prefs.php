@@ -49,7 +49,7 @@ class ucp_prefs
 					
 					'notifymethod'	=> request_var('notifymethod', $user->data['user_notify_type']),
 					'dateformat'	=> request_var('dateformat', $user->data['user_dateformat'], true),
-					'lang'			=> basename(request_var('lang', $user->data['user_lang'])),
+					'lang'			=> basename((string) request_var('lang', $user->data['user_lang'])),
 					'style'			=> request_var('style', (int) $user->data['user_style']),
 					'tz'			=> request_var('tz', (float) $user->data['user_timezone']),
 
@@ -136,7 +136,7 @@ class ucp_prefs
 				foreach ($user->lang['dateformats'] as $format => $null)
 				{
 					$dateformat_options .= '<option value="' . $format . '"' . (($format == $data['dateformat']) ? ' selected="selected"' : '') . '>';
-					$dateformat_options .= $user->format_date(time(), $format, false) . ((strpos($format, '|') !== false) ? $user->lang['VARIANT_DATE_SEPARATOR'] . $user->format_date(time(), $format, true) : '');
+					$dateformat_options .= $user->format_date(time(), $format, false) . ((str_contains((string) $format, '|')) ? $user->lang['VARIANT_DATE_SEPARATOR'] . $user->format_date(time(), $format, true) : '');
 					$dateformat_options .= '</option>';
 				}
 
@@ -202,11 +202,11 @@ class ucp_prefs
 					// ajaxlike
 
 					'DATE_FORMAT'			=> $data['dateformat'],
-					'A_DATE_FORMAT'			=> addslashes($data['dateformat']),
+					'A_DATE_FORMAT'			=> addslashes((string) $data['dateformat']),
 					'S_DATEFORMAT_OPTIONS'	=> $dateformat_options,
 					'S_CUSTOM_DATEFORMAT'	=> $s_custom,
 					'DEFAULT_DATEFORMAT'	=> $config['default_dateformat'],
-					'A_DEFAULT_DATEFORMAT'	=> addslashes($config['default_dateformat']),
+					'A_DEFAULT_DATEFORMAT'	=> addslashes((string) $config['default_dateformat']),
 
 					'S_MORE_LANGUAGES'	=> $s_more_languages,
 					'S_MORE_STYLES'			=> $s_more_styles,
@@ -450,13 +450,14 @@ class ucp_prefs
 		}
 
 		$template->assign_vars(array(
-			'L_TITLE'			=> $user->lang['UCP_PREFS_' . strtoupper($mode)],
+			'L_TITLE'			=> $user->lang['UCP_PREFS_' . strtoupper((string) $mode)],
 
 			'S_HIDDEN_FIELDS'	=> $s_hidden_fields,
 			'S_UCP_ACTION'		=> $this->u_action)
 		);
 
 		$this->tpl_name = 'ucp_prefs_' . $mode;
-		$this->page_title = 'UCP_PREFS_' . strtoupper($mode);
+		$this->page_title = 'UCP_PREFS_' . strtoupper((string) $mode);
 	}
 }
+ 

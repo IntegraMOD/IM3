@@ -485,6 +485,7 @@ INSERT INTO phpbb_config VALUES('max_sig_urls', '5', 0);
 INSERT INTO phpbb_config VALUES('mchat_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('mchat_new_posts', '0', 0);
 INSERT INTO phpbb_config VALUES('mchat_on_index', '1', 0);
+INSERT INTO phpbb_config VALUES('mchat_on_portal', '1', 0);
 INSERT INTO phpbb_config VALUES('mchat_stats_index', '1', 0);
 INSERT INTO phpbb_config VALUES('mchat_version', '1.3.8', 0);
 INSERT INTO phpbb_config VALUES('meeting_first_weekday', 'm', 1);
@@ -684,11 +685,34 @@ INSERT INTO phpbb_config VALUES('user_details_max_cols', '12', 0);
 INSERT INTO phpbb_config VALUES('user_details_opts', '', 1);
 INSERT INTO phpbb_config VALUES('user_details_save', '0', 0);
 INSERT INTO phpbb_config VALUES('version', '3.0.15', 0);
+INSERT INTO phpbb_config VALUES('version_socialNet', '0.7.2', 0);
 INSERT INTO phpbb_config VALUES('warnings_expire_days', '90', 0);
 INSERT INTO phpbb_config VALUES('warnings_gc', '14400', 0);
 INSERT INTO phpbb_config VALUES('warnings_last_gc', '1707674862', 1);
 INSERT INTO phpbb_config VALUES('write_method', '1', 0);
-
+INSERT INTO phpbb_config VALUES('user_blog_enable', 1);
+INSERT INTO phpbb_config VALUES('user_blog_custom_profile_enable', 0);
+INSERT INTO phpbb_config VALUES('user_blog_text_limit', 200);
+INSERT INTO phpbb_config VALUES('user_blog_user_text_limit', 1000);
+INSERT INTO phpbb_config VALUES('user_blog_inform', '2');
+INSERT INTO phpbb_config VALUES('user_blog_always_show_blog_url', 0);
+INSERT INTO phpbb_config VALUES('user_blog_subscription_enabled', 1);
+INSERT INTO phpbb_config VALUES('user_blog_enable_zebra', 1);
+INSERT INTO phpbb_config VALUES('user_blog_enable_feeds', 1);
+INSERT INTO phpbb_config VALUES('user_blog_enable_plugins', 1);
+INSERT INTO phpbb_config VALUES('user_blog_seo', 0);
+INSERT INTO phpbb_config VALUES('user_blog_guest_captcha', 1);
+INSERT INTO phpbb_config VALUES('user_blog_user_permissions', 1);
+INSERT INTO phpbb_config VALUES('user_blog_search', 1);
+INSERT INTO phpbb_config VALUES('user_blog_search_type', 'fulltext_native');
+INSERT INTO phpbb_config VALUES('user_blog_enable_ratings', 1);
+INSERT INTO phpbb_config VALUES('user_blog_min_rating', 1);
+INSERT INTO phpbb_config VALUES('user_blog_max_rating', 5);
+INSERT INTO phpbb_config VALUES('user_blog_enable_attachments', 1);
+INSERT INTO phpbb_config VALUES('user_blog_max_attachments', 3);
+INSERT INTO phpbb_config VALUES('num_blogs', 1, true);
+INSERT INTO phpbb_config VALUES('num_blog_replies', 0, true);
+INSERT INTO phpbb_config VALUES('user_blog_quick_reply', 1);
 # -- Forum related auth options
 
 REPLACE INTO phpbb_acl_options (auth_option, is_global, is_local, founder_only) VALUES('f_', 0, 1, 0);
@@ -756,6 +780,17 @@ INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_rest
 INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_chg_points', 0, 1);
 INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_chg_bank', 0, 1);
 INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_sn_close_reports', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogapprove', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogedit', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_bloglockedit', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogdelete', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogreport', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogreplyapprove', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogreplyedit', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogreplylockedit', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogreplydelete', 0, 1);
+INSERT INTO phpbb_acl_options (auth_option, is_local, is_global) VALUES ('m_blogreplyreport', 0, 1);
+
 # -- Admin related auth options
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_server', 1);
@@ -847,6 +882,9 @@ INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_ads', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_points', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_sn_settings', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_ajaxlike_mod', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_blogmanage', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_blogdelete', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_blogreplydelete', 1);
 
 # -- User related auth options
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_', 1);
@@ -927,6 +965,31 @@ INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_sn_userstatus'
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_sn_notify', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_sn_im', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_ajaxlike_mod', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogview', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogpost', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogedit', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogdelete', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blognoapprove', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogreport', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogreply', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogreplyedit', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogreplydelete', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogreplynoapprove', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogbbcode', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogsmilies', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogimg', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogurl', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogflash', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogmoderate', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blogattach', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blognolimitattach', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_vote', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_vote_change', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_create_poll', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_style', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_css', 1);
+
+
 
 # -- Knowledge Base
 INSERT INTO phpbb_acl_options (auth_option, is_local, is_global, founder_only) VALUES ('kb_',1, 0, 0);

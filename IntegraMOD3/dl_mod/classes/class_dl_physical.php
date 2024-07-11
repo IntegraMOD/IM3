@@ -68,7 +68,7 @@ class dl_physical extends dl_mod
 
 		while (false !== ($file=@readdir($dir)))
 		{
-			if ($file{0} != ".")
+			if ($file[0] != ".")
 			{
 				if(is_dir($download_dir . $path . '/' . $file))
 				{
@@ -95,7 +95,7 @@ class dl_physical extends dl_mod
 
 		while (false !== ($file=@readdir($dir)))
 		{
-			if ($file{0} != ".")
+			if ($file[0] != ".")
 			{
 				$files .= (in_array($file, $unas_files)) ? $path . '/' . $file . '|' : '';
 				$files .= self::read_dl_files($download_dir, $path . '/' . $file, $unas_files);
@@ -147,7 +147,7 @@ class dl_physical extends dl_mod
 
 		while (false !== ($file=@readdir($dir)))
 		{
-			if ($file{0} != ".")
+			if ($file[0] != ".")
 			{
 				$file_size += sprintf("%u", @filesize($dl_dir . $path . '/' . $file));
 				$file_size += self::_old_read_dl_sizes($download_dir, $path . '/' . $file);

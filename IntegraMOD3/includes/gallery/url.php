@@ -22,34 +22,34 @@ class phpbb_gallery_url
 	/**
 	* Path from the gallery root, back to phpbb's root
 	*/
-	static private $phpbb_root_path = '../';
+	static private string $phpbb_root_path = '../';
 
 	/**
 	* Path from the phpbb root, into admin's root
 	*/
-	static private $phpbb_admin_path = 'adm/';
+	static private string $phpbb_admin_path = 'adm/';
 
 	/**
 	* Path from the phpbb root, into gallery's root
 	*/
-	static private $phpbb_gallery_path = 'gallery/';
+	static private string $phpbb_gallery_path = 'gallery/';
 
 	/**
 	* php-file extension
 	*/
-	static private $phpEx = '.php';
+	static private string $phpEx = '.php';
 
 
-	const IMAGE_PATH = 'images/';
-	const UPLOAD_PATH = 'upload/';
-	const THUMBNAIL_PATH = 'cache/';
-	const MEDIUM_PATH = 'medium/';
-	const IMPORT_PATH = 'import/';
+	public const IMAGE_PATH = 'images/';
+	public const UPLOAD_PATH = 'upload/';
+	public const THUMBNAIL_PATH = 'cache/';
+	public const MEDIUM_PATH = 'medium/';
+	public const IMPORT_PATH = 'import/';
 
 	static private $phpbb_gallery_relative = '';
 	static private $phpbb_gallery_full_path = '';
 
-	static private $loaded = false;
+	static private bool $loaded = false;
 
 	/**
 	* Static Constructor.

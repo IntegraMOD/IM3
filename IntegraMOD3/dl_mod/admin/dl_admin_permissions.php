@@ -649,5 +649,3 @@ $template->set_filenames(array(
 $template->assign_var('S_DL_PERMISSIONS', true);
 
 $template->assign_display('permissions');
-
-?>

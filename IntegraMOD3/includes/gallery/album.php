@@ -19,14 +19,14 @@ if (!defined('IN_PHPBB'))
 
 class phpbb_gallery_album
 {
-	const PUBLIC_ALBUM		= 0;
+	public const PUBLIC_ALBUM		= 0;
 
-	const TYPE_CAT			= 0;
-	const TYPE_UPLOAD		= 1;
-	const TYPE_CONTEST		= 2;
+	public const TYPE_CAT			= 0;
+	public const TYPE_UPLOAD		= 1;
+	public const TYPE_CONTEST		= 2;
 
-	const STATUS_OPEN		= 0;
-	const STATUS_LOCKED		= 1;
+	public const STATUS_OPEN		= 0;
+	public const STATUS_LOCKED		= 1;
 
 	/**
 	* Get album information
@@ -167,7 +167,7 @@ class phpbb_gallery_album
 			}
 			else if ($row['left_id'] > $right + 1)
 			{
-				$padding = (isset($padding_store[$row['parent_id']])) ? $padding_store[$row['parent_id']] : '';
+				$padding = $padding_store[$row['parent_id']] ?? '';
 			}
 
 			$right = $row['right_id'];
@@ -445,7 +445,7 @@ class phpbb_gallery_album
 		{
 			foreach ($album_parents as $parent_album_id => $parent_data)
 			{
-				list($parent_name, $parent_type) = array_values($parent_data);
+				[$parent_name, $parent_type] = array_values($parent_data);
 
 				$template->assign_block_vars('navlinks', array(
 					'FORUM_NAME'	=> $parent_name,
@@ -1003,7 +1003,7 @@ class phpbb_gallery_album
 				'UNAPPROVED_IMAGES'		=> (phpbb_gallery::$auth->acl_check('m_status', $album_id, $row['album_user_id'])) ? ($row['album_images_real'] - $row['album_images']) : 0,
 				'ALBUM_FOLDER_IMG'		=> $user->img($folder_image, $folder_alt),
 				'ALBUM_FOLDER_IMG_SRC'	=> $user->img($folder_image, $folder_alt, false, '', 'src'),
-				'ALBUM_FOLDER_IMG_ALT'	=> isset($user->lang[$folder_alt]) ? $user->lang[$folder_alt] : '',
+				'ALBUM_FOLDER_IMG_ALT'	=> $user->lang[$folder_alt] ?? '',
 				'ALBUM_IMAGE'			=> ($row['album_image']) ? phpbb_gallery_url::path('phpbb') . $row['album_image'] : '',
 				'LAST_IMAGE_TIME'		=> $lastimage_time,
 				'LAST_USER_FULL'		=> ($s_username_hidden) ? $user->lang['CONTEST_USERNAME'] : get_username_string('full', $row['album_last_user_id'], $row['album_last_username'], $row['album_last_user_colour']),

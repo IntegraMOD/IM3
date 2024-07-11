@@ -31,7 +31,7 @@ class ucp_remind
 		global $db, $user, $auth, $template;
 
 		$username	= request_var('username', '', true);
-		$email		= strtolower(request_var('email', ''));
+		$email		= strtolower((string) request_var('email', ''));
 		$submit		= (isset($_POST['submit'])) ? true : false;
 
 		if ($submit)
@@ -79,10 +79,10 @@ class ucp_remind
 
 			// Make password at least 8 characters long, make it longer if admin wants to.
 			// gen_rand_string() however has a limit of 12 or 13.
-			$user_password = gen_rand_string_friendly(max(8, mt_rand((int) $config['min_pass_chars'], (int) $config['max_pass_chars'])));
+			$user_password = gen_rand_string_friendly(max(8, random_int((int) $config['min_pass_chars'], (int) $config['max_pass_chars'])));
 
 			// For the activation key a random length between 6 and 10 will do.
-			$user_actkey = gen_rand_string(mt_rand(6, 10));
+			$user_actkey = gen_rand_string(random_int(6, 10));
 
 			$sql = 'UPDATE ' . USERS_TABLE . "
 				SET user_newpasswd = '" . $db->sql_escape(phpbb_hash($user_password)) . "', user_actkey = '" . $db->sql_escape($user_actkey) . "'
@@ -101,8 +101,8 @@ class ucp_remind
 			$messenger->anti_abuse_headers($config, $user);
 
 			$messenger->assign_vars(array(
-				'USERNAME'		=> htmlspecialchars_decode($user_row['username'], ENT_COMPAT),
-				'PASSWORD'		=> htmlspecialchars_decode($user_password, ENT_COMPAT),
+				'USERNAME'		=> htmlspecialchars_decode((string) $user_row['username'], ENT_COMPAT),
+				'PASSWORD'		=> htmlspecialchars_decode((string) $user_password, ENT_COMPAT),
 				'U_ACTIVATE'	=> "$server_url/ucp.$phpEx?mode=activate&u={$user_row['user_id']}&k=$user_actkey")
 			);
 
@@ -124,3 +124,4 @@ class ucp_remind
 		$this->page_title = 'UCP_REMIND';
 	}
 }
+ 

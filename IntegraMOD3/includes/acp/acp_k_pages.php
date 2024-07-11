@@ -78,13 +78,13 @@ class acp_k_pages
 			$mod_pages = request_var('k_mod_folders', '');
 
 			// trap trailing commas in mod pages //
-			if ($mod_pages && $mod_pages[strlen($mod_pages) - 1] == ',')
+			if ($mod_pages && $mod_pages[strlen((string) $mod_pages) - 1] == ',')
 			{
 				trigger_error($user->lang['TRAILING_COMMA'] . adm_back_link(append_sid("{$phpbb_admin_path}index.$phpEx", "i=k_pages&amp;mode=manage")), E_USER_WARNING);
 			}
 
 			//  We check to see  the mod folder exists, if not return... //
-			$mod_pages = str_replace(' ', '', $mod_pages);
+			$mod_pages = str_replace(' ', '', (string) $mod_pages);
 
 			// has mod folder been updated/modified //
 			if (strcmp($mod_pages, $k_config['k_mod_folders'] != 0))
@@ -115,7 +115,7 @@ class acp_k_pages
 			'U_ADD'     => append_sid("{$phpbb_admin_path}index.$phpEx", "i=k_pages&amp;mode=add"),
 			'U_MANAGE'  => append_sid("{$phpbb_admin_path}index.$phpEx", "i=k_pages&amp;mode=manage"),
 			'S_OPT'     => 'S_MANAGE',
-			'S_PAGE'    => isset($k_config['k_landing_page']) ? $k_config['k_landing_page'] : 'portal',
+			'S_PAGE'    => $k_config['k_landing_page'] ?? 'portal',
 		));
 
 		switch ($mode)
@@ -163,7 +163,7 @@ class acp_k_pages
 				if ($submit)
 				{
 					// drop extension
-					$tag_id = str_replace('.php', '', $tag_id);
+					$tag_id = str_replace('.php', '', (string) $tag_id);
 
 					// skip the spacer //
 					if ($tag_id == '..')
@@ -312,13 +312,13 @@ function get_all_available_files()
 
 	// grab files in phpbb_root_path/mod folders //
 	$dirs = dir($phpbb_root_path);
-	$mods_folder_array = explode(',', $k_config['k_mod_folders']);
+	$mods_folder_array = explode(',', (string) $k_config['k_mod_folders']);
 
 	while ($file = $dirs->read())
 	{
 		if (in_array($file, $mods_folder_array, true) && $file == '.' || $file == '..' && $k_config['k_mod_folders'] != '')
 		{
-			$mods_folder_array = explode(',', $k_config['k_mod_folders']);
+			$mods_folder_array = explode(',', (string) $k_config['k_mod_folders']);
 
 			foreach($mods_folder_array as $folder)
 			{
@@ -425,5 +425,3 @@ function get_page_filename($page_id)
 
 	return($row['page_name']);
 }
-
-?>

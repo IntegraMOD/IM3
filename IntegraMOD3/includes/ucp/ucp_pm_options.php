@@ -291,7 +291,7 @@ function message_options($id, $mode, $global_privmsgs_rules, $global_rule_condit
 			$check_option	= request_var('check_option', 0);
 			$rule_option	= request_var('rule_option', 0);
 			$cond_option	= request_var('cond_option', '');
-			$action_option	= explode('|', request_var('action_option', ''));
+			$action_option	= explode('|', (string) request_var('action_option', ''));
 			$rule_string	= ($cond_option != 'none') ? utf8_normalize_nfc(request_var('rule_string', '', true)) : '';
 			$rule_user_id	= ($cond_option != 'none') ? request_var('rule_user_id', 0) : 0;
 			$rule_group_id	= ($cond_option != 'none') ? request_var('rule_group_id', 0) : 0;
@@ -597,7 +597,7 @@ function define_check_option($hardcoded, $check_option, $check_lang)
 	$template->assign_vars(array(
 		'S_CHECK_DEFINED'	=> true,
 		'S_CHECK_SELECT'	=> ($hardcoded) ? false : true,
-		'CHECK_CURRENT'		=> isset($check_lang[$check_option]) ? $check_lang[$check_option] : '',
+		'CHECK_CURRENT'		=> $check_lang[$check_option] ?? '',
 		'S_CHECK_OPTIONS'	=> $s_check_options,
 		'CHECK_OPTION'		=> $check_option)
 	);
@@ -613,7 +613,7 @@ function define_action_option($hardcoded, $action_option, $action_lang, $folder)
 	$l_action = $s_action_options = '';
 	if ($hardcoded)
 	{
-		$option = explode('|', $action_option);
+		$option = explode('|', (string) $action_option);
 		$action = (int) $option[0];
 		$folder_id = (int) $option[1];
 
@@ -686,7 +686,7 @@ function define_rule_option($hardcoded, $rule_option, $rule_lang, $check_ary)
 	$template->assign_vars(array(
 		'S_RULE_DEFINED'	=> true,
 		'S_RULE_SELECT'		=> !$hardcoded,
-		'RULE_CURRENT'		=> isset($rule_lang[$rule_option]) ? $rule_lang[$rule_option] : '',
+		'RULE_CURRENT'		=> $rule_lang[$rule_option] ?? '',
 		'S_RULE_OPTIONS'	=> $s_rule_options,
 		'RULE_OPTION'		=> $rule_option)
 	);
@@ -868,3 +868,4 @@ function show_defined_rules($user_id, $check_lang, $rule_lang, $action_lang, $fo
 	}
 	$db->sql_freeresult($result);
 }
+ 

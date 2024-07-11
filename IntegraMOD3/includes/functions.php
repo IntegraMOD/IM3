@@ -3919,6 +3919,8 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 		define('E_DEPRECATED', 8192);
 	}
 
+	$error_log = $phpbb_root_path . '/store/php_error.log';
+
 	switch ($errno)
 	{
 		case E_NOTICE:
@@ -3973,8 +3975,6 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 
 				if (!empty($config['board_contact']))
 				{
-
-	$error_log = $phpbb_root_path . '/store/php_error.log';
 					$l_notify = '<p>Please notify the board administrator or webmaster: <a href="mailto:' . $config['board_contact'] . '">' . $config['board_contact'] . '</a></p>';
 				}
 			}
@@ -4044,7 +4044,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '	</div>';
 			echo '	</div>';
 			echo '	<div id="page-footer">';
-			echo '		Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group';
+			echo '		Powered by <a href="#">phpBB</a>&reg; Forum Software &copy; phpBB Group';
 			echo '	</div>';
 			echo '</div>';
 			echo '</body>';
@@ -5138,16 +5138,16 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'SHOW_CONTACT'        	 		=> ($user->data['user_id'] != ANONYMOUS && !$auth->acl_get('u_contact')) ? false : true,	
 		'CONTACT_IMG'         			=> $user->img('icon_email', 'Contact Us'),
 
-   		'S_SHOW_KB'       				=> ($auth->acl_get('u_kb') && ($config['show_kb'])) ? true : false,
-   		'S_SHOW_CAL'       				=> ($auth->acl_get('u_cal') && ($config['show_cal'])) ? true : false,
-   		'S_SHOW_GALL'       			=> ($auth->acl_get('u_gall') && ($config['show_gall'])) ? true : false,
-   		'S_SHOW_CHT'       				=> ($auth->acl_get('u_cht') && ($config['show_cht'])) ? true : false,
-   		'S_SHOW_DLS'       				=> ($auth->acl_get('u_dls') && ($config['show_dls'])) ? true : false,
-   		'S_SHOW_FAQ'       				=> ($auth->acl_get('u_faq') && ($config['show_faq'])) ? true : false,
-   		'S_SHOW_MEM'       				=> ($auth->acl_get('u_mem') && ($config['show_mem'])) ? true : false,
-   		'S_SHOW_NOTES'       			=> ($auth->acl_get('u_notes') && ($config['show_notes'])) ? true : false,
-   		'S_SHOW_MEETING'       			=> ($auth->acl_get('u_meeting') && ($config['show_meeting'])) ? true : false,
-   		'S_SHOW_CONTACT'       			=> ($auth->acl_get('u_contact') && ($config['show_contact'])) ? true : false,
+   		'S_SHOW_KB'       				=> ($auth->acl_get('u_kb') && ($config['show_kb'] ?? null)) ? true : false,
+   		'S_SHOW_CAL'       				=> ($auth->acl_get('u_cal') && ($config['show_cal'] ?? null)) ? true : false,
+   		'S_SHOW_GALL'       			=> ($auth->acl_get('u_gall') && ($config['show_gall'] ?? null)) ? true : false,
+   		'S_SHOW_CHT'       				=> ($auth->acl_get('u_cht') && ($config['show_cht'] ?? null)) ? true : false,
+   		'S_SHOW_DLS'       				=> ($auth->acl_get('u_dls') && ($config['show_dls'] ?? null)) ? true : false,
+   		'S_SHOW_FAQ'       				=> ($auth->acl_get('u_faq') && ($config['show_faq'] ?? null)) ? true : false,
+   		'S_SHOW_MEM'       				=> ($auth->acl_get('u_mem') && ($config['show_mem'] ?? null)) ? true : false,
+   		'S_SHOW_NOTES'       			=> ($auth->acl_get('u_notes') && ($config['show_notes'] ?? null)) ? true : false,
+   		'S_SHOW_MEETING'       			=> ($auth->acl_get('u_meeting') && ($config['show_meeting'] ?? null)) ? true : false,
+   		'S_SHOW_CONTACT'       			=> ($auth->acl_get('u_contact') && ($config['show_contact'] ?? null)) ? true : false,
 
 
 		'SID'				=> $SID,
@@ -5226,7 +5226,8 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'S_DISPLAY_SEARCH'		=> (!$config['load_search']) ? 0 : (isset($auth) ? ($auth->acl_get('u_search') && $auth->acl_getf_global('f_search')) : 1),
 		'S_DISPLAY_PM'			=> ($config['allow_privmsg'] && !empty($user->data['is_registered']) && ($auth->acl_get('u_readpm') || $auth->acl_get('u_sendpm'))) ? true : false,
 		'S_DISPLAY_MEMBERLIST'	=> (isset($auth)) ? $auth->acl_get('u_viewprofile') : 0,
-		'S_MOD_DISPLAY'			=> ($config['mod_show'] == 0 && $user->data['is_registered'] && !$user->data['is_bot']) ? true : ( $config['mod_show'] == 1 && $auth->acl_get('a_',' m_') ) ? true : ( $config['mod_show'] == 2 && $auth->acl_get('a_') ) ? true : false,
+// todo
+//		'S_MOD_DISPLAY'			=> ($config['mod_show'] == 0 && $user->data['is_registered'] && !$user->data['is_bot']) ? true : ( $config['mod_show'] == 1 && $auth->acl_get('a_',' m_') ) ? true : ( $config['mod_show'] == 2 && $auth->acl_get('a_') ) ? true : false,
 		'S_NEW_PM'				=> ($s_privmsg_new) ? 1 : 0,
 		'S_REGISTER_ENABLED'	=> ($config['require_activation'] != USER_ACTIVATION_DISABLE) ? true : false,
 		'S_FORUM_ID'			=> $forum_id,
@@ -5367,6 +5368,11 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 	// START Anti-Spam ACP
 	antispam::page_header();
 	// END Anti-Spam ACP
+	
+	// Start User Blog Mod ----------------------
+	include($phpbb_root_path . 'blog/header.' . $phpEx);
+	// End User Blog Mod ------------------------
+	
 	// application/xhtml+xml not used because of IE
 	header('Content-type: text/html; charset=UTF-8');
 
@@ -5424,7 +5430,7 @@ function page_footer($run_cron = true)
 	$template->assign_vars(array(
 		'DEBUG_OUTPUT'			=> (defined('DEBUG')) ? $debug_output : '',
 		'TRANSLATION_INFO'		=> (!empty($user->lang['TRANSLATION_INFO'])) ? $user->lang['TRANSLATION_INFO'] : '',
-		'CREDIT_LINE'			=> $user->lang('POWERED_BY', '<a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group'),
+		'CREDIT_LINE'			=> $user->lang('POWERED_BY', '<a href="#">phpBB</a>&reg; Forum Software &copy; phpBB Group'),
 
 		'U_ACP' => ($auth->acl_get('a_') && !empty($user->data['is_registered'])) ? append_sid("{$phpbb_root_path}adm/index.$phpEx", false, true, $user->session_id) : '')
 	);

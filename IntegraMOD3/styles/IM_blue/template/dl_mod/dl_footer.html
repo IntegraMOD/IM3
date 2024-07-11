@@ -1,0 +1,110 @@
+{S_DL_JUMPBOX}
+
+<!-- IF S_DL_MOD_OFFLINE_ADMINS -->
+<br />
+
+<div class="rules">
+	<div class="inner"><span class="corners-top"><span></span></span>
+		<strong>{L_DL_OFF_MESSAGE_ADMIN}</strong>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+
+<!-- BEGIN approve -->
+<br />
+
+<div class="panel" style="background-color: #FFAA44;">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<a href="{approve.U_APPROVE_DOWNLOADS}" class="forumtitle">{approve.L_APPROVE_DOWNLOADS}</a>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<!-- END approve -->
+<!-- BEGIN approve_comments -->
+<br />
+
+<div class="panel" style="background-color: #FFAA44;">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<a href="{approve_comments.U_APPROVE_COMMENTS}" class="forumtitle">{approve_comments.L_APPROVE_COMMENTS}</a>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- END approve_comments -->
+
+<br />
+
+<!-- IF S_FOOTER_NAV_ON -->
+<div class="panel bg3">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<table class="table2" width="100%" cellspacing="0">
+	<tr>
+		<td>&nbsp;</td>
+		<!-- IF U_DL_OVERALL_VIEW --><td align="center"><a href="{U_DL_OVERALL_VIEW}"><strong>{L_DL_OVERVIEW}</strong></a></td><!-- ENDIF -->
+		<!-- IF S_STATS_VIEW_ON --><td align="center"><a href="{U_DL_STATS}"><strong>{L_DL_STATS}</strong></a></td><!-- ENDIF -->
+		<!-- IF S_TODO_LINK --><td align="center"><a href="{U_DL_TODOLIST}"><strong>{L_DL_MOD_TODO}</strong></a></td><!-- ENDIF -->
+		<!-- IF S_U_CONFIG_LINK --><td align="center"><a href="{U_DL_CONFIG}"><strong>{L_DL_CONFIG}</strong></a></td><!-- ENDIF -->
+		<td>&nbsp;</td>
+	</tr>
+	</table>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_FOOTER_LEGEND -->
+<h3>{L_LEGEND}</h3>
+<table width="100%">
+<!-- IF S_DL_TRAFFIC_OFF -->
+<tr>
+	<td width="3%">{IMG_RED}</td><td width="14%">{L_DL_RED_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_GREEN}</td><td width="12%">{L_DL_GREEN_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_GREY}</td><td width="14%">{L_DL_GREY_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_WHITE}</td><td width="14%">{L_DL_WHITE_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_NEW_DL}</td><td width="14%">{L_DL_NEW}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_EDIT_DL}</td><td width="14%">{L_DL_EDIT}</td><td>&nbsp;</td>
+</dl>
+<!-- ELSE -->
+<tr>
+	<td width="3%">{IMG_BLUE}</td><td width="22%">{L_DL_BLUE_EXPLAIN_FOOT}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_RED}</td><td width="22%">{L_DL_RED_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_GREY}</td><td width="22%">{L_DL_GREY_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_WHITE}</td><td width="22%">{L_DL_WHITE_EXPLAIN}</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td width="3%">{IMG_YELLOW}</td><td width="22%">{L_DL_YELLOW_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_GREEN}</td><td width="22%">{L_DL_GREEN_EXPLAIN}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_NEW_DL}</td><td width="22%">{L_DL_NEW}</td><td>&nbsp;</td>
+	<td width="3%">{IMG_EDIT_DL}</td><td width="22%">{L_DL_EDIT}</td><td>&nbsp;</td>
+</tr>
+<!-- ENDIF -->
+</table>
+<!-- ENDIF -->
+
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="small" style="text-align: center;">
+			<!-- IF L_CAN_DOWNLOAD_AGAIN -->{L_CAN_DOWNLOAD_AGAIN}<br /><!-- ENDIF -->
+			<!-- BEGIN userdata -->{userdata.ACCOUNT_TRAFFIC}<br /><!-- END userdata -->
+			<!-- BEGIN remain_traffic -->{remain_traffic.REMAIN_TRAFFIC}<br /><!-- END remain_traffic -->
+			<!-- BEGIN no_remain_traffic --><b><span style="text-decoration: underline">{no_remain_traffic.NO_OVERALL_TRAFFIC}</span></b><br /><!-- END no_remain_traffic -->
+			<!-- BEGIN remain_guest_traffic -->{remain_guest_traffic.REMAIN_GUEST_TRAFFIC}<br /><!-- END remain_guest_traffic -->
+			<!-- BEGIN no_remain_guest_traffic --><b><span style="text-decoration: underline">{no_remain_guest_traffic.NO_OVERALL_GUEST_TRAFFIC}</span></b><br /><!-- END no_remain_guest_traffic -->
+			<!-- IF not S_HIDE_FOOTER_DATA and S_SERARATE_STATS --><br /><!-- ENDIF -->
+			<!-- BEGIN total_stat -->{total_stat.TOTAL_STAT}<!-- END total_stat -->
+			<!-- IF not S_HIDE_FOOTER_DATA --><br /><!-- ENDIF -->
+			<strong>{DL_MOD_RELEASE}</strong>&nbsp;&bull;&nbsp;
+			<!-- IF S_DL_TRANSLATION -->{L_DL_TRANSLATION}&nbsp;&bull;&nbsp;<!-- ENDIF -->
+			<!-- IF U_DL_RSS_FEED --><a href="{U_DL_RSS_FEED}">{L_DL_ACP_CONF_RSS}</a><!-- ENDIF -->
+		</div>
+	<span class="corners-bottom"><span></span></span>
+	</div>
+</div>
+
+<script type="text/javascript">
+// <![CDATA[
+function help_popup(help_key)
+{
+	window.open('{U_HELP_POPUP}' + help_key, '_blank', 'height=400,resizable=yes,width=550');;
+}
+// ]]>
+</script>
+
+<!-- INCLUDE overall_footer.html -->

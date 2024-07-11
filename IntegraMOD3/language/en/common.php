@@ -950,10 +950,14 @@ $lang = array_merge($lang, array(
 	'QUOTE' 						=> 'quote',
 	'QUICK_LINKS' 					=> 'Quick links',
 	'SOCKET_FUNCTIONS_DISABLED' 	=> 'Socket Disabled.',
+	'STYLE_LIGHT'					=> 'Light Style',
+	'STYLE_DARK'					=> 'Dark Style',	
 	'TOPIC_LOCKED' 					=> '<h6>locked</h6>',
 	'TOPIC_NEW' 					=> 'new<h6>topic</h6>',	
 	'TOPIC_REPLY' 					=> 'post<h6>reply</h6>',
 	'UPLOAD' 						=> '<h6>upload</h6>',
+	'LINE_NUMBERS'				    => 'Line number On/Off',
+	'EXPAND_CODE'				    => 'Expand/Contract',
 ));
 
 // Notes settings by OXPUS

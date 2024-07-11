@@ -90,13 +90,13 @@ if ($user->data['is_registered'] && $auth->acl_get('a_') && $user->data['user_ty
 			while ($row = $db->sql_fetchrow($result2))
 			{
 				// get folder info from the filename
-				if (($slash_pos = strrpos($row['template_filename'], '/')) === false)
+				if (($slash_pos = strrpos((string) $row['template_filename'], '/')) === false)
 				{
 					$filelist[''][] = $row['template_filename'];
 				}
 				else
 				{
-					$filelist[substr($row['template_filename'], 0, $slash_pos + 1)][] = substr($row['template_filename'], $slash_pos + 1, strlen($row['template_filename']) - $slash_pos - 1);
+					$filelist[substr((string) $row['template_filename'], 0, $slash_pos + 1)][] = substr((string) $row['template_filename'], $slash_pos + 1, strlen((string) $row['template_filename']) - $slash_pos - 1);
 				}
 			}
 			$db->sql_freeresult($result2);
@@ -218,11 +218,11 @@ page_footer();
 	* @param mixed $file_ary is optional and may contain an array of template file names which should be refreshed in the cache.
 	*	The file names should be the original template file names and not the cache file names.
 	*/
-	function clear_template_cache($template_row, $file_ary = false)
+	function clear_template_cache($template_row, mixed $file_ary = false)
 	{
 		global $phpbb_root_path, $phpEx, $user;
 
-		$cache_prefix = 'tpl_' . str_replace('_', '-', $template_row['template_path']);
+		$cache_prefix = 'tpl_' . str_replace('_', '-', (string) $template_row['template_path']);
 
 		if (!$file_ary || !is_array($file_ary))
 		{
@@ -236,7 +236,7 @@ page_footer();
 
 		foreach ($file_ary as $file)
 		{
-			$file = str_replace('/', '.', $file);
+			$file = str_replace('/', '.', (string) $file);
 
 			$file = "{$phpbb_root_path}cache/{$cache_prefix}_$file.html.$phpEx";
 			if (file_exists($file) && is_file($file))
@@ -272,7 +272,7 @@ page_footer();
 				{
 					foreach ($matches[1] as $match)
 					{
-						$includes[trim($match)][] = $file;
+						$includes[trim((string) $match)][] = $file;
 					}
 				}
 			}
@@ -283,7 +283,7 @@ page_footer();
 			foreach ($file_ary as $file)
 			{
 				// Skip index.
-				if (strpos($file, 'index.') === 0)
+				if (str_starts_with((string) $file, 'index.'))
 				{
 					continue;
 				}
@@ -339,7 +339,7 @@ page_footer();
 				continue;
 			}
 
-			if (is_file($phpbb_root_path . 'cache/' . $file) && (strpos($file, $cache_prefix) === 0))
+			if (is_file($phpbb_root_path . 'cache/' . $file) && (str_starts_with($file, $cache_prefix)))
 			{
 				$file_ary[] = str_replace('.', '/', preg_replace('#^' . preg_quote($cache_prefix, '#') . '_(.*?)\.html\.' . $phpEx . '$#i', '\1', $file));
 			}
@@ -358,7 +358,7 @@ page_footer();
 	*
 	* @return string Stylesheet data for theme_data column in the theme table
 	*/
-	function db_theme_data($theme_row, $stylesheet = false, $root_path = '')
+	function db_theme_data($theme_row, mixed $stylesheet = false, $root_path = '')
 	{
 		global $phpbb_root_path;
 
@@ -378,18 +378,18 @@ page_footer();
 
 		// Match CSS imports
 		$matches = array();
-		preg_match_all('/@import url\(["\'](.*)["\']\);/i', $stylesheet, $matches);
+		preg_match_all('/@import url\(["\'](.*)["\']\);/i', (string) $stylesheet, $matches);
 
 		if (sizeof($matches))
 		{
 			foreach ($matches[0] as $idx => $match)
 			{
-				$stylesheet = str_replace($match, load_css_file($theme_row['theme_path'], $matches[1][$idx]), $stylesheet);
+				$stylesheet = str_replace($match, load_css_file($theme_row['theme_path'], $matches[1][$idx]), (string) $stylesheet);
 			}
 		}
 
 		// adjust paths
-		return str_replace('./', 'styles/' . $theme_row['theme_path'] . '/theme/', $stylesheet);
+		return str_replace('./', 'styles/' . $theme_row['theme_path'] . '/theme/', (string) $stylesheet);
 	}
 
 	/**
@@ -416,4 +416,3 @@ page_footer();
 
 		return $content;
 	}
-?>

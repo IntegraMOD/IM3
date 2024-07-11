@@ -22,4 +22,3 @@ $phpEx = substr(strrchr(__FILE__, '.'), 1);
 header('HTTP/1.1 301 Moved Permanently');
 header('Location: ' . $phpbb_root_path . 'activitypage.' . $phpEx);
 exit();
-?>

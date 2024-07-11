@@ -118,6 +118,7 @@ $lang = array_merge($lang, array(
 	'UCP_PROFILE_MCHAT'	=> 'mChat Preferences',
 	
 	'DISPLAY_MCHAT' 	=> 'Display mChat on Index',
+	'DISPLAY_MCHAT_P'   => 'Display mChat on Portal',
 	'SOUND_MCHAT'		=> 'Enable mChat sound',
 	'DISPLAY_STATS_INDEX'	=> 'Display the Who is Chatting stats on index page',
 	'DISPLAY_NEW_TOPICS'	=> 'Display new topics in the chat',
@@ -129,4 +130,3 @@ $lang = array_merge($lang, array(
 	// ACP
 	'USER_MCHAT_UPDATED'	=> 'Users mChat preferences were updated',
 ));
-?>

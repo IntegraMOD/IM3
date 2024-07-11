@@ -145,4 +145,4 @@ $lang = array_merge($lang, array(
 	
 ));
 
-
+?>

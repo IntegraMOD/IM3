@@ -349,7 +349,7 @@ local_acronym{
   padding:4px; 
   padding-bottom: 0px; 
   padding-top: 0px; 
-  /*background-color: #fff; */
+  /* background-color: #fff; */
 }
 
 
@@ -550,10 +550,10 @@ dl.codebox {
 }
 
 #p_container_ {
-  width: 100%;
+  display: table;
+  width: 100%;	
   margin: auto;
   padding:0;
-  display: table;
 }
 
 #p_row_  {
@@ -565,6 +565,18 @@ dl.codebox {
   vertical-align:top;
 }
 
+#left, #right  {
+  width: 23%;
+  max-width: 300px;
+}
+
+@media (max-width: 768px) { /*breakpoint*/
+  #left, #right, #center {
+    display: block;
+	width: 100%;
+	max-width: 768px;
+  }
+}
 
 .tcontainer {
   width: 100%;

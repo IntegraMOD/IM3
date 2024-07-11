@@ -25,10 +25,10 @@ class phpbb_gallery_exif
 	/**
 	* Constants for the status of the exif-data.
 	*/
-	const UNAVAILABLE	= 0;
-	const AVAILABLE		= 1;
-	const UNKNOWN		= 2;
-	const DBSAVED		= 3;
+	public const UNAVAILABLE	= 0;
+	public const AVAILABLE		= 1;
+	public const UNKNOWN		= 2;
+	public const DBSAVED		= 3;
 
 	/**
 	* phpBB will treat the time from the exifdata like UTC.
@@ -37,7 +37,7 @@ class phpbb_gallery_exif
 	*
 	* Offset must be set in seconds.
 	*/
-	const TIME_OFFSET	= 0;
+	public const TIME_OFFSET	= 0;
 
 	/**
 	* Is the function available?
@@ -186,7 +186,7 @@ class phpbb_gallery_exif
 		}
 		if (isset($this->data["EXIF"]["FocalLength"]))
 		{
-			list($num, $den) = explode("/", $this->data["EXIF"]["FocalLength"]);
+			[$num, $den] = explode("/", $this->data["EXIF"]["FocalLength"]);
 			if ($den)
 			{
 				$this->prepared_data['exif_focal'] = sprintf($user->lang['EXIF_FOCAL_EXP'], ($num / $den));
@@ -194,7 +194,7 @@ class phpbb_gallery_exif
 		}
 		if (isset($this->data["EXIF"]["ExposureTime"]))
 		{
-			list($num, $den) = explode("/", $this->data["EXIF"]["ExposureTime"]);
+			[$num, $den] = explode("/", $this->data["EXIF"]["ExposureTime"]);
 			$exif_exposure = '';
 			if (($num > $den) && $den)
 			{
@@ -211,7 +211,7 @@ class phpbb_gallery_exif
 		}
 		if (isset($this->data["EXIF"]["FNumber"]))
 		{
-			list($num, $den) = explode("/", $this->data["EXIF"]["FNumber"]);
+			[$num, $den] = explode("/", $this->data["EXIF"]["FNumber"]);
 			if ($den)
 			{
 				$this->prepared_data['exif_aperture'] = "F/" . ($num / $den);
@@ -245,7 +245,7 @@ class phpbb_gallery_exif
 		}
 		if (isset($this->data["EXIF"]["ExposureBiasValue"]))
 		{
-			list($num,$den) = explode("/", $this->data["EXIF"]["ExposureBiasValue"]);
+			[$num, $den] = explode("/", $this->data["EXIF"]["ExposureBiasValue"]);
 			if ($den)
 			{
 				if (($num / $den) == 0)
@@ -319,12 +319,12 @@ class phpbb_gallery_exif
 	* There are lots of possible Exif Groups and Values.
 	* But you will never heard of the missing ones. so we just allow the most common ones.
 	*/
-	static private $allowed_groups		= array(
+	static private array $allowed_groups		= array(
 		'EXIF',
 		'IFD0',
 	);
 
-	static private $allowed_keys		= array(
+	static private array $allowed_keys		= array(
 		'DateTimeOriginal',
 		'FocalLength',
 		'ExposureTime',

@@ -98,13 +98,13 @@ foreach ($versions as $version => $actions)
 	$current_version = $version;
 }
 
-$template->assign_var('L_TITLE_EXPLAIN', ((isset($user->lang[$mod_name . '_EXPLAIN'])) ? $user->lang[$mod_name . '_EXPLAIN'] . '<br /><br />' : '') . sprintf($user->lang['VERSIONS'], $current_version, ((isset($config[$version_config_name])) ? $config[$version_config_name] : $user->lang['NONE'])));
+$template->assign_var('L_TITLE_EXPLAIN', ((isset($user->lang[$mod_name . '_EXPLAIN'])) ? $user->lang[$mod_name . '_EXPLAIN'] . '<br /><br />' : '') . sprintf($user->lang['VERSIONS'], $current_version, ($config[$version_config_name] ?? $user->lang['NONE'])));
 
 $submit = (isset($_POST['submit'])) ? true : false;
 $action = request_var('action', '');
 $version_select = request_var('version_select', '');
 
-$current_page = (strpos($user->page['page'], '?') !== false) ? substr($user->page['page'], 0, strpos($user->page['page'], '?')) : $user->page['page'];
+$current_page = (str_contains((string) $user->page['page'], '?')) ? substr((string) $user->page['page'], 0, strpos((string) $user->page['page'], '?')) : $user->page['page'];
 
 $stages = array(
 	'CONFIGURE'	=> array('url' => append_sid($phpbb_root_path . $current_page)),
@@ -186,7 +186,7 @@ function umil_install_update_uninstall_select($value, $key)
 {
 	global $config, $current_version, $user, $version_config_name;
 
-	$db_version = (isset($config[$version_config_name])) ? $config[$version_config_name] : false;
+	$db_version = $config[$version_config_name] ?? false;
 
 	if ($db_version === false)
 	{
@@ -239,4 +239,3 @@ function umil_version_select($value, $key)
 
 	return $output;
 }
-?>

@@ -151,12 +151,12 @@ switch ($mode)
 		// Delete Cookies with dynamic names (do NOT delete poll cookies)
 		if (confirm_box(true))
 		{
-			$set_time = time() - 31536000;
+			$set_time = time() - 31_536_000;
 
 			foreach ($_COOKIE as $cookie_name => $cookie_data)
 			{
 				// Only delete board cookies, no other ones...
-				if (strpos($cookie_name, $config['cookie_name'] . '_') !== 0)
+				if (!str_starts_with($cookie_name, $config['cookie_name'] . '_'))
 				{
 					continue;
 				}
@@ -164,7 +164,7 @@ switch ($mode)
 				$cookie_name = str_replace($config['cookie_name'] . '_', '', $cookie_name);
 
 				// Polls are stored as {cookie_name}_poll_{topic_id}, cookie_name_ got removed, therefore checking for poll_
-				if (strpos($cookie_name, 'poll_') !== 0)
+				if (!str_starts_with($cookie_name, 'poll_'))
 				{
 					$user->set_cookie($cookie_name, '', $set_time);
 				}
@@ -373,3 +373,5 @@ function _module_zebra($mode, &$module_row)
 		$template->assign_var('S_ZEBRA_FOES_ENABLED', true);
 	}
 }
+
+

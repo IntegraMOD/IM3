@@ -613,7 +613,7 @@ else
 			}
 
 			$rotate = request_var('rotate', array(0));
-			$rotate = (isset($rotate[0])) ? $rotate[0] : 0;
+			$rotate = $rotate[0] ?? 0;
 			if (phpbb_gallery_config::get('allow_rotate') && ($rotate > 0) && (($rotate % 90) == 0))
 			{
 				$image_tools = new phpbb_gallery_image_file();
@@ -691,7 +691,7 @@ else
 			'L_DESCRIPTION_LENGTH'	=> $user->lang('DESCRIPTION_LENGTH', phpbb_gallery_config::get('description_length')),
 			'S_EDIT'			=> true,
 			'S_ALBUM_ACTION'	=> phpbb_gallery_url::append_sid('posting', "mode=edit&amp;album_id=$album_id&amp;image_id=$image_id"),
-			'ERROR'				=> (isset($error)) ? $error : '',
+			'ERROR'				=> $error ?? '',
 
 			'U_VIEW_IMAGE'		=> phpbb_gallery_url::append_sid('image_page', "album_id=$album_id&amp;image_id=$image_id"),
 			'IMAGE_NAME'		=> $image_data['image_name'],
@@ -709,13 +709,11 @@ else
 	}
 }
 
-$mode = (strpos($mode, '_')) ? substr($mode, 0, strpos($mode, '_')) : $mode;
-page_header($user->lang[strtoupper($mode) . '_IMAGE'], false);
+$mode = (strpos((string) $mode, '_')) ? substr((string) $mode, 0, strpos((string) $mode, '_')) : $mode;
+page_header($user->lang[strtoupper((string) $mode) . '_IMAGE'], false);
 
 $template->set_filenames(array(
 	'body' => 'gallery/posting_body.html',
 ));
 
 page_footer();
-
-?>

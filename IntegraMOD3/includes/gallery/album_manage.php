@@ -28,9 +28,9 @@ class phpbb_gallery_album_manage
 
 	public $parent_id = 0;
 
-	private $u_action = '';
+	private string $u_action = '';
 
-	public function phpbb_gallery_album_manage($user_id, $parent_id, $u_action = '')
+	public function __construct($user_id, $parent_id, $u_action = '')
 	{
 		$this->user_id = (int) $user_id;
 		$this->parent_id = (int) $parent_id;
@@ -183,7 +183,7 @@ class phpbb_gallery_album_manage
 
 				if (!$row)
 				{
-					trigger_error($user->lang['PARENT_NOT_EXIST'] . $this->back_link($this->u_action . '&amp;parent_id=' . $this->parent_id), E_USER_WARNING);
+					trigger_error($user->lang['PARENT_NOT_EXIST'] . static::back_link($this->u_action . '&amp;parent_id=' . $this->parent_id), E_USER_WARNING);
 				}
 
 				if (!$add_on_top)

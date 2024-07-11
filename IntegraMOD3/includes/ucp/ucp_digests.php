@@ -168,11 +168,11 @@ class ucp_digests
 				// Note that if "all_forums" is unchecked and bookmarks is unchecked, there are individual forum subscriptions, so they must be saved.
 				$all_forums = request_var('all_forums', $user->data['user_digest_filter_type']);
 				$digest_type = request_var('digest_type', $user->data['user_digest_type']);
-				if (($all_forums !== 'on') && (trim($digest_type) !== DIGEST_BOOKMARKS)) 
+				if (($all_forums !== 'on') && (trim((string) $digest_type) !== DIGEST_BOOKMARKS)) 
 				{
 					foreach ($_POST as $key => $value) 
 					{
-						if (substr(htmlspecialchars($key), 0, 4) == 'elt_') 
+						if (str_starts_with(htmlspecialchars($key), 'elt_')) 
 						{
 							$forum_id = intval(substr(htmlspecialchars($key), 4, strpos($key, '_', 4) - 4));
 
@@ -228,7 +228,7 @@ class ucp_digests
 						if ($config['digests_user_digest_send_hour_gmt'] == -1)
 						{
 							// Pick a random hour, since this is a new digest and the administrator requested this to even out digest server processing
-							$local_send_hour = rand(0,23);
+							$local_send_hour = random_int(0,23);
 						}
 						else
 						{
@@ -308,8 +308,8 @@ class ucp_digests
 				case DIGEST_MODE_FORUMS_SELECTION:
 				
 					// Create a list of required and excluded forum_ids
-					$required_forum_ids = isset($config['digests_include_forums']) ? explode(',',$config['digests_include_forums']) : array();
-					$excluded_forum_ids = isset($config['digests_exclude_forums']) ? explode(',',$config['digests_exclude_forums']) : array();
+					$required_forum_ids = isset($config['digests_include_forums']) ? explode(',',(string) $config['digests_include_forums']) : array();
+					$excluded_forum_ids = isset($config['digests_exclude_forums']) ? explode(',',(string) $config['digests_exclude_forums']) : array();
 
 					// Individual forum checkboxes should be disabled if bookmarks are requested/expected
 					if ((($user->data['user_digest_type'] == DIGEST_NONE_VALUE) && ($config['digests_user_digest_filter_type'] == DIGEST_BOOKMARKS)) ||
@@ -530,7 +530,7 @@ class ucp_digests
 						$db->sql_freeresult($result);
 						
 						// Now out of the loop, it is important to remember to close any open <div> tags. Typically there is at least one.
-						while ((int) $row['parent_id'] != (int) end($parent_stack))
+						while ((int) $row['parent_id'] != (int) is_null(end($parent_stack)))
 						{
 							array_pop($parent_stack);
 							$current_level--;
@@ -635,5 +635,3 @@ class ucp_digests
 		}
 	}
 }
-
-?>

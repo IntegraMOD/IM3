@@ -1,9 +1,8 @@
-<table width="100%" class="extra" cellspacing="10" cellpadding="0" border="0">
-	<tr>
-<!-- IF S_SHOW_MINICAL -->
-		<td id="minical" align="left" valign="top" >
-			<div class="forabg" style="width:200px;">
-				<div class="inner"><span class="corners-top"><span></span></span>
+<div class="extra_container">
+<div class="row_resp">
+	<div class="column_cal">
+		<div class="forabg">
+				<div class="inner">
 					<ul class="topiclist">
 						<li class="header">
 							<dl>
@@ -11,15 +10,14 @@
 							</dl>
 						</li>
 					</ul>
-					<div style="padding: 5px 5px 2px 5px; font-size: 1.1em; background-color: #ECF1F3; margin: 0px auto; text-align: center;">
+					<div class="bg2" style="padding: 5px; margin: 0px auto;">
 					<!-- INCLUDE blocks/block_calendar.html -->
 					</div>
-				<span class="corners-bottom"><span></span></span></div>
-			</div>
-		</td>
+				</div>
+		</div>
+	</div>
+	<!-- IF S_MCHAT_ENABLE and S_MCHAT_ON_INDEX and not S_MCHAT_LOCATION -->
+	<div class="column_chat"><!-- INCLUDE mchat_body.html --></div>
 <!-- ENDIF -->
-<!-- IF S_MCHAT_ENABLE and S_MCHAT_ON_INDEX and not S_MCHAT_LOCATION -->
-		<td width="100%" valign="top"><!-- INCLUDE mchat_body.html --></td>
-<!-- ENDIF -->
-	</tr>
-</table>
+</div>
+</div>

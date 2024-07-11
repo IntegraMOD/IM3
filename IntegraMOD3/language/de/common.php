@@ -945,6 +945,8 @@ $lang = array_merge($lang, array(
 	'TOPIC_NEW' 					=> 'new<h6>topic</h6>',	
 	'TOPIC_REPLY' 					=> 'post<h6>reply</h6>',
 	'UPLOAD' 						=> '<h6>upload</h6>',
+	'LINE_NUMBERS'				    => 'Line number On/Off',
+	'EXPAND_CODE'				    => 'Expand/Contract',
 ));
 
 // Notes settings by OXPUS

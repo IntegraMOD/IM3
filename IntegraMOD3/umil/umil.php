@@ -1607,11 +1607,11 @@ class umil
 		{
 			if ($global)
 			{
-				$auth_admin->acl_add_option(array('global' => array($auth_option)));
+				$auth_admin -> acl_add_option(array('global' => array($auth_option)));
 			}
 			else
 			{
-				$auth_admin->acl_add_option(array('local' => array($auth_option)));
+				$auth_admin -> acl_add_option(array('local' => array($auth_option)));
 			}
 		}
 

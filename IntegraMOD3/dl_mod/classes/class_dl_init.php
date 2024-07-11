@@ -192,9 +192,12 @@ class dl_init extends dl_mod
 		/*
 		* disable the extention blacklist if it will be empty
 		*/
-		if (sizeof($ext_blacklist))
-		{
+		
+        if (is_countable($ext_blacklist)) {
+		  if (sizeof($ext_blacklist))
+		  {
 			$config['dl_enable_blacklist'] = true;
+		  }
 		}
 		else
 		{

@@ -1,0 +1,249 @@
+
+div.buttons, div.buttons div.locked-icon, div.buttons div.post-icon, div.buttons div.reply-icon, div.buttons div.upload-icon, div.buttons div.qreply-icon, .postbody ul.profile-icons li.edit-icon, .postbody ul.profile-icons li.quote-icon, ul.profile-icons li.pm-icon {
+	background : none 0 0 no-repeat transparent;
+	padding : 0;
+	margin : 0;
+	height : 0;
+}
+
+.reply-icon span, .upload-icon, .post-icon span, .locked-icon span, .pmreply-icon span, .newpm-icon span, .forwardpm-icon span, .qreply-icon .edit-icon, .quote-icon, .pm-icon {
+	background : none 0 0 no-repeat transparent;
+}
+
+div.buttons {
+	float : left;
+	width : auto;
+	height : auto;
+}
+
+div.buttons div.locked-icon a, div.buttons div.post-icon a, div.buttons div.reply-icon a, div.buttons div.upload-icon a, div.buttons div.qreply-icon a, .postbody ul.profile-icons li.edit-icon a, .postbody ul.profile-icons li.quote-icon a, div.buttons div.pmreply-icon a, div.buttons div.newpm-icon a, div.buttons div.forwardpm-icon a {
+	color : #0262A1;
+	text-decoration : none;
+	display : inline-block;
+}
+
+div.buttons div.locked-icon, div.buttons div.post-icon, div.buttons div.reply-icon, div.buttons div.upload-icon, div.buttons div.qreply-icon, div.buttons div.pmreply-icon, div.buttons div.newpm-icon, div.buttons div.forwardpm-icon {
+	border : #C4C1BD solid 1px;
+	border-radius : 4px;
+	font-size : 12px;
+	font-family : helvetica, sans-serif;
+	margin : 0 4px;
+	padding : 0 8px 0 8px;
+	text-transform : uppercase;
+	text-decoration : none;
+	display : inline-block;
+	font-weight : 600;
+	line-height : 2.2em;
+	width : auto;
+	height : 25px;
+	white-space : nowrap;
+	background-color : #FBFBFB;
+	background-image : linear-gradient(to bottom, #FBFBFB, #E6E6E6);
+}
+
+div.buttons div.locked-icon:hover, div.buttons div.post-icon:hover, div.buttons div.reply-icon:hover, div.buttons div.upload-icon:hover, div.buttons div.qreply-icon:hover, div.buttons div.pmreply-icon:hover, div.buttons div.newpm-icon:hover, div.buttons div.forwardpm-icon:hover {
+	border : #4386CC solid 1px;
+	background-color : #E6E6E6;
+	text-decoration : none;
+	background-image : linear-gradient(to bottom, #E6E6E6, #FBFBFB);
+}
+
+.postbody ul.profile-icons li.edit-icon, .postbody ul.profile-icons li.quote-icon {
+	display : none;
+	width : auto;
+	height : auto;
+}
+
+.postbody ul.profile-icons li.edit-icon, .postbody ul.profile-icons li.quote-icon {
+	border : #C4C1BD solid 1px;
+	border-radius : 3px;
+	font-size : 10px;
+	font-family : helvetica, sans-serif;
+	padding : 0 4px 0 4px;
+	text-transform : uppercase;
+	text-decoration : none;
+	display : inline-block;
+	font-weight : 600;
+	line-height : 1.6em;
+	width : auto;
+	height : 16px;
+	white-space : nowrap;
+	background-color : #FBFBFB;
+	background-image : linear-gradient(to bottom, #FBFBFB, #E6E6E6);
+}
+
+.postbody ul.profile-icons li.edit-icon:hover, .postbody ul.profile-icons li.quote-icon:hover {
+	border : #4386CC solid 1px;
+	background-color : #E6E6E6;
+	background-image : linear-gradient(to bottom, #E6E6E6, #FBFBFB);
+}
+
+ul.profile-icons li.pm-icon {
+	border : #CCCCCC solid 1px;
+	border-radius : 3px;
+	font-size : 10px;
+	font-family : helvetica, sans-serif;
+	padding : 0 4px 0 4px;
+	margin-right : 5px;
+	text-transform : uppercase;
+	text-decoration : none;
+	display : inline-block;
+	font-weight : 600;
+	line-height : 1.6em;
+	width : auto;
+	height : 18px;
+	white-space : nowrap;
+	color : #243D5B;
+	background-color : #E0E0DB;
+	background-image : linear-gradient(to bottom, #E0E0DB, #C9C9C6);
+}
+
+ul.profile-icons li.pm-icon:hover {
+	color : #243D5B;
+	text-shadow : -1px -1px 0 #FBFFCB;
+	border : #B2B2B2 solid 1px;
+	background-color : #D6D6D2;
+	background-image : linear-gradient(to bottom, #D6D6D2, #E0E0DB);
+}
+
+h6 {
+	display : inline-block;
+	font-size : 12px;
+	font-family : helvetica, sans-serif;
+	font-weight : 800;
+}
+
+h6, h6:hover {
+	font-weight : 800;
+}
+
+.badge {
+	background-color: #06B0F3;
+	color: #ffffff;	
+	border-radius: 10px;
+	opacity: 0.8;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 10px;
+	line-height: 1;
+	display: inline-block;
+	margin-left: 3px;
+	vertical-align: 3px;
+	position: relative;
+	top: 3px;
+	padding: 4px 6px;
+}
+
+.snbadge {
+	background-color: #06B0F3;
+	color: #ffffff;	
+	border-radius: 10px;
+	opacity: 0.8;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 10px;
+	line-height: 1;
+	display: inline-block;
+	margin-left: 3px;
+	vertical-align: 3px;
+	position: relative;
+	top: 3px;
+	padding: 4px 6px;
+}
+
+div.mini_cal {
+	border: solid 1px #E4E4E4;
+	padding: 5px 5px 2px 5px; 
+	font-size: 1.1em; 
+	background-color: #FFF; 
+	margin: 0px auto; 
+	text-align: center;
+}
+
+a.snbadge {
+	color: #ffffff !important;	
+	font-weight: 700;
+	margin-left: 3px;	
+}
+
+.badge.hidden {
+	display: none;
+}
+
+.logo_bg {
+  background-image: url("images/1.jpg");	
+	background-position: 100% 0;
+	background-size: cover;	
+	height: 260px;
+	}
+	
+p.wt {
+	text-align: right;
+	color: #fff !important;
+	padding-right: 2em;
+}
+
+p.wt a{
+	color: #D96400 !important;
+}	
+
+.img-span {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.rb { 
+	font-size: 1.5em;
+    border: 4px solid #DCE0D8;
+    border-radius: 8px;
+    background:#F5F1EE;
+	padding:1em;
+}
+
+.column_resp p, .column_rev p, .column_home p {
+	margin: 6px;
+}
+
+ /* For mobile phones: */
+
+.row_resp, .row_rev, .row_home {
+	display:flex;
+	flex-wrap: wrap;
+}
+
+ [class*="column_"] {
+    width: 100%;
+ }
+
+
+@media only screen and (min-width: 768px) {
+	.column_resp, .column_home {
+		width: 47%;
+		margin: 2px;
+	}
+
+	.column_chat {
+		width: 67%;
+		margin: 2px;
+	}
+
+	.column_cal {
+		width: 32%;
+		margin: 2px;
+	}	
+	.column_rev {
+		width: 23%;
+		margin: .5em;
+	}
+}
+
+
+
+
+
+
+
+
+
+

@@ -62,6 +62,7 @@ $template->assign_vars(array(
 	'U_MCP'					=> ($auth->acl_get('m_activate_kb') || $auth->acl_get('m_report_kb') || $auth->acl_get('m_log_kb')) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=kb&amp;mode=kb_main') : '',
 	'NOFORUMNAV'			=> true,
 	'SITENAME'				=> $config['sitename'],
+	'S_IN_KNOWLEDGE_BASE'	=> true,
 	)
 );
 
@@ -79,4 +80,3 @@ $template->set_filenames(array(
 
 page_footer();
 
-?>

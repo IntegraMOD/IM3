@@ -27,6 +27,7 @@ $user->session_begin();
 $auth->acl($user->data);
 $user->setup();
 
+$template->assign_var('S_IN_DL', true);
 /*
 * init and get various values
 */
@@ -971,4 +972,3 @@ include($phpbb_root_path . 'dl_mod/includes/dl_footer.' . $phpEx);
 */
 page_footer();
 
-?>

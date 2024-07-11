@@ -50,7 +50,7 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 	$reply_to_all	= request_var('reply_to_all', 0);
 
 	// Do NOT use request_var or specialchars here
-	$address_list	= isset($_REQUEST['address_list']) ? $_REQUEST['address_list'] : array();
+	$address_list	= $_REQUEST['address_list'] ?? array();
 
 	if (!is_array($address_list))
 	{
@@ -286,8 +286,8 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		}
 
 		$msg_id			= (int) $post['msg_id'];
-		$folder_id		= (isset($post['folder_id'])) ? $post['folder_id'] : 0;
-		$message_text	= (isset($post['message_text'])) ? $post['message_text'] : '';
+		$folder_id		= $post['folder_id'] ?? 0;
+		$message_text	= $post['message_text'] ?? '';
 
 		if ((!$post['author_id'] || ($post['author_id'] == ANONYMOUS && $action != 'delete')) && $msg_id)
 		{
@@ -303,15 +303,15 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		if ($action != 'delete')
 		{
 			$enable_urls = $post['enable_magic_url'];
-			$enable_sig = (isset($post['enable_sig'])) ? $post['enable_sig'] : 0;
+			$enable_sig = $post['enable_sig'] ?? 0;
 
-			$message_attachment = (isset($post['message_attachment'])) ? $post['message_attachment'] : 0;
+			$message_attachment = $post['message_attachment'] ?? 0;
 			$message_subject = $post['message_subject'];
 			$message_time = $post['message_time'];
 			$bbcode_uid = $post['bbcode_uid'];
 
-			$quote_username = (isset($post['quote_username'])) ? $post['quote_username'] : '';
-			$icon_id = (isset($post['icon_id'])) ? $post['icon_id'] : 0;
+			$quote_username = $post['quote_username'] ?? '';
+			$icon_id = $post['icon_id'] ?? 0;
 
 			if (($action == 'reply' || $action == 'quote' || $action == 'quotepost') && !sizeof($address_list) && !$refresh && !$submit && !$preview)
 			{
@@ -875,12 +875,12 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		{
 			$message_link = '';
 		}
-		$message_parser->message = $message_link . '[quote=&quot;' . $quote_username . '&quot;]' . censor_text(trim($message_parser->message)) . "[/quote]\n";
+		$message_parser->message = $message_link . '[quote=&quot;' . $quote_username . '&quot;]' . censor_text(trim((string) $message_parser->message)) . "[/quote]\n";
 	}
 
 	if (($action == 'reply' || $action == 'quote' || $action == 'quotepost') && !$preview && !$refresh)
 	{
-		$message_subject = ((!preg_match('/^Re:/', $message_subject)) ? 'Re: ' : '') . censor_text($message_subject);
+		$message_subject = ((!preg_match('/^Re:/', (string) $message_subject)) ? 'Re: ' : '') . censor_text($message_subject);
 	}
 
 	if ($action == 'forward' && !$preview && !$refresh && !$submit)
@@ -903,8 +903,8 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		$forward_text[] = sprintf($user->lang['FWD_FROM'], $quote_username_text);
 		$forward_text[] = sprintf($user->lang['FWD_TO'], implode(', ', $fwd_to_field['to']));
 
-		$message_parser->message = implode("\n", $forward_text) . "\n\n[quote=&quot;{$quote_username}&quot;]\n" . censor_text(trim($message_parser->message)) . "\n[/quote]";
-		$message_subject = ((!preg_match('/^Fwd:/', $message_subject)) ? 'Fwd: ' : '') . censor_text($message_subject);
+		$message_parser->message = implode("\n", $forward_text) . "\n\n[quote=&quot;{$quote_username}&quot;]\n" . censor_text(trim((string) $message_parser->message)) . "\n[/quote]";
+		$message_subject = ((!preg_match('/^Fwd:/', (string) $message_subject)) ? 'Fwd: ' : '') . censor_text($message_subject);
 	}
 
 	$attachment_data = $message_parser->attachment_data;
@@ -1081,7 +1081,7 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		'L_ICON'					=> $user->lang['PM_ICON'],
 		'L_MESSAGE_BODY_EXPLAIN'	=> (intval($config['max_post_chars'])) ? sprintf($user->lang['MESSAGE_BODY_EXPLAIN'], intval($config['max_post_chars'])) : '',
 
-		'SUBJECT'				=> (isset($message_subject)) ? $message_subject : '',
+		'SUBJECT'				=> $message_subject ?? '',
 		'MESSAGE'				=> $message_text,
 		'BBCODE_STATUS'			=> ($bbcode_status) ? sprintf($user->lang['BBCODE_IS_ON'], '<a href="' . append_sid("{$phpbb_root_path}faq.$phpEx", 'mode=bbcode') . '">', '</a>') : sprintf($user->lang['BBCODE_IS_OFF'], '<a href="' . append_sid("{$phpbb_root_path}faq.$phpEx", 'mode=bbcode') . '">', '</a>'),
 		'IMG_STATUS'			=> ($img_status) ? $user->lang['IMAGES_ARE_ON'] : $user->lang['IMAGES_ARE_OFF'],
@@ -1119,7 +1119,7 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 
 		'S_CLOSE_PROGRESS_WINDOW'	=> isset($_POST['add_file']),
 		'U_PROGRESS_BAR'			=> append_sid("{$phpbb_root_path}posting.$phpEx", 'f=0&amp;mode=popup'),
-		'UA_PROGRESS_BAR'			=> addslashes(append_sid("{$phpbb_root_path}posting.$phpEx", 'f=0&amp;mode=popup')),
+		'UA_PROGRESS_BAR'			=> addslashes((string) append_sid("{$phpbb_root_path}posting.$phpEx", 'f=0&amp;mode=popup')),
 	));
 
 	// Build custom bbcodes array
@@ -1180,7 +1180,7 @@ function handle_message_list_actions(&$address_list, &$error, $remove_u, $remove
 	$username_list = request_var('username_list', '', true);
 	if ($username_list)
 	{
-		$usernames = array_merge($usernames, explode("\n", $username_list));
+		$usernames = array_merge($usernames, explode("\n", (string) $username_list));
 	}
 
 	// If add to or add bcc not pressed, users could still have usernames listed they want to add...
@@ -1328,3 +1328,4 @@ function get_recipients($address_list, $num_recipients = 1)
 
 	return $recipient;
 }
+ 

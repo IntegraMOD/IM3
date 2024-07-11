@@ -164,9 +164,9 @@ class phpbb_gallery_config
 		$cache->destroy(self::$cache_file);
 	}
 
-	static private $is_dynamic = array();
+	static private array $is_dynamic = array();
 
-	static private $default_config = array();
+	static private array $default_config = array();
 
 	/**
 	* Functions for loading the configs from core and plugins
@@ -176,9 +176,9 @@ class phpbb_gallery_config
 	static private $loaded = false;
 
 	// Prefix which is prepend to the configs before they are stored in the config table.
-	static private $prefix = 'phpbb_gallery_';
+	static private string $prefix = 'phpbb_gallery_';
 
-	static private $cache_file = '_gallery_config_plugins';
+	static private string $cache_file = '_gallery_config_plugins';
 
 	static public function load($load_default = false)
 	{
@@ -201,7 +201,7 @@ class phpbb_gallery_config
 		foreach ($config as $config_name => $config_value)
 		{
 			// Load all config values of the gallery
-			if (strpos($config_name, self::$prefix) === 0)
+			if (strpos($config_name, (string) self::$prefix) === 0)
 			{
 				$config_name = substr($config_name, strlen(self::$prefix));
 

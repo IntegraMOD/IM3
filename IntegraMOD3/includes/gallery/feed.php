@@ -22,16 +22,16 @@ class phpbb_gallery_feed
 	/**
 	* Separator for title elements to separate items (for example album / image_name)
 	*/
-	private $separator = "\xE2\x80\xA2"; // &bull;
+	private string $separator = "\xE2\x80\xA2"; // &bull;
 
 	/**
 	* Separator for the statistics row (Uploaded by, time, comments, etc.)
 	*/
-	private $separator_stats = "\xE2\x80\x94"; // &mdash;
+	private string $separator_stats = "\xE2\x80\x94"; // &mdash;
 
-	private $feed_time = 0;
-	private $sql_where = '';
-	private $images_data = array();
+	private int $feed_time = 0;
+	private string $sql_where = '';
+	private array $images_data = array();
 
 	public function __construct($album_id)
 	{

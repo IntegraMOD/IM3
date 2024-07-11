@@ -70,23 +70,6 @@ if ($db->sql_affectedrows() != 1)
 */
 switch ($cron_type)
 {
-	case 'as':
-		if (time() - $config['as_interval'] <= $config['last_as_run'])
-		{
-			break;
-		}
-
-		include_once($phpbb_root_path . 'includes/functions_shoutbox.' . $phpEx);
-
-		if ($use_shutdown_function)
-		{
-			register_shutdown_function('as_cron');
-		}
-		else
-		{
-			as_cron();
-		}
-	break;
 	case 'queue':
 
 		if (time() - $config['queue_interval'] <= $config['last_queue_run'] || !file_exists($phpbb_root_path . 'cache/queue.' . $phpEx))

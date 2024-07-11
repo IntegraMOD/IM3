@@ -49,5 +49,3 @@ $lang = array_merge($lang, array(
 	'SHOULD_SELECT_GROUPS'					=> 'You should one or more groups',
 	
 ));
-
-

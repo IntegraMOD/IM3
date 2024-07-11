@@ -120,7 +120,7 @@ class ucp_activate
 			$messenger->anti_abuse_headers($config, $user);
 
 			$messenger->assign_vars(array(
-				'USERNAME'	=> htmlspecialchars_decode($user_row['username'], ENT_COMPAT))
+				'USERNAME'	=> htmlspecialchars_decode((string) $user_row['username'], ENT_COMPAT))
 			);
 
 			$messenger->send($user_row['user_notify_type']);
@@ -143,3 +143,4 @@ class ucp_activate
 		trigger_error($user->lang[$message]);
 	}
 }
+ 

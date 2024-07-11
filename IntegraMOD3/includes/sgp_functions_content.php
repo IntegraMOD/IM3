@@ -29,7 +29,7 @@ if (!function_exists('sgp_local_acronyms'))
 		$you = $user->lang['THIS_MEANS_YOU'];
 
 		// process single word acronyms first...
-		$message = str_replace("[phpBB3]", '<acronym title="' . $user->lang['ACRO_3'] . '"> phpBB3 </acronym>', $message);
+		$message = str_replace("[phpBB3]", '<acronym title="' . $user->lang['ACRO_3'] . '"> phpBB3 </acronym>', (string) $message);
 		$message = str_replace("[Stargate Portal]", '<acronym title="' . $user->lang['ACRO_1'] . '"> Stargate Portal </acronym>', $message);
 		$message = str_replace("[Kiss Portal Engine]", '<acronym title="' . $user->lang['ACRO_2'] . '"> Kiss Portal Engine </acronym>', $message);
 
@@ -46,7 +46,7 @@ if (!function_exists('phpbb_preg_quote'))
 {
 	function phpbb_preg_quote($str, $delimiter)
 	{
-		$text = preg_quote($str);
+		$text = preg_quote((string) $str);
 		$text = str_replace($delimiter, '\\' . $delimiter, $text);
 
 		return $text;
@@ -71,19 +71,19 @@ if (!function_exists('sgp_truncate_message'))
 		$buffer = $div_append = '';
 		$len = $extend = 0;
 
-		$len = strlen($txt);
+		$len = strlen((string) $txt);
 
 		if ($len > $length)
 		{
 			$extend = correct_truncate_length($txt, $length);
 		}
 
-		if (stripos($txt, '</div>'))
+		if (stripos((string) $txt, '</div>'))
 		{
 			$div_append = '</div>';
 		}
 
-		if (strlen($txt) > $length)
+		if (strlen((string) $txt) > $length)
 		{
 			for ($i = 0; $i <= $extend; $i++)
 			{
@@ -122,7 +122,7 @@ if (!function_exists('correct_truncate_length'))
 		$opening_tag_string = $closing_tag_string = '';
 		$return_val = $truncate;
 
-		$len = strlen($txt);
+		$len = strlen((string) $txt);
 
 		for ($i = 0; $i < $len; $i++)
 		{
@@ -213,7 +213,7 @@ if (!function_exists('correct_truncate_length'))
 							}
 							$closing_tag_string .= $txt[$i++];
 
-							if (strpos($tag_data[$ts-1], $closing_tag_string) !== false)
+							if (str_contains($tag_data[$ts-1], $closing_tag_string))
 							{
 								break;
 							}
@@ -247,6 +247,5 @@ if (!function_exists('correct_truncate_length'))
  */
 function word_replace($search, $replace, $subject)
 {
-	return preg_replace('/[a-zA-Z]+/e', '\'\0\' == \'' . $search . '\' ? \'' . $replace . '\': \'\0\';', $subject);
+	return preg_replace('/[a-zA-Z]+/e', '\'\0\' == \'' . $search . '\' ? \'' . $replace . '\': \'\0\';', (string) $subject);
 }
-?>

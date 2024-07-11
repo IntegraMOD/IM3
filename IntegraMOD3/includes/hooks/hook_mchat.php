@@ -66,16 +66,17 @@ function hook_mchat(&$hook)
 			}
 		}
 		
-		if($page_name == 'portal' && $user->data['user_mchat_portal'])
-		{
-			// mod included on portal page?
-			if(!defined('MCHAT_INCLUDE') && $config['mchat_on_portal'])
-			{
-				define('MCHAT_INCLUDE', true);
-				$mchat_include_portal = true;
-				include($phpbb_root_path . 'mchat.' . $phpEx);
-			}
-		}		
+//		if($page_name == 'portal' && $user->data['user_mchat_portal'])
+//		{
+//			// mod included on portal page?
+//			if(!defined('MCHAT_INCLUDE') && $config['mchat_on_portal'])
+//			{
+//				define('MCHAT_INCLUDE', true);
+//				$mchat_include_portal = true;
+//				include($phpbb_root_path . 'mchat.' . $phpEx);
+//			}
+//		}
+		
 		// show index stats
 		if (!empty($config['mchat_stats_index']) && !empty($user->data['user_mchat_stats_index']))
 		{
@@ -93,7 +94,7 @@ function hook_mchat(&$hook)
 		$template->assign_vars(array(	
 			'U_MCHAT'				=> $auth->acl_get('u_mchat_view') && $config_mchat['custom_page'] ? append_sid("{$phpbb_root_path}mchat.$phpEx") : '',
 			'S_MCHAT_ON_INDEX'		=> ($config['mchat_on_index'] && !empty($user->data['user_mchat_index'])) ? true : false,
-			'S_MCHAT_ON_PORTAL'		=> ($config['mchat_on_portal'] && !empty($user->data['user_mchat_portal'])) ? true : false,
+//			'S_MCHAT_ON_PORTAL'		=> ($config['mchat_on_portal'] && !empty($user->data['user_mchat_portal'])) ? true : false,
 			'S_MCHAT_ENABLE'		=> true,
 			'S_MCHAT_VERSION'		=> !empty($config['mchat_version']) ? $config['mchat_version'] : 0,
 			)

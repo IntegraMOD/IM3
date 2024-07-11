@@ -31,7 +31,7 @@ class ucp_resend
 		global $db, $user, $auth, $template;
 
 		$username	= request_var('username', '', true);
-		$email		= strtolower(request_var('email', ''));
+		$email		= strtolower((string) request_var('email', ''));
 		$submit		= (isset($_POST['submit'])) ? true : false;
 
 		add_form_key('ucp_resend');
@@ -98,7 +98,7 @@ class ucp_resend
 
 				$messenger->assign_vars(array(
 					'WELCOME_MSG'	=> htmlspecialchars_decode(sprintf($user->lang['WELCOME_SUBJECT'], $config['sitename']), ENT_COMPAT),
-					'USERNAME'		=> htmlspecialchars_decode($user_row['username'], ENT_COMPAT),
+					'USERNAME'		=> htmlspecialchars_decode((string) $user_row['username'], ENT_COMPAT),
 					'U_ACTIVATE'	=> generate_board_url() . "/ucp.$phpEx?mode=activate&u={$user_row['user_id']}&k={$user_row['user_actkey']}")
 				);
 
@@ -133,7 +133,7 @@ class ucp_resend
 					$messenger->anti_abuse_headers($config, $user);
 
 					$messenger->assign_vars(array(
-						'USERNAME'			=> htmlspecialchars_decode($user_row['username'], ENT_COMPAT),
+						'USERNAME'			=> htmlspecialchars_decode((string) $user_row['username'], ENT_COMPAT),
 						'U_USER_DETAILS'	=> generate_board_url() . "/memberlist.$phpEx?mode=viewprofile&u={$user_row['user_id']}",
 						'U_ACTIVATE'		=> generate_board_url() . "/ucp.$phpEx?mode=activate&u={$user_row['user_id']}&k={$user_row['user_actkey']}")
 					);

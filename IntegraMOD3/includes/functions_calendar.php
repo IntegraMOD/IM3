@@ -128,7 +128,7 @@ function generate_month_array($mon, $year, $simple = false)
 
 	// First things first, convert into unix timestamp - Then we can do what we like with it
 	$month_start = gmmktime(0, 0, 0, $mon, 1, $year);
-	list($first_dom, $days_in_month) = explode(',', gmdate('w,t', $month_start));
+	[$first_dom, $days_in_month] = explode(',', gmdate('w,t', $month_start));
 
 	// $month is the base level of the month structure - This is what is returned to the calling function
 	$month = array();
@@ -200,7 +200,7 @@ function generate_month_array($mon, $year, $simple = false)
 			}
 		}
 		$today = array();
-		list($today['mon'], $today['year'], $today['mday']) = explode('-', gmdate('n-Y-j', time() + $user->timezone + $user->dst));
+		[$today['mon'], $today['year'], $today['mday']] = explode('-', gmdate('n-Y-j', time() + $user->timezone + $user->dst));
 		//$today = getdate(gmdate('U', time()));
 		if ((int)$today['mon'] == (int)$mon && (int)$today['year'] == (int)$year)
 		{
@@ -386,7 +386,7 @@ function validate_event_data($event_data, $event_type)
 */
 function check_date($date)
 {
-	if (preg_match("/^([1-9]|0[1-9]|1[0-2])-([0-3][0-9])-([1-2][0-9]{3})$/", $date, $mdy))
+	if (preg_match("/^([1-9]|0[1-9]|1[0-2])-([0-3][0-9])-([1-2][0-9]{3})$/", (string) $date, $mdy))
 	{
 		return checkdate($mdy[1], $mdy[2], $mdy[3]) ? true : false;
 	}
@@ -406,7 +406,7 @@ function check_date($date)
 */
 function check_time($time)
 {
-	return preg_match("/^(0[1-9]|1[0-2]):[0-5][0-9] ([ap]m)$/", $time) ? true : false;
+	return preg_match("/^(0[1-9]|1[0-2]):[0-5][0-9] ([ap]m)$/", (string) $time) ? true : false;
 }
 
 /**
@@ -628,7 +628,7 @@ if (!isset($month_numbers))
 			return $result;
 		}
 		// Check that the specified start date is consistent with the repeat parameters
-		list($_m, $_d, $_y) = explode('-', request_var('date', ''));
+		[$_m, $_d, $_y] = explode('-', (string) request_var('date', ''));
 		$init_start_date = gmmktime(0, 0, 0, $_m, $_d, $_y);
 		$init_repeat_date = nth_weekday_to_unix($r_pos, $r_wday, $_m, $_y);
 		if ($init_start_date != $init_repeat_date)
@@ -653,7 +653,7 @@ if (!isset($month_numbers))
 			return $result;
 		}
 		// Check that the specified start date is consistent with the repeat parameters
-		list($_m, $_d, $_y) = explode('-', request_var('date', ''));
+		[$_m, $_d, $_y] = explode('-', (string) request_var('date', ''));
 		$init_start_date = gmmktime(0, 0, 0, $_m, $_d, $_y);
 		$init_repeat_date = nth_weekday_to_unix($r_mon_pos, $r_mon_wday, $month_numbers[$r_mon_mon], $_y);
 		if ($init_start_date != $init_repeat_date)
@@ -670,13 +670,13 @@ if (!isset($month_numbers))
 	{
 		$result['repeat_code'] = '';
 		// construct the code for repeat events
-		$result['repeat_code'] = $r_when . str_pad($r_count, 2, '0', STR_PAD_LEFT);
+		$result['repeat_code'] = $r_when . str_pad((string) $r_count, 2, '0', STR_PAD_LEFT);
 
 		// We have already determined there are no errors, so we can just append stuff straight onto the repeat code
 		switch($r_when)
 		{
 			case 'WM':  // nth weekday every n months
-				$result['repeat_code'] .= $r_pos . $r_wday . str_pad($r_n_months, 2, '0', STR_PAD_LEFT);
+				$result['repeat_code'] .= $r_pos . $r_wday . str_pad((string) $r_n_months, 2, '0', STR_PAD_LEFT);
 			break;
 
 			case 'WY':  // nth weekday of nth month every year
@@ -745,7 +745,7 @@ function validate_misc_event_data($event_data = false)
 	{
 		if (!empty($event_data['priv_users']))
 		{
-			$event_data['priv_user_list'] = explode("\n", $event_data['priv_users']);
+			$event_data['priv_user_list'] = explode("\n", (string) $event_data['priv_users']);
 
 			if (!isset($event_data['priv_user_list']))
 			{
@@ -843,8 +843,8 @@ function get_events($day, $month, $year, $period, $simple = false)
 	$time_from -= ($user->timezone + $user->dst);
 	$time_until -= ($user->timezone + $user->dst);
 
-	list($start_date, $start_time) = explode('|', gmdate('m-d-Y|h:i a', $time_from));
-	list($end_date, $end_time) = explode('|', gmdate('m-d-Y|h:i a', $time_until));
+	[$start_date, $start_time] = explode('|', gmdate('m-d-Y|h:i a', $time_from));
+	[$end_date, $end_time] = explode('|', gmdate('m-d-Y|h:i a', $time_until));
 
 	// Get all available usergroups so we can fill in the gaps later
 	$sql = 'SELECT ug.group_id, g.group_name FROM ' . USER_GROUP_TABLE . '  ug
@@ -885,13 +885,13 @@ function get_events($day, $month, $year, $period, $simple = false)
 	while($row = $db->sql_fetchrow($result))
 	{
 		$repeat_events[] = $row;
-		if (substr($row['repeat_id'], 0, 1) == 'e')
+		if (str_starts_with((string) $row['repeat_id'], 'e'))
 		{
-			$e_ids[] = substr($row['repeat_id'], 1, 2); // TODO - DUH this only works for 2 digit event codes... Twat
+			$e_ids[] = substr((string) $row['repeat_id'], 1, 2); // TODO - DUH this only works for 2 digit event codes... Twat
 		}
-		else if (substr($row['repeat_id'], 0, 1) == 't')
+		else if (str_starts_with((string) $row['repeat_id'], 't'))
 		{
-			$t_ids[] = substr($row['repeat_id'], 1, 2); // Same for this
+			$t_ids[] = substr((string) $row['repeat_id'], 1, 2); // Same for this
 		}
 		else
 		{
@@ -920,7 +920,7 @@ function get_events($day, $month, $year, $period, $simple = false)
 		$repeat_ids[] = "'e" . $row['event_id'] . "'";
 		if ($row['event_groups'])
 		{
-			$event_groups = explode(';', $row['event_groups']);
+			$event_groups = explode(';', (string) $row['event_groups']);
 			$event_groups = array_flip($event_groups);
 
 			// Groups allowed to view event
@@ -949,7 +949,7 @@ function get_events($day, $month, $year, $period, $simple = false)
 			$event_groups = array();
 		}
 
-		$priv_users = explode("\n", $row['priv_users']);
+		$priv_users = explode("\n", (string) $row['priv_users']);
 
 		$am_i_in = in_array($user->data['username'], $priv_users);
 
@@ -1158,8 +1158,8 @@ function get_events($day, $month, $year, $period, $simple = false)
 		while($row = $db->sql_fetchrow($result))
 		{
 			// Split results into topic events and standard events
-			$type = substr($row['repeat_id'], 0, 1);
-			$id = substr($row['repeat_id'], 1);
+			$type = substr((string) $row['repeat_id'], 0, 1);
+			$id = substr((string) $row['repeat_id'], 1);
 			// Group all repeated instances of each event together by id and type
 			$rep_instances[$type][$id][] = $row['event_start_time'];
 		}
@@ -1177,7 +1177,7 @@ function get_events($day, $month, $year, $period, $simple = false)
 				}
 				else
 				{
-					$eid = substr(stristr($e['topic_link'], 't='), 2);
+					$eid = substr(stristr((string) $e['topic_link'], 't='), 2);
 					if (array_key_exists($eid, $rep_instances['t']))
 					{
 						$e['repeats'] = $rep_instances['t'][$eid];
@@ -1205,7 +1205,7 @@ function get_events($day, $month, $year, $period, $simple = false)
 	}
 
 	// This nifty piece of code sorts a multidimensional array by a chosen index :)
-	usort($event_array, create_function('$a1, $a2', "return strnatcmp(\$a1['start_time'], \$a2['start_time']);"));
+	usort($event_array, fn($a1, $a2) => strnatcmp((string) $a1['start_time'], (string) $a2['start_time']));
 	return $event_array;
 }
 
@@ -1242,12 +1242,12 @@ function generate_repeat_event_info($ev_id, $start_time, $end_time, $repeat_code
 {
 	global $db, $user, $nth_position_list, $weekday_list, $month_list;
 
-	$repeat_when = substr($repeat_code, 0, 2);
-	$repeat_count = (int)substr($repeat_code, 2, 2);
+	$repeat_when = substr((string) $repeat_code, 0, 2);
+	$repeat_count = (int)substr((string) $repeat_code, 2, 2);
 
 	$values = '';
 
-	list($hr, $min, $mon, $day, $yr) = explode(',', gmdate('H,i,m,d,Y', $start_time));
+	[$hr, $min, $mon, $day, $yr] = explode(',', gmdate('H,i,m,d,Y', $start_time));
 
 	$message_event_list = str_replace(' ', '&nbsp;', sprintf("%-20s", $user->lang['INITIAL_EVENT'] . ')')) . $user->lang['CALENDAR_EVENT_START'] . ': ' . gmdate('m/d/Y, H:i:s', ($start_time + $user->timezone + $user->dst)) . ' - ' . $user->lang['CALENDAR_EVENT_END'] . ': ' . gmdate('m/d/Y, H:i:s', (($start_time + $user->timezone + $user->dst)+ ($end_time - $start_time))) . '<br />';
 
@@ -1298,10 +1298,10 @@ function generate_repeat_event_info($ev_id, $start_time, $end_time, $repeat_code
 		break;
 
 		case 'WM':  // nth weekday every n months
-			$nth_which = substr($repeat_code, 4, 1);
-			$nth_day = substr($repeat_code, 5, 1);
-			$n_months = (int)substr($repeat_code, 6, 2);
-			$message_event_details = sprintf($user->lang['NTH_DAY_N_MONTHS_DETAILS'], strtolower($nth_position_list[$nth_which]), $weekday_list[$nth_day], $n_months);
+			$nth_which = substr((string) $repeat_code, 4, 1);
+			$nth_day = substr((string) $repeat_code, 5, 1);
+			$n_months = (int)substr((string) $repeat_code, 6, 2);
+			$message_event_details = sprintf($user->lang['NTH_DAY_N_MONTHS_DETAILS'], strtolower((string) $nth_position_list[$nth_which]), $weekday_list[$nth_day], $n_months);
 
 			for ($i = 0 ; $i < $repeat_count ; $i++)
 			{
@@ -1314,10 +1314,10 @@ function generate_repeat_event_info($ev_id, $start_time, $end_time, $repeat_code
 		break;
 
 		case 'WY':  // nth weekday of nth month every year
-			$nth_which = substr($repeat_code, 4, 1);
-			$nth_day = substr($repeat_code, 5, 1);
-			$nth_month = substr($repeat_code, 6, 1);
-			$message_event_details = sprintf($user->lang['NTH_DAY_NTH_MONTH_EACH_YEAR_DETAILS'], strtolower($nth_position_list[$nth_which]), $weekday_list[$nth_day], $month_list[$nth_month]);
+			$nth_which = substr((string) $repeat_code, 4, 1);
+			$nth_day = substr((string) $repeat_code, 5, 1);
+			$nth_month = substr((string) $repeat_code, 6, 1);
+			$message_event_details = sprintf($user->lang['NTH_DAY_NTH_MONTH_EACH_YEAR_DETAILS'], strtolower((string) $nth_position_list[$nth_which]), $weekday_list[$nth_day], $month_list[$nth_month]);
 
 			for ($i = 1 ; $i <= $repeat_count ; $i++)
 			{
@@ -1368,7 +1368,7 @@ function generate_repeat_link_list($repeat)
 			foreach($repeat as $r)
 			{
 				$r += $user->timezone + $user->dst;
-				list($m, $d, $y) = explode(',', gmdate('m,d,Y', $r));
+				[$m, $d, $y] = explode(',', gmdate('m,d,Y', $r));
 		//		  $str .= '<a href="'.append_sid("{$phpbb_root_path}calendar.$phpEx", 'mode=view&month=' . $m . '&day=' . $d . '&year=' . $y) . '">' . gmdate($user->date_format, $r) . '</a>, ';
 				$str .= '<a href="'.append_sid("{$phpbb_root_path}calendar.$phpEx", 'mode=view&month=' . $m . '&day=' . $d . '&year=' . $y) . '">' . gmdate($user->date_format, $r) . '</a>, ';
 			}
@@ -1423,25 +1423,25 @@ function put_repeat_events($mode, &$event_data)
 */
 function extract_repeat_params($repeat_code, &$target_array)
 {
-	$target_array['event_repeat_when'] = substr($target_array['event_repeat'], 0, 2);
-	$target_array['event_repeat_count'] = substr($target_array['event_repeat'], 2, 2);
-	if (strlen($target_array['event_repeat']) > 4);
+	$target_array['event_repeat_when'] = substr((string) $target_array['event_repeat'], 0, 2);
+	$target_array['event_repeat_count'] = substr((string) $target_array['event_repeat'], 2, 2);
+	if (strlen((string) $target_array['event_repeat']) > 4);
 	{
 		// nth weekday of nth month every year?
-		if (substr($target_array['event_repeat'], 7, 1) == ' ')
+		if (substr((string) $target_array['event_repeat'], 7, 1) == ' ')
 		{
 			$target_array['repeat_nth_pos'] = '-';
 			$target_array['repeat_nth_weekday'] = '-';
 			$target_array['repeat_nth_count'] = '--';
-			$target_array['nth_month_position'] = substr($target_array['event_repeat'], 4, 1);
-			$target_array['nth_month_weekday'] = substr($target_array['event_repeat'], 5, 1);
-			$target_array['nth_month_month'] = substr($target_array['event_repeat'], 6, 1);
+			$target_array['nth_month_position'] = substr((string) $target_array['event_repeat'], 4, 1);
+			$target_array['nth_month_weekday'] = substr((string) $target_array['event_repeat'], 5, 1);
+			$target_array['nth_month_month'] = substr((string) $target_array['event_repeat'], 6, 1);
 		}
 		else
 		{
-			$target_array['repeat_nth_pos'] = substr($target_array['event_repeat'], 4, 1);
-			$target_array['repeat_nth_weekday'] = substr($target_array['event_repeat'], 5, 1);
-			$target_array['repeat_nth_count'] = substr($target_array['event_repeat'], 6, 2);
+			$target_array['repeat_nth_pos'] = substr((string) $target_array['event_repeat'], 4, 1);
+			$target_array['repeat_nth_weekday'] = substr((string) $target_array['event_repeat'], 5, 1);
+			$target_array['repeat_nth_count'] = substr((string) $target_array['event_repeat'], 6, 2);
 			$target_array['nth_month_position'] = '-';
 			$target_array['nth_month_weekday'] = '-';
 			$target_array['nth_month_month'] = '-';
@@ -1596,12 +1596,12 @@ function get_birthdays($day, $month, $year, $period)
 	$birthday_count=0;
 	while ($row = $db->sql_fetchrow($result))
 	{
-		list($_d, $_m, $_y) = explode('-', str_replace(' ', '', $row['user_birthday']));
+		[$_d, $_m, $_y] = explode('-', str_replace(' ', '', (string) $row['user_birthday']));
 		$birthday_count++;
 		$birthday_array[$birthday_count] = array(
 			'name'		=> $row['username'],
 			'username'	=> get_username_string('full', $row['user_id'], $row['username'], $row['user_colour']),
-			'age'		=> intval(substr($row['user_birthday'], -4)) == 0 ? '?' : gmdate("Y") - intval(substr($row['user_birthday'], -4)),
+			'age'		=> intval(substr((string) $row['user_birthday'], -4)) == 0 ? '?' : gmdate("Y") - intval(substr((string) $row['user_birthday'], -4)),
 			'birthday'	=> gmmktime(0, 0, 0, (int)$_m, (int)$_d, (int)$year),
 		);
 	}
@@ -1620,7 +1620,7 @@ function get_birthdays($day, $month, $year, $period)
 */
 function str_to_unix($t, $d)
 {
-	list($hour, $min, $ampm, $month, $day, $year) = preg_split("[\s|\:|\-]", $t . ' ' .  $d);
+	[$hour, $min, $ampm, $month, $day, $year] = preg_split("[\s|\:|\-]", $t . ' ' .  $d);
 	if (!isset($hour, $min, $ampm, $month, $day, $year))
 	{
 		return null;
@@ -1714,5 +1714,3 @@ function generate_mini_cal($cal_id)
 
 	return $mini_cal;
 }
-
-?>

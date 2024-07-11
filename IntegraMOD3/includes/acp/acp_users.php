@@ -1323,6 +1323,11 @@ class acp_users
 				include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 				include($phpbb_root_path . 'includes/functions_profile_fields.' . $phpEx);
 
+				// Start User Blog Mod ----------------------
+				include("{$phpbb_root_path}blog/includes/functions_admin.$phpEx");
+				blog_acp_profile($user_id, $submit);
+				// End User Blog Mod ------------------------
+				
 				$cp = new custom_profile();
 
 				$cp_data = $cp_error = array();
@@ -2361,6 +2366,7 @@ class acp_users
 
 				$data = array(
 					'user_mchat_index'	=> request_var('user_mchat_index',(bool) $user_row['user_mchat_index']),
+//					'user_mchat_portal'	=> request_var('user_mchat_portal',(bool) $user_row['user_mchat_portal']),
 					'user_mchat_sound'	=> request_var('user_mchat_sound', (bool) $user_row['user_mchat_sound']),
 					'user_mchat_stats_index'	=> request_var('user_mchat_stats_index', (bool) $user_row['user_mchat_stats_index']),
 					'user_mchat_topics'	=> request_var('user_mchat_topics', (bool) $user_row['user_mchat_topics']),
@@ -2382,6 +2388,7 @@ class acp_users
 
 						$sql_ary = array(					
 							'user_mchat_index'	=> $data['user_mchat_index'],
+//							'user_mchat_portal'	=> $data['user_mchat_portal'],
 							'user_mchat_sound'	=> $data['user_mchat_sound'],
 							'user_mchat_stats_index'	=> $data['user_mchat_stats_index'],
 							'user_mchat_topics'	=> $data['user_mchat_topics'],
@@ -2404,6 +2411,7 @@ class acp_users
 				$template->assign_vars(array(
 					'S_MCHAT'		=> true,
 					'DISPLAY_MCHAT'	=> $data['user_mchat_index'],
+//					'DISPLAY_MCHAT_P' => $data['user_mchat_portal'],
 					'SOUND_MCHAT'	=> $data['user_mchat_sound'],
 					'STATS_MCHAT'	=> $data['user_mchat_stats_index'],
 					'TOPICS_MCHAT'	=> $data['user_mchat_topics'],

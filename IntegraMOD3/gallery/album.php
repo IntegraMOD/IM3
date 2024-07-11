@@ -19,7 +19,9 @@ include($phpbb_root_path . 'common.' . $phpEx);
 
 phpbb_gallery::setup(array('mods/gallery_ucp', 'mods/gallery'));
 phpbb_gallery_url::_include('functions_display', 'phpbb');
-
+ 
+$template->assign_var('S_IN_GALLERY', true);
+ 
 /**
 * Check the request
 */
@@ -308,7 +310,7 @@ $template->assign_vars(array(
 	'S_SELECT_SORT_DIR'			=> $s_sort_dir,
 	'S_SELECT_SORT_KEY'			=> $s_sort_key,
 
-	'ALBUM_JUMPBOX'				=> phpbb_gallery_album::get_albumbox(false, '', $album_id),
+////	'ALBUM_JUMPBOX'				=> phpbb_gallery_album::get_albumbox (false, '', $album_id),
 	'U_RETURN_LINK'				=> phpbb_gallery_url::append_sid('index'),
 	'S_RETURN_LINK'				=> $user->lang['GALLERY'],
 

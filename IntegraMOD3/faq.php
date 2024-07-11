@@ -77,6 +77,7 @@ foreach ($user->help as $help_ary)
 $template->assign_vars(array(
 	'L_FAQ_TITLE'				=> $l_title,
 	'L_BACK_TO_TOP'				=> $user->lang['BACK_TO_TOP'],
+	'S_IN_FAQ'					=> true,
 
 	'SWITCH_COLUMN_MANUALLY'	=> (!$found_switch) ? true : false,
 ));

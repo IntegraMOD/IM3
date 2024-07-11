@@ -1,0 +1,14 @@
+phpBB Social Network
+PHP Version: 7.4.33
+DBMS: MySQL(i) 8.0.31
+phpBB3 Version: 3.0.15
+
+Adding acp module: Social Network
+ERROR: Module already exists.
+
+Adding new permission option: u_sn_notify
+ERROR: Permission option u_sn_notify already exists.
+
+Adding new permission option: u_sn_im
+ERROR: Permission option u_sn_im already exists.
+

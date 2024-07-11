@@ -114,6 +114,7 @@ clear:both;
  padding:5px;
  border: solid 1px #ABC5D9;
 }
+ 
 /* Clock css*/
 
 #clock {
@@ -210,8 +211,7 @@ div.faceBox {
   text-align: center;
   overflow: visible;
 }
-div#cssclock {
-  width: 190px !important;
+div.cssclock {
+  font-size: 6px;
   margin: auto;
 }
-

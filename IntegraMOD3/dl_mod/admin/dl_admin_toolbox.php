@@ -206,7 +206,7 @@ if ($action == 'check_thumbnails')
 
 	while (false !== ($file=@readdir($dir)))
 	{
-		if ($file{0} != "." && !is_dir($file) && $file != 'index.html')
+		if ($file[0] != "." && !is_dir($file) && $file != 'index.html')
 		{
 			$real_thumbnails['file_name'][] = $file;
 			$real_thumbnails['file_size'][] = sprintf("%u", @filesize($phpbb_root_path . 'dl_mod/thumbs/' . $file));
@@ -302,7 +302,7 @@ if ($files && $file_command)
 
 if ($dir_name && $dircreate)
 {
-	$upas = array('ä' => 'ae', 'ü' => 'ue', 'ö' => 'oe', 'Ä' => 'Ae', 'Ü' => 'Ue', 'Ö' => 'Oe', 'ß' => 'ss');
+	$upas = array('?' => 'ae', '?' => 'ue', '?' => 'oe', '?' => 'Ae', '?' => 'Ue', '?' => 'Oe', '?' => 'ss');
 	$upass = array(' ' => '', '+' => '', '%' => '');
 	$dir_name = strtr(urlencode(strtr(utf8_decode($dir_name), $upas)), $upass);
 
@@ -358,7 +358,7 @@ if ($action == 'browse' || $action == '' || $action == 'unassigned')
 
 		if ($path)
 		{
-			$path = ($path{0} == '/') ? substr($path, 1) : $path;
+			$path = ($path[0] == '/') ? substr($path, 1) : $path;
 
 			$temp_dir = explode('/', $path);
 			if (sizeof($temp_dir) > 0)
@@ -473,7 +473,7 @@ if ($action == 'browse' || $action == '' || $action == 'unassigned')
 
 	while (false !== ($file = @readdir($dir)))
 	{
-		if ($file{0} != "." && !is_dir($file))
+		if ($file[0] != "." && !is_dir($file))
 		{
 			$existing_thumbs = true;
 			break;
@@ -503,7 +503,7 @@ if ($action == 'browse' || $action == '' || $action == 'unassigned')
 		for($i = 0; $i < sizeof($dirs); $i++)
 		{
 			$template->assign_block_vars('dirs_row', array(
-				'DIR_LINK' => '»&nbsp;' . $dirs[$i],
+				'DIR_LINK' => '?&nbsp;' . $dirs[$i],
 				'DIR_DELETE_LINK' => $dirs_delete[$i])
 			);
 		}
@@ -594,4 +594,3 @@ if ($action <> 'check_thumbnails')
 
 $template->assign_display('toolbox');
 
-?>

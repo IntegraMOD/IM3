@@ -22,32 +22,32 @@ class phpbb_gallery_image
 	/**
 	* Only visible for moderators.
 	*/
-	const STATUS_UNAPPROVED	= 0;
+	public const STATUS_UNAPPROVED	= 0;
 
 	/**
 	* Visible for everyone with the i_view-permissions
 	*/
-	const STATUS_APPROVED	= 1;
+	public const STATUS_APPROVED	= 1;
 
 	/**
 	* Visible for everyone with the i_view-permissions, but only moderators can comment.
 	*/
-	const STATUS_LOCKED		= 2;
+	public const STATUS_LOCKED		= 2;
 
 	/**
 	* Orphan files are only visible for their author, because they're not yet ready uploaded.
 	*/
-	const STATUS_ORPHAN		= 3;
+	public const STATUS_ORPHAN		= 3;
 
 	/**
 	* Constants regarding the image contest relation
 	*/
-	const NO_CONTEST = 0;
+	public const NO_CONTEST = 0;
 
 	/**
 	* The image is element of an open contest. Only moderators can see the user_name of the user.
 	*/
-	const IN_CONTEST = 1;
+	public const IN_CONTEST = 1;
 
 	/**
 	* Get image information
@@ -271,7 +271,7 @@ class phpbb_gallery_image
 			'S_REPORTED'	=> (phpbb_gallery::$auth->acl_check('m_report', $image_data['image_album_id'], $album_user_id) && $image_data['image_reported']) ? true : false,
 
 			'ALBUM_NAME'		=> ($display & phpbb_gallery_block::DISPLAY_ALBUMNAME) ? ((isset($image_data['album_name'])) ? ((utf8_strlen(htmlspecialchars_decode($image_data['album_name'])) > phpbb_gallery_config::get('shortnames') + 3) ? htmlspecialchars(utf8_substr(htmlspecialchars_decode($image_data['album_name']), 0, phpbb_gallery_config::get('shortnames')) . '...') : ($image_data['album_name'])) : '') : '',
-			'ALBUM_NAME_FULL'	=> ($display & phpbb_gallery_block::DISPLAY_ALBUMNAME) ? ((isset($image_data['album_name'])) ? $image_data['album_name'] : '') : '',
+			'ALBUM_NAME_FULL'	=> ($display & phpbb_gallery_block::DISPLAY_ALBUMNAME) ? ($image_data['album_name'] ?? '') : '',
 			'POSTER'		=> ($display & phpbb_gallery_block::DISPLAY_USERNAME) ? (($s_username_hidden) ? $user->lang['CONTEST_USERNAME'] : get_username_string('full', $image_data['image_user_id'], $image_data['image_username'], $image_data['image_user_colour'])) : '',
 			'TIME'			=> ($display & phpbb_gallery_block::DISPLAY_IMAGETIME) ? $user->format_date($image_data['image_time']) : '',
 			'VIEW'			=> ($display & phpbb_gallery_block::DISPLAY_IMAGEVIEWS) ? $image_data['image_view_count'] : -1,

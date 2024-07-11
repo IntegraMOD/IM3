@@ -328,9 +328,9 @@ function view_folder($id, $mode, $folder_id, $folder)
 
 						foreach ($value as $tag => $text)
 						{
-							$cell = str_replace($enclosure, $enclosure . $enclosure, $text);
+							$cell = str_replace($enclosure, $enclosure . $enclosure, (string) $text);
 
-							if (strpos($cell, $enclosure) !== false || strpos($cell, $delimiter) !== false || strpos($cell, $newline) !== false)
+							if (str_contains($cell, (string) $enclosure) || str_contains($cell, (string) $delimiter) || str_contains($cell, $newline))
 							{
 								$string .= $enclosure . $text . $enclosure . $delimiter;
 							}
@@ -552,3 +552,4 @@ function get_pm_from($folder_id, $folder, $user_id)
 		'rowset'	=> $rowset
 	);
 }
+ 

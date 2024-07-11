@@ -78,7 +78,7 @@ class template_compile
 				$style_folder = $user->theme['template_path'];
 			}
 
-			$missing_file = str_replace($style_folder, '_portal_common', $missing_file);
+			$missing_file = str_replace($style_folder, '_portal_common', (string) $missing_file);
 
 			$this->template->files[$handle] = $missing_file;
 
@@ -126,7 +126,7 @@ class template_compile
 			'#<\?php(?:\r\n?|[ \n\t]).*?\?>#s'
 		);
 
-		$code = preg_replace($match, '', $code);
+		$code = preg_replace($match, '', (string) $code);
 	}
 
 	/**
@@ -150,9 +150,9 @@ class template_compile
 		$this->remove_php_tags($code);
 
 		// Pull out all block/statement level elements and separate plain text
-		preg_match_all('#<!-- PHP -->(.*?)<!-- ENDPHP -->#s', $code, $matches);
+		preg_match_all('#<!-- PHP -->(.*?)<!-- ENDPHP -->#s', (string) $code, $matches);
 		$php_blocks = $matches[1];
-		$code = preg_replace('#<!-- PHP -->.*?<!-- ENDPHP -->#s', '<!-- PHP -->', $code);
+		$code = preg_replace('#<!-- PHP -->.*?<!-- ENDPHP -->#s', '<!-- PHP -->', (string) $code);
 
 		preg_match_all('#<!-- INCLUDE (\{\$?[A-Z0-9\-_]+\}|[a-zA-Z0-9\_\-\+\./]+) -->#', $code, $matches);
 		$include_blocks = $matches[1];
@@ -229,13 +229,13 @@ class template_compile
 
 						if ($temp[1] == '$')
 						{
-							$var = substr($temp, 2, -1);
+							$var = substr((string) $temp, 2, -1);
 							//$file = $this->template->_tpldata['DEFINE']['.'][$var];
 							$temp = "\$this->_tpldata['DEFINE']['.']['$var']";
 						}
 						else
 						{
-							$var = substr($temp, 1, -1);
+							$var = substr((string) $temp, 1, -1);
 							//$file = $this->template->_rootref[$var];
 							$temp = "\$this->_rootref['$var']";
 						}
@@ -274,7 +274,7 @@ class template_compile
 		for ($i = 0, $size = sizeof($text_blocks); $i < $size; $i++)
 		{
 			$trim_check_text = trim($text_blocks[$i]);
-			$template_php .= (!$no_echo) ? (($trim_check_text != '') ? $text_blocks[$i] : '') . ((isset($compile_blocks[$i])) ? $compile_blocks[$i] : '') : (($trim_check_text != '') ? $text_blocks[$i] : '') . ((isset($compile_blocks[$i])) ? $compile_blocks[$i] : '');
+			$template_php .= (!$no_echo) ? (($trim_check_text != '') ? $text_blocks[$i] : '') . ($compile_blocks[$i] ?? '') : (($trim_check_text != '') ? $text_blocks[$i] : '') . ($compile_blocks[$i] ?? '');
 		}
 
 		// Remove unused opening/closing tags
@@ -305,7 +305,7 @@ class template_compile
 		$varrefs = array();
 
 		// This one will handle varrefs WITH namespaces
-		preg_match_all('#\{((?:[a-z0-9\-_]+\.)+)(\$)?([A-Z0-9\-_]+)\}#', $text_blocks, $varrefs, PREG_SET_ORDER);
+		preg_match_all('#\{((?:[a-z0-9\-_]+\.)+)(\$)?([A-Z0-9\-_]+)\}#', (string) $text_blocks, $varrefs, PREG_SET_ORDER);
 
 		foreach ($varrefs as $var_val)
 		{
@@ -313,25 +313,25 @@ class template_compile
 			$varname = $var_val[3];
 			$new = $this->generate_block_varref($namespace, $varname, true, $var_val[2]);
 
-			$text_blocks = str_replace($var_val[0], $new, $text_blocks);
+			$text_blocks = str_replace($var_val[0], $new, (string) $text_blocks);
 		}
 
 		// This will handle the remaining root-level varrefs
 		// transform vars prefixed by L_ into their language variable pendant if nothing is set within the tpldata array
-		if (strpos($text_blocks, '{L_') !== false)
+		if (str_contains((string) $text_blocks, '{L_'))
 		{
-			$text_blocks = preg_replace('#\{L_([A-Z0-9\-_]+)\}#', "<?php echo ((isset(\$this->_rootref['L_\\1'])) ? \$this->_rootref['L_\\1'] : ((isset(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '{ \\1 }')); ?>", $text_blocks);
+			$text_blocks = preg_replace('#\{L_([A-Z0-9\-_]+)\}#', "<?php echo ((isset(\$this->_rootref['L_\\1'])) ? \$this->_rootref['L_\\1'] : ((isset(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '{ \\1 }')); ?>", (string) $text_blocks);
 		}
 
 		// Handle addslashed language variables prefixed with LA_
 		// If a template variable already exist, it will be used in favor of it...
-		if (strpos($text_blocks, '{LA_') !== false)
+		if (str_contains((string) $text_blocks, '{LA_'))
 		{
-			$text_blocks = preg_replace('#\{LA_([A-Z0-9\-_]+)\}#', "<?php echo ((isset(\$this->_rootref['LA_\\1'])) ? \$this->_rootref['LA_\\1'] : ((isset(\$this->_rootref['L_\\1'])) ? addslashes(\$this->_rootref['L_\\1']) : ((isset(\$user->lang['\\1'])) ? addslashes(\$user->lang['\\1']) : '{ \\1 }'))); ?>", $text_blocks);
+			$text_blocks = preg_replace('#\{LA_([A-Z0-9\-_]+)\}#', "<?php echo ((isset(\$this->_rootref['LA_\\1'])) ? \$this->_rootref['LA_\\1'] : ((isset(\$this->_rootref['L_\\1'])) ? addslashes(\$this->_rootref['L_\\1']) : ((isset(\$user->lang['\\1'])) ? addslashes(\$user->lang['\\1']) : '{ \\1 }'))); ?>", (string) $text_blocks);
 		}
 
 		// Handle remaining varrefs
-		$text_blocks = preg_replace('#\{([A-Z0-9\-_]+)\}#', "<?php echo \$this->_rootref['\\1'] ?? ''; ?>", $text_blocks);
+		$text_blocks = preg_replace('#\{([A-Z0-9\-_]+)\}#', "<?php echo \$this->_rootref['\\1'] ?? ''; ?>", (string) $text_blocks);
 		$text_blocks = preg_replace('#\{\$([A-Z0-9\-_]+)\}#', "<?php echo \$this->_tpldata['DEFINE']['.']['\\1'] ?? ''; ?>", $text_blocks);
 
 		return;
@@ -346,11 +346,11 @@ class template_compile
 		$no_nesting = false;
 
 		// Is the designer wanting to call another loop in a loop?
-		if (strpos($tag_args, '!') === 0)
+		if (str_starts_with((string) $tag_args, '!'))
 		{
 			// Count the number of ! occurrences (not allowed in vars)
-			$no_nesting = substr_count($tag_args, '!');
-			$tag_args = substr($tag_args, $no_nesting);
+			$no_nesting = substr_count((string) $tag_args, '!');
+			$tag_args = substr((string) $tag_args, $no_nesting);
 		}
 
 		// Allow for control of looping (indexes start from zero):
@@ -358,7 +358,7 @@ class template_compile
 		// foo(-2)   : Will start the loop two entries from the end
 		// foo(3,4)  : Will start the loop on the fourth entry and end it on the fifth
 		// foo(3,-4) : Will start the loop on the fourth entry and end it four from last
-		if (preg_match('#^([^()]*)\(([\-\d]+)(?:,([\-\d]+))?\)$#', $tag_args, $match))
+		if (preg_match('#^([^()]*)\(([\-\d]+)(?:,([\-\d]+))?\)$#', (string) $tag_args, $match))
 		{
 			$tag_args = $match[1];
 
@@ -453,7 +453,7 @@ class template_compile
 			"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"         |
 			\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     |
 			[(),]                                  |
-			[^\s(),]+)/x', $tag_args, $match);
+			[^\s(),]+)/x', (string) $tag_args, $match);
 
 		$tokens = $match[0];
 		$is_arg_stack = array();
@@ -552,12 +552,12 @@ class template_compile
 				// no break
 
 				default:
-					if (preg_match('#^((?:[a-z0-9\-_]+\.)+)?(\$)?(?=[A-Z])([A-Z0-9\-_]+)#s', $token, $varrefs))
+					if (preg_match('#^((?:[a-z0-9\-_]+\.)+)?(\$)?(?=[A-Z])([A-Z0-9\-_]+)#s', (string) $token, $varrefs))
 					{
 						// should the end of this be '' or null ??? null seems correct, but...
 						$token = (!empty($varrefs[1])) ? $this->generate_block_data_ref(substr($varrefs[1], 0, -1), true, $varrefs[2]) . '[\'' . $varrefs[3] . '\']' : (($varrefs[2]) ? '(isset($this->_tpldata[\'DEFINE\']) && $this->_tpldata[\'DEFINE\'][\'.\'][\'' . $varrefs[3] . '\'])' : '($this->_rootref[\'' . $varrefs[3] . '\'] ?? null)');
 					}
-					else if (preg_match('#^\.((?:[a-z0-9\-_]+\.?)+)$#s', $token, $varrefs))
+					else if (preg_match('#^\.((?:[a-z0-9\-_]+\.?)+)$#s', (string) $token, $varrefs))
 					{
 						// Allow checking if loops are set with .loopname
 						// It is also possible to check the loop count by doing <!-- IF .loopname > 1 --> for example
@@ -606,7 +606,7 @@ class template_compile
 	*/
 	function compile_tag_define($tag_args, $op)
 	{
-		preg_match('#^((?:[a-z0-9\-_]+\.)+)?\$(?=[A-Z])([A-Z0-9_\-]*)(?: = (\'?)([^\']*)(\'?))?$#', $tag_args, $match);
+		preg_match('#^((?:[a-z0-9\-_]+\.)+)?\$(?=[A-Z])([A-Z0-9_\-]*)(?: = (\'?)([^\']*)(\'?))?$#', (string) $tag_args, $match);
 
 		if (empty($match[2]) || (!isset($match[4]) && $op))
 		{
@@ -627,7 +627,7 @@ class template_compile
 			$match[4] = $this->compile($match[4]);
 
 			// Now replace the php code
-			$match[4] = "'" . str_replace(array('<?php echo ', '; ?>'), array("' . ", " . '"), $match[4]) . "'";
+			$match[4] = "'" . str_replace(array('<?php echo ', '; ?>'), array("' . ", " . '"), (string) $match[4]) . "'";
 		}
 		else
 		{
@@ -636,24 +636,14 @@ class template_compile
 				$type = [0];
 			}
 
-			switch (strtolower($type[0]))
-			{
-				case 'true':
-				case 'false':
-					$match[4] = strtoupper($match[4]);
-				break;
-
-				case '.':
-					$match[4] = doubleval($match[4]);
-				break;
-
-				default:
-					$match[4] = intval($match[4]);
-				break;
-			}
+			$match[4] = match (strtolower($type[0])) {
+       'true', 'false' => strtoupper($match[4]),
+       '.' => doubleval($match[4]),
+       default => intval($match[4]),
+   };
 		}
 
-		return (($match[1]) ? $this->generate_block_data_ref(substr($match[1], 0, -1), true, true) . '[\'' . $match[2] . '\']' : '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $match[2] . '\']') . ' = ' . $match[4] . ';';
+		return (($match[1]) ? $this->generate_block_data_ref(substr((string) $match[1], 0, -1), true, true) . '[\'' . $match[2] . '\']' : '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $match[2] . '\']') . ' = ' . $match[4] . ';';
 	}
 
 	/**
@@ -759,7 +749,7 @@ class template_compile
 	function generate_block_varref($namespace, $varname, $echo = true, $defop = false)
 	{
 		// Strip the trailing period.
-		$namespace = substr($namespace, 0, -1);
+		$namespace = substr((string) $namespace, 0, -1);
 
 		// Get a reference to the data block for this namespace.
 		$varref = $this->generate_block_data_ref($namespace, true, $defop);
@@ -767,7 +757,7 @@ class template_compile
 
 		// Append the variable reference.
 		$varref .= "['$varname']";
-		$varref = ($echo) ? "<?php echo $varref; ?>" : ((isset($varref)) ? $varref : '');
+		$varref = ($echo) ? "<?php echo $varref; ?>" : ($varref ?? '');
 
 		return $varref;
 	}
@@ -784,7 +774,7 @@ class template_compile
 	function generate_block_data_ref($blockname, $include_last_iterator, $defop = false)
 	{
 		// Get an array of the blocks involved.
-		$blocks = explode('.', $blockname);
+		$blocks = explode('.', (string) $blockname);
 		$blockcount = sizeof($blocks) - 1;
 
 		// DEFINE is not an element of any referenced variable, we must use _tpldata to access it
@@ -823,9 +813,9 @@ class template_compile
 	{
 		global $phpEx;
 
-		$filename = $this->template->cachepath . str_replace('/', '.', $this->template->filename[$handle]) . '.' . $phpEx;
+		$filename = $this->template->cachepath . str_replace('/', '.', (string) $this->template->filename[$handle]) . '.' . $phpEx;
 
-		$data = "<?php if (!defined('IN_PHPBB')) exit;" . ((strpos($data, '<?php') === 0) ? substr($data, 5) : ' ?>' . $data);
+		$data = "<?php if (!defined('IN_PHPBB')) exit;" . ((str_starts_with((string) $data, '<?php')) ? substr((string) $data, 5) : ' ?>' . $data);
 
 		if ($fp = @fopen($filename, 'wb'))
 		{

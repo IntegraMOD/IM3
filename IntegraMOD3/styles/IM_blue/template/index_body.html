@@ -1,0 +1,49 @@
+<!-- INCLUDE overall_header.html -->
+
+<div id="page-body-inner" class="no-sidebar">
+
+<!-- IF STARGATE -->
+	<!-- INCLUDE portal_center.html -->
+<!-- ENDIF -->
+
+<!-- IF S_MCHAT_ENABLE and S_MCHAT_ON_INDEX and S_MCHAT_LOCATION --><!-- INCLUDE mchat_body.html --><!-- ENDIF -->
+
+<!-- INCLUDE forumlist_body.html -->
+
+<!-- IF not S_IS_BOT and S_USER_LOGGED_IN --> 
+<!-- INCLUDE index_extras.html -->
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_ONLINE_LIST -->
+	<!-- IF U_VIEWONLINE --><h3 class="header"><a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a></h3><!-- ELSE --><h3 class="header">{L_WHO_IS_ONLINE}</h3><!-- ENDIF -->
+	<div class="header-content">{TOTAL_USERS_ONLINE} ({L_ONLINE_EXPLAIN})<br />{RECORD_USERS}<br /> <br />{LOGGED_IN_USER_LIST}
+	<!-- IF LEGEND --><br /><em>{L_LEGEND}: {LEGEND}</em><!-- ENDIF --></div>
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_BIRTHDAY_LIST and BIRTHDAY_LIST -->
+	<h3 class="header">{L_BIRTHDAYS}</h3>
+	<div class="header-content"><!-- IF BIRTHDAY_LIST -->{L_CONGRATULATIONS}: <strong>{BIRTHDAY_LIST}</strong><!-- ELSE -->{L_NO_BIRTHDAYS}<!-- ENDIF --></div>
+<!-- ENDIF -->
+
+<!-- IF NEWEST_USER -->
+	<h3 class="header">{L_STATISTICS}</h3>
+	<div class="header-content">{TOTAL_POSTS} &bull; {TOTAL_TOPICS} &bull; {TOTAL_USERS} &bull; {NEWEST_USER}</div>
+<!-- ENDIF -->
+
+<!-- Start Ultimate Points -->
+    <!-- IF S_DISPLAY_POINTS_STATS -->
+    <h3 class="header">{L_POINTS_STATISTICS}</h3>
+	<div class="header-content">{TOTAL_POINTS_USER} &bull; {TOTAL_BANK_USER} &bull; {TOTAL_BANK_POINTS} <!-- IF S_DISPLAY_LOTTERY--> &bull; {LOTTERY_TIME} <!-- ENDIF --></div>
+
+<!-- IF S_DISPLAY_INDEX -->
+	<h3 class="header">{L_POINTS_MOST_RICH_USERS}</h3>
+	<div class="header-content"><!-- BEGIN rich_user --><!-- IF not rich_user.S_FIRST_ROW --> &bull; <!-- ENDIF -->{rich_user.USERNAME} ({rich_user.SUM_POINTS} {rich_user.SUM_POINTS_NAME})<!-- END rich_user --></div>
+<!-- ENDIF -->
+<!-- ENDIF -->
+<!-- End Ultimate Points -->
+<!-- INCLUDE mchat_stats.html -->
+</div>
+
+<!-- Sidebar goes below -->
+
+<!-- INCLUDE overall_footer.html -->

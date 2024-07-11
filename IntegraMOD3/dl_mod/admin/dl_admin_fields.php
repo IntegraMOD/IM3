@@ -877,5 +877,3 @@ $template->assign_vars(array(
 
 // Template einbinden
 $template->assign_var('S_DL_FIELDS', true);
-
-?>

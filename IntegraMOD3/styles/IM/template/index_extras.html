@@ -1,0 +1,22 @@
+<div class="extra_container">
+
+<div class="row_resp">
+	<div class="column_cal">
+		<div class="forabg">
+			<div class="inner">
+				<ul class="block_header">
+					<li class="block_title pb" style="text-align:{S_CONTENT_FLOW_BEGIN};">
+					    <a href="{U_CALENDAR}">{L_LANG_CALENDAR}</a>
+					</li>
+				</ul>
+				<div class="mini_cal">
+				<!-- INCLUDE blocks/block_calendar.html -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- IF S_MCHAT_ENABLE and S_MCHAT_ON_INDEX and not S_MCHAT_LOCATION -->
+	<div class="column_chat"><!-- INCLUDE mchat_body.html --></div>
+<!-- ENDIF -->
+</div>
+</div>

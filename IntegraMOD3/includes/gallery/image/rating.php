@@ -44,7 +44,7 @@ class phpbb_gallery_image_rating
 	/**
 	* Classic-rating box with a dropdown.
 	*/
-	const MODE_SELECT = 1;
+	public const MODE_SELECT = 1;
 
 	/**
 	* Rating with stars, like the old-system from youtube.
@@ -318,7 +318,7 @@ class phpbb_gallery_image_rating
 
 		$this->insert_rating($user_id, $points, $user_ip);
 
-		$this->recalc_image_rating($this->image_id);
+		static::recalc_image_rating($this->image_id);
 		$this->user_rating[$user_id] = $points;
 	}
 

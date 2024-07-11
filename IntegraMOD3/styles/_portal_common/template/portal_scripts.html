@@ -1,30 +1,27 @@
 <script>
-// <![CDATA[
-	/**
-	* New function for handling multiple calls to window.onload and window.unload by pentapenguin
-	*/
-
-	var onload_functions = new Array();
-	var onunload_functions = new Array();
-
-	window.onload = function()
-	{
-		for (var i = 0; i < onload_functions.length; i++)
-		{
-			eval(onload_functions[i]);
-		}
-	}
-
-	window.onunload = function()
-	{
-		for (var i = 0; i < onunload_functions.length; i++)
-		{
-			eval(onunload_functions[i]);
-		}
-	}
-
-	onload_functions.push('init_scrollers()');
-// ]]>
+/**
+* Updated pentapenguin's function for handling multiple calls to window.onload and window.unload 05/02/2024
+*/
+const initFunctions = {
+    onload: [],
+    onunload: []
+};
+	 
+const executeFunctions = (functions) => {
+    functions.forEach(func => {
+	  eval(func);
+    });
+};
+	 
+window.addEventListener('load', () => {
+    executeFunctions(initFunctions.onload);
+});
+	 
+window.addEventListener('unload', () => {
+    executeFunctions(initFunctions.onunload);
+});
+ 
+initFunctions.onload.push('init_scrollers()');
 </script>
 
 <script src="{ROOT_PATH}assets/js/scroller.js"></script>
@@ -83,35 +80,6 @@
 
 <script src="{ROOT_PATH}assets/js/jquery/imgbubbles.js"></script>
 <script src="{ROOT_PATH}assets/js/jquery/jquery.hoverIntent.js"></script>
-
-<script>
-//<![CDATA[
-
-	if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
-	{
-		var ieversion = new Number(RegExp.$1)
-		$css_file_append = 'fix_ie_' + ieversion + '.css';
-	}
-		else if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent))
-	{
-		var oprversion=new Number(RegExp.$1)
-		$css_file_append = 'fix_opera.css';
-	}
-	else if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent))
-	{
-		var oprversion=new Number(RegExp.$1)
-		$css_file_append = 'fix_mac.css';
-	}
-
-	jQuery.noConflict();
-	jQuery(document).ready(function(){
-		jQuery('<link rel="stylesheet" href="{T_THEME_PATH}/' + $css_file_append + '" type="text/css" />').appendTo('body');
-	});
-
-//]]>
-</script>
-<!-- agent script end -->
-
 
 <!-- IF S_VIEWTOPIC -->
 <script>
@@ -201,14 +169,13 @@
 
 <!-- IF RESIZE -->
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <script>
 // <![CDATA[
 
 var w = 100;
-x = Get_Cookie('stylewidth');
+x = get_cookie('stylewidth');
 if(x)
 {
 	w = x;
@@ -247,10 +214,3 @@ jQuery(document).ready(function(){
 </script>
 <!-- ENDIF -->
 
-<!--
-<!-- IF S_SHOW_SHOUTBOX and S_CAN_VIEW_AS-->
-<script src="{ROOT_PATH}assets/js/static.js"></script>
-<script src="{ROOT_PATH}assets/js/editor.js"></script>
-<script src="{U_SHOUT}"></script>
-<!-- ENDIF -->
--->

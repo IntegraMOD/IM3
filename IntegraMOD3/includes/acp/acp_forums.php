@@ -257,7 +257,7 @@ class acp_forums
 
 				if ($move_forum_name !== false)
 				{
-					add_log('admin', 'LOG_FORUM_' . strtoupper($action), $row['forum_name'], $move_forum_name);
+					add_log('admin', 'LOG_FORUM_' . strtoupper((string) $action), $row['forum_name'], $move_forum_name);
 					$cache->destroy('sql', FORUMS_TABLE);
 				}
 
@@ -581,7 +581,7 @@ class acp_forums
 					}
 				}
 
-				if (strlen($forum_data['forum_password']) == 32)
+				if (strlen((string) $forum_data['forum_password']) == 32)
 				{
 					$errors[] = $user->lang['FORUM_PASSWORD_OLD'];
 				}
@@ -626,7 +626,7 @@ class acp_forums
 					'U_BACK'		=> $this->u_action . '&amp;parent_id=' . $this->parent_id,
 					'U_EDIT_ACTION'	=> $this->u_action . "&amp;parent_id={$this->parent_id}&amp;action=$action&amp;f=$forum_id",
 
-					'L_COPY_PERMISSIONS_EXPLAIN'	=> $user->lang['COPY_PERMISSIONS_' . strtoupper($action) . '_EXPLAIN'],
+					'L_COPY_PERMISSIONS_EXPLAIN'	=> $user->lang['COPY_PERMISSIONS_' . strtoupper((string) $action) . '_EXPLAIN'],
 					'L_TITLE'						=> $user->lang[$this->page_title],
 					'ERROR_MSG'						=> (sizeof($errors)) ? implode('<br />', $errors) : '',
 
@@ -822,16 +822,10 @@ class acp_forums
 				}
 				else
 				{
-					switch ($forum_type)
-					{
-						case FORUM_LINK:
-							$folder_image = '<img src="images/icon_folder_link.gif" alt="' . $user->lang['LINK'] . '" />';
-						break;
-
-						default:
-							$folder_image = ($row['left_id'] + 1 != $row['right_id']) ? '<img src="images/icon_subfolder.gif" alt="' . $user->lang['SUBFORUM'] . '" />' : '<img src="images/icon_folder.gif" alt="' . $user->lang['FOLDER'] . '" />';
-						break;
-					}
+					$folder_image = match ($forum_type) {
+         FORUM_LINK => '<img src="images/icon_folder_link.gif" alt="' . $user->lang['LINK'] . '" />',
+         default => ($row['left_id'] + 1 != $row['right_id']) ? '<img src="images/icon_subfolder.gif" alt="' . $user->lang['SUBFORUM'] . '" />' : '<img src="images/icon_folder.gif" alt="' . $user->lang['FOLDER'] . '" />',
+     };
 				}
 
 				$url = $this->u_action . "&amp;parent_id=$this->parent_id&amp;f={$row['forum_id']}";
@@ -1163,7 +1157,7 @@ class acp_forums
 									continue;
 								}
 
-								$allowed_forums = unserialize(trim($_row['allowed_forums']));
+								$allowed_forums = unserialize(trim((string) $_row['allowed_forums']));
 								$allowed_forums = array_diff($allowed_forums, $forum_ids);
 
 								$sql = 'UPDATE ' . EXTENSION_GROUPS_TABLE . "
@@ -1608,7 +1602,7 @@ class acp_forums
 				continue;
 			}
 
-			$allowed_forums = unserialize(trim($row['allowed_forums']));
+			$allowed_forums = unserialize(trim((string) $row['allowed_forums']));
 			$allowed_forums = array_diff($allowed_forums, $forum_ids);
 
 			$sql = 'UPDATE ' . EXTENSION_GROUPS_TABLE . "
@@ -1622,44 +1616,17 @@ class acp_forums
 
 		$log_action = implode('_', array($log_action_posts, $log_action_forums));
 
-		switch ($log_action)
-		{
-			case 'MOVE_POSTS_MOVE_FORUMS':
-				add_log('admin', 'LOG_FORUM_DEL_MOVE_POSTS_MOVE_FORUMS', $posts_to_name, $subforums_to_name, $forum_data['forum_name']);
-			break;
-
-			case 'MOVE_POSTS_FORUMS':
-				add_log('admin', 'LOG_FORUM_DEL_MOVE_POSTS_FORUMS', $posts_to_name, $forum_data['forum_name']);
-			break;
-
-			case 'POSTS_MOVE_FORUMS':
-				add_log('admin', 'LOG_FORUM_DEL_POSTS_MOVE_FORUMS', $subforums_to_name, $forum_data['forum_name']);
-			break;
-
-			case '_MOVE_FORUMS':
-				add_log('admin', 'LOG_FORUM_DEL_MOVE_FORUMS', $subforums_to_name, $forum_data['forum_name']);
-			break;
-
-			case 'MOVE_POSTS_':
-				add_log('admin', 'LOG_FORUM_DEL_MOVE_POSTS', $posts_to_name, $forum_data['forum_name']);
-			break;
-
-			case 'POSTS_FORUMS':
-				add_log('admin', 'LOG_FORUM_DEL_POSTS_FORUMS', $forum_data['forum_name']);
-			break;
-
-			case '_FORUMS':
-				add_log('admin', 'LOG_FORUM_DEL_FORUMS', $forum_data['forum_name']);
-			break;
-
-			case 'POSTS_':
-				add_log('admin', 'LOG_FORUM_DEL_POSTS', $forum_data['forum_name']);
-			break;
-
-			default:
-				add_log('admin', 'LOG_FORUM_DEL_FORUM', $forum_data['forum_name']);
-			break;
-		}
+		match ($log_action) {
+      'MOVE_POSTS_MOVE_FORUMS' => add_log('admin', 'LOG_FORUM_DEL_MOVE_POSTS_MOVE_FORUMS', $posts_to_name, $subforums_to_name, $forum_data['forum_name']),
+      'MOVE_POSTS_FORUMS' => add_log('admin', 'LOG_FORUM_DEL_MOVE_POSTS_FORUMS', $posts_to_name, $forum_data['forum_name']),
+      'POSTS_MOVE_FORUMS' => add_log('admin', 'LOG_FORUM_DEL_POSTS_MOVE_FORUMS', $subforums_to_name, $forum_data['forum_name']),
+      '_MOVE_FORUMS' => add_log('admin', 'LOG_FORUM_DEL_MOVE_FORUMS', $subforums_to_name, $forum_data['forum_name']),
+      'MOVE_POSTS_' => add_log('admin', 'LOG_FORUM_DEL_MOVE_POSTS', $posts_to_name, $forum_data['forum_name']),
+      'POSTS_FORUMS' => add_log('admin', 'LOG_FORUM_DEL_POSTS_FORUMS', $forum_data['forum_name']),
+      '_FORUMS' => add_log('admin', 'LOG_FORUM_DEL_FORUMS', $forum_data['forum_name']),
+      'POSTS_' => add_log('admin', 'LOG_FORUM_DEL_POSTS', $forum_data['forum_name']),
+      default => add_log('admin', 'LOG_FORUM_DEL_FORUM', $forum_data['forum_name']),
+  };
 
 		return $errors;
 	}

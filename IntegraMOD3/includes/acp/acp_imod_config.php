@@ -57,8 +57,8 @@ class acp_imod_config
 		if( $result = $db->sql_query($sql) )
 		{
 			$row = $db->sql_fetchrow($result);
-			$imod_enabled	= $row['imod_enabled'];
-			$imod_version	= $row['imod_version'];
+			$imod_enabled = !isset($row['imod_enabled']);
+			$imod_version = !isset($row['imod_version']);
 		}
 		else
 		{

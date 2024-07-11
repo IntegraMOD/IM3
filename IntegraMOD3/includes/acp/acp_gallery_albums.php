@@ -601,8 +601,9 @@ class acp_gallery_albums
 		}
 
 		// Jumpbox
+		if (!empty($album_box)){
 		$album_box = phpbb_gallery_album::get_albumbox(true, '', $this->parent_id, false, false);
-
+		}
 		if ($action == 'sync' || $action == 'sync_album')
 		{
 			$template->assign_var('S_RESYNCED', true);

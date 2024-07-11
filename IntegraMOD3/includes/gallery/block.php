@@ -59,10 +59,10 @@ class phpbb_gallery_block
 	*/
 	private $mode	= self::MODE_NONE;
 
-	const MODE_NONE		= 0;
-	const MODE_RECENT	= 1;
-	const MODE_RANDOM	= 2;
-	const MODE_COMMENT	= 4;
+	public const MODE_NONE		= 0;
+	public const MODE_RECENT	= 1;
+	public const MODE_RANDOM	= 2;
+	public const MODE_COMMENT	= 4;
 
 	/**
 	* @param	array	$modes	Array of strings: 'none', 'recent', 'random', 'comment'
@@ -103,15 +103,15 @@ class phpbb_gallery_block
 	*/
 	private $display		= self::DISPLAY_NONE;
 
-	const DISPLAY_NONE			= 0;
-	const DISPLAY_ALBUMNAME		= 1;
-	const DISPLAY_COMMENTS		= 2;
-	const DISPLAY_IMAGENAME		= 4;
-	const DISPLAY_IMAGETIME		= 8;
-	const DISPLAY_IMAGEVIEWS	= 16;
-	const DISPLAY_USERNAME		= 32;
-	const DISPLAY_RATINGS		= 64;
-	const DISPLAY_IP			= 128;
+	public const DISPLAY_NONE			= 0;
+	public const DISPLAY_ALBUMNAME		= 1;
+	public const DISPLAY_COMMENTS		= 2;
+	public const DISPLAY_IMAGENAME		= 4;
+	public const DISPLAY_IMAGETIME		= 8;
+	public const DISPLAY_IMAGEVIEWS	= 16;
+	public const DISPLAY_USERNAME		= 32;
+	public const DISPLAY_RATINGS		= 64;
+	public const DISPLAY_IP			= 128;
 
 	/**
 	* @param	array	$modes	Array of strings:

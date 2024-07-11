@@ -61,7 +61,7 @@ class ucp_register
 
 		if ($change_lang || $user_lang != $config['default_lang'])
 		{
-			$use_lang = ($change_lang) ? basename($change_lang) : basename($user_lang);
+			$use_lang = ($change_lang) ? basename((string) $change_lang) : basename((string) $user_lang);
 
 			if (!validate_language_iso_name($use_lang))
 			{
@@ -92,7 +92,7 @@ class ucp_register
 
 		if (!$agreed || ($coppa === false && $config['coppa_enable']) || ($coppa && !$config['coppa_enable']))
 		{
-			$add_lang = ($change_lang) ? '&amp;change_lang=' . urlencode($change_lang) : '';
+			$add_lang = ($change_lang) ? '&amp;change_lang=' . urlencode((string) $change_lang) : '';
 			$add_coppa = ($coppa !== false) ? '&amp;coppa=' . $coppa : '';
 
 			$s_hidden_fields = array(
@@ -105,8 +105,8 @@ class ucp_register
 				// We do not include the password
 				$s_hidden_fields = array_merge($s_hidden_fields, array(
 					'username'			=> utf8_normalize_nfc(request_var('username', '', true)),
-					'email'				=> strtolower(request_var('email', '')),
-					'email_confirm'		=> strtolower(request_var('email_confirm', '')),
+					'email'				=> strtolower((string) request_var('email', '')),
+					'email_confirm'		=> strtolower((string) request_var('email_confirm', '')),
 					'lang'				=> $user->lang_name,
 					'tz'				=> request_var('tz', (float) $config['board_timezone']),
 				));
@@ -179,9 +179,9 @@ class ucp_register
 			'username'			=> utf8_normalize_nfc(request_var('username', '', true)),
 			'new_password'		=> request_var('new_password', '', true),
 			'password_confirm'	=> request_var('password_confirm', '', true),
-			'email'				=> strtolower(request_var('email', '')),
-			'email_confirm'		=> strtolower(request_var('email_confirm', '')),
-			'lang'				=> basename(request_var('lang', $user->lang_name)),
+			'email'				=> strtolower((string) request_var('email', '')),
+			'email_confirm'		=> strtolower((string) request_var('email_confirm', '')),
+			'lang'				=> basename((string) request_var('lang', $user->lang_name)),
 			'tz'				=> request_var('tz', (float) $timezone),
 			//Begin: Group on Registration and Custom Profile Fields
 			'reg_group_id'		=> ($config['groups_on_reg_multiple']) ?  request_var('reg_group_id', array(0)) : request_var('reg_group_id', 0),
@@ -287,7 +287,7 @@ class ucp_register
 					$config['require_activation'] == USER_ACTIVATION_SELF ||
 					$config['require_activation'] == USER_ACTIVATION_ADMIN) && $config['email_enable'])
 				{
-					$user_actkey = gen_rand_string(mt_rand(6, 10));
+					$user_actkey = gen_rand_string(random_int(6, 10));
 					$user_type = USER_INACTIVE;
 					$user_inactive_reason = INACTIVE_REGISTER;
 					$user_inactive_time = time();
@@ -399,8 +399,8 @@ class ucp_register
 
 					$messenger->assign_vars(array(
 						'WELCOME_MSG'	=> htmlspecialchars_decode(sprintf($user->lang['WELCOME_SUBJECT'], $config['sitename']), ENT_COMPAT),
-						'USERNAME'		=> htmlspecialchars_decode($data['username'], ENT_COMPAT),
-						'PASSWORD'		=> htmlspecialchars_decode($data['new_password'], ENT_COMPAT),
+						'USERNAME'		=> htmlspecialchars_decode((string) $data['username'], ENT_COMPAT),
+						'PASSWORD'		=> htmlspecialchars_decode((string) $data['new_password'], ENT_COMPAT),
 						'U_ACTIVATE'	=> "$server_url/ucp.$phpEx?mode=activate&u=$user_id&k=$user_actkey")
 					);
 
@@ -441,7 +441,7 @@ class ucp_register
 							$messenger->im($row['user_jabber'], $row['username']);
 
 							$messenger->assign_vars(array(
-								'USERNAME'			=> htmlspecialchars_decode($data['username'], ENT_COMPAT),
+								'USERNAME'			=> htmlspecialchars_decode((string) $data['username'], ENT_COMPAT),
 								'U_USER_DETAILS'	=> "$server_url/memberlist.$phpEx?mode=viewprofile&u=$user_id",
 								'U_ACTIVATE'		=> "$server_url/ucp.$phpEx?mode=activate&u=$user_id&k=$user_actkey")
 							);
@@ -556,3 +556,4 @@ class ucp_register
 		$this->page_title = 'UCP_REGISTRATION';
 	}
 }
+ 

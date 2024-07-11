@@ -388,13 +388,13 @@ function decode_message(&$message, $bbcode_uid = '')
 
 	if ($bbcode_uid)
 	{
-		$match = array('<br />', "[/*:m:$bbcode_uid]", ":u:$bbcode_uid", ":o:$bbcode_uid", ":$bbcode_uid");
-		$replace = array("\n", '', '', '', '');
+		$match = array('</li></ol>', '</li>', '<br />', "[/*:m:$bbcode_uid]", ":u:$bbcode_uid", ":o:$bbcode_uid", ":$bbcode_uid");
+		$replace = array("", "\n", "\n", '', '', '', '');
 	}
 	else
 	{
-		$match = array('<br />');
-		$replace = array("\n");
+		$match = array('</li></ol>', '</li>', '<br />');
+		$replace = array("", "\n", "\n");
 	}
 
 	$message = str_replace($match, $replace, $message);
@@ -1131,7 +1131,7 @@ function parse_attachments($forum_id, &$message, &$attachments, &$update_count, 
 					include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
 				}
 				// For attached image resizer regular messages when bbcodes are not present
- 				if ($abbcode->abbcode_config['S_ABBC3_RESIZE'] && !isset($template->_rootref['S_ABBC3_RESIZE']) && ($display_cat == ATTACHMENT_CATEGORY_IMAGE || $display_cat == ATTACHMENT_CATEGORY_THUMB))
+ 				if ($abbcode->abbcode_config['S_ABBC3_RESIZE'] ?? null && !isset($template->_rootref['S_ABBC3_RESIZE']) && ($display_cat == ATTACHMENT_CATEGORY_IMAGE || $display_cat == ATTACHMENT_CATEGORY_THUMB))
  				{
 					$abbcode->abbcode_init();
  				}

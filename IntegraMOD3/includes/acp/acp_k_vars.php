@@ -60,8 +60,8 @@ class acp_k_vars
 
 			$row = $db->sql_fetchrow($result);
 
-			$title = strtoupper($row['title']);
-			$title = str_replace(' ','_', $row['title']);
+			$title = strtoupper((string) $row['title']);
+			$title = str_replace(' ','_', (string) $row['title']);
 
 			$block_id = $row['id'];
 			$var_file_name = $row['var_file_name'];
@@ -98,7 +98,7 @@ class acp_k_vars
 		{
 			$k_config[$row['config_name']] = $row['config_value'];
 
-			$template->assign_var('S_' . (strtoupper($row['config_name'])), $row['config_value']);
+			$template->assign_var('S_' . (strtoupper((string) $row['config_name'])), $row['config_value']);
 		}
 		$db->sql_freeresult($result);
 
@@ -168,28 +168,16 @@ class acp_k_vars
 					$k_max_block_avatar_height = $config['avatar_max_height'];
 				}
 
-				switch ($k_announce_type)
-				{
-					case 2:  $k_announce_type = POST_ANNOUNCE;
-					break;
-
-					case 3:  $k_announce_type = POST_GLOBAL;
-					break;
-
-					default: $k_announce_type = 0;
-					break;
-				}
-				switch ($k_news_type)
-				{
-					case 4:  $k_news_type = POST_NEWS;
-					break;
-
-					case 5:  $k_news_type = POST_NEWS_GLOBAL;
-					break;
-
-					default: $k_news_type = 0;
-					break;
-				}
+				$k_announce_type = match ($k_announce_type) {
+        2 => POST_ANNOUNCE,
+        3 => POST_GLOBAL,
+        default => 0,
+    };
+				$k_news_type = match ($k_news_type) {
+        4 => POST_NEWS,
+        5 => POST_NEWS_GLOBAL,
+        default => 0,
+    };
 
 				// all data is escaped in sgp_acp_set_config //
 				sgp_acp_set_config('k_allow_rotating_logos', $k_allow_rotating_logos);
@@ -263,5 +251,3 @@ class acp_k_vars
 
 	}
 }
-
-?>

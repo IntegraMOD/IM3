@@ -16,7 +16,7 @@ echo "PRODID:Stargate Portal\r\n";
 echo "X-WR-CALNAME:SGP Web Calendar\r\n";
 echo "TZ:-07\r\n";
 echo "METHOD:PUBLISH\r\n";
-echo "UID:".rand()."\r\n";
+echo "UID:".random_int(0, mt_getrandmax())."\r\n";
 //Get plain events
  $sql = 'SELECT * FROM ' . CALENDAR_TABLE;
  $result = $db->sql_query($sql);
@@ -34,7 +34,7 @@ echo "UID:".rand()."\r\n";
                                         (($prow['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
 
         $clean_text = generate_text_for_display($prow['event_desc'], $prow['bbcode_uid'], $prow['bbcode_bitfield'], $prow['bbcode_options']);
-		$ical[$i]['DescDump'] = str_replace(array("\r\n","\r",'<p>','<P>','<BR>','<br>'), "\\n",$clean_text);
+		$ical[$i]['DescDump'] = str_replace(array("\r\n","\r",'<p>','<P>','<BR>','<br>'), "\\n",(string) $clean_text);
 		//$ical[$i]['Location'] = $prow['event_location'];
 		$ical[$i]['Name'] = $prow['event_name'];
 		$ical[$i]['iCalStart'] = date("Ymd\THi00", $prow['event_start_time']);
@@ -81,7 +81,7 @@ echo "UID:".rand()."\r\n";
                                         (($trow['enable_smilies']) ? OPTION_FLAG_SMILIES : 0) +
                                         (($trow['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
         $t_clean_text =  generate_text_for_display($trow['post_text'], $trow['bbcode_uid'], $trow['bbcode_bitfield'], $trow['bbcode_options']);
-		$icalt[$i]['DescDump'] = str_replace(array("\r\n","\r",'<p>','<P>','<BR>','<br>'), "\\n",$t_clean_text);
+		$icalt[$i]['DescDump'] = str_replace(array("\r\n","\r",'<p>','<P>','<BR>','<br>'), "\\n",(string) $t_clean_text);
 		//$icalt[$i]['Location'] = $trow['event_location'];
 		$icalt[$i]['Name'] = $trow['topic_title'];
 		$icalt[$i]['iCalStart'] = date("Ymd\THi00", $trow['topic_calendar_time']);
@@ -110,4 +110,3 @@ echo "UID:".rand()."\r\n";
   	$db->sql_freeresult($result);
 
 echo "END:VCALENDAR\r\n";
-?>

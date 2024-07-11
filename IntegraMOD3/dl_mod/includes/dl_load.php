@@ -413,7 +413,7 @@ if ($check_status['auth_dl'] && $dl_file['id'])
 		$last = strlen($mem_limit) - 1;
 		$max_mem_limit = (int) $mem_limit;
 
-		switch($mem_limit{$last})
+		switch($mem_limit[$last])
 		{
 			case 'G':
 				$max_mem_limit *= 1024;

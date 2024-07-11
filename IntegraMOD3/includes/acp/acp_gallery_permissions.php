@@ -40,6 +40,9 @@ class acp_gallery_permissions
 		/**
 		* All our beautiful permissions
 		*/
+		if (!isset($permissions)) 
+			$permissions = new stdClass();
+
 		$permissions->cats['full'] = array(
 			'i'		=> array('i_view', 'i_watermark', 'i_upload', 'i_approve', 'i_edit', 'i_delete', 'i_report', 'i_rate'),
 			'c'		=> array('c_read', 'c_post', 'c_edit', 'c_delete'),
@@ -132,7 +135,7 @@ class acp_gallery_permissions
 		$template->assign_vars(array(
 			'U_ACTION'					=> $this->u_action . '&amp;action=v_mask',
 			'S_PERMISSION_C_MASK'		=> true,
-			'ALBUM_LIST'				=> phpbb_gallery_album::get_albumbox(true, '', phpbb_gallery_auth::SETTING_PERMISSIONS),
+			'ALBUM_LIST'				=> (new phpbb_gallery_album)->get_albumbox(true, '', phpbb_gallery_auth::SETTING_PERMISSIONS),
 		));
 	}
 
@@ -533,7 +536,7 @@ class acp_gallery_permissions
 						'VICTIM_NAME'			=> '<span' . (($victim_row['victim_colour']) ? (' style="color: #' . $victim_row['victim_colour'] . '"') : '') . '>' . $victim_row['victim_name'] . '</span>',
 						'INHERIT_VICTIMS'		=> $this->inherit_victims($album_list, $album_id, $victim_list, $album_row['album_id'], $victim_row['victim_id']),
 					));
-					$role_id = (isset($p_masks[$album_row['album_id']][$victim_row['victim_id']])) ? $p_masks[$album_row['album_id']][$victim_row['victim_id']] : 0;
+					$role_id = $p_masks[$album_row['album_id']][$victim_row['victim_id']] ?? 0;
 					foreach ($permissions->cats[$p_system] as $category => $permission_values)
 					{
 						$acl_s_never = $acl_s_no = $acl_s_yes = 0;
@@ -566,12 +569,12 @@ class acp_gallery_permissions
 						{
 							$template->assign_block_vars('c_mask.v_mask.category.mask', array(
 								'PERMISSION'			=> $user->lang['PERMISSION_' . strtoupper($permission)],
-								'PERMISSION_EXPLAIN'	=> (isset($user->lang['PERMISSION_' . strtoupper($permission) . '_EXPLAIN'])) ? $user->lang['PERMISSION_' . strtoupper($permission) . '_EXPLAIN'] : '',
+								'PERMISSION_EXPLAIN'	=> $user->lang['PERMISSION_' . strtoupper($permission) . '_EXPLAIN'] ?? '',
 								'S_FIELD_NAME'			=> 'setting[' . $album_row['album_id'] . '][' . $victim_row['victim_id'] . '][' . $permission . ']',
 								'S_NO'					=> ((isset($roles[$role_id][$permission]) && ($roles[$role_id][$permission] == phpbb_gallery_auth::ACL_NO)) ? true : false),
 								'S_YES'					=> ((isset($roles[$role_id][$permission]) && ($roles[$role_id][$permission] == phpbb_gallery_auth::ACL_YES)) ? true : false),
 								'S_NEVER'				=> ((isset($roles[$role_id][$permission]) && ($roles[$role_id][$permission] == phpbb_gallery_auth::ACL_NEVER)) ? true : false),
-								'S_VALUE'				=> ((isset($roles[$role_id][$permission])) ? $roles[$role_id][$permission] : 0),
+								'S_VALUE'				=> ($roles[$role_id][$permission] ?? 0),
 								'S_COUNT_FIELD'			=> (substr($permission, -6, 6) == '_count') ? true : false,
 							));
 						}
@@ -593,7 +596,7 @@ class acp_gallery_permissions
 					'VICTIM_NAME'			=> '<span' . (($victim_row['victim_colour']) ? (' style="color: #' . $victim_row['victim_colour'] . '"') : '') . '>' . $victim_row['victim_name'] . '</span>',
 					'INHERIT_VICTIMS'		=> $this->p_system_inherit_victims($p_system, $victim_list, $victim_row['victim_id']),
 				));
-				$role_id = (isset($p_masks[$p_system][$victim_row['victim_id']])) ? $p_masks[$p_system][$victim_row['victim_id']] : 0;
+				$role_id = $p_masks[$p_system][$victim_row['victim_id']] ?? 0;
 				foreach ($permissions->cats[$p_system] as $category => $permission_values)
 				{
 					$template->assign_block_vars('c_mask.v_mask.category', array(
@@ -604,12 +607,12 @@ class acp_gallery_permissions
 					{
 						$template->assign_block_vars('c_mask.v_mask.category.mask', array(
 							'PERMISSION'			=> $user->lang['PERMISSION_' . strtoupper($permission)],
-							'PERMISSION_EXPLAIN'	=> (isset($user->lang['PERMISSION_' . strtoupper($permission) . '_EXPLAIN'])) ? $user->lang['PERMISSION_' . strtoupper($permission) . '_EXPLAIN'] : '',
+							'PERMISSION_EXPLAIN'	=> $user->lang['PERMISSION_' . strtoupper($permission) . '_EXPLAIN'] ?? '',
 							'S_FIELD_NAME'			=> 'setting[' . $p_system . '][' . $victim_row['victim_id'] . '][' . $permission . ']',
 							'S_NO'					=> ((isset($roles[$role_id][$permission]) && ($roles[$role_id][$permission] == phpbb_gallery_auth::ACL_NO)) ? true : false),
 							'S_YES'					=> ((isset($roles[$role_id][$permission]) && ($roles[$role_id][$permission] == phpbb_gallery_auth::ACL_YES)) ? true : false),
 							'S_NEVER'				=> ((isset($roles[$role_id][$permission]) && ($roles[$role_id][$permission] == phpbb_gallery_auth::ACL_NEVER)) ? true : false),
-							'S_VALUE'				=> ((isset($roles[$role_id][$permission])) ? $roles[$role_id][$permission] : 0),
+							'S_VALUE'				=> ($roles[$role_id][$permission] ?? 0),
 							'S_COUNT_FIELD'			=> (substr($permission, -6, 6) == '_count') ? true : false,
 						));
 					}
@@ -762,7 +765,7 @@ class acp_gallery_permissions
 					{
 						// Inherit permissions of one [c_mask][v_mask]
 						$v_mask = (int) $v_mask;
-						list($ci_mask, $vi_mask) = explode("_", $i_mask);
+						[$ci_mask, $vi_mask] = explode("_", $i_mask);
 						$ci_mask = (int) $ci_mask;
 						$vi_mask = (int) $vi_mask;
 						if (isset($auth_settings[$ci_mask][$vi_mask]))

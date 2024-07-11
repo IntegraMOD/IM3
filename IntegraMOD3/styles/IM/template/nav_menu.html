@@ -1,0 +1,113 @@
+<script src="{ROOT_PATH}assets/js/css-menu.js"></script>
+<a id="top"></a>
+<div class="im_menu">
+	<!-- IF S_DISPLAY_SEARCH -->
+	<div class="im-select <!-- IF S_IS_SEARCH -->im-select2<!-- ENDIF -->">
+		<select name="imsearch" onchange="location = this.value;">
+			<option>{L_SEARCH}</option>
+			<option value="{U_SEARCH}"> {L_SEARCH_ADV}</option>
+			<option value="{U_SEARCH_NEW}">{L_SEARCH_NEW}</option>
+			<option value="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</option>
+			<option value="{U_SEARCH_UNREAD}">{L_SEARCH_UNREAD}</option>
+			<option value="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</option>
+			<option value="{U_SEARCH_SELF}">{L_SEARCH_SELF}</option>
+		</select>
+		<div class="dropdown-arrow"></div>
+	</div>
+	<!-- ENDIF -->
+	<div class="im-select <!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_BLOG -->im-select2<!-- ENDIF -->">
+		<select name="imlinks" onchange="location = this.value;">
+			<option>
+<!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY -->{L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->			
+<!-- IF S_IN_FAQ -->{L_FAQ}<!-- ENDIF -->
+<!-- IF S_IN_KNOWLEDGE_BASE -->{L_KNOWLEDGE_BASE}<!-- ENDIF -->
+<!-- IF S_DISPLAY_MEMBERLIST and S_IN_MEMBERLIST -->{L_MEMBERLIST}<!-- ENDIF -->
+<!-- IF S_SHOW_DL_LINK and S_IN_DL -->{L_DOWNLOADS}<!-- ENDIF -->
+<!-- IF S_HACKLIST_ON and S_IN_HACKLIST -->{L_HACKLIST}<!-- ENDIF -->
+<!-- IF S_SHOW_GALL and S_IN_GALLERY -->{L_GALLERY}<!-- ENDIF -->
+<!-- IF S_MCHAT_ENABLE and U_MCHAT and S_SHOW_CHT and S_IN_MCHAT -->{L_CHAT}<!-- ENDIF -->
+<!-- IF S_CONTACT_ENABLED and S_IN_CONTACT -->{L_CONTACT_BOARD_ADMIN_SHORT}<!-- ENDIF -->
+<!-- IF S_IN_BLOG -->{L_BLOG}<!-- ENDIF -->
+
+<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
+			</option>
+            <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and not S_IS_BOT -->			
+			<option value="{U_SN_ACTIVITYPAGE}">{L_SN_AP_ACTIVITYPAGE}</option>
+			<!-- ENDIF -->
+			<option value="{U_FAQ}">{L_FAQ}</option>
+			<option value="{U_KB}" title="{L_KB_EXPLAIN}">{L_KNOWLEDGE_BASE}</option>
+		  <!-- IF not S_IS_BOT -->
+			<!-- IF S_DISPLAY_MEMBERLIST -->
+			<option value="{U_MEMBERLIST}">{L_MEMBERLIST}</option>
+			<!-- ENDIF -->	  
+			<!-- IF S_SHOW_DL_LINK -->
+			<option value="{U_DL_NAVS}">{L_DOWNLOADS}</option>
+			<!-- ENDIF -->
+			<!-- IF S_HACKLIST_ON -->
+			<option value="{U_HACKLIST}" title="{L_HACKLIST}">{L_HACKLIST}</option>
+			<!-- ENDIF -->
+			<!-- IF S_BUGTRACKER_ON -->
+			<option value="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}">{L_BUG_TRACKER}</option>
+			<!-- ENDIF -->
+			<!-- IF S_SHOW_GALL -->
+			<option value="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}">{L_GALLERY}</option>
+			<!-- ENDIF -->
+			<!-- IF S_SHOW_CHT -->
+			<option value="{U_MCHAT}" title="{L_MCHAT_TITLE}">{L_CHAT}</option>
+			<!-- ENDIF -->
+			<!-- IF S_CONTACT_ENABLED -->
+			<option value="{U_CONTACT}">{L_CONTACT_BOARD_ADMIN_SHORT}</option>
+			<!-- ENDIF -->
+		    <!-- BEGIN blog_links -->
+			<option value="{blog_links.URL}"><i class="fa-solid fa-book-open-reader fa-lg"></i> {blog_links.TEXT}</a></option>
+			<!-- END blog_links -->
+		  <!-- ENDIF -->
+		</select>
+		<div class="dropdown-arrow"></div>
+	</div>
+</div>
+
+
+<nav class="menu">
+  <input type="checkbox" class="responsive-menu" onclick="updatemenu()"><label></label>
+  <ul>
+  	<li class="menu-item genarrow arrows"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
+    <!-- IF STARGATE -->
+	<li<!-- IF S_IS_PORTAL --> class="activetab_"<!-- ENDIF -->><a href="{U_PORTAL}" title="{L_PORTAL}"> {L_PORTAL} </a></li>
+	<!-- ENDIF -->
+    <li<!-- IF S_IS_INDEX --> class="activetab_"<!-- ENDIF -->><a href="{U_INDEX}" title="{L_INDEX}"> {L_FORUM} </a></li>
+	<!-- IF not S_IS_BOT -->
+	<!-- IF not S_USER_LOGGED_IN -->
+    <li><a href="{U_LOGIN_LOGOUT}">&nbsp;{L_LOGIN_LOGOUT}&nbsp;</a></li>
+	<!-- IF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+	<li><a href="{U_REGISTER}">&nbsp;{L_REGISTER}&nbsp;</a></li>
+	<!-- ENDIF -->
+	<!-- ENDIF -->
+	<!-- ENDIF -->
+	
+  	<li class="menu-item genarrow arrows right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
+	<li class="style lightstyle"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-lg"></i></a></li>
+    <li class="style darkstyle"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg" style="color: #747576;"></i></a></li> 
+	<!-- IF S_USER_LOGGED_IN and not S_IS_BOT -->
+    <li class="<!-- IF S_IN_UCP or S_IS_PROFILE_PAGE  -->activetab_<!-- ENDIF --> rightside space"><a class="dropdown-arrow username uname" href="{U_USER_PROFILE}">&nbsp;{S_USERNAME}&nbsp;</a>
+      <ul class="sub-menus">
+		<li><a href="{U_PROFILE}">{L_PROFILE}</a></li>
+		<li><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}">{L_READ_PROFILE}</a></li>
+		<!-- IF S_DISPLAY_SEARCH -->
+		<li><a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a></li>
+		<!-- ENDIF -->
+        <li><a href="{U_PERS_NOTES}">{L_PERS_NOTES}</a></li>
+		<!-- IF U_RESTORE_PERMISSIONS -->
+		<li><a href="{U_RESTORE_PERMISSIONS}">{L_RESTORE_PERMISSIONS}</a></li>
+		<!-- ENDIF -->
+
+        <li><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a></li>		
+      </ul>
+    </li>
+    <!-- ENDIF -->
+  </ul>
+  <li class="genarrow sm-right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
+  <div class="sm-style lightstyle"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-lg"></i></a></div>
+  <div class="sm-style darkstyle"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg" style="color: #747576;"></i></a></div> 
+</nav>
+

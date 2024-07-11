@@ -129,3 +129,4 @@ $lang = array_merge($lang, array(
 	// ACP
 	'USER_MCHAT_UPDATED'	=> 'Users mChat preferences were updated',
 ));
+?>

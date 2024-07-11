@@ -216,8 +216,8 @@ class ucp_groups
 										$messenger->im($row['user_jabber'], $row['username']);
 
 										$messenger->assign_vars(array(
-											'USERNAME'			=> htmlspecialchars_decode($row['username'], ENT_COMPAT),
-											'GROUP_NAME'		=> htmlspecialchars_decode($group_row[$group_id]['group_name'], ENT_COMPAT),
+											'USERNAME'			=> htmlspecialchars_decode((string) $row['username'], ENT_COMPAT),
+											'GROUP_NAME'		=> htmlspecialchars_decode((string) $group_row[$group_id]['group_name'], ENT_COMPAT),
 											'REQUEST_USERNAME'	=> $user->data['username'],
 
 											'U_PENDING'		=> generate_board_url() . "/ucp.$phpEx?i=groups&mode=manage&action=list&g=$group_id",
@@ -443,14 +443,14 @@ class ucp_groups
 					$template->assign_vars(array(
 						'GROUP_NAME'			=> ($group_type == GROUP_SPECIAL) ? $user->lang['G_' . $group_name] : $group_name,
 						'GROUP_INTERNAL_NAME'	=> $group_name,
-						'GROUP_COLOUR'			=> (isset($group_row['group_colour'])) ? $group_row['group_colour'] : '',
+						'GROUP_COLOUR'			=> $group_row['group_colour'] ?? '',
 						'GROUP_DESC_DISP'		=> generate_text_for_display($group_row['group_desc'], $group_row['group_desc_uid'], $group_row['group_desc_bitfield'], $group_row['group_desc_options']),
 						'GROUP_TYPE'			=> $group_row['group_type'],
 
 						'AVATAR'				=> $avatar_img,
 						'AVATAR_IMAGE'			=> $avatar_img,
-						'AVATAR_WIDTH'			=> (isset($group_row['group_avatar_width'])) ? $group_row['group_avatar_width'] : '',
-						'AVATAR_HEIGHT'			=> (isset($group_row['group_avatar_height'])) ? $group_row['group_avatar_height'] : '',
+						'AVATAR_WIDTH'			=> $group_row['group_avatar_width'] ?? '',
+						'AVATAR_HEIGHT'			=> $group_row['group_avatar_height'] ?? '',
 					));
 				}
 
@@ -483,8 +483,8 @@ class ucp_groups
 
 						$error = array();
 
-						$avatar_select = basename(request_var('avatar_select', ''));
-						$category = basename(request_var('category', ''));
+						$avatar_select = basename((string) request_var('avatar_select', ''));
+						$category = basename((string) request_var('category', ''));
 
 						$can_upload = (file_exists($phpbb_root_path . $config['avatar_path']) && phpbb_is_writable($phpbb_root_path . $config['avatar_path']) && $file_uploads) ? true : false;
 
@@ -529,11 +529,11 @@ class ucp_groups
 
 									if ((!empty($_FILES['uploadfile']['tmp_name']) || $data['uploadurl']) && $can_upload)
 									{
-										list($submit_ary['avatar_type'], $submit_ary['avatar'], $submit_ary['avatar_width'], $submit_ary['avatar_height']) = avatar_upload($data, $error);
+										[$submit_ary['avatar_type'], $submit_ary['avatar'], $submit_ary['avatar_width'], $submit_ary['avatar_height']] = avatar_upload($data, $error);
 									}
 									else if ($data['remotelink'])
 									{
-										list($submit_ary['avatar_type'], $submit_ary['avatar'], $submit_ary['avatar_width'], $submit_ary['avatar_height']) = avatar_remote($data, $error);
+										[$submit_ary['avatar_type'], $submit_ary['avatar'], $submit_ary['avatar_width'], $submit_ary['avatar_height']] = avatar_remote($data, $error);
 									}
 								}
 							}
@@ -544,7 +544,7 @@ class ucp_groups
 								{
 									$submit_ary['avatar_type'] = AVATAR_GALLERY;
 
-									list($submit_ary['avatar_width'], $submit_ary['avatar_height']) = getimagesize($phpbb_root_path . $config['avatar_gallery_path'] . '/' . $category . '/' . $avatar_select);
+									[$submit_ary['avatar_width'], $submit_ary['avatar_height']] = getimagesize($phpbb_root_path . $config['avatar_gallery_path'] . '/' . $category . '/' . $avatar_select);
 									$submit_ary['avatar'] = $category . '/' . $avatar_select;
 								}
 							}
@@ -715,8 +715,8 @@ class ucp_groups
 
 							'ERROR_MSG'				=> (sizeof($error)) ? implode('<br />', $error) : '',
 							'GROUP_RECEIVE_PM'		=> (isset($group_row['group_receive_pm']) && $group_row['group_receive_pm']) ? ' checked="checked"' : '',
-							'GROUP_MESSAGE_LIMIT'	=> (isset($group_row['group_message_limit'])) ? $group_row['group_message_limit'] : 0,
-							'GROUP_MAX_RECIPIENTS'	=> (isset($group_row['group_max_recipients'])) ? $group_row['group_max_recipients'] : 0,
+							'GROUP_MESSAGE_LIMIT'	=> $group_row['group_message_limit'] ?? 0,
+							'GROUP_MAX_RECIPIENTS'	=> $group_row['group_max_recipients'] ?? 0,
 
 							'GROUP_DESC'			=> $group_desc_data['text'],
 							'S_DESC_BBCODE_CHECKED'	=> $group_desc_data['allow_bbcode'],
@@ -1050,7 +1050,7 @@ class ucp_groups
 							trigger_error($user->lang['NOT_LEADER_OF_GROUP'] . $return_page);
 						}
 
-						$name_ary = array_unique(explode("\n", $names));
+						$name_ary = array_unique(explode("\n", (string) $names));
 						$group_name = ($group_row['group_type'] == GROUP_SPECIAL) ? $user->lang['G_' . $group_row['group_name']] : $group_row['group_name'];
 
 						$default = request_var('default', 0);
@@ -1117,3 +1117,4 @@ class ucp_groups
 		$this->tpl_name = 'ucp_groups_' . $mode;
 	}
 }
+ 

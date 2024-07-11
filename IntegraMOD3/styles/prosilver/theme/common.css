@@ -103,7 +103,7 @@ p.right {
 ---------------------------------------- */
 #wrap {
 	padding: 0 20px;
-	min-width: 650px;
+	margin: 0 auto;
 }
 
 #simple-wrap {
@@ -183,43 +183,49 @@ a#logo:hover {
 /* Round cornered boxes and backgrounds
 ---------------------------------------- */
 .headerbar {
-	background: #ebebeb none repeat-x 0 0;
-	color: #FFFFFF;
 	margin-bottom: 4px;
-	padding: 0 5px;
+	padding: 5px;
+	border-radius: 7px;
 }
 
 .navbar {
-	background-color: #ebebeb;
-	padding: 0 10px;
+	padding: 3px 10px;
+	border-radius: 7px;
 }
 
 .forabg {
-	background: #b1b1b1 none repeat-x 0 0;
 	margin-bottom: 4px;
-	padding: 0 5px;
+	padding: 5px;
 	clear: both;
+	border-radius: 7px;
 }
 
 .forumbg {
-	background: #ebebeb none repeat-x 0 0;
 	margin-bottom: 4px;
-	padding: 0 5px;
+	padding: 5px;
 	clear: both;
+	border-radius: 7px;
 }
 
 .panel {
 	margin-bottom: 4px;
-	padding: 0 10px;
-	background-color: #f3f3f3;
-	color: #3f3f3f;
+	padding: 5px 10px;
+	border-radius: 7px;
+}
+
+.catpanel {
+	margin-bottom: 4px;
+	padding: 4px 4px 2px 4px;
+	border-radius: 7px;
 }
 
 .post {
-	padding: 0 10px;
+	padding: 5px 10px;
 	margin-bottom: 4px;
 	background-repeat: no-repeat;
 	background-position: 100% 0;
+	border-radius: 7px;
+	position: relative;
 }
 
 .post:target .content {
@@ -695,3 +701,47 @@ ul.links li img{
 	margin: 0 1px -2px 0;
 }
 
+.extra_container {
+	width: 100%;
+}
+
+.row_resp {
+	display:inline-flex;
+	width: 100%;
+}
+
+.column_resp p, .column_home p {
+	margin: 6px;
+}
+
+.column_resp, .column_home {
+	width: 47%;
+	margin: 2px;
+}
+
+.column_chat {
+	display: inline-block;
+	width: 67%;
+	margin: 0 0 0 1em;
+}
+
+.column_cal {
+	display: inline-block;
+	width: 32%;
+}	
+
+
+ /* For mobile phones: */
+ @media only screen and (max-width: 500px) {
+	 .row_resp {
+		display: block !important; 
+	 }
+    .column_resp, .column_home, .column_chat, .column_cal {
+		width: 100%;
+		display: block;
+        width: auto;
+	}	
+    .column_chat {
+        margin: 0px;
+    }		
+ }

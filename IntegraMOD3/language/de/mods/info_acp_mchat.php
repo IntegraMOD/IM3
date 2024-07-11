@@ -61,6 +61,8 @@ $lang = array_merge($lang, array(
 	'MCHAT_AVATARS_EXPLAIN'			=> 'If set yes, resized user avatars will be displayed',	
 	'MCHAT_ON_INDEX'				=> 'mChat On Index',
 	'MCHAT_ON_INDEX_EXPLAIN'		=> 'Allow the display of the mChat on the index page.',
+	'MCHAT_ON_PORTAL'				=> 'mChat On Portal',
+	'MCHAT_ON_PORTAL_EXPLAIN'		=> 'Allow the display of the mChat on the Portal page.',	
 	'MCHAT_INDEX_HEIGHT'			=> 'Index Page Height',
 	'MCHAT_INDEX_HEIGHT_EXPLAIN'	=> 'The height of the chat box in pixels on the index page of the forum.<br /><em>You are limited from 50 to 1000</em>.',
 	'MCHAT_LOCATION'				=> 'Location on Forum',
@@ -145,4 +147,4 @@ $lang = array_merge($lang, array(
 	
 ));
 
-?>
+

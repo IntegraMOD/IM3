@@ -119,7 +119,7 @@ class acp_k_modules
 				{
 					include($phpbb_root_path . 'includes/bbcode.' . $phpEx);
 				}
-				$bbcode = new bbcode(base64_encode($mod_bbcode_bitfield));
+				$bbcode = new bbcode(base64_encode((string) $mod_bbcode_bitfield));
 			}
 
 			if ($row['mod_bbcode_bitfield'])
@@ -158,8 +158,8 @@ class acp_k_modules
 						'S_MOD_STATUS'			=> $mod_status,
 						'S_MOD_IMAGE'			=> $mod_image,
 						'S_MOD_LAST_UPDATED'	=> $mod_last_update,
-						'TITLE'					=> (isset($user->lang[strtoupper($mod_name)])) ? $user->lang[strtoupper($mod_name)] : $mod_name,
-						'TITLE_EXPLAIN'			=> (isset($user->lang[strtoupper($mod_name . '_EXPLAIN')])) ? $user->lang[strtoupper($mod_name . '_EXPLAIN')] : $mod_name,
+						'TITLE'					=> $user->lang[strtoupper((string) $mod_name)] ?? $mod_name,
+						'TITLE_EXPLAIN'			=> $user->lang[strtoupper($mod_name . '_EXPLAIN')] ?? $mod_name,
 					));
 
 					$template->assign_var('S_OPTION', $mode);
@@ -173,8 +173,8 @@ class acp_k_modules
 						'S_MOD_TYPE'			=> $mod_type,
 						'S_MOD_NAME'			=> $mod_name,
 						'S_MOD_DETAILS'			=> $mod_details,
-						'TITLE'					=> (isset($user->lang[strtoupper($mod_name)])) ? $user->lang[strtoupper($mod_name)] : $mod_name,
-						'TITLE_EXPLAIN'			=> (isset($user->lang[strtoupper($mod_name . '_EXPLAIN')])) ? $user->lang[strtoupper($mod_name . '_EXPLAIN')] : $mod_name,
+						'TITLE'					=> $user->lang[strtoupper((string) $mod_name)] ?? $mod_name,
+						'TITLE_EXPLAIN'			=> $user->lang[strtoupper($mod_name . '_EXPLAIN')] ?? $mod_name,
 						'S_MOD_DOWNLOAD_COUNT'	=> $mod_download_count,
 					));
 
@@ -189,7 +189,7 @@ class acp_k_modules
 			'U_EDIT'	=> "{$phpbb_root_path}adm/index.$phpEx$SID&amp;i=k_modules&amp;mode=edit&amp;module=",
 			'U_DELETE'	=> "{$phpbb_root_path}adm/index.$phpEx$SID&amp;i=k_modules&amp;mode=delete&amp;module=",
 			'U_ADD_VARS' => "{$phpbb_admin_path}index.$phpEx{$SID}&amp;i=k_resource_words&mode=select",
-			'SEARCH_MESSAGE' => $user->lang['FOUND'] . $found . $user->lang['OF_TYPE'] . strtoupper($mode),
+			'SEARCH_MESSAGE' => $user->lang['FOUND'] . $found . $user->lang['OF_TYPE'] . strtoupper((string) $mode),
 			'S_OPTION'	=>$mode,
 		));
 
@@ -522,7 +522,7 @@ function get_theme_data($info)
 	else
 	{
 		$other = ' AND style_id = ' . $info;
-		$other = rtrim($info, ",");
+		$other = rtrim((string) $info, ",");
 
 		$sql = 'SELECT style_id, style_name, style_copyright
 			FROM ' . STYLES_TABLE . '
