@@ -2283,6 +2283,7 @@ class install_install extends module
 			'ACP_CAT_IMOD'		 	=> array(
 				'ACP_IMOD_CONFIG',
 				'ANTISPAM',
+                'ACP_BLOGS',
 				'ACP_CALENDAR',
 				'ACP_CAT_CONTACT',
 				'ACP_DOWNLOADS',
@@ -2307,6 +2308,7 @@ class install_install extends module
 			'MCP_BAN'		=> null,
 			'ANTISPAM'		=> null,
 			'MCP_KB'		=> null,
+			'MCP_BLOG'		=> null,
 		),
 		'ucp'	=> array(
 			'UCP_MAIN'			=> null,
@@ -2316,6 +2318,7 @@ class install_install extends module
 			'UCP_USERGROUPS'	=> null,
 			'UCP_ZEBRA'			=> null,
 			'UCP_GALLERY'		=> null,
+			'UCP_BLOG'		    => null,
 			'UCP_K_BLOCKS'		=> null,
 		),
 	);

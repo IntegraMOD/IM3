@@ -1985,7 +1985,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 	// End Add User Blog Mod --------------------
 
 	// START Anti-Spam ACP
-	if ($row['user_type'] ?? null == 0 && $poster_id != $user->data['user_id'])
+	if (($row['user_type'] ?? null) == 0 && $poster_id != $user->data['user_id'])
 	{
 	antispam::flagged_output($poster_id, $user_cache[$poster_id], 'postrow.custom_fields', $row['post_id']);
 	}
