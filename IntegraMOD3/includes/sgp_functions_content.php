@@ -168,7 +168,7 @@ if (!function_exists('correct_truncate_length'))
 					$tag_start[$ts++] = $i;
 					$uid_start = $i;
 
-                    if (is_array($txt)) {
+                    if (isset($txt)) {
 					  while ($txt[$i] != ']')
 					  {
 						  if ($txt[$i] == '=')
