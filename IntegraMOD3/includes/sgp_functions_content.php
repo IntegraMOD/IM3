@@ -168,16 +168,18 @@ if (!function_exists('correct_truncate_length'))
 					$tag_start[$ts++] = $i;
 					$uid_start = $i;
 
-					while ($txt[$i] != ']')
-					{
-						if ($txt[$i] == '=')
-						{
-							while ($txt[$i] != ':')
-							{
-								$i++;
-							}
-						}
-						$opening_tag_string .= $txt[$i++];
+                    if (is_array($txt)) {
+					  while ($txt[$i] != ']')
+					  {
+						  if ($txt[$i] == '=')
+						  {
+							  while ($txt[$i] != ':')
+							  {
+								  $i++;
+							  }
+						  }
+						  $opening_tag_string .= $txt[$i++];
+					  }
 					}
 					$opening_tag_string .= $txt[$i++];
 
