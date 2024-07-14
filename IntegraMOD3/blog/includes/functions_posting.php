@@ -626,7 +626,7 @@ function handle_subscription($mode, $post_subject, $uid = 0, $bid = 0, $rid = 0)
 		$message = sprintf($user->lang['USER_SUBSCRIPTION_NOTICE'], $user->data['username'], $view_url, $unsubscribe_url);
 	}
 
-	$blog_data->get_user_data($config['user_blog_message_from']);
+	$blog_data->get_user_data($config['user_blog_message_from'] ?? null);
 
 	// Send the PM
 	if (isset($send[1]) && sizeof($send[1]))

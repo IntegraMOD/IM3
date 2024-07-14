@@ -105,30 +105,6 @@ class acp_imod_config
 				return;
 				break;
 			}
-			
-			
-			
-			case 'calendar':
-				$this->page_title = 'ACP_CALENDAR';
-
-				include($phpbb_root_path . "includes/acp/acp_calendar.$phpEx");
-			break;
-			case 'contact':
-				$this->page_title = 'ACP_CAT_CONTACT';
-
-				include($phpbb_root_path . "includes/acp/acp_contact.$phpEx");
-			break;
-			case 'mchat':
-				$this->page_title = 'ACP_CAT_MCHAT';
-
-				include($phpbb_root_path . "includes/acp/acp_mchat.$phpEx");
-			break;
-			
-			
-			
-			
-			
-			
 			case 'default': break;
 		}
 		

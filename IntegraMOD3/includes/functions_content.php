@@ -812,7 +812,7 @@ function smiley_text($text, $force_option = false)
 	if (STARGATE)
 	{
 		// SGP replace smile path to style based smilies if they exist //
-		if (file_exists($phpbb_root_path . 'styles/' . $user->theme['theme_path'] . '/theme/images/smilies/index.htm'))
+		if (file_exists($phpbb_root_path . 'styles/' . ($user->theme['theme_path'] ?? null) . '/theme/images/smilies/index.htm'))
 		{
 			$config['smilies_path'] = 'styles/' . $user->theme['theme_path'] . '/theme/images/smilies';
 		}
@@ -1131,7 +1131,7 @@ function parse_attachments($forum_id, &$message, &$attachments, &$update_count, 
 					include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
 				}
 				// For attached image resizer regular messages when bbcodes are not present
- 				if ($abbcode->abbcode_config['S_ABBC3_RESIZE'] ?? null && !isset($template->_rootref['S_ABBC3_RESIZE']) && ($display_cat == ATTACHMENT_CATEGORY_IMAGE || $display_cat == ATTACHMENT_CATEGORY_THUMB))
+ 				if (($abbcode->abbcode_config['S_ABBC3_RESIZE'] ?? null) && !isset($template->_rootref['S_ABBC3_RESIZE']) && ($display_cat == ATTACHMENT_CATEGORY_IMAGE || $display_cat == ATTACHMENT_CATEGORY_THUMB))
  				{
 					$abbcode->abbcode_init();
  				}

@@ -39,7 +39,7 @@ class blog_fulltext_native extends blog_search
 	*
 	* @access	public
 	*/
-	function blog_fulltext_native()
+	function __construct()
 	{
 		global $phpbb_root_path, $phpEx, $config;
 
@@ -106,7 +106,7 @@ class blog_fulltext_native extends blog_search
 		$keywords = trim($this->cleanup($keywords, '+-|()*'));
 
 		// allow word|word|word without brackets
-		if ((strpos($keywords, ' ') === false) && (strpos($keywords, '|') !== false) && (strpos($keywords, '(') === false))
+		if ((!str_contains($keywords, ' ')) && (str_contains($keywords, '|')) && (!str_contains($keywords, '(')))
 		{
 			$keywords = '(' . $keywords . ')';
 		}
@@ -299,7 +299,7 @@ class blog_fulltext_native extends blog_search
 				$id_words = array();
 				foreach ($word as $i => $word_part)
 				{
-					if (strpos($word_part, '*') !== false)
+					if (str_contains($word_part, '*'))
 					{
 						$id_words[] = '\'' . $db->sql_escape(str_replace('*', '%', $word_part)) . '\'';
 						$non_common_words[] = $word_part;
@@ -339,7 +339,7 @@ class blog_fulltext_native extends blog_search
 				unset($non_common_words);
 			}
 			// else we only need one id
-			else if (($wildcard = strpos($word, '*') !== false) || isset($words[$word]))
+			else if (($wildcard = str_contains($word, '*')) || isset($words[$word]))
 			{
 				if ($wildcard)
 				{
@@ -680,8 +680,8 @@ class blog_fulltext_native extends blog_search
 		// BBcode
 		$match[] = '#\[\/?[a-z0-9\*\+\-]+(?:=.*?)?(?::[a-z])?(\:?[0-9a-z]{5,})\]#';
 
-		$min = $this->word_length['min'] ?? null;
-		$max = $this->word_length['max'] ?? null;
+		($min = $this->word_length['min'] ?? null);
+		($max = $this->word_length['max'] ?? null);
 
 		$isset_min = $min - 1;
 
@@ -1291,4 +1291,3 @@ class blog_fulltext_native extends blog_search
 		return $ret;
 	}
 }
-

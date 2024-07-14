@@ -98,8 +98,8 @@ if ($submit || $preview || $refresh)
 
 		$message_parser->parse_poll($poll);
 
-		$poll_options = (isset($poll['poll_options'])) ? $poll['poll_options'] : '';
-		$poll_title = (isset($poll['poll_title'])) ? $poll['poll_title'] : '';
+		$poll_options = $poll['poll_options'] ?? '';
+		$poll_title = $poll['poll_title'] ?? '';
 	}
 	else
 	{
@@ -280,7 +280,7 @@ else // user submitted and there are no errors
 		'user_ip'					=> ($user->data['user_id'] == $user_id) ? $user->data['user_ip'] : blog_data::$blog[$blog_id]['user_ip'],
 		'blog_subject'				=> $blog_subject,
 		'blog_text'					=> $message_parser->message,
-		'blog_checksum'				=> md5($message_parser->message),
+		'blog_checksum'				=> md5((string) $message_parser->message),
 		'blog_approved' 			=> (blog_data::$blog[$blog_id]['blog_approved'] == 1 || $auth->acl_get('u_blognoapprove')) ? 1 : 0,
 		'enable_bbcode' 			=> $post_options->enable_bbcode,
 		'enable_smilies'			=> $post_options->enable_smilies,

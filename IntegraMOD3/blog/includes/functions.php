@@ -383,9 +383,9 @@ function update_user_blog_settings($user_id, $data, $resync = false)
 		}
 		else
 		{
-			// Remove CSS/HTML comments, HTML ASCII/HEX, and any other characters I do not think are needed.
-			$matches = array('#/\*.+\*/#', '#<!--.+-->#', '$&#?([a-zA-Z0-9]+);?$', '$([^a-zA-Z0-9",\*+%!_\.#{}()/:;-\s])$');
-			$data['blog_css'] = preg_replace($matches, ' ', $data['blog_css']);
+		// Remove CSS/HTML comments, HTML ASCII/HEX, and any other characters I do not think are needed.
+        $matches = array('#/\*.+\*/#', '#<!--.+-->#', '$&#?([a-zA-Z0-9]+);?$', '$([^a-zA-Z0-9",\*+%!_\.#{}()/:;\s-])$');
+        $data['blog_css'] = preg_replace($matches, ' ', $data['blog_css']);
 		}
 	}
 
