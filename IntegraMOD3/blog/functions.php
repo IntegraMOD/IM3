@@ -31,4 +31,3 @@ if (!defined('BLOG_FUNCTIONS_INCLUDED'))
 	include($phpbb_root_path . 'blog/plugins/plugins.' . $phpEx);
 	new blog_plugins();
 }
-?>

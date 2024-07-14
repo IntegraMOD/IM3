@@ -3,6 +3,7 @@ div.codebox {
 	margin: 0 4px;
 	padding: 3px;
 	border: 1px solid #d8d8d8;
+	max-width: 900px;
 }
 
 div.codeholder {

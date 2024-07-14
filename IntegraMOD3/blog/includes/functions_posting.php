@@ -130,7 +130,7 @@ function handle_basic_posting_data($check = false, $page = 'blog', $mode = 'add'
 			{
 				$template->assign_block_vars('subscriptions', array(
 					'TYPE'		=> 'subscription_' . $type,
-					'NAME'		=> ((isset($user->lang[$name])) ? $user->lang[$name] : $name),
+					'NAME'		=> ($user->lang[$name] ?? $name),
 					'S_CHECKED'	=> ((($submitted && request_var('subscription_' . $type, false)) || isset($subscribed[$type])) ? true : false),
 				));
 			}
@@ -229,7 +229,7 @@ function handle_captcha($mode)
 			$captcha->validate();
 
 			// add confirm_id and confirm_code to hidden fields if not already there so the user doesn't need to retype in the confirm code
-			if (strpos($s_hidden_fields, 'confirm_id') === false)
+			if (!str_contains((string) $s_hidden_fields, 'confirm_id'))
 			{
 				$s_hidden_fields .= build_hidden_fields($captcha->get_hidden_fields());
 			}
@@ -239,7 +239,7 @@ function handle_captcha($mode)
 		else if ($mode == 'build' && !$captcha->solved)
 		{
 			// add confirm_id and confirm_code to hidden fields if not already there so the user doesn't need to retype in the confirm code
-			if (strpos($s_hidden_fields, 'confirm_id') === false)
+			if (!str_contains((string) $s_hidden_fields, 'confirm_id'))
 			{
 				$s_hidden_fields .= build_hidden_fields($captcha->get_hidden_fields());
 			}
@@ -277,13 +277,13 @@ function handle_captcha($mode)
 		$confirm_row = $db->sql_fetchrow($result);
 		$db->sql_freeresult($result);
 
-		if (empty($confirm_row['code']) || strcasecmp($confirm_row['code'], $confirm_code) !== 0)
+		if (empty($confirm_row['code']) || strcasecmp((string) $confirm_row['code'], (string) $confirm_code) !== 0)
 		{
 			return false;
 		}
 
 		// add confirm_id and confirm_code to hidden fields if not already there so the user doesn't need to retype in the confirm code
-		if (strpos($s_hidden_fields, 'confirm_id') === false)
+		if (!str_contains((string) $s_hidden_fields, 'confirm_id'))
 		{
 			$s_hidden_fields .= build_hidden_fields(array('confirm_id' => $confirm_id, 'confirm_code' => $confirm_code));
 		}
@@ -299,9 +299,9 @@ function handle_captcha($mode)
 		$db->sql_query($sql);
 
 		// Generate code
-		$code = gen_rand_string(mt_rand(5, 8));
-		$confirm_id = md5(unique_id($user->ip));
-		$seed = hexdec(substr(unique_id(), 4, 10));
+		$code = gen_rand_string(random_int(5, 8));
+		$confirm_id = md5((string) unique_id($user->ip));
+		$seed = hexdec(substr((string) unique_id(), 4, 10));
 
 		// compute $seed % 0x7fffffff
 		$seed -= 0x7fffffff* floor($seed / 0x7fffffff);
@@ -319,7 +319,7 @@ function handle_captcha($mode)
 			'S_CONFIRM_CODE'			=> true,
 			'CONFIRM_ID'				=> $confirm_id,
 			'CONFIRM_IMAGE'				=> '<img src="' . append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=confirm&amp;id=' . $confirm_id . '&amp;type=' . CONFIRM_POST) . '" alt="" title="" />',
-			'L_POST_CONFIRM_EXPLAIN'	=> sprintf($user->lang['POST_CONFIRM_EXPLAIN'], '<a href="mailto:' . htmlspecialchars($config['board_contact']) . '">', '</a>'),
+			'L_POST_CONFIRM_EXPLAIN'	=> sprintf($user->lang['POST_CONFIRM_EXPLAIN'], '<a href="mailto:' . htmlspecialchars((string) $config['board_contact']) . '">', '</a>'),
 		));
 
 		$template->set_filenames(array(
@@ -363,7 +363,7 @@ function inform_approve_report($mode, $id)
 			blog_plugins::plugin_do_arg('function_inform_approve_report', compact('mode', 'id'));
 	}
 
-	$to = explode(",", $config['user_blog_inform']);
+	$to = explode(",", (string) $config['user_blog_inform']);
 
 	// setup out to address list
 	$address_list = array();
@@ -462,7 +462,7 @@ function submit_blog_poll($poll, $blog_id, $mode = 'add')
 
 		for ($i = 0, $size = sizeof($poll['poll_options']); $i < $size; $i++)
 		{
-			if (strlen(trim($poll['poll_options'][$i])))
+			if (strlen(trim((string) $poll['poll_options'][$i])))
 			{
 				// If we add options we need to put them to the end to be able to preserve votes...
 				$sql_insert_ary[] = array(
@@ -626,7 +626,7 @@ function handle_subscription($mode, $post_subject, $uid = 0, $bid = 0, $rid = 0)
 		$message = sprintf($user->lang['USER_SUBSCRIPTION_NOTICE'], $user->data['username'], $view_url, $unsubscribe_url);
 	}
 
-	$blog_data->get_user_data($config['user_blog_message_from'] ?? null);
+	$blog_data->get_user_data($config['user_blog_message_from']);
 
 	// Send the PM
 	if (isset($send[1]) && sizeof($send[1]))
@@ -747,7 +747,7 @@ class post_options
 	/**
 	 * Automatically sets the defaults for the $auth_ vars
 	 */
-	function post_options()
+	function __construct()
 	{
 		global $auth;
 
@@ -816,4 +816,3 @@ class post_options
 		blog_plugins::plugin_do('post_options_set_in_template');
 	}
 }
-?>

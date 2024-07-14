@@ -1,29 +1,3 @@
-<script>
-/**
-* Updated pentapenguin's function for handling multiple calls to window.onload and window.unload 05/02/2024
-*/
-const initFunctions = {
-    onload: [],
-    onunload: []
-};
-	 
-const executeFunctions = (functions) => {
-    functions.forEach(func => {
-	  eval(func);
-    });
-};
-	 
-window.addEventListener('load', () => {
-    executeFunctions(initFunctions.onload);
-});
-	 
-window.addEventListener('unload', () => {
-    executeFunctions(initFunctions.onunload);
-});
- 
-initFunctions.onload.push('init_scrollers()');
-</script>
-
 <script src="{ROOT_PATH}assets/js/scroller.js"></script>
 
 <!-- IF S_IS_PORTAL and S_ARRANGE or S_SGP_AJAX -->

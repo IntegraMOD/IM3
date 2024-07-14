@@ -171,7 +171,7 @@ else // user submitted and there are no errors
 		'user_ip'				=> ($user->data['user_id'] == $reply_user_id) ? $user->data['user_ip'] : blog_data::$reply[$reply_id]['user_ip'],
 		'reply_subject'			=> $reply_subject,
 		'reply_text'			=> $message_parser->message,
-		'reply_checksum'		=> md5($message_parser->message),
+		'reply_checksum'		=> md5((string) $message_parser->message),
 		'reply_approved' 		=> (blog_data::$reply[$reply_id]['reply_approved'] == 0) ? ($auth->acl_get('u_blogreplynoapprove')) ? 1 : 0 : 1,
 		'enable_bbcode' 		=> $post_options->enable_bbcode,
 		'enable_smilies'		=> $post_options->enable_smilies,
@@ -231,10 +231,9 @@ else // user submitted and there are no errors
 	}
 	else
 	{
-		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', blog_data::$user[$user_id]['username'], '</a>') . '<br />';
+		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (blog_data::$user[$user_id]['username'] ?? null), '</a>') . '<br />';
 		$message .= sprintf($user->lang['RETURN_BLOG_OWN'], '<a href="' . $blog_urls['view_user_self'] . '">', '</a>');
 	}
 
 	trigger_error($message);
 }
-?>

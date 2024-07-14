@@ -205,28 +205,27 @@ function notes() {
 			<ul class="linklist leftside">
 				<li>
 					<!-- IF S_DISPLAY_PM --> <a href="{U_PRIVATEMSGS}"><i class="fa-regular fa-message fa-lg"></i> {PRIVATE_MESSAGE_INFO}</a> &bull; <!-- ENDIF -->
-                    <a href="{U_SEARCH_NEW}">{L_NEW_POST}</a> &bull;
-				    <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED -->
-				    <span id="sn-ntf-notify"><a href="{U_VIEW_NOTIFY}" class="snbadge">{S_SN_USER_UNREAD_NOTIFY}</a></span><a href="{U_SN_ACTIVITYPAGE}"> {L_SN_AP_ACTIVITYPAGE}</a> &bull;
+                    <a href="{U_SEARCH_NEW}">{L_NEW_POST}</a>
+				    <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED --> &bull; 
+				    <span id="sn-ntf-notify"><a href="{U_VIEW_NOTIFY}" class="snbadge">{S_SN_USER_UNREAD_NOTIFY}</a></span><a href="{U_SN_ACTIVITYPAGE}"> {L_SN_AP_ACTIVITYPAGE}</a>
 				    <!-- ENDIF -->					
-					<!-- IF S_SHOW_MEETING and L_MEETING_LINK_N -->
+					<!-- IF S_SHOW_MEETING and L_MEETING_LINK_N --> &bull; 
 				    <a href="{U_MEETING_LINK_N}" title="{L_MEETING}">{L_MEETING_LINK_N}</a>
 				    <!-- ENDIF -->
-					<!-- IF U_RESTORE_PERMISSIONS --> &bull;
+					<!-- IF U_RESTORE_PERMISSIONS --> &bull; 
 					<a href="{U_RESTORE_PERMISSIONS}">{L_RESTORE_PERMISSIONS}</a>
 					<!-- ENDIF -->
                     <!-- Ajax like notification -->
-                    <!-- IF AJAXLIKE_ENABLE -->
-                    &bull;
-					<a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><span id="ajaxlike_not_new"><strong><span class="badge">{AL_NEW_LIKE}</span></strong>{L_AL_LIKE_NEW}</span></a>
+                    <!-- IF AJAXLIKE_ENABLE --> &bull; 
+                    <a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><span id="ajaxlike_not_new"><strong><span class="badge">{AL_NEW_LIKE}</span></strong>{L_AL_LIKE_NEW}</span></a>
 					<!-- ENDIF -->
                     <!-- Ajax like notification -->
-					<!-- IF U_USER_FLAG_NEW --> &bull;
+					<!-- IF U_USER_FLAG_NEW --> &bull; 
 					<a href="{U_USER_FLAG_NEW}" style="color: red; font-weight: bold;">{L_USER_FLAG_NEW}</a>
 					<!-- ENDIF -->
 				</li>
-				<!-- IF S_HACKLIST_ON --><li class="icon-hacklist"><a href="{U_HACKLIST}" title="{L_HACKLIST}">{L_HACKLIST}</a></li><!-- ENDIF -->
-				<!-- IF S_BUGTRACKER_ON --><li class="icon-tracker"><a href="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}">{L_BUG_TRACKER}</a></li><!-- ENDIF -->
+				<!-- IF S_HACKLIST_ON --> &bull; <li class="icon-hacklist"><a href="{U_HACKLIST}" title="{L_HACKLIST}">{L_HACKLIST}</a></li><!-- ENDIF -->
+				<!-- IF S_BUGTRACKER_ON --> &bull; <li class="icon-tracker"><a href="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}">{L_BUG_TRACKER}</a></li><!-- ENDIF -->
 			</ul>
 			<ul class="linklist rightside">
 				<li>

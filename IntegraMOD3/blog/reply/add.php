@@ -174,7 +174,7 @@ else // user submitted and there are no errors
 		'reply_time'			=> time(),
 		'reply_subject'			=> $reply_subject,
 		'reply_text'			=> $message_parser->message,
-		'reply_checksum'		=> md5($message_parser->message),
+		'reply_checksum'		=> md5((string) $message_parser->message),
 		'reply_approved' 		=> ($auth->acl_get('u_blogreplynoapprove')) ? 1 : 0,
 		'enable_bbcode' 		=> $post_options->enable_bbcode,
 		'enable_smilies'		=> $post_options->enable_smilies,
@@ -232,7 +232,7 @@ else // user submitted and there are no errors
 	}
 	else
 	{
-		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', blog_data::$user[$user_id]['username'], '</a>') . '<br />';
+		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (blog_data::$user[$user_id]['username'] ?? null), '</a>') . '<br />';
 		$message .= sprintf($user->lang['RETURN_BLOG_OWN'], '<a href="' . $blog_urls['view_user_self'] . '">', '</a>');
 	}
 
@@ -247,4 +247,3 @@ else // user submitted and there are no errors
 
 	trigger_error($message);
 }
-?>

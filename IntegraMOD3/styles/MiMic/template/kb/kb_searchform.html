@@ -1,0 +1,49 @@
+<!-- INCLUDE overall_header.html -->
+<p class="{S_CONTENT_FLOW_END}<!-- IF S_USER_LOGGED_IN --> rightside<!-- ENDIF -->"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ELSE -->{CURRENT_TIME}<!-- ENDIF --></p>
+<!-- IF U_MCP --><p>{CURRENT_TIME} <br />[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ELSEIF S_USER_LOGGED_IN --><p>{CURRENT_TIME}</p><!-- ENDIF -->
+
+<h2>{L_SEARCH}</h2>
+
+<form method="get" action="{U_ACTION}">
+
+<div class="panel bg1">
+	<div class="inner">
+	<h3>{L_SEARCH_QUERY}</h3>
+	<fieldset>
+		<dl>
+			<dt><label for="q">{L_SEARCH_KEYWORDS}:</label><br /><span>{L_SEARCH_KEYWORDS_DESC}</span></dt>
+			<dd><input type="text" class="inputbox" name="q" id="q" size="40" title="{L_SEARCH_KEYWORDS}" /></dd>
+			<dd><label for="terms1"><input type="radio" name="terms" id="terms1" value="all" checked="checked" /> {L_SEARCH_ALL_TERMS}</label></dd>
+			<dd><label for="terms2"><input type="radio" name="terms" id="terms2" value="any" /> {L_SEARCH_ANY_TERMS}</label></dd>
+		</dl>
+	</fieldset>
+	<br />
+	<h3>{L_SEARCH_OPTIONS}</h3>
+	<fieldset>
+		<!-- IF S_ARTICLE_TYPES -->
+		<dl>
+			<dt><label for="tid">{L_ARTICLE_TYPES}:</label><br /><span>{L_ARTICLE_TYPES_DESC}.</span></dt>
+			<dd><select name="tid[]" id="tid" multiple="multiple" size="4" title="{L_ARTICLE_TYPES}">{TYPE_OPTION}</select></dd>
+		</dl>
+		<!-- ENDIF -->
+		<dl>
+			<dt><label for="cid">{L_CATEGORIES}:</label><br /><span>{L_CATEGORIES_DESC}</span></dt>
+			<dd><select name="cid[]" id="cid" multiple="multiple" size="6" title="{L_CATEGORIES}">{CAT_OPTION}</select></dd>
+		</dl>
+	</fieldset>
+	</div>
+</div>
+
+<div class="panel bg2">
+	<div class="inner">
+	<fieldset class="submit-buttons">
+		<input type="reset" value="{L_RESET}" name="reset" class="button2" />&nbsp; 
+		<input type="submit" name="submit" value="{L_SEARCH}" class="button1" />
+	</fieldset>
+	</div>
+</div>
+
+</form>
+<p></p><p><a href="{U_KB}" class="left-box left" accesskey="r">{L_BACK_KB}</a></p>
+<br />
+<!-- INCLUDE overall_footer.html -->

@@ -88,4 +88,3 @@ else
 	}
 }
 blog_meta_refresh(0, $blog_urls['view_blog']);
-?>

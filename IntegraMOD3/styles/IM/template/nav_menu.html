@@ -15,48 +15,52 @@
 		<div class="dropdown-arrow"></div>
 	</div>
 	<!-- ENDIF -->
-	<div class="im-select <!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_BLOG -->im-select2<!-- ENDIF -->">
+	<div class="im-select <!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_BLOG or S_IN_MEETING -->im-select2<!-- ENDIF -->">
 		<select name="imlinks" onchange="location = this.value;">
 			<option>
-<!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY -->{L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->			
-<!-- IF S_IN_FAQ -->{L_FAQ}<!-- ENDIF -->
-<!-- IF S_IN_KNOWLEDGE_BASE -->{L_KNOWLEDGE_BASE}<!-- ENDIF -->
-<!-- IF S_DISPLAY_MEMBERLIST and S_IN_MEMBERLIST -->{L_MEMBERLIST}<!-- ENDIF -->
-<!-- IF S_SHOW_DL_LINK and S_IN_DL -->{L_DOWNLOADS}<!-- ENDIF -->
-<!-- IF S_HACKLIST_ON and S_IN_HACKLIST -->{L_HACKLIST}<!-- ENDIF -->
-<!-- IF S_SHOW_GALL and S_IN_GALLERY -->{L_GALLERY}<!-- ENDIF -->
-<!-- IF S_MCHAT_ENABLE and U_MCHAT and S_SHOW_CHT and S_IN_MCHAT -->{L_CHAT}<!-- ENDIF -->
-<!-- IF S_CONTACT_ENABLED and S_IN_CONTACT -->{L_CONTACT_BOARD_ADMIN_SHORT}<!-- ENDIF -->
-<!-- IF S_IN_BLOG -->{L_BLOG}<!-- ENDIF -->
+<!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY --><i class="fa-regular fa-clipboard"></i> {L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->			
+<!-- IF S_IN_FAQ --><i class="fa-solid fa-circle-question"></i> {L_FAQ}<!-- ENDIF -->
+<!-- IF S_IN_KNOWLEDGE_BASE --><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}<!-- ENDIF -->
+<!-- IF S_DISPLAY_MEMBERLIST and S_IN_MEMBERLIST --><i class="fa-solid fa-user-group"></i> {L_MEMBERLIST}<!-- ENDIF -->
+<!-- IF S_SHOW_DL_LINK and S_IN_DL --><i class="fa-solid fa-file-arrow-down"></i> {L_DOWNLOADS}<!-- ENDIF -->
+<!-- IF S_HACKLIST_ON and S_IN_HACKLIST --><i class="fa-solid fa-list-ul"></i> {L_HACKLIST}<!-- ENDIF -->
+<!-- IF S_SHOW_GALL and S_IN_GALLERY --><i class="fa-regular fa-image"></i> {L_GALLERY}<!-- ENDIF -->
+<!-- IF S_MCHAT_ENABLE and U_MCHAT and S_SHOW_CHT and S_IN_MCHAT --><i class="fa-solid fa-message"></i> {L_CHAT}<!-- ENDIF -->
+<!-- IF S_CONTACT_ENABLED and S_IN_CONTACT --><i class="fa-solid fa-message"></i> {L_CONTACT_BOARD_ADMIN_SHORT}<!-- ENDIF -->
+<!-- IF S_IN_MEETING --><i class="fa-solid fa-people-arrows"></i> {L_MEETINGS}<!-- ENDIF -->
+<!-- IF S_IN_BLOG --><i class="fa-solid fa-book-open-reader fa-lg"></i> {L_BLOG}<!-- ENDIF -->
 
-<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
+<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_BLOG  and not S_IN_MEETING -->{L_LINKS}<!-- ENDIF -->
 			</option>
             <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and not S_IS_BOT -->			
-			<option value="{U_SN_ACTIVITYPAGE}">{L_SN_AP_ACTIVITYPAGE}</option>
+			<option value="{U_SN_ACTIVITYPAGE}"><i class="fa-regular fa-clipboard"></i> {L_SN_AP_ACTIVITYPAGE}</option>
 			<!-- ENDIF -->
-			<option value="{U_FAQ}">{L_FAQ}</option>
-			<option value="{U_KB}" title="{L_KB_EXPLAIN}">{L_KNOWLEDGE_BASE}</option>
+			<option value="{U_FAQ}"><i class="fa-solid fa-circle-question"></i> {L_FAQ}</option>
+			<option value="{U_KB}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</option>
 		  <!-- IF not S_IS_BOT -->
 			<!-- IF S_DISPLAY_MEMBERLIST -->
-			<option value="{U_MEMBERLIST}">{L_MEMBERLIST}</option>
+			<option value="{U_MEMBERLIST}"><i class="fa-solid fa-user-group"></i> {L_MEMBERLIST}</option>
 			<!-- ENDIF -->	  
 			<!-- IF S_SHOW_DL_LINK -->
-			<option value="{U_DL_NAVS}">{L_DOWNLOADS}</option>
+			<option value="{U_DL_NAVS}"><i class="fa-solid fa-file-arrow-down"></i> {L_DOWNLOADS}</option>
 			<!-- ENDIF -->
 			<!-- IF S_HACKLIST_ON -->
-			<option value="{U_HACKLIST}" title="{L_HACKLIST}">{L_HACKLIST}</option>
+			<option value="{U_HACKLIST}" title="{L_HACKLIST}"><i class="fa-solid fa-list-ul"></i> {L_HACKLIST}</option>
 			<!-- ENDIF -->
 			<!-- IF S_BUGTRACKER_ON -->
-			<option value="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}">{L_BUG_TRACKER}</option>
+			<option value="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}"><i class="fa-solid fa-bug"></i> {L_BUG_TRACKER}</option>
 			<!-- ENDIF -->
 			<!-- IF S_SHOW_GALL -->
-			<option value="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}">{L_GALLERY}</option>
+			<option value="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image"></i> {L_GALLERY}</option>
 			<!-- ENDIF -->
 			<!-- IF S_SHOW_CHT -->
-			<option value="{U_MCHAT}" title="{L_MCHAT_TITLE}">{L_CHAT}</option>
+			<option value="{U_MCHAT}" title="{L_MCHAT_TITLE}"><i class="fa-solid fa-comment"></i> {L_CHAT}</option>
 			<!-- ENDIF -->
+		    <!-- IF S_USER_LOGGED_IN -->
+			<option value="{U_MEETING_LINK_N}" title="{L_MEETING}"><i class="fa-solid fa-people-arrows"></i> {L_MEETINGS}</option>
+		    <!-- ENDIF -->
 			<!-- IF S_CONTACT_ENABLED -->
-			<option value="{U_CONTACT}">{L_CONTACT_BOARD_ADMIN_SHORT}</option>
+			<option value="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><i class="fa-solid fa-message"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</option>
 			<!-- ENDIF -->
 		    <!-- BEGIN blog_links -->
 			<option value="{blog_links.URL}"><i class="fa-solid fa-book-open-reader fa-lg"></i> {blog_links.TEXT}</a></option>
@@ -91,17 +95,17 @@
 	<!-- IF S_USER_LOGGED_IN and not S_IS_BOT -->
     <li class="<!-- IF S_IN_UCP or S_IS_PROFILE_PAGE  -->activetab_<!-- ENDIF --> rightside space"><a class="dropdown-arrow username uname" href="{U_USER_PROFILE}">&nbsp;{S_USERNAME}&nbsp;</a>
       <ul class="sub-menus">
-		<li><a href="{U_PROFILE}">{L_PROFILE}</a></li>
-		<li><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}">{L_READ_PROFILE}</a></li>
+		<li><a href="{U_PROFILE}"><i class="fa-solid fa-user-gear"></i> {L_PROFILE}</a></li>
+		<li><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><i class="fa-solid fa-address-card"></i> {L_READ_PROFILE}</a></li>
 		<!-- IF S_DISPLAY_SEARCH -->
-		<li><a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a></li>
+		<li><a href="{U_SEARCH_SELF}"><i class="fa-solid fa-magnifying-glass"></i> {L_SEARCH_SELF}</a></li>
 		<!-- ENDIF -->
-        <li><a href="{U_PERS_NOTES}">{L_PERS_NOTES}</a></li>
+        <li><a href="{U_PERS_NOTES}"><i class="fa-regular fa-pen-to-square"></i> {L_PERS_NOTES}</a></li>
 		<!-- IF U_RESTORE_PERMISSIONS -->
-		<li><a href="{U_RESTORE_PERMISSIONS}">{L_RESTORE_PERMISSIONS}</a></li>
+		<li><a href="{U_RESTORE_PERMISSIONS}"><i class="fa-solid fa-window-restore"></i> {L_RESTORE_PERMISSIONS}</a></li>
 		<!-- ENDIF -->
 
-        <li><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a></li>		
+        <li><a href="{U_LOGIN_LOGOUT}"><i class="fa-solid fa-power-off"></i> {L_LOGIN_LOGOUT}</a></li>		
       </ul>
     </li>
     <!-- ENDIF -->

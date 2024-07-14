@@ -21,7 +21,7 @@ class eami
 	/**
 	* Constructor
 	*/
-	function eami()
+	function __construct()
 	{
 		global $db;
 
@@ -138,4 +138,3 @@ class eami
 		return true;
 	}
 }
-?>

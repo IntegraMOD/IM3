@@ -67,6 +67,8 @@ else if ((!isset($config['user_blog_enable']) || !$config['user_blog_enable']) &
 	trigger_error('USER_BLOG_MOD_DISABLED');
 }
 
+$template->assign_var('S_IN_BLOG', true);
+
 blog_plugins::plugin_do('blog_start');
 
 switch ($page)
@@ -353,6 +355,7 @@ $template->assign_vars(array(
 	'S_WATCH_FORUM_TITLE'	=> $subscribed_title,
 	'S_WATCH_FORUM_LINK'	=> ($subscribed) ? $blog_urls['unsubscribe'] : (($user->data['user_id'] != $user_id || $blog_id) ? $blog_urls['subscribe'] : ''),
 	'S_WATCHING_FORUM'		=> $subscribed,
+    'S_IN_BLOG'             => true,
 
 	'L_USERNAMES_BLOGS'		=> ($username == $user->data['username']) ? $user->lang['MY_BLOG'] : sprintf($user->lang['USERNAMES_BLOGS'], $username),
 

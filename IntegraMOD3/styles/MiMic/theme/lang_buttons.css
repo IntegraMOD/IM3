@@ -1,0 +1,232 @@
+/* proSilver Language Buttons
+---------------------------------------- */
+a.button_up {
+    background: transparent url('{T_IMAGESET_PATH}/button_up.gif') no-repeat scroll top right;
+    display: block;
+    float: left;
+    font: 600 12px arial, sans-serif;
+	letter-spacing:-.5px;
+    height: 25px;  /* this is 1/2 of the full button image height */
+    margin-right: 6px;
+    padding-right: 20px;
+	text-transform:uppercase;
+
+}
+
+a.button_up:hover {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+    text-decoration: none;
+}
+
+a.button_up span {
+    background: transparent url('{T_IMAGESET_PATH}/button_left_span.gif') no-repeat;
+    display: block;
+    line-height: 16px;  /* line height + top padding + bottom padding should equal 1/2 of the full button image height */
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.button_up:hover span {
+    background-position: bottom left;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.button_down {
+    background: transparent url('{T_IMAGESET_PATH}/button_down.gif') no-repeat scroll top right;
+    display: block;
+    float: left;
+    font: 600 12px arial, sans-serif;
+	letter-spacing:-.5px;
+    height: 25px;
+    margin-right: 6px;
+    padding-right: 20px;
+	text-transform:uppercase;
+
+}
+
+a.button_down:hover {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+    text-decoration: none;
+}
+
+a.button_down span {
+    background: transparent url('{T_IMAGESET_PATH}/button_left_span.gif') no-repeat;
+    display: block;
+    line-height: 16px;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.button_down:hover span {
+    background-position: bottom left;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.button_star {
+    background: transparent url('{T_IMAGESET_PATH}/button_star.gif') no-repeat scroll top right;
+    display: block;
+    float: left;
+    font: 600 12px arial, sans-serif;
+	letter-spacing:-.5px;
+    height: 25px;
+    margin-right: 6px;
+    padding-right: 20px;
+	text-transform:uppercase;
+
+}
+
+a.button_star:hover {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+    text-decoration: none;
+}
+
+a.button_star span {
+    background: transparent url('{T_IMAGESET_PATH}/button_left_span.gif') no-repeat;
+    display: block;
+    line-height: 16px;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.button_star:hover span {
+    background-position: bottom left;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.button_lock {
+    background: transparent url('{T_IMAGESET_PATH}/button_lock.gif') no-repeat scroll top right;
+    display: block;
+    float: left;
+    font: 600 12px arial, sans-serif;
+	letter-spacing:-.5px;
+    height: 25px;
+    margin-right: 6px;
+    padding-right: 20px;
+	text-transform:uppercase;
+
+}
+
+a.button_lock:hover {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+    text-decoration: none;
+}
+
+a.button_lock span {
+    background: transparent url('{T_IMAGESET_PATH}/button_left_span.gif') no-repeat;
+    display: block;
+    line-height: 16px;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.button_lock:hover span {
+    background-position: bottom left;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.icon_edit {
+    background: transparent url('{T_IMAGESET_PATH}/icon_post_rt.gif') no-repeat scroll top right;
+    display: block;
+    float: left;
+    font:600 10px arial, sans-serif;
+	letter-spacing:-.5px;
+    height: 20px;
+    margin-right: 6px;
+    padding-right: 6px;
+	text-transform:uppercase;
+}
+
+a.icon_edit:hover {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+    text-decoration: none;
+}
+
+a.icon_edit span {
+    background: transparent url('{T_IMAGESET_PATH}/icon_post_edit.gif') no-repeat;
+    display: block;
+    line-height: 10px;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.icon_edit:hover span {
+    background-position: bottom left;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.icon_quote {
+    background: transparent url('{T_IMAGESET_PATH}/icon_post_rt.gif') no-repeat scroll top right;
+    display: block;
+    float: left;
+    font:600 10px arial, sans-serif;
+	letter-spacing:-.5px;
+    height: 20px;
+    margin-right: 6px;
+    padding-right: 6px;
+	text-transform:uppercase;
+
+}
+
+a.icon_quote:hover {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+    text-decoration: none;
+}
+
+a.icon_quote span {
+    background: transparent url('{T_IMAGESET_PATH}/icon_post_quote.gif') no-repeat;
+    display: block;
+    line-height: 10px;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.icon_quote:hover span {
+    background-position: bottom left;
+    padding: 5px 3px 4px 12px;
+    color: #BC2A4D;
+}
+
+a.icon_pm {
+    background: transparent url('{T_IMAGESET_PATH}/icon_contact_pm_rt.gif') no-repeat scroll top right;
+    display: block;
+    float: left;
+    font:600 10px arial, sans-serif;
+	letter-spacing:-.5px;
+    height: 20px;
+    margin-right: 6px;
+    padding-right: 4px;
+	text-transform:uppercase;
+
+}
+
+a.icon_pm:hover {
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+    text-decoration: none;
+}
+
+a.icon_pm span {
+    background: transparent url('{T_IMAGESET_PATH}/icon_contact_pm.gif') no-repeat;
+    display: block;
+    line-height: 10px;
+    padding: 5px 0px 5px 14px;
+    color: #253F61;
+}
+
+a.icon_pm:hover span {
+    background-position: bottom left;
+    padding: 5px 0px 5px 14px;
+    color: #BC2A4D;
+}
+

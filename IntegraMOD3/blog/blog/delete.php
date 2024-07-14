@@ -180,5 +180,3 @@ if (is_array($settings))
 
 	trigger_error($message);
 }
-
-?>

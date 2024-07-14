@@ -9,7 +9,7 @@ html, body {
 }
 
 h1 {
-	color: #FFFFFF;
+	color: #41A5E1;
 }
 
 h2 {
@@ -1056,6 +1056,10 @@ input.search {
 	
 }
 
+div.codeheader {
+	background: url("{T_THEME_PATH}/images/page_code.gif") no-repeat 0px 0px;
+}
+
 input.disabled {
 	color: #666666;
 }
@@ -1092,10 +1096,6 @@ input.disabled {
 .menu ul.sub-menus a:hover{
 	background: #5A5A5A;
 	color: #FFFFFF;
-}
-@media screen and (max-width: 800px){
-	.menu ul {background:#7B7B7B;}
-	.menu input:checked + label {color:#FFFFFF}
 }
 
 .activetab a {
@@ -1154,6 +1154,6 @@ input.disabled {
 }
 @media screen and (max-width: 800px){
 	.menu ul {background:#E9E9EF;}
-	.menu input:checked + label {color:#FFFFFF}
+	.menu a, .menu input:checked + label {color:#444444}
 	.menu input:checked + label:before {content:"\00d7"}
 }

@@ -237,7 +237,7 @@ function generate_blog_pagination($base_url, $num_items, $per_page, $start_item,
 	}
 
 	$on_page = floor($start_item / $per_page) + 1;
-	$page_string = ($on_page == 1) ? '<strong>1</strong>' : '<a href="' . str_replace('*start*', '0', $base_url) . '">1</a>';
+	$page_string = ($on_page == 1) ? '<strong>1</strong>' : '<a href="' . str_replace('*start*', '0', (string) $base_url) . '">1</a>';
 
 	if ($total_pages > 5)
 	{
@@ -248,7 +248,7 @@ function generate_blog_pagination($base_url, $num_items, $per_page, $start_item,
 
 		for ($i = $start_cnt + 1; $i < $end_cnt; $i++)
 		{
-			$page_string .= ($i == $on_page) ? '<strong>' . $i . '</strong>' : '<a href="' . str_replace('*start*', (($i - 1) * $per_page), $base_url) . '">' . $i . '</a>';
+			$page_string .= ($i == $on_page) ? '<strong>' . $i . '</strong>' : '<a href="' . str_replace('*start*', (($i - 1) * $per_page), (string) $base_url) . '">' . $i . '</a>';
 			if ($i < $end_cnt - 1)
 			{
 				$page_string .= $seperator;
@@ -263,7 +263,7 @@ function generate_blog_pagination($base_url, $num_items, $per_page, $start_item,
 
 		for ($i = 2; $i < $total_pages; $i++)
 		{
-			$page_string .= ($i == $on_page) ? '<strong>' . $i . '</strong>' : '<a href="' . str_replace('*start*', (($i - 1) * $per_page), $base_url) . '">' . $i . '</a>';
+			$page_string .= ($i == $on_page) ? '<strong>' . $i . '</strong>' : '<a href="' . str_replace('*start*', (($i - 1) * $per_page), (string) $base_url) . '">' . $i . '</a>';
 			if ($i < $total_pages)
 			{
 				$page_string .= $seperator;
@@ -271,18 +271,18 @@ function generate_blog_pagination($base_url, $num_items, $per_page, $start_item,
 		}
 	}
 
-	$page_string .= ($on_page == $total_pages) ? '<strong>' . $total_pages . '</strong>' : '<a href="' . str_replace('*start*', (($total_pages - 1) * $per_page), $base_url) . '">' . $total_pages . '</a>';
+	$page_string .= ($on_page == $total_pages) ? '<strong>' . $total_pages . '</strong>' : '<a href="' . str_replace('*start*', (($total_pages - 1) * $per_page), (string) $base_url) . '">' . $total_pages . '</a>';
 
 	if ($add_prevnext_text)
 	{
 		if ($on_page != 1)
 		{
-			$page_string = '<a href="' . str_replace('*start*', (($on_page - 2) * $per_page), $base_url) . '">' . $user->lang['PREVIOUS'] . '</a>&nbsp;&nbsp;' . $page_string;
+			$page_string = '<a href="' . str_replace('*start*', (($on_page - 2) * $per_page), (string) $base_url) . '">' . $user->lang['PREVIOUS'] . '</a>&nbsp;&nbsp;' . $page_string;
 		}
 
 		if ($on_page != $total_pages)
 		{
-			$page_string .= '&nbsp;&nbsp;<a href="' . str_replace('*start*', ($on_page * $per_page), $base_url) . '">' . $user->lang['NEXT'] . '</a>';
+			$page_string .= '&nbsp;&nbsp;<a href="' . str_replace('*start*', ($on_page * $per_page), (string) $base_url) . '">' . $user->lang['NEXT'] . '</a>';
 		}
 	}
 
@@ -290,8 +290,8 @@ function generate_blog_pagination($base_url, $num_items, $per_page, $start_item,
 		$tpl_prefix . 'BASE_URL'	=> $base_url,
 		$tpl_prefix . 'PER_PAGE'	=> $per_page,
 
-		$tpl_prefix . 'PREVIOUS_PAGE'	=> ($on_page == 1) ? '' : str_replace('*start*', (($on_page - 2) * $per_page), $base_url),
-		$tpl_prefix . 'NEXT_PAGE'		=> ($on_page == $total_pages) ? '' : str_replace('*start*', ($on_page  * $per_page), $base_url),
+		$tpl_prefix . 'PREVIOUS_PAGE'	=> ($on_page == 1) ? '' : str_replace('*start*', (($on_page - 2) * $per_page), (string) $base_url),
+		$tpl_prefix . 'NEXT_PAGE'		=> ($on_page == $total_pages) ? '' : str_replace('*start*', ($on_page  * $per_page), (string) $base_url),
 		$tpl_prefix . 'TOTAL_PAGES'		=> $total_pages)
 	);
 
@@ -308,7 +308,7 @@ function generate_blog_pagination($base_url, $num_items, $per_page, $start_item,
 * @param bool $force_output is if you would like to force the output of the links for the single requested section
 * @param bool $return Set to true to return an array with the data in it instead of outputting it
 */
-function add_blog_links($user_id, $block, $user_data = false, $grab_from_db = false, $force_output = false, $return = false)
+function add_blog_links($user_id, $block, mixed $user_data = false, $grab_from_db = false, $force_output = false, $return = false)
 {
 	global $db, $template, $user, $phpbb_root_path, $phpEx, $config;
 	global $reverse_zebra_list, $user_settings;
@@ -669,7 +669,7 @@ function trim_text($text, $uid, $max_length, $bitfield = '', $enable_bbcode = tr
 			while ($row = $db->sql_fetchrow($result))
 			{
 				// There can be problems only with tags having an argument
-				if (substr($row['bbcode_tag'], -1, 1) == '=')
+				if (str_ends_with((string) $row['bbcode_tag'], '='))
 				{
 					$custom_bbcodes[$row['bbcode_id']] = array('[' . $row['bbcode_tag'], ':' . $uid . ']');
 				}
@@ -752,7 +752,7 @@ function trim_text($text, $uid, $max_length, $bitfield = '', $enable_bbcode = tr
 
 	foreach($unsafe_tags as $tag)
 	{
-		if (($start_pos = strrpos($text, $tag[0])) > strrpos($text, $tag[1]))
+		if (($start_pos = strrpos($text, (string) $tag[0])) > strrpos($text, (string) $tag[1]))
 		{
 			$text = substr($text, 0, $start_pos) . ' ...';
 		}
@@ -1066,7 +1066,7 @@ function feed_output($ids, $feed_type)
 		trigger_error($message);
 	}
 
-	$title = ($feed_type == 'JAVASCRIPT') ? str_replace("'", "\\'", $template->_tpldata['navlinks'][(sizeof($template->_tpldata['navlinks']) - 1)]['FORUM_NAME']) : $template->_tpldata['navlinks'][(sizeof($template->_tpldata['navlinks']) - 1)]['FORUM_NAME'];
+	$title = ($feed_type == 'JAVASCRIPT') ? str_replace("'", "\\'", (string) $template->_tpldata['navlinks'][(sizeof($template->_tpldata['navlinks']) - 1)]['FORUM_NAME']) : $template->_tpldata['navlinks'][(sizeof($template->_tpldata['navlinks']) - 1)]['FORUM_NAME'];
 
 	$template->assign_vars(array(
 		'FEED'				=> $feed_type,
@@ -1094,7 +1094,7 @@ function feed_output($ids, $feed_type)
 		// the items section is only used in RSS 1.0
 		if ($feed_type == 'RSS_1.0')
 		{
-			if (strpos($mode, 'comments') === false)
+			if (!str_contains((string) $mode, 'comments'))
 			{
 				// output the URLS for the items section
 				foreach ($ids as $id)
@@ -1116,7 +1116,7 @@ function feed_output($ids, $feed_type)
 			}
 		}
 
-		if (strpos($mode, 'comments') === false)
+		if (!str_contains((string) $mode, 'comments'))
 		{
 			// Output the main data
 			foreach ($ids as $id)
@@ -1126,7 +1126,7 @@ function feed_output($ids, $feed_type)
 				$row = array(
 					'URL'				=> blog_url(blog_data::$blog[$id]['user_id'], $id),
 					'USERNAME'			=> blog_data::$user[blog_data::$blog[$id]['user_id']]['username'],
-					'MESSAGE'			=> str_replace("'", '&#039;', $blog_row['MESSAGE']),
+					'MESSAGE'			=> str_replace("'", '&#039;', (string) $blog_row['MESSAGE']),
 					'PUB_DATE'			=> date('r', blog_data::$blog[$id]['blog_time']),
 					'DATE_3339'			=> ($feed_type == 'ATOM') ? date3339(blog_data::$blog[$id]['blog_time']) : '',
 				);
@@ -1144,7 +1144,7 @@ function feed_output($ids, $feed_type)
 				$row = array(
 					'URL'				=> blog_url(blog_data::$reply[$id]['user_id'], $id),
 					'USERNAME'			=> blog_data::$user[blog_data::$reply[$id]['user_id']]['username'],
-					'MESSAGE'			=> str_replace("'", '&#039;', $reply_row['MESSAGE']),
+					'MESSAGE'			=> str_replace("'", '&#039;', (string) $reply_row['MESSAGE']),
 					'PUB_DATE'			=> date('r', blog_data::$reply[$id]['reply_time']),
 					'DATE_3339'			=> ($feed_type == 'ATOM') ? date3339(blog_data::$reply[$id]['reply_time']) : '',
 				);
@@ -1273,9 +1273,9 @@ function parse_attachments_for_view(&$message, &$attachments, &$update_count, $p
 		$block_array = array();
 
 		// Some basics...
-		$attachment['extension'] = strtolower(trim($attachment['extension']));
-		$filename = $phpbb_root_path . $config['upload_path'] . '/blog_mod/' . basename($attachment['physical_filename']);
-		$thumbnail_filename = $phpbb_root_path . $config['upload_path'] . '/blog_mod/thumb_' . basename($attachment['physical_filename']);
+		$attachment['extension'] = strtolower(trim((string) $attachment['extension']));
+		$filename = $phpbb_root_path . $config['upload_path'] . '/blog_mod/' . basename((string) $attachment['physical_filename']);
+		$thumbnail_filename = $phpbb_root_path . $config['upload_path'] . '/blog_mod/thumb_' . basename((string) $attachment['physical_filename']);
 
 		$upload_icon = '';
 
@@ -1287,21 +1287,21 @@ function parse_attachments_for_view(&$message, &$attachments, &$update_count, $p
 			}
 			else if ($extensions[$attachment['extension']]['upload_icon'])
 			{
-				$upload_icon = '<img src="' . $phpbb_root_path . $config['upload_icons_path'] . '/' . trim($extensions[$attachment['extension']]['upload_icon']) . '" alt="" />';
+				$upload_icon = '<img src="' . $phpbb_root_path . $config['upload_icons_path'] . '/' . trim((string) $extensions[$attachment['extension']]['upload_icon']) . '" alt="" />';
 			}
 		}
 
 		$filesize = $attachment['filesize'];
-		$size_lang = ($filesize >= 1048576) ? $user->lang['MB'] : ( ($filesize >= 1024) ? $user->lang['KB'] : $user->lang['BYTES'] );
-		$filesize = ($filesize >= 1048576) ? round((round($filesize / 1048576 * 100) / 100), 2) : (($filesize >= 1024) ? round((round($filesize / 1024 * 100) / 100), 2) : $filesize);
+		$size_lang = ($filesize >= 1_048_576) ? $user->lang['MB'] : ( ($filesize >= 1024) ? $user->lang['KB'] : $user->lang['BYTES'] );
+		$filesize = ($filesize >= 1_048_576) ? round((round($filesize / 1_048_576 * 100) / 100), 2) : (($filesize >= 1024) ? round((round($filesize / 1024 * 100) / 100), 2) : $filesize);
 
-		$comment = str_replace("\n", '<br />', censor_text($attachment['attach_comment']));
+		$comment = str_replace("\n", '<br />', (string) censor_text($attachment['attach_comment']));
 
 		$block_array += array(
 			'UPLOAD_ICON'		=> $upload_icon,
 			'FILESIZE'			=> $filesize,
 			'SIZE_LANG'			=> $size_lang,
-			'DOWNLOAD_NAME'		=> basename($attachment['real_filename']),
+			'DOWNLOAD_NAME'		=> basename((string) $attachment['real_filename']),
 			'COMMENT'			=> $comment,
 		);
 
@@ -1431,7 +1431,7 @@ function parse_attachments_for_view(&$message, &$attachments, &$update_count, $p
 
 				// Macromedia Flash Files
 				case ATTACHMENT_CATEGORY_FLASH:
-					list($width, $height) = @getimagesize($filename);
+					[$width, $height] = @getimagesize($filename);
 
 					$l_downloaded_viewed = 'VIEWED_COUNT';
 
@@ -1483,7 +1483,7 @@ function parse_attachments_for_view(&$message, &$attachments, &$update_count, $p
 		$index = ($config['display_order']) ? ($tpl_size-($matches[1][$num] + 1)) : $matches[1][$num];
 
 		$replace['from'][] = $matches[0][$num];
-		$replace['to'][] = (isset($attachments[$index])) ? $attachments[$index] : sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
+		$replace['to'][] = $attachments[$index] ?? sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
 
 		$unset_tpl[] = $index;
 	}
@@ -1533,12 +1533,12 @@ function obtain_blog_attach_extensions()
 
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$extension = strtolower(trim($row['extension']));
+			$extension = strtolower(trim((string) $row['extension']));
 
 			$extensions[$extension] = array(
 				'display_cat'	=> (int) $row['cat_id'],
 				'download_mode'	=> (int) $row['download_mode'],
-				'upload_icon'	=> trim($row['upload_icon']),
+				'upload_icon'	=> trim((string) $row['upload_icon']),
 				'max_filesize'	=> (int) $row['max_filesize'],
 				'allow_group'	=> $row['allow_group'],
 				'allow_in_blog'	=> $row['allow_in_blog'],
@@ -1592,4 +1592,3 @@ function date3339($timestamp=0) {
     return $date;
 
 }
-?>

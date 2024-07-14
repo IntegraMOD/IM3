@@ -1043,6 +1043,10 @@ input.search {
 	background-image: url("{T_THEME_PATH}/images/icon_textbox_search.gif");
 }
 
+div.codeheader {
+	background: url("{T_THEME_PATH}/images/page_code.gif") no-repeat 0px 0px;
+}
+
 input.disabled {
 	color: #666666;
 }

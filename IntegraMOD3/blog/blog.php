@@ -51,4 +51,6 @@ if (sizeof($extras))
 
 define('PHPBB_ROOT_PATH', './../');
 include(PHPBB_ROOT_PATH . 'blog.' . substr(strrchr(__FILE__, '.'), 1));
+$template->assign_var('S_IN_BLOG', true);
+
 ?>

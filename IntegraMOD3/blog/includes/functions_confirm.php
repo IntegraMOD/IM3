@@ -48,7 +48,7 @@ function blog_confirm($title, $explain, $display_vars, $submit_type = 'submit/re
 		{
 			$template->assign_vars(array(
 				'S_ERROR'		=> true,
-				'ERROR_MSG'		=> implode($error, '<br />'),
+				'ERROR_MSG'		=> implode('<br />', $error),
 			));
 		}
 	}
@@ -70,8 +70,8 @@ function blog_confirm($title, $explain, $display_vars, $submit_type = 'submit/re
 	}
 
 	$template->assign_vars(array(
-		'L_TITLE'			=> (isset($user->lang[$title])) ? $user->lang[$title] : $title,
-		'L_TITLE_EXPLAIN'	=> (isset($user->lang[$explain])) ? $user->lang[$explain] : $explain,
+		'L_TITLE'			=> $user->lang[$title] ?? $title,
+		'L_TITLE_EXPLAIN'	=> $user->lang[$explain] ?? $explain,
 
 		'U_ACTION'			=> $action,
 
@@ -80,31 +80,31 @@ function blog_confirm($title, $explain, $display_vars, $submit_type = 'submit/re
 
 	foreach ($display_vars as $key => $vars)
 	{
-		if (strpos($key, 'legend') !== false)
+		if (str_contains($key, 'legend'))
 		{
 			$template->assign_block_vars('options', array(
 				'S_LEGEND'		=> true,
-				'LEGEND'		=> (isset($user->lang[$vars])) ? $user->lang[$vars] : $vars)
+				'LEGEND'		=> $user->lang[$vars] ?? $vars)
 			);
 
 			continue;
 		}
 
-		$default = (isset($settings[$key])) ? $settings[$key] : $vars['default'];
+		$default = $settings[$key] ?? $vars['default'];
 
-		$type = explode(':', $vars['type']);
+		$type = explode(':', (string) $vars['type']);
 		$l_explain = '';
 		if ($vars['explain'] && isset($vars['lang_explain']))
 		{
-			$l_explain = (isset($user->lang[$vars['lang_explain']])) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
+			$l_explain = $user->lang[$vars['lang_explain']] ?? $vars['lang_explain'];
 		}
 		else if ($vars['explain'])
 		{
-			$l_explain = (isset($user->lang[$vars['lang'] . '_EXPLAIN'])) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
+			$l_explain = $user->lang[$vars['lang'] . '_EXPLAIN'] ?? '';
 		}
 		$template->assign_block_vars('options', array(
 			'KEY'			=> $key,
-			'TITLE'			=> (isset($user->lang[$vars['lang']])) ? $user->lang[$vars['lang']] : $vars['lang'],
+			'TITLE'			=> $user->lang[$vars['lang']] ?? $vars['lang'],
 			'S_EXPLAIN'		=> $vars['explain'],
 			'TITLE_EXPLAIN'	=> $l_explain,
 			'CONTENT'		=> build_blog_cfg_template($type, $key, $default),
@@ -151,7 +151,7 @@ function build_blog_cfg_template($tpl_type, $name, $default)
 			$name_yes	= ($default) ? ' checked="checked"' : '';
 			$name_no		= (!$default) ? ' checked="checked"' : '';
 
-			$tpl_type_cond = explode('_', $tpl_type[1]);
+			$tpl_type_cond = explode('_', (string) $tpl_type[1]);
 			$type_no = ($tpl_type_cond[0] == 'disabled' || $tpl_type_cond[0] == 'enabled') ? false : true;
 
 			$tpl_no = '<label><input type="radio" name="' . $name . '" value="0"' . $name_no . ' class="radio" /> ' . (($type_no) ? $user->lang['NO'] : $user->lang['DISABLED']) . '</label>';
@@ -183,7 +183,7 @@ function validate_config_vars($config_vars, &$cfg_array, &$error)
 {
 	foreach ($config_vars as $config_name => $config_definition)
 	{
-		if (!isset($config_definition['validate']) || strpos($config_name, 'legend') !== false)
+		if (!isset($config_definition['validate']) || str_contains((string) $config_name, 'legend'))
 		{
 			continue;
 		}
@@ -205,4 +205,3 @@ function validate_config_vars($config_vars, &$cfg_array, &$error)
 		}
 	}
 }
-?>

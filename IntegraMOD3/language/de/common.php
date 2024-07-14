@@ -947,6 +947,7 @@ $lang = array_merge($lang, array(
 	'UPLOAD' 						=> '<h6>upload</h6>',
 	'LINE_NUMBERS'				    => 'Line number On/Off',
 	'EXPAND_CODE'				    => 'Expand/Contract',
+	'MEETINGS' 						=> 'Tagungen',
 ));
 
 // Notes settings by OXPUS

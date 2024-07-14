@@ -148,5 +148,3 @@ function get_star_rating($start_url, $delete_url, $average_rating, $num_ratings,
 
 	return $final_code;
 }
-
-?>

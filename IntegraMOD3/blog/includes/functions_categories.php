@@ -231,7 +231,7 @@ function make_category_select($select_id = false, $ignore_id = false, $return_ar
 		}
 		else if ($row['left_id'] > $right + 1)
 		{
-			$padding = (isset($padding_store[$row['parent_id']])) ? $padding_store[$row['parent_id']] : '';
+			$padding = $padding_store[$row['parent_id']] ?? '';
 		}
 
 		$right = $row['right_id'];
@@ -268,20 +268,11 @@ function get_category_branch($category_id, $type = 'all', $order = 'descending',
 {
 	global $db;
 
-	switch ($type)
-	{
-		case 'parents':
-			$condition = 'f1.left_id BETWEEN f2.left_id AND f2.right_id';
-		break;
-
-		case 'children':
-			$condition = 'f2.left_id BETWEEN f1.left_id AND f1.right_id';
-		break;
-
-		default:
-			$condition = 'f2.left_id BETWEEN f1.left_id AND f1.right_id OR f1.left_id BETWEEN f2.left_id AND f2.right_id';
-		break;
-	}
+	$condition = match ($type) {
+     'parents' => 'f1.left_id BETWEEN f2.left_id AND f2.right_id',
+     'children' => 'f2.left_id BETWEEN f1.left_id AND f1.right_id',
+     default => 'f2.left_id BETWEEN f1.left_id AND f1.right_id OR f1.left_id BETWEEN f2.left_id AND f2.right_id',
+ };
 
 	$rows = array();
 
@@ -305,4 +296,3 @@ function get_category_branch($category_id, $type = 'all', $order = 'descending',
 
 	return $rows;
 }
-?>

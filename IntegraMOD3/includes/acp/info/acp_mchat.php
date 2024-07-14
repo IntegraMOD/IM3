@@ -25,7 +25,7 @@ class acp_mchat_info
 			'title'		=> 'ACP_CAT_MCHAT',
 			'version'	=> '1.3.7',
 			'modes'		=> array(
-				'configuration'		=> array('title' => 'ACP_MCHAT_CONFIG', 'auth' => 'acl_a_mchat', 'cat' => array('ACP_CAT_MCHAT')),
+				'configuration'		=> array('title' => 'ACP_MCHAT_CONFIG', 'auth' => 'acl_a_mchat', 'cat' => array('ACP_CAT_DOT_MODS')),
 			),
 		);
 	}

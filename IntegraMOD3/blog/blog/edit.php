@@ -367,11 +367,10 @@ else // user submitted and there are no errors
 	}
 	else
 	{
-		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', blog_data::$user[$user_id]['username'], '</a>');
+		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (blog_data::$user[$user_id]['username'] ?? null), '</a>');
 	}
 
 	blog_meta_refresh(3, $blog_urls['view_blog']);
 
 	trigger_error($message);
 }
-?>

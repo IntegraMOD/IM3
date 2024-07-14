@@ -652,7 +652,8 @@ if (!class_exists('socialnet_im')) {
                 }
 
                 $in_group = array_diff_key($users, $in_group_added);
-                $array_first = array_shift(array_values($groups));
+                $array_values = array_values($groups);
+                $array_first = $array_values[0];
                 $template->assign_block_vars('sn_im_online_ufg', array(
                     'GID'	 => '0',
                     'NAME'	 => $user->lang['IM_GROUP_UNDECIDED'],

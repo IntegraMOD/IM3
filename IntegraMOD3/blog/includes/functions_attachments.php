@@ -87,7 +87,7 @@ class blog_attachment
 			foreach ($attachment_data as $count => $attach_row)
 			{
 				$hidden = '';
-				$attach_row['real_filename'] = basename($attach_row['real_filename']);
+				$attach_row['real_filename'] = basename((string) $attach_row['real_filename']);
 
 				foreach ($attach_row as $key => $value)
 				{
@@ -189,7 +189,7 @@ class blog_attachment
 
 		$num_attachments = sizeof($this->attachment_data);
 		$this->filename_data['filecomment'] = utf8_normalize_nfc(request_var('filecomment', '', true));
-		$upload_file = (isset($_FILES[$form_name]) && $_FILES[$form_name]['name'] != 'none' && trim($_FILES[$form_name]['name'])) ? true : false;
+		$upload_file = (isset($_FILES[$form_name]) && $_FILES[$form_name]['name'] != 'none' && trim((string) $_FILES[$form_name]['name'])) ? true : false;
 
 		$add_file		= (isset($_POST['add_file'])) ? true : false;
 		$delete_file	= (isset($_POST['delete_file'])) ? true : false;
@@ -243,7 +243,7 @@ class blog_attachment
 					);
 
 					$this->attachment_data = array_merge(array(0 => $new_entry), $this->attachment_data);
-					$message_parser->message = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "'[attachment='.(\\1 + 1).']\\2[/attachment]'", $message_parser->message);
+					$message_parser->message = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "'[attachment='.(\\1 + 1).']\\2[/attachment]'", (string) $message_parser->message);
 
 					$this->filename_data['filecomment'] = '';
 
@@ -323,8 +323,8 @@ class blog_attachment
 					}
 
 					unset($this->attachment_data[$index]);
-					$text = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "(\\1 == \$index) ? '' : ((\\1 > \$index) ? '[attachment=' . (\\1 - 1) . ']\\2[/attachment]' : '\\0')", $text);
-					$message_parser->message = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "(\\1 == \$index) ? '' : ((\\1 > \$index) ? '[attachment=' . (\\1 - 1) . ']\\2[/attachment]' : '\\0')", $message_parser->message);
+					$text = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "(\\1 == \$index) ? '' : ((\\1 > \$index) ? '[attachment=' . (\\1 - 1) . ']\\2[/attachment]' : '\\0')", (string) $text);
+					$message_parser->message = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "(\\1 == \$index) ? '' : ((\\1 > \$index) ? '[attachment=' . (\\1 - 1) . ']\\2[/attachment]' : '\\0')", (string) $message_parser->message);
 
 					// Reindex Array
 					$this->attachment_data = array_values($this->attachment_data);
@@ -362,8 +362,8 @@ class blog_attachment
 						);
 
 						$this->attachment_data = array_merge(array(0 => $new_entry), $this->attachment_data);
-						$text = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "'[attachment='.(\\1 + 1).']\\2[/attachment]'", $text);
-						$message_parser->message = preg_replace('#\[attachment=([0-9]+):' . $message_parser->bbcode_uid . '\](.*?)\[\/attachment:' . $message_parser->bbcode_uid . '\]#e', "'[attachment='.(\\1 + 1).':{$message_parser->bbcode_uid}]\\2[/attachment:{$message_parser->bbcode_uid}]'", $message_parser->message);
+						$text = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "'[attachment='.(\\1 + 1).']\\2[/attachment]'", (string) $text);
+						$message_parser->message = preg_replace('#\[attachment=([0-9]+):' . $message_parser->bbcode_uid . '\](.*?)\[\/attachment:' . $message_parser->bbcode_uid . '\]#e', "'[attachment='.(\\1 + 1).':{$message_parser->bbcode_uid}]\\2[/attachment:{$message_parser->bbcode_uid}]'", (string) $message_parser->message);
 						$this->filename_data['filecomment'] = '';
 					}
 				}
@@ -396,7 +396,7 @@ class blog_attachment
 		blog_plugins::plugin_do('get_submitted_attachment_data');
 
 		$this->filename_data['filecomment'] = utf8_normalize_nfc(request_var('filecomment', '', true));
-		$attachment_data = (isset($_POST['attachment_data'])) ? $_POST['attachment_data'] : array();
+		$attachment_data = $_POST['attachment_data'] ?? array();
 		$this->attachment_data = array();
 
 		$check_user_id = ($check_user_id === false) ? $user->data['user_id'] : $check_user_id;
@@ -525,7 +525,7 @@ class blog_attachment
 			return $filedata;
 		}
 
-		$cat_id = (isset($extensions[$file->get('extension')]['display_cat'])) ? $extensions[$file->get('extension')]['display_cat'] : ATTACHMENT_CATEGORY_NONE;
+		$cat_id = $extensions[$file->get('extension')]['display_cat'] ?? ATTACHMENT_CATEGORY_NONE;
 
 		// Make sure the image category only holds valid images...
 		if ($cat_id == ATTACHMENT_CATEGORY_IMAGE && !$file->is_image())
@@ -665,12 +665,12 @@ class blog_attachment
 
 			while ($row = $db->sql_fetchrow($result))
 			{
-				$extension = strtolower(trim($row['extension']));
+				$extension = strtolower(trim((string) $row['extension']));
 
 				$extensions[$extension] = array(
 					'display_cat'	=> (int) $row['cat_id'],
 					'download_mode'	=> (int) $row['download_mode'],
-					'upload_icon'	=> trim($row['upload_icon']),
+					'upload_icon'	=> trim((string) $row['upload_icon']),
 					'max_filesize'	=> (int) $row['max_filesize'],
 					'allow_group'	=> $row['allow_group'],
 					'allow_in_blog'	=> $row['allow_in_blog'],
@@ -791,9 +791,9 @@ class blog_attachment
 			$block_array = array();
 			
 			// Some basics...
-			$attachment['extension'] = strtolower(trim($attachment['extension']));
-			$filename = $phpbb_root_path . $config['upload_path'] . '/blog_mod/' . basename($attachment['physical_filename']);
-			$thumbnail_filename = $phpbb_root_path . $config['upload_path'] . '/blog_mod/thumb_' . basename($attachment['physical_filename']);
+			$attachment['extension'] = strtolower(trim((string) $attachment['extension']));
+			$filename = $phpbb_root_path . $config['upload_path'] . '/blog_mod/' . basename((string) $attachment['physical_filename']);
+			$thumbnail_filename = $phpbb_root_path . $config['upload_path'] . '/blog_mod/thumb_' . basename((string) $attachment['physical_filename']);
 
 			$upload_icon = '';
 
@@ -805,21 +805,21 @@ class blog_attachment
 				}
 				else if ($extensions[$attachment['extension']]['upload_icon'])
 				{
-					$upload_icon = '<img src="' . $phpbb_root_path . $config['upload_icons_path'] . '/' . trim($extensions[$attachment['extension']]['upload_icon']) . '" alt="" />';
+					$upload_icon = '<img src="' . $phpbb_root_path . $config['upload_icons_path'] . '/' . trim((string) $extensions[$attachment['extension']]['upload_icon']) . '" alt="" />';
 				}
 			}
 
 			$filesize = $attachment['filesize'];
-			$size_lang = ($filesize >= 1048576) ? $user->lang['MB'] : ( ($filesize >= 1024) ? $user->lang['KB'] : $user->lang['BYTES'] );
-			$filesize = ($filesize >= 1048576) ? round((round($filesize / 1048576 * 100) / 100), 2) : (($filesize >= 1024) ? round((round($filesize / 1024 * 100) / 100), 2) : $filesize);
+			$size_lang = ($filesize >= 1_048_576) ? $user->lang['MB'] : ( ($filesize >= 1024) ? $user->lang['KB'] : $user->lang['BYTES'] );
+			$filesize = ($filesize >= 1_048_576) ? round((round($filesize / 1_048_576 * 100) / 100), 2) : (($filesize >= 1024) ? round((round($filesize / 1024 * 100) / 100), 2) : $filesize);
 
-			$comment = str_replace("\n", '<br />', censor_text($attachment['attach_comment']));
+			$comment = str_replace("\n", '<br />', (string) censor_text($attachment['attach_comment']));
 
 			$block_array += array(
 				'UPLOAD_ICON'		=> $upload_icon,
 				'FILESIZE'			=> $filesize,
 				'SIZE_LANG'			=> $size_lang,
-				'DOWNLOAD_NAME'		=> basename($attachment['real_filename']),
+				'DOWNLOAD_NAME'		=> basename((string) $attachment['real_filename']),
 				'COMMENT'			=> $comment,
 			);
 
@@ -949,7 +949,7 @@ class blog_attachment
 
 					// Macromedia Flash Files
 					case ATTACHMENT_CATEGORY_FLASH:
-						list($width, $height) = @getimagesize($filename);
+						[$width, $height] = @getimagesize($filename);
 
 						$l_downloaded_viewed = 'VIEWED_COUNT';
 
@@ -1001,7 +1001,7 @@ class blog_attachment
 			$index = ($config['display_order']) ? ($tpl_size-($matches[1][$num] + 1)) : $matches[1][$num];
 
 			$replace['from'][] = $matches[0][$num];
-			$replace['to'][] = (isset($attachments[$index])) ? $attachments[$index] : sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
+			$replace['to'][] = $attachments[$index] ?? sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
 
 			$unset_tpl[] = $index;
 		}
@@ -1020,4 +1020,3 @@ class blog_attachment
 		}
 	}
 }
-?>

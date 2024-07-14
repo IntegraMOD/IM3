@@ -1,0 +1,216 @@
+/* set/adjust colours for this style
+ ---------------------------------- */
+.list_new_pre_beata
+{
+color: red;
+font-weight: bold;
+font-size:10px;
+}
+.list_pre_beat 
+{
+color: gray;
+font-weight: bold;
+font-size:10px;
+}
+.list_beta 
+{
+color: orange;
+font-weight: bold;
+font-size:10px;
+} 
+.list_pre_release
+{
+color: blue;
+font-weight: bold;
+font-size:10px;
+} 
+.list_release
+{
+color: green;
+font-weight: bold;
+font-size:10px;
+padding:2px;
+}
+.orange {
+color: #D29D00;
+font-weight: bold;
+}
+.green {
+color:#008000;
+font-weight: bold;
+}
+.red {
+ color: #C31818;
+ font-weight: bold;
+}
+.gray 
+{
+color:#BABABA;
+font-weight: bold;
+}
+.blue {
+color:#18609C;
+font-weight: bold;
+}
+.date {
+color:#027AB6;
+font-weight: bold;
+}
+
+
+/* Portal css classes */
+.clear {
+clear:both; 
+}
+
+/* blocks
+ ---------------------------------- */
+.block_header {
+ clear:left;
+ width:100%;
+}
+.block_title {
+ color: #FFFFFF;
+ font-family: Arial,Helvetica,sans-serif;
+ font-size: 1em;
+ padding-bottom: 2px;
+ padding-top: 2px;
+ line-height: 1em;
+ text-transform: uppercase;
+ font-weight: bold;
+}
+
+.block_title a:link, .block_title a:visited, .block_title a:hover, .block_title a:active { color: #FFF; text-decoration: none; }
+.block_title a:hover { color: #CCC; text-decoration: underline; }
+
+.block_data {
+ padding:0px;
+}
+
+.box {
+ background: #E8ECEE none repeat-x 0 0;
+ background-repeat: repeat;
+ text-align:left;
+ margin-top:5px;
+ padding: 2px 2px 2px 2px;
+ overflow: hidden;
+ width: auto;
+ clear: both;
+ border: solid 1px #E5EDF3;
+}
+
+.bg1a {
+ background-color: #D3E1EB;
+ padding:5px;
+ border: solid 1px #84AAC8;
+}
+.bg2a {
+ background-color: #C8D9E6;
+ padding:5px;
+ border: solid 1px #ABC5D9;
+}
+.bg3a {
+ background-color: #C2D5E4;
+ padding:5px;
+ border: solid 1px #ABC5D9;
+}
+/* Clock css*/
+
+#clock {
+  width: 30.75em;
+  height: 30.75em;
+  border-radius: 50%;
+  border: solid 2px #11A0E7;
+  margin: auto auto;
+  position: relative;
+  background-color:#E1E8F1;
+}
+#clock div,
+.faceBox {
+  border: 0;
+  position: absolute;
+  transform-origin: center bottom;
+  -webkit-transform-origin: center bottom;
+  -moz-transform-origin: center bottom;
+  -o-transform-origin: center bottom;
+  transform: rotate(0deg);
+}
+#clock #hour {
+  border-radius: 0.75em 0.75em 0 0;
+  width: 1.5em;
+  height: 6em;
+  top: 9em;
+  left: 14.25em;
+  background-color: #11A0E7;
+  border: solid 1px #486386;
+}
+#clock #minute {
+  border-radius: 0.5em;
+  width: 1em;
+  height: 11em;
+  top: 4em;
+  left: 14.5em;
+  background-color: #11A0E7;
+  border: solid 1px #486386;
+}
+#clock #second {
+  border-radius: 0.25em;
+  width: 0.5em;
+  height: 14em;
+  top: 1em;
+  left: 14.75em;
+  background-color: #11A0E7;
+}
+#clock #center {
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  top: 14em;
+  left: 14em;
+  transform: rotate(0deg);
+  background-color: #11A0E7;
+  border: solid 1px #486386;
+}
+.smallTick {
+  width: 0.1em;
+  height: 0.5em;
+  background-color: #11A0E7;
+  margin: 0 1.45em;
+}
+.mediumTick {
+  width: 0.25em;
+  height: 0.8em;
+  background-color: #11A0E7;
+  margin: 0 1.375em;
+}
+.largeTick {
+  width: 0.4em;
+  height: 0.8em;
+  background-color: #11A0E7;
+  position: relative;
+  margin: 0 1.3em;
+}
+.tickNum {
+  font-family: Arial, sans-serif;
+  font-size: 2em;
+  line-height: 0;
+  color: black;
+  position: relative;
+  top: 1em;
+  left: 0;
+  padding: 0 0.5em;
+}
+div.faceBox {
+  border: 0;
+  width: 3em;
+  height: 15em;
+  top: 0;
+  left: 13.5em;
+  position: absolute;
+  text-align: center;
+  overflow: visible;
+}
+div.cssclock {
+  font-size: 6px;
+  margin: auto;
+}

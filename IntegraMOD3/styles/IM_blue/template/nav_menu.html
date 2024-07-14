@@ -21,7 +21,7 @@
     </li>
 	<!-- ENDIF -->
     <li><a class="dropdown-arrow
-<!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_BLOG --> activetab<!-- ENDIF -->
+<!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_MEETING or S_IN_BLOG --> activetab<!-- ENDIF -->
 " href="#">
 		<!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY -->{L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->			
 		<!-- IF S_IN_FAQ -->{L_FAQ}<!-- ENDIF -->
@@ -33,11 +33,13 @@
 		<!-- IF S_MCHAT_ENABLE and U_MCHAT and S_SHOW_CHT and S_IN_MCHAT -->{L_CHAT}<!-- ENDIF -->
 		<!-- IF S_CONTACT_ENABLED and S_IN_CONTACT -->{L_CONTACT_BOARD_ADMIN_SHORT}<!-- ENDIF -->
 		<!-- IF S_IN_BLOG -->{L_BLOG}<!-- ENDIF -->
-		<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
+		<!-- IF S_IN_MEETING -->{L_MEETINGS}<!-- ENDIF -->
+		<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_MEETING and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
       </a>
       <ul class="sub-menus">
+        <li><a href="{U_SN_ACTIVITYPAGE}"><i class="fa-solid fa-clipboard"></i> {L_SN_AP_ACTIVITYPAGE}</a></li>
         <li><a href="{U_FAQ}"><i class="fa-solid fa-circle-question"></i> {L_FAQ}</a></li>
-        <li><a href="{U_KB}" title="{L_KB_EXPLAIN}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</a></li>
+        <li><a href="{U_KB}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</a></li>
 	  <!-- IF not S_IS_BOT -->
 		<!-- IF S_DISPLAY_MEMBERLIST -->
 		<li><a href="{U_MEMBERLIST}"><i class="fa-solid fa-user-group"></i> {L_MEMBERLIST}</a></li>
@@ -55,11 +57,15 @@
 		<li><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image"></i> {L_GALLERY}</a></li>
 		<!-- ENDIF -->
 		<!-- IF S_SHOW_CHT -->
-		<li><a href="{U_CHAT}" title="{L_CHAT_EXPLAIN}"><i class="fa-solid fa-comment"></i> {L_CHAT}</a></li>
+		<li><a href="{U_MCHAT}" title="{L_MCHAT_TITLE}"><i class="fa-solid fa-comment"></i> {L_CHAT}</a></li>
+		<!-- ENDIF -->
+		<!-- IF S_USER_LOGGED_IN -->
+        <li><a href="{U_MEETING_LINK_N}" title="{L_MEETING}"><i class="fa-solid fa-people-arrows"></i> {L_MEETINGS}</a></li>
 		<!-- ENDIF -->
 		<!-- IF S_CONTACT_ENABLED -->
-        <li><a href="{U_CONTACT}"><i class="fa-solid fa-message"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
+        <li><a href="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><i class="fa-solid fa-message"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
 		<!-- ENDIF -->
+		
 		<!-- BEGIN blog_links -->
 		<li><a href="{blog_links.URL}"><i class="fa-solid fa-book-open-reader"></i> {blog_links.TEXT}</a></li>
 		<!-- END blog_links -->

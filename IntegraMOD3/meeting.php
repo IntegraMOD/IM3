@@ -45,7 +45,7 @@ if (($auth->acl_get('a_') && $user->data['is_registered']))
 	$is_mod		= false;
 	$is_user	= false;
 
-	if ($config['meeting_sign_perm'] ?? null >= 1)
+	if (($config['meeting_sign_perm'] ?? null) >= 1)
 	{
 		$allow_sign_onoff = true;
 	}
@@ -69,7 +69,7 @@ else
 }
 
 // And about this check the meeting permissions
-if ($config['meeting_user_enter'] ?? null == 1 || $is_admin || $is_mod)
+if (($config['meeting_user_enter'] ?? null) == 1 || $is_admin || $is_mod)
 {
 	$allow_add = true;
 }
@@ -100,6 +100,7 @@ else
 
 $allow_edit = ($is_admin || $is_mod) ? true : false;
 $allow_delete = ($is_admin || $is_mod) ? true : false;
+$template->assign_var('S_IN_MEETING', true);
 
 // Get access status for all meetings
 $meetings_access_ids = array();
@@ -2652,4 +2653,3 @@ function meeting_date_edit($module, $date)
 	return '<input type="text" name="' . $module . '" id="' . $module . '" class="tcal" value="' . $date . '" readonly="readonly" size="11" maxlength="10" /><a href="#" onclick="DropDate(\'' . $module . '\');" style="text-decoration: none; border: 1px #A9B8C2 solid; padding: 1px 2px 1px 2px; background-color: #ECECEC;" /><strong>X</strong></a>&nbsp&nbsp;<input type="text" name="' . $module . '_time" size="5" maxlength="5" class="inputbox autowidth" value="' . $time . '" />';
 }
 
-?>

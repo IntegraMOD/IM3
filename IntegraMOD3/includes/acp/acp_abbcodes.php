@@ -196,7 +196,7 @@ class acp_abbcodes
 		// We go through the display_vars to make sure no one is trying to set variables he/she is not allowed to...
 		foreach ($display_vars['vars'] as $config_name => $null)
 		{
-			if (!isset($cfg_array[$config_name]) || strpos($config_name, 'legend') !== false)
+			if (!isset($cfg_array[$config_name]) || str_contains($config_name, 'legend'))
 			{
 				continue;
 			}
@@ -237,16 +237,16 @@ class acp_abbcodes
 		// Output relevant page
 		foreach ($display_vars['vars'] as $config_key => $vars)
 		{
-			if (!is_array($vars) && strpos($config_key, 'legend') === false)
+			if (!is_array($vars) && !str_contains($config_key, 'legend'))
 			{
 				continue;
 			}
 
-			if (strpos($config_key, 'legend') !== false)
+			if (str_contains($config_key, 'legend'))
 			{
 				$template->assign_block_vars('options', array(
 					'S_LEGEND'		=> true,
-					'LEGEND'		=> (isset($user->lang[$vars])) ? $user->lang[$vars] : $vars)
+					'LEGEND'		=> $user->lang[$vars] ?? $vars)
 				);
 
 				continue;
@@ -257,16 +257,16 @@ class acp_abbcodes
 			$l_explain = '';
 			if ($vars['explain'] && isset($vars['lang_explain']))
 			{
-				$l_explain = (isset($user->lang[$vars['lang_explain']])) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
+				$l_explain = $user->lang[$vars['lang_explain']] ?? $vars['lang_explain'];
 			}
 			else if ($vars['explain'])
 			{
-				$l_explain = (isset($user->lang[$vars['lang'] . '_EXPLAIN'])) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
+				$l_explain = $user->lang[$vars['lang'] . '_EXPLAIN'] ?? '';
 			}
 
 			$template->assign_block_vars('options', array(
 				'KEY'			=> $config_key,
-				'TITLE'			=> (isset($user->lang[$vars['lang']])) ? $user->lang[$vars['lang']] : $vars['lang'],
+				'TITLE'			=> $user->lang[$vars['lang']] ?? $vars['lang'],
 				'S_EXPLAIN'		=> $vars['explain'],
 				'TITLE_EXPLAIN'	=> $l_explain,
 				'CONTENT'		=> build_cfg_template($type, $config_key, $this->new_config, $config_key, $vars),
@@ -275,7 +275,7 @@ class acp_abbcodes
 			unset($display_vars['vars'][$config_key]);
 		}
 
-		$board_path = generate_board_url() . '/' . str_replace($phpbb_root_path, '', $this->dir) . '/';
+		$board_path = generate_board_url() . '/' . str_replace($phpbb_root_path, '', (string) $this->dir) . '/';
 
 		$template->assign_vars(array(
 			'S_EDIT'			=> true,
@@ -359,7 +359,7 @@ class acp_abbcodes
 		$db->sql_freeresult($result);
 
 		// get the value of current tag
-		$number = preg_replace('#(break|division)(\d+)#s', '$2', $bbcode);
+		$number = preg_replace('#(break|division)(\d+)#s', '$2', (string) $bbcode);
 		$next_bbcode_number = (int) $number + 1;
 
 		$sql_ary = array(
@@ -455,12 +455,12 @@ class acp_abbcodes
 				'display_on_posting'	=> (isset($display_on_posting[$bbcode])) ? 1 : 0,
 				'display_on_pm'			=> (isset($display_on_pm[$bbcode])) ? 1 : 0,
 				'display_on_sig'		=> (isset($display_on_sig[$bbcode])) ? 1 : 0,
-				'bbcode_image'			=> (isset($bbcode_image[$bbcode])) ? $bbcode_image[$bbcode] : '',
+				'bbcode_image'			=> $bbcode_image[$bbcode] ?? '',
 				'bbcode_group'			=> (isset($group_ids) && trim($group_ids) != '') ? $group_ids : 0,
 			);
 
 			// Fix for break line?
-			if (substr($abbcode_name[$bbcode],0,14) == 'ABBCODES_BREAK')
+			if (str_starts_with((string) $abbcode_name[$bbcode], 'ABBCODES_BREAK'))
 			{
 				$bbcode_sql['bbcode_image'] = $img_spacer;
 			}
@@ -546,17 +546,17 @@ class acp_abbcodes
 			// Some fixes
 			$bbcode_id		= $row['bbcode_id'];
 			$abbcode		= $row['abbcode'];
-			$abbcode_name	= (($row['abbcode']) ? 'ABBC3_' : '') . strtoupper(str_replace('=', '', trim($row['bbcode_tag'])));
+			$abbcode_name	= (($row['abbcode']) ? 'ABBC3_' : '') . strtoupper(str_replace('=', '', trim((string) $row['bbcode_tag'])));
 			$abbcode_name	= ($row['bbcode_helpline'] == 'ABBC3_ED2K_TIP') ? 'ABBC3_ED2K' : $abbcode_name;
-			$abbcode_image	= trim($row['bbcode_image']);
-			$abbcode_tag	= str_replace('=', '', trim($row['bbcode_tag']));
+			$abbcode_image	= trim((string) $row['bbcode_image']);
+			$abbcode_tag	= str_replace('=', '', trim((string) $row['bbcode_tag']));
 
 			$is_a_bbcode	= true;
 			// is a break line or division ?
-			if ((strpos($abbcode_name, 'ABBC3_DIVISION') !== false) || (strpos($abbcode_name, 'ABBC3_BREAK') !== false) || in_array($row['bbcode_tag'], array('imgshack', 'cut', 'copy', 'paste', 'plain')))
+			if ((str_contains($abbcode_name, 'ABBC3_DIVISION')) || (str_contains($abbcode_name, 'ABBC3_BREAK')) || in_array($row['bbcode_tag'], array('imgshack', 'cut', 'copy', 'paste', 'plain')))
 			{
 				$is_a_bbcode	= false;
-				if (strpos($abbcode_name, 'ABBC3_DIVISION') !== false)
+				if (str_contains($abbcode_name, 'ABBC3_DIVISION'))
 				{
 					if ($config['ABBC3_TAB'])
 					{
@@ -567,7 +567,7 @@ class acp_abbcodes
 						continue;
 					}
 				}
-				else if (strpos($abbcode_name, 'ABBC3_BREAK') !== false)
+				else if (str_contains($abbcode_name, 'ABBC3_BREAK'))
 				{
 						$abbcode_name = 'ABBCODES_BREAK';
 				}
@@ -588,7 +588,7 @@ class acp_abbcodes
 			else
 			{
 				$bbcode_tagname  = (!$is_a_bbcode) ? '' : '[' . str_replace(array('listo', 'listb', 'listitem'), array('list=', 'list', '*'), $abbcode_tag) .']';
-				$abbcode_explain = (isset($user->lang[$abbcode_name . '_MOVER'])) ? $user->lang[$abbcode_name . '_MOVER'] : '';
+				$abbcode_explain = $user->lang[$abbcode_name . '_MOVER'] ?? '';
 				$abbcode_explain.= (isset($user->lang[$abbcode_name . '_EXPLAIN'])) ? '<br />' . $user->lang[$abbcode_name . '_EXPLAIN'] : '';
 			}
 
@@ -597,7 +597,7 @@ class acp_abbcodes
 				$template->assign_block_vars('items', array(
 					'ID'				=> $bbcode_id,
 					'ORDER'				=> $row['bbcode_order'],
-					'NAME'				=> str_replace('=', '', trim($row['bbcode_tag'])),
+					'NAME'				=> str_replace('=', '', trim((string) $row['bbcode_tag'])),
 					'TAG_NAME'			=> $bbcode_tagname,
 					'TAG_EXPLAIN'		=> $abbcode_explain,
 					'IMG_SRC'			=> ($abbcode_image && $abbcode_image != $img_spacer) ? $this->dir . '/images/' . $abbcode_image : '',
@@ -635,7 +635,7 @@ class acp_abbcodes
 					'PM_CHECKED'		=> ($row['display_on_pm'])		? ' checked="checked"' : '',
 					'SIG_CHECKED'		=> ($row['display_on_sig'])		? ' checked="checked"' : '',
 
-					'S_GROUP_OPTIONS'	=> groups_select_options(explode(',', $row['bbcode_group']), $exclude),
+					'S_GROUP_OPTIONS'	=> groups_select_options(explode(',', (string) $row['bbcode_group']), $exclude),
 					'S_RADIO_BUTTONS'	=> ($radio) ? $radio : '',
 				));
 			}
@@ -703,8 +703,9 @@ function video_select($current, $name, $u_action, $ide = 'ABBC3_VIDEO_OPTIONS')
 {
 	global $user, $config, $phpbb_admin_path, $phpbb_root_path, $phpEx;
 
-	$abbcode_video_ary = abbcode::video_init();
-	$allowed_videos = (!$current) ? array() : explode(';', $current);
+//  $abbcode_video_ary = abbcode::video_init();
+    $abbcode_video_ary  = (new abbcode)->video_init();
+	$allowed_videos = (!$current) ? array() : explode(';', (string) $current);
 
 	if (sizeof($abbcode_video_ary))
 	{
@@ -717,7 +718,7 @@ function video_select($current, $name, $u_action, $ide = 'ABBC3_VIDEO_OPTIONS')
 			if ($video_name == 'video' || $video_name == 'file')
 			{
 				$video_options .= ($video_optgroup) ? '</optgroup>' . "\n" : '';
-				$video_options .= '<optgroup label="-- ' . $user->lang['ABBC3_BBVIDEO_' . strtoupper($video_name)] . ' --">' . "\n";
+				$video_options .= '<optgroup label="-- ' . $user->lang['ABBC3_BBVIDEO_' . strtoupper((string) $video_name)] . ' --">' . "\n";
 				$video_optgroup = true;
 			}
 			// Now build options from videos that have match and replace data
@@ -776,7 +777,7 @@ function get_radio($name, $input_ary, $input_default = false, $id = false, $key 
 	$id_assigned = false;
 	foreach ($input_ary as $value => $title)
 	{
-		$value = strtolower($value);
+		$value = strtolower((string) $value);
 
 		$selected = ($input_default !== false && $value == $input_default) ? ' checked="checked"' : '';
 		$html .= ' <label><input class="radio" type="radio" name="' . $name . '"' . (($id && !$id_assigned) ? ' id="' . $id . '"' : '') . ' value="' . $value . '"' . $selected . (($key) ? ' accesskey="' . $key . '"' : '') . ' />&nbsp;' . $title . '&nbsp;</label>';
@@ -805,5 +806,3 @@ function groups_select_options($select_id = false, $exclude_ids = false)
 	$db->sql_freeresult($result);
 	return $group_options;
 }
-
-?>

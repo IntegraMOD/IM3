@@ -36,7 +36,7 @@ function handle_user_blog_permissions($blog_id, $user_id = false, $mode = 'read'
 	else if ($user_id !== false)
 	{
 		global $user_settings;
-		$var = (isset($user_settings[$user_id])) ? $user_settings[$user_id] : false;
+		$var = $user_settings[$user_id] ?? false;
 	}
 
 	// Anonymous users are not allowed to set per blog permissions, and if the user is viewing their own or is a mod or admin, they can see it.
@@ -450,4 +450,3 @@ function check_blog_permissions($page, $mode, $return = false, $blog_id = 0, $re
 		return $is_auth;
 	}
 }
-?>

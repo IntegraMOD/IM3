@@ -1,0 +1,42 @@
+<!-- INCLUDE overall_header.html -->
+
+<h3><a href="{U_MEETING_DETAIL}">{L_MEETING_DETAIL}</a></h3>
+
+<p><strong>{MEETING_SUBJECT} :: {L_MEETING_MAIL}</strong></p>
+
+<form action="{S_FORM_ACTION}" method="post" id="meeting_send_email">
+
+<div class="panel bg1">
+	<div class="inner">
+
+	<fieldset>
+
+		<dl>
+			<dt><label>{L_MEETING_MAIL_TO}:</label></dt>
+			<dd><input type="radio" class="radio" name="mail_to" value="1" checked="checked" />{L_MEETING_MAIL_SIGN_YES}&nbsp;
+				<input type="radio" class="radio" name="mail_to" value="2" />{L_MEETING_MAIL_SIGN_NO}&nbsp;
+				<input type="radio" class="radio" name="mail_to" value="0" />{L_MEETING_MAIL_ALL}
+			</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_MEETING_MAIL_SUBJECT}:</label></dt>
+			<dd><input type="text" class="inputbox autowidth" size="75" maxlength="100" value="" name="meeting_mail_subject" /></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_MEETING_MAIL_TEXT}:</label></dt>
+			<dd><textarea cols="100" rows="10" class="inputbox autowidth" name="meeting_mail_text"></textarea></dd>
+		</dl>
+
+		<p class="submit-buttons">
+			<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />&nbsp;<input type="submit" name="cancel" value="{L_CANCEL}" class="button2" />
+			{S_FORM_TOKEN}
+		</p>
+
+	</fieldset>
+
+	</div>
+</div>
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->
