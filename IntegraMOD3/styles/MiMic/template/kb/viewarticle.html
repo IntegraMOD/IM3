@@ -32,7 +32,7 @@
 <!-- ENDIF -->
 <!-- IF .diff_row -->
 <div class="panel bg3" id="diff-panel" style="display: none;">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 	<!-- IF DIFF_MESSAGE -->
 		<h3>{DIFFERENCE}</h3>
 		<a name="diff"></a>
@@ -59,13 +59,13 @@
 	<!-- END diff_row -->
 	</tbody>
 	</table>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
 
 
 <div style="display: block;" class="panel post bg2<!-- IF S_POST_REPORTED --> reported<!-- ENDIF -->" id="article-panel">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 		<div class="postbody">
 		<!-- IF S_DELETE_ARTICLE or S_EDIT_ARTICLE or S_ARTICLE_LOG or S_ARTICLE_REPORT -->
 
@@ -137,7 +137,7 @@
 		<!-- ENDIF -->
 		<br />
 		</div>
-		
+		<span class="corners-bottom"><span></span></span>
 	</div>
 </div>
 
@@ -146,7 +146,7 @@
 <h3>{L_SIMILAR_ARTICLES}</h3>
 <div class="post bg1">
 	<div class="inner">
-		
+		<span class="corners-top"><span></span></span>
 			<table width="100%">
 			<tr>
 				<!-- BEGIN similar -->
@@ -157,7 +157,7 @@
 				<!-- END similar -->
 			</tr>
 			</table>
-		
+		<span class="corners-bottom"><span></span></span>
 	</div>
 </div>
 <br />
@@ -169,9 +169,9 @@
 <br /><br />
 <div class="post bg3">
 	<div class="inner">
-	
+	<span class="corners-top"><span></span></span>
 	<div style="text-align:center"><b><a href="{U_ADD_ARTICLE}">{L_ARTICLE_ADD}</a></b></div>
-	
+	<span class="corners-bottom"><span></span></span>
 	</div>
 </div>
 <!-- ENDIF -->

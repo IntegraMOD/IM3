@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}">
 <head>
+
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,9 +16,6 @@
 <title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
 <link rel="icon" type="image/x-icon" href="{ROOT_PATH}images/favicon.ico">
 	
-<link rel="stylesheet" type="text/css" href="{T_THEME_PATH}/style_wide.css" />
-<link rel="alternate stylesheet" type="text/css" media="screen" title="fixed" href="{T_THEME_PATH}/style_fixed.css" />
-
 <!-- IF S_ENABLE_FEEDS -->
 	<!-- IF S_ENABLE_FEEDS_OVERALL --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" /><!-- ENDIF -->
 	<!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
@@ -32,49 +30,68 @@
 	phpBB style name: IM_prosilver
 	Based on style:   prosilver (this is the default phpBB3 style)
 	Original author:  Tom Beddard ( http://www.subBlue.com/ )
-	Modified by:      IntegraTeam ( https://integramod.com )
+	Modified by:
 -->
 
 <script>
 // <![CDATA[
-	var jump_page = '{LA_JUMP_PAGE}:';
-	var on_page = '{ON_PAGE}';
-	var per_page = '{PER_PAGE}';
-	var base_url = '{A_BASE_URL}';
-	var style_cookie = 'phpBBstyle';
-	var style_cookie_settings = '{A_COOKIE_SETTINGS}';
-	var onload_functions = new Array();
-	var onunload_functions = new Array();
+var jump_page = '{LA_JUMP_PAGE}:';
+var on_page = '{ON_PAGE}';
+var per_page = '{PER_PAGE}';
+var base_url = '{A_BASE_URL}';
+var style_cookie = 'phpBBstyle';
+var style_cookie_settings = '{A_COOKIE_SETTINGS}';
+var onload_functions = [];
+var onunload_functions = [];
+ 
+<!-- IF S_USER_PM_POPUP and S_NEW_PM -->
+    var url = '{UA_POPUP_PM}';
+    window.open(url.replace(/&amp;/g, '&'), '_phpbbprivmsg', 'height=225,resizable=yes,scrollbars=yes, width=400');
+<!-- ENDIF -->
 
-	<!-- IF S_USER_PM_POPUP and S_NEW_PM -->
-		var url = '{UA_POPUP_PM}';
-		window.open(url.replace(/&amp;/g, '&'), '_phpbbprivmsg', 'height=225,resizable=yes,scrollbars=yes, width=400');
-	<!-- ENDIF -->
-
-	/**
-	* Find a member
-	*/
-	function find_username(url)
-	{
-		popup(url, 760, 570, '_usersearch');
-		return false;
-	}
-
-	/**
-	* New function for handling multiple calls to window.onload and window.unload by pentapenguin
-	*/
-	window.onload = function()
-	{
-		for (var i = 0; i < onload_functions.length; i++)
-		{
-			eval(onload_functions[i]);
-		}
-	};
+/**
+* Find a member
+*/
+function find_username(url)
+{
+	popup(url, 760, 570, '_usersearch');
+	return false;
+}
+/**
+* Updated pentapenguin's function for handling multiple calls to window.onload and window.unload 05/02/2024
+*/
+const initFunctions = {
+    onload: [],
+    onunload: []
+};
+	 
+const executeFunctions = (functions) => {
+    functions.forEach(func => {
+	  eval(func);
+    });
+};
+	 
+window.addEventListener('load', () => {
+    executeFunctions(initFunctions.onload);
+});
+	 
+window.addEventListener('unload', () => {
+    executeFunctions(initFunctions.onunload);
+});
 // ]]>
 </script>
-<script src="{T_SUPER_TEMPLATE_PATH}/styleswitcher.js"></script>
-<script src="{T_SUPER_TEMPLATE_PATH}/forum_fn.js"></script>
-	
+<script src="{ROOT_PATH}assets/js/styleswitch.js"></script>
+<script src="{ROOT_PATH}assets/js/forum_fn.js"></script>
+<!-- INCLUDE socialnet/overall_header_hook_css.html -->
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
+
+<!-- Font Awesome 6.5.2  -->
+<!-- <link href="{ROOT_PATH}assets/css/all-custom.css" rel="stylesheet" type="text/css">  -->
+<script src="{ROOT_PATH}assets/js/all-custom.js"></script>
+
+<link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" />
+
 <!-- IF S_NEW_DL_POPUP -->
 <script>
 // <![CDATA[
@@ -92,19 +109,6 @@
 <script src="{ROOT_PATH}assets/js/jquery/jquery.jcarousel.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{ROOT_PATH}assets/js/jquery/skins/tango/skin.css" />
 <!-- ENDIF -->
-
-<!-- INCLUDE socialnet/overall_header_hook_css.html -->
-<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
-<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
-
-<link href="{T_THEME_PATH}/normal.css" rel="stylesheet" type="text/css" title="A" />
-<link href="{T_THEME_PATH}/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
-<link href="{T_THEME_PATH}/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
-<link href="{T_THEME_PATH}/dark.css" rel="stylesheet" type="text/css" title="dark" id="theme" />
-
-<!-- Font Awesome 6.5.2  -->
-<!-- <link href="{ROOT_PATH}assets/css/all-custom.css" rel="stylesheet" type="text/css">  -->
-<script defer src="{ROOT_PATH}assets/js/all-custom.js"></script>
 
 <!-- ajaxlike -->
 <link href="{ROOT_PATH}assets/js/jquery/skins/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -191,7 +195,10 @@ function notes() {
 			    <!-- ELSE -->
 				<li class="icon-home"><a href="{U_INDEX}" accesskey="h">{L_INDEX}</a> <!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
 			    <!-- ENDIF -->
-				<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="{L_CHANGE_FONT_SIZE}">{L_CHANGE_FONT_SIZE}</a></li>
+ 				<li class="rightside">
+				    <a class="lightstyle" href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-inverse fa-lg"></i></a> 
+				    <a class="darkstyle" href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg"></i></a> 
+				</li>
 				<!-- IF STARGATE -->
 					<li class="rightside">
 						<!-- INCLUDE style_change_width.html -->
@@ -251,9 +258,13 @@ function notes() {
 			<div class="dropdown" tabindex="0">
 			<button class="dropdown-btn" aria-haspopup="membermenu"><span class="username">{S_USERNAME}&nbsp;</span><span class="arrow"></span></button>
 			<ul class="dropdown-content" role="membermenu">
-				<li style="--delay: 1;"><a href="{U_PROFILE}" title="{L_PROFILE}" accesskey="e"><i class="fa-solid fa-user-gear fa-lg"></i> {L_PROFILE}</a></li>
-				<li style="--delay: 2;"><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><i class="fa-solid fa-user fa-lg"></i> {L_READ_PROFILE}</a></li>
-				<!-- IF S_DISPLAY_SEARCH -->
+				<!-- IF SN_MODULE_PROFILE_ENABLED -->
+				<li style="--delay: 1;"><a href="{U_SN_MY_PROFILE}" title="{L_SN_MYPROFILE}"><i class="fa-solid fa-user fa-lg"></i> <strong>{S_USERNAME}</strong></a></li>
+				<!-- ELSE -->
+				<li style="--delay: 1;"><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><i class="fa-solid fa-user fa-lg"></i> {L_READ_PROFILE}</a></li>
+				<!-- ENDIF -->
+				<li style="--delay: 2;"><a href="{U_PROFILE}" title="{L_PROFILE}" accesskey="e"><i class="fa-solid fa-user-gear fa-lg"></i> {L_PROFILE}</a></li>
+	            <!-- IF S_DISPLAY_SEARCH -->
 				<li style="--delay: 3;"><a href="{U_SEARCH_SELF}"><i class="fa-regular fa-file fa-lg"></i> {L_SEARCH_SELF}</a></li>
 				<!-- ENDIF -->
 				<!-- IF S_SHOW_NOTES -->
@@ -312,11 +323,15 @@ function notes() {
 				<li style="--delay: 6;"><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image fa-lg"></i> {L_GALLERY}</a></li>
 				<!-- ENDIF -->				
 				<!-- IF S_SHOW_KB -->
-				<li style="--delay: 4;"><a href="{U_KB}" title="{L_KNOWLEDGE_BASE}" accesskey="k"><i class="fa-solid fa-book-open-reader fa-lg"></i> {L_KNOWLEDGE_BASE}</a></li>
+				<li style="--delay: 4;"><a href="{U_KB}" title="{L_KNOWLEDGE_BASE}" accesskey="k"><i class="fa-solid fa-circle-info fa-lg"></i> {L_KNOWLEDGE_BASE}</a></li>
 				<!-- ENDIF -->				
 				<!-- IF S_SHOW_MEM and S_DISPLAY_MEMBERLIST -->
 				<li style="--delay: 2;"><a href="{U_MEMBERLIST}" title="{L_MEMBERLIST_EXPLAIN}"><i class="fa-solid fa-user-group fa-lg"></i> {L_MEMBERLIST}</a></li>
 				<!-- ENDIF -->
+				<!-- BEGIN blog_links -->
+				<li style="--delay: 3;"><a href="{blog_links.URL}"><i class="fa-solid fa-book-open-reader fa-lg"></i> {blog_links.TEXT}</a></li>
+				<!-- END blog_links -->
+				
 		    </ul>
 		    </div>
 			<span class="corners-bottom"><span></span></span></div>
@@ -334,7 +349,7 @@ function notes() {
 					</dl>
 				</li>
 			</ul>
-			<div style="padding: 5px 5px 2px 5px; font-size: 1.1em; background-color: #ECF1F3; margin: 0px auto; text-align: center;">
+			<div class="panel" style="padding: 5px 5px 2px 5px; margin: 0px auto; text-align: center;">
 				{ADS_2}
 			</div>
 		<span class="corners-bottom"><span></span></span></div>

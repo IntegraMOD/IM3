@@ -17,7 +17,7 @@ function openguestpopup(meeting, user)
 <form action="{S_FORM_ACTION}" method="post" id="own_signs">
 
 <div class="panel bg1">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<fieldset>
 	
@@ -42,12 +42,12 @@ function openguestpopup(meeting, user)
 		<!-- IF MEETING_DESC --><hr /><span>{MEETING_DESC}</span><!-- ENDIF -->
 	</fieldset>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 <!-- IF S_GUEST_NAMES_BLOCK -->
 <div class="panel bg2">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<fieldset>
 	
@@ -78,7 +78,7 @@ function openguestpopup(meeting, user)
 
 	</fieldset>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
 
@@ -107,7 +107,7 @@ function openguestpopup(meeting, user)
 
 <!-- IF S_MEETING_COMMENTS -->
 <div class="panel bg1">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<fieldset>
 	
@@ -123,7 +123,7 @@ function openguestpopup(meeting, user)
 
 	</fieldset>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <br />
 <!-- ENDIF -->
@@ -131,7 +131,7 @@ function openguestpopup(meeting, user)
 <!-- IF S_EDIT_COMMENT -->
 <form action="{S_FORM_COMMENT_ACTION}" method="post">
 <div class="panel bg2">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 	<fieldset>
 		<legend>{COMMENT_EDIT_MODE} &bull; {USERNAME}</legend>
 		<br /><textarea class="inputbox autowidth" rows="3" cols="100" name="meeting_comment">{MEETING_COMMENT}</textarea>
@@ -140,7 +140,7 @@ function openguestpopup(meeting, user)
 		{S_FORM_TOKEN}
 		{S_HIDDEN_COMMENT_FIELDS}
 	</fieldset>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 </form>
 <!-- ELSE -->
@@ -150,10 +150,10 @@ function openguestpopup(meeting, user)
 <!-- ENDIF -->
 
 <div class="panel">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 	<h3>{L_MEETING_STATISTIC}</h3>
 	<strong>{L_MEETING_FREE_PLACES}:</strong> <span>{MEETING_FREE_PLACES}{MEETING_FREE_GUESTS}</span><br />
 	<strong>{L_MEETING_SURE_TOTAL}:</strong> <span>{MEETING_SURE_TOTAL}</span><br />
 	<strong>{L_MEETING_SURE_TOTAL_USER}:</strong> <span>{MEETING_SURE_TOTAL_USER}</span>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>

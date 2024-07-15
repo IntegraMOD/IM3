@@ -1,7 +1,7 @@
 <form action="{S_FORM_ACTION}" method="post" id="filter_meetings">
 
 <div class="panel bg1">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 	<fieldset>
 		<dl>
 			<dt><label>{L_MEETING_SORT}:</label></dt>
@@ -37,13 +37,13 @@
 			<input type="submit" name="submit_filter" class="button1" value="{L_SELECT}" />
 		</p>
 	</fieldset>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 </form>
 
 <div class="panel bg1">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 	<table cellspacing="1" class="table1" width="100%">
 	<thead>
 	<tr class="row bg1">
@@ -79,7 +79,7 @@
 	<!-- ENDIF -->
 	</tbody>
 	</table>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 <!-- IF PAGINATION --><div class="pagination"><span>{PAGINATION}</span></div><!-- ENDIF -->

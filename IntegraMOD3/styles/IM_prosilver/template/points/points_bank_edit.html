@@ -6,7 +6,7 @@
 <form action="{S_ACTION}" method="post">
 
 	<div class="panel bg1">
-		<div class="inner">
+		<div class="inner"><span class="corners-top"><span></span></span>
 			<div class="column1">
 				<h3>{L_EDIT_BANK_MODIFY}</h3>
 				<p>{L_P_BANK_TITLE}</p>
@@ -23,17 +23,17 @@
 					<dd><input type="text" tabindex="1" class="inputbox autowidth" maxlength="10" name="points" size="20" title="{L_POINTS_NUMBER_FORMAT_EXPLAIN}" value="{CURRENT_VALUE}" /></dd>
 				</dl>
 			</div>
-		</div>
+		<span class="corners-bottom"><span></span></span></div>
 	</div>
 
 	<div class="panel bg2">
-		<div class="inner">
+		<div class="inner"><span class="corners-top"><span></span></span>
 		<fieldset class="submit-buttons">
 			{S_HIDDEN_FIELDS}
 			<input type="submit" tabindex="2" accesskey="s" name="submit" value="{L_SUBMIT}" class="button1" />
 			{S_FORM_TOKEN}
 		</fieldset>
-		</div>
+		<span class="corners-bottom"><span></span></span></div>
 	</div>
 
 </form>

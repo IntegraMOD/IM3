@@ -16,21 +16,21 @@ var active_cat = 0;
 
 <!-- IF S_CAT_TRAFFIC -->
 <div class="panel bg3">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<span><strong>{CAT_TRAFFIC}</strong></span>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
 
 <!-- IF S_CAT_RULE -->
 <div class="rules">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<span>{CAT_RULE}</span>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
 
@@ -53,7 +53,7 @@ var active_cat = 0;
 <!-- END category -->
 
 <div class="panel bg3" id="options0" style="display: ;">
-	
+	<span class="corners-top"><span></span></span>
 	<div class="tablewrap">
 
 		<!-- BEGIN downloads -->
@@ -110,11 +110,11 @@ var active_cat = 0;
 
 	</div>
 
-	
+	<span class="corners-bottom"><span></span></span>
 </div>
 
 <div class="panel bg3" id="options1" style="display: none;">
-	
+	<span class="corners-top"><span></span></span>
 	<div class="tablewrap">
 
 		<!-- BEGIN downloads -->
@@ -182,12 +182,12 @@ var active_cat = 0;
 
 	</div>
 
-	
+	<span class="corners-bottom"><span></span></span>
 </div>
 
 <!-- IF S_COMMENTS_TAB -->
 <div class="panel bg3" id="options2" style="display: none;">
-	
+	<span class="corners-top"><span></span></span>
 	<div class="tablewrap">
 
 		<div class="panel">
@@ -240,13 +240,13 @@ var active_cat = 0;
 
 	</div>
 
-	
+	<span class="corners-bottom"><span></span></span>
 </div>
 <!-- ENDIF -->
 
 <!-- IF S_MOD_LIST or S_MOD_TODO or S_DL_FIELDS -->
 <div class="panel bg3" id="options3" style="display: none;">
-	
+	<span class="corners-top"><span></span></span>
 	<div class="tablewrap">
 
 			<div class="panel">
@@ -307,13 +307,13 @@ var active_cat = 0;
 
 	</div>
 
-	
+	<span class="corners-bottom"><span></span></span>
 </div>
 <!-- ENDIF -->
 
 <!-- IF HASH_TAB -->
 <div class="panel bg3" id="options4" style="display: none;">
-	
+	<span class="corners-top"><span></span></span>
 	<div class="tablewrap">
 
 		<div class="panel">
@@ -336,7 +336,7 @@ var active_cat = 0;
 
 	</div>
 
-	
+	<span class="corners-bottom"><span></span></span>
 </div>
 <!-- ENDIF -->
 
@@ -344,7 +344,7 @@ var active_cat = 0;
 
 <!-- IF S_FAV_BLOCK or S_EDIT_BUTTON or S_DL_BROKEN_CUR or S_REPORT_BROKEN_DL or S_DL_BROKEN_MOD -->
 <div class="panel">
-	<div>
+	<div><span class="corners-top"><span></span></span>
 	<ul class="linklist">
 		<li class="leftside">
 		<!-- IF S_FAV_BLOCK -->[ <a href="{U_FAVORITE}">{FAVORITE}</a> ]&nbsp;&nbsp;<!-- ENDIF -->
@@ -355,7 +355,7 @@ var active_cat = 0;
 		</li>
 		<!-- IF S_EDIT_THUMBS_BUTTON --><li class="rightside">&nbsp;&nbsp;[ <a href="{U_EDIT_THUMBS}">{L_DL_EDIT_THUMBS}</a> ]</li><!-- ENDIF -->
 	</ul>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
 
@@ -389,11 +389,11 @@ var active_cat = 0;
 
 <!-- IF S_DL_USERBAN -->
 <div class="rules">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<span>{L_DL_USER_BANNED}</span>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
 

@@ -7,7 +7,7 @@
 <form method="get" action="{U_ACTION}">
 
 <div class="panel bg1">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 	<h3>{L_SEARCH_QUERY}</h3>
 	<fieldset>
 		<dl>
@@ -31,16 +31,16 @@
 			<dd><select name="cid[]" id="cid" multiple="multiple" size="6" title="{L_CATEGORIES}">{CAT_OPTION}</select></dd>
 		</dl>
 	</fieldset>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 <div class="panel bg2">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 	<fieldset class="submit-buttons">
 		<input type="reset" value="{L_RESET}" name="reset" class="button2" />&nbsp; 
 		<input type="submit" name="submit" value="{L_SEARCH}" class="button1" />
 	</fieldset>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 </form>

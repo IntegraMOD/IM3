@@ -4,7 +4,7 @@
 <br />
 <form method="post" id="mcp" action="{S_ALBUM_ACTION}">
 <div class="panel" id="message">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 		<h3>{L_UPLOAD_IMAGE}</h3>
 
 		<p>
@@ -12,7 +12,7 @@
 			<input class="button2" type="submit" name="move" value="{L_SUBMIT}" />
 			{S_FORM_TOKEN}{S_HIDDEN_FIELDS}
 		</p>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 </form>
 <!-- ELSEIF S_UPLOAD -->
@@ -40,7 +40,7 @@
 <form id="postform" action="{S_ALBUM_ACTION}" method="post" enctype="multipart/form-data">
 
 <div class="panel" id="postingbox">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 		<h3>{L_UPLOAD_IMAGE}</h3>
 		<fieldset class="fields1">
 			<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
@@ -100,18 +100,18 @@
 			//]]>
 			</script>
 		</fieldset>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 <div class="panel bg2">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 		<fieldset class="submit-buttons">
 			{S_HIDDEN_FIELDS}{S_CAPTCHA_HIDDEN_FIELDS}
 			<input type="reset" accesskey="r" tabindex="200" value="{L_RESET}" class="button2" />&nbsp;
 			<input type="submit" accesskey="s" tabindex="201" name="submit" value="{L_CONTINUE}" class="button1" />&nbsp;
 		</fieldset>
 		{S_FORM_TOKEN}
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 </form>
 <!-- ELSE -->
@@ -123,7 +123,7 @@
 <form id="postform" action="{S_ALBUM_ACTION}" method="post">
 
 <div class="panel" id="postingbox">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 		<h3><!-- IF S_UPLOAD_EDIT -->{L_UPLOAD_IMAGE}<!-- ELSEIF S_EDIT -->{L_EDIT_IMAGE}<!-- ELSEIF S_REPORT -->{L_REPORT_IMAGE}<!-- ENDIF --></h3>
 		<fieldset class="fields1 gallery">
 			<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
@@ -176,12 +176,12 @@
 				<div><textarea name="message" id="message" rows="4" cols="76" tabindex="3" class="inputbox"></textarea></dd></div>
 			<!-- ENDIF -->
 		</fieldset>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 <!-- IF S_MOVE_PERSONAL or S_COMMENTS_ENABLED or S_CHANGE_AUTHOR -->
 <div class="panel">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 		<fieldset class="fields1">
 			<!-- IF S_MOVE_PERSONAL -->
 				<dl>
@@ -202,7 +202,7 @@
 				</dl>
 			<!-- ENDIF -->
 		</fieldset>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
 
@@ -213,14 +213,14 @@
 </script>
 
 <div class="panel bg2">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 		<fieldset class="submit-buttons">
 			{S_HIDDEN_FIELDS}
 			<input type="reset" accesskey="r" tabindex="200" value="{L_RESET}" class="button2" />&nbsp;
 			<input type="submit" accesskey="s" tabindex="201" name="submit" value="{L_SUBMIT}" class="button1" />&nbsp;
 		</fieldset>
 		{S_FORM_TOKEN}
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 </form>
 <!-- ENDIF -->

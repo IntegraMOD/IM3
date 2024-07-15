@@ -2,7 +2,7 @@
 
 <!-- IF S_SHOW_UNAPPROVED -->
 	<div class="panel">
-		<div class="inner">
+		<div class="inner"><span class="corners-top"><span></span></span>
 		<h3>{L_LATEST_UNAPPROVED}</h3>
 		<!-- IF .article_row -->
 		<ul class="topiclist cplist">
@@ -23,13 +23,13 @@
 		<!-- ELSE -->
 			<p>{L_UNAPPROVED_POSTS_ZERO_TOTAL}</p>
 		<!-- ENDIF -->
-		</div>
+		<span class="corners-bottom"><span></span></span></div>
 	</div>
 <!-- ENDIF -->
 
 <!-- IF S_SHOW_REPORTS -->
 	<div class="panel">
-		<div class="inner">
+		<div class="inner"><span class="corners-top"><span></span></span>
 		<h3>{L_LATEST_REPORTED}</h3>
 		<!-- IF .postrow -->
 			<ul class="topiclist">
@@ -61,13 +61,13 @@
 			<p>{L_REPORTS_ZERO_TOTAL}</p>
 		<!-- ENDIF -->
 
-		</div>
+		<span class="corners-bottom"><span></span></span></div>
 	</div>
 <!-- ENDIF -->
 
 <!-- IF S_SHOW_LOGS -->
 	<div class="panel">
-		<div class="inner">
+		<div class="inner"><span class="corners-top"><span></span></span>
 	
 		<h3>{L_LATEST_LOGS}</h3>
 		<table class="table1" cellspacing="1">
@@ -83,7 +83,7 @@
 		<!-- END log -->
 		</tbody>
 		</table>
-		</div>
+		<span class="corners-bottom"><span></span></span></div>
 	</div>
 <!-- ENDIF -->
 

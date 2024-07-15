@@ -149,11 +149,11 @@
 <!-- ENDIF -->
 
 <!-- IF PAGINATION or .searchresults or PAGE_NUMBER -->
-	<ul class="linklist">
-		<li class="rightside pagination">
+	<div class="topic-actions">
+		<div class="rightside pagination">
 			{SEARCH_MATCHES}<!-- IF PAGINATION --> &bull; <a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF -->
-		</li>
-	</ul>
+		</div>
+	</div>	
 <!-- ENDIF -->
 
 <!-- INCLUDE jumpbox.html -->
