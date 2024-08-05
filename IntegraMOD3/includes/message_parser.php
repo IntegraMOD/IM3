@@ -21,12 +21,6 @@ if (!class_exists('bbcode'))
 	include($phpbb_root_path . 'includes/bbcode.' . $phpEx);
 }
 
-/* bbGeSHi */
-if (!class_exists('GeSHi'))
-{
-	include($phpbb_root_path . 'includes/geshi.' . $phpEx);
-}
-
 /**
 * BBCODE FIRSTPASS
 * BBCODE first pass class (functions for parsing messages for db storage)
@@ -128,9 +122,7 @@ class bbcode_firstpass extends bbcode
 		// To parse multiline URL we enable dotall option setting only for URL text
 		// but not for link itself, thus [url][/url] is not affected.
 		$this->bbcodes = array(
-            'geshi'         => array('bbcode_id' => 99, 'regexp' => array('#\[(abap|actionscript|ada|apache|applescript|asm|asp|autoit|bash|blitzbasic|bnf|c|caddcl|cadlisp|cfdg|cfm|cpp-qt|cpp|csharp|css|c_mac|d|delphi|diff|div|dos|dot|eiffel|fortran|freebasic|genero|gml|groovy|haskell|html|html4strict|idl|ini|inno|io|java|java5|js|latex|lisp|lua|m68k|matlab|mirc|mpasm|mysql|nsis|objc|ocaml-brief|ocaml|oobas|oracle8|pascal|per|perl|php-brief|php|plsql|python|qbasic|rails|reg|robots|ruby|sas|scheme|sdlbasic|smalltalk|smarty|sql|tcl|text|thinbasic|tsql|vb|vbnet|vhdl|visualfoxpro|winbatch|xml|xpp|xsl|z80)\](.+\[/(abap|actionscript|ada|apache|applescript|asm|asp|autoit|bash|blitzbasic|bnf|c|caddcl|cadlisp|cfdg|cfm|cpp-qt|cpp|csharp|css|c_mac|d|delphi|diff|div|dos|dot|eiffel|fortran|freebasic|genero|gml|groovy|haskell|html|html4strict|idl|ini|inno|io|java|java5|js|latex|lisp|lua|m68k|matlab|mirc|mpasm|mysql|nsis|objc|ocaml-brief|ocaml|oobas|oracle8|pascal|per|perl|php-brief|php|plsql|python|qbasic|rails|reg|robots|ruby|sas|scheme|sdlbasic|smalltalk|smarty|sql|tcl|text|thinbasic|tsql|vb|vbnet|vhdl|visualfoxpro|winbatch|xml|xpp|xsl|z80)\])#uis' => function($matches){return $this->bbcode_geshi("[".$matches[1]."]", $matches[2]);})),
-//			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z0-9_]+))?\](.+\[/code\])#uis' => "\$this->bbcode_code('\$1', '\$2')")),
-			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z0-9_]+))?\](.+\[/code\])#uis' => function($matches){return $this->bbcode_code($matches[1], $matches[2]);})),
+			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z]+))?\](.+\[/code\])#ise' => "\$this->bbcode_code('\$1', '\$2')")),
 			'quote'			=> array('bbcode_id' => 0,	'regexp' => array('#\[quote(?:=&quot;(.*?)&quot;)?\](.+)\[/quote\]#uis' => function($matches){return $this->bbcode_quote($matches[0]);})),
 			'attachment'	=> array('bbcode_id' => 12,	'regexp' => array('#\[attachment=([0-9]+)\](.*?)\[/attachment\]#uis' => function($matches){return $this->bbcode_attachment($matches[1], $matches[2]);})),
 			'b'				=> array('bbcode_id' => 1,	'regexp' => array('#\[b\](.*?)\[/b\]#uis' => function($matches){return $this->bbcode_strong($matches[1]);})),
@@ -444,59 +436,64 @@ class bbcode_firstpass extends bbcode
 	*/
 	function bbcode_parse_code($stx, &$code)
 	{
-		if ($stx == '')
+		switch (strtolower($stx))
 		{
-			$stx = 'text';
+			case 'php':
+
+				$remove_tags = false;
+				$code = str_replace(array('&lt;', '&gt;'), array('<', '>'), $code);
+
+				if (!preg_match('/\<\?.*?\?\>/is', $code))
+				{
+					$remove_tags = true;
+					$code = "<?php $code ?>";
+				}
+
+				$conf = array('highlight.bg', 'highlight.comment', 'highlight.default', 'highlight.html', 'highlight.keyword', 'highlight.string');
+				foreach ($conf as $ini_var)
+				{
+					@ini_set($ini_var, str_replace('highlight.', 'syntax', $ini_var));
+				}
+
+				// Because highlight_string is specialcharing the text (but we already did this before), we have to reverse this in order to get correct results
+				$code = htmlspecialchars_decode($code);
+				$code = highlight_string($code, true);
+
+				$str_from = array('<span style="color: ', '<font color="syntax', '</font>', '<code>', '</code>','[', ']', '.', ':');
+				$str_to = array('<span class="', '<span class="syntax', '</span>', '', '', '&#91;', '&#93;', '&#46;', '&#58;');
+
+				if ($remove_tags)
+				{
+					$str_from[] = '<span class="syntaxdefault">&lt;?php </span>';
+					$str_to[] = '';
+					$str_from[] = '<span class="syntaxdefault">&lt;?php&nbsp;';
+					$str_to[] = '<span class="syntaxdefault">';
+				}
+
+				$code = str_replace($str_from, $str_to, $code);
+				$code = preg_replace('#^(<span class="[a-z_]+">)\n?(.*?)\n?(</span>)$#is', '$1$2$3', $code);
+
+				if ($remove_tags)
+				{
+					$code = preg_replace('#(<span class="[a-z]+">)?\?&gt;(</span>)#', '$1&nbsp;$2', $code);
+				}
+
+				$code = preg_replace('#^<span class="[a-z]+"><span class="([a-z]+)">(.*)</span></span>#s', '<span class="$1">$2</span>', $code);
+				$code = preg_replace('#(?:[\n\r\s\t]|&nbsp;)*</span>$#u', '</span>', $code);
+
+				// remove newline at the end
+				if (!empty($code) && $code[strlen($code) - 1] == "\n")
+				{
+					$code = substr($code, 0, -1);
+				}
+
+				return "[code=$stx:" . $this->bbcode_uid . ']' . $code . '[/code:' . $this->bbcode_uid . ']';
+			break;
+
+			default:
+				return '[code:' . $this->bbcode_uid . ']' . $this->bbcode_specialchars($code) . '[/code:' . $this->bbcode_uid . ']';
+			break;
 		}
-
-		$code = $this->bbcode_highlight($code, $stx);
-		return "[code=$stx:" . $this->bbcode_uid . ']' . $code . '[/code:' . $this->bbcode_uid . ']';
-	}
-
-	function bbcode_parse_geshi($stx, &$code){
-		$code = $this->bbcode_highlight($code, $stx);
-		$code = str_replace('[code', '&#91;code', $code);
-		return "[$stx:" . $this->bbcode_uid . ']' . $code . '[/' . $stx . ':' . $this->bbcode_uid . ']';
-	}
-
-	/**
-	* Highlight code
-	*/
-	function bbcode_highlight($code, $stx)
-	{
-		$code = str_replace(array('&lt;', '&gt;'), array('<', '>'), $code);
-		$code = htmlspecialchars_decode($code);
-
-		$geshi = new GeSHi($code, $stx);
-
-		$geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS, 2);
-		$geshi->set_header_type(GESHI_HEADER_DIV);
-		$geshi->set_tab_width(4);
-		$geshi->set_overall_id("{CB}");
-
-		$result = $geshi->parse_code();
-		return $result;
-	}
-
-	function bbcode_geshi($stx, $in){
-		$text = $stx . $in;
-
-		$syntaxes = array('abap', 'actionscript', 'ada', 'apache', 'applescript', 'asm', 'asp', 'autoit', 'bash', 'blitzbasic', 'bnf', 'c', 'caddcl', 'cadlisp', 'cfdg', 'cfm', 'cpp-qt', 'cpp', 'csharp', 'css', 'c_mac', 'd', 'delphi', 'diff', 'div', 'dos', 'dot', 'eiffel', 'fortran', 'freebasic', 'genero', 'gml', 'groovy', 'haskell', 'html', 'html4strict', 'idl', 'ini', 'inno', 'io', 'java', 'java5', 'js', 'latex', 'lisp', 'lua', 'm68k', 'matlab', 'mirc', 'mpasm', 'mysql', 'nsis', 'objc', 'ocaml-brief', 'ocaml', 'oobas', 'oracle8', 'pascal', 'per', 'perl', 'php-brief', 'php', 'plsql', 'python', 'qbasic', 'rails', 'reg', 'robots', 'ruby', 'sas', 'scheme', 'sdlbasic', 'smalltalk', 'smarty', 'sql', 'tcl', 'text', 'thinbasic', 'tsql', 'vb', 'vbnet', 'vhdl', 'visualfoxpro', 'winbatch', 'xml', 'xpp', 'xsl', 'z80');
-
-		foreach($syntaxes as $syntax => $value){
-			$tag_count = preg_match_all('#\[' . $value . '\](.*?)\[/' . $value . '\]#is', $text, $matches);
-
-			for ($i = 0; $i < $tag_count; $i++){
-				$text = str_replace($matches[0][$i], $this->bbcode_parse_geshi($value, $matches[1][$i]), $text);
-			}
-
-			$matches = array();
-		}
-
-		unset($syntaxes);
-		unset($matches);
-
-		return $text;
 	}
 
 	/**
@@ -523,7 +520,7 @@ class bbcode_firstpass extends bbcode
 		while ($in)
 		{
 			// Determine position and tag length of next code block
-			preg_match('#(.*?)(\[code(?:=([a-z0-9_]+))?\])(.+)#is', $in, $buffer);
+			preg_match('#(.*?)(\[code(?:=([a-z]+))?\])(.+)#is', $in, $buffer);
 			$pos = (isset($buffer[1])) ? strlen($buffer[1]) : false;
 			$tag_length = (isset($buffer[2])) ? strlen($buffer[2]) : false;
 
