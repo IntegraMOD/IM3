@@ -1971,8 +1971,8 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 				'topic_time_limit'			=> ($topic_type == POST_STICKY || $topic_type == POST_ANNOUNCE || $topic_type == POST_NEWS || $topic_type == POST_NEWS_GLOBAL) ? ($data['topic_time_limit'] * 86400) : 0,
 				'topic_attachment'			=> (!empty($data['attachment_data'])) ? 1 : 0,
 //---BEGIN CALENDAR MOD---
-                'topic_calendar_time'       => isset($data['topic_calendar_time']) ? $data['topic_calendar_time'] : null,
-                'topic_calendar_duration'   => isset($data['topic_calendar_duration']) ? $data['topic_calendar_duration'] : null,
+                'topic_calendar_time'       => isset($data['topic_calendar_time']) ? $data['topic_calendar_time'] : 0,
+                'topic_calendar_duration'   => isset($data['topic_calendar_duration']) ? $data['topic_calendar_duration'] : 0,
                 'event_repeat'              => isset($data['event_repeat']) ? $data['event_repeat'] : '',
                 'invite_attendees'          => isset($data['invite_attendees']) ? $data['invite_attendees'] : 0,
                 'event_attendees'           => isset($data['event_attendees']) ? $data['event_attendees'] : '',
