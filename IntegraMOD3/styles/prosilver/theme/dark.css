@@ -321,3 +321,31 @@ tr.cal_block_header, td.calendar, table.calendar {
   color: #FFF;
 }
 
+.block_data_calc {
+    background-color: #343C42 !important;
+}
+
+table.calendar {
+    border:solid 1px;
+    border-color:#000;
+    background-color: #343C42 !important;
+}
+
+td.calendar {
+    border:solid 1px;
+    border-color:#000;
+    background-color: #343C42 !important;
+}
+
+tr.cal_block_header {
+    background-color:#1A1A1B;
+    border-color:#000;
+}
+
+div.mini_cal {
+	border: solid 1px #30383B;
+	background-color: #1A1A1B; 
+	color: #43A5DE;
+}
+
+

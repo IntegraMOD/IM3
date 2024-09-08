@@ -33,7 +33,7 @@ hr.dashed {
 }
 
 #simple-wrap {
-	background-color: #fff;
+	background-color: #2E3539;
 	border-color:#30383B;
 }
 
@@ -1178,4 +1178,31 @@ input.disabled {
 .box {
  background: #1A1A1B none repeat-x 0 0 !important;
  border: solid 1px #30383B !important;
+}
+
+.block_data_calc {
+    background-color: #343C42 !important;
+}
+
+table.calendar {
+    border:solid 1px;
+    border-color:#000;
+    background-color: #343C42 !important;
+}
+
+td.calendar {
+    border:solid 1px;
+    border-color:#000;
+    background-color: #343C42 !important;
+}
+
+tr.cal_block_header {
+    background-color:#1A1A1B;
+    border-color:#000;
+}
+
+div.mini_cal {
+	border: solid 1px #30383B;
+	background-color: #1A1A1B; 
+	color: #43A5DE;
 }

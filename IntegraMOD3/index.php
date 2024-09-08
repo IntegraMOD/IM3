@@ -66,15 +66,15 @@ for($y = 1 ; $y <= 6 ; $y++)
 
 }
 
-$template->assign_vars(array(
+$template->assign_vars([
     'CALENDAR_TABLE'            => $calendar_table,
 	'U_CALENDAR_MAIN'           => append_sid($phpbb_root_path . 'calendar.' . $phpEx . "?mode=main"),
     'HIDDEN_MONTH'              => gmdate('n', time() + $user->timezone + $user->dst),
     'HIDDEN_YEAR'               => gmdate('Y', time() + $user->timezone + $user->dst),
     'S_SGP_AJAX'                => true,
-    'S_SHOW_SHOUTBOX'			=> $user->data['user_id'] != ANONYMOUS && (($config['as_on_index'] && $config['as_override_user']) || (!$config['as_override_user'] && $user->data['im_show_shout_index'])) ? true : false,
-    'S_SHOW_MINICAL'			=> $user->data['user_id'] != ANONYMOUS && $auth->acl_get('u_allow_index_minical') && (($config['calendar_allow_index_minical'] && $config['calendar_override_user']) || (!$config['calendar_override_user'] && $user->data['im_show_cal_index'])) ? true : false,
-));
+    'S_SHOW_SHOUTBOX'           => $user->data['user_id'] != ANONYMOUS && (($config['as_on_index'] && $config['as_override_user']) || (!$config['as_override_user'] && (isset($user->data['im_show_shout_index']) ? $user->data['im_show_shout_index'] : false))) ? true : false,
+    'S_SHOW_MINICAL' => $user->data['user_id'] != ANONYMOUS && $auth->acl_get('u_allow_index_minical') && (($config['calendar_allow_index_minical'] && $config['calendar_override_user']) || (!$config['calendar_override_user'] && (isset($user->data['im_show_cal_index']) ? $user->data['im_show_cal_index'] : false))) ? true : false,
+]);
 
 display_forums('', $config['load_moderators']);
 

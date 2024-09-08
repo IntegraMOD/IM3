@@ -1,5 +1,5 @@
 <!-- IDTAG block_calendar starts -->
-<span class="block_data_calc">
+<div class="block_data_calc">
 <form id="hidden">
     <input type="hidden" id="cal_h_month" name="cal_h_month" value="{HIDDEN_MONTH}" />
     <input type="hidden" id="cal_h_year" name="cal_h_year" value="{HIDDEN_YEAR}" />
@@ -54,9 +54,9 @@
 			<a class="button_event_new_icon" href="calendar.php?mode=main#tabs;" title="{L_CALENDAR}"><span>{L_CALENDAR}</span></a>
 		</div>
 	<!-- ENDIF -->
-</span>
+</div>
 
-<script>
+<script type="text/javascript">
 populateTable('block_calendar:populate_table', 'hidden', '');
 </script>
 <!-- IDTAG block_calendar ends -->
