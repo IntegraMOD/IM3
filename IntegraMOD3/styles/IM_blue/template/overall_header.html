@@ -32,6 +32,11 @@
 	Modified by:
 -->
 
+<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
+<link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" onload="this.media='all'" />
+<!-- INCLUDE socialnet/overall_header_hook_css.html -->
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+
 <script>
 // <![CDATA[
 var jump_page = '{LA_JUMP_PAGE}:';
@@ -81,15 +86,10 @@ window.addEventListener('unload', () => {
 </script>
 <script src="{ROOT_PATH}assets/js/styleswitch.js"></script>
 <script src="{ROOT_PATH}assets/js/forum_fn.js"></script>
-<!-- INCLUDE socialnet/overall_header_hook_css.html -->
-<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
-<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
 
 <!-- Font Awesome 6.5.2  -->
 <!-- <link href="{ROOT_PATH}assets/css/all-custom.css" rel="stylesheet" type="text/css">  -->
 <script defer src="{ROOT_PATH}assets/js/all-custom.js"></script>
-
-<link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" />
 
 <!-- IF S_NEW_DL_POPUP -->
 <script>

@@ -6,6 +6,10 @@
 	background-color: #FF6600;
 }
 
+.fa_blog {
+	left: 0;	
+}
+
 .num_replies {
 	float: right;
 }
@@ -42,15 +46,3 @@
 	white-space: nowrap;
 }
 
-/**
-* Buttons
-*/
-.blog-icon span {
-	background: transparent none 0 0 no-repeat;
-	background-image: url("{IMG_BUTTON_BLOG_NEW_SRC}");
-}
-
-.buttons div.blog-icon {
-	width: {IMG_BUTTON_BLOG_NEW_WIDTH}px;
-	height: {IMG_BUTTON_BLOG_NEW_HEIGHT}px;
-}

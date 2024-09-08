@@ -160,3 +160,6 @@ a.snbadge {
 .badge.hidden {
 	display: none;
 }
+
+.lightstyle { display:none; }
+.darkstyle { display:block !important; }
