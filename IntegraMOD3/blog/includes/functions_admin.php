@@ -203,7 +203,7 @@ function blog_acp_profile($user_id, $submit)
 	}
 	else
 	{
-		global $user_settings;
+		global $user_settings, $blog_data;
 		get_user_settings($user_id);
 
 		$available_styles = array(array('name' => $user->lang['NONE'], 'value' => 0, 'demo' => $phpbb_root_path . 'images/spacer.gif'));
