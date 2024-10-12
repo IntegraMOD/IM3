@@ -289,7 +289,8 @@ function user_add(mixed $user_row, $cp_data = false, $subscribe = false)
 		}
 
 		$sql = 'INSERT INTO ' . PROFILE_FIELDS_DATA_TABLE . ' ' .
-			$db->sql_build_array('INSERT', custom_profile::build_insert_sql_array($cp_data));
+        $db->sql_build_array('INSERT', (new custom_profile())->build_insert_sql_array($cp_data));
+//		$db->sql_build_array('INSERT', custom_profile::build_insert_sql_array($cp_data));
 		$db->sql_query($sql);
 	}
 
