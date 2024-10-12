@@ -282,7 +282,7 @@ class acp_user_details
 						'user_inactive_time'	=> ($row['user_inactive_time'] != 0) ? $user->format_date($row['user_inactive_time']) : '',
 						'user_posts'			=> $row['user_posts'],
 						'user_lang'				=> $row['user_lang'],
-						'user_timezone'			=> $user->lang['tz'][(float) $row['user_timezone']],
+						'user_timezone'         => isset($user->lang['tz'][(float) $row['user_timezone']]) ? $user->lang['tz'][(float) $row['user_timezone']] : null,
 						'user_dst'				=> ($row['user_dst'] == true) ? $user->lang['YES'] : $user->lang['NO'],
 						'user_dateformat'		=> date($row['user_dateformat'], time()),
 						'user_style'			=> $row['style_name'],
