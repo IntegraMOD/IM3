@@ -39,7 +39,7 @@ if (!function_exists('as_display'))
 as_display();
 
 $template->assign_vars(array(
-    'S_SHOW_SHOUTBOX'			=> $user->data['user_id'] != ANONYMOUS && (($config['as_on_index']) || ($user->data['im_show_shout_index'])) ? true : false,
+    'S_SHOW_SHOUTBOX' => $user->data['user_id'] != ANONYMOUS && (($config['as_on_index'] ?? false) || ($user->data['im_show_shout_index'] ?? false)) ? true : false,
 ));
 
 display_forums('', $config['load_moderators']);

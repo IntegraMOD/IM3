@@ -512,7 +512,7 @@ class acp_main
 			'S_TOTAL_ORPHAN'	=> ($total_orphan === false) ? false : true,
 			'GZIP_COMPRESSION'	=> ($config['gzip_compress'] && @extension_loaded('zlib')) ? $user->lang['ON'] : $user->lang['OFF'],
 			'DATABASE_INFO'		=> $db->sql_server_info(),
-			'BOARD_VERSION'		=> $config['imod_version'],
+			'BOARD_VERSION'		=> $config['imod_version'] ?? '',
 
 			'U_ACTION'			=> $this->u_action,
 			'U_ADMIN_LOG'		=> append_sid("{$phpbb_admin_path}index.$phpEx", 'i=logs&amp;mode=admin'),
