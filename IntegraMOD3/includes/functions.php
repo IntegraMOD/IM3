@@ -5552,17 +5552,17 @@ function exit_handler()
 */
 function phpbb_user_session_handler()
 {
-	global $phpbb_hook;
-
-	if (!empty($phpbb_hook) && $phpbb_hook->call_hook(__FUNCTION__))
-	{
-		if ($phpbb_hook->hook_return(__FUNCTION__))
-		{
-			return $phpbb_hook->hook_return_result(__FUNCTION__);
-		}
-	}
-
-	return;
+    global $phpbb_hook;
+ 
+    if (!empty($phpbb_hook) && $phpbb_hook->call_hook(__FUNCTION__))
+    {
+        if ($phpbb_hook->hook_return(__FUNCTION__))
+        {
+            return $phpbb_hook->hook_return_result(__FUNCTION__);
+        }
+    }
+ 
+    return null;
 }
 // Begin phpBB Digests Modification
 function make_hour_string($hour, $user_dateformat)

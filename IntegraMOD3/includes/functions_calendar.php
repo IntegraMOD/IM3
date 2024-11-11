@@ -28,19 +28,27 @@ if (!defined('IN_PHPBB'))
 if (!isset($nth_position_list))
 {
 	$nth_position_list = array(
-		'F' => $user->lang['FIRST'],
-		'S' => $user->lang['SECOND'],
-		'T' => $user->lang['THIRD'],
-		'O' => $user->lang['FOURTH'],
-		'L' => $user->lang['LAST'],
-	);
+        'F' => isset($user->lang['FIRST']) ? $user->lang['FIRST'] : 'First',
+        'S' => isset($user->lang['SECOND']) ? $user->lang['SECOND'] : 'Second',
+        'T' => isset($user->lang['THIRD']) ? $user->lang['THIRD'] : 'Third',
+        'O' => isset($user->lang['FOURTH']) ? $user->lang['FOURTH'] : 'Fourth',
+        'L' => isset($user->lang['LAST']) ? $user->lang['LAST'] : 'Last',
+    );
 }
 
 // Day
 if (!isset($weekday_list))
 {
+    if (!isset($user->lang['CAL_CALENDAR'])) 
+	{
+        $user->lang['CAL_CALENDAR'] = array();
+    }
+    if (!isset($user->lang['CAL_CALENDAR']['CAL_LONG_DAY'])) 
+	{
+        $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'] = array();
+    }
 	$weekday_list = array(
-		'S' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][0],   // Sunday
+        'S' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][0],   // Sunday
 		'M' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][1],   // Monday
 		'T' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][2],   // Tuesday
 		'W' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][3],   // Wednesday
