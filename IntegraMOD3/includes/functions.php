@@ -3979,7 +3979,8 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 				}
 			}
 			$user_ip = (!empty($user)) ? $user->ip : ((!empty($_SERVER['REMOTE_ADDR'])) ? htmlspecialchars($_SERVER['REMOTE_ADDR']) : '');
-			$user_page = (!empty($user)) ? $user->page['page'] : ((isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : getenv('PHP_SELF'));
+//			$user_page = (!empty($user)) ? $user->page['page'] : ((isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : getenv('PHP_SELF'));
+            $user_page = (!empty($user) && isset($user->page['page'])) ? $user->page['page'] : ((isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : getenv('PHP_SELF'));
 			$error_msg = html_entity_decode(strip_tags(str_replace(array('<br />', "\n\n"), "\n", $msg_text)));
 			$error_timestamp = date('d-M-Y  H:i:s Z');
 			error_log("-------------[ Begin $msg_title]-------------\n[$error_timestamp] [phpBB Error] [client $user_ip] [file $user_page] $errfile:$errline\n" . $error_msg . "-------------[ End of $msg_title]-------------\n", 3, $error_log);
