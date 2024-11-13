@@ -199,9 +199,108 @@
 		</div>
 </div>
 
-    <script>
-		var Imc=window.Imc||{};!function(a){"use strict";function b(a,c,d){var e=new Date,f=e.getHours(),g=e.getMinutes(),h=e.getSeconds(),i=e.getMilliseconds(),j=6*h+.006*i,k=6*g+.1*h+1e-4*i,l=30*f+.5*g;d.css({transform:"rotate("+j+"deg)"}),c.css({transform:"rotate("+k+"deg)"}),a.css({transform:"rotate("+l+"deg)"}),window.requestAnimationFrame(function(){b(a,c,d)})}function c(){function b(b){var c="smallTick",d=a('<div class="faceBox"></div>'),e=a("<div></div>"),f="";return b%5===0&&(c=b%15===0?"largeTick":"mediumTick",f=a('<div class="tickNum"></div>').text(b/5).css({transform:"rotate(-"+6*b+"deg)"}),b>=50&&f.css({left:"-0.3em"})),d.append(e.addClass(c)).css({transform:"rotate("+6*b+"deg)"}),d.append(f),d}var c,d=document.createDocumentFragment();for(c=1;60>=c;c+=1)d.appendChild(b(c)[0]);a("#clock").append(d)}function d(){var b=a("#clock").parent(),c=b.width(),d=Math.floor(c/30)-1,e=(d>15?16:d)+"px";a("#clock").css({"font-size":e})}window.requestAnimationFrame||(window.requestAnimationFrame=window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame||window.oRequestAnimationFrame||function(a){setTimeout(a,1e3/60)});var e=a("#hour"),f=a("#minute"),g=a("#second");Imc.Clock={setUp:function(){d(),c(),b(e,f,g),a(window).on("resize",d)}}}(jQuery);        (function ($) {
-            $(Imc.Clock.setUp);
-        }(jQuery));
-    </script>
-
+	<script>
+(function($) {
+    "use strict";
+ 
+    // Ensure jQuery.noConflict() is used
+    $.noConflict();
+ 
+    var Imc = window.Imc || {};
+ 
+    Imc.Clock = (function() {
+        var $hour, $minute, $second;
+ 
+        function updateClockHands() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var milliseconds = now.getMilliseconds();
+ 
+            var secondDegrees = 6 * seconds + 0.006 * milliseconds;
+            var minuteDegrees = 6 * minutes + 0.1 * seconds + 1e-4 * milliseconds;
+            var hourDegrees = 30 * hours + 0.5 * minutes;
+ 
+            $second.css({ transform: "rotate(" + secondDegrees + "deg)" });
+            $minute.css({ transform: "rotate(" + minuteDegrees + "deg)" });
+            $hour.css({ transform: "rotate(" + hourDegrees + "deg)" });
+ 
+            window.requestAnimationFrame(updateClockHands);
+        }
+ 
+        function createClockFace() {
+            function createTick(i) {
+                var tickClass = "smallTick";
+                var $faceBox = $('<div class="faceBox"></div>');
+                var $tick = $("<div></div>");
+                var $tickNum = $();
+ 
+                if (i % 5 === 0) {
+                    tickClass = i % 15 === 0 ? "largeTick" : "mediumTick";
+                    $tickNum = $('<div class="tickNum"></div>')
+                        .text(i / 5)
+                        .css({ transform: "rotate(-" + (6 * i) + "deg)" });
+ 
+                    if (i >= 50) {
+                        $tickNum.css({ left: "-0.3em" });
+                    }
+                }
+ 
+                $faceBox.append($tick.addClass(tickClass))
+                    .css({ transform: "rotate(" + (6 * i) + "deg)" });
+                $faceBox.append($tickNum);
+ 
+                return $faceBox;
+            }
+ 
+            var $fragment = $(document.createDocumentFragment());
+            for (var i = 1; i <= 60; i++) {
+                $fragment.append(createTick(i));
+            }
+            $("#clock").append($fragment);
+        }
+ 
+        function adjustClockSize() {
+            var $clockContainer = $("#clock").parent();
+            var containerWidth = $clockContainer.width();
+            var fontSize = Math.floor(containerWidth / 30) - 1;
+            fontSize = (fontSize > 15 ? 16 : fontSize) + "px";
+            $("#clock").css({ "font-size": fontSize });
+        }
+ 
+        function setUp() {
+            $hour = $("#hour");
+            $minute = $("#minute");
+            $second = $("#second");
+ 
+            adjustClockSize();
+            createClockFace();
+            updateClockHands();
+ 
+            $(window).on("resize", adjustClockSize);
+        }
+ 
+        // Polyfill for requestAnimationFrame
+        if (!window.requestAnimationFrame) {
+            window.requestAnimationFrame =
+                window.mozRequestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                function(callback) {
+                    setTimeout(callback, 1000 / 60);
+                };
+        }
+ 
+        return {
+            setUp: setUp
+        };
+    })();
+ 
+    $(function() {
+        Imc.Clock.setUp();
+    });
+ 
+})(jQuery);
+</script>

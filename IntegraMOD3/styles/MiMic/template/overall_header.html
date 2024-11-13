@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" xml:lang="{S_USER_LANG}">
+<html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}">
 <head>
-	
+
+<meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-language" content="{S_USER_LANG}" />
 <meta http-equiv="imagetoolbar" content="no" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="resource-type" content="document" />
 <meta name="distribution" content="global" />
 <meta name="keywords" content="" />
@@ -15,9 +15,7 @@
 {META}
 <title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
 <link rel="icon" type="image/x-icon" href="{ROOT_PATH}images/favicon.ico">
-<link rel="stylesheet" type="text/css" href="{T_THEME_PATH}/style_wide.css" />
-<link rel="alternate stylesheet" type="text/css" media="screen" title="fixed" href="{T_THEME_PATH}/style_fixed.css" />
-
+	
 <!-- IF S_ENABLE_FEEDS -->
 	<!-- IF S_ENABLE_FEEDS_OVERALL --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" /><!-- ENDIF -->
 	<!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
@@ -34,31 +32,39 @@
 	Original author:  Tom Beddard ( http://www.subBlue.com/ )
 	Modified by:	  Helter
 -->
+
+<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
+<!-- INCLUDE socialnet/overall_header_hook_css.html -->
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+
+<link href="{T_THEME_PATH}/normal.css" rel="stylesheet" type="text/css" title="A" />
+<link href="{T_THEME_PATH}/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
+<link href="{T_THEME_PATH}/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
+
 <script>
 // <![CDATA[
-	var jump_page = '{LA_JUMP_PAGE}:';
-	var on_page = '{ON_PAGE}';
-	var per_page = '{PER_PAGE}';
-	var base_url = '{A_BASE_URL}';
-	var style_cookie = 'phpBBstyle';
-	var style_cookie_settings = '{A_COOKIE_SETTINGS}';
-	var onload_functions = new Array();
-	var onunload_functions = new Array();
+var jump_page = '{LA_JUMP_PAGE}:';
+var on_page = '{ON_PAGE}';
+var per_page = '{PER_PAGE}';
+var base_url = '{A_BASE_URL}';
+var style_cookie = 'phpBBstyle';
+var style_cookie_settings = '{A_COOKIE_SETTINGS}';
+var onload_functions = [];
+var onunload_functions = [];
+ 
+<!-- IF S_USER_PM_POPUP and S_NEW_PM -->
+    var url = '{UA_POPUP_PM}';
+    window.open(url.replace(/&amp;/g, '&'), '_phpbbprivmsg', 'height=225,resizable=yes,scrollbars=yes, width=400');
+<!-- ENDIF -->
 
-	<!-- IF S_USER_PM_POPUP and S_NEW_PM -->
-		var url = '{UA_POPUP_PM}';
-		window.open(url.replace(/&amp;/g, '&'), '_phpbbprivmsg', 'height=225,resizable=yes,scrollbars=yes, width=400');
-	<!-- ENDIF -->
-
-	/**
-	* Find a member
-	*/
-	function find_username(url)
-	{
-		popup(url, 760, 570, '_usersearch');
-		return false;
-	}
-
+/**
+* Find a member
+*/
+function find_username(url)
+{
+	popup(url, 760, 570, '_usersearch');
+	return false;
+}
 /**
 * Updated pentapenguin's function for handling multiple calls to window.onload and window.unload 05/02/2024
 */
@@ -82,12 +88,13 @@ window.addEventListener('unload', () => {
 });
 // ]]>
 </script>
-
+<script src="{ROOT_PATH}assets/js/styleswitch.js"></script>
 <script src="{ROOT_PATH}assets/js/forum_fn.js"></script>
 
-<!-- IF S_MCHAT_ENABLE and (S_MCHAT_ON_INDEX or U_MCHAT) -->
-<script src="{ROOT_PATH}assets/js/jquery/jquery_cookie_mini.js"></script>
-<!-- ENDIF -->
+<!-- Font Awesome 6.5.2  -->
+<!-- <link href="{ROOT_PATH}assets/css/all-custom.css" rel="stylesheet" type="text/css">  -->
+<script src="{ROOT_PATH}assets/js/all-custom.js"></script>
+
 
 <!-- IF S_NEW_DL_POPUP -->
 <script>
@@ -107,27 +114,26 @@ window.addEventListener('unload', () => {
 <link rel="stylesheet" type="text/css" href="{ROOT_PATH}assets/js/jquery/skins/tango/skin.css" />
 <!-- ENDIF -->
 
-<!-- INCLUDE socialnet/overall_header_hook_css.html -->
-<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
-<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
-
-<link href="{T_THEME_PATH}/normal.css" rel="stylesheet" type="text/css" title="A" />
-<link href="{T_THEME_PATH}/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
-<link href="{T_THEME_PATH}/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
-<!-- fontawesome 6.4.0 CSS-->  
-<link rel="stylesheet" type="text/css" href="{ROOT_PATH}styles/assets/css/all.css">
+<!-- ajaxlike -->
+<link href="{ROOT_PATH}assets/js/jquery/skins/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="{ROOT_PATH}assets/js/jquery/skins/tipsy.css" rel="stylesheet" type="text/css" />
 
 <!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
-	<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
 <!-- ENDIF -->
-
+<script src="{ROOT_PATH}assets/js/jquery/jquery-1.12.4.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-migrate-1.4.1.js"></script>	
+<!-- IF S_MCHAT_ENABLE and (S_MCHAT_ON_INDEX or U_MCHAT) -->
+<script src="{ROOT_PATH}assets/js/jquery/jquery_cookie_mini.js"></script>
+<!-- ENDIF -->
+<!-- INCLUDE socialnet/overall_header_hook_js.html -->
 <!-- IF STARGATE -->
 <!-- INCLUDE set-width.html -->
-<!-- INCLUDE m_portal_scripts.html -->
+<!-- INCLUDE portal_scripts.html -->
 <!-- ENDIF -->
 
 <!-- INCLUDE js.html -->
-	
+
 <script> 
 // 
 function notes() { 
@@ -135,13 +141,16 @@ function notes() {
 } 
 // 
 </script>
-
 <!-- INCLUDE ads/ads.js -->
 
 <!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
 <!-- INCLUDE ./../../abbcode/abbcode_header.html -->
 <!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
 <!-- INCLUDE gallery/plugins_header.html -->
+<!-- ajaxlike -->
+<script src="{ROOT_PATH}assets/js/jquery/jquery.tipsy.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/common.js"></script>
+
 </head>
 
 <body id="phpbb" class="nojs notouch section-{SCRIPT_NAME} {S_CONTENT_DIRECTION} {BODY_CLASS}<!-- IF SN_MODULE_IM_ENABLED --> sn-im-page<!-- ENDIF -->">
@@ -261,7 +270,7 @@ function notes() {
 							<!-- ENDIF -->
 							<!-- IF S_SHOW_CHT and S_MCHAT_ENABLE and U_MCHAT -->
 							<li><a href="{U_MCHAT}#mChat" title="{L_CHAT_EXPLAIN}"><i class="fa-solid fa-comment fa-lg"></i> {L_CHAT}</a></li>
-							<!-- ENDIF -->				
+							<!-- ENDIF -->			
 							<!-- IF S_SHOW_CONTACT and S_CONTACT_ENABLED -->
 							<li><a href="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><i class="fa-solid fa-message fa-lg"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
 							<!-- ENDIF --> 	
@@ -298,7 +307,7 @@ function notes() {
 					</a>
 				</li>
 			<!-- ENDIF -->
-		<!-- IF not S_IS_BOT -->
+		<!-- IF not S_USER_LOGGED_IN -->
 				<li class="nav-button" data-skip-responsive="true">
 					<a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x" role="menuitem">
 						<i class="fa-solid fa-power-off"></i><span> {L_LOGIN_LOGOUT}</span>
@@ -354,12 +363,8 @@ function notes() {
 							<li><a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><i class="fa-solid fa-thumbs-up fa-lg"></i><span id="ajaxlike_not_new"><strong> {AL_NEW_LIKE}</strong>{L_AL_LIKE_NEW}</span></a></li>
 						<!-- ENDIF -->
 					    </ul>
-						<ul>						
-							<li>
-								<a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x" role="menuitem">
-									<i class="fa-solid fa-power-off"></i></i><span> {L_LOGIN_LOGOUT}</span>
-								</a>
-							</li>
+						<ul>
+							<li><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x" role="menuitem"><i class="fa-solid fa-power-off"></i></i><span> {L_LOGIN_LOGOUT}</span></a></li>
 						</ul>
 					</div>
 				</li>
@@ -381,28 +386,9 @@ function notes() {
 			    <!-- ENDIF -->
 			</ul>				
 				
-			<ul class="linklist navlinks">
-				<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="{L_CHANGE_FONT_SIZE}">{L_CHANGE_FONT_SIZE}</a></li>
-				<!-- IF STARGATE -->
-					<li class="rightside">
-						<!-- INCLUDE style_change_width.html -->
-						<!-- IF S_ARRANGE -->
-						<span style="display:inline;" id="OFF_">
-							&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" style="float:left" title="{L_ARRANGE_OFF}"><img src="{T_PORTAL_THEME_PATH}/images/save_changes.png" width="15" height="15" alt=" {L_ARRANGE_OFF}" title="{L_ARRANGE_OFF}" /></a>
-						</span>
-						<!-- ELSE -->
-						<span style="display:inline;" id="ON_">
-							&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_'); " style="float:left" title="{L_ARRANGE_ON}"><img src="{T_PORTAL_THEME_PATH}/images/arrange.png" width="15" height="15" alt=" {L_ARRANGE_ON}" title="{L_ARRANGE_ON}" /></a>
-						</span>
-						<!-- ENDIF -->
-					</li>
-			<!-- IF S_USER_LOGGED_IN -->
-
-
-				
 				
 			<!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
-			<ul class="linklist">
+			<ul class="linklist navlinks">
 				<li>
 				    <!-- IF not S_IS_BOT and not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
 				    <a href="{U_REGISTER}" title="{L_REGISTER}"><i class="fa-regular fa-handshake fa-lg"></i> {L_REGISTER}</a>
@@ -411,8 +397,8 @@ function notes() {
 				    <a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a>
 				    <!-- ENDIF -->	
 					<!-- IF S_DISPLAY_PM --> <a href="{U_PRIVATEMSGS}"><i class="fa-regular fa-message fa-lg"></i> {PRIVATE_MESSAGE_INFO}</a> &bull; <!-- ENDIF -->
-                    <a href="{U_SEARCH_NEW}">{L_NEW_POST}</a>
-				    <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED --> &bull; 
+
+				    <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED --> 
 				    <span id="sn-ntf-notify"><a href="{U_VIEW_NOTIFY}" class="snbadge">{S_SN_USER_UNREAD_NOTIFY}</a></span><a href="{U_SN_ACTIVITYPAGE}"> {L_SN_AP_ACTIVITYPAGE}</a>
 				    <!-- ENDIF -->					
 					<!-- IF S_SHOW_MEETING and L_MEETING_LINK_N --> &bull; 
@@ -432,81 +418,18 @@ function notes() {
 				</li>
 				<!-- IF S_HACKLIST_ON --> &bull; <li class="icon-hacklist"><a href="{U_HACKLIST}" title="{L_HACKLIST}">{L_HACKLIST}</a></li><!-- ENDIF -->
 				<!-- IF S_BUGTRACKER_ON --> &bull; <li class="icon-tracker"><a href="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}">{L_BUG_TRACKER}</a></li><!-- ENDIF -->
-			</ul>
-			<!-- ENDIF -->
+			
 				
-				
-				
-				
-				
-			<!-- ENDIF -->				
-				<!-- ENDIF -->
-
 				<!-- IF U_EMAIL_TOPIC --><li class="rightside"><a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class="sendemail">{L_EMAIL_TOPIC}</a></li><!-- ENDIF -->
 				<!-- IF U_EMAIL_PM --><li class="rightside"><a href="{U_EMAIL_PM}" title="{L_EMAIL_PM}" class="sendemail">{L_EMAIL_PM}</a></li><!-- ENDIF -->
 				<!-- IF U_PRINT_TOPIC --><li class="rightside"><a href="{U_PRINT_TOPIC}" title="{L_PRINT_TOPIC}" accesskey="p" class="print">{L_PRINT_TOPIC}</a></li><!-- ENDIF -->
 				<!-- IF U_PRINT_PM --><li class="rightside"><a href="{U_PRINT_PM}" title="{L_PRINT_PM}" accesskey="p" class="print">{L_PRINT_PM}</a></li><!-- ENDIF -->
 			</ul>
-
-
-			<!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
-			<div class="dropdown" tabindex="0">
-			<button class="dropdown-btn" aria-haspopup="membermenu"><span class="username">{S_USERNAME}&nbsp;</span><span class="arrow"></span></button>
-			<ul class="dropdown-content" role="membermenu">
-				<li style="--delay: 1;"><a href="{U_PROFILE}" title="{L_PROFILE}" accesskey="e"><i class="fa-solid fa-user-gear fa-lg"></i> {L_PROFILE}</a></li>
-				<li style="--delay: 2;"><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><i class="fa-solid fa-user fa-lg"></i> {L_READ_PROFILE}</a></li>
-				<!-- IF S_DISPLAY_SEARCH -->
-				<li style="--delay: 3;"><a href="{U_SEARCH_SELF}"><i class="fa-regular fa-file fa-lg"></i> {L_SEARCH_SELF}</a></li>
-				<!-- ENDIF -->
-				<!-- IF S_SHOW_NOTES -->
-				<li style="--delay: 4;"><a href="{U_PERS_NOTES}"><i class="fa-solid fa-note-sticky"></i> {L_PERS_NOTES}</a></li>
-				<!-- ENDIF -->
-				<!-- Start Ultimate Points -->
-				<!-- IF S_POINTS_ENABLE -->
-				<li style="--delay: 5;"><a href="{U_POINTS}" title="{L_POINTS_EXPLAIN}"><i class="fa-solid fa-sack-dollar fa-lg"></i> {POINTS_LINK}<!-- IF S_USER_LOGGED_IN and S_USE_POINTS --> [ {USER_POINTS} ] <!-- ENDIF --></a></li>
-				<!-- ENDIF -->
-				<!-- End Ultimate Points -->
-				<li style="--delay: 6;"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a></li>
-			</ul>
-			</div>
 			<!-- ENDIF -->
 
-			<div class="dropdown" tabindex="1">
-			<button class="dropdown-btn" aria-haspopup="menu"><span><b><i class="fa-solid fa-bars fa-lg"></i></b> {L_LINKS}</span></button>
-			<ul class="dropdown-content" role="menu">
-				<!-- IF not S_IS_BOT and not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
-				<li style="--delay: 1;"><a href="{U_REGISTER}" title="{L_REGISTER}"><i class="fa-regular fa-handshake fa-lg"></i> {L_REGISTER}</a></li>
-				<!-- ENDIF -->
-				<!-- IF not S_IS_BOT and not S_USER_LOGGED_IN --> 
-				<li style="--delay: 1;"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a></li>
-				<!-- ENDIF -->
- 
-				<!-- IF S_SHOW_CAL -->
-				<li style="--delay: 1;"><a href="{U_CALENDAR}" title="{L_CALENDAR}"><i class="fa-regular fa-calendar-days fa-lg"></i> {L_LANG_CALENDAR}</a></li>
-				<!-- ENDIF -->
-				<!-- IF S_SHOW_CHT and S_MCHAT_ENABLE and U_MCHAT -->
-				<li style="--delay: 3;"><a href="{U_MCHAT}#mChat" title="{L_CHAT_EXPLAIN}"><i class="fa-solid fa-comment fa-lg"></i> {L_CHAT}</a></li>
-				<!-- ENDIF -->				
-				<!-- IF S_SHOW_CONTACT and S_CONTACT_ENABLED -->
-				<li style="--delay: 5;"><a href="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><i class="fa-solid fa-message fa-lg"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
-				<!-- ENDIF --> 	
-				<!-- IF S_SHOW_DLS and S_SHOW_DL_LINK-->
-				<li style="--delay: 7;"><a href="{U_DL_NAVS}" title="{L_DOWNLOADS}"><i class="fa-solid fa-file-arrow-down fa-lg"></i> {L_DOWNLOADS}</a></li>
-				<!-- ENDIF -->			
-				<!-- IF S_SHOW_FAQ -->
-				<li style="--delay: 8;"><a href="{U_FAQ}" title="{L_FAQ_EXPLAIN}"><i class="fa-solid fa-circle-question fa-lg"></i> {L_FAQ}</a></li>
-				<!-- ENDIF -->
-				<!-- IF S_SHOW_GALL -->
-				<li style="--delay: 6;"><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image fa-lg"></i> {L_GALLERY}</a></li>
-				<!-- ENDIF -->				
-				<!-- IF S_SHOW_KB -->
-				<li style="--delay: 4;"><a href="{U_KB}" title="{L_KNOWLEDGE_BASE}" accesskey="k"><i class="fa-solid fa-book-open-reader fa-lg"></i> {L_KNOWLEDGE_BASE}</a></li>
-				<!-- ENDIF -->				
-				<!-- IF S_SHOW_MEM and S_DISPLAY_MEMBERLIST -->
-				<li style="--delay: 2;"><a href="{U_MEMBERLIST}" title="{L_MEMBERLIST_EXPLAIN}"><i class="fa-solid fa-user-group fa-lg"></i> {L_MEMBERLIST}</a></li>
-				<!-- ENDIF -->
-		    </ul>
-		    </div>
+
+
+
 			</div>
 		</div>
 	</div>
