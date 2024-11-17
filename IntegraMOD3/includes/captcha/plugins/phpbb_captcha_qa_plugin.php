@@ -72,15 +72,16 @@ class phpbb_captcha_qa
 		$db->sql_freeresult($result);
 
 		// fallback to the board default lang
-		if (!sizeof($this->question_ids))
+		if (!is_array($this->question_ids) || empty($this->question_ids))
 		{
 			$this->question_lang = $config['default_lang'];
-
+		 
 			$sql = 'SELECT question_id
 				FROM ' . CAPTCHA_QUESTIONS_TABLE . "
 				WHERE lang_iso = '" . $db->sql_escape($config['default_lang']) . "'";
 			$result = $db->sql_query($sql, 7200);
-
+		 
+			$this->question_ids = array();
 			while ($row = $db->sql_fetchrow($result))
 			{
 				$this->question_ids[$row['question_id']] = $row['question_id'];

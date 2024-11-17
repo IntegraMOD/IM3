@@ -12,6 +12,7 @@
         	  <!-- IF LOCATION --><dt>{L_LOCATION}:</dt> <dd<!-- IF S_OWN_PROFILE --> class="sn-up-editable {input:'text',name:'usr-user_from',max:100}"<!-- ENDIF -->>{LOCATION}</dd><!-- ENDIF -->
         	  <!-- IF LANGUAGES --><dt>{L_SN_UP_LANGUAGES}:</dt> <dd<!-- IF S_OWN_PROFILE --> class="sn-up-editable {input:'textarea',name:'up-languages',max:1024}"<!-- ENDIF -->>{LANGUAGES}</dd><!-- ENDIF -->
         	  <!-- IF SIGNATURE --><dt>{L_SIGNATURE}:</dt> <dd<!-- IF S_OWN_PROFILE --> class="sn-up-editable {input:'textarea',name:'usr-user_sig',value:'{UP_EDIT_SIGNATURE}',data:{bbcode:true}}"<!-- ENDIF -->>{SIGNATURE}</dd><!-- ENDIF -->
+              <!-- IF S_DISPLAY_POINTS_STATS --><dt>{L_POINTS_STATISTICS}:</dt><dd>{TOTAL_POINTS_USER} &bull; {TOTAL_BANK_USER} &bull; {TOTAL_BANK_POINTS} <!-- IF S_DISPLAY_LOTTERY--> &bull; {LOTTERY_TIME} <!-- ENDIF --></dd><!-- ENDIF -->	
         	</dl>
         <!-- ENDIF -->
         <!-- IF EMPLOYER or UNIVERSITY or HIGH_SCHOOL or OCCUPATION -->

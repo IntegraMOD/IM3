@@ -63,6 +63,10 @@ class ucp_profile
                     'facebook'			 => request_var('facebook', $row['facebook']),
                     'twitter'			 => request_var('twitter', $row['twitter']),
                     'youtube'			 => request_var('youtube', $row['youtube']),
+					// ajaxlike
+					'show_likes'				=> request_var('show_likes', $user->data['show_likes'], true),
+					'ajaxlike_list_in_profile'	=> (isset($config['ajaxlike_enable']) ? $config['ajaxlike_list_in_profile']: false),
+					// ajaxlike
                 );
 
                 // display settings
@@ -152,6 +156,9 @@ class ucp_profile
                         'facebook'			 => $data['facebook'],
                         'twitter'			 => $data['twitter'],
                         'youtube'			 => $data['youtube'],
+						// ajaxlike
+						'show_likes'		 => $data['show_likes'],
+						// ajaxlike
                     ));
 
                     if (!sizeof($error)) {
@@ -166,14 +173,23 @@ class ucp_profile
 
                         meta_refresh(3, $this->p_master->u_action);
                         trigger_error($message);
-                    } else {
-                        $error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", (string) $error);
+                    } 
+					else 
+					{
+						$error = preg_replace_callback(
+							'#^([A-Z_]+)$#',
+							function($matches) use ($user) {
+								$key = $matches[1];
+								return !empty($user->lang[$key]) ? (string)$user->lang[$key] : $key;
+							},
+							is_array($error) ? implode(' ', $error) : (string)$error
+						);
                     }
                 }
 
                 $template->assign_vars(array(
                     'U_ACTION'	 => $this->p_master->u_action,
-                    'ERROR'		 => (sizeof($error)) ? implode('<br />', $error) : '',
+                    'ERROR'      => (isset($error) && (is_array($error) || $error instanceof Countable) && count($error) > 0) ? implode('<br />', (array)$error) : '',
                 ));
 
                 break;
@@ -564,7 +580,11 @@ class ucp_profile
             'S_REL_AVATAR'		 => $socialnet->get_user_avatar_resized($row['user_avatar'], $row['user_avatar_type'], $row['user_avatar_width'], $row['user_avatar_height'], 50),
             'S_REL_USERNAME'	 => $socialnet->get_username_string($socialnet->config['us_colour_username'], 'full', $row['user_id'], $row['username'], $row['user_colour']),
             'U_REL_PROFILE_LINK' => $socialnet->get_username_string($socialnet->config['us_colour_username'], 'profile', $row['user_id'], $row['username'], $row['user_colour']),
-        ));
+			// ajaxlike
+			'S_SHOW_LIKES'			=> $data['show_likes'],
+			'S_AJ_LIST_IN_PROFILE'	=> $data['ajaxlike_list_in_profile'],
+			// ajaxlike
+       ));
 
         // Approve / Refuse relation
         if (confirm_box(true)) {
