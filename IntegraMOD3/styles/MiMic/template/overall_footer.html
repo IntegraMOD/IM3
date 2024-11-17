@@ -89,13 +89,21 @@
 <!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
 	<!-- INCLUDE password_strength.html -->
 <!-- ENDIF -->
+
 <script src="{ROOT_PATH}assets/js/jquery/jquery.hoverIntent.minified.js"></script>
 <script src="{T_TEMPLATE_PATH}/js/menu_scripts.js"></script>
 
 <!-- RANDOM HEADER BACKGROUND IMAGES -->
 <script>
-var images = ['header.jpg', 'header2.jpg', 'header3.jpg'];
-	$('#bground').css({'background-image': 'url({T_THEME_PATH}/images/bg/' + images[Math.floor(Math.random() * images.length)] + ')'});
+(function($) {
+    $(document).ready(function() {
+        const images = ['header.jpg', 'header2.jpg', 'header3.jpg'];
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        $('#bground').css({
+            'background-image': `url({T_THEME_PATH}/images/bg/${randomImage})`
+        });
+    });
+})(jQuery);
 </script>
 
 </body>
