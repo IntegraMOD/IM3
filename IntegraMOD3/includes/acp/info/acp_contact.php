@@ -24,7 +24,7 @@ class acp_contact_info
 			'title'		=> 'ACP_CAT_CONTACT',
 			'version'	=> '1.7.0',
 			'modes'		=> array(
-				'configuration'		=> array('title' => 'ACP_CONTACT_CONFIG', 'auth' => 'acl_a_contact', 'cat' => array('ACP_CAT_CONTACT')),
+				'configuration'		=> array('title' => 'ACP_CAT_CONTACT', 'auth' => 'acl_a_contact', 'cat' => array('ACP_IMOD_CONFIG')),
 			),
 		);
 	}

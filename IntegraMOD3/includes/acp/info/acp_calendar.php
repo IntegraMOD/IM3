@@ -29,7 +29,7 @@ class acp_calendar_info
 			'title'		=> 'ACP_CALENDAR',
 			'version'	=> $this->version,
 			'modes'		=> array(
-            'settings'   => array('title' => 'ACP_CALENDAR_SETTINGS', 'auth' => 'acl_a_board', 'cat' => array('ACP_CALENDAR')),
+            'settings'   => array('title' => 'ACP_CALENDAR_SETTINGS', 'auth' => 'acl_a_board', 'cat' => array('ACP_IMOD_CONFIG')),
 			),
 		);
 	}

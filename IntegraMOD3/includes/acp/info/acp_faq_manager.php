@@ -23,7 +23,7 @@ class acp_faq_manager_info
 			'title'		=> 'ACP_FAQ_MANAGER',
 			'version'	=> '1.0.0',
 			'modes'		=> array(
-				'default'	=> array('title' => 'ACP_FAQ_MANAGER', 'auth' => 'acl_a_language', 'cat' => array('ACP_FAQ_MANAGER')),
+				'default'	=> array('title' => 'ACP_FAQ_MANAGER', 'auth' => 'acl_a_language', 'cat' => array('ACP_IMOD_CONFIG')),
 			),
 		);
 	}

@@ -18,7 +18,7 @@ class acp_pages_info
 			'title'		=> 'ACP_PAGES',
 			'version'	=> '1.0.3',
 			'modes'		=> array(
-				'pages'		=> array('title' => 'ACP_MANAGE_PAGES', 'auth' => '', 'cat' => array('ACP_PAGES')),
+				'pages'		=> array('title' => 'ACP_MANAGE_PAGES', 'auth' => '', 'cat' => array('ACP_IMOD_CONFIG')),
 			),
 		);
 	}
