@@ -318,14 +318,14 @@ class template_compile
 
 		// This will handle the remaining root-level varrefs
 		// transform vars prefixed by L_ into their language variable pendant if nothing is set within the tpldata array
-		if (str_contains((string) $text_blocks, '{L_'))
+		if (strpos((string) $text_blocks, '{L_') !== false)
 		{
 			$text_blocks = preg_replace('#\{L_([A-Z0-9\-_]+)\}#', "<?php echo ((isset(\$this->_rootref['L_\\1'])) ? \$this->_rootref['L_\\1'] : ((isset(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '{ \\1 }')); ?>", (string) $text_blocks);
 		}
 
 		// Handle addslashed language variables prefixed with LA_
 		// If a template variable already exist, it will be used in favor of it...
-		if (str_contains((string) $text_blocks, '{LA_'))
+		if (strpos((string) $text_blocks, '{LA_') !== false)
 		{
 			$text_blocks = preg_replace('#\{LA_([A-Z0-9\-_]+)\}#', "<?php echo ((isset(\$this->_rootref['LA_\\1'])) ? \$this->_rootref['LA_\\1'] : ((isset(\$this->_rootref['L_\\1'])) ? addslashes(\$this->_rootref['L_\\1']) : ((isset(\$user->lang['\\1'])) ? addslashes(\$user->lang['\\1']) : '{ \\1 }'))); ?>", (string) $text_blocks);
 		}
@@ -346,7 +346,7 @@ class template_compile
 		$no_nesting = false;
 
 		// Is the designer wanting to call another loop in a loop?
-		if (str_starts_with((string) $tag_args, '!'))
+		if (substr((string) $tag_args, 0, 1) === '!')
 		{
 			// Count the number of ! occurrences (not allowed in vars)
 			$no_nesting = substr_count((string) $tag_args, '!');
@@ -636,11 +636,21 @@ class template_compile
 				$type = [0];
 			}
 
-			$match[4] = match (strtolower($type[0])) {
-       'true', 'false' => strtoupper($match[4]),
-       '.' => doubleval($match[4]),
-       default => intval($match[4]),
-   };
+	        switch (strtolower($type[0]))
+	        {
+	            case 'true':
+	            case 'false':
+	                $match[4] = strtoupper($match[4]);
+	            break;
+	 
+	            case '.':
+	                $match[4] = (float)$match[4];
+	            break;
+	 
+	            default:
+	                $match[4] = (int)$match[4];
+	            break;
+	        }
 		}
 
 		return (($match[1]) ? $this->generate_block_data_ref(substr((string) $match[1], 0, -1), true, true) . '[\'' . $match[2] . '\']' : '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $match[2] . '\']') . ' = ' . $match[4] . ';';
@@ -815,7 +825,7 @@ class template_compile
 
 		$filename = $this->template->cachepath . str_replace('/', '.', (string) $this->template->filename[$handle]) . '.' . $phpEx;
 
-		$data = "<?php if (!defined('IN_PHPBB')) exit;" . ((str_starts_with((string) $data, '<?php')) ? substr((string) $data, 5) : ' ?>' . $data);
+		$data = "<?php if (!defined('IN_PHPBB')) exit;" . (strpos((string) $data, '<?php') === 0 ? substr((string) $data, 5) : ' ?>' . $data);
 
 		if ($fp = @fopen($filename, 'wb'))
 		{

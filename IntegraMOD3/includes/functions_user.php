@@ -23,7 +23,7 @@ if (!defined('IN_PHPBB')) {
 * @param array &$username_ary The usernames to check or empty if user ids used
 * @param mixed $user_type Array of user types to check, false if not restricting by user type
 */
-function user_get_id_name(&$user_id_ary, &$username_ary, mixed $user_type = false)
+function user_get_id_name(&$user_id_ary, &$username_ary, $user_type = null)
 {
     global $db;
 
@@ -359,7 +359,7 @@ function user_add(mixed $user_row, $cp_data = false, $subscribe = false)
  * @param int		$user_id
  * @return bool
 */
-function user_delete($mode, $user_id, mixed $post_username = false)
+function user_delete($mode, $user_id, $post_username = null)
 {
     global $cache, $config, $db, $user;
     global $phpbb_root_path, $phpEx;

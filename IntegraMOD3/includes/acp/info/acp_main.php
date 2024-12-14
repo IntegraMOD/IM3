@@ -8,6 +8,11 @@
 *
 */
 
+if (!defined('IN_PHPBB'))
+{
+	exit;
+}
+
 /**
 * @package module_install
 */
@@ -24,12 +29,5 @@ class acp_main_info
 			),
 		);
 	}
-
-	function install()
-	{
-	}
-
-	function uninstall()
-	{
-	}
 }
+?>

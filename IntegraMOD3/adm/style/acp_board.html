@@ -1,80 +1,51 @@
 <!-- INCLUDE overall_header.html -->
 <!-- IF S_EDIT_SUBSCRIBERS -->
 <script>
-// <![CDATA[
-function toggle(id)
-{
-	// Grab the ID
-	thisId = document.getElementById(id);
-	
-	// Get info needed to swap the expand/collapse image
-	temp = id.substr(id.indexOf('-') + 1);
-	user_id = temp.substr(0,temp.indexOf('-'));
-	imageId = document.getElementById('plusminus-' + user_id);
-
-	// Toggle the display between hid and shown
-	display = thisId.style.display;
-	if (display == 'none')
-	{
-		thisId.style.display = 'table-row';
-		imageId.src = '{IMAGE_PATH}collapse.png';
-		imageId.alt = '{L_DIGEST_COLLAPSE}';
-		imageId.title = '{L_DIGEST_COLLAPSE}';
+	// <![CDATA[
+	function toggle(id) {
+	    // Grab the element
+	    const element = document.getElementById(id);
+	 
+	    // Get info needed to swap the expand/collapse image
+	    const temp = id.substr(id.indexOf('-') + 1);
+	    const userId = temp.substr(0, temp.indexOf('-'));
+	    const imageElement = document.getElementById(`plusminus-${userId}`);
+	 
+	    // Toggle the display between hidden and shown
+	    if (element.style.display === 'none') {
+	        element.style.display = 'table-row';
+	        imageElement.src = '{IMAGE_PATH}collapse.png';
+	        imageElement.alt = '{L_DIGEST_COLLAPSE}';
+	        imageElement.title = '{L_DIGEST_COLLAPSE}';
+	    } else {
+	        element.style.display = 'none';
+	        imageElement.src = '{IMAGE_PATH}expand.png';
+	        imageElement.alt = '{L_DIGEST_EXPAND}';
+	        imageElement.title = '{L_DIGEST_EXPAND}';
+	    }
 	}
-	else
-	{
-		thisId.style.display = 'none';
-		imageId.src = '{IMAGE_PATH}expand.png';
-		imageId.alt = '{L_DIGEST_EXPAND}';
-		imageId.title = '{L_DIGEST_EXPAND}';
+	 
+	function unCheckSubscribedForums(checkbox, idMatch) {
+	    const isChecked = checkbox.checked;
+	 
+	    // Use querySelectorAll for better performance and readability
+	    const inputs = document.querySelectorAll(`input[id^="${idMatch}elt_"]`);
+	    inputs.forEach(input => {
+	        input.checked = isChecked;
+	    });
+	 
+	    return true;
 	}
-	
-}
-
-function unCheckSubscribedForums (checkbox, id_match) {
-	is_checked = checkbox.checked;
- 
-	var element_name = new String();
-	
-	// Assume a HTML 4.0 compatible browser
-	var x = document.getElementsByTagName('input');
-	for(i=0;i<x.length;i++) {
-		thisobject = x[i];
-		if (thisobject.id.search(id_match + 'elt_') == 0)
-		{
-			thisobject.checked = is_checked;
-		}
+	 
+	function unCheckAllForums(idMatch, allForumsId) {
+	    // Unchecks or checks the all forums checkbox for a particular user
+	    const allForumsCheckbox = document.getElementById(allForumsId);
+	    const inputs = document.querySelectorAll(`input[id^="${idMatch}elt_"]`);
+	 
+	    const anyUnchecked = Array.from(inputs).some(input => !input.checked);
+	    allForumsCheckbox.checked = !anyUnchecked;
 	}
-	return true;
-}
-
-function unCheckAllForums (id_match,all_forums) {
-	// Unchecks or checks the all forums checkbox for a particular user
-	any_unchecked = false;
-	
-	// Assume a HTML 4.0 compatible browser
-	var all_forums = document.getElementById(all_forums);
-	var inputs = document.getElementsByTagName('input');
-	for(i=0;i<inputs.length;i++) 
-	{
-		thisobject = inputs[i];
-		if (thisobject.id.search(id_match + 'elt_') == 0)
-		{
-			if (thisobject.checked == false)
-			{
-				all_forums.checked = false;
-				any_unchecked = true;
-			}
-		}
-	}
-	if (any_unchecked == false)
-	{
-		all_forums.checked = true;
-	}
-
-	return;
-}
-// ]]>  
+	// ]]> 
 </script>
 <!-- ENDIF -->
 

@@ -347,11 +347,16 @@ if (!function_exists('sgp_build_minimods'))
 		{
 			$mod_type = $mod['mod_type'];
 
-			$mod['mod_download_count'] = match ($mod['mod_download_count']) {
-       0 => sprintf($user->lang['DOWNLOAD_COUNT_NONE'], $mod['mod_download_count']),
-       1 => sprintf($user->lang['DOWNLOAD_COUNT'], $mod['mod_download_count']),
-       default => sprintf($user->lang['DOWNLOAD_COUNTS'], $mod['mod_download_count']),
-   };
+			$mod['mod_download_count'] = (function($count) use ($user) {
+				switch ($count) {
+					case 0:
+						return sprintf($user->lang['DOWNLOAD_COUNT_NONE'], $count);
+					case 1:
+						return sprintf($user->lang['DOWNLOAD_COUNT'], $count);
+					default:
+						return sprintf($user->lang['DOWNLOAD_COUNTS'], $count);
+				}
+			})($mod['mod_download_count']);
 
 			if ($mod_type == $stored_mod_type)
 			{
@@ -817,11 +822,18 @@ if (!function_exists('generate_menus'))
 					$is_sub_heading = ($k_menus[$i]['sub_heading']) ? true : false;
 
 					// we use js to manage open ibn tab //
-					$link_option = match ($k_menus[$i]['extern']) {
-         1 => 'rel="external"',
-         2 => ' onclick="window.open(this.href); return false;"',
-         default => '',
-     };
+					$link_option = '';
+					switch ($k_menus[$i]['extern']) {
+						case 1:
+							$link_option = 'rel="external"';
+							break;
+						case 2:
+							$link_option = ' onclick="window.open(this.href); return false;"';
+							break;
+						default:
+							$link_option = '';
+							break;
+					}
 
 					// can be reduce later...
 					if ($k_menus[$i]['menu_type'] == NAV_MENUS)

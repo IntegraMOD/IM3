@@ -45,7 +45,7 @@ class p_master
 		$this->include_path = ($include_path !== false) ? $include_path : $phpbb_root_path . 'includes/';
 
 		// Make sure the path ends with /
-		if (!str_ends_with((string) $this->include_path, '/'))
+		if (substr((string) $this->include_path, -1) !== '/')
 		{
 			$this->include_path .= '/';
 		}
@@ -63,7 +63,7 @@ class p_master
 		$this->include_path = $include_path;
 
 		// Make sure the path ends with /
-		if (!str_ends_with($this->include_path, '/'))
+		if (substr($this->include_path, -1) !== '/')
 		{
 			$this->include_path .= '/';
 		}
@@ -273,7 +273,7 @@ class p_master
 	*
 	* @return bool Returns true if module is loaded and accessible, else returns false
 	*/
-	function loaded($module_basename, mixed $module_mode = false)
+	function loaded($module_basename, mixed $module_mode = NULL)
 	{
 		if (empty($this->loaded_cache))
 		{
@@ -532,7 +532,7 @@ class p_master
 		$row = &$this->module_ary[$this->active_module_row_id];
 
 		// We check for the same url_extra in $row['url_extra'] to overcome doubled additions...
-		if (!str_contains((string) $row['url_extra'], $url_extra))
+		if (strpos((string) $row['url_extra'], $url_extra) === false)
 		{
 			$row['url_extra'] .= $url_extra;
 		}
@@ -654,8 +654,7 @@ class p_master
 		$current_id = $right_id = false;
 
 		// Make sure the module_url has a question mark set, effectively determining the delimiter to use
-		$delim = (!str_contains((string) $module_url, '?')) ? '?' : '&amp;';
-
+        $delim = (strpos((string) $module_url, '?') === false) ? '?' : '&amp;';
 		$current_padding = $current_depth = 0;
 		$linear_offset 	= 'l_block1';
 		$tabular_offset = 't_block2';
@@ -864,7 +863,7 @@ class p_master
 			{
 				while (($entry = readdir($dir)) !== false)
 				{
-					if (str_starts_with($entry, 'info_' . strtolower((string) $module_class) . '_') && substr(strrchr($entry, '.'), 1) == $phpEx)
+				if (substr($entry, 0, strlen('info_' . strtolower((string) $module_class) . '_')) === 'info_' . strtolower((string) $module_class) . '_' && substr(strrchr($entry, '.'), 1) == $phpEx)
 					{
 						$add_files[] = 'mods/' . substr(basename($entry), 0, -(strlen((string) $phpEx) + 1));
 					}
