@@ -358,7 +358,8 @@ $lang = array_merge($lang, array(
 	'SORT_REG_DATE'	=> 'датою реєстрації',
  	'SORT_LAST_REMINDER' => 'Останнім нагадуванням',
  	'SORT_REMINDER' => 'Датою нагадування',
- 	
+	'SORT_EMAIL'		=> 'Електронна пошта',
+	
 	'USER_IS_INACTIVE'	=> 'Учасник неактивний',
 ));
 
