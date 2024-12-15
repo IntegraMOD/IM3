@@ -48,6 +48,10 @@
 	<p><!-- IF BIRTHDAY_LIST -->{L_CONGRATULATIONS}: <strong>{BIRTHDAY_LIST}</strong><!-- ELSE -->{L_NO_BIRTHDAYS}<!-- ENDIF --></p>
 <!-- ENDIF -->
 
+<!-- IF DONATION_STATS_INDEX_ENABLE and (DONATION_RAISED_ENABLE or DONATION_GOAL_ENABLE or DONATION_USED_ENABLE) -->
+	<!-- INCLUDE donate/donate_stats.html -->
+<!-- ENDIF -->
+
 <!-- IF NEWEST_USER -->
 	<h3>{L_STATISTICS}</h3>
 	<p>{TOTAL_POSTS} &bull; {TOTAL_TOPICS}<!-- IF TOTAL_IMAGES --> &bull; {TOTAL_IMAGES}<!-- ENDIF --> &bull; {TOTAL_USERS} &bull; {NEWEST_USER}</p>

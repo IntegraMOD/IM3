@@ -1,0 +1,74 @@
+<!-- INCLUDE overall_header.html -->
+
+<div id="pagecontent">
+<!-- IF MODE eq 'success' or MODE eq 'cancel' -->
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<th>{SITENAME} :: {L_DONATION_TITLE}</th>
+	</tr>
+	<!-- IF DONATION_BODY -->
+	<tr>
+		<td class="row1" width="100%">{DONATION_BODY}</td>
+	</tr>
+	<!-- ENDIF -->
+	<tr>
+		<td class="cat">&nbsp;</td>
+	</tr>
+	</table>
+<!-- ELSE -->
+
+	<table class="tablebg" width="100%" cellspacing="1">
+		<tr>
+		<!-- IF S_SANDBOX -->
+			<th>{L_SANDBOX_TITLE}</th>
+		<!-- ELSE -->
+			<th>{L_DONATION_TITLE_HEAD} {SITENAME}</th>
+		<!-- ENDIF -->
+		</tr>
+		<!-- IF DONATION_BODY -->
+		<tr>
+			<td class="row1">
+				{DONATION_BODY}
+			</td>
+		</tr>
+		<!-- ENDIF -->
+		<tr>
+			<td class="row1" width="100%" align="center">
+				<form action="{S_DONATE_FORMS}" method="post" style="padding: 0">
+					<div>
+						<!-- IF S_DONATION_DROPBOX -->
+						<select name="amount" id="amount">{LIST_DONATION_VALUE}</select>
+						<!-- ELSE -->
+						<input type="text" name="amount" style="height:17px; font-size:12px;" class="inputbox autowidth" value="{DONATION_DEFAULT_VALUE}"/>
+						<!-- ENDIF -->
+						<select name="currency_code" id="currency_code">{LIST_DONATION_CURRENCY}</select>
+					</div>
+					<fieldset id="contactpaypal" class="submit-buttons" style="margin-top:8px; border:none;">
+						{S_HIDDEN_FIELDS}
+						<input type="image" src="{T_IMAGESET_LANG_PATH}/donate.gif" alt="{L_IMG_DONATE}" name="submit" style="border:none;" onclick="JavaScript:document.getElementById('contactpaypal').style.display='none';document.getElementById('processingpaypal').style.display='block';" />
+					</fieldset>
+					<p><br /></p>
+					<fieldset id="processingpaypal" class="submit-buttons" style="display:none; border:none;">
+						<img src="{T_IMAGES_PATH}donation/loader.gif" alt="{L_IMG_LOADER}" style="margin-bottom:-5px; padding-right:10px; height:16px; width:16px;" /> <input type="submit" class="button1" name="submit" value="{L_DONATION_CONTACT_PAYPAL}" />
+					</fieldset>
+				</form>
+			</td>
+		</tr>
+		<!-- IF DONATION_GOAL_ENABLE or DONATION_RAISED_ENABLE or DONATION_USED_ENABLE -->
+			<!-- INCLUDE donate/donate_stats.html -->
+		<!-- ENDIF -->
+		<tr>
+			<td class="cat">&nbsp;</td>
+		</tr>
+	</table>
+
+<!-- ENDIF -->
+
+</div>
+
+<!-- INCLUDE breadcrumbs.html -->
+
+<br clear="all" />
+
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,67 @@
+/* Paypal Donation
+---------------------------------------- */
+
+/* Progress bar */
+div.prog_grey {
+	background: url("images/donation/prog_grey.png") repeat-x;
+	background-color: #CCCCCC;
+	border: 1px solid #000000;
+	width: 100%;
+	margin-top: 2px;
+}
+
+div.prog_red {
+	background: url("images/donation/prog_red.png") repeat-x;
+	background-color: #FF0000;
+	color: #FFFFFF;
+	font-weight: bold;
+	max-width: 100%;
+	height: 24px;
+}
+
+div.prog_green {
+	background: url("images/donation/prog_green.png") repeat-x;
+	background-color: #008040;
+	color: #FFFFFF;
+	font-weight: bold;
+	max-width: 100%;
+	height: 24px;
+}
+
+span.progress {
+	padding-left: 25px;
+	font-size: 18px;
+}
+
+/* Text donation stats */
+p.donation_stats {
+	margin-top: 10px;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+/* form displaying */
+div.center {
+	text-align: center;
+}
+
+/* image loader */
+fieldset.loader {
+	display: none;
+}
+
+img.loader {
+	margin-bottom: -5px;
+	padding-right: 10px;
+	height: 16px;
+	width: 16px;
+}
+
+/* icon */
+.icon-donate {
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+	background-image: none;
+	padding: 1px 0 0 17px;
+	background-image: url("{T_THEME_PATH}/images/icon_donate.gif");
+}

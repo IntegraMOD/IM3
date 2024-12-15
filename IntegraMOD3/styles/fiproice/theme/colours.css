@@ -1050,3 +1050,114 @@ div.codeheader {
 input.disabled {
 	color: #666666;
 }
+
+.lightstyle  { display:none !important; }
+.darkstyle  { display:block; }
+
+/* nav menu */
+.menu  {
+	background: #2E3539;
+}
+
+
+.menu a  {
+	color: #FFFFFF;
+}
+
+
+.menu li a:hover  {
+	color: #43A6DF;
+	background: #494C4D;
+}
+
+
+.menu label:before  {
+	color: #FFFFFF;
+}
+
+
+.menu ul.sub-menus {
+	background: #6EB9F7;
+}
+
+
+.menu ul.sub-menus a  {
+	color: #444444;
+}
+
+
+.menu ul.sub-menus a:hover {
+	background: #5A5A5A;
+	color: #FFFFFF;
+}
+
+
+.activetab a  {
+	color: #2598DA !important;
+	background: #494C4D;}
+
+
+.uname  {
+	color: #DA2E2B !important;
+}
+
+	
+.badge  {
+	background-color: #06B0F3;
+	color: #ffffff;}
+
+
+.rb  { 
+    border-color:#DCE0D8;
+    background:#F5F1EE;
+}
+
+
+/* nav menu */
+.menu  {
+	background: #2E3539;
+}
+
+
+.menu a  {
+	color: #FFFFFF;
+}
+
+
+.menu a.dropdown-arrow:after  {
+	content: "\25BF";
+}
+
+
+.menu li a:hover  {
+	color: #43A6DF;
+	background: #494C4D;
+}
+
+
+.menu label:before  {
+	color: #FFFFFF;
+	content: "\2261"; 
+}
+
+
+.menu ul.sub-menus {
+	background: #E9E9EF;
+}
+
+
+.menu ul.sub-menus a  {
+	color: #444444;
+}
+
+
+.menu ul.sub-menus a:hover {
+	background: #5A5A5A;
+	color: #FFFFFF;
+}
+
+@media screen and (max-width: 800px) {
+	.menu ul  {background:#E9E9EF;}
+	.menu a, .menu input:checked + label  {color:#444444}
+	.menu input:checked + label:before  {content:"\00d7"}
+}

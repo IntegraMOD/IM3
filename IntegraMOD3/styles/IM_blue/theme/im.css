@@ -178,6 +178,16 @@ a.snbadge {
 .uname {
 	color: #DA2E2B !important;
 }
+
+li.donate {
+	position: relative;
+	float: right !important;
+}
+
+li.donater {
+	display: none;
+}
+
 .logo_bg {
   background-image: url("images/1.jpg");	
 	background-position: 100% 0;
@@ -246,7 +256,16 @@ p.wt a{
 	}
 }
 
+@media only screen and (max-width: 767px) {
+	.donater {
+		display: inline-block !important;
+		float: right !important;
+	}
 
+	li.donate {
+		display: none !important;
+	}
+}
 
 
 

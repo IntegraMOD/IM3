@@ -1,0 +1,45 @@
+<!-- IF DONATION_STATS_INDEX_ENABLE -->
+<br clear="all" />
+<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<td class="cat" colspan="2"><!-- IF U_DONATE --><h4><a href="{U_DONATE}">{L_DONATION_INDEX}</a></h4><!-- ELSE --><h4>{L_DONATION_INDEX}</h4><!-- ENDIF --></td>
+	</tr>
+<!-- ENDIF -->
+
+	<tr>
+		<td class="row1" width="100%">
+			<!-- IF S_GOAL_NUMBER -->
+			<div style="background:url('{T_IMAGES_PATH}donation/prog_grey.png') repeat-x; background-color: #cccccc; border: 1px solid black; width:100%; margin-top: 2px;">
+				<div style="background:url('{T_IMAGES_PATH}donation/prog_green.png') repeat-x;background-color: #008040; color: white; font-weight:bold; max-width:100%;  width:{DONATION_GOAL_NUMBER}%; height:24px;">
+					<span style="padding-left:25px; font-size:18px;">{DONATION_GOAL_NUMBER}%</span>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<p style="margin-top:10px; font-size:1.5em; text-align:center;">
+				<!-- IF DONATION_RAISED_ENABLE -->
+					{L_DONATION_RAISED}<!-- IF DONATION_USED_ENABLE --><br /><!-- ENDIF -->
+				<!-- ENDIF -->
+				<!-- IF DONATION_GOAL_ENABLE -->
+					{L_DONATION_GOAL}<br />
+				<!-- ENDIF -->
+
+			<!-- IF S_USED_NUMBER -->
+			</p>
+			<div style="background:url('{T_IMAGES_PATH}donation/prog_grey.png') repeat-x; background-color: #cccccc; border: 1px solid black; width:100%; margin-top: 2px;">
+				<div style="background:url('{T_IMAGES_PATH}donation/prog_red.png') repeat-x;background-color: #008040; color: white; font-weight:bold; max-width:100%;  width:{DONATION_USED_NUMBER}%; height:24px;">
+					<span style="padding-left:25px; font-size:18px;">{DONATION_USED_NUMBER}%</span>
+				</div>
+			</div>
+			<p style="margin-top:10px; font-size:1.5em; text-align:center;">
+			<!-- ENDIF -->
+
+			<!-- IF DONATION_USED_ENABLE -->
+				{L_DONATION_USED}
+			<!-- ENDIF -->
+			</p>
+		</td>
+	</tr>
+
+<!-- IF DONATION_STATS_INDEX_ENABLE -->
+</table>
+<!-- ENDIF -->

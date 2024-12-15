@@ -219,8 +219,7 @@ function notes() {
 							</span>
 						<!-- ENDIF --><!-- ENDIF -->
 						<!-- IF S_DISPLAY_PM --> &nbsp;<a href="{U_PRIVATEMSGS}"><img src="{T_THEME_PATH}/images/icon_mini_message.gif" width="12" height="13" alt="*" /> {PRIVATE_MESSAGE_INFO}<!-- IF PRIVATE_MESSAGE_INFO_UNREAD -->, {PRIVATE_MESSAGE_INFO_UNREAD}<!-- ENDIF --></a><!-- ENDIF -->
-
-						 &nbsp;<a href="{U_PERS_NOTES}"><img src="{T_THEME_PATH}/images/icon_mini_members.gif" width="12" height="13" alt="{L_PERS_NOTES}" /> {L_PERS_NOTES}</a>
+				        <!-- IF S_DONATE_ENABLED -->&nbsp; &nbsp;<a href="{U_DONATE}"><img src="{T_THEME_PATH}/images/icon_donate.gif" width="12" height="13" alt="*" /> {L_DONATEINDEX}</a><!-- ENDIF -->
 					<!-- ELSEIF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) --> &nbsp;<a href="{U_REGISTER}"><img src="{T_THEME_PATH}/images/icon_mini_register.gif" width="12" height="13" alt="*" /> {L_REGISTER}</a>
 					<!-- ENDIF -->
 						<!-- IF U_USER_FLAG_NEW --> &nbsp;<a href="{U_USER_FLAG_NEW}" style="color: red; font-weight: bold;">[ {L_USER_FLAG_NEW} ]</a><!-- ENDIF -->
@@ -243,6 +242,9 @@ function notes() {
 				<!-- IF S_SHOW_KB -->
 				<a href="{U_KB}" title="{L_KNOWLEDGE_BASE}" accesskey="k">{KB_IMG} {L_KNOWLEDGE_BASE}</a>&nbsp; &nbsp;
 				<!-- ENDIF -->
+				<!-- IF S_USER_LOGGED_IN -->
+				<a href="{U_PERS_NOTES}"><img src="{T_THEME_PATH}/images/icon_mini_members.gif" width="12" height="13" alt="{L_PERS_NOTES}" /> {L_PERS_NOTES}</a>&nbsp; &nbsp;
+			    <!-- ENDIF -->
 				<!-- IF S_SHOW_CAL -->
                 <a href="{U_CALENDAR}" title="{L_CALENDAR}">{CAL_IMG} {L_LANG_CALENDAR}</a>&nbsp; &nbsp;
 				<!-- ENDIF -->

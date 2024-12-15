@@ -334,6 +334,9 @@ if(!defined('LIKES_TABLE'))
 	define('AL_LIKE_STATE_READ',	2);
 }
 // ajaxlike
+//-- mod : Paypal Donation --------------------------------------------------------
+define('DONATION_ITEM_TABLE',			$table_prefix . 'donation_item');
+//-- end : Paypal Donation --------------------------------------------------------
 // Ultimate Points
 define('IN_ULTIMATE_POINTS', true);
 define('POINTS_BANK_TABLE',				$table_prefix . 'points_bank');

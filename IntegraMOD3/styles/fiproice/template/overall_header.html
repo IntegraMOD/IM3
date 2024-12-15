@@ -27,11 +27,16 @@
 <!-- ENDIF -->
 
 <!--
-	phpBB style name: prosilver
+	phpBB style name: fiproice
 	Based on style:   prosilver (this is the default phpBB3 style)
 	Original author:  Tom Beddard ( http://www.subBlue.com/ )
 	Modified by:
 -->
+
+<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
+<link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" onload="this.media='all'" />
+<!-- INCLUDE socialnet/overall_header_hook_css.html -->
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
 
 <script>
 // <![CDATA[
@@ -82,15 +87,11 @@ window.addEventListener('unload', () => {
 </script>
 <script src="{ROOT_PATH}assets/js/styleswitch.js"></script>
 <script src="{ROOT_PATH}assets/js/forum_fn.js"></script>
-<!-- INCLUDE socialnet/overall_header_hook_css.html -->
-<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
-<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
 
 <!-- Font Awesome 6.5.2  -->
 <!-- <link href="{ROOT_PATH}assets/css/all-custom.css" rel="stylesheet" type="text/css">  -->
 <script src="{ROOT_PATH}assets/js/all-custom.js"></script>
 
-<link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" />
 
 <!-- IF S_NEW_DL_POPUP -->
 <script>
@@ -146,7 +147,7 @@ function notes() {
 <!-- ajaxlike -->
 <script src="{ROOT_PATH}assets/js/jquery/jquery.tipsy.js"></script>
 <script src="{ROOT_PATH}assets/js/jquery/common.js"></script>
-	
+
 </head>
 
 <body id="phpbb" class="section-{SCRIPT_NAME} {S_CONTENT_DIRECTION} {BODY_CLASS}<!-- IF SN_MODULE_IM_ENABLED --> sn-im-page<!-- ENDIF -->">
@@ -196,22 +197,25 @@ function notes() {
 				<li class="icon-home"><a href="{U_INDEX}" accesskey="h">{L_INDEX}</a> <!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
 			    <!-- ENDIF -->
  				<li class="rightside">
-				    <a class="lightstyle" href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-inverse fa-lg"></i></a> 
-				    <a class="darkstyle" href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg"></i></a> 
+				    <a class="lightstyle" href="javascript:void(0)" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-inverse fa-lg"></i></a> 
+				    <a class="darkstyle" href="javascript:void(0)" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg"></i></a> 
 				</li>
 				<!-- IF STARGATE -->
-					<li class="rightside">
-						<!-- INCLUDE style_change_width.html -->
-						<!-- IF S_ARRANGE -->
-						<span style="display:inline;" id="OFF_">
-							&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" style="float:left" title="{L_ARRANGE_OFF}"><img src="{T_PORTAL_THEME_PATH}/images/save_changes.png" width="15" height="15" alt=" {L_ARRANGE_OFF}" title="{L_ARRANGE_OFF}" /></a>
-						</span>
-						<!-- ELSE -->
-						<span style="display:inline;" id="ON_">
-							&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_'); " style="float:left" title="{L_ARRANGE_ON}"><img src="{T_PORTAL_THEME_PATH}/images/arrange.png" width="15" height="15" alt=" {L_ARRANGE_ON}" title="{L_ARRANGE_ON}" /></a>
-						</span>
-						<!-- ENDIF -->
-					</li>
+				<li class="rightside">
+				<!-- INCLUDE style_change_width.html -->
+				<!-- IF S_ARRANGE -->
+				<span style="display:inline;" id="OFF_">
+					&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" style="float:left" title="{L_ARRANGE_OFF}"><img src="{T_PORTAL_THEME_PATH}/images/save_changes.png" width="15" height="15" alt=" {L_ARRANGE_OFF}" title="{L_ARRANGE_OFF}" /></a>
+				</span>
+				<!-- ELSE -->
+				<span style="display:inline;" id="ON_">
+					&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_'); " style="float:left" title="{L_ARRANGE_ON}"><img src="{T_PORTAL_THEME_PATH}/images/arrange.png" width="15" height="15" alt=" {L_ARRANGE_ON}" title="{L_ARRANGE_ON}" /></a>
+				</span>
+				<!-- ENDIF -->
+				</li>
+				<!-- ENDIF -->
+				<!-- IF S_DONATE_ENABLED -->
+				<li class="rightside"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-xl"></i></a></li>
 				<!-- ENDIF -->
 
 				<!-- IF U_EMAIL_TOPIC --><li class="rightside"><a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class="sendemail">{L_EMAIL_TOPIC}</a></li><!-- ENDIF -->

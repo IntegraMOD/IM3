@@ -20,9 +20,7 @@
 	  </ul>	
     </li>
 	<!-- ENDIF -->
-    <li><a class="dropdown-arrow
-<!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_MEETING or S_IN_BLOG --> activetab<!-- ENDIF -->
-" href="#">
+    <li><a class="dropdown-arrow <!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_MEETING or S_IN_BLOG --> activetab<!-- ENDIF -->" href="#">
 		<!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY -->{L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->			
 		<!-- IF S_IN_FAQ -->{L_FAQ}<!-- ENDIF -->
 		<!-- IF S_IN_KNOWLEDGE_BASE -->{L_KNOWLEDGE_BASE}<!-- ENDIF -->
@@ -101,13 +99,19 @@
       </ul>
     </li>
     <!-- ENDIF -->
-  	<li class="menu-item genarrow arrows right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
 
+  	<li class="menu-item genarrow arrows right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
 	<li class="style lightstyle"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-lg"></i></a></li>
     <li class="style darkstyle"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg" style="color: #747576;"></i></a></li> 
-
+	<!-- IF S_DONATE_ENABLED -->
+	<li class="menu-item donate"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-lg"></i></a></li>
+	<!-- ENDIF -->
   </ul>
-  <li class="genarrow sm-right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
-  <div class="sm-style lightstyle"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-lg"></i></a></div>
-  <div class="sm-style darkstyle"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg" style="color: #747576;"></i></a></div> 
+    <li class="genarrow sm-right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down fa-inverse"></i></a></li>
+    <div class="sm-style lightstyle"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-lg" ></i></a></div>
+    <div class="sm-style darkstyle"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg" style="color: #747576;"></i></a></div> 
+    <!-- IF S_DONATE_ENABLED -->
+    <li class="donater"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-inverse fa-lg"></i></a></li>
+    <!-- ENDIF -->
+	
 </nav>

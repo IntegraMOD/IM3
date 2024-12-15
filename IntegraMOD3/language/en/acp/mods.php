@@ -236,4 +236,3 @@ $lang = array_merge($lang, array(
 	'replace with'			=> 'Replace With',
 	'operation'				=> 'Increment',
 ));
-

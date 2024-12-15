@@ -2302,54 +2302,55 @@ class install_install extends module
 	*/
 	var $module_categories = array(
 		'acp'	=> array(
-			'ACP_CAT_GENERAL'		=> [
+			'ACP_CAT_GENERAL'		=> array(
 				'ACP_QUICK_ACCESS',
 				'ACP_BOARD_CONFIGURATION',
 				'ACP_CLIENT_COMMUNICATION',
 				'ACP_SERVER_CONFIGURATION',
-			],
-			'ACP_CAT_FORUMS'		=> [
+				'ACP_DIGEST_SETTINGS',
+			),
+			'ACP_CAT_FORUMS'		=> array(
 				'ACP_MANAGE_FORUMS',
 				'ACP_FORUM_BASED_PERMISSIONS',
-			],
-			'ACP_CAT_POSTING'		=> [
+			),
+			'ACP_CAT_POSTING'		=> array(
 				'ACP_MESSAGES',
 				'ACP_ABBCODES',
 				'ACP_AJAXLIKE_MOD_TITLE',
 				'ACP_ATTACHMENTS',
-			],
-			'ACP_CAT_USERGROUP'		=> [
+			),
+			'ACP_CAT_USERGROUP'		=> array(
 				'ACP_CAT_USERS',
 				'ACP_GROUPS',
 				'ACP_USER_SECURITY',
-			],
-			'ACP_CAT_PERMISSIONS'	=> [
+			),
+			'ACP_CAT_PERMISSIONS'	=> array(
 				'ACP_GLOBAL_PERMISSIONS',
 				'ACP_FORUM_BASED_PERMISSIONS',
 				'ACP_PERMISSION_ROLES',
 				'ACP_PERMISSION_MASKS',
-			],
-			'ACP_CAT_STYLES'		=> [
+			),
+			'ACP_CAT_STYLES'		=> array(
 				'ACP_STYLE_MANAGEMENT',
 				'ACP_STYLE_COMPONENTS',
-			],
-			'ACP_CAT_MAINTENANCE'	=> [
+			),
+			'ACP_CAT_MAINTENANCE'	=> array(
 				'ACP_FORUM_LOGS',
 				'ACP_CAT_DATABASE',
 				'ACP_CAT_FILES',
-			],
-			'ACP_CAT_SYSTEM'		=> [
+			),
+			'ACP_CAT_SYSTEM'		=> array(
 				'ACP_GENERAL_TASKS',
 				'ACP_MODULE_MANAGEMENT',
-			],
-			'ACP_CAT_PORTAL'		=> [
+			),
+			'ACP_CAT_PORTAL'		=> array(
 				'ACP_K_CONFIG',
 				'ACP_K_BLOCKS',
 				'ACP_K_MENUS',
 				'ACP_K_PAGES',
 				'ACP_K_VARS_AND_RESOURCES',
-			],
-			'ACP_CAT_IMOD'		 	=> [
+			),
+			'ACP_CAT_IMOD'		 	=> array(
 				'ACP_IMOD_CONFIG',
 //				'ACP_CAT_IMOD',
 				'ANTISPAM',
@@ -2364,10 +2365,30 @@ class install_install extends module
 				'ACP_PAGES',
 				'ACP_POINTS',
                 'ACP_BLOGS',
-			],
-			'ACP_CAT_SOCIALNET'		=> [],
+			),
+			'ACP_CAT_SOCIALNET'		=> array(
+                'ACP_SN_MAIN',
+				'ACP_SN_CONFIGURATION',
+				'ACP_SN_MODULES_CONFIGURATION',
+			),
 			'ACP_CAT_DOT_MODS'		=> null,
 		),
+		array('acp', 'ACP_DIGEST_SETTINGS', array(
+				'module_basename'   => 'board',
+				'module_langname'   => 'ACP_DIGEST_GENERAL_SETTINGS',
+				'module_mode'       => 'digest_general',
+				'module_auth'       => 'acl_a_board',
+			),
+		),
+		array('acp', 'ACP_DIGEST_SETTINGS', array(
+				'module_basename'   => 'board',
+				'module_langname'   => 'ACP_DIGEST_USER_DEFAULT_SETTINGS',
+				'module_mode'       => 'digest_user_defaults',
+				'module_auth'       => 'acl_a_board',
+			),
+			'ACP_CAT_DOT_MODS'		=> null,
+		),
+		
 		'mcp'	=> array(
 			'MCP_MAIN'		=> null,
 			'MCP_QUEUE'		=> null,
@@ -2379,6 +2400,7 @@ class install_install extends module
 			'ANTISPAM'		=> null,
 			'MCP_KB'		=> null,
 			'MCP_BLOG'		=> null,
+			'MCP_SOCIALNET'	=> null,
 		),
 		'ucp'	=> array(
 			'UCP_MAIN'			=> null,
@@ -2388,9 +2410,144 @@ class install_install extends module
 			'UCP_USERGROUPS'	=> null,
 			'UCP_ZEBRA'			=> null,
 			'UCP_GALLERY'		=> null,
+			'UCP_DIGESTS'		=> null,
 			'UCP_BLOG'		    => null,
 			'UCP_K_BLOCKS'		=> null,
+			'UCP_SOCIALNET'		=> null,
 		),
+
+			array('acp', 0, 'ACP_CAT_SOCIALNET'),
+			array('acp', 'ACP_CAT_SOCIALNET', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_MAIN',
+				'module_mode'		 => 'main',
+				'module_auth'		 => 'acl_a_sn_settings',
+			)),
+			array('acp', 'ACP_CAT_SOCIALNET', 'ACP_SN_CONFIGURATION'),
+			array('acp', 'ACP_SN_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_AVAILABLE_MODULES',
+				'module_mode'		 => 'sett_modules',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('acp', 'ACP_SN_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_CONFIRMBOX_SETTINGS',
+				'module_mode'		 => 'sett_confirmBox',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('acp', 'ACP_CAT_SOCIALNET', 'ACP_SN_MODULES_CONFIGURATION'),
+			array('acp', 'ACP_SN_MODULES_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_IM_SETTINGS',
+				'module_mode'		 => 'module_im',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('acp', 'ACP_SN_MODULES_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_USERSTATUS_SETTINGS',
+				'module_mode'		 => 'module_userstatus',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('acp', 'ACP_SN_MODULES_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_APPROVAL_SETTINGS',
+				'module_mode'		 => 'module_approval',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('acp', 'ACP_SN_MODULES_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_ACTIVITYPAGE_SETTINGS',
+				'module_mode'		 => 'module_activitypage',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('ucp', 0, 'UCP_SOCIALNET'),
+			array('ucp', 'UCP_SOCIALNET', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'UCP_ZEBRA_FRIENDS',
+				'module_mode'		 => 'module_approval_friends',
+				'module_auth'		 => ''
+			)),
+			array('ucp', 'UCP_SOCIALNET', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'UCP_SN_IM',
+				'module_mode'		 => 'module_im',
+				'module_auth'		 => '',
+			)),
+			array('ucp', 'UCP_SOCIALNET', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'UCP_SN_IM_HISTORY',
+				'module_mode'		 => 'module_im_history',
+				'module_auth'		 => '',
+			)),
+			array('acp', 'ACP_SN_MODULES_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_NOTIFY_SETTINGS',
+				'module_mode'		 => 'module_notify',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('acp', 'ACP_SN_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_BLOCKS_ENABLE',
+				'module_mode'		 => 'blocks_enable',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('acp', 'ACP_SN_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_BLOCKS_CONFIGURATION',
+				'module_mode'		 => 'blocks_config',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('ucp', 'UCP_SOCIALNET', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'UCP_SN_APPROVAL_UFG',
+				'module_mode'		 => 'module_approval_ufg',
+				'module_auth'		 => ''
+			)),
+			array('ucp', 'UCP_SOCIALNET', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'UCP_SN_PROFILE',
+				'module_mode'		 => 'module_profile',
+				'module_auth'		 => ''
+			)),
+			array('ucp', 'UCP_SOCIALNET', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'UCP_SN_PROFILE_RELATIONS',
+				'module_mode'		 => 'module_profile_relations',
+				'module_auth'		 => '',
+			)),
+			array('ucp', 'UCP_PROFILE', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'UCP_SN_PROFILE',
+				'module_mode'		 => 'module_profile',
+				'module_auth'		 => ''
+			)),
+			array('ucp', 'UCP_PROFILE', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'UCP_SN_PROFILE_RELATIONS',
+				'module_mode'		 => 'module_profile_relations',
+				'module_auth'		 => '',
+			)),
+			array('acp', 'ACP_SN_MODULES_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_PROFILE_SETTINGS',
+				'module_mode'		 => 'module_profile',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+			array('mcp', 0, 'MCP_SOCIALNET'),
+			array('mcp', 'MCP_SOCIALNET', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'MCP_SN_REPORTUSER',
+				'module_mode'		 => 'module_reportuser',
+				'module_auth'		 => 'acl_m_sn_close_reports'
+			)),
+			array('acp', 'ACP_SN_CONFIGURATION', array(
+				'module_basename'	 => 'socialnet',
+				'module_langname'	 => 'ACP_SN_ADDONS_HOOK_CONFIGURATION',
+				'module_mode'		 => 'addons',
+				'module_auth'		 => 'acl_a_sn_settings'
+			)),
+
 	);
 
 	var $module_extras = array(
@@ -2410,9 +2567,8 @@ class install_install extends module
 				'ACP_USERS_FORUM_PERMISSIONS',
 				'ACP_GROUPS_FORUM_PERMISSIONS',
 			),
-
 		),
-	);	
+	);
 }
 
 // require_once($phpbb_root_path . 'install/'replace_modules. $phpEx);

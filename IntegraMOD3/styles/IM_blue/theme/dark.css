@@ -1149,7 +1149,7 @@ input.disabled {
 .menu ul.sub-menus a:hover{
 	background: #494C4D;
 	color: #3E9ACF;
-	border: solid 1px #000 #fff;
+	border: solid 1px #000;
 }
 @media screen and (max-width: 800px){
 	.menu ul {background:#494C4D;}

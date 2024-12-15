@@ -936,10 +936,17 @@ $lang = array_merge($lang, array(
 
 $lang = array_merge($lang, array(
 	// ajaxlike
-	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',	// header link message
-	'AL_LIKE_NEW_TITLE'				    => 'List of new likes',				// notification dialog title
-    'AL_LIKE_INFO'					    => 'Likes your&nbsp;',				// userX `likes your` post
-	'AL_LIKE_SELF'				        => 'View your post',
-	'AL_NO_LIKE_RECEIVED'				=> 'No like received yet.',
+	'AL_LIKE_NEW'					    => '&nbsp;отримано нових лайків',	// header link message
+	'AL_LIKE_NEW_TITLE'				    => 'Список нових лайків',				// notification dialog title
+    'AL_LIKE_INFO'					    => 'лайкає ваш&nbsp;',				// userX `likes your` post
+	'AL_LIKE_SELF'				        => 'Перегляньте свою публікацію',
+	'AL_NO_LIKE_RECEIVED'				=> 'Поки що не отримано лайків.',
 	// ajaxlike
 ));
+
+//-- mod : Paypal Donation --------------------------------------------------------
+$lang = array_merge($lang, array(
+	'DONATEINDEX'				=> 'Пожертвуйте',
+	'VIEWING_DONATE'			=> 'Перегляд сторінки пожертв',
+));
+//-- end : Paypal Donation --------------------------------------------------------

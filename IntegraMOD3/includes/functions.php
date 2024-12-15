@@ -5280,7 +5280,14 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 
 		'A_COOKIE_SETTINGS'		=> addslashes('; path=' . $config['cookie_path'] . ((!$config['cookie_domain'] || $config['cookie_domain'] == 'localhost' || $config['cookie_domain'] == '127.0.0.1') ? '' : '; domain=' . $config['cookie_domain']) . ((!$config['cookie_secure']) ? '' : '; secure')),
 	));
-	// Stargate Portal Start
+//-- mod : Paypal Donation --------------------------------------------------------
+//-- add
+	$template->assign_vars(array(
+		'U_DONATE'			=> $auth->acl_get('u_pdm_use') ? append_sid("{$phpbb_root_path}donate.$phpEx") : '',
+		'S_DONATE_ENABLED'	=> $auth->acl_get('u_pdm_use'),
+	));
+//-- end : Paypal Donation --------------------------------------------------------
+// Stargate Portal Start
 	if (STARGATE)
 	{
 		global $user, $queries, $cached_queries, $total_queries;

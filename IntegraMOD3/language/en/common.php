@@ -985,3 +985,10 @@ $lang = array_merge($lang, array(
 	'AL_NO_LIKE_RECEIVED'				=> 'No like received yet.',
 	// ajaxlike
 ));
+
+//-- mod : Paypal Donation --------------------------------------------------------
+$lang = array_merge($lang, array(
+	'DONATEINDEX'				=> 'Donate',
+	'VIEWING_DONATE'			=> 'Viewing Donation page',
+));
+//-- end : Paypal Donation --------------------------------------------------------

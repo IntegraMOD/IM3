@@ -201,20 +201,22 @@ function notes() {
 				    <a class="darkstyle" href="javascript:void(0)" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg"></i></a> 
 				</li>
 				<!-- IF STARGATE -->
-					<li class="rightside">
-						<!-- INCLUDE style_change_width.html -->
-						<!-- IF S_ARRANGE -->
-						<span style="display:inline;" id="OFF_">
-							&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" style="float:left" title="{L_ARRANGE_OFF}"><img src="{T_PORTAL_THEME_PATH}/images/save_changes.png" width="15" height="15" alt=" {L_ARRANGE_OFF}" title="{L_ARRANGE_OFF}" /></a>
-						</span>
-						<!-- ELSE -->
-						<span style="display:inline;" id="ON_">
-							&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_'); " style="float:left" title="{L_ARRANGE_ON}"><img src="{T_PORTAL_THEME_PATH}/images/arrange.png" width="15" height="15" alt=" {L_ARRANGE_ON}" title="{L_ARRANGE_ON}" /></a>
-						</span>
-						<!-- ENDIF -->
-					</li>
+				<li class="rightside">
+				<!-- INCLUDE style_change_width.html -->
+				<!-- IF S_ARRANGE -->
+				<span style="display:inline;" id="OFF_">
+					&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" style="float:left" title="{L_ARRANGE_OFF}"><img src="{T_PORTAL_THEME_PATH}/images/save_changes.png" width="15" height="15" alt=" {L_ARRANGE_OFF}" title="{L_ARRANGE_OFF}" /></a>
+				</span>
+				<!-- ELSE -->
+				<span style="display:inline;" id="ON_">
+					&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_'); " style="float:left" title="{L_ARRANGE_ON}"><img src="{T_PORTAL_THEME_PATH}/images/arrange.png" width="15" height="15" alt=" {L_ARRANGE_ON}" title="{L_ARRANGE_ON}" /></a>
+				</span>
 				<!-- ENDIF -->
-
+				</li>
+				<!-- ENDIF -->
+				<!-- IF S_DONATE_ENABLED -->
+				<li class="rightside"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-xl"></i></a></li>
+				<!-- ENDIF -->
 				<!-- IF U_EMAIL_TOPIC --><li class="rightside"><a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class="sendemail">{L_EMAIL_TOPIC}</a></li><!-- ENDIF -->
 				<!-- IF U_EMAIL_PM --><li class="rightside"><a href="{U_EMAIL_PM}" title="{L_EMAIL_PM}" class="sendemail">{L_EMAIL_PM}</a></li><!-- ENDIF -->
 				<!-- IF U_PRINT_TOPIC --><li class="rightside"><a href="{U_PRINT_TOPIC}" title="{L_PRINT_TOPIC}" accesskey="p" class="print">{L_PRINT_TOPIC}</a></li><!-- ENDIF -->
@@ -280,6 +282,9 @@ function notes() {
 				<li style="--delay: 6;"><a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><i class="fa-solid fa-thumbs-up fa-lg"></i><span id="ajaxlike_not_new"><strong> {AL_NEW_LIKE}</strong>{L_AL_LIKE_NEW}</span></a></li>
 				<!-- ENDIF -->
 				<li style="--delay: 7;"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a></li>
+                <!-- IF U_ACP -->
+				<li style="--delay: 8;"><a href="{U_ACP}"><i class="fa-solid fa-gears fa-lg"></i> {L_ACP}</a></li>
+				<!-- ENDIF -->
 			</ul>
 			</div>
 			<!-- ENDIF -->

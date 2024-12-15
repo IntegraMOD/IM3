@@ -63,7 +63,7 @@
 			<option value="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><i class="fa-solid fa-message"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</option>
 			<!-- ENDIF -->
 		    <!-- BEGIN blog_links -->
-			<option value="{blog_links.URL}"><i class="fa-solid fa-book-open-reader fa-lg"></i> {blog_links.TEXT}</a></option>
+			<option value="{blog_links.URL}"><i class="fa-solid fa-book-open-reader fa-lg"></i> {blog_links.TEXT}</option>
 			<!-- END blog_links -->
 		  <!-- ENDIF -->
 		</select>
@@ -92,6 +92,9 @@
   	<li class="menu-item genarrow arrows right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
 	<li class="style lightstyle"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-lg"></i></a></li>
     <li class="style darkstyle"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg" style="color: #747576;"></i></a></li> 
+	<!-- IF S_DONATE_ENABLED -->
+	<li class="menu-item donate"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-lg"></i></a></li>
+	<!-- ENDIF -->
 	<!-- IF S_USER_LOGGED_IN and not S_IS_BOT -->
     <li class="<!-- IF S_IN_UCP or S_IS_PROFILE_PAGE  -->activetab_<!-- ENDIF --> rightside space"><a class="dropdown-arrow username uname" href="{U_USER_PROFILE}">&nbsp;{S_USERNAME}&nbsp;</a>
       <ul class="sub-menus">
@@ -110,8 +113,12 @@
     </li>
     <!-- ENDIF -->
   </ul>
-  <li class="genarrow sm-right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
-  <div class="sm-style lightstyle"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-lg"></i></a></div>
-  <div class="sm-style darkstyle"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg" style="color: #747576;"></i></a></div> 
+    <li class="genarrow sm-right-arrow"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
+
+    <div class="sm-style lightstyle"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-lg"></i></a></div>
+    <div class="sm-style darkstyle"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg" style="color: #747576;"></i></a></div> 
+  	<!-- IF S_DONATE_ENABLED -->
+	<li class="donater"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-lg"></i></a></li>
+	<!-- ENDIF -->
 </nav>
 

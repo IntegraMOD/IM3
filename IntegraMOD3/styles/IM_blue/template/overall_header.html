@@ -129,23 +129,23 @@ window.addEventListener('unload', () => {
 
 <script>
 // <![CDATA[
-	jQuery.noConflict();
-	jQuery(document).ready(function()
-		jQuery(".toggleMenuButton").click(function () {
-			jQuery(".tabs").slideToggle("fast");
-			jQuery(".toggleMenuButton").toggleClass("active");
-		})
-
-		jQuery(window).resize(function() {
-		    //small-screen
-		    if (window.innerWidth < 767) {
-		        jQuery(".tabs").css('display', '');
-			    jQuery('.toggleMenuButton').removeClass('active');
-		    }
-		        //end small-screen
-		}) .resize(); // trigger resize event
-
-	});
+    jQuery.noConflict();
+    jQuery(document).ready(function() {
+        jQuery(".toggleMenuButton").click(function () {
+            jQuery(".tabs").slideToggle("fast");
+            jQuery(".toggleMenuButton").toggleClass("active");
+        });
+ 
+        jQuery(window).resize(function() {
+            //small-screen
+            if (window.innerWidth < 767) {
+                jQuery(".tabs").css('display', '');
+                jQuery('.toggleMenuButton').removeClass('active');
+            }
+                //end small-screen
+        }).resize(); // trigger resize event
+ 
+    });
 // ]]>
 </script>
 

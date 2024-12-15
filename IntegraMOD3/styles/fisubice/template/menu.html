@@ -17,7 +17,9 @@
 	<!-- ENDIF --><!-- ENDIF --> 
     &bull;<li><a class="dropdown-arrow" href="http://">{L_LINKS}</a>
       <ul class="sub-menus">
-        <li><a href="{U_FAQ}">{L_FAQ}</a></li>
+		<!-- IF S_SHOW_FAQ -->
+        <li><a href="{U_FAQ}" title="{L_FAQ_EXPLAIN}">{L_FAQ}</a></li>
+		<!-- ENDIF -->
         <li><a href="{U_KB}" title="{L_KB_EXPLAIN}">{L_KNOWLEDGE_BASE}</a></li>
 	  <!-- IF not S_IS_BOT -->
 		<!-- IF S_DISPLAY_MEMBERLIST -->
@@ -84,6 +86,9 @@
         <!-- ENDIF --><!-- ENDIF -->
         <li><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a></li>		
       </ul>
+	<!-- IF S_DONATE_ENABLED -->
+	<li><a href="{U_DONATE}" title="{DONATEINDEX}">&bull;&nbsp; {L_DONATEINDEX}</a></li>
+	<!-- ENDIF -->
     </li>
     <!-- ENDIF --><!-- ENDIF -->
   	<div class="genarrow" style="float: {S_CONTENT_FLOW_END};"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></div>

@@ -170,6 +170,14 @@ a.snbadge {
 	display: none;
 }
 
+li.donate {
+	float: right !important;
+}
+
+li.donater {
+	display: none;
+}
+
 .logo_bg {
   background-image: url("images/1.jpg");	
 	background-position: 100% 0;
@@ -236,11 +244,19 @@ p.wt a{
 		width: 23%;
 		margin: .5em;
 	}
+
 }
 
+@media only screen and (max-width: 767px) {
+	.donater {
+		display: inline-block !important;
+		float: right !important;
+	}
 
-
-
+	li.donate {
+		display: none !important;
+	}
+}
 
 
 

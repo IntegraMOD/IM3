@@ -1,0 +1,64 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- IF MODE eq 'success' or MODE eq 'cancel' -->
+	<h2>{SITENAME} :: {L_DONATION_TITLE}</h2>
+	<!-- IF DONATION_BODY -->
+	<div class="panel">
+		<div class="inner"><span class="corners-top"><span></span></span>
+			{DONATION_BODY}
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+	<!-- ENDIF -->
+<!-- ELSE -->
+
+	<!-- IF S_SANDBOX -->
+		<h2>{L_SANDBOX_TITLE}</h2>
+	<!-- ELSE -->
+		<h2>{L_DONATION_TITLE_HEAD} {SITENAME}</h2>
+	<!-- ENDIF -->
+
+	<!-- IF DONATION_BODY -->
+	<div class="panel">
+		<div class="inner"><span class="corners-top"><span></span></span>
+			{DONATION_BODY}
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+	<!-- ENDIF -->
+
+	<div class="panel">
+		<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="center">
+			<form action="{S_DONATE_FORMS}" method="post">
+				<div>
+					<p><br /></p>
+					<!-- IF S_DONATION_DROPBOX -->
+					<select name="amount" id="amount">{LIST_DONATION_VALUE}</select>
+					<!-- ELSE -->
+					<input type="text" name="amount" class="inputbox autowidth" value="{DONATION_DEFAULT_VALUE}"/>
+					<!-- ENDIF -->
+					<select name="currency_code" id="currency_code">{LIST_DONATION_CURRENCY}</select>
+				</div>
+				<p><br /></p>
+				<fieldset id="contactpaypal" class="submit-buttons">
+					{S_HIDDEN_FIELDS}
+					<input type="image" src="{T_IMAGESET_LANG_PATH}/donate.gif" alt="{L_IMG_DONATE}" name="submit" onclick="JavaScript:document.getElementById('contactpaypal').style.display='none';document.getElementById('processingpaypal').style.display='block';" />
+				</fieldset>
+				<p><br /></p>
+				<fieldset id="processingpaypal" class="loader submit-buttons">
+					<img class="loader" src="{T_IMAGES_PATH}donation/loader.gif" alt="{L_IMG_LOADER}" /> <input type="submit" class="button1" name="submit" value="{L_DONATION_CONTACT_PAYPAL}" />
+				</fieldset>
+			</form>
+		</div>
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<!-- IF DONATION_GOAL_ENABLE or DONATION_RAISED_ENABLE or DONATION_USED_ENABLE -->
+	<div class="panel">
+		<div class="inner"><span class="corners-top"><span></span></span>
+			<!-- INCLUDE donate/donate_stats.html -->
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+	<!-- ENDIF -->
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

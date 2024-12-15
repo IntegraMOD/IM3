@@ -25,6 +25,10 @@
 
 <!-- INCLUDE breadcrumbs.html -->
 
+<!-- IF DONATION_STATS_INDEX_ENABLE and (DONATION_RAISED_ENABLE or DONATION_GOAL_ENABLE or DONATION_USED_ENABLE) -->
+	<!-- INCLUDE donate/donate_stats.html -->
+<!-- ENDIF -->
+
 	<table class="legend">
 		<tr>
 			<td width="20" align="center">{FORUM_UNREAD_IMG}</td>
