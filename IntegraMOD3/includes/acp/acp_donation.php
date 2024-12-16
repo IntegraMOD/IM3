@@ -147,7 +147,7 @@ class acp_donation
 					}
 				}
 
-				$donation_install_date = $user->format_date($config['donation_install_date']);
+				$donation_install_date = $user->format_date((int)$config['donation_install_date']);
 
 				$template->assign_vars(array(
 					'DONATION_INSTALL_DATE'		=> $donation_install_date,

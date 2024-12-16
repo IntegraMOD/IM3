@@ -346,8 +346,10 @@ class acp_ads
 							'AD_CLICK_LIMIT'	=> (($action == 'edit' || $action == 'copy') && !$submit) ? $ad_data['ad_click_limit'] : request_var('ad_click_limit', 0),
 							'AD_CLICKS'			=> (($action == 'edit' || $action == 'copy') && !$submit) ? $ad_data['ad_clicks'] : request_var('ad_clicks', 0),
 							'AD_PRIORITY'		=> (($action == 'edit' || $action == 'copy') && !$submit) ? $ad_data['ad_priority'] : request_var('ad_priority', 5),
-							'AD_ENABLED'		=> (($action == 'edit' || $action == 'copy') && !$submit) ? $ad_data['ad_enabled'] : ((!$submit && $action == 'add') || isset($_POST['ad_enabled'])) ? true : false,
-							'ALL_FORUMS'		=> (($action == 'edit' || $action == 'copy') && !$submit) ? $ad_data['all_forums'] : ((!$submit && $action == 'add') || isset($_POST['all_forums'])) ? true : false,
+	                        'AD_ENABLED'        => ($action == 'edit' || $action == 'copy') ? $ad_data['ad_enabled'] : ($submit ? (isset($_POST['ad_enabled']) ? true : false) : ($action == 'add' ? true : false)),
+//							'AD_ENABLED'		=> (($action == 'edit' || $action == 'copy') && !$submit) ? $ad_data['ad_enabled'] : ((!$submit && $action == 'add') || isset($_POST['ad_enabled'])) ? true : false,
+	                        'ALL_FORUMS'        => ($action == 'edit' || $action == 'copy') ? $ad_data['all_forums'] : ($submit ? (isset($_POST['all_forums']) ? true : false) : ($action == 'add' ? true : false)),
+//							'ALL_FORUMS'		=> (($action == 'edit' || $action == 'copy') && !$submit) ? $ad_data['all_forums'] : ((!$submit && $action == 'add') || isset($_POST['all_forums'])) ? true : false,
 							'AD_OWNER'			=> $ad_owner,
 
 							'U_ACTION'			=> $this->u_action . '&amp;a=' . $ad_id . '&amp;action=' . $action,

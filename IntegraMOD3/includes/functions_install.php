@@ -59,7 +59,7 @@ function get_available_dbms($dbms = false, $return_unavailable = false, $only_20
 		// Keep mysqli before mysql in this list.
 		'mysqli'	=> array(
 			'LABEL'			=> 'MySQL with MySQLi Extension',
-			'SCHEMA'		=> 'mysql_41',
+			'SCHEMA'		=> 'mysql_80',
 			'MODULE'		=> 'mysqli',
 			'DELIM'			=> ';',
 			'COMMENTS'		=> 'remove_remarks',

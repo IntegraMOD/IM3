@@ -2165,63 +2165,63 @@ function handle_topic_event_delete($forum_id, $topic_id, &$post_data)
     global $phpbb_root_path, $phpEx;
 
 
-    if ((($auth->acl_get('m_edit_event') || $auth->acl_get('a_edit_event')) && $post_data['topic_poster'] != $user->data['user_id'] ) || ($auth->acl_get('u_delete_event') && $post_data['topic_poster'] == $user->data['user_id']))
-    {
-        $s_hidden_fields = build_hidden_fields(array(
-            't'        => $topic_id,
-            'f'        => $forum_id,
-            'mode'    => 'delete_event')
-        );
-
-        if (confirm_box(true))
-        {
-            $data = array(
-                'topic_calendar_time'       => null,
-                'topic_calendar_duration'   => null,
-                'event_repeat'              => null,
+	if ((($auth->acl_get('m_edit_event') || $auth->acl_get('a_edit_event')) && $post_data['topic_poster'] != $user->data['user_id'] ) || ($auth->acl_get('u_delete_event') && $post_data['topic_poster'] == $user->data['user_id']))
+	{
+	    $s_hidden_fields = build_hidden_fields(array(
+	        't'        => $topic_id,
+	        'f'        => $forum_id,
+	        'mode'    => 'delete_event')
+	    );
+	 
+	    if (confirm_box(true))
+	    {
+	        $data = array(
+                'topic_calendar_time'       => NULL,
+                'topic_calendar_duration'   => NULL,
+                'event_repeat'              => NULL,
                 'invite_attendees'          => 0,
-                'event_attendees'           => '',
-                'event_non_attendees'       => '',
-            );
-            // Whether it is single or repeat event, we need to remove event details from topic table
-            $sql = 'UPDATE ' . TOPICS_TABLE . '
-                SET ' . $db->sql_build_array('UPDATE', $data) . '
-                WHERE topic_id = ' . $topic_id;
-            $db->sql_query($sql);
-
+	            'event_attendees'           => '',
+	            'event_non_attendees'       => '',
+	        );
+	        // Whether it is single or repeat event, we need to remove event details from topic table
+	        $sql = 'UPDATE ' . TOPICS_TABLE . '
+	            SET ' . $db->sql_build_array('UPDATE', $data) . '
+	            WHERE topic_id = ' . (int)$topic_id;
+	        $db->sql_query($sql);
+	 
             $meta_info = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id");
-
-            if (empty($post_data['event_repeat']))
-            {
-                // This is a single event, so our work is done. Log it and let the user know
-                add_log('mod', $forum_id, $topic_id, 'LOG_DELETED_TOPIC_EVENT', $post_data['topic_title']);
-                $message = $user->lang['CALENDAR_EVENT_DELETED'] . '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_info . '">', '</a>');
-            }
-            else
-            {
-                // This is a repeat event, so we also need to delete it from the calendar repeat events table
-                $sql = 'DELETE FROM ' . CALENDAR_REPEATS_TABLE . "
-                    WHERE repeat_id = 't$topic_id'";
-                $db->sql_query($sql);
-                add_log('mod', $forum_id, $topic_id, 'LOG_DELETED_TOPIC_EVENTS', $post_data['topic_title']);
-                $message = $user->lang['CALENDAR_EVENTS_DELETED'] . '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_info . '">', '</a>');
-            }
-            meta_refresh(3, $meta_info);
+	 
+	        if (empty($post_data['event_repeat']))
+	        {
+	            // This is a single event, so our work is done. Log it and let the user know
+	            add_log('mod', $forum_id, $topic_id, 'LOG_DELETED_TOPIC_EVENT', $post_data['topic_title']);
+	            $message = $user->lang['CALENDAR_EVENT_DELETED'] . '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_info . '">', '</a>');
+	        }
+	        else
+	        {
+	            // This is a repeat event, so we also need to delete it from the calendar repeat events table
+	            $sql = 'DELETE FROM ' . CALENDAR_REPEATS_TABLE . "
+	                WHERE repeat_id = 't" . (int)$topic_id . "'";
+	            $db->sql_query($sql);
+	            add_log('mod', $forum_id, $topic_id, 'LOG_DELETED_TOPIC_EVENTS', $post_data['topic_title']);
+	            $message = $user->lang['CALENDAR_EVENTS_DELETED'] . '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_info . '">', '</a>');
+	        }
+	        meta_refresh(3, $meta_info);
             $message .= '<br /><br />' . sprintf($user->lang['RETURN_FORUM'], '<a href="' . append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id) . '">', '</a>');
-            trigger_error($message);
-        }
-        else
-        {
-            if (!empty($post_data['event_repeat']))
-            {
-                confirm_box(false, 'DELETE_MULTIPLE_T_EVENTS', $s_hidden_fields);
-            }
-            else
-            {
-                confirm_box(false, 'DELETE_SINGLE_T_EVENT', $s_hidden_fields);
-            }
-        }
-    }
+	        trigger_error($message);
+	    }
+	    else
+	    {
+	        if (!empty($post_data['event_repeat']))
+	        {
+	            confirm_box(false, 'DELETE_MULTIPLE_T_EVENTS', $s_hidden_fields);
+	        }
+	        else
+	        {
+	            confirm_box(false, 'DELETE_SINGLE_T_EVENT', $s_hidden_fields);
+	        }
+	    }
+	}
 
     // We get here if user is unable to delete the event. present the correct error message
 }
