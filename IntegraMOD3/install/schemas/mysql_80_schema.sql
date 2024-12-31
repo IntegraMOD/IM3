@@ -3024,6 +3024,7 @@ CREATE TABLE phpbb_users (
 	user_lastrefresh int DEFAULT '0' NOT NULL,
 	show_likes tinyint UNSIGNED DEFAULT '1' NOT NULL,
 	blog_count mediumint UNSIGNED DEFAULT '0' NOT NULL,
+	user_fcm_token varchar(255) DEFAULT NULL,
 	PRIMARY KEY (user_id),
 	KEY user_birthday (user_birthday),
 	KEY user_email_hash (user_email_hash),
