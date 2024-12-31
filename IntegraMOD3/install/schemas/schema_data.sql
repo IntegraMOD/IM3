@@ -354,6 +354,21 @@ INSERT INTO phpbb_config VALUES('dl_use_ext_blacklist', '1', 0);
 INSERT INTO phpbb_config VALUES('dl_use_hacklist', '1', 0);
 INSERT INTO phpbb_config VALUES('dl_user_dl_auto_traffic', '0', 0);
 INSERT INTO phpbb_config VALUES('dl_user_traffic_once', '0', 0);
+INSERT INTO phpbb_config VALUES('donation_account_id', '', 0);
+INSERT INTO phpbb_config VALUES('donation_default_currency', '4', 0);
+INSERT INTO phpbb_config VALUES('donation_default_value', '10', 0);
+INSERT INTO phpbb_config VALUES('donation_dropbox_enable', '1', 0);
+INSERT INTO phpbb_config VALUES('donation_dropbox_value', '1,2,3,4,5,10,20,25,50,100', 0);
+INSERT INTO phpbb_config VALUES('donation_enable', '1', 0);
+INSERT INTO phpbb_config VALUES('donation_goal', '1000000', 0);
+INSERT INTO phpbb_config VALUES('donation_goal_enable', '1', 0);
+INSERT INTO phpbb_config VALUES('donation_install_date', '', 0);
+INSERT INTO phpbb_config VALUES('donation_mod_version', '1.0.4', 0);
+INSERT INTO phpbb_config VALUES('donation_raised', '1', 0);
+INSERT INTO phpbb_config VALUES('donation_raised_enable', '1', 0);
+INSERT INTO phpbb_config VALUES('donation_stats_index_enable', '1', 0);
+INSERT INTO phpbb_config VALUES('donation_used', '0', 0);
+INSERT INTO phpbb_config VALUES('donation_used_enable', '0', 0);
 INSERT INTO phpbb_config VALUES('edit_time', '0', 0);
 INSERT INTO phpbb_config VALUES('email_check_mx', '1', 0);
 INSERT INTO phpbb_config VALUES('email_enable', '1', 0);
@@ -514,6 +529,9 @@ INSERT INTO phpbb_config VALUES('num_posts', '-1', 1);
 INSERT INTO phpbb_config VALUES('num_topics', '-1', 1);
 INSERT INTO phpbb_config VALUES('num_users', '1', 1);
 INSERT INTO phpbb_config VALUES('override_user_style', '0', 0);
+INSERT INTO phpbb_config VALUES('paypal_sandbox_address', '', 0);
+INSERT INTO phpbb_config VALUES('paypal_sandbox_enable', '0', 0);
+INSERT INTO phpbb_config VALUES('paypal_sandbox_founder_enable', '0', 0);
 INSERT INTO phpbb_config VALUES('pass_complex', 'PASS_TYPE_ANY', 0);
 INSERT INTO phpbb_config VALUES('phpbb_gallery_album_columns', '3', 0);
 INSERT INTO phpbb_config VALUES('phpbb_gallery_album_display', '254', 0);
@@ -826,6 +844,7 @@ INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_restore', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_search', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_events', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_cron', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_k_portal');
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_k_tools', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_calendar_manage', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_edit_event', 1);
@@ -885,6 +904,7 @@ INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_ajaxlike_mod',
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_blogmanage', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_blogdelete', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_blogreplydelete', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_pdm_manage', 1);
 
 # -- User related auth options
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_', 1);
@@ -988,6 +1008,7 @@ INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_vote_chan
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_create_poll', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_style', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_blog_css', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_pdm_use', 1);
 
 
 
