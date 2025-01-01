@@ -24,9 +24,10 @@ include($phpbb_root_path . 'includes/message_parser.' . $phpEx);
 $user->session_begin();
 $auth->acl($user->data);
 
+// Stu's event calendar
 //---BEGIN CALENDAR MOD---
 $user->add_lang('mods/calendar');
-// Note this file is included after user->setup(), to ensure that some globals in functions_calendar.php can
+// Note this file is included after user->setup(), to ensure that some globals in functions_calendar.php can find the $user->lang array
 // find the $user->lang array
 include($phpbb_root_path . 'includes/functions_calendar.'.$phpEx);
 //---END CALENDAR MOD---
@@ -49,11 +50,12 @@ $cancel		= (isset($_POST['cancel']) && !isset($_POST['save'])) ? true : false;
 $refresh	= (isset($_POST['add_file']) || isset($_POST['delete_file']) || isset($_POST['full_editor']) || isset($_POST['cancel_unglobalise']) || $save || $load) ? true : false;
 $mode		= ($delete && !$preview && !$refresh && $submit) ? 'delete' : request_var('mode', '');
 
+// Stu's event calendar
 //---BEGIN CALENDAR MOD---
 $delete_event = (isset($_POST['delete_event'])) ? true : false;
-if ($delete_event)
+if($delete_event)
 {
-    $mode = 'delete_event';
+	$mode = 'delete_event';
 }
 //---END CALENDAR MOD---
 
@@ -77,9 +79,9 @@ if (in_array($mode, array('post', 'reply', 'quote', 'edit', 'delete')) && !$foru
 switch ($mode)
 {
 	case 'post':
-		$sql = 'SELECT *
-			FROM ' . FORUMS_TABLE . "
-			WHERE forum_id = $forum_id";
+	    $sql = 'SELECT f.*
+	        FROM ' . FORUMS_TABLE . ' f
+	        WHERE f.forum_id = ' . (int)$forum_id;
 	break;
 
 	case 'bump':
@@ -109,10 +111,11 @@ switch ($mode)
 
 	case 'quote':
 	case 'edit':
-	case 'delete':
+// Stu's event calendar
 //---BEGIN CALENDAR MOD---
-    case 'delete_event':
+	case 'delete_event':
 //---END CALENDAR MOD---
+	case 'delete':
 		if (!$post_id)
 		{
 			$user->setup('posting');
@@ -138,13 +141,22 @@ switch ($mode)
 					OR f.forum_id = $forum_id)" .
 				(($auth->acl_get('m_approve', $forum_id)) ? '' : 'AND p.post_approved = 1');
 	break;
-//-- mod : Who posted ------------------------------------------------------------
-//-- add
+
 	case 'who_posted':
-		include($phpbb_root_path . 'includes/functions_who_posted.' . $phpEx);
-		who_posted($topic_id);
-	break;
-//-- fin mod : Who posted --------------------------------------------------------
+	        $functions_file = $phpbb_root_path . 'includes/functions_who_posted.' . $phpEx;
+	        if (file_exists($functions_file)) {
+	            include($functions_file);
+	            if (function_exists('who_posted')) {
+	                who_posted($topic_id);
+	            } else {
+	                // Handle case where function doesn't exist
+	                trigger_error('Function who_posted() not found', E_USER_WARNING);
+	            }
+	        } else {
+	            // Handle case where file doesn't exist
+	            trigger_error('Required file not found: ' . $functions_file, E_USER_WARNING);
+	        }
+	    break;
 
 	case 'smilies':
 		$sql = '';
@@ -202,8 +214,8 @@ if ($mode == 'popup')
 	return;
 }
 
+// Stu's event calendar
 //$user->setup(array('posting', 'mcp', 'viewtopic'), $post_data['forum_style']);
-
 //---BEGIN CALENDAR MOD ALTERATION--- Added 'mods/calendar' to setup array
 $user->setup(array('posting', 'mcp', 'viewtopic', 'mods/calendar'), $post_data['forum_style']);
 //---END CALENDAR MOD ALTERATION---
@@ -292,16 +304,16 @@ switch ($mode)
 			$is_authed = true;
 		}
 	break;
-
-	//---BEGIN CALENDAR MOD---
-    case 'delete_event':
-    {
-        if ((($auth->acl_get('m_delete_event') || $auth->acl_get('a_delete_event')) && $post_data['topic_poster'] != $user->data['user_id']) || ($auth->acl_get('u_delete_event') && $post_data['topic_poster'] == $post_data['topic_poster']))
-        {
-            $is_authed = true;
-        }
-	}
-	//---END CALENDAR MOD---
+	
+// Stu's event calendar
+//---BEGIN CALENDAR MOD---
+	case 'delete_event':
+		if((($auth->acl_get('m_delete_event') || $auth->acl_get('a_delete_event')) && $post_data['topic_poster'] != $user->data['user_id']) || ($auth->acl_get('u_delete_event') || $auth->acl_get('f_delete_event') && $post_data['topic_poster'] == $post_data['topic_poster']))
+		{
+			$is_authed = true;
+		}
+	break;
+//---END CALENDAR MOD---
 
 }
 
@@ -356,13 +368,13 @@ if ($mode == 'delete')
 	return;
 }
 
-
+// Stu's event calendar
 //---BEGIN CALENDAR MOD---
 // Handle event delete mode...
 if ($mode == 'delete_event')
 {
-    handle_topic_event_delete($forum_id, $topic_id, $post_data);
-    exit();
+	handle_topic_event_delete($forum_id, $topic_id, $post_data);
+	exit();
 }
 //---END CALENDAR MOD---
 
@@ -673,24 +685,26 @@ if ($draft_id && ($mode == 'reply' || $mode == 'quote' || $mode == 'post') && $u
 	}
 }
 
-
 //---BEGIN CALENDAR MOD---
 // Load topic calendar event data
 // Note that if the data got into the database, it should be valid - Hence we just check that
 // the event start time exists, rather than re-validating all the event data
-if (isset($post_data['topic_calendar_time']) && !$submit)    // We must be editing or correcting
+// the event start time exists, rather than re-validating all the event data
+if(isset($post_data['topic_calendar_time']) && !$submit)    // We must be editing or correcting
 {
-    $post_data['topic_calendar_time'] += $user->timezone + $user->dst;
-    list($post_data['event_start_date'], $post_data['event_start_time']) = explode('|', date('m-d-Y|h:i a', $post_data['topic_calendar_time']));
-    if (isset($post_data['topic_calendar_duration']))
-    {
-        list($post_data['event_end_date'], $post_data['event_end_time']) = explode('|', date('m-d-Y|h:i a', ($post_data['topic_calendar_duration'] + $post_data['topic_calendar_time'])));
-    }
-
-    if (!empty($post_data['event_repeat']))
-    {
-        extract_repeat_params($post_data['event_repeat'], $post_data);
+	if ($post_data['topic_calendar_time'] != '') //if this is blank, don't populate!
+	{
+		$post_data['topic_calendar_time'] += $user->timezone + $user->dst;
+		list($post_data['event_start_date'], $post_data['event_start_time']) = explode('|', gmdate('m-d-Y|h:i a', $post_data['topic_calendar_time']));
+		if(isset($post_data['topic_calendar_duration']))
+		{
+			list($post_data['event_end_date'], $post_data['event_end_time']) = explode('|', gmdate('m-d-Y|h:i a', ($post_data['topic_calendar_duration'] + $post_data['topic_calendar_time'])));
+		}
 	}
+	if(!empty($post_data['event_repeat']))
+	{
+		extract_repeat_params($post_data['event_repeat'], $post_data);
+	}    
 }
 //---END CALENDAR MOD---
 
@@ -738,60 +752,60 @@ if ($submit || $preview || $refresh)
 	$post_data['enable_urls']		= (isset($_POST['disable_magic_url'])) ? 0 : 1;
 	$post_data['enable_sig']		= (!$config['allow_sig'] || !$auth->acl_get('f_sigs', $forum_id) || !$auth->acl_get('u_sig')) ? false : ((isset($_POST['attach_sig']) && $user->data['is_registered']) ? true : false);
 
-	//---BEGIN CALENDAR MOD---
-    // Get posted times and dates, repeats, attendees
-    $post_data['event_start_time']      = request_var('time','');                   // Unset later
-    $post_data['event_start_date']      = request_var('date','');                   // Unset later
-    $post_data['event_end_time']        = request_var('end_time','');               // Unset later
-    $post_data['event_end_date']        = request_var('end_date','');               // Unset later
-    $post_data['event_repeat']          = request_var('event_repeat', 0);
-    $post_data['event_repeat_count']    = request_var('event_repeat_count', 0);     // Unset later
-    $post_data['event_repeat_when']     = request_var('event_repeat_when', '');     // Unset later
-    $post_data['invite_attendees']      = request_var('invite_attendees','');
-    // $post_data['event_attendees']        not modified here
-    // $post_data['event_non_attendees']    not modified here
-    $post_data['repeat_nth_pos']        = request_var('nth_day_position', '');      // Unset later
-    $post_data['repeat_nth_weekday']    = request_var('nth_weekday', '');           // Unset later
-    $post_data['repeat_nth_count']      = request_var('nth_count', '');             // Unset later
-    $post_data['nth_month_position']    = request_var('nth_month_position', '');    // Unset later
-    $post_data['nth_month_weekday']     = request_var('nth_month_weekday', '');     // Unset later
-    $post_data['nth_month_month']       = request_var('nth_month_month', '');       // Unset later
+// Stu's event calendar
+//---BEGIN CALENDAR MOD---
+	// Get posted times and dates, repeats, attendees
+	$post_data['event_start_time']		= request_var('time','');                   // Unset later
+	$post_data['event_start_date']		= request_var('date','');                   // Unset later
+	$post_data['event_end_time']		= request_var('end_time','');               // Unset later
+	$post_data['event_end_date']		= request_var('end_date','');               // Unset later
+	$post_data['event_repeat']			= request_var('event_repeat', 0);
+	$post_data['event_repeat_count']	= request_var('event_repeat_count', 0);     // Unset later
+	$post_data['event_repeat_when']		= request_var('event_repeat_when', '');     // Unset later
+	$post_data['invite_attendees']		= request_var('invite_attendees','');
+	// $post_data['event_attendees']        not modified here
+	// $post_data['event_non_attendees']    not modified here
+	$post_data['repeat_nth_pos']		= request_var('nth_day_position', '');      // Unset later
+	$post_data['repeat_nth_weekday']	= request_var('nth_weekday', '');           // Unset later
+	$post_data['repeat_nth_count']		= request_var('nth_count', '');             // Unset later
+	$post_data['nth_month_position']	= request_var('nth_month_position', '');    // Unset later
+	$post_data['nth_month_weekday']		= request_var('nth_month_weekday', '');     // Unset later
+	$post_data['nth_month_month']		= request_var('nth_month_month', '');       // Unset later
 
+	$is_event = false;
+	//$error = validate_event_data($post_data, 'topic_event');
+	// Is there actually an event attached?
+	if(($post_data['event_start_time'] || $post_data['event_start_date'] || $post_data['event_end_time'] || $post_data['event_end_date']))
+	{
+		$is_event = true;
+		// There is some event data - Lets check it is complete and valid...
+		$times = validate_event_times(true, $post_data);
 
-    $is_event = false;
-    //$error = validate_event_data($post_data, 'topic_event');
-    // Is there actually an event attached?
-    if (($post_data['event_start_time'] || $post_data['event_start_date'] || $post_data['event_end_time'] || $post_data['event_end_date']))
-    {
-        $is_event = true;
-        // There is some event data - Lets check it is complete and valid...
-        $times = validate_event_times(true, $post_data);
-
-        if ($times['valid'] == true)
-        {
-            if (!empty($post_data['event_repeat']))
-            {
-                $repeat_params = validate_repeat_params(true, true, $post_data);
-                if ($repeat_params['valid'] == true)
-                {
-                    $repeat_info = generate_repeat_event_info(0, $times['start'], $times['end'], $repeat_params['repeat_code']);
-                    $return_array['data'] = $repeat_info['list'];
-                    $post_data['event_repeat'] = $repeat_params['repeat_code'];
-                }
-                else
-                {
-                    $error = $repeat_params['error'];
-                }
-            }
-        }
-        else
-        {
-            $error = $times['error'];
-        }
-	}
-
-    $event_data_valid = (!isset($error) && !sizeof($error)) ? false : true;
-	//---END CALENDAR MOD---
+		if($times['valid'] == true)
+		{
+			if(!empty($post_data['event_repeat']))
+			{
+				$repeat_params = validate_repeat_params(true, true, $post_data);
+				if($repeat_params['valid'] == true)
+				{
+					$repeat_info = generate_repeat_event_info(0, $times['start'], $times['end'], $repeat_params['repeat_code']);        
+					$return_array['data'] = $repeat_info['list'];
+					$post_data['event_repeat'] = $repeat_params['repeat_code'];
+				}
+				else
+				{
+					$error = $repeat_params['error'];
+				}
+			}
+		}
+		else
+		{
+			$error = $times['error'];
+		}
+	}    
+	
+	$event_data_valid = (!isset($error) && !sizeof($error)) ? false : true;
+//---END CALENDAR MOD---
 
 	if ($config['allow_topic_notify'] && $user->data['is_registered'])
 	{
@@ -2165,64 +2179,64 @@ function handle_topic_event_delete($forum_id, $topic_id, &$post_data)
     global $phpbb_root_path, $phpEx;
 
 
-	if ((($auth->acl_get('m_edit_event') || $auth->acl_get('a_edit_event')) && $post_data['topic_poster'] != $user->data['user_id'] ) || ($auth->acl_get('u_delete_event') && $post_data['topic_poster'] == $user->data['user_id']))
-	{
-	    $s_hidden_fields = build_hidden_fields(array(
-	        't'        => $topic_id,
-	        'f'        => $forum_id,
-	        'mode'    => 'delete_event')
-	    );
-	 
-	    if (confirm_box(true))
-	    {
-	        $data = array(
-                'topic_calendar_time'       => NULL,
-                'topic_calendar_duration'   => NULL,
-                'event_repeat'              => NULL,
+    if ((($auth->acl_get('m_edit_event') || $auth->acl_get('a_edit_event')) && $post_data['topic_poster'] != $user->data['user_id'] ) || ($auth->acl_get('u_delete_event') && $post_data['topic_poster'] == $user->data['user_id']))
+    {
+        $s_hidden_fields = build_hidden_fields(array(
+            't'        => $topic_id,
+            'f'        => $forum_id,
+            'mode'    => 'delete_event')
+        );
+
+        if (confirm_box(true))
+        {
+            $data = array(
+                'topic_calendar_time'       => null,
+                'topic_calendar_duration'   => null,
+                'event_repeat'              => null,
                 'invite_attendees'          => 0,
-	            'event_attendees'           => '',
-	            'event_non_attendees'       => '',
-	        );
-	        // Whether it is single or repeat event, we need to remove event details from topic table
-	        $sql = 'UPDATE ' . TOPICS_TABLE . '
-	            SET ' . $db->sql_build_array('UPDATE', $data) . '
-	            WHERE topic_id = ' . (int)$topic_id;
-	        $db->sql_query($sql);
-	 
+                'event_attendees'           => '',
+                'event_non_attendees'       => '',
+            );
+            // Whether it is single or repeat event, we need to remove event details from topic table
+            $sql = 'UPDATE ' . TOPICS_TABLE . '
+                SET ' . $db->sql_build_array('UPDATE', $data) . '
+                WHERE topic_id = ' . $topic_id;
+            $db->sql_query($sql);
+
             $meta_info = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id");
-	 
-	        if (empty($post_data['event_repeat']))
-	        {
-	            // This is a single event, so our work is done. Log it and let the user know
-	            add_log('mod', $forum_id, $topic_id, 'LOG_DELETED_TOPIC_EVENT', $post_data['topic_title']);
-	            $message = $user->lang['CALENDAR_EVENT_DELETED'] . '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_info . '">', '</a>');
-	        }
-	        else
-	        {
-	            // This is a repeat event, so we also need to delete it from the calendar repeat events table
-	            $sql = 'DELETE FROM ' . CALENDAR_REPEATS_TABLE . "
-	                WHERE repeat_id = 't" . (int)$topic_id . "'";
-	            $db->sql_query($sql);
-	            add_log('mod', $forum_id, $topic_id, 'LOG_DELETED_TOPIC_EVENTS', $post_data['topic_title']);
-	            $message = $user->lang['CALENDAR_EVENTS_DELETED'] . '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_info . '">', '</a>');
-	        }
-	        meta_refresh(3, $meta_info);
+
+            if (empty($post_data['event_repeat']))
+            {
+                // This is a single event, so our work is done. Log it and let the user know
+                add_log('mod', $forum_id, $topic_id, 'LOG_DELETED_TOPIC_EVENT', $post_data['topic_title']);
+                $message = $user->lang['CALENDAR_EVENT_DELETED'] . '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_info . '">', '</a>');
+            }
+            else
+            {
+                // This is a repeat event, so we also need to delete it from the calendar repeat events table
+                $sql = 'DELETE FROM ' . CALENDAR_REPEATS_TABLE . "
+                    WHERE repeat_id = 't$topic_id'";
+                $db->sql_query($sql);
+                add_log('mod', $forum_id, $topic_id, 'LOG_DELETED_TOPIC_EVENTS', $post_data['topic_title']);
+                $message = $user->lang['CALENDAR_EVENTS_DELETED'] . '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_info . '">', '</a>');
+            }
+            meta_refresh(3, $meta_info);
             $message .= '<br /><br />' . sprintf($user->lang['RETURN_FORUM'], '<a href="' . append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id) . '">', '</a>');
-	        trigger_error($message);
-	    }
-	    else
-	    {
-	        if (!empty($post_data['event_repeat']))
-	        {
-	            confirm_box(false, 'DELETE_MULTIPLE_T_EVENTS', $s_hidden_fields);
-	        }
-	        else
-	        {
-	            confirm_box(false, 'DELETE_SINGLE_T_EVENT', $s_hidden_fields);
-	        }
-	    }
-	}
+            trigger_error($message);
+        }
+        else
+        {
+            if (!empty($post_data['event_repeat']))
+            {
+                confirm_box(false, 'DELETE_MULTIPLE_T_EVENTS', $s_hidden_fields);
+            }
+            else
+            {
+                confirm_box(false, 'DELETE_SINGLE_T_EVENT', $s_hidden_fields);
+            }
+        }
+    }
 
     // We get here if user is unable to delete the event. present the correct error message
 }
-//---END CALENDAR MOD---?>
+//---END CALENDAR MOD---
