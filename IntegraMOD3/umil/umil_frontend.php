@@ -40,6 +40,9 @@ class umil_frontend extends umil
 	// The file we will record any errors in
 	var $error_file = '';
 
+	// Declare the $title property
+	protected $title = '';
+		
 	/**
 	* Constructor
 	*

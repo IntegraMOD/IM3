@@ -639,40 +639,6 @@ switch ($mode)
 
 		}
 		// ajaxlike
-		// ajaxlike
-		if(!function_exists('fetch_user_likes'))
-		{
-			include($phpbb_root_path . 'includes/functions_ajaxlike.' . $phpEx);
-		}
-		
-		$ajaxlike_enable = (isset($config['ajaxlike_enable']) ? ((($user->data['user_id'] == ANONYMOUS ? ($config['ajaxlike_enable'] && $config['ajaxlike_guest_can_view']) : $config['ajaxlike_enable'])) && $config['ajaxlike_list_in_profile'] && ajaxlike_user_showlikes_status($user_id)) : 0);
-		
-		if($ajaxlike_enable)
-		{
-			$likes_limit = ($config['ajaxlike_profile_num'] == 0 ? 15 : $config['ajaxlike_profile_num']);
-			$likes_array = fetch_user_likes($member['user_id'], $likes_limit);
-			if(is_array($likes_array[0]))
-			{
-				foreach($likes_array[0] as $like)
-				{
-					$template->assign_block_vars('last_likes', array(
-						'TITLE'		=> $like['topic_title'],
-						'POSTER'	=> $like['poster'],
-						'DETAIL'	=> $like['post_detail'],
-						'DATE'		=> $like['date'],
-						'LINK'		=> $like['post_url'],
-					));
-				}
-			}
-			
-			$template->assign_vars(array(
-				'LIKE_STATUS'			=> $ajaxlike_enable,
-				'LIKES'					=> get_user_likes($member['user_id']),
-				'LIKED'					=> get_user_liked($member['user_id'])
-				));
-
-		}
-		// ajaxlike
 		
 		// Download MOD 6
 		if (!$config['dl_traffic_off'])
@@ -790,11 +756,6 @@ switch ($mode)
 		}
 		// End Ultimate Points
 		$template->assign_vars(array(
-			// ajaxlike
-			'SHOW_LIKES'		=>	$ajaxlike_enable,
-			// ajaxlike
-					
-
 			// ajaxlike
 			'SHOW_LIKES'		=>	$ajaxlike_enable,
 			// ajaxlike

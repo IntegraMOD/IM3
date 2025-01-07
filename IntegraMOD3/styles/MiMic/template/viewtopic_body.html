@@ -171,7 +171,6 @@
 <!-- ENDIF -->
 
 <!-- BEGIN postrow -->
-
 	<span class="<!-- IF postrow.S_ONLINE and not postrow.S_IGNORE_POST -->online_member" title="{L_ONLINE}"<!-- ELSE -->offline_member" title="{L_OFFLINE}"<!-- ENDIF -->></span>
 	<!-- IF postrow.S_FIRST_UNREAD --><a id="unread"></a><!-- ENDIF -->
 	<div id="p{postrow.POST_ID}" class="post <!-- IF postrow.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF postrow.S_UNREAD_POST --> unreadpost<!-- ENDIF --><!-- IF postrow.S_POST_REPORTED --> reported<!-- ENDIF -->">
@@ -316,7 +315,6 @@
 
 		</div>
 	</div>
-
 	<hr class="divider" />
 
 	<!-- IF (ADS_5 and postrow.S_FIRST_ROW) or (ADS_6 and not postrow.S_FIRST_ROW) -->

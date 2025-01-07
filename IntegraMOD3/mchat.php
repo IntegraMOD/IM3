@@ -910,20 +910,25 @@ switch ($mchat_mode)
 			{
 				$mchat_no_message = true;
 			}
-			// display custom bbcodes
-			if($mchat_allow_bbcode && $config['allow_bbcode'])
-			{
-				display_mchat_bbcodes();
-			}
-			// Smile row
-			if ($mchat_smilies)
-			{
-				if (!function_exists('generate_smilies'))
-				{
-					include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
-				}
-				generate_smilies('inline', 0);
-			}
+	// Smile row
+	if ($mchat_smilies)
+	{
+	    if (!function_exists('generate_smilies'))
+	    {
+	        include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
+	    }
+	    generate_smilies('inline', 0);
+	}
+	 
+	// Custom BBCodes
+	if ($mchat_allow_bbcode && $config['allow_bbcode'])
+	{
+	    if (!function_exists('display_custom_bbcodes'))
+	    {
+	        include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+	    }
+	    display_custom_bbcodes();
+	}
 			// If the static message is defined in the language file use it, else just use the entry in the database
 			if (isset($user->lang[strtoupper('static_message')]) || !empty($config_mchat['static_message']))
 			{
@@ -961,6 +966,12 @@ $copyright = base64_decode('JmNvcHk7IDxhIGhyZWY9Imh0dHA6Ly9ybWNnaXJyODMub3JnIj5S
 add_form_key('mchat_posting');
 // Template function...
 $template->assign_vars(array(
+	    'S_BBCODE_ALLOWED' => $mchat_allow_bbcode,
+	    'S_SMILIES_ALLOWED' => $mchat_smilies,
+	    'S_LINKS_ALLOWED' => $mchat_urls,
+	    'S_BBCODE_IMG' => $config['allow_bbcode'] && $auth->acl_get('u_mchat_bbcode') && $auth->acl_get('u_mchat_img'),
+	    'S_BBCODE_FLASH' => $config['allow_bbcode'] && $auth->acl_get('u_mchat_bbcode') && $auth->acl_get('u_mchat_flash'),
+	    'S_BBCODE_QUOTE' => true,
 	'MCHAT_FILE_NAME'		=> append_sid("{$phpbb_root_path}mchat.$phpEx"),
 	'MCHAT_REFRESH_JS'		=> 1000 * $config_mchat['refresh'],
 	'MCHAT_ADD_MESSAGE'		=> $mchat_add_mess,

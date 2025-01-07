@@ -7,7 +7,7 @@
 <form action="{S_FORM_ACTION}" method="post" id="notes">
 
 <div class="navbar">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<ul class="linklist">
 		<li class="icon-pages"><label>{L_NOTES}</label>&bull;&nbsp;{L_NOTES_TOTAL}</li>
@@ -21,7 +21,7 @@
 		<li class="rightside">{SORT_BY}&nbsp;{SORT_ORDER}&nbsp;<input type="submit" class="button2" value="{L_SORT}" /></li>
 	</ul>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 </form>
@@ -40,7 +40,7 @@
 <!-- ELSE -->
 	<!-- BEGIN notes_row -->
 	<div class="post <!-- IF notes_row.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
-		<div class="inner">
+		<div class="inner"><span class="corners-top"><span></span></span>
 	
 		<div class="postbody">
 		
@@ -66,13 +66,13 @@
 	
 		<div class="back2top"><a href="#wrap" class="top" title="{L_BACK_TO_TOP}">{L_BACK_TO_TOP}</a></div>
 	
-		</div>
+		<span class="corners-bottom"><span></span></span></div>
 	</div>
 	<!-- END notes_row -->
 <!-- ENDIF -->
 
 <div class="navbar">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<ul class="linklist">
 		<li class="icon-pages"><label>{L_NOTES}</label>&bull;&nbsp;{L_NOTES_TOTAL}</li>
@@ -81,7 +81,7 @@
 		<!-- ENDIF -->
 	</ul>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 <!-- IF S_NOTES_POPUP -->

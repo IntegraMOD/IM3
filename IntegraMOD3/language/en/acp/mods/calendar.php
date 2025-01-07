@@ -62,8 +62,8 @@ $lang = array_merge($lang, array(
 	'MAX_BDAYS_LIST_DAYS_EXPLAIN'			=> 'Define the maximum amount of days that a user can specifiy to display upcoming birthdays in the upcoming birthdays list beneath the main calendar view',
 	'DEFAULT_BDAYS_LIST_DAYS'				=> 'Default Days For Birthdays List',
 	'DEFAULT_BDAYS_LIST_DAYS_EXPLAIN'		=> 'Define the default setting for how many days worth of upcoming birthdays should be displayed in the upcoming birthdays list beneath the main calendar view',
-	'CALENDAR_VERSION'						=> 'Calendar Version',
-	'CALENDAR_VERSION_EXPLAIN'				=> 'The currently installed version of the calendar mod.<br />For support visit: www.stargate-portal.com',
+	'CALENDAR_VERSION'						=> 'Topic Calendar Version',
+	'CALENDAR_VERSION_EXPLAIN'				=> 'The currently installed Topic Calendar version.',
 	'SUNDAY'								=> 'Sunday',
 	'MONDAY'								=> 'Monday',
 ));

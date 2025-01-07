@@ -914,7 +914,7 @@ function phpbb_SN_umil_send($action, $version)
 				}
 			}
 			$file_info = explode("\r\n", trim($file_info));
-			$file_info = $file_info[1];
+			$file_info = isset($file_info[1]) ? $file_info[1] : null;
 			@fclose($fsock);
 		}
 		else

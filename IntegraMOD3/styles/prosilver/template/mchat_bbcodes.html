@@ -1,15 +1,26 @@
 				<div id="mChatBBCodes" style="padding: 5px; display: none;">
 				<fieldset class="fields1">
-					<script type="text/javascript">
-					// <![CDATA[
-						var form_name = 'postform';
-						var text_name = 'message';
-
+				<script>
+				// <![CDATA[
+				(function($) {
+					$(document).ready(function() {
+						var formName = 'postform';
+						var textName = 'message';
+				 
 						// Define the bbCode tags
-						var bbcode = new Array();
-						var bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[list]','[/list]','[list=]','[/list]','[img]','[/img]','[url]','[/url]','[flash=]', '[/flash]','[size=]','[/size]'<!-- BEGIN custom_tags -->, {custom_tags.BBCODE_NAME}<!-- END custom_tags -->);
+						var bbcode = array();
+						var bbtags = array(
+							'[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]',
+							'[code]','[/code]','[list]','[/list]','[list=]','[/list]',
+							'[img]','[/img]','[url]','[/url]','[flash=]', '[/flash]',
+							'[size=]','[/size]'
+							// BEGIN custom_tags
+							, '{custom_tags.BBCODE_NAME}'
+							// END custom_tags
+						);
+				 
 						// Helpline messages
-						var help_line = {
+						var helpLine = {
 							b: '{LA_BBCODE_B_HELP}',
 							i: '{LA_BBCODE_I_HELP}',
 							u: '{LA_BBCODE_U_HELP}',
@@ -25,13 +36,18 @@
 							e: '{LA_BBCODE_E_HELP}',
 							d: '{LA_BBCODE_D_HELP}',
 							tip: '{LA_STYLES_TIP}'
-							<!-- BEGIN custom_tags -->
-								,cb_{custom_tags.BBCODE_ID}: '{custom_tags.A_BBCODE_HELPLINE}'
-							<!-- END custom_tags -->
-						}
-
-					// ]]>
-					</script>
+							// BEGIN custom_tags
+							,cb_{custom_tags.BBCODE_ID}: '{custom_tags.A_BBCODE_HELPLINE}'
+							// END custom_tags
+						};
+				 
+						// Your existing code that uses these variables can go here
+						// ...
+				 
+					});
+				})(jQuery);
+				// ]]>
+				</script>
 						<!-- INCLUDE mchat_color.html -->
 						<!-- IF S_MCHAT_BBCODE_B -->
 						<input type="button" class="button2" accesskey="b" name="addbbcode0" value=" B " style="font-weight:bold; width: 30px" onclick="bbstyle(0)" title="{L_BBCODE_B_HELP}" />

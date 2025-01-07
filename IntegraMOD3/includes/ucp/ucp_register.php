@@ -413,6 +413,17 @@ class ucp_register
 						);
 					}
 
+					// Register the device for push notifications
+					if (isset($_POST['device_token']))
+					{
+						$push = new PushNotification($config['fcm_server_key']);
+						try {
+							$push->register_device($user_id, request_var('device_token', ''));
+						} catch (Exception $e) {
+							// Handle the exception (e.g., log it)
+						}
+					}
+	
 					$messenger->send(NOTIFY_EMAIL);
 
 					if ($config['require_activation'] == USER_ACTIVATION_ADMIN)

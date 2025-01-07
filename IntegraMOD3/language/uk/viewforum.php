@@ -48,8 +48,8 @@ $lang = array_merge($lang, array(
 	'NO_NEW_POSTS_HOT'	=> 'Немає нових повідомлень [ Популярна тема ]', // Not used anymore
 	'NO_NEW_POSTS_LOCKED'	=> 'Немає нових повідомлень [ Тема закрита ]', // Not used anymore
 	'NO_READ_ACCESS'	=> 'Ви не маєте прав доступу для читання повідомлень у цьому форумі.',
-        'NO_UNREAD_POSTS_HOT'      => 'Немає непрочитаних повідомлень [ Популярна тема ]',
-        'NO_UNREAD_POSTS_LOCKED'   => 'Немає непрочитаних повідомлень  [ Тема закрита ]',
+    'NO_UNREAD_POSTS_HOT'      => 'Немає непрочитаних повідомлень [ Популярна тема ]',
+    'NO_UNREAD_POSTS_LOCKED'   => 'Немає непрочитаних повідомлень  [ Тема закрита ]',
 	'POST_FORUM_LOCKED'	=> 'Форум закрито',
 	'TOPICS_MARKED'	=> 'Усі повідомлення цього форуму позначено прочитаними',
 	'UNREAD_POSTS_HOT'      => 'Непрочитані повідомлення [ Популярна тема ]',
@@ -57,6 +57,7 @@ $lang = array_merge($lang, array(
 	'VIEW_FORUM'	=> 'Перегляд форуму',
 	'VIEW_FORUM_TOPIC'	=> '1 тема',
 	'VIEW_FORUM_TOPICS'	=> 'Тем: %d',
+	'WHO_POSTED'  => 'Хто тут розмістив?',
 ));
 
 ?>

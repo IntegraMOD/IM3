@@ -6,15 +6,12 @@
 		<span class="sn-page-text">{TOTAL_POSTS} &bull; {POSTS_PER_DAY}</span>
 		<span class="sn-page-text">{TOTAL_TOPICS} &bull; {TOPICS_PER_DAY}</span>
 		
-		
-			<dt>{L_AL_LIKE_COUNT_TEXT}:</dt>
-				<dd><strong>{LIKES}</strong> <!-- IF LIKES > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></dd>
-			<dt>{L_AL_LIKED_COUNT_TEXT}:</dt>
-				<dd><strong>{LIKED}</strong> <!-- IF LIKED > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></dd>
-		
-		
-		
-		
-		
+		<span class="sn-page-text"><strong>{LIKES}</strong> <!-- IF LIKES > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></span>
+		<span class="sn-page-text"><strong>{LIKED}</strong> <!-- IF LIKED > 1 -->{L_AL_POSTS_TEXT}<!-- ELSE -->{L_AL_POST_TEXT}<!-- ENDIF --></span>
+
+<!-- IF S_DISPLAY_POINTS_STATS -->
+		<span class="sn-page-text">{TOTAL_POINTS_USER} &bull; {TOTAL_BANK_USER} &bull; {TOTAL_BANK_POINTS}</span>
+<!-- ENDIF -->	
+
 	</div>
 <!-- ENDIF -->

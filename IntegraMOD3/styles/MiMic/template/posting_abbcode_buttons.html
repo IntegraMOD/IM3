@@ -1,13 +1,13 @@
 
 <!-- IF S_ABBC3_COMPACT -->
-<script type="text/javascript" src="{ROOT_PATH}adm/style/tooltip.js"></script>
+<script src="{ROOT_PATH}adm/style/tooltip.js"></script>
 <!-- ENDIF -->
 
 <!-- IF (S_ABBC3_COLOR_MODE eq 'tigra' or S_ABBC3_HIGHLIGHT_MODE eq 'tigra') -->
-<script type="text/javascript" src="{S_ABBC3_PATH}/posting_abbcode_picker.js"></script>
+<script src="{S_ABBC3_PATH}/posting_abbcode_picker.js"></script>
 <!-- ENDIF -->
 
-<script type="text/javascript">
+<script>
 // <![CDATA[
 <!-- INCLUDE ./../../abbcode/posting_abbcode_buttons.js -->
 // ]]>
@@ -16,11 +16,11 @@
 	<!-- IF S_ABBC3_WIZARD_MODE eq '2' -->
 				</div>
 			</fieldset>
-		</div>
+		<span class="corners-bottom"><span></span></span></div>
 	</div>
 
 	<div id="ABBC3_Ajax_indicator">
-		<script type="text/javascript">
+		<script>
 		// <![CDATA[
 		<!-- INCLUDE ./../../abbcode/posting_abbcode_wizards.js -->
 		// ]]>
@@ -29,7 +29,7 @@
 	</div>
 
 	<div class="panel" id="postingbox2">
-		<div class="inner">
+		<div class="inner"><span class="corners-top"><span></span></span>
 			<fieldset class="fields1">
 				<div id="format-buttons2">
 	<!-- ENDIF -->

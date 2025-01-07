@@ -758,6 +758,17 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 				'address_list'			=> $address_list
 			);
 
+			// Send push notification for new PM
+			$push = new PushNotification($config['fcm_server_key']);
+			try {
+				$notification_title = 'New Private Message';
+				$notification_body = 'You have received a new private message from ' . $user->data['username'];
+				$push->send_notification(array($to_user_id), $notification_title, $notification_body);
+			} 
+			catch (Exception $e) {
+				// Handle the exception (e.g., log it)
+			}
+
 			// ((!$message_subject) ? $subject : $message_subject)
 			$msg_id = submit_pm($action, $subject, $pm_data);
 

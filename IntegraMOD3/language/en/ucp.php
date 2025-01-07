@@ -58,9 +58,6 @@ $lang = array_merge($lang, array(
 
 // Common language entries
 $lang = array_merge($lang, array(
-	// ajaxlike
-	'AJ_SHOW_LIKES'					=> 'Display last likes in profile',
-	// ajaxlike
 	'ACCOUNT_ACTIVE'				=> 'Your account has now been activated. Thank you for registering.',
 	'ACCOUNT_ACTIVE_ADMIN'			=> 'The account has now been activated.',
 	'ACCOUNT_ACTIVE_PROFILE'		=> 'Your account has now been successfully reactivated.',
@@ -574,8 +571,9 @@ $lang = array_merge($lang, array(
 	'NO_NONMEMBER'	=> 'No non-member groups',
 ));
 
-// mChat MOD
+
 $lang = array_merge($lang, array(
+// mChat MOD
 	'UCP_CAT_MCHAT'		=> 'mChat',
 	'UCP_MCHAT_CONFIG'	=> 'Preferences',
 // ajaxlike

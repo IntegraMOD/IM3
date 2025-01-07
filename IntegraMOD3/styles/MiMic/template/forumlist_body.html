@@ -8,13 +8,13 @@ var myurl = "{S_AJAX_COLLAPSE_ACTION}";
 	<!-- IF (forumrow.S_IS_CAT and not forumrow.S_FIRST_ROW) or forumrow.S_NO_CAT  -->
 			</ul>
 
-			</div>
+			<span class="corners-bottom"><span></span></span></div>
 		</div>
 	<!-- ENDIF -->
 
 	<!-- IF forumrow.S_IS_CAT or forumrow.S_FIRST_ROW  or forumrow.S_NO_CAT  -->
 		<div class="forabg">
-			<div class="inner">
+			<div class="inner"><span class="corners-top"><span></span></span>
 			<ul class="topiclist">
 				<li class="header">
 					<dl class="icon">
@@ -63,14 +63,14 @@ var myurl = "{S_AJAX_COLLAPSE_ACTION}";
 	<!-- IF forumrow.S_LAST_ROW -->
 			</ul>
 
-			</div>
+			<span class="corners-bottom"><span></span></span></div>
 		</div>
 	<!-- ENDIF -->
 
 <!-- BEGINELSE -->
 	<div class="panel">
-		<div class="inner">
+		<div class="inner"><span class="corners-top"><span></span></span>
 		<strong>{L_NO_FORUMS}</strong>
-		</div>
+		<span class="corners-bottom"><span></span></span></div>
 	</div>
 <!-- END forumrow -->

@@ -1,0 +1,77 @@
+
+PHP Version: 8.3.12
+DBMS: MySQL(i) 8.0.36
+phpBB3 Version: 3.0.15
+
+Removing acp module: Add-ons Hook System Management
+ERROR: Module does not exist.
+
+Removing mcp module: Reported users
+ERROR: Module does not exist.
+
+Removing acp module: User profile settings
+ERROR: Module does not exist.
+
+Removing ucp module: Relationships &amp; Family relations
+ERROR: Module does not exist.
+
+Removing ucp module: Edit personal info
+ERROR: Module does not exist.
+
+Removing ucp module: Relationships &amp; Family relations
+ERROR: Module does not exist.
+
+Removing ucp module: Edit personal info
+ERROR: Module does not exist.
+
+Removing ucp module: Friends groups
+ERROR: Module does not exist.
+
+Removing acp module: Blocks configuration
+ERROR: Module does not exist.
+
+Removing acp module: Enable Blocks
+ERROR: Module does not exist.
+
+Removing acp module: Notification settings
+ERROR: Module does not exist.
+
+Removing ucp module: Instant Messenger history
+ERROR: Module does not exist.
+
+Removing ucp module: Instant Messenger settings
+ERROR: Module does not exist.
+
+Removing ucp module: Manage friends
+ERROR: Module does not exist.
+
+Removing acp module: Activity page settings
+ERROR: Module does not exist.
+
+Removing acp module: Friends management system settings
+ERROR: Module does not exist.
+
+Removing acp module: User status settings
+ERROR: Module does not exist.
+
+Removing acp module: Instant messenger settings
+ERROR: Module does not exist.
+
+Removing acp module: Modules Configuration
+ERROR: Module does not exist.
+
+Removing acp module: Confirmation Box settings
+ERROR: Module does not exist.
+
+Removing acp module: Enable Modules
+ERROR: Module does not exist.
+
+Removing acp module: Social Network Configuration
+ERROR: Module does not exist.
+
+Removing acp module: Main
+ERROR: Module does not exist.
+
+Removing acp module: Social Network
+ERROR: Module does not exist.
+

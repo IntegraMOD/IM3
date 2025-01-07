@@ -66,7 +66,7 @@
 <form method="post" action="{S_UCP_ACTION}" id="register">
 
 <div class="panel">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<h2>{SITENAME} - {L_REGISTRATION}</h2>
 
@@ -138,7 +138,7 @@
 		</dl>
 	<!-- ENDIF -->
 	</fieldset>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- IF CAPTCHA_TEMPLATE -->
 	<!-- DEFINE $CAPTCHA_TAB_INDEX = 8 -->
@@ -149,17 +149,17 @@
 
 
 <div class="panel">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<h4>{L_COPPA_COMPLIANCE}</h4>
 
 	<p>{L_COPPA_EXPLAIN}</p>
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
 
 <div class="panel">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<fieldset class="submit-buttons">
 		{S_HIDDEN_FIELDS}
@@ -168,7 +168,7 @@
 		{S_FORM_TOKEN}
 	</fieldset>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 </form>
 

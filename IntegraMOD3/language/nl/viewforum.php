@@ -66,5 +66,6 @@ $lang = array_merge($lang, array(
 	'VIEW_FORUM'			=> 'Toon forum',
 	'VIEW_FORUM_TOPIC'		=> '1 onderwerp',
 	'VIEW_FORUM_TOPICS'		=> '%d onderwerpen',
+	'WHO_POSTED'	        => 'Wie heeft hier gepost?',
 ));
 

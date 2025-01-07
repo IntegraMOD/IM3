@@ -3,7 +3,7 @@
 <h2>{L_CALENDAR_MONTH}</h2>
 <!-- IF S_FORUM_RULES -->
     <div class="rules">
-        <div class="inner">
+        <div class="inner"><span class="corners-top"><span></span></span>
 
         <!-- IF U_FORUM_RULES -->
             <a href="{U_FORUM_RULES}">{L_FORUM_RULES}</a>
@@ -12,7 +12,7 @@
             {FORUM_RULES}
         <!-- ENDIF -->
 
-        </div>
+        <span class="corners-bottom"><span></span></span></div>
     </div>
 <!-- ENDIF -->
 
@@ -41,7 +41,7 @@
 <form name="postform" id="postform" method="post" action="{S_POST_ACTION}"{S_FORM_ENCTYPE}>
 
     <div class="panel bg3" id="calendar-panel" style="display: none">
-        <div class="inner">
+        <div class="inner"><span class="corners-top"><span></span></span>
            <div align="center">
 
                 <table width="100%" cellpadding="2" cellspacing="0" border="0">
@@ -214,7 +214,7 @@
 <!-- IF not S_OVERRIDE_USER -->
 <form name="settings_form" id = "settings_form">
     <div class="panel bg3" id="settings-panel" style="display: none">
-        <div class="inner">
+        <div class="inner"><span class="corners-top"><span></span></span>
 
         <h3>{L_CALENDAR_SETTINGS}</h3>
         <div>
@@ -278,14 +278,14 @@
 
         </fieldset>
         </div>
-        </div>
+        <span class="corners-bottom"><span></span></span></div>
     </div>
 <!-- ENDIF -->
 
 </form>
 
 <div class="panel bg2" id="bday-panel">
-    <div class="inner">
+    <div class="inner"><span class="corners-top"><span></span></span>
         <!-- IF S_SHOW_UPCOMING_EVENTS -->
             <h3>{L_UPCOMING_EVENTS}{L_EVENTS_TIMEFRAME}</h3>
             <div>
@@ -307,16 +307,16 @@
                 <!-- ENDIF -->
             </div>
         <!-- ENDIF -->
-    </div>
+    <span class="corners-bottom"><span></span></span></div>
 </div>
 
 <div class="panel bg2" id="notes-panel">
-    <div class="inner">
+    <div class="inner"><span class="corners-top"><span></span></span>
         <h3>{L_CALENDAR_NOTES}</h3>
         <div>
             {L_WEEK_NUM_NOTES}
         </div>
-    </div>
+    <span class="corners-bottom"><span></span></span></div>
 </div>
 
 <script type="text/javascript">

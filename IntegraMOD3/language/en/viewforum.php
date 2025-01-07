@@ -66,4 +66,5 @@ $lang = array_merge($lang, array(
 	'VIEW_FORUM'			=> 'View forum',
 	'VIEW_FORUM_TOPIC'		=> '1 topic',
 	'VIEW_FORUM_TOPICS'		=> '%d topics',
+	'WHO_POSTED'	        => 'Who posted here?',
 ));

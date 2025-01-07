@@ -36,38 +36,6 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	// ajaxlike
-	// 																		examples:
-	'AL_YOU_TEXT'						=> 'You',						// `You` like this post.
-	'AL_AND_TEXT'						=> 'and',						// userX `and` y like this post.
-	'AL_OTHER_TEXT'						=> 'other',						// userX and 1 `other`  like this post.
-	'AL_OTHERS_TEXT'					=> 'others',					// userX and 5 `others` like this post.
-	'AL_PEOPLE_TEXT'					=> 'people',					// 4 `people` like this post.
-	'AL_LIKE_POST_TEXT'					=> 'like this post.',			// 3 people `like this post`.
-	'AL_ONE_LIKE_POST_TEXT'				=> 'likes this post.',			// userX `likes this post`.
-	'AL_LIKE_POST_WITH_YOU_TEXT'		=> 'like this post.',			// You and 2 others `like this post`.
-	'AL_YOU_LIKE_TEXT'					=> 'like this post.',			// You `like this post`.
-	// 																		alternative mode:
-	'AL_ALTER_ONE_PEOPLE_TEXT'			=> 'person',					// 1 `person` likes this post.
-	'AL_ALTER_TWO_PEOPLE_TEXT'			=> 'people',					// 2 `people` like this post.
-	'AL_ALTER_THREE_PEOPLE_TEXT'		=> 'people',					// 3 `people` like this post.
-	'AL_ALTER_MORE_PEOPLE_TEXT'			=> 'people',					// 12 `people` like this post.
-	'AL_ALTER_ONE_LIKE_POST_TEXT'		=> 'likes this post.',			// 1 person `likes this post`.
-	'AL_ALTER_TWO_LIKE_POST_TEXT'		=> 'like this post.',			// 2 people `like this post`.
-	'AL_ALTER_THREE_LIKE_POST_TEXT'		=> 'like this post.',			// 3 people `like this post`.
-	'AL_ALTER_MORE_LIKE_POST_TEXT'		=> 'like this post.',			// 10 people `like this post`.
-	//
-	'AL_LIKE_TEXT'						=> 'Like',
-	'AL_UNLIKE_TEXT'					=> 'Unlike',
-	'AL_PEOPLE_LIKE_THIS_TEXT'			=> 'People like this post',		// dialog box title
-	'AL_LIKE_COUNT_TEXT'				=> 'Likes',						// number of likes
-	'AL_LIKED_COUNT_TEXT'				=> 'Liked in',					// number of received likes
-	'AL_POSTS_TEXT'						=> 'posts',
-	'AL_POST_TEXT'						=> 'post',
-	'AL_LIKE_AT_TEXT'					=> 'Liked at',					// like date
-	'AL_ERROR_INVALID_REQUEST'			=> 'Invalid request!',
-	'AL_ERROR_ACCESS_DENIED'			=> 'Access Denied!',
-	// ajaxlike
 	'ATTACHMENT'						=> 'Attachment',
 	'ATTACHMENT_FUNCTIONALITY_DISABLED'	=> 'The attachments feature has been disabled.',
 

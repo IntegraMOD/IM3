@@ -4960,29 +4960,6 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 	}
 	// ajaxlike
 
-	// ajaxlike
-	$ajaxlike_enable = (isset($config['ajaxlike_enable']) ? ($user->data['user_id'] == ANONYMOUS ? false : $config['ajaxlike_enable']) : 0);
-	$ajaxlike_notify = (isset($config['ajaxlike_enable']) ? (($user->data['user_id'] == ANONYMOUS ? false : $ajaxlike_enable) && $config['ajaxlike_notify']) : 0);
-	$ajaxlike_notify_interval = (isset($config['ajaxlike_enable']) ? $config['ajaxlike_notify_interval'] : 0);
-	if($ajaxlike_notify_interval<5) $ajaxlike_notify_interval = 5;
-	$ajaxlike_notify_interval = $ajaxlike_notify_interval * 1000;
-	
-	$like_count=0;
-	
-	if($ajaxlike_enable)
-	{
-   		$ajaxlike_uid = $user->data['user_id'];
-   		// Ajax like notification
-   		$ajaxlike_sql = 'SELECT COUNT(like_id) as like_count 
-      		FROM ' . LIKES_TABLE . '
-      		WHERE poster_id = ' . (int) $ajaxlike_uid . ' AND like_read = 1';
-   		$ajaxlike_result = $db->sql_query($ajaxlike_sql);
-   		$like_count = (int) $db->sql_fetchfield('like_count');
-   		$db->sql_freeresult($ajaxlike_result);
-		// Ajax like notification
-	}
-	// ajaxlike
-
 	if (class_exists('phpbb_gallery_integration'))
 	{
 		phpbb_gallery_integration::page_header();
@@ -5002,13 +4979,6 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 	if ( isset($config['points_name']) )
 	{
 		$template->assign_vars(array(
-		// ajaxlike
-   		'AL_NEW_LIKE'                   => $like_count,
-   		'AJAXLIKE_ENABLE'				=> $ajaxlike_enable,
-   		'AJAXLIKE_NOTIFY_ENABLE'		=> $ajaxlike_notify,
-		'AJAXLIKE_NOTIFY_INTERVAL'		=> $ajaxlike_notify_interval,
-		'AJAXLIKE_NOTIFY_CALLBACK'		=> append_sid("{$phpbb_root_path}viewtopic.$phpEx"),
-		// ajaxlike
 			'U_POINTS'				=> append_sid("{$phpbb_root_path}points.$phpEx"),
 			'POINTS_LINK'			=> $config['points_name'],
 			'USER_POINTS'			=> sprintf(number_format_points($user->data['user_points'])),

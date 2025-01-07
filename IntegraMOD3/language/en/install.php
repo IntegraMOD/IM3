@@ -334,6 +334,7 @@ $lang = array_merge($lang, array(
 	'STAGE_CREATE_TABLE'		=> 'Create database tables',
 	'STAGE_CREATE_TABLE_EXPLAIN'	=> 'The database tables used by phpBB 3.0 have been created and populated with some initial data. Proceed to the next screen to finish installing phpBB.',
 	'STAGE_DATABASE'			=> 'Database settings',
+	'STAGE_SN_INSTALL'          => 'Install Social Network',
 	'STAGE_FINAL'				=> 'Final stage',
 	'STAGE_INTRO'				=> 'Introduction',
 	'STAGE_IN_PROGRESS'			=> 'Conversion in progress',

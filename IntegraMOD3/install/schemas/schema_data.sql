@@ -184,7 +184,7 @@ INSERT INTO phpbb_config VALUES('captcha_gd_foreground_noise', '0', 0);
 INSERT INTO phpbb_config VALUES('captcha_gd_wave', '0', 0);
 INSERT INTO phpbb_config VALUES('captcha_gd_x_grid', '25', 0);
 INSERT INTO phpbb_config VALUES('captcha_gd_y_grid', '25', 0);
-INSERT INTO phpbb_config VALUES('captcha_plugin', 'phpbb_captcha_qa', 0);
+INSERT INTO phpbb_config VALUES('captcha_plugin', 'phpbb_captcha_sortables', 0);
 INSERT INTO phpbb_config VALUES('check_attachment_content', '1', 0);
 INSERT INTO phpbb_config VALUES('check_dnsbl', '0', 0);
 INSERT INTO phpbb_config VALUES('chg_passforce', '0', 0);
@@ -844,7 +844,7 @@ INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_restore', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_search', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_events', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_cron', 1);
-INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_k_portal');
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_k_portal', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_k_tools', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_calendar_manage', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('a_edit_event', 1);
@@ -2313,3 +2313,27 @@ INSERT INTO phpbb_sn_smilies (smiley_id, smiley_allowed) VALUES(41, 1);
 INSERT INTO phpbb_sn_smilies (smiley_id, smiley_allowed) VALUES(42, 1);
 
 INSERT INTO phpbb_sn_status (status_id, poster_id, status_time, status_text, bbcode_bitfield, bbcode_uid, page_data, wall_id) VALUES(6, 2, 1710363645, 'test', '', '', '', 2);
+
+# -- Table data for table phpbb_sortables_questions
+INSERT INTO phpbb_sortables_questions (question_id, sort, lang_id, lang_iso, question_text, name_left, name_right) VALUES(1, 0, 2, 'en', 'What to include for tomato soup:', 'In the Pan', 'Throw away');
+INSERT INTO phpbb_sortables_questions (question_id, sort, lang_id, lang_iso, question_text, name_left, name_right) VALUES(2, 0, 1, 'de', 'Was man in die Tomatensuppe einbauen sollte:', 'In der Pfanne', 'Wegwerfen');
+INSERT INTO phpbb_sortables_questions (question_id, sort, lang_id, lang_iso, question_text, name_left, name_right) VALUES(3, 0, 3, 'es', 'Qué incluir en la sopa de tomate:', 'En la sartén', 'Tirar a la basura');
+INSERT INTO phpbb_sortables_questions (question_id, sort, lang_id, lang_iso, question_text, name_left, name_right) VALUES(4, 0, 4, 'nl', 'Wat moet je in tomatensoep doen:', 'In de pan', 'Weggooien');
+INSERT INTO phpbb_sortables_questions (question_id, sort, lang_id, lang_iso, question_text, name_left, name_right) VALUES(5, 0, 5, 'uk', 'Shcho potribno vklyuchyty v tomatnyy sup:', 'На сковороді', 'Викинути');
+
+# -- Table data for table phpbb_sortables_answers
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(18792, 4, 1, 'Appels');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(32818, 4, 1, 'Bananen');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(41939, 3, 0, 'Tomates');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(46817, 2, 1, 'Bananen');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(48408, 2, 1, 'Äpfel');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(51697, 4, 0, 'Tomaten');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(51821, 1, 0, 'Tomatoes');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(56085, 1, 1, 'Bananas');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(59002, 5, 1, 'яблука');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(62488, 5, 1, 'Банани');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(78867, 3, 1, 'Plátanos');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(79871, 5, 0, 'помідори');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(79919, 3, 1, 'Manzanas');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(81948, 1, 1, 'Apples');
+INSERT INTO phpbb_sortables_answers (answer_id, question_id, answer_sort, answer_text) VALUES(89757, 2, 0, 'Tomaten');

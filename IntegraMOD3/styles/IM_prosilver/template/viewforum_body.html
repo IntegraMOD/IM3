@@ -145,7 +145,7 @@
 					<!-- IF topicrow.PAGINATION --><strong class="pagination"><span>{topicrow.PAGINATION}</span></strong><!-- ENDIF -->
 					<!-- IF topicrow.ATTACH_ICON_IMG -->{topicrow.ATTACH_ICON_IMG} <!-- ENDIF -->{L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}
 				</dt>
-				<dd class="posts"><a href="{topicrow.U_WHO_POSTED}" onclick="window.open(this.href,'','statusbar=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,width=500,height=300'); return false;">{topicrow.REPLIES}</a> <dfn>{L_REPLIES}</dfn></dd>
+				<dd class="posts"><a href="{topicrow.U_WHO_POSTED}" onclick="window.open(this.href,'','statusbar=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,width=500,height=300'); return false;" title="{L_WHO_POSTED}">{topicrow.REPLIES}</a> <dfn>{L_REPLIES}</dfn></dd>
 				<dd class="views">{topicrow.VIEWS} <dfn>{L_VIEWS}</dfn></dd>
 				<dd class="lastpost"><span><dfn>{L_LAST_POST} </dfn>{L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}
 					<!-- IF not S_IS_BOT --><a href="{topicrow.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{topicrow.LAST_POST_TIME}</span>

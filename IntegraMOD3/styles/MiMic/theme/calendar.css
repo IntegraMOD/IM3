@@ -47,12 +47,12 @@ Style sheet for calendar mod
 
 table.calendar {
     border:solid 1px;
-    border-color:#C2E6F6;
+    border-color:#8B959C;
 }
 
 td.calendar {
     border:solid 1px;
-    border-color:#C2E6F6;
+    border-color:#9FA7AD;
 }
 
 tr.calendar {
@@ -67,9 +67,9 @@ tr.calendar {
 }
 
 tr.cal_block_header {
-    background-color:#CADCEB;
+    background-color:#DFE4E7;
     height:16px;
-    border-color:#C2E6F6;
+    border-color:#8B959C;
     font-weight:bold;
 }
 

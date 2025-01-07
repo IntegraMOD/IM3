@@ -98,10 +98,6 @@ $lang = array_merge($lang, array(
 
 // User Permissions
 $lang = array_merge($lang, array(
-
-	// ajaxlike
-	'acl_u_ajaxlike_mod'	=>	array('lang' => 'Can like posts', 'cat' => 'misc'),
-	// ajaxlike
 	'acl_u_viewprofile'	=> array('lang' => 'Can view profiles, memberlist and online list', 'cat' => 'profile'),
 	'acl_u_chgname'		=> array('lang' => 'Can change username', 'cat' => 'profile'),
 	'acl_u_chgpasswd'	=> array('lang' => 'Can change password', 'cat' => 'profile'),
@@ -153,9 +149,6 @@ $lang = array_merge($lang, array(
 
 // Forum Permissions
 $lang = array_merge($lang, array(
-	// ajaxlike
-	'acl_f_ajaxlike_mod'	=>	array('lang' => 'Can like posts in forum', 'cat' => 'misc'),
-	// ajaxlike
 	'acl_f_list'		=> array('lang' => 'Can see forum', 'cat' => 'post'),
 	'acl_f_read'		=> array('lang' => 'Can read forum', 'cat' => 'post'),
 	'acl_f_post'		=> array('lang' => 'Can start new topics', 'cat' => 'post'),
@@ -211,9 +204,6 @@ $lang = array_merge($lang, array(
 
 // Admin Permissions
 $lang = array_merge($lang, array(
-	// ajaxlike
-	'acl_a_ajaxlike_mod'	=>	array('lang' => 'Can manage likes', 'cat' => 'misc'),
-	// ajaxlike
 	'acl_a_board'		=> array('lang' => 'Can alter board settings/check for updates', 'cat' => 'settings'),
 	'acl_a_server'		=> array('lang' => 'Can alter server/communication settings', 'cat' => 'settings'),
 	'acl_a_jabber'		=> array('lang' => 'Can alter Jabber settings', 'cat' => 'settings'),

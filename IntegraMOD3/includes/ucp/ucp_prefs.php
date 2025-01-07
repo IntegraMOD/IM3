@@ -42,10 +42,6 @@ class ucp_prefs
 					'show_likes'				=> request_var('show_likes', $user->data['show_likes'], true),
 					'ajaxlike_list_in_profile'	=> (isset($config['ajaxlike_enable']) ? $config['ajaxlike_list_in_profile']: false),
 					// ajaxlike
-					// ajaxlike
-					'show_likes'				=> request_var('show_likes', $user->data['show_likes'], true),
-					'ajaxlike_list_in_profile'	=> (isset($config['ajaxlike_enable']) ? $config['ajaxlike_list_in_profile']: false),
-					// ajaxlike
 					
 					'notifymethod'	=> request_var('notifymethod', $user->data['user_notify_type']),
 					'dateformat'	=> request_var('dateformat', $user->data['user_dateformat'], true),
@@ -98,10 +94,6 @@ class ucp_prefs
 							// ajaxlike
 							'show_likes'			=> $data['show_likes'],
 							// ajaxlike
-							// ajaxlike
-							'show_likes'			=> $data['show_likes'],
-							// ajaxlike
-							
 							'user_allow_pm'			=> $data['allowpm'],
 							'user_allow_viewemail'	=> $data['viewemail'],
 							'user_allow_massemail'	=> $data['massemail'],
@@ -192,10 +184,6 @@ class ucp_prefs
 					'S_NOTIFY_PM'		=> $data['notifypm'],
 					'S_POPUP_PM'		=> $data['popuppm'],
 					'S_DST'				=> $data['dst'],
-					// ajaxlike
-					'S_SHOW_LIKES'			=> $data['show_likes'],
-					'S_AJ_LIST_IN_PROFILE'	=> $data['ajaxlike_list_in_profile'],
-					// ajaxlike
 					// ajaxlike
 					'S_SHOW_LIKES'			=> $data['show_likes'],
 					'S_AJ_LIST_IN_PROFILE'	=> $data['ajaxlike_list_in_profile'],
