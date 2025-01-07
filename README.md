@@ -9,6 +9,6 @@ Currently all mods install correctly except the Social Network ACP modules. Im s
 For now, after the initial installation is complete, browse to your IM3 installation and first uninstall the social network mod and when complete, re-install the Social Networking mod.
 Now it is installed fully and correctly. 
 Here is the url to access the install/un-install procedure.
-www.YOUR-SITE.COM/socialnet/install_sn.php
+www.YOUR-SITE.COM/IntegraMOD3/socialnet/install_sn.php
 
 If you have any questions or issues, you can find us at integramod.com. Thank you!
