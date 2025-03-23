@@ -481,8 +481,10 @@ class ucp_gallery
 				$exclude_albums[] = (int) $row['album_id'];
 			}
 
-			$parents_list = phpbb_gallery_album::get_albumbox(false, '', $album_data['parent_id'], false, $exclude_albums, $user->data['user_id']);
-
+//			$parents_list = phpbb_gallery_album::get_albumbox(false, '', $album_data['parent_id'], false, $exclude_albums, $user->data['user_id']);
+  	        $album = new phpbb_gallery_album();
+	        $parents_list = $album->get_albumbox(false, '', $album_data['parent_id'], false, $exclude_albums, $user->data['user_id']);
+			
 			$s_access_options = '';
 			if (phpbb_gallery::$auth->acl_check('a_restrict', phpbb_gallery_auth::OWN_ALBUM) && $album_data['parent_id'])
 			{
