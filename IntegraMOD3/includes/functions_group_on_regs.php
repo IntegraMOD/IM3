@@ -184,7 +184,7 @@ function group_add_delete_user_cpf($user_id)
 			AND l.group_id <> 0
 			AND l.field_type = ' . FIELD_DROPDOWN . '
 			AND l.field_id = f.field_id
-		GROUP BY l.group_id';
+		GROUP BY l.group_id, l.lang_value, l.group_name, l.option_id, f.field_name';
 	$result = $db->sql_query($sql);
 
 	while ($row = $db->sql_fetchrow($result))

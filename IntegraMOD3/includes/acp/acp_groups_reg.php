@@ -145,13 +145,13 @@ class acp_groups_reg
 		$db->sql_freeresult($result);
 			
 		//Obtain custom profile fields based groups data
-		$sql = 'SELECT l.lang_value, l.field_id, l.option_id, l.group_id, l.group_name, l.group_id, f.field_name
-			FROM ' . PROFILE_FIELDS_LANG_TABLE . ' l, ' . PROFILE_FIELDS_TABLE . ' f
-			WHERE l.lang_id = ' . $user->get_iso_lang_id() . '
-				AND l.option_id <> 0
-				AND l.field_type = ' . FIELD_DROPDOWN . '
-				AND l.group_id <> 0
-				AND l.field_id = f.field_id';
+		$sql = 'SELECT l.lang_value, l.field_id, l.option_id, l.group_id, f.field_name
+				FROM ' . PROFILE_FIELDS_LANG_TABLE . ' l
+				JOIN ' . PROFILE_FIELDS_TABLE . ' f ON l.field_id = f.field_id
+				WHERE l.lang_id = ' . $user->get_iso_lang_id() . '
+				  AND l.option_id <> 0
+				  AND l.field_type = ' . FIELD_DROPDOWN . '
+				GROUP BY l.lang_value, l.field_id, l.option_id, l.group_id, f.field_name';
 		$result = $db->sql_query($sql);
 		
 		$group_id_list = $group_name_list =array();
@@ -352,11 +352,12 @@ class acp_groups_reg
 			
 		//Obtain custom profile fields lang values
 		$sql = 'SELECT l.lang_value, l.field_id, l.option_id, l.group_id, f.field_name
-			FROM ' . PROFILE_FIELDS_LANG_TABLE . ' l, ' . PROFILE_FIELDS_TABLE . ' f
-			WHERE l.lang_id = ' . $user->get_iso_lang_id() . '
-				AND l.option_id <> 0
-				AND l.field_type = ' . FIELD_DROPDOWN . '
-				AND l.field_id = f.field_id';
+				FROM ' . PROFILE_FIELDS_LANG_TABLE . ' l
+				JOIN ' . PROFILE_FIELDS_TABLE . ' f ON l.field_id = f.field_id
+				WHERE l.lang_id = ' . $user->get_iso_lang_id() . '
+				  AND l.option_id <> 0
+				  AND l.field_type = ' . FIELD_DROPDOWN . '
+				GROUP BY l.lang_value, l.field_id, l.option_id, l.group_id, f.field_name';
 		$result = $db->sql_query($sql);
 	
 		$s_field_id_name_options = '<option value=""  selected="selected">--</option>';
@@ -492,12 +493,12 @@ class acp_groups_reg
 
 		//Obtain custom profile fields based group names
 		$sql = 'SELECT l.lang_value, l.group_id, l.group_name, l.option_id, f.field_name
-			FROM ' . PROFILE_FIELDS_LANG_TABLE . ' l, ' . PROFILE_FIELDS_TABLE . ' f
-			WHERE l.lang_id = ' . $user->get_iso_lang_id() . '
-				AND l.group_id <> 0
-				AND l.field_type = ' . FIELD_DROPDOWN . '
-				AND l.field_id = f.field_id
-			GROUP BY l.group_id';
+				FROM ' . PROFILE_FIELDS_LANG_TABLE . ' l
+				JOIN ' . PROFILE_FIELDS_TABLE . ' f ON l.field_id = f.field_id
+				WHERE l.lang_id = ' . $user->get_iso_lang_id() . '
+				  AND l.group_id <> 0
+				  AND l.field_type = ' . FIELD_DROPDOWN . '
+				GROUP BY l.lang_value, l.group_id, l.group_name, l.option_id, f.field_name';
 		$result = $db->sql_query($sql);
 
 		while ($row = $db->sql_fetchrow($result))
