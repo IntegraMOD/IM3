@@ -68,20 +68,25 @@ class bbcode_firstpass extends bbcode
 					// it should not demand recompilation
 					if (preg_match($regexp, $this->message))
 					{
-						// custom BBcode?
+						// Custom BBcode?
 						if (is_array($replacement))
 						{
-							// eval() sucks, but we must use preg_replace_callback() to support
-							// PHP 7.0, and custom BBcode replacement function is stored as a string
-							$this->message = preg_replace_callback($regexp, function($matches) use($replacement) {eval('$str=' . $replacement[1]); return $str;}, $this->message);
+							// Instead of using eval(), define a proper function for handling replacements
+							$callback = function($matches) use ($replacement) {
+								return call_user_func($replacement[1], $matches);
+							};
+
+							$this->message = preg_replace_callback($regexp, $callback, $this->message);
 						}
 						else
 						{
 							$this->message = preg_replace_callback($regexp, $replacement, $this->message);
 						}
+
 						$bitfield->set($bbcode_data['bbcode_id']);
 					}
 				}
+
 			}
 		}
 
@@ -122,7 +127,11 @@ class bbcode_firstpass extends bbcode
 		// To parse multiline URL we enable dotall option setting only for URL text
 		// but not for link itself, thus [url][/url] is not affected.
 		$this->bbcodes = array(
-			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z]+))?\](.+\[/code\])#ise' => "\$this->bbcode_code('\$1', '\$2')")),
+//			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z]+))?\](.+\[/code\])#ise' => "\$this->bbcode_code('\$1', '\$2')")),
+			'code'          => array('bbcode_id' => 8,  'regexp' => array('#\[code(?:=([a-z]+))?\](.+)\[/code\]#is' => function($matches) {return $this->bbcode_code($matches[1] ?? '', $matches[2]);	})),
+
+
+
 			'quote'			=> array('bbcode_id' => 0,	'regexp' => array('#\[quote(?:=&quot;(.*?)&quot;)?\](.+)\[/quote\]#uis' => function($matches){return $this->bbcode_quote($matches[0]);})),
 			'attachment'	=> array('bbcode_id' => 12,	'regexp' => array('#\[attachment=([0-9]+)\](.*?)\[/attachment\]#uis' => function($matches){return $this->bbcode_attachment($matches[1], $matches[2]);})),
 			'b'				=> array('bbcode_id' => 1,	'regexp' => array('#\[b\](.*?)\[/b\]#uis' => function($matches){return $this->bbcode_strong($matches[1]);})),
