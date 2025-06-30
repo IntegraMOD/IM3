@@ -8,6 +8,8 @@ var $j = jQuery.noConflict();
  
 function initBBCode($) {
     // Startup variables
+    var form_name = 'postform';
+    var text_name = 'message';
     var imageTag = false;
     var theSelection = false;
     var bbcodeEnabled = true;
