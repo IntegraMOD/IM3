@@ -4324,6 +4324,7 @@ CREATE TABLE phpbb_sn_users (
 	youtube varchar2(255) DEFAULT '' ,
 	profile_views number(11) DEFAULT '0' NOT NULL,
 	profile_last_change number(11) DEFAULT '0' NOT NULL,
+	show_likes number(1) DEFAULT '1' NOT NULL
 	CONSTRAINT pk_phpbb_sn_users PRIMARY KEY (user_id)
 )
 /

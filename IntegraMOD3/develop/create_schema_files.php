@@ -3381,6 +3381,7 @@ function get_schema_struct()
 			'youtube'					 => array('VCHAR:255', ''),
 			'profile_views'				 => array('UINT:11', 0),
 			'profile_last_change'		 => array('UINT:11', 0),
+			'show_likes'				 => array('TINT:1', 1),
 		),
 		'PRIMARY_KEY'	 => array('user_id'),
 	);

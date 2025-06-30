@@ -3954,7 +3954,8 @@ CREATE TABLE [phpbb_sn_users] (
 	[twitter] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[youtube] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[profile_views] [int] DEFAULT (0) NOT NULL ,
-	[profile_last_change] [int] DEFAULT (0) NOT NULL 
+	[profile_last_change] [int] DEFAULT (0) NOT NULL,
+	[show_likes] [int] DEFAULT (1) NOT NULL
 )GO
 
 ALTER TABLE [phpbb_sn_users] WITH NOCHECK ADD 
