@@ -3396,8 +3396,7 @@ CREATE TABLE phpbb_sn_users (
 	twitter VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
 	youtube VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
 	profile_views INTEGER DEFAULT 0 NOT NULL,
-	profile_last_change INTEGER DEFAULT 0 NOT NULL,
-	show_likes INTEGER DEFAULT 1 NOT NULL
+	profile_last_change INTEGER DEFAULT 0 NOT NULL
 );;
 
 ALTER TABLE phpbb_sn_users ADD PRIMARY KEY (user_id);;

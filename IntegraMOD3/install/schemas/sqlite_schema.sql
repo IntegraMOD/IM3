@@ -2294,7 +2294,6 @@ CREATE TABLE phpbb_sn_users (
 	youtube varchar(255) NOT NULL DEFAULT '',
 	profile_views INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	profile_last_change INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	show_likes tinyint(1) NOT NULL DEFAULT '1',
 	PRIMARY KEY (user_id)
 );
 

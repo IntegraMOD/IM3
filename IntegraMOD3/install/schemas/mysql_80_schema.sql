@@ -2391,7 +2391,6 @@ CREATE TABLE phpbb_sn_users (
 	youtube varchar(255) DEFAULT '' NOT NULL,
 	profile_views int UNSIGNED DEFAULT '0' NOT NULL,
 	profile_last_change int UNSIGNED DEFAULT '0' NOT NULL,
-	show_likes tinyint DEFAULT '1' NOT NULL,
 	PRIMARY KEY (user_id)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;
 
