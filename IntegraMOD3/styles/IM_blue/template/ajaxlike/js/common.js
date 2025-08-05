@@ -3,254 +3,235 @@
 	javascript functions
 */
 
-// added again for backward compatiblity
-function JQuery_loader(url)
-{
-    if (typeof(jQuery) == 'undefined') {
-            document.write("<scr" + "ipt type=\"text/javascript\" src=\""+url+"\"></scr" + "ipt>");
-    }
-
+function JQuery_loader(url) {
+	if (typeof jQuery === 'undefined') {
+		var script = document.createElement('script');
+		script.type = 'text/javascript';
+		script.src = url;
+		script.onload = function () {
+			// Optional: re-init if needed post load
+		};
+		document.head.appendChild(script);
+	}
 }
 
+// safe entry point
+function ajaxlike_bootstrap(callback_url, interval) {
+	JQuery_loader('assets/js/jquery/jquery-3.6.0.js'); // ensure .js
 
-function load_tips(id)
-{
-			jQuery.noConflict();
-			jQuery(id).tipsy({
-    			delayIn: 0,
-    			delayOut: 0,
-    			fade: false,
-    			gravity: 's',    // gravity
-    			html: true,
-    			offset: 0,
-    			opacity: 0.8,
-    			trigger: 'hover'
-		});
-}
-
-function ajaxlike_like(post_id, topic_id, forum_id, user_id, callback_url)
-{
-	
-	var rv = new Date().getTime();
-	
-		jQuery.get(callback_url, {
-		ajaxlike_rnd : rv,
-		//f: forum_id, // Senko say it is not useful :D
-		t: topic_id, 
-		p: post_id, 
-		like_from : user_id,
-		ajaxlike_action: 'like', 
-		ajaxlike_data: ''
-		},   function(data){
-		
-	 		document.getElementById('ajaxlike_content'+post_id).innerHTML = data;
-	 		load_tips('#ajaxlike_tooltip'+post_id);
+	let elapsed = 0;
+	let timeoutLimit = 5000; // 5 seconds
+	var checkInterval = setInterval(function () {
+		elapsed += 100;
+		if (typeof jQuery !== 'undefined' && typeof jQuery.getJSON === 'function') {
+			clearInterval(checkInterval);
+			jQuery(function () {
+				ajaxlike_init_notify(interval, callback_url);
+			});
+		} else if (elapsed >= timeoutLimit) {
+			clearInterval(checkInterval);
+			console.warn("jQuery load timeout. Skipping ajaxlike init.");
 		}
-	);
+	}, 100);}
 
+function load_tips(id) {
+	jQuery.noConflict();
+	jQuery(id).tipsy({
+		delayIn: 0,
+		delayOut: 0,
+		fade: false,
+		gravity: 's',
+		html: true,
+		offset: 0,
+		opacity: 0.8,
+		trigger: 'hover'
+	});
 }
 
-function ajaxlike_unlike(post_id, topic_id, forum_id, user_id, callback_url)
-{
-
+function ajaxlike_like(post_id, topic_id, forum_id, user_id, callback_url) {
 	var rv = new Date().getTime();
-	
+
 	jQuery.get(callback_url, {
-		ajaxlike_rnd : rv,
-		//f: forum_id, // Senko say it is not useful :D
-		t: topic_id, 
-		p: post_id, 
-		like_from : user_id,
-		ajaxlike_action: 'unlike', 
+		ajaxlike_rnd: rv,
+		t: topic_id,
+		p: post_id,
+		like_from: user_id,
+		ajaxlike_action: 'like',
 		ajaxlike_data: ''
-		},   function(data){
-		
-	 		document.getElementById('ajaxlike_content'+post_id).innerHTML = data;
-	 		load_tips('#ajaxlike_tooltip'+post_id);
-		}
-	);
+	}).done(function (data) {
+		document.getElementById('ajaxlike_content' + post_id).innerHTML = data;
+		load_tips('#ajaxlike_tooltip' + post_id);
+	});
 }
 
-function ajaxlike_fulllistbox(post_id, topic_id, forum_id, callback_url, like_on_text)
-{
+function ajaxlike_unlike(post_id, topic_id, forum_id, user_id, callback_url) {
+	var rv = new Date().getTime();
 
-	jQuery(function() {
-		
+	jQuery.get(callback_url, {
+		ajaxlike_rnd: rv,
+		t: topic_id,
+		p: post_id,
+		like_from: user_id,
+		ajaxlike_action: 'unlike',
+		ajaxlike_data: ''
+	}).done(function (data) {
+		document.getElementById('ajaxlike_content' + post_id).innerHTML = data;
+		load_tips('#ajaxlike_tooltip' + post_id);
+	});
+}
+
+function ajaxlike_fulllistbox(post_id, topic_id, forum_id, callback_url, like_on_text) {
+	jQuery(function () {
 		document.getElementById('ajaxlike-dialog').innerHTML = "<p>loading...</p>";
-		
-		jQuery( "#dialog:ui-dialog" ).dialog("destroy");
-		
-		jQuery( "#ajaxlike-dialog" ).dialog({
+
+		jQuery("#dialog:ui-dialog").dialog("destroy");
+
+		jQuery("#ajaxlike-dialog").dialog({
 			width: '500',
 			height: '400',
 			modal: true,
-			position: 'center',
+			position: { my: "center", at: "center", of: window },
 			show: "fade",
 			hide: "fade",
 			buttons: {
-				OK: function() {
-					jQuery( this ).dialog( "close" );
+				OK: function () {
+					jQuery(this).dialog("close");
 				}
 			},
- 			beforeClose: function(event, ui) { 
-  				jQuery("body").css({ overflow: 'inherit' }); 
-			}, 
-			open: function(event, ui) {
-  				jQuery("body").css({ overflow: 'hidden' });
-				
-				jQuery('.ui-widget-overlay').bind('click',function(){ 
-                	jQuery('#ajaxlike-dialog').dialog('close'); 
-            	});
-            	
-				var rv = new Date().getTime();
-				
-				jQuery.getJSON(callback_url, {
-					ajaxlike_rnd : rv,
-					//f: forum_id, // Jakub say it is not useful :D
-					t: topic_id, 
-					p: post_id, 
-					ajaxlike_action: 'fulllist', 
-					ajaxlike_data: ''
-				},   function(data){
-				
-				document.getElementById('ajaxlike-dialog').innerHTML = "";
-				
-				for(i=0;i<data.length;i++){
-					
-					
-					document.getElementById('ajaxlike-dialog').innerHTML += '<div class="ajaxlike_listing_item"><div class="ajaxlike_listing_avatar">'+data[i].avatar+'</div><div class="ajaxlike_listing_content">'+data[i].username_full+'<br /><span class="ajaxlike_listing_item_date">'+like_on_text+' <i>'+data[i].date+'</i></span></div><div style="clear: both;">&nbsp;</div></div>';
-					
-				}
-				
-				
+			beforeClose: function (event, ui) {
+				jQuery("body").css({ overflow: 'inherit' });
+			},
+			open: function (event, ui) {
+				jQuery("body").css({ overflow: 'hidden' });
+
+				jQuery('.ui-widget-overlay').on('click', function () {
+					jQuery('#ajaxlike-dialog').dialog('close');
 				});
-				
+
+				var rv = new Date().getTime();
+
+				jQuery.getJSON(callback_url, {
+					ajaxlike_rnd: rv,
+					t: topic_id,
+					p: post_id,
+					ajaxlike_action: 'fulllist',
+					ajaxlike_data: ''
+				}).done(function (data) {
+					document.getElementById('ajaxlike-dialog').innerHTML = "";
+
+					for (var i = 0; i < data.length; i++) {
+						document.getElementById('ajaxlike-dialog').innerHTML += '<div class="ajaxlike_listing_item"><div class="ajaxlike_listing_avatar">' + data[i].avatar + '</div><div class="ajaxlike_listing_content">' + data[i].username_full + '<br /><span class="ajaxlike_listing_item_date">' + like_on_text + ' <i>' + data[i].date + '</i></span></div><div style="clear: both;">&nbsp;</div></div>';
+					}
+				});
 			}
 		});
-		
 	});
-
 }
 
 /*
 	ajaxlike notifications
 */
-function ajaxlike_notificationsbox(callback_url)
-{
+function ajaxlike_notificationsbox(callback_url) {
+	if (typeof jQuery === 'undefined' || typeof jQuery.getJSON !== 'function') {
+		console.warn("ajaxlike_notificationsbox skipped — jQuery not ready.");
+		return;
+	}
 
-				
-		       var rv = new Date().getTime();
-				
-				jQuery.getJSON(callback_url, {
-					ajaxlike_rnd : rv,
-					ajaxlike_action: 'notifications', 
-					ajaxlike_data: ''
-				},   function(data){
-					
-			if(data!=null)
-			{
-				var nlikes = (data[0].new_likes);
-				var ninfo = (data[0].like_new);
-				
+	var rv = new Date().getTime();
 
-				document.getElementById('ajaxlike_not-dialog').innerHTML = "";
-				
-				for(i=0;i<data.length;i++){
-					document.getElementById('ajaxlike_not-dialog').innerHTML += '<div class="ajaxlike_not_listing_item" like_id="'+data[i].like_id+'" id="box'+data[i].like_id+'"><div class="ajaxlike_noti ajaxlike_noti_Top ajaxlike_noti_Bottom ajaxlike_noti_Selected" style="opacity: 1; "><span id="ajaxlike_not_x" class="close'+data[i].like_id+'">&nbsp;</span><div class="ajaxlike_not_listing_item_avatar">'+data[i].avatar+(data[i].avatar!=''?"</div>":"")+data[i].username_full+'<br />'+data[i].like_info+'<a href="'+data[i].post+'">'+data[i].like_text+'</a><br /><span class="ajaxlike_not_listing_item_date"><i>'+data[i].date+'</i></span></div></div>';
-			 	 
-					jQuery("#ajaxlike_not_new").html(""+"<strong>" + nlikes + "</strong>" + ninfo +  "");
-	  				jQuery("#ajaxlike_not-dialog").fadeIn("slow");	
-	   				jQuery('div').on('hover',function() {  
-         			hoveredId = jQuery(this).attr('like_id');
-         			var like_id =(hoveredId);
-		 			jQuery(".close" + like_id).click(function () {
-        			//close notification when the close button is clicked
-        			jQuery("#box" + like_id).fadeOut();
-          			});
-		  			
-		  			}); 
-		  		  	
-       				setTimeout(function(){
-      				jQuery("#ajaxlike_not-dialog" ).fadeOut(3000);
-	  	 			},5000); 
-				
+	jQuery.getJSON(callback_url, {
+		ajaxlike_rnd: rv,
+		ajaxlike_action: 'notifications',
+		ajaxlike_data: ''
+	}).done(function (data) {
+		if (data != null) {
+			var nlikes = data[0].new_likes;
+			var ninfo = data[0].like_new;
+
+			document.getElementById('ajaxlike_not-dialog').innerHTML = "";
+
+			for (var i = 0; i < data.length; i++) {
+				document.getElementById('ajaxlike_not-dialog').innerHTML += '<div class="ajaxlike_not_listing_item" like_id="' + data[i].like_id + '" id="box' + data[i].like_id + '"><div class="ajaxlike_noti ajaxlike_noti_Top ajaxlike_noti_Bottom ajaxlike_noti_Selected" style="opacity: 1; "><span id="ajaxlike_not_x" class="close' + data[i].like_id + '">&nbsp;</span><div class="ajaxlike_not_listing_item_avatar">' + data[i].avatar + (data[i].avatar != '' ? "</div>" : "") + data[i].username_full + '<br />' + data[i].like_info + '<a href="' + data[i].post + '">' + data[i].like_text + '</a><br /><span class="ajaxlike_not_listing_item_date"><i>' + data[i].date + '</i></span></div></div>';
+
+				jQuery("#ajaxlike_not_new").html("<strong>" + nlikes + "</strong>" + ninfo);
+				jQuery("#ajaxlike_not-dialog").fadeIn("slow");
+
+				jQuery('div').on('mouseenter', function () {
+					var hoveredId = jQuery(this).attr('like_id');
+					var like_id = hoveredId;
+					jQuery(".close" + like_id).on('click', function () {
+						jQuery("#box" + like_id).fadeOut();
+					});
+				});
+
+				setTimeout(function () {
+					jQuery("#ajaxlike_not-dialog").fadeOut(3000);
+				}, 5000);
 			}
-			
 		}
-			
-			});
-
-
+	});
 }
 
-function ajaxlike_init_notify(interval, callback_url)
-{
+function ajaxlike_init_notify(interval, callback_url) {
+	if (typeof jQuery === 'undefined' || typeof jQuery.getJSON !== 'function') {
+		console.warn("ajaxlike_init_notify skipped — jQuery not ready.");
+		return;
+	}
 
-ajaxlike_notificationsbox(callback_url); // page load notify
+	ajaxlike_notificationsbox(callback_url); // page load notify
 
-setInterval(function(){ajaxlike_notificationsbox(callback_url)},interval);
-
+	setInterval(function () {
+		if (typeof jQuery !== 'undefined' && typeof jQuery.getJSON === 'function') {
+			ajaxlike_notificationsbox(callback_url);
+		}
+	}, interval);
 }
 
 //Read notifications
+function ajaxlike_liked_listbox(callback_url) {
+	jQuery(function () {
+		document.getElementById('ajaxlike-not-dialog').innerHTML = "<p>loading...</p>";
 
-	
-function ajaxlike_liked_listbox(callback_url)
-{   
+		jQuery("#dialog:ui-dialog").dialog("destroy");
 
-	jQuery(function() {
-		
-			// show something until load complete in slow connection...
-			document.getElementById('ajaxlike-not-dialog').innerHTML = "<p>loading...</p>";
-				
-
-		jQuery( "#dialog:ui-dialog" ).dialog("destroy");
-
-			jQuery( "#ajaxlike-not-dialog" ).dialog({
+		jQuery("#ajaxlike-not-dialog").dialog({
 			width: '500',
 			height: '400',
 			modal: true,
 			show: "fade",
 			hide: "fade",
 			buttons: {
-				OK: function() {
-					jQuery( this ).dialog( "close" );
+				OK: function () {
+					jQuery(this).dialog("close");
 				}
 			},
- 			beforeClose: function(event, ui) { 
-  				jQuery("body").css({ overflow: 'inherit' });
-			}, 
-			open: function(event, ui) {
-  				jQuery("body").css({ overflow: 'hidden' });
-    				
-				
-				jQuery('.ui-widget-overlay').bind('click',function(){ 
-                	jQuery('#ajaxlike-not-dialog').dialog('close'); 
-            	});
+			beforeClose: function (event, ui) {
+				jQuery("body").css({ overflow: 'inherit' });
+			},
+			open: function (event, ui) {
+				jQuery("body").css({ overflow: 'hidden' });
 
-			var rv = new Date().getTime();
-				
+				jQuery('.ui-widget-overlay').on('click', function () {
+					jQuery('#ajaxlike-not-dialog').dialog('close');
+				});
+
+				var rv = new Date().getTime();
+
 				jQuery.getJSON(callback_url, {
-					ajaxlike_rnd : rv,
-					ajaxlike_action: 'liked_list', 
+					ajaxlike_rnd: rv,
+					ajaxlike_action: 'liked_list',
 					ajaxlike_data: ''
-				},   function(data){
-					
-				var ninfo = (data[0].like_new);
-				document.getElementById('ajaxlike-not-dialog').innerHTML = "";
-				
-				for(i=0;i<data.length;i++){
-					
-					document.getElementById('ajaxlike-not-dialog').innerHTML += '<div class="ajaxlike_listing_item ajaxlike_post_'+data[i].item_class+'"><div class="ajaxlike_not_listing_item_avatar">'+data[i].avatar+'</div><div class="ajaxlike_listing_content">'+data[i].username_full+'<br />'+data[i].like_info+'<a href="'+data[i].post+'" class="ajaxlike_link">'+data[i].like_text+'</a><br /><span class="ajaxlike_not_listing_item_date"><i>'+data[i].date+'</i></span><br /><span class="ajaxlike_listing_item_date"><i>'+data[i].post_text+'</i></span></div><div style="clear: both;">&nbsp;</div></div>';
-					
-				jQuery("#ajaxlike_not_new").html(""+"<strong>0</strong>" + ninfo +  "");
-				
-				}
-			});
+				}).done(function (data) {
+					var ninfo = (data[0].like_new);
+					document.getElementById('ajaxlike-not-dialog').innerHTML = "";
 
-            }
-            
+					for (var i = 0; i < data.length; i++) {
+						document.getElementById('ajaxlike-not-dialog').innerHTML += '<div class="ajaxlike_listing_item ajaxlike_post_' + data[i].item_class + '"><div class="ajaxlike_not_listing_item_avatar">' + data[i].avatar + '</div><div class="ajaxlike_listing_content">' + data[i].username_full + '<br />' + data[i].like_info + '<a href="' + data[i].post + '" class="ajaxlike_link">' + data[i].like_text + '</a><br /><span class="ajaxlike_not_listing_item_date"><i>' + data[i].date + '</i></span><br /><span class="ajaxlike_listing_item_date"><i>' + data[i].post_text + '</i></span></div><div style="clear: both;">&nbsp;</div></div>';
+
+						jQuery("#ajaxlike_not_new").html("<strong>0</strong>" + ninfo);
+					}
+				});
+			}
 		});
-
 	});
 }

@@ -10,21 +10,29 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */-->
+<style>
+#mchat-buttons,
+#mchat-colour {
+  display: block !important;
+  visibility: hidden;
+  position: relative;
+}
+</style>
 <ul class="linklist">
 	<li class="rightside pagination">{MCHAT_TOTAL_MESSAGES} &bull; <!-- IF MCHAT_PAGINATION --><a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{MCHAT_PAGE_NUMBER}</a> &bull; <span>{MCHAT_PAGINATION}</span><!-- ELSE -->{MCHAT_PAGE_NUMBER}<!-- ENDIF --></li>
 </ul>
 <!-- ENDIF -->
 <!-- IF not MCHAT_READ_MODE -->
-	<div class="forabg">
-			<div class="inner">
-				<ul class="block_header">
-					<li class="block_title pb" style="text-align:{S_CONTENT_FLOW_BEGIN};">
-					<!-- IF MCHAT_ARCHIVE_MODE -->{L_MCHAT_ARCHIVE_PAGE}<!-- ELSE -->{L_MCHAT_TITLE}<!-- ENDIF -->
-			        </li>
-				</ul>
-			</div>
-
-		<div class="panel">
+<div class="forabg">
+	<div class="inner"><span class="corners-top"><span><a name="mChat"></a></span></span>
+		<ul class="topiclist">
+			<li class="header">
+				<dl class="icon">
+					<dt><!-- IF MCHAT_ARCHIVE_MODE -->{L_MCHAT_ARCHIVE_PAGE}<!-- ELSE -->{L_MCHAT_TITLE}<!-- ENDIF --></dt>
+				</dl>
+			</li>
+		</ul>
+		<div class="postbody mChatBodyFix">
 <!-- ENDIF -->
 	<!-- IF MCHAT_ENABLE -->
 			<!-- IF not MCHAT_READ_MODE -->
@@ -162,10 +170,9 @@
 	<!-- ENDIF -->
 	<!-- IF not MCHAT_READ_MODE -->
 		</div>
-	</div>
-
+	<span class="corners-bottom"><span></span></span></div>
+</div>
 	<!-- ENDIF -->
-	
 <!-- IF MCHAT_ARCHIVE_MODE -->
 <ul class="linklist">
 	<li class="rightside pagination">{MCHAT_TOTAL_MESSAGES} &bull; <!-- IF MCHAT_PAGINATION --><a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{MCHAT_PAGE_NUMBER}</a> &bull; <span>{MCHAT_PAGINATION}</span><!-- ELSE -->{MCHAT_PAGE_NUMBER}<!-- ENDIF --></li>
@@ -177,7 +184,6 @@
 	<div class="mChatRefresh"><span id="mChatRefresh">{L_MCHAT_WHOIS_REFRESH_EXPLAIN}</span><span id="mChatRefreshN" style="display: none;">{L_MCHAT_REFRESHING}</span>
 <!-- IF LEGEND --><br /><em>{L_LEGEND}: {LEGEND}</em><!-- ENDIF --></div>
 <!-- ENDIF -->
-
 <!-- IF MCHAT_ARCHIVE_MODE or MCHAT_CUSTOM_PAGE -->
 <!-- INCLUDE overall_footer.html -->
 <!-- ENDIF -->

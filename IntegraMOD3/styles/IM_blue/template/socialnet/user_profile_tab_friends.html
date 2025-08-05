@@ -33,7 +33,7 @@
 		if($('#sn-up-friendsButtons').size() > 0) {
 			$sn = socialNetwork;
 			
-			$('#sn-up-friendsButtons').buttonset();
+			jQuery('#sn-up-friendsButtons').buttonset();
 			$('#sn-up-friendsButtons label').css({
 				width : Math.max(Math.floor(99 / $('#sn-up-friendsButtons label').size(), 16)) + '%'
 			});
@@ -51,7 +51,7 @@
 			});
 			var snUpFriendsButtons_start = $.cookie($sn.cookie.name + 'sn-up-friendsTab');
 			if(snUpFriendsButtons_start == null || $('#' + snUpFriendsButtons_start).size() == 0) {
-				snUpFriendsButtons_start = $('#sn-up-friendsButtons input[type=radio]:first-child').attr('id');
+				snUpFriendsButtons_start = $('#sn-up-friendsButtons input[type=radio]:first').attr('id');
 			}
 			$('#' + snUpFriendsButtons_start).trigger('click');
 

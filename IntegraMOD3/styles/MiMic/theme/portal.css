@@ -88,7 +88,7 @@ clear:both;
 }
 
 .box {
- background: #E8ECEE none repeat-x 0 0;
+ background: #ECF3F7 none repeat-x 0 0;
  background-repeat: repeat;
  text-align:left;
  margin-top:5px;
@@ -214,3 +214,4 @@ div.cssclock {
   font-size: 6px;
   margin: auto;
 }
+

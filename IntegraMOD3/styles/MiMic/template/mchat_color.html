@@ -1,13 +1,50 @@
-					<div id="mChatColour" style="display: none; text-align: center">
-						<table width="50%" style="margin-left: auto; margin-right: auto;">
-							<tr align="center">
-								<td valign="top">
-									<script type="text/javascript">
-									// <![CDATA[
-										colorPalette('h', 15, 10);
-									// ]]>
-									</script>
-								</td>
-							</tr>
-						</table>
-					</div>
+<style>
+	.mChatSwatchContainer {
+		display: flex;
+		justify-content: center;
+		gap: 6px;
+		padding: 8px;
+	}
+	.mChatSwatch {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		cursor: pointer;
+		border: 1px solid #ccc;
+		box-shadow: 0 0 2px rgba(0,0,0,0.2);
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
+	}
+	.mChatSwatch:hover {
+		transform: scale(1.2);
+		box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	}
+</style>
+
+<div id="mChatColour" style="display: none;">
+	<div class="mChatSwatchContainer" id="mChatColorPaletteTarget"></div>
+	<script>
+		const colors = ['#000000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#FFFFFF'];
+		const container = document.getElementById('mChatColorPaletteTarget');
+
+		function insertColor(color) {
+			const textarea = document.getElementById('mChatMessage');
+			if (textarea) {
+				const start = textarea.value.substring(0, textarea.selectionStart);
+				const end = textarea.value.substring(textarea.selectionEnd);
+				textarea.value = start + '[color=' + color + '][/color]' + end;
+				textarea.focus();
+			}
+		}
+
+		colors.forEach(color => {
+			const swatch = document.createElement('div');
+			swatch.className = 'mChatSwatch';
+			swatch.style.backgroundColor = color;
+			swatch.title = color;
+			swatch.onclick = () => insertColor(color);
+			container.appendChild(swatch);
+		});
+		
+	</script>
+</div>
+

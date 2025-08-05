@@ -1,29 +1,52 @@
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.metadata.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery_cookie.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.timers.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.hoverIntent.min.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.text-overflow.min.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.watermark.min.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery-ui-1.9.2.custom.min.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.elastic.source.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.events.input.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.form.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.titlealert.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.detectmobilebrowser.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.expander.min.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.editable.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.jgrowl_minimized.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/underscore-min.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/jquery.mentionsInput.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/m.socialnet.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/m.confirmbox.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/m.im.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/m.notify.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/m.approval.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/m.userstatus.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/m.activitypage.js"></script>
-<script type="text/javascript" src="{T_SOCIALNET_JS_PATH}/m.profile.js"></script>
-<script type="text/javascript">
+<script>
+window.socialNetwork = window.socialNetwork || {};
+
+if (!jQuery.browser) {
+  var ua = navigator.userAgent.toLowerCase();
+  var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+              /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+              /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+              /(msie) ([\w.]+)/.exec(ua) ||
+              ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) || [];
+
+  var browser = {};
+  if (match[1]) {
+    browser[match[1]] = true;
+    browser.version = match[2] || "0";
+  }
+
+  if (browser.chrome) browser.webkit = true;
+  else if (browser.webkit) browser.safari = true;
+
+  jQuery.browser = browser;
+}
+</script>
+<script src="{ROOT_PATH}socialnet/js/jquery.metadata.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery_cookie.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.timers.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.hoverIntent.min.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.text-overflow.min.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.watermark.min.js"></script>
+<!--  <script src="{ROOT_PATH}assets/js/jquery/jquery-ui-1.14.1.js"></script> -->
+<script src="{ROOT_PATH}socialnet/js/jquery.elastic.source.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.events.input.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.form.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.titlealert.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.detectmobilebrowser.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.expander.min.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.editable.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.jgrowl_minimized.js"></script>
+<script src="{ROOT_PATH}socialnet/js/underscore-min.js"></script>
+<script src="{ROOT_PATH}socialnet/js/jquery.mentionsInput.js"></script>
+<script src="{ROOT_PATH}socialnet/js/m.socialnet.js"></script>
+<script src="{ROOT_PATH}socialnet/js/m.confirmbox.js"></script>
+<script src="{ROOT_PATH}socialnet/js/m.im.js"></script>
+<script src="{ROOT_PATH}socialnet/js/m.notify.js"></script>
+<script src="{ROOT_PATH}socialnet/js/m.approval.js"></script>
+<script src="{ROOT_PATH}socialnet/js/m.userstatus.js"></script>
+<script src="{ROOT_PATH}socialnet/js/m.activitypage.js"></script>
+<script src="{ROOT_PATH}socialnet/js/m.profile.js"></script>
+<script >
 // <![CDATA[
 jQuery(document).ready(function($){
 	socialNetwork.init({

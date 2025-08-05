@@ -2,7 +2,7 @@
 <html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}">
 <head>
 
-<meta charset="utf-8" />
+<meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="content-style-type" content="text/css" />
@@ -34,11 +34,26 @@
 -->
 
 <link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
-<!-- INCLUDE socialnet/overall_header_hook_css.html -->
-<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" onload="this.media='all'" />
+<!-- ajaxlike -->
+<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/tipsy.css" rel="stylesheet" type="text/css" />
 
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-migrate-3.5.2.js"></script>
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="{T_THEME_PATH}/light.css" rel="stylesheet" type="text/css" title="light" id="light" />
+
+<script src="{ROOT_PATH}assets/js/jquery/jquery-3.6.0.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-migrate-1.4.1.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-ui-1.14.1.js"></script>
+
+<!-- IF S_MCHAT_ENABLE and (S_MCHAT_ON_INDEX or U_MCHAT) -->
+<script src="{ROOT_PATH}assets/js/jquery/jquery_cookie_mini.js"></script>
+<!-- ENDIF -->
+
+<!-- IF SCRIPT_NAME eq 'activitypage' or SCRIPT_NAME eq 'profile' -->
+<!-- INCLUDE socialnet/overall_header_hook_css.html -->
+<!-- INCLUDE socialnet/overall_header_hook_js.html -->	
+<!-- ENDIF -->
 
 <script>
 // <![CDATA[
@@ -85,10 +100,47 @@ window.addEventListener('load', () => {
 window.addEventListener('unload', () => {
     executeFunctions(initFunctions.onunload);
 });
+
+// Cookie Consent Functions
+function setCookie(name, value, days) {
+	var expires = "";
+	if (days) {
+	var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+	expires = "; expires=" + date.toUTCString();
+	}
+	document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+	while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
+
+function acceptCookies() {
+	setCookie('cookie_consent', 'accepted', 365);
+	document.getElementById('cookie-consent-modal').style.display = 'none';
+}
+
+function checkCookieConsent() {
+	if (!getCookie('cookie_consent')) {
+	document.getElementById('cookie-consent-modal').style.display = 'block';
+	}
+}
+
+onload_functions.push('checkCookieConsent()');
+
 // ]]>
 </script>
 <script src="{ROOT_PATH}assets/js/styleswitch.js"></script>
 <script src="{ROOT_PATH}assets/js/forum_fn.js"></script>
+<script src="{ROOT_PATH}assets/js/select_code.js"></script>
 
 <!-- Font Awesome 6.5.2  -->
 <!-- <link href="{ROOT_PATH}assets/css/all-custom.css" rel="stylesheet" type="text/css">  -->
@@ -113,19 +165,10 @@ window.addEventListener('unload', () => {
 <link rel="stylesheet" type="text/css" href="{ROOT_PATH}assets/js/jquery/skins/tango/skin.css" />
 <!-- ENDIF -->
 
-<!-- ajaxlike -->
-<link href="{ROOT_PATH}assets/js/jquery/skins/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
-<link href="{ROOT_PATH}assets/js/jquery/skins/tipsy.css" rel="stylesheet" type="text/css" />
-
 <!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
 <link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
 <!-- ENDIF -->
-<script src="{ROOT_PATH}assets/js/jquery/jquery-1.12.4.js"></script>
-<script src="{ROOT_PATH}assets/js/jquery/jquery-migrate-1.4.1.js"></script>	
-<!-- IF S_MCHAT_ENABLE and (S_MCHAT_ON_INDEX or U_MCHAT) -->
-<script src="{ROOT_PATH}assets/js/jquery/jquery_cookie_mini.js"></script>
-<!-- ENDIF -->
-<!-- INCLUDE socialnet/overall_header_hook_js.html -->
+
 <!-- IF STARGATE -->
 <!-- INCLUDE set-width.html -->
 <!-- INCLUDE portal_scripts.html -->
@@ -153,6 +196,9 @@ function notes() {
 </head>
 
 <body id="phpbb" class="nojs notouch section-{SCRIPT_NAME} {S_CONTENT_DIRECTION} {BODY_CLASS}<!-- IF SN_MODULE_IM_ENABLED --> sn-im-page<!-- ENDIF -->">
+<!-- IF S_COOKIE_CONSENT_ENABLE -->
+<!-- INCLUDE cookie_consent.html -->
+<!-- ENDIF -->
 <!-- IF STARGATE -->
 <div id="page-width" class="stylewidth">
 <!-- ENDIF -->

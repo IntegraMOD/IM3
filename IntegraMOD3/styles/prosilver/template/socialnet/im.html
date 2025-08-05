@@ -23,7 +23,7 @@
 <!-- ENDIF -->
 	<!-- BEGIN sn_im_chatbox -->
 	<!-- IF not sn_im_chatbox.B_SN_IM_ONLY_MESSAGE -->
-	<div id="sn-im-chatBox{sn_im_chatbox.USER_ID}" class="sn-im-group sn-im-chatBox sn-im-noChatBar {uid:{sn_im_chatbox.USER_ID}}">
+	<div id="sn-im-chatBox{sn_im_chatbox.USER_ID}" class="sn-im-group sn-im-chatBox sn-im-noChatBar" data-uid="sn_im_chatbox.USER_ID">
 		<div class="sn-im-button sn-action-block<!-- IF sn_im_chatbox.S_OPEN --> sn-im-opener<!-- ENDIF -->">
 			<span class="sn-im-unRead<!-- IF sn_im_chatbox.UNREAD eq 0 --> sn-hiddenDefault<!-- ENDIF -->">{sn_im_chatbox.UNREAD}</span>
 			<div class="sn-actions">
@@ -70,7 +70,7 @@
 			</div>
 			<div class="sn-im-textArea<!-- IF SN_IM_SMILIES_EXISTS --> sn-im-smilies-on<!-- ENDIF -->">
 				<!-- IF SN_IM_SMILIES_EXISTS --><div class="sn-im-smilies"></div><!-- ENDIF -->
-				<textarea name="msg" class="sn-im-message {uid:{sn_im_chatbox.USER_ID}}" title="{SN_IM_PRESS_TO_SEND}" cols="1" rows="1"></textarea>
+				<textarea name="msg" class="sn-im-message" data-uid="sn_im_chatbox.USER_ID" title="{SN_IM_PRESS_TO_SEND}" cols="1" rows="1"></textarea>
 			</div>
 			
 			<!-- IF SN_IM_SMILIES_EXISTS -->

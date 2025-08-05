@@ -88,7 +88,7 @@
 		<!-- IF .relationship -->
   		<div class="sn-fms-users">
   			<!-- BEGIN relationship -->
-  			<div class="sn-fms-friend ui-widget-content ui-corner-all sn-action-block<!-- IF not relationship.UNANSWERED --> sn-bg-red<!-- ENDIF --> {uid:{relationship.USER_ID}}" title="{relationship.USERNAME_NO_COLOR}<!-- IF relationship.UNANSWERED --> ({L_SN_UP_NOT_APPROVED})<!-- ENDIF -->">
+  			<div class="sn-fms-friend ui-widget-content ui-corner-all sn-action-block<!-- IF not relationship.UNANSWERED --> sn-bg-red<!-- ENDIF -->" data-uid="relationship.USER_ID" title="{relationship.USERNAME_NO_COLOR}<!-- IF relationship.UNANSWERED --> ({L_SN_UP_NOT_APPROVED})<!-- ENDIF -->">
   				<div class="sn-actions">
   					<a href="{relationship.U_DELETE}" title="{L_DELETE}"><span class="sn-action-close"></span></a>
   				</div>
@@ -114,7 +114,7 @@
 		<!-- IF .family -->
   		<div class="sn-fms-users">
   			<!-- BEGIN family -->
-  			<div class="sn-fms-friend ui-widget-content ui-corner-all sn-action-block<!-- IF family.UNANSWERED --> sn-bg-red<!-- ENDIF --> {uid:{family.USER_ID}}" title="{family.USERNAME_NO_COLOR}<!-- IF family.UNANSWERED --> ({L_SN_UP_NOT_APPROVED})<!-- ENDIF -->">
+  			<div class="sn-fms-friend ui-widget-content ui-corner-all sn-action-block<!-- IF family.UNANSWERED --> sn-bg-red<!-- ENDIF -->" data-uid="family.USER_ID" title="{family.USERNAME_NO_COLOR}<!-- IF family.UNANSWERED --> ({L_SN_UP_NOT_APPROVED})<!-- ENDIF -->">
   				<div class="sn-actions">
   					<a href="{family.U_DELETE}" title="{L_DELETE}"><span class="sn-action-close"></span></a>
   				</div>
@@ -140,7 +140,7 @@
 		<h3>{L_SN_UP_RELATION_REQUESTS}</h3>
 		<div class="sn-fms-users">
 			<!-- BEGIN requests -->
-			<div class="sn-fms-friend ui-widget-content ui-corner-all sn-action-block sn-bg-red {uid:{requests.USER_ID}}" title="{requests.USERNAME_NO_COLOR}">
+			<div class="sn-fms-friend ui-widget-content ui-corner-all sn-action-block sn-bg-red" data-uid="requests.USER_ID" title="{requests.USERNAME_NO_COLOR}">
 				<div class="sn-actions">
 					<a href="{requests.U_APPROVE}" title="{L_SN_APPROVE}"><span class="sn-action-ok-green"></span></a><a href="{requests.U_REFUSE}" title="{L_SN_REFUSE}"><span class="sn-action-delete sn-action-delete-red"></span></a>
 				</div>

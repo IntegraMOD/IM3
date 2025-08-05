@@ -10,6 +10,14 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */-->
+<style>
+#mchat-buttons,
+#mchat-colour {
+  display: block !important;
+  visibility: hidden;
+  position: relative;
+}
+</style>
 <ul class="linklist">
 	<li class="rightside pagination">{MCHAT_TOTAL_MESSAGES} &bull; <!-- IF MCHAT_PAGINATION --><a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{MCHAT_PAGE_NUMBER}</a> &bull; <span>{MCHAT_PAGINATION}</span><!-- ELSE -->{MCHAT_PAGE_NUMBER}<!-- ENDIF --></li>
 </ul>

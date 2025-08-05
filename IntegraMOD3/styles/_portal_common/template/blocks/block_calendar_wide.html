@@ -1,0 +1,55 @@
+<!-- IDTAG block_calendar starts -->
+<script src="{ROOT_PATH}assets/js/php.js"></script>
+<script src="{ROOT_PATH}assets/js/sgp_ajax.js"></script>
+<!-- IF S_SHOW_UPCOMING_EVENTS or S_SHOW_UPCOMING_BIRTHDAYS -->
+<div class="box" style="text-align:left; padding:0;margin:-4px;">
+	<div class="block_data_calc" style="float:left;margin:10px 7px 5px 10px">
+		<form id="hidden">
+		    <input type="hidden" id="cal_h_month" name="cal_h_month" value="{HIDDEN_MONTH}" />
+		    <input type="hidden" id="cal_h_year" name="cal_h_year" value="{HIDDEN_YEAR}" />
+		</form>
+		<table width="160" cellpadding="1" cellspacing="1" border="0" nowrap="nowrap">
+			<tr>
+				<td id="cal_month_prev" align="left" onclick="populateTable('block_calendar:populate_table', 'hidden', 'prev');" style="cursor:pointer;"><img src="{T_IMAGESET_PATH}/arrowleftmonth.gif"></td>
+				<td id="cal_month_name" align="center"></td>
+				<td id="cal_month_next" align="right" onclick="populateTable('block_calendar:populate_table', 'hidden', 'next');" style="cursor:pointer;"><img src="{T_IMAGESET_PATH}/arrowrightmonth.gif"></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3">
+					<table class="calendar" width="100%" cellpadding="0" cellspacing="0" border="0">{CALENDAR_TABLE}</table>
+				</td>
+		    </tr>
+		</table>
+	</div>
+	<div style="margin-left:180px; border-left: solid 1px #B7B7B6;overflow:hide;" >
+		<div style="padding:10px;padding-top:15px;">
+		<!-- IF S_SHOW_UPCOMING_EVENTS -->
+			<h3 style="margin-top:0px;">{L_UPCOMING_EVENTS}{L_EVENTS_TIMEFRAME}</h3>
+			<p>
+			<!-- IF S_IS_EVENTS -->
+				<!-- BEGIN event_list -->{event_list.TITLE} ({L_ON} {event_list.DATE} {L_AT} {event_list.TIME})<!-- IF not event_list.S_LAST_ROW -->, <!-- ENDIF --><!-- END event_list -->
+			<!-- ELSE -->
+				{L_NO_UPCOMING_EVENTS}
+			<!-- ENDIF -->
+			</p>
+			<br />
+		<!-- ENDIF -->
+		<!-- IF S_SHOW_UPCOMING_BIRTHDAYS -->
+			<h3 style="margin-top:0px;">{L_UPCOMING_BIRTHDAYS}{L_BIRTHDAYS_TIMEFRAME}</h3>
+			<p>
+			<!-- IF S_IS_BIRTHDAYS -->
+				{L_CONGRATULATIONS}: <!-- BEGIN bday_list -->{bday_list.USERNAME_FULL} ({bday_list.AGE} {L_ON} {bday_list.ON_DAY})<!-- IF not bday_list.S_LAST_ROW -->, <!-- ENDIF --><!-- END bday_list -->
+			<!-- ELSE -->
+				{L_NO_UPCOMING_BIRTHDAYS}
+			<!-- ENDIF -->
+			<br />
+			</p>
+		<!-- ENDIF -->
+		</div>
+	</div>
+</div>
+<!-- ENDIF -->
+<script type="text/javascript">
+	populateTable('block_calendar:populate_table', 'hidden', '');
+</script>
+<!-- IDTAG block_calendar ends -->
