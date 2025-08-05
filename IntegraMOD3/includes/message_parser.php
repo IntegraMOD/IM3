@@ -68,25 +68,20 @@ class bbcode_firstpass extends bbcode
 					// it should not demand recompilation
 					if (preg_match($regexp, $this->message))
 					{
-						// Custom BBcode?
+						// custom BBcode?
 						if (is_array($replacement))
 						{
-							// Instead of using eval(), define a proper function for handling replacements
-							$callback = function($matches) use ($replacement) {
-								return call_user_func($replacement[1], $matches);
-							};
-
-							$this->message = preg_replace_callback($regexp, $callback, $this->message);
+							// eval() sucks, but we must use preg_replace_callback() to support
+							// PHP 7.0, and custom BBcode replacement function is stored as a string
+							$this->message = preg_replace_callback($regexp, function($matches) use($replacement) {eval('$str=' . $replacement[1]); return $str;}, $this->message);
 						}
 						else
 						{
 							$this->message = preg_replace_callback($regexp, $replacement, $this->message);
 						}
-
 						$bitfield->set($bbcode_data['bbcode_id']);
 					}
 				}
-
 			}
 		}
 
@@ -127,11 +122,8 @@ class bbcode_firstpass extends bbcode
 		// To parse multiline URL we enable dotall option setting only for URL text
 		// but not for link itself, thus [url][/url] is not affected.
 		$this->bbcodes = array(
-//			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z]+))?\](.+\[/code\])#ise' => "\$this->bbcode_code('\$1', '\$2')")),
-			'code'          => array('bbcode_id' => 8,  'regexp' => array('#\[code(?:=([a-z]+))?\](.+)\[/code\]#is' => function($matches) {return $this->bbcode_code($matches[1] ?? '', $matches[2]);	})),
-
-
-
+//			'code'          => array('bbcode_id' => 8,  'regexp' => array('#\[code(?:=([a-z]+))?\](.+)\[/code\]#is' => function($matches) {return $this->bbcode_code($matches[1] ?? '', $matches[2]);	})),
+			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z]+))?\](.+\[/code\])#uis' => function($matches){return $this->bbcode_code($matches[1], $matches[2]);})),
 			'quote'			=> array('bbcode_id' => 0,	'regexp' => array('#\[quote(?:=&quot;(.*?)&quot;)?\](.+)\[/quote\]#uis' => function($matches){return $this->bbcode_quote($matches[0]);})),
 			'attachment'	=> array('bbcode_id' => 12,	'regexp' => array('#\[attachment=([0-9]+)\](.*?)\[/attachment\]#uis' => function($matches){return $this->bbcode_attachment($matches[1], $matches[2]);})),
 			'b'				=> array('bbcode_id' => 1,	'regexp' => array('#\[b\](.*?)\[/b\]#uis' => function($matches){return $this->bbcode_strong($matches[1]);})),
@@ -450,7 +442,10 @@ class bbcode_firstpass extends bbcode
 			case 'php':
 
 				$remove_tags = false;
-				$code = str_replace(array('&lt;', '&gt;'), array('<', '>'), $code);
+
+				$str_from = array('&lt;', '&gt;', '&#91;', '&#93;', '&#46;', '&#58;', '&#058;');
+				$str_to = array('<', '>', '[', ']', '.', ':', ':');
+				$code = str_replace($str_from, $str_to, $code);
 
 				if (!preg_match('/\<\?.*?\?\>/is', $code))
 				{
@@ -465,7 +460,7 @@ class bbcode_firstpass extends bbcode
 				}
 
 				// Because highlight_string is specialcharing the text (but we already did this before), we have to reverse this in order to get correct results
-				$code = htmlspecialchars_decode($code);
+				$code = htmlspecialchars_decode($code, ENT_COMPAT);
 				$code = highlight_string($code, true);
 
 				$str_from = array('<span style="color: ', '<font color="syntax', '</font>', '<code>', '</code>','[', ']', '.', ':');
@@ -488,10 +483,10 @@ class bbcode_firstpass extends bbcode
 				}
 
 				$code = preg_replace('#^<span class="[a-z]+"><span class="([a-z]+)">(.*)</span></span>#s', '<span class="$1">$2</span>', $code);
-				$code = preg_replace('#(?:[\n\r\s\t]|&nbsp;)*</span>$#u', '</span>', $code);
+				$code = preg_replace('#(?:\s++|&nbsp;)*+</span>$#u', '</span>', $code);
 
 				// remove newline at the end
-				if (!empty($code) && $code[strlen($code) - 1] == "\n")
+				if (!empty($code) && substr($code, -1) == "\n")
 				{
 					$code = substr($code, 0, -1);
 				}
@@ -1157,7 +1152,7 @@ class parse_message extends bbcode_firstpass
 		{
 			if (!$message_length || $message_length < (int) $config['min_post_chars'])
 			{
-				$this->warn_msg[] = (!$message_length) ? ($user->lang['TOO_FEW_CHARS'] ?? null) : sprintf($user->lang['TOO_FEW_CHARS_LIMIT'], $message_length, (int) $config['min_post_chars']);
+				$this->warn_msg[] = (!$message_length) ? $user->lang['TOO_FEW_CHARS'] : sprintf($user->lang['TOO_FEW_CHARS_LIMIT'], $message_length, (int) $config['min_post_chars']);
 				return (!$update_this_message) ? $return_message : $this->warn_msg;
 			}
 		}
