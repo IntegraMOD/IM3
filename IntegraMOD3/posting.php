@@ -690,7 +690,7 @@ if ($draft_id && ($mode == 'reply' || $mode == 'quote' || $mode == 'post') && $u
 // Note that if the data got into the database, it should be valid - Hence we just check that
 // the event start time exists, rather than re-validating all the event data
 // the event start time exists, rather than re-validating all the event data
-if(isset($post_data['topic_calendar_time']) && !$submit)    // We must be editing or correcting
+if (!empty($post_data['topic_calendar_time']) && $post_data['topic_calendar_time'] > 0 && !$submit)    // We must be editing or correcting
 {
 	if ($post_data['topic_calendar_time'] != '') //if this is blank, don't populate!
 	{

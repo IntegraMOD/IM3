@@ -1,39 +1,26 @@
-<script src="{ROOT_PATH}assets/js/jquery/jquery-{SORTABLES_JQUERY_VERSION}.min.js"></script>
-<script src="{ROOT_PATH}assets/js/jquery/jquery-ui-{SORTABLES_JQUERYUI_VERSION}.custom.min.js"></script>
 <script src="{ROOT_PATH}assets/js/jquery/jquery-ui-touch-punch.min.js"></script>
 <!-- DEFINE $INCLUDEDED_JQUERY_SORTABLES_CAPTCHA = true -->
 
 <script>
 // <![CDATA[
-function createdata(listnameobject, column, resultid)
-{
-	// Let's delete all the current input type="hidden" fields, this is easier to find out which were changed
-	var data = document.getElementById(column);
-
-	if ( data.hasChildNodes() )	{
-		while ( data.childNodes.length >= 1 ) {
-			data.removeChild( data.firstChild );       
-		} 
+function createdata(listnameobject, column, resultid) {
+	const data = document.getElementById(column);
+	if (data) {
+		while (data.firstChild) {
+			data.removeChild(data.firstChild);
+		}
+		jQuery.each(listnameobject, function () {
+			const answer = this.id.replace(/^answer_/, '');
+			const inputbox = document.createElement("input");
+			inputbox.type = 'hidden';
+			inputbox.name = column + '[]';
+			inputbox.value = answer;
+			data.appendChild(inputbox);
+		});
 	}
-	
-	// Run through all childs
-	jQuery.each( listnameobject, function(){
-	
-		// We only want the ID of the answer
-		var answer = $( this ).attr("id");
-		answer = answer.replace(/answer_/g, '');
-		
-		// And add a hidden input field
-		inputbox = document.createElement("input"); 
-		inputbox.type = 'hidden';
-		inputbox.name = column + '[]';
-		inputbox.value = answer;
-		data.appendChild(inputbox);
-	});
 }
 
-$(function() {
-	// Javascript nubs
+jQuery(function ($) {
 	document.getElementById('enable_js').style.display = 'block';
 
 	$("#sortable1, #sortable2").sortable({
@@ -41,17 +28,14 @@ $(function() {
 		items: 'li',
 		forcePlaceholderSize: true,
 		placeholder: 'bg3'
-		
 	}).disableSelection();
-	
-	$("#sortable1, #sortable2").bind('sortreceive', function(event, ui) {
-		// If the left or right column receive an item, put the child nodes in an array
-		var arrSortableListItemsLeft = $( "#sortable1" ).children();
-		var arrSortableListItemsRight = $( "#sortable2" ).children();
-		
-		// And create hidden input fields
-		createdata(arrSortableListItemsLeft, 'sortables_options_left', '#sortables_options_left');
-		createdata(arrSortableListItemsRight, 'sortables_options_right', '#sortables_options_right');
+
+	$("#sortable1, #sortable2").on('sortreceive', function () {
+		const arrLeft = $("#sortable1").children();
+		const arrRight = $("#sortable2").children();
+
+		createdata(arrLeft, 'sortables_options_left', '#sortables_options_left');
+		createdata(arrRight, 'sortables_options_right', '#sortables_options_right');
 	});
 });
 // ]]>

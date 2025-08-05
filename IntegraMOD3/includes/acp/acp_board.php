@@ -962,11 +962,25 @@ class acp_board
 				$display_vars = array(
 					'title'	=> 'ACP_COOKIE_SETTINGS',
 					'vars'	=> array(
-						'legend1'		=> 'ACP_COOKIE_SETTINGS',
-						'cookie_domain'	=> array('lang' => 'COOKIE_DOMAIN',	'validate' => 'string',	'type' => 'text::255', 'explain' => false),
-						'cookie_name'	=> array('lang' => 'COOKIE_NAME',	'validate' => 'string',	'type' => 'text::16', 'explain' => false),
-						'cookie_path'	=> array('lang'	=> 'COOKIE_PATH',	'validate' => 'string',	'type' => 'text::255', 'explain' => false),
-						'cookie_secure'	=> array('lang' => 'COOKIE_SECURE',	'validate' => 'bool',	'type' => 'radio:disabled_enabled', 'explain' => true)
+						'legend1'				=> 'ACP_COOKIE_SETTINGS',
+						'cookie_domain'			=> array('lang' => 'COOKIE_DOMAIN',		'validate' => 'string',	'type' => 'text:25:255', 'explain' => true),
+						'cookie_name'			=> array('lang' => 'COOKIE_NAME',		'validate' => 'string',	'type' => 'text:25:255', 'explain' => true),
+						'cookie_path'			=> array('lang' => 'COOKIE_PATH',		'validate' => 'string',	'type' => 'text:25:255', 'explain' => true),
+						'cookie_secure'			=> array('lang' => 'COOKIE_SECURE',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+						'cookie_httponly'		=> array('lang' => 'COOKIE_HTTPONLY',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+						'cookie_samesite'		=> array('lang' => 'COOKIE_SAMESITE',	'validate' => 'int',	'type' => 'custom', 'method' => 'samesite_select', 'explain' => true),
+						'cookie_partitioned'	=> array('lang' => 'COOKIE_PARTITIONED',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+						'cookie_secure_admin'	=> array('lang' => 'COOKIE_SECURE_ADMIN',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+						'session_length'		=> array('lang' => 'SESSION_LENGTH',	'validate' => 'int:60:9999999',	'type' => 'text:5:8', 'explain' => true, 'append' => ' ' . $user->lang['SECONDS']),
+						'online_length'			=> array('lang' => 'ONLINE_LENGTH',		'validate' => 'int:1:9999',	'type' => 'text:4:4', 'explain' => true, 'append' => ' ' . $user->lang['MINUTES']),
+						
+						'legend2'				=> 'COOKIE_CONSENT_SETTINGS',
+						'cookie_consent_enable'	=> array('lang' => 'COOKIE_CONSENT_ENABLE', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
+						'cookie_consent_title'	=> array('lang' => 'COOKIE_CONSENT_TITLE', 'validate' => 'string', 'type' => 'text:25:255', 'explain' => true),
+						'cookie_consent_message'=> array('lang' => 'COOKIE_CONSENT_MESSAGE', 'validate' => 'string', 'type' => 'textarea:5:50', 'explain' => true),
+						'cookie_consent_accept_text'=> array('lang' => 'COOKIE_CONSENT_ACCEPT_TEXT', 'validate' => 'string', 'type' => 'text:25:255', 'explain' => true),
+						'cookie_consent_decline_text'=> array('lang' => 'COOKIE_CONSENT_DECLINE_TEXT', 'validate' => 'string', 'type' => 'text:25:255', 'explain' => true),
+						'cookie_consent_position'=> array('lang' => 'COOKIE_CONSENT_POSITION', 'validate' => 'int', 'type' => 'custom', 'method' => 'consent_position_select', 'explain' => true),
 					)
 				);
 			break;
@@ -1894,6 +1908,23 @@ class acp_board
 	}
 
 	/**
+	 * Build select field options in acp_board
+	 */
+	function build_select($option_ary, $option_default = false)
+	{
+		global $user;
+
+		$html = '';
+		foreach ($option_ary as $value => $title)
+		{
+			$selected = ($value == $option_default) ? ' selected="selected"' : '';
+			$html .= '<option value="' . $value . '"' . $selected . '>' . ((isset($user->lang[$title])) ? $user->lang[$title] : $title) . '</option>';
+		}
+
+		return $html;
+	}
+
+	/**
 	* Select auth method
 	*/
 	function select_auth_method($selected_method, $key = '')
@@ -2314,6 +2345,52 @@ class acp_board
 
 		// Empty sql cache for forums table because options changed
 		$cache->destroy('sql', FORUMS_TABLE);
+	}
+
+	/**
+	* Select SameSite cookie setting
+	*/
+	function samesite_select($value, $key)
+	{
+		global $user;
+
+		$samesite_options = array(
+			0 => 'COOKIE_SAMESITE_NONE',
+			1 => 'COOKIE_SAMESITE_LAX',
+			2 => 'COOKIE_SAMESITE_STRICT',
+		);
+
+		$samesite_select = '';
+		foreach ($samesite_options as $option_value => $lang_key)
+		{
+			$selected = ($value == $option_value) ? ' selected="selected"' : '';
+			$samesite_select .= '<option value="' . $option_value . '"' . $selected . '>' . $user->lang[$lang_key] . '</option>';
+		}
+
+		return '<select id="' . $key . '" name="config[' . $key . ']">' . $samesite_select . '</select>';
+	}
+
+	/**
+	* Select cookie consent position
+	*/
+	function consent_position_select($value, $key)
+	{
+		global $user;
+
+		$position_options = array(
+			0 => 'COOKIE_CONSENT_POSITION_TOP',
+			1 => 'COOKIE_CONSENT_POSITION_BOTTOM',
+			2 => 'COOKIE_CONSENT_POSITION_CENTER',
+		);
+
+		$position_select = '';
+		foreach ($position_options as $option_value => $lang_key)
+		{
+			$selected = ($value == $option_value) ? ' selected="selected"' : '';
+			$position_select .= '<option value="' . $option_value . '"' . $selected . '>' . $user->lang[$lang_key] . '</option>';
+		}
+
+		return '<select id="' . $key . '" name="config[' . $key . ']">' . $position_select . '</select>';
 	}
 
 }

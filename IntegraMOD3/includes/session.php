@@ -1063,16 +1063,198 @@ class session
 	* @param string $cookiedata	The data to hold within the cookie
 	* @param int $cookietime	The expiration time as UNIX timestamp. If 0 is provided, a session cookie is set.
 	*/
-	function set_cookie($name, $cookiedata, $cookietime)
-	{
-		global $config;
 
-		$name_data = rawurlencode($config['cookie_name'] . '_' . $name) . '=' . rawurlencode($cookiedata);
-		$expire = gmdate('D, d-M-Y H:i:s \\G\\M\\T', $cookietime);
-		$domain = (!$config['cookie_domain'] || $config['cookie_domain'] == '127.0.0.1' || strpos($config['cookie_domain'], '.') === false) ? '' : '; domain=' . $config['cookie_domain'];
+	/**
+	* Set a cookie with SameSite and Partitioned attributes
+	*
+	* @param string $name Cookie name
+	* @param string $value Cookie value
+	* @param int $expire Expiration time
+	* @param string $path Cookie path
+	* @param string $domain Cookie domain
+	* @param bool $secure Secure flag
+	* @param bool $httponly HttpOnly flag
+	* @param string $samesite SameSite attribute (None, Lax, Strict)
+	* @param bool $partitioned Partitioned attribute
+	*/
+function set_cookie_enhanced($name, $value, $expire = 0, $path = '/', $domain = '', $secure = false, $httponly = false, $samesite = 'Lax', $partitioned = false)
+{
+    global $config;
+    
+    // Use configuration values if not specified
+    if (empty($path))
+    {
+        $path = $config['cookie_path'];
+    }
+    
+    if (empty($domain))
+    {
+        $domain = $config['cookie_domain'];
+    }
+    
+    // Force secure for SameSite=None
+    if ($samesite === 'None')
+    {
+        $secure = true;
+    }
+    
+    // For PHP versions that don't support SameSite natively
+    if (version_compare(PHP_VERSION, '7.3.0', '<'))
+    {
+        $cookie_header = sprintf('%s=%s', $name, urlencode($value));
+        
+        if ($expire > 0)
+        {
+            $cookie_header .= '; Expires=' . gmdate('D, d-M-Y H:i:s T', $expire);
+        }
+        
+        if (!empty($path))
+        {
+            $cookie_header .= '; Path=' . $path;
+        }
+        
+        if (!empty($domain))
+        {
+            $cookie_header .= '; Domain=' . $domain;
+        }
+        
+        if ($secure)
+        {
+            $cookie_header .= '; Secure';
+        }
+        
+        if ($httponly)
+        {
+            $cookie_header .= '; HttpOnly';
+        }
+        
+        if (!empty($samesite))
+        {
+            $cookie_header .= '; SameSite=' . $samesite;
+        }
+        
+        if ($partitioned)
+        {
+            $cookie_header .= '; Partitioned';
+        }
+        
+        header('Set-Cookie: ' . $cookie_header, false);
+    }
+    else
+    {
+        // For newer PHP versions with SameSite support
+        $options = array(
+            'expires' => $expire,
+            'path' => $path,
+            'domain' => $domain,
+            'secure' => $secure,
+            'httponly' => $httponly,
+            'samesite' => $samesite
+        );
+        
+        setcookie($name, $value, $options);
+        
+        // Add Partitioned attribute manually if needed
+        if ($partitioned)
+        {
+            $cookie_header = sprintf('%s=%s', $name, urlencode($value));
+            
+            if ($expire > 0)
+            {
+                $cookie_header .= '; Expires=' . gmdate('D, d-M-Y H:i:s T', $expire);
+            }
+            
+            $cookie_header .= '; Path=' . $path;
+            $cookie_header .= '; Domain=' . $domain;
+            $cookie_header .= '; Secure';
+            $cookie_header .= '; HttpOnly';
+            $cookie_header .= '; SameSite=' . $samesite;
+            $cookie_header .= '; Partitioned';
+            
+            header('Set-Cookie: ' . $cookie_header, false);
+        }
+    }
+}
 
-		header('Set-Cookie: ' . $name_data . (($cookietime) ? '; expires=' . $expire : '') . '; path=' . $config['cookie_path'] . $domain . ((!$config['cookie_secure']) ? '' : '; secure') . '; HttpOnly', false);
-	}
+/**
+* Enhanced version of phpBB's set_cookie function
+*/
+function set_cookie($name, $cookiedata, $cookietime)
+{
+    global $config;
+    
+    // Determine SameSite policy based on cookie type
+    $samesite = 'Lax'; // Default
+    $partitioned = false;
+    
+    // For session cookies, use stricter policy
+    if (strpos($name, $config['cookie_name'] . '_sid') !== false)
+    {
+        $samesite = 'Strict';
+    }
+    
+    // For tracking or advertising cookies, use partitioned
+    if (strpos($name, 'track_') !== false || strpos($name, 'ad_') !== false)
+    {
+        $samesite = 'None';
+        $partitioned = true;
+    }
+    
+    set_cookie_enhanced(
+        $config['cookie_name'] . '_' . $name,
+        $cookiedata,
+        $cookietime,
+        $config['cookie_path'],
+        $config['cookie_domain'],
+        $config['cookie_secure'],
+        true, // HttpOnly
+        $samesite,
+        $partitioned
+    );
+}
+
+/**
+* Set config cookie with enhanced security
+*/
+function set_config_cookie($config_name, $config_value, $is_permanent = true)
+{
+    global $config, $user;
+    
+    $cookietime = $is_permanent ? $user->time_now + 31536000 : 0;
+    
+    set_cookie_enhanced(
+        $config['cookie_name'] . '_' . $config_name,
+        $config_value,
+        $cookietime,
+        $config['cookie_path'],
+        $config['cookie_domain'],
+        $config['cookie_secure'],
+        true, // HttpOnly
+        'Lax', // SameSite
+        false // Not partitioned for config cookies
+    );
+}
+
+/**
+* Clear cookie with proper attributes
+*/
+function clear_cookie($name)
+{
+    global $config;
+    
+    set_cookie_enhanced(
+        $config['cookie_name'] . '_' . $name,
+        '',
+        time() - 3600,
+        $config['cookie_path'],
+        $config['cookie_domain'],
+        $config['cookie_secure'],
+        true,
+        'Lax',
+        false
+    );
+}
+
 
 	/**
 	* Check for banned user

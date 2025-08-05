@@ -34,13 +34,13 @@ if (!isset($weekday_list))
         $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'] = array();
     }
 	$weekday_list = array(
-		'S' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][0]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][0] : 'Sunday',
-		'M' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][1]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][1] : 'Monday',
-		'T' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][2]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][2] : 'Tuesday',
-		'W' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][3]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][3] : 'Wednesday',
-		'H' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][4]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][4] : 'Thursday',
-		'F' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][5]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][5] : 'Friday',
-		'A' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][6]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][6] : 'Saturday',
+        'S' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][0],   // Sunday
+		'M' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][1],   // Monday
+		'T' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][2],   // Tuesday
+		'W' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][3],   // Wednesday
+		'H' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][4],   // Thursday
+		'F' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][5],   // Friday
+		'A' => $user->lang['CAL_CALENDAR']['CAL_LONG_DAY'][6],   // Saturday
 	);
 }
 
@@ -48,18 +48,18 @@ if (!isset($weekday_list))
 if (!isset($month_list))
 {
 	$month_list = array(
-		'J' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][1]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][1] : 'January',
-		'F' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][2]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][2] : 'February',
-		'M' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][3]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][3] : 'March',
-		'A' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][4]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][4] : 'April',
-		'Y' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][5]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][5] : 'May',
-		'U' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][6]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][6] : 'June',
-		'L' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][7]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][7] : 'July',
-		'G' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][8]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][8] : 'August',
-		'S' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][9]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][9] : 'September',
-		'O' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][10]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][10] : 'October',
-		'N' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][11]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][11] : 'November',
-		'D' => isset($user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][12]) ? $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][12] : 'December',
+		'J' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][1],   // January
+		'F' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][2],   // February
+		'M' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][3],   // March
+		'A' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][4],   // April
+		'Y' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][5],   // May
+		'U' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][6],   // June
+		'L' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][7],   // July
+		'G' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][8],   // August
+		'S' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][9],   // September
+		'O' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][10],   // October
+		'N' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][11],   // November
+		'D' => $user->lang['CAL_CALENDAR']['CAL_LONG_MONTH'][12],   // December
 	);
 }
 

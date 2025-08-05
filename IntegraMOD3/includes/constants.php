@@ -27,6 +27,24 @@ if (!defined('IN_PHPBB'))
 // phpBB Version
 define('PHPBB_VERSION', '3.0.15');
 
+/**
+* Additional security constants for cookie handling
+*/
+// Cookie SameSite policies
+define('COOKIE_SAMESITE_STRICT', 'Strict');
+define('COOKIE_SAMESITE_LAX', 'Lax');
+define('COOKIE_SAMESITE_NONE', 'None');
+
+// Cookie security flags
+define('COOKIE_SECURE_AUTO', 0);
+define('COOKIE_SECURE_FORCE', 1);
+define('COOKIE_SECURE_DISABLE', 2);
+
+// Cookie partitioning
+define('COOKIE_PARTITIONED_AUTO', 0);
+define('COOKIE_PARTITIONED_FORCE', 1);
+define('COOKIE_PARTITIONED_DISABLE', 2);
+
 // QA-related
 // define('PHPBB_QA', 1);
 // User related

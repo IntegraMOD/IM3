@@ -41,7 +41,7 @@ class abbcode
 	* Constructor
 	* @version 3.0.7-PL1
 	*/
-	function abbcode()
+	function __construct()
 	{
 		if (!defined('IN_ABBC3'))
 		{
@@ -72,12 +72,12 @@ class abbcode
 			'S_ABBC3_RESIZE_METHOD'	=> $config['ABBC3_RESIZE_METHOD'],
 			'S_ABBC3_RESIZE_BAR'	=> $config['ABBC3_RESIZE_BAR'],
 
-			'S_ABBC3_MAX_IMG_WIDTH'		=> (isset($config['ABBC3_MAX_IMG_WIDTH'])) ? $config['ABBC3_MAX_IMG_WIDTH'] : $config['img_max_width'],
-			'S_ABBC3_MAX_IMG_HEIGHT'	=> (isset($config['ABBC3_MAX_IMG_HEIGHT'])) ? $config['ABBC3_MAX_IMG_HEIGHT'] : $config['img_max_height'],
+			'S_ABBC3_MAX_IMG_WIDTH'		=> $config['ABBC3_MAX_IMG_WIDTH'] ?? $config['img_max_width'],
+			'S_ABBC3_MAX_IMG_HEIGHT'	=> $config['ABBC3_MAX_IMG_HEIGHT'] ?? $config['img_max_height'],
 
 			'S_ABBC3_RESIZE_SIGNATURE'	=> $config['ABBC3_RESIZE_SIGNATURE'],
-			'S_ABBC3_MAX_SIG_WIDTH'		=> (isset($config['ABBC3_MAX_SIG_WIDTH'])) ? $config['ABBC3_MAX_SIG_WIDTH'] : $config['img_max_width'],
-			'S_ABBC3_MAX_SIG_HEIGHT'	=> (isset($config['ABBC3_MAX_SIG_HEIGHT'])) ? $config['ABBC3_MAX_SIG_HEIGHT'] : $config['img_max_height'],
+			'S_ABBC3_MAX_SIG_WIDTH'		=> $config['ABBC3_MAX_SIG_WIDTH'] ?? $config['img_max_width'],
+			'S_ABBC3_MAX_SIG_HEIGHT'	=> $config['ABBC3_MAX_SIG_HEIGHT'] ?? $config['img_max_height'],
 		);
 		/*
 		// Styles and admin variables depends on locations
@@ -106,7 +106,7 @@ class abbcode
 			'ABBC3_HELP_PAGE'		=> append_sid("{$phpbb_root_path}abbcode_page.$phpEx", 'mode=help'),
 			'ABBC3_TIGRA_PAGE'		=> append_sid("{$phpbb_root_path}abbcode_page.$phpEx", 'mode=tigra'),
 			// Thumbnails
-			'ABBC3_MAX_THUM_WIDTH'	=> (isset($config['ABBC3_MAX_THUM_WIDTH'])) ? $config['ABBC3_MAX_THUM_WIDTH'] : $config['img_max_thumb_width'],
+			'ABBC3_MAX_THUM_WIDTH'	=> $config['ABBC3_MAX_THUM_WIDTH'] ?? $config['img_max_thumb_width'],
 			'ABBC3_VIDEO_WIDTH'		=> $config['ABBC3_VIDEO_width'],
 			'ABBC3_VIDEO_HEIGHT'	=> $config['ABBC3_VIDEO_height'],
 			// ABBC3 wizards
@@ -117,7 +117,7 @@ class abbcode
 			// Cookie
 			'ABBC3_COOKIE_NAME'		=> $config['cookie_name'] . '_abbc3',
 			// Usename posting
-			'POST_AUTHOR'			=> (isset($user->data['username'])) ? $user->data['username'] : '',
+			'POST_AUTHOR'			=> $user->data['username'] ?? '',
 		));
 	}
 
@@ -156,18 +156,19 @@ class abbcode
 			$abbcode_name	= ($row['bbcode_helpline'] == 'ABBC3_ED2K_TIP') ? 'ABBC3_ED2K' : $abbcode_name;
 
 			$abbcode_image	= trim($row['bbcode_image']);
-			$abbcode_mover	= (isset($user->lang[$abbcode_name . '_MOVER']	)) ? $user->lang[$abbcode_name . '_MOVER']   : $abbcode_name;
-			$abbcode_tip	= (isset($user->lang[$abbcode_name . '_TIP']	)) ? $user->lang[$abbcode_name . '_TIP']     : (($is_abbcode) ? '' : $row['bbcode_helpline']);
-			$abbcode_note	= (isset($user->lang[$abbcode_name . '_NOTE']	)) ? $user->lang[$abbcode_name . '_NOTE']    : '';
-			$abbcode_example= (isset($user->lang[$abbcode_name . '_EXAMPLE'])) ? $user->lang[$abbcode_name . '_EXAMPLE'] : '';
+			$abbcode_mover	= $user->lang[$abbcode_name . '_MOVER'] ?? $abbcode_name;
+			$abbcode_tip	= $user->lang[$abbcode_name . '_TIP'] ?? (($is_abbcode) ? '' : $row['bbcode_helpline']);
+			$abbcode_note	= $user->lang[$abbcode_name . '_NOTE'] ?? '';
+			$abbcode_example= $user->lang[$abbcode_name . '_EXAMPLE'] ?? '';
 
 			// Check phpbb permissions status
 			// Check ABBC3 groups permission
 			// try to make it as quicky as it can be
-			$auth_tag = preg_replace('#\=(.*)?#', '', strtoupper(trim($row['bbcode_tag'])));
+//			$auth_tag = preg_replace('#\=(.*)?#', '', strtoupper(trim($row['bbcode_tag'])));
+            $auth_tag = preg_replace('#=.*?#', '', strtoupper(trim($row['bbcode_tag'] ?? ''))); 
 			if ((isset($row['bbcode_group']) && $row['bbcode_group']) || in_array($auth_tag, $this->need_permissions))
 			{
-				if (!$this->abbcode_permissions($auth_tag, (isset($row['bbcode_group']) ? $row['bbcode_group'] : 0)))
+				if (!$this->abbcode_permissions($auth_tag, ($row['bbcode_group'] ?? 0)))
 				{
 					continue;
 				}
@@ -227,7 +228,7 @@ class abbcode
 			'S_ABBC3_BG'				=> $this->abbcode_config['ABBC3_BG'],
 			'S_ABBC3_TAB'				=> $this->abbcode_config['ABBC3_TAB'],
 			'S_ABBC3_BOXRESIZE'			=> $this->abbcode_config['ABBC3_BOXRESIZE'],
-			'S_POST_AUTHOR'				=> (isset($user->data['username'])) ? $user->data['username'] : '',
+			'S_POST_AUTHOR'				=> $user->data['username'] ?? '',
 			'S_ABBC3_VIDEO_WIDTH'		=> $this->abbcode_config['ABBC3_VIDEO_WIDTH'],
 			'S_ABBC3_VIDEO_HEIGHT'		=> $this->abbcode_config['ABBC3_VIDEO_HEIGHT'],
 			'S_ABBC3_TIGRA_PAGE'		=> $this->abbcode_config['ABBC3_TIGRA_PAGE'],
@@ -599,14 +600,14 @@ class abbcode
 		{
 			foreach ($match[0] as $i => $m)
 			{
-				$ed2k_link	= (isset($match[2][$i])) ? $match[2][$i] : '';
+				$ed2k_link	= $match[2][$i] ?? '';
 				// Only for testing propose, commented out so I do not loose the code.
 			//	$ed2k_type	= (isset($match[3][$i])) ? $match[3][$i] : '';
-				$ed2k_size	= (isset($match[5][$i])) ? $match[5][$i] : '';
-				$ed2k_hash	= (isset($match[6][$i])) ? $match[6][$i] : '';
+				$ed2k_size	= $match[5][$i] ?? '';
+				$ed2k_hash	= $match[6][$i] ?? '';
 
 				$max_len	= 100;
-				$ed2k_name	= (!$var2) ? (isset($match[4][$i])) ? $match[4][$i] : '' : $var2;
+				$ed2k_name	= (!$var2) ? $match[4][$i] ?? '' : $var2;
 
 				if (!$var2)
 				{
@@ -2048,8 +2049,8 @@ class abbcode
 	function oembed_url($url, $width, $height)
 	{
 		$oembed_contents = @file_get_contents($url);
-		$oembed_data 	 = @json_decode($oembed_contents);
-		$embed_code 	 = (isset($oembed_data->html)) ? $oembed_data->html : '';
+		$oembed_data 	 = @json_decode($oembed_contents, null, 512, JSON_THROW_ON_ERROR);
+		$embed_code 	 = $oembed_data->html ?? '';
 		$embed_code 	 = preg_replace(array('/width="([0-9]{1,4})"/i', '/height="([0-9]{1,4})"/i'), array('width="' . $width . '"', 'height="' . $height . '"'), $embed_code);
 		return $embed_code;
 	}
@@ -2139,7 +2140,7 @@ class abbcode
 		static $abbcode_video_ary = array();
 		if (empty($abbcode_video_ary))
 		{
-			$abbcode_video_ary = abbcode::video_init();
+			$abbcode_video_ary = (new abbcode())->video_init();
 		}
 
 		$allowed_videos 	= explode(';', $config['ABBC3_VIDEO_OPTIONS']);
@@ -2176,9 +2177,9 @@ class abbcode
 				// Construct XHTML compliant embed code for flash-based embeds
 				if (isset($video_data['method']) && $video_data['method'] == 'flash')
 				{
-					$flashvars 	 = (isset($video_data['flashvars']) ? $video_data['flashvars'] : '');
-					$params_ary  = (isset($video_data['params']) 	? $video_data['params']    : array());
-					$attribs_ary = (isset($video_data['attribs']) 	? $video_data['attribs']   : array());
+					$flashvars 	 = ($video_data['flashvars'] ?? '');
+					$params_ary  = ($video_data['params'] ?? array());
+					$attribs_ary = ($video_data['attribs'] ?? array());
 					$video_data['replace'] = $this->auto_embed_video($video_data['replace'], $video_width, $video_height, $flashvars, $attribs_ary, $params_ary);
 				}
 
@@ -2252,7 +2253,7 @@ function url_to_bbvideo($text)
 	static $abbcode_video_ary = array();
 	if (empty($abbcode_video_ary))
 	{
-		$abbcode_video_ary = abbcode::video_init();
+		$abbcode_video_ary = (new abbcode())->video_init();
 	}
 
 	// Get all magic urls in the post text
@@ -2308,7 +2309,7 @@ function abbc3_add_all_ed2k_link($text, $post_id)
 			$t_ed2k_parts = explode("|", $ed2k_links[$ed2k_link]);
 			$block_array[$post_id][] = array(
 				'LINK_VALUE' 	=> $ed2k_links[$ed2k_link],
-				'LINK_TEXT'		=> (isset($ed2k_names[$ed2k_link])) ? $ed2k_names[$ed2k_link] : $t_ed2k_parts[2],
+				'LINK_TEXT'		=> $ed2k_names[$ed2k_link] ?? $t_ed2k_parts[2],
 			);
 		}
 	}
@@ -2337,15 +2338,15 @@ function abbc3_ed2k_make_clickable($link)
 	{
 		foreach ($match[0] as $i => $m)
 		{
-			$ed2k_link	= (isset($match[2][$i])) ? $match[2][$i] : '';
+			$ed2k_link	= $match[2][$i] ?? '';
 
 			// Only for testing propose, commented out so I do not loose the code.
 		//	$ed2k_type	= (isset($match[3][$i])) ? $match[3][$i] : '';
-			$ed2k_size	= (isset($match[5][$i])) ? $match[5][$i] : '';
-			$ed2k_hash	= (isset($match[6][$i])) ? $match[6][$i] : '';
+			$ed2k_size	= $match[5][$i] ?? '';
+			$ed2k_hash	= $match[6][$i] ?? '';
 
 			$max_len	= 100;
-			$ed2k_name	= (isset($match[4][$i])) ? $match[4][$i] : '';
+			$ed2k_name	= $match[4][$i] ?? '';
 
 			$ed2k_name	= (strlen($ed2k_name) > $max_len) ? substr($ed2k_name, 0, $max_len - 19) . '...' . substr($ed2k_name, -16) : $ed2k_name;
 			return ' <img src="' . $ed2k_icon . '" class="ed2k_img" alt="" title="" />&nbsp;<a href="' . $ed2k_link . '" class="postlink">' . $ed2k_name . '</a>&nbsp;[' . abbc3_ed2k_humanize_size($ed2k_size) . ']&nbsp;<a href="http://ed2k.shortypower.org/?hash=' . $ed2k_hash . '" onclick="window.open(this.href);return false;"><img src="' . $ed2k_stat . '"  alt="" title="" /></a>';
@@ -2522,7 +2523,7 @@ class linktest
 					$this->domain		= $domain;
 					$this->method		= $pattern[1];
 					$this->adjustment	= $pattern[2];
-					$this->filters      = (isset($pattern[3])) ? $pattern[3] : '' ;	// (@$pattern[3]) ? $pattern[3] : '' ;
+					$this->filters      = $pattern[3] ?? '' ;	// (@$pattern[3]) ? $pattern[3] : '' ;
 				}
 			}
 		}
@@ -2806,5 +2807,3 @@ function process_template_block_bbvideo($block_name, $block_section)
 		}
 	}
 }
-
-?>

@@ -56,6 +56,258 @@ function set_var(&$result, $var, $type, $multibyte = false)
 }
 
 /**
+* Set template variables for cookie consent modal
+*/
+function assign_cookie_consent_vars()
+{
+	global $config, $template;
+
+	if (!empty($config['cookie_consent_enable']))
+	{
+		// Fallbacks
+		$cookie_consent_title        = !empty($config['cookie_consent_title'])        ? $config['cookie_consent_title']        : 'Cookie Notice';
+		$cookie_consent_message      = !empty($config['cookie_consent_message'])      ? $config['cookie_consent_message']      : 'This website uses cookies to ensure you get the best experience on our website.';
+		$cookie_consent_accept_text  = !empty($config['cookie_consent_accept_text'])  ? $config['cookie_consent_accept_text']  : 'Accept';
+		$cookie_consent_decline_text = !empty($config['cookie_consent_decline_text']) ? $config['cookie_consent_decline_text'] : 'Decline';
+		$cookie_consent_position     = isset($config['cookie_consent_position'])      ? (int) $config['cookie_consent_position'] : 1;
+
+		// Position map
+		$position_map = array(
+			0 => 'top',
+			1 => 'bottom',
+			2 => 'center'
+		);
+
+		$position_string = isset($position_map[$cookie_consent_position]) ? $position_map[$cookie_consent_position] : 'bottom';
+
+		// Assign all vars
+		$template->assign_vars(array(
+			'S_COOKIE_CONSENT_ENABLE'    => true,
+			'COOKIE_CONSENT_TITLE'       => $cookie_consent_title,
+			'COOKIE_CONSENT_MESSAGE'     => $cookie_consent_message,
+			'COOKIE_CONSENT_ACCEPT_TEXT' => $cookie_consent_accept_text,
+			'COOKIE_CONSENT_DECLINE_TEXT'=> $cookie_consent_decline_text,
+			'COOKIE_CONSENT_POSITION'    => $position_string,
+		));
+	}
+}
+
+
+/**
+* Check if user has given cookie consent
+*/
+function has_cookie_consent()
+{
+	global $config;
+
+	if (empty($config['cookie_consent_enable']))
+	{
+		return true; // If consent is disabled, assume consent is given
+	}
+
+	// Check if user has already given consent
+	$cookie_name = 'cookie_consent';
+	if (isset($_COOKIE[$cookie_name]))
+	{
+		return $_COOKIE[$cookie_name] === 'accepted';
+	}
+
+	return false;
+}
+
+/**
+* Set a cookie with SameSite and Partitioned attributes
+*
+* @param string $name Cookie name
+* @param string $value Cookie value
+* @param int $expire Expiration time
+* @param string $path Cookie path
+* @param string $domain Cookie domain
+* @param bool $secure Secure flag
+* @param bool $httponly HttpOnly flag
+* @param string $samesite SameSite attribute (None, Lax, Strict)
+* @param bool $partitioned Partitioned attribute
+*/
+function set_cookie_enhanced($name, $value, $expire = 0, $path = '/', $domain = '', $secure = false, $httponly = false, $samesite = 'Lax', $partitioned = false)
+{
+    global $config;
+    
+    // Use configuration values if not specified
+    if (empty($path))
+    {
+        $path = $config['cookie_path'];
+    }
+    
+    if (empty($domain))
+    {
+        $domain = $config['cookie_domain'];
+    }
+    
+    // Force secure for SameSite=None
+    if ($samesite === 'None')
+    {
+        $secure = true;
+    }
+    
+    // For PHP versions that don't support SameSite natively
+    if (version_compare(PHP_VERSION, '7.3.0', '<'))
+    {
+        $cookie_header = sprintf('%s=%s', $name, urlencode($value));
+        
+        if ($expire > 0)
+        {
+            $cookie_header .= '; Expires=' . gmdate('D, d-M-Y H:i:s T', $expire);
+        }
+        
+        if (!empty($path))
+        {
+            $cookie_header .= '; Path=' . $path;
+        }
+        
+        if (!empty($domain))
+        {
+            $cookie_header .= '; Domain=' . $domain;
+        }
+        
+        if ($secure)
+        {
+            $cookie_header .= '; Secure';
+        }
+        
+        if ($httponly)
+        {
+            $cookie_header .= '; HttpOnly';
+        }
+        
+        if (!empty($samesite))
+        {
+            $cookie_header .= '; SameSite=' . $samesite;
+        }
+        
+        if ($partitioned)
+        {
+            $cookie_header .= '; Partitioned';
+        }
+        
+        header('Set-Cookie: ' . $cookie_header, false);
+    }
+    else
+    {
+        // For newer PHP versions with SameSite support
+        $options = array(
+            'expires' => $expire,
+            'path' => $path,
+            'domain' => $domain,
+            'secure' => $secure,
+            'httponly' => $httponly,
+            'samesite' => $samesite
+        );
+        
+        setcookie($name, $value, $options);
+        
+        // Add Partitioned attribute manually if needed
+        if ($partitioned)
+        {
+            $cookie_header = sprintf('%s=%s', $name, urlencode($value));
+            
+            if ($expire > 0)
+            {
+                $cookie_header .= '; Expires=' . gmdate('D, d-M-Y H:i:s T', $expire);
+            }
+            
+            $cookie_header .= '; Path=' . $path;
+            $cookie_header .= '; Domain=' . $domain;
+            $cookie_header .= '; Secure';
+            $cookie_header .= '; HttpOnly';
+            $cookie_header .= '; SameSite=' . $samesite;
+            $cookie_header .= '; Partitioned';
+            
+            header('Set-Cookie: ' . $cookie_header, false);
+        }
+    }
+}
+
+/**
+* Enhanced version of phpBB's set_cookie function
+*/
+function set_cookie($name, $cookiedata, $cookietime)
+{
+    global $config;
+    
+    // Determine SameSite policy based on cookie type
+    $samesite = 'Lax'; // Default
+    $partitioned = false;
+    
+    // For session cookies, use stricter policy
+    if (strpos($name, $config['cookie_name'] . '_sid') !== false)
+    {
+        $samesite = 'Strict';
+    }
+    
+    // For tracking or advertising cookies, use partitioned
+    if (strpos($name, 'track_') !== false || strpos($name, 'ad_') !== false)
+    {
+        $samesite = 'None';
+        $partitioned = true;
+    }
+    
+    set_cookie_enhanced(
+        $config['cookie_name'] . '_' . $name,
+        $cookiedata,
+        $cookietime,
+        $config['cookie_path'],
+        $config['cookie_domain'],
+        $config['cookie_secure'],
+        true, // HttpOnly
+        $samesite,
+        $partitioned
+    );
+}
+
+/**
+* Set config cookie with enhanced security
+*/
+function set_config_cookie($config_name, $config_value, $is_permanent = true)
+{
+    global $config, $user;
+    
+    $cookietime = $is_permanent ? $user->time_now + 31536000 : 0;
+    
+    set_cookie_enhanced(
+        $config['cookie_name'] . '_' . $config_name,
+        $config_value,
+        $cookietime,
+        $config['cookie_path'],
+        $config['cookie_domain'],
+        $config['cookie_secure'],
+        true, // HttpOnly
+        'Lax', // SameSite
+        false // Not partitioned for config cookies
+    );
+}
+
+/**
+* Clear cookie with proper attributes
+*/
+function clear_cookie($name)
+{
+    global $config;
+    
+    set_cookie_enhanced(
+        $config['cookie_name'] . '_' . $name,
+        '',
+        time() - 3600,
+        $config['cookie_path'],
+        $config['cookie_domain'],
+        $config['cookie_secure'],
+        true,
+        'Lax',
+        false
+    );
+}
+
+
+/**
 * request_var
 *
 * Used to get passed variable
@@ -889,8 +1141,14 @@ function phpbb_is_writable($file)
 			}
 			else
 			{
-				$handle = @fopen($file, 'r+');
+				// Prevent crash if $file becomes empty or non-canonical
+				if (empty($file) || !is_string($file)) {
+					trigger_error('phpbb_is_writable(): Invalid or empty path passed to fopen()', E_USER_WARNING);
+					return false;
+				}
 
+				$handle = @fopen($file, 'r+');
+				
 				if (is_resource($handle))
 				{
 					fclose($handle);
@@ -5058,6 +5316,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
     // - new posts since last visit & you post number
     //       
 	
+    assign_cookie_consent_vars();
 	// The following assigns all _common_ variables that may be used at any point in a template.
 	$template->assign_vars(array(
 		// ajaxlike

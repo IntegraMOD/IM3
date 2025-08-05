@@ -60,6 +60,52 @@ function recalc_nested_sets(&$new_id, $pkey, $table, $parent_id = 0, $where = ar
 }
 
 /**
+* Select SameSite cookie attribute
+*/
+function samesite_select($value, $key)
+{
+	global $user;
+
+	$samesite_options = array(
+		'None'		=> $user->lang['COOKIE_SAMESITE_NONE'],
+		'Lax'		=> $user->lang['COOKIE_SAMESITE_LAX'],
+		'Strict'	=> $user->lang['COOKIE_SAMESITE_STRICT'],
+	);
+
+	$samesite_select = '';
+	foreach ($samesite_options as $option => $lang)
+	{
+		$selected = ($value == $option) ? ' selected="selected"' : '';
+		$samesite_select .= '<option value="' . $option . '"' . $selected . '>' . $lang . '</option>';
+	}
+
+	return $samesite_select;
+}
+
+/**
+* Select cookie security level
+*/
+function cookie_security_select($value, $key)
+{
+	global $user;
+
+	$security_options = array(
+		'0'		=> $user->lang['COOKIE_SECURITY_LOW'],
+		'1'		=> $user->lang['COOKIE_SECURITY_MEDIUM'],
+		'2'		=> $user->lang['COOKIE_SECURITY_HIGH'],
+	);
+
+	$security_select = '';
+	foreach ($security_options as $option => $lang)
+	{
+		$selected = ($value == $option) ? ' selected="selected"' : '';
+		$security_select .= '<option value="' . $option . '"' . $selected . '>' . $lang . '</option>';
+	}
+
+	return $security_select;
+}
+
+/**
 * Simple version of jumpbox, just lists authed forums
 */
 function make_forum_select($select_id = false, $ignore_id = false, $ignore_acl = false, $ignore_nonpost = false, $ignore_emptycat = true, $only_acl_post = false, $return_array = false)
