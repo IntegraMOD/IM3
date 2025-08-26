@@ -102,8 +102,8 @@ p.right {
 /* Main blocks
 ---------------------------------------- */
 #wrap {
-	padding: 0 10px;
-	min-width: 650px;
+	padding: 0 20px;
+	margin: 0 auto;
 }
 
 #simple-wrap {
@@ -183,43 +183,49 @@ a#logo:hover {
 /* Round cornered boxes and backgrounds
 ---------------------------------------- */
 .headerbar {
-	background: #ebebeb none repeat-x 0 0;
-	color: #069;
 	margin-bottom: 4px;
-	padding: 0 5px;
+	padding: 5px;
+	border-radius: 7px;
 }
 
 .navbar {
-	background-color: #ebebeb;
-	padding: 0 10px;
+	padding: 3px 10px;
+	border-radius: 7px;
 }
 
 .forabg {
-	background: #b1b1b1 none repeat-x 0 0;
 	margin-bottom: 4px;
-	padding: 0 3px;
+	padding: 5px;
 	clear: both;
+	border-radius: 7px;
 }
 
 .forumbg {
-	background: #ebebeb none repeat-x 0 0;
 	margin-bottom: 4px;
-	padding: 0 3px;
+	padding: 5px;
 	clear: both;
+	border-radius: 7px;
 }
 
 .panel {
 	margin-bottom: 4px;
-	padding: 0 10px;
-	background-color: #f3f3f3;
-	color: #3f3f3f;
+	padding: 5px 10px;
+	border-radius: 7px;
+}
+
+.catpanel {
+	margin-bottom: 4px;
+	padding: 4px 4px 2px 4px;
+	border-radius: 7px;
 }
 
 .post {
-	padding: 0 10px;
+	padding: 5px 10px;
 	margin-bottom: 4px;
 	background-repeat: no-repeat;
 	background-position: 100% 0;
+	border-radius: 7px;
+	position: relative;
 }
 
 .post:target .content {
@@ -296,12 +302,12 @@ span.corners-bottom span {
 
 /* Horizontal lists
 ----------------------------------------*/
-ul.linklist {
+ul.linklist, ul.linklist2 {
 	display: block;
 	margin: 0;
 }
 
-ul.linklist li {
+ul.linklist li, ul.linklist2 li {
 	display: block;
 	list-style-type: none;
 	float: left;
@@ -312,6 +318,13 @@ ul.linklist li {
 }
 
 ul.linklist li.rightside, p.rightside {
+	float: right;
+	margin-right: 0;
+	margin-left: 5px;
+	text-align: right;
+}
+
+ul.linklist2 li.rightside, p.rightside {
 	float: right;
 	margin-right: 0;
 	margin-left: 5px;
@@ -337,6 +350,13 @@ ul.rightside {
 	margin-left: 5px;
 	margin-right: -5px;
 	text-align: right;
+}
+
+li.cw {
+   float: right !important;
+   text-align: right;
+   white-space: nowrap;
+   display: inline-block !important;
 }
 
 /* Table styles

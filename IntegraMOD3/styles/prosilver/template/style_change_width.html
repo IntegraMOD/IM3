@@ -1,0 +1,28 @@
+<span style="display:none;" id="alt">
+	<a href="javascript:StyleSwitchCookie('mystyle', 'default', '{T_THEME_PATH}', 'alt', 'default');" title="{L_DEFAULT_WIDTH}">
+		<i class="fas fa-calendar-plus fa-lg"></i>
+	</a>
+</span>
+<span style="display:none;" id="default">
+	<a href="javascript:StyleSwitchCookie('mystyle', 'alt', '{T_THEME_PATH}', 'default', 'alt');" title="{L_ALT_WIDTH}">
+		<i class="fas fa-calendar-minus fa-lg"></i>
+	</a>
+</span>
+
+<script>
+// <![CDATA[
+	var value = Get_Cookie('mystyle');
+
+	if(value == null || value == 'undefined')
+	{
+		Show('default');
+		Load_css_file('{T_THEME_PATH}','default');
+	}
+	else
+	{
+		Show(value);
+		Load_css_file('{T_THEME_PATH}', value);
+	}
+
+// ]]>
+</script>

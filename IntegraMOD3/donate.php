@@ -143,15 +143,8 @@ switch ($mode)
 		$donation_pages = $db->sql_fetchrow($result);
 		$db->sql_freeresult($result);
 
-//		$donation_body = generate_text_for_display($donation_pages['item_text'], $donation_pages['item_text_bbcode_uid'], $donation_pages['item_text_bbcode_bitfield'], $donation_pages['item_text_bbcode_options']);
-	    $donation_body = isset($donation_pages['item_text']) && isset($donation_pages['item_text_bbcode_uid']) && isset($donation_pages['item_text_bbcode_bitfield']) && isset($donation_pages['item_text_bbcode_options'])
-	    ? generate_text_for_display(
-	        $donation_pages['item_text'],
-	        $donation_pages['item_text_bbcode_uid'],
-	        $donation_pages['item_text_bbcode_bitfield'],
-	        $donation_pages['item_text_bbcode_options']
-	    )
-	    : '';
+		$donation_body = generate_text_for_display($donation_pages['item_text'], $donation_pages['item_text_bbcode_uid'], $donation_pages['item_text_bbcode_bitfield'], $donation_pages['item_text_bbcode_options']);
+
 		// Donation percent
 		if (!empty($config['donation_goal_enable']) && (int) $config['donation_goal'] > 0)
 		{

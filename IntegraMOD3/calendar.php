@@ -565,9 +565,22 @@ switch($mode)
 					}
 
 					// Convert the stored unix timestamps to readable format and split into time and date
-					list($start_date, $start_time) = explode('|', gmdate('m-d-Y|h:i a', ($event_data['event_start'] + $user->timezone + $user->dst)));
-					list($end_date, $end_time) = explode('|', gmdate('m-d-Y|h:i a', ($event_data['event_end'] + $user->timezone + $user->dst)));
+//					list($start_date, $start_time) = explode('|', gmdate('m-d-Y|h:i a', ($event_data['event_start'] + $user->timezone + $user->dst)));
+if (!empty($event_data['event_start'])) {
+    list($start_date, $start_time) = explode('|', gmdate('m-d-Y|h:i a', ($event_data['event_start'] + $user->timezone + $user->dst)));
+} else {
+    $start_date = '';
+    $start_time = '';
+}
 
+
+//					list($end_date, $end_time) = explode('|', gmdate('m-d-Y|h:i a', ($event_data['event_end'] + $user->timezone + $user->dst)));
+if (!empty($event_data['event_end'])) {
+    list($end_date, $end_time) = explode('|', gmdate('m-d-Y|h:i a', ($event_data['event_end'] + $user->timezone + $user->dst)));
+} else {
+    $end_date = '';
+    $end_time = '';
+}
 					$rep_code_base = substr($event_data['event_repeat'], 0, 2);
 
 					$template->assign_vars(array(
@@ -1080,9 +1093,9 @@ switch($mode)
 					'event_id'		=> $event_id,
 					'mode'			=> $mode,
 					'rep'			=> $rep,
-					'e_name'		=> $event['event_name'],
-					'redir_month'	=> gmdate('n', $event['event_start']),
-					'redir_year'	=> gmdate('y', $event['event_start']),
+					'e_name'        => (is_array($event) && isset($event['event_name'])) ? $event['event_name'] : '',
+					'redir_month'	=> isset($event['event_start']) ? gmdate('n', $event['event_start']) : '',
+					'redir_year'	=> isset($event['event_start']) ? gmdate('y', $event['event_start']) : '',
 					'lastclick'		=> $current_time,
 				)));
 			}

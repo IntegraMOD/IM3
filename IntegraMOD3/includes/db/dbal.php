@@ -681,7 +681,15 @@ class dbal
 
 				if (!empty($array['GROUP_BY']))
 				{
-					$sql .= ' GROUP BY ' . $array['GROUP_BY'];
+					// Ensure each column in GROUP BY is properly formatted
+					$group_by_columns = explode(',', $array['GROUP_BY']);
+					foreach ($group_by_columns as &$column)
+					{
+						$column = trim($column);
+						// Use ANY_VALUE() for nonaggregated columns
+						$column = strpos($column, '.') !== false ? $column : "ANY_VALUE($column)";
+					}
+					$sql .= ' GROUP BY ' . implode(', ', $group_by_columns);
 				}
 
 				if (!empty($array['ORDER_BY']))

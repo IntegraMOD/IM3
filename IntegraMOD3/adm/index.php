@@ -50,6 +50,38 @@ $file_uploads	= (@ini_get('file_uploads') == '1' || strtolower(@ini_get('file_up
 $module_id		= request_var('i', '');
 $mode			= request_var('mode', '');
 
+/**
+* Add cookie security configuration to admin panel
+*/
+
+if ($mode == 'cookie')
+{
+    $display_vars = array(
+        'title' => 'ACP_COOKIE_SETTINGS',
+        'vars'  => array(
+            'legend1'               => 'ACP_COOKIE_SETTINGS',
+            'cookie_domain'         => array('lang' => 'COOKIE_DOMAIN', 'validate' => 'string', 'type' => 'text:40:100', 'explain' => true),
+            'cookie_name'           => array('lang' => 'COOKIE_NAME', 'validate' => 'string', 'type' => 'text:16:16', 'explain' => true),
+            'cookie_path'           => array('lang' => 'COOKIE_PATH', 'validate' => 'string', 'type' => 'text:40:100', 'explain' => true),
+            'cookie_secure'         => array('lang' => 'COOKIE_SECURE', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
+            'cookie_httponly'       => array('lang' => 'COOKIE_HTTPONLY', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
+            'cookie_samesite'       => array('lang' => 'COOKIE_SAMESITE', 'validate' => 'string', 'type' => 'select', 'method' => 'select_samesite', 'explain' => true),
+            'cookie_partitioned'    => array('lang' => 'COOKIE_PARTITIONED', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
+        )
+    );
+    
+    // Add SameSite selection method
+    function select_samesite($value, $key)
+    {
+        $samesite_options = array(
+            'Strict' => 'COOKIE_SAMESITE_STRICT',
+            'Lax' => 'COOKIE_SAMESITE_LAX',
+            'None' => 'COOKIE_SAMESITE_NONE'
+        );
+        
+        return h_radio('config[cookie_samesite]', $samesite_options, $value, $key);
+    }
+}
 // Set custom template for admin area
 $template->set_custom_template($phpbb_admin_path . 'style', 'admin');
 $template->assign_var('T_TEMPLATE_PATH', $phpbb_admin_path . 'style');
@@ -106,104 +138,118 @@ function adm_page_header($page_title)
 		}
 	}
 
-
 ////// Begin Check for news from integramod
-   $errno = 0;
-   $errstr = $news = '';
+$errno = 0;
+$errstr = $news = '';
 
-   if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
-   {
-      @fputs($fsock, "GET /version/im3_news.txt HTTP/1.1\r\n");
-      @fputs($fsock, "HOST:integramod.com\r\n");
-      @fputs($fsock, "Connection: close\r\n\r\n");
+if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
+{
+	@fputs($fsock, "GET /version/im3_news.txt HTTP/1.1\r\n");
+	@fputs($fsock, "HOST:integramod.com\r\n");
+	@fputs($fsock, "Connection: close\r\n\r\n");
 
-      $get_info = false;
-      while (!@feof($fsock))
-      {
-         if ($get_info)
-         {
-            $news .= @fread($fsock, 1024);
-         }
-         else
-         {
-            if (@fgets($fsock, 1024) == "\r\n")
-            {
-               $get_info = true;
-            }
-         }
-      }
-      @fclose($fsock);
-   }
-   else
-   {
-      if ($errstr)
-      {
-         $news = '<p style="color:red">' . sprintf($user->lang['CONNECT_SOCKET_ERROR'], $errstr) . '</p>';
-      }
-      else
-      {
-         $news = '<p>' . $user->lang['SOCKET_FUNCTIONS_DISABLED'] . '</p>';
-      }
-   }
-
-   $errno = 0;
-   $errstr = $lver = '';
-
-   if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
-   {
-      @fputs($fsock, "GET /version/3.0.x.txt HTTP/1.1\r\n");
-      @fputs($fsock, "HOST:integramod.com\r\n");
-      @fputs($fsock, "Connection: close\r\n\r\n");
-
-      $get_info = false;
-      while (!@feof($fsock))
-      {
-         if ($get_info)
-         {
-            $lver .= @fread($fsock, 1024);
-         }
-         else
-         {
-            if (@fgets($fsock, 1024) == "\r\n")
-            {
-               $get_info = true;
-            }
-         }
-      }
-      @fclose($fsock);
-   }
-   else
-   {
-      if ($errstr)
-      {
-         $lver = '<p style="color:red">' . sprintf($user->lang['CONNECT_SOCKET_ERROR'], $errstr) . '</p>';
-      }
-      else
-      {
-         $lver = '<p>' . $user->lang['SOCKET_FUNCTIONS_DISABLED'] . '</p>';
-      }
-   }
-	$template->assign_vars(array(
-		'INTEGRA_NEWS' => (!empty($news) ? $news : null),
-		'LATEST_IM_VERSION' => (!empty($lver) ? $lver : null),
-		'CURRENT_IM_VERSION' => (!empty($cver) ? $cver : null),
-	));
-
-	// IMOD VERSION
-    
-	global $db, $user;
-	$pos = 0;
-	$sql = "SELECT * FROM ".CONFIG_TABLE . "";
-	if($result = $db->sql_query($sql))
+	$get_info = false;
+	while (!@feof($fsock))
 	{
-		$row   = $db->sql_fetchrow($result);
-		$imod_version = (isset($config['imod_version'])) ? $config['imod_version'] : '';
-		$db->sql_freeresult($result);
-
-		$template->assign_vars( array(
-			'S_IMOD_VERSION'	=> $imod_version,
-		));
+		if ($get_info)
+		{
+			$news .= @fread($fsock, 1024);
+		}
+		else
+		{
+			if (@fgets($fsock, 1024) == "\r\n")
+			{
+				$get_info = true;
+			}
+		}
 	}
+	@fclose($fsock);
+}
+else
+{
+	if ($errstr)
+	{
+		if (!empty($user->lang['CONNECT_SOCKET_ERROR']))
+		{
+			$news = '<p style="color:red">' . sprintf($user->lang['CONNECT_SOCKET_ERROR'], $errstr) . '</p>';
+		}
+		else
+		{
+			$news = '<p style="color:red">Socket error: ' . htmlspecialchars($errstr) . '</p>';
+		}
+	}
+	else
+	{
+		$news = '<p>' . (!empty($user->lang['SOCKET_FUNCTIONS_DISABLED']) ? $user->lang['SOCKET_FUNCTIONS_DISABLED'] : 'Socket functions are disabled.') . '</p>';
+	}
+}
+
+$errno = 0;
+$errstr = $lver = '';
+
+if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
+{
+	@fputs($fsock, "GET /version/3.0.x.txt HTTP/1.1\r\n");
+	@fputs($fsock, "HOST:integramod.com\r\n");
+	@fputs($fsock, "Connection: close\r\n\r\n");
+
+	$get_info = false;
+	while (!@feof($fsock))
+	{
+		if ($get_info)
+		{
+			$lver .= @fread($fsock, 1024);
+		}
+		else
+		{
+			if (@fgets($fsock, 1024) == "\r\n")
+			{
+				$get_info = true;
+			}
+		}
+	}
+	@fclose($fsock);
+}
+else
+{
+	if ($errstr)
+	{
+		if (!empty($user->lang['CONNECT_SOCKET_ERROR']))
+		{
+			$lver = '<p style="color:red">' . sprintf($user->lang['CONNECT_SOCKET_ERROR'], $errstr) . '</p>';
+		}
+		else
+		{
+			$lver = '<p style="color:red">Socket error: ' . htmlspecialchars($errstr) . '</p>';
+		}
+	}
+	else
+	{
+		$lver = '<p>' . (!empty($user->lang['SOCKET_FUNCTIONS_DISABLED']) ? $user->lang['SOCKET_FUNCTIONS_DISABLED'] : 'Socket functions are disabled.') . '</p>';
+	}
+}
+
+$template->assign_vars(array(
+	'INTEGRA_NEWS'        => (!empty($news) ? $news : null),
+	'LATEST_IM_VERSION'   => (!empty($lver) ? $lver : null),
+	'CURRENT_IM_VERSION'  => (!empty($cver) ? $cver : null),
+));
+
+// IMOD VERSION
+
+global $db, $user;
+$pos = 0;
+$sql = "SELECT * FROM " . CONFIG_TABLE;
+if ($result = $db->sql_query($sql))
+{
+	$row = $db->sql_fetchrow($result);
+	$imod_version = (isset($config['imod_version'])) ? $config['imod_version'] : '';
+	$db->sql_freeresult($result);
+
+	$template->assign_vars(array(
+		'S_IMOD_VERSION' => $imod_version,
+	));
+}
 ////// End Check for news from integramod
 
 	$template->assign_vars(array(

@@ -850,12 +850,12 @@ CREATE TABLE phpbb_calendar (
 	enable_magic_url number(1) DEFAULT '1' NOT NULL,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
-	event_start number(11) DEFAULT '0' NOT NULL,
-	event_end number(11) DEFAULT '0' NOT NULL,
-	event_repeat varchar2(8) DEFAULT '' ,
-	invite_attendees number(1) DEFAULT '1' NOT NULL,
-	event_attendees clob DEFAULT '' ,
-	event_non_attendees clob DEFAULT '' ,
+	event_start NUMBER(11) DEFAULT NULL,
+	event_end NUMBER(11) DEFAULT NULL,
+	event_repeat VARCHAR2(8) DEFAULT '',
+	invite_attendees NUMBER(1) DEFAULT 1 NOT NULL,
+	event_attendees CLOB,
+	event_non_attendees CLOB,
 	CONSTRAINT pk_phpbb_calendar PRIMARY KEY (event_id)
 )
 /
@@ -882,9 +882,9 @@ END;
 */
 CREATE TABLE phpbb_calendar_repeat_events (
 	id number(11) NOT NULL,
-	repeat_id varchar2(8) DEFAULT '' ,
-	event_start_time number(11) DEFAULT '0' NOT NULL,
-	event_end_time number(11) DEFAULT '0' NOT NULL,
+	repeat_id VARCHAR2(8) DEFAULT '',
+	event_start_time NUMBER(11) DEFAULT NULL,
+	event_end_time NUMBER(11) DEFAULT NULL,
 	CONSTRAINT pk_phpbb_calendar_repeat_events PRIMARY KEY (id)
 )
 /
@@ -5257,13 +5257,13 @@ CREATE TABLE phpbb_topics (
 	poll_max_options number(4) DEFAULT '1' NOT NULL,
 	poll_last_vote number(11) DEFAULT '0' NOT NULL,
 	poll_vote_change number(1) DEFAULT '0' NOT NULL,
-	topic_calendar_time number(11) DEFAULT '0' NOT NULL,
-	topic_calendar_duration number(11) DEFAULT '0' NOT NULL,
-	event_repeat varchar2(8) DEFAULT '' ,
-	invite_attendees number(1) DEFAULT '0' NOT NULL,
-	event_attendees clob DEFAULT '' ,
-	event_non_attendees clob DEFAULT '' ,
-	topic_first_post_show number(1) DEFAULT '0' NOT NULL,
+	topic_calendar_time NUMBER(11) DEFAULT NULL,
+	topic_calendar_duration NUMBER(11) DEFAULT NULL,
+	event_repeat VARCHAR2(8) DEFAULT '',
+	invite_attendees NUMBER(1) DEFAULT 0 NOT NULL,
+	event_attendees CLOB,
+	event_non_attendees CLOB,
+	topic_first_post_show NUMBER(1) DEFAULT 0 NOT NULL,
 	CONSTRAINT pk_phpbb_topics PRIMARY KEY (topic_id)
 )
 /

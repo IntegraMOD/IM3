@@ -197,34 +197,27 @@ function displayBlocks(c, e, t)
 
 function selectCode(a)
 {
-	// Get ID of code block
-	var e = a.parentNode.parentNode.getElementsByTagName('CODE')[0];
+	var e = a.closest('.codebox')?.querySelector('.codeholder');
+	if (!e) {
+		console.warn('selectCode: Code block not found');
+		return;
+	}
 
-	// Not IE and IE9+
 	if (window.getSelection)
 	{
 		var s = window.getSelection();
-		// Safari
 		if (s.setBaseAndExtent)
 		{
 			s.setBaseAndExtent(e, 0, e, e.innerText.length - 1);
 		}
-		// Firefox and Opera
 		else
 		{
-			// workaround for bug # 42885
-			if (window.opera && e.innerHTML.substring(e.innerHTML.length - 4) == '<BR>')
-			{
-				e.innerHTML = e.innerHTML + '&nbsp;';
-			}
-
 			var r = document.createRange();
 			r.selectNodeContents(e);
 			s.removeAllRanges();
 			s.addRange(r);
 		}
 	}
-	// Some older browsers
 	else if (document.getSelection)
 	{
 		var s = document.getSelection();
@@ -233,7 +226,6 @@ function selectCode(a)
 		s.removeAllRanges();
 		s.addRange(r);
 	}
-	// IE
 	else if (document.selection)
 	{
 		var r = document.body.createTextRange();
@@ -272,6 +264,78 @@ function play_qt_file(obj)
 
 	obj.SetControllerVisible(true);
 	obj.Play();
+}
+
+	function linenumberOnOff(id){
+	var parent = document.getElementById(id);
+	var holder = parent.parentNode;
+	if (parent.firstChild.tagName == "OL"){
+		var show = 'hide';
+	} else if (parent.firstChild.tagName == "DIV"){
+		var show = 'show';
+	}
+if (show == 'hide'){
+	var child = parent.getElementsByTagName("ol");
+	var children = child[0].children;
+	var replacement = document.createElement("div");
+	replacement.setAttribute("id", id);
+	replacement.setAttribute("class", parent.getAttribute("class"));
+	replacement.setAttribute("className", parent.getAttribute("class"));
+	replacement.setAttribute("style", parent.getAttribute("style"));
+	for (var b = 0; b < children.length; b++){
+		if (children[b].nodeType == 1){
+			var row = document.createElement("div");
+			row.setAttribute("class", children[b].getAttribute("class"));
+			row.setAttribute("className", children[b].getAttribute("class"));
+			row.setAttribute("style", children[b].getAttribute("style") + "; border-left: none;");
+			row.style.cssText = 'border-left: none;';
+			var rowdata = children[b].children;
+			for (var c = 0; c < rowdata.length; c++){
+				row.appendChild(rowdata[c].cloneNode(true));
+			}
+			replacement.appendChild(row);
+		}
+	}
+	holder.replaceChild(replacement, parent);
+} else {
+	var replacement = document.createElement("div");
+	replacement.setAttribute("id", id);
+	replacement.setAttribute("class", parent.getAttribute("class"));
+	replacement.setAttribute("className", parent.getAttribute("class"));
+	replacement.setAttribute("style", parent.getAttribute("style"));
+
+	var list = document.createElement("ol");
+
+	var dds = parent.getElementsByTagName("div");
+
+	for (var b = 0; b < dds.length; b++){
+		var row = document.createElement("li");
+		row.setAttribute("class", dds[b].getAttribute("class"));
+		row.setAttribute("className", dds[b].getAttribute("class"));
+		row.setAttribute("style", dds[b].getAttribute('style') + "; border-left: 1px solid #999;");
+
+		var rowdata = dds[b].children;
+
+		for (var c = 0; c < rowdata.length; c++){
+			row.appendChild(rowdata[c].cloneNode(true));
+		}
+
+		list.appendChild(row);
+	}
+
+	replacement.appendChild(list);
+	holder.replaceChild(replacement, parent);
+}
+}
+
+	function expandCode(id){
+	var parent = document.getElementById(id);
+ 
+	if (window.getComputedStyle(parent).getPropertyValue('display') === 'block' || window.getComputedStyle(parent).getPropertyValue('display') === ''){
+		parent.style.display = 'none';
+	} else {
+		parent.style.display = 'block';
+	}
 }
 
 /**

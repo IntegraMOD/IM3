@@ -1995,7 +1995,7 @@ if(!empty($topic_data['topic_calendar_time']) && !empty($topic_data['topic_calen
 //---END CALENDAR MOD---
 
 // Update topic view and if necessary attachment view counters ... but only for humans and if this is the first 'page view'
-if (isset($user->data['session_page']) && !$user->data['is_bot'] && (!str_contains((string) $user->data['session_page'], '&t=' . $topic_id) || isset($user->data['session_created'])))
+if (isset($user->data['session_page']) && !$user->data['is_bot'] && (strpos((string) $user->data['session_page'], '&t=' . $topic_id) === false || isset($user->data['session_created']))) 
 {
 	$sql = 'UPDATE ' . TOPICS_TABLE . '
 		SET topic_views = topic_views + 1, topic_last_view_time = ' . time() . "

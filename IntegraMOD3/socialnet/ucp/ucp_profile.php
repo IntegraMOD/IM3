@@ -63,6 +63,10 @@ class ucp_profile
                     'facebook'			 => request_var('facebook', $row['facebook']),
                     'twitter'			 => request_var('twitter', $row['twitter']),
                     'youtube'			 => request_var('youtube', $row['youtube']),
+					// ajaxlike
+					'show_likes'				=> request_var('show_likes', $user->data['show_likes'], true),
+					'ajaxlike_list_in_profile'	=> (isset($config['ajaxlike_enable']) ? $config['ajaxlike_list_in_profile']: false),
+					// ajaxlike
                 );
 
                 // display settings
@@ -152,6 +156,9 @@ class ucp_profile
                         'facebook'			 => $data['facebook'],
                         'twitter'			 => $data['twitter'],
                         'youtube'			 => $data['youtube'],
+						// ajaxlike
+						'show_likes'		 => $data['show_likes'],
+						// ajaxlike
                     ));
 
                     if (!sizeof($error)) {
@@ -573,6 +580,10 @@ class ucp_profile
             'S_REL_AVATAR'		 => $socialnet->get_user_avatar_resized($row['user_avatar'], $row['user_avatar_type'], $row['user_avatar_width'], $row['user_avatar_height'], 50),
             'S_REL_USERNAME'	 => $socialnet->get_username_string($socialnet->config['us_colour_username'], 'full', $row['user_id'], $row['username'], $row['user_colour']),
             'U_REL_PROFILE_LINK' => $socialnet->get_username_string($socialnet->config['us_colour_username'], 'profile', $row['user_id'], $row['username'], $row['user_colour']),
+			// ajaxlike
+			'S_SHOW_LIKES'			=> $data['show_likes'],
+			'S_AJ_LIST_IN_PROFILE'	=> $data['ajaxlike_list_in_profile'],
+			// ajaxlike
        ));
 
         // Approve / Refuse relation

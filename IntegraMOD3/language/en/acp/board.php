@@ -331,17 +331,52 @@ $lang = array_merge($lang, array(
 // Cookie Settings
 $lang = array_merge($lang, array(
 	'ACP_COOKIE_SETTINGS_EXPLAIN'		=> 'These details define the data used to send cookies to your users browsers. In most cases the default values for the cookie settings should be sufficient. If you do need to change any do so with care, incorrect settings can prevent users logging in.',
+	'COOKIE_HTTPONLY'			    => 'Cookie HTTP only',
+	'COOKIE_DOMAIN'					=> 'Cookie domain',
+	'COOKIE_DOMAIN_EXPLAIN'			=> 'In most cases the cookie domain is optional. Leave it blank if you are unsure.<br />In the case where you have integrated phpBB with other software or have multiple domains, then to determine the cookie domain you need to know the following. If you have a site like <i>example.com</i> and your board is at <i>www.example.com</i>, or your board is at <i>board.example.com</i>, set the cookie domain to <i>.example.com</i>. The period/dot before the domain name is required for the cookie domain.',
+	'COOKIE_NAME'					=> 'Cookie name',
+	'COOKIE_NAME_EXPLAIN'			=> 'This can be anything you want, make it original. Whenever the cookie settings are changed, the cookie name should be changed.',
+	'COOKIE_NOTICE'					=> 'Cookie notice',
+	'COOKIE_NOTICE_EXPLAIN'			=> 'Display a cookie notice to visitors. This may be required by law depending on your board content and jurisdiction.',
+	'COOKIE_PATH'					=> 'Cookie path',
+	'COOKIE_PATH_EXPLAIN'			=> 'This will usually be the same as your script path or simply a forward slash to make the cookie accessible across the entire domain.',
+	'COOKIE_SECURE'					=> 'Cookie secure',
+	'COOKIE_SECURE_EXPLAIN'			=> 'If your server is running via SSL enable this, otherwise leave it disabled. Having this enabled and not running via SSL will result in server errors during redirects.',
+	'COOKIE_SAMESITE'				=> 'Cookie SameSite',
+	'COOKIE_SAMESITE_EXPLAIN'		=> 'Controls when cookies are sent with cross-site requests. <br><strong>None</strong> allows cookies to be sent with all requests<br> (requires Secure flag). <br><strong>Lax</strong> allows cookies with top-level navigation but not with embedded content. <br><strong>Strict</strong> prevents cookies from being sent with any cross-site requests.',
+	'COOKIE_SAMESITE_NONE'			=> 'None (allows all cross-site requests)',
+	'COOKIE_SAMESITE_LAX'			=> 'Lax (allows top-level navigation)',
+	'COOKIE_SAMESITE_STRICT'		=> 'Strict (prevents all cross-site requests)',
+	'COOKIE_PARTITIONED'			=> 'Cookie Partitioned',
+	'COOKIE_PARTITIONED_EXPLAIN'	=> 'Enable partitioned cookies for enhanced privacy in third-party contexts. This is useful for embedded content and prevents cross-site tracking. Requires the Secure flag to be enabled.',
+	'COOKIE_SECURE_ADMIN'			=> 'Force secure cookies for admin',
+	'COOKIE_SECURE_ADMIN_EXPLAIN'	=> 'Forces all admin panel cookies to use the secure flag, regardless of the global secure setting. This adds an extra layer of security for administrative functions.',
+	'ONLINE_LENGTH'				    => 'View online time span',
+	'ONLINE_LENGTH_EXPLAIN'		    => 'Number of minutes after which inactive users will not appear in “Who is online” listings. The higher this value the greater is the processing required to generate the listing.',
+	'SESSION_GC'					=> 'Session garbage collection',
+	'SESSION_GC_EXPLAIN'			=> 'The system will clean out old sessions every x seconds.',
+	'SESSION_LENGTH'				=> 'Session length',
+	'SESSION_LENGTH_EXPLAIN'		=> 'Sessions will expire after this time, in seconds.',
+	'ACTIVE_SESSIONS'				=> 'Active sessions',
+	'ACTIVE_SESSIONS_EXPLAIN'		=> 'Number of active sessions within the last %s minutes',
 
-	'COOKIE_DOMAIN'				=> 'Cookie domain',
-	'COOKIE_NAME'				=> 'Cookie name',
-	'COOKIE_PATH'				=> 'Cookie path',
-	'COOKIE_SECURE'				=> 'Cookie secure',
-	'COOKIE_SECURE_EXPLAIN'		=> 'If your server is running via SSL set this to enabled else leave as disabled. Having this enabled and not running via SSL will result in server errors during redirects.',
-	'ONLINE_LENGTH'				=> 'View online time span',
-	'ONLINE_LENGTH_EXPLAIN'		=> 'Number of minutes after which inactive users will not appear in “Who is online” listings. The higher this value the greater is the processing required to generate the listing.',
-	'SESSION_LENGTH'			=> 'Session length',
-	'SESSION_LENGTH_EXPLAIN'	=> 'Sessions will expire after this time, in seconds.',
 ));
+
+// Cookie Consent Settings
+$lang = array_merge($lang, [
+   'COOKIE_CONSENT_TITLE'		 => 'Cookie Consent Title',
+   'COOKIE_CONSENT_MESSAGE'		 => 'Cookie Consent Message',
+   'COOKIE_CONSENT_SETTINGS'     => 'Cookie Consent Settings',
+   'COOKIE_CONSENT_ENABLE'       => 'Enable Cookie Consent Modal',
+   'COOKIE_CONSENT_TEXT'         => 'Consent Modal Text',
+   'COOKIE_CONSENT_CONFIRM'      => 'Confirm Button Text',
+   'COOKIE_CONSENT_ACCEPT_TEXT'  => 'Accept Cookies Button Text',
+   'COOKIE_CONSENT_DECLINE_TEXT' => 'Decline Cookies Button Text',
+   'COOKIE_CONSENT_POSITION'     => 'Position of the Cookie Consent Modal',
+   'COOKIE_CONSENT_POSITION_TOP'    => 'Top',
+   'COOKIE_CONSENT_POSITION_BOTTOM' => 'Bottom',
+   'COOKIE_CONSENT_POSITION_CENTER' => 'Center',
+]);
 
 // Load Settings
 $lang = array_merge($lang, array(

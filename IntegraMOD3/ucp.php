@@ -156,7 +156,8 @@ switch ($mode)
 			foreach ($_COOKIE as $cookie_name => $cookie_data)
 			{
 				// Only delete board cookies, no other ones...
-				if (!str_starts_with($cookie_name, $config['cookie_name'] . '_'))
+//				if (!str_starts_with($cookie_name, $config['cookie_name'] . '_'))
+				if (!str_starts_with($cookie_name, $config['cookie_name'] . '_') !== 0)
 				{
 					continue;
 				}

@@ -308,7 +308,7 @@ function generate_blog_pagination($base_url, $num_items, $per_page, $start_item,
 * @param bool $force_output is if you would like to force the output of the links for the single requested section
 * @param bool $return Set to true to return an array with the data in it instead of outputting it
 */
-function add_blog_links($user_id, $block, mixed $user_data = false, $grab_from_db = false, $force_output = false, $return = false)
+function add_blog_links($user_id, $block, $user_data = null, $grab_from_db = false, $force_output = false, $return = false)
 {
 	global $db, $template, $user, $phpbb_root_path, $phpEx, $config;
 	global $reverse_zebra_list, $user_settings;

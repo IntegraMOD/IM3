@@ -459,12 +459,12 @@ CREATE TABLE phpbb_calendar (
 	enable_magic_url tinyint(1) DEFAULT '1' NOT NULL,
 	bbcode_bitfield varbinary(255) DEFAULT '' NOT NULL,
 	bbcode_uid varbinary(8) DEFAULT '' NOT NULL,
-	event_start int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	event_end int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	event_repeat varbinary(8) DEFAULT '' NOT NULL,
-	invite_attendees tinyint(1) DEFAULT '1' NOT NULL,
-	event_attendees mediumblob NOT NULL,
-	event_non_attendees mediumblob NOT NULL,
+	event_start INT(11) UNSIGNED DEFAULT NULL,
+	event_end INT(11) UNSIGNED DEFAULT NULL,
+	event_desc MEDIUMBLOB DEFAULT NULL,
+	priv_users MEDIUMBLOB DEFAULT NULL,
+	event_attendees MEDIUMBLOB DEFAULT NULL,
+	event_non_attendees MEDIUMBLOB DEFAULT NULL,
 	PRIMARY KEY (event_id)
 );
 
@@ -472,9 +472,9 @@ CREATE TABLE phpbb_calendar (
 # Table: 'phpbb_calendar_repeat_events'
 CREATE TABLE phpbb_calendar_repeat_events (
 	id int(11) UNSIGNED NOT NULL auto_increment,
-	repeat_id varbinary(8) DEFAULT '' NOT NULL,
-	event_start_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	event_end_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	repeat_id VARBINARY(8) DEFAULT '' NOT NULL,
+	event_start_time INT(11) UNSIGNED DEFAULT NULL,
+	event_end_time INT(11) UNSIGNED DEFAULT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -2811,12 +2811,12 @@ CREATE TABLE phpbb_topics (
 	poll_max_options tinyint(4) DEFAULT '1' NOT NULL,
 	poll_last_vote int(11) UNSIGNED DEFAULT '0' NOT NULL,
 	poll_vote_change tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	topic_calendar_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	topic_calendar_duration int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	topic_calendar_time INT(11) UNSIGNED DEFAULT NULL,
+	topic_calendar_duration INT(11) UNSIGNED DEFAULT NULL,
 	event_repeat varbinary(8) DEFAULT '' NOT NULL,
 	invite_attendees tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	event_attendees mediumblob NOT NULL,
-	event_non_attendees mediumblob NOT NULL,
+	event_attendees MEDIUMBLOB DEFAULT NULL,
+	event_non_attendees MEDIUMBLOB DEFAULT NULL,
 	topic_first_post_show tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (topic_id),
 	KEY forum_id (forum_id),

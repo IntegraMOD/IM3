@@ -1908,8 +1908,8 @@ class acp_board
 	}
 
 	/**
-	 * Build select field options in acp_board
-	 */
+	* Select auth method
+	*/
 	function build_select($option_ary, $option_default = false)
 	{
 		global $user;

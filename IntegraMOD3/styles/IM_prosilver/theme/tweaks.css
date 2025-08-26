@@ -54,7 +54,7 @@ html>body dd label input { vertical-align: text-bottom; }	/* Align checkboxes/ra
 }
 
 /* navbar fix */
-* html .clearfix, * html .navbar, ul.linklist {
+* html .clearfix, * html .navbar, ul.linklist, ul.linklist2 {
 	height: 4%;
 	overflow: hidden;
 }

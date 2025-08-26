@@ -64,7 +64,7 @@ hr.dashed {
 ---------------------------------------- */
 .headerbar {
 	background-color: #12A3EB;
-	background-image: url("{T_THEME_PATH}/images/bg_header.gif");
+	/*background-image: url("{ T_THEME_PATH}/images/bg_header.gif");*/
 	color: #FFFFFF;
 }
 
@@ -94,11 +94,13 @@ hr.dashed {
 	color: #000000;
 }
 
-.bg1	{ background-color: #C8C8C8; overflow: hidden; }
-.bg2	{ background-color: #C8C8C8; overflow: hidden; }
-.bg3	{ background-color: #C8C8C8; overflow: hidden; }
 
-.ucprowbg {
+.bg1	 {  background-color: #fff; overflow: hidden; }
+.bg2	 {  background-color: #fff; overflow: hidden; }
+.bg3	 {  background-color: #fff; overflow: hidden; }
+
+
+.ucprowbg  { 
 	background-color: #DCDEE2;
 }
 
@@ -726,37 +728,38 @@ a.fontsize {
 
 /* Icon images
 ---------------------------------------- */
-.sitehome						{ background-image: url("{T_THEME_PATH}/images/icon_home.png"); }
-.icon-faq						{ background-image: url("{T_THEME_PATH}/images/icon_faq.gif"); }
-.icon-members					{ background-image: url("{T_THEME_PATH}/images/icon_members.gif"); }
-.icon-home						{ background-image: url("{T_THEME_PATH}/images/icon_home.png"); }
-.icon-ucp						{ background-image: url("{T_THEME_PATH}/images/icon_ucp.gif"); }
-.icon-register					{ background-image: url("{T_THEME_PATH}/images/icon_register.gif"); }
-.icon-logout					{ background-image: url("{T_THEME_PATH}/images/icon_logout.gif"); }
-.icon-bookmark					{ background-image: url("{T_THEME_PATH}/images/icon_bookmark.png"); }
-.icon-bump						{ background-image: url("{T_THEME_PATH}/images/icon_bump.gif"); }
-.icon-subscribe					{ background-image: url("{T_THEME_PATH}/images/icon_subscribe.png"); }
-.icon-unsubscribe				{ background-image: url("{T_THEME_PATH}/images/icon_unsubscribe.png"); }
-.icon-pages						{ background-image: url("{T_THEME_PATH}/images/icon_pages.gif"); }
-.icon-search					{ background-image: url("{T_THEME_PATH}/images/icon_search.gif"); }
+.sitehome						 { background-image: url("{T_THEME_PATH}/images/icon_home.png"); }
+/*.icon-faq						 { background-image: url("{T_THEME_PATH}/images/icon_faq.gif"); } */
+/*.icon-members					 { background-image: url("{T_THEME_PATH}/images/icon_members.gif"); } */
+.icon-home						 { background-image: url("{T_THEME_PATH}/images/icon_home.png"); }
+/*.icon-ucp						 { background-image: url("{T_THEME_PATH}/images/icon_ucp.gif"); } */
+/*.icon-register				 { background-image: url("{T_THEME_PATH}/images/icon_register.gif"); } */
+/*.icon-logout					 { background-image: url("{T_THEME_PATH}/images/icon_logout.gif"); } */
+.icon-bookmark					 { background-image: url("{T_THEME_PATH}/images/icon_bookmark.png"); }
+.icon-bump						 { background-image: url("{T_THEME_PATH}/images/icon_bump.gif"); }
+.icon-subscribe					 { background-image: url("{T_THEME_PATH}/images/icon_subscribe.png"); }
+.icon-unsubscribe				 { background-image: url("{T_THEME_PATH}/images/icon_unsubscribe.png"); }
+/*.icon-pages						 { background-image: url("{T_THEME_PATH}/images/icon_pages.gif"); } */
+/*.icon-search					 { background-image: url("{T_THEME_PATH}/images/icon_search.gif"); } */
 
 /* Profile & navigation icons */
-.email-icon, .email-icon a		{ background-image: url("{IMG_ICON_CONTACT_EMAIL_SRC}"); }
-.aim-icon, .aim-icon a			{ background-image: url("{IMG_ICON_CONTACT_AIM_SRC}"); }
-.yahoo-icon, .yahoo-icon a		{ background-image: url("{IMG_ICON_CONTACT_YAHOO_SRC}"); }
-.web-icon, .web-icon a			{ background-image: url("{IMG_ICON_CONTACT_WWW_SRC}"); }
-.msnm-icon, .msnm-icon a			{ background-image: url("{IMG_ICON_CONTACT_MSNM_SRC}"); }
-.icq-icon, .icq-icon a			{ background-image: url("{IMG_ICON_CONTACT_ICQ_SRC}"); }
-.jabber-icon, .jabber-icon a		{ background-image: url("{IMG_ICON_CONTACT_JABBER_SRC}"); }
-.pm-icon, .pm-icon a				{ background-image: url("{IMG_ICON_CONTACT_PM_SRC}"); }
-.quote-icon, .quote-icon a		{ background-image: url("{IMG_ICON_POST_QUOTE_SRC}"); }
+.email-icon, .email-icon a		 { background-image: url("{IMG_ICON_CONTACT_EMAIL_SRC}"); }
+.aim-icon, .aim-icon a			 { background-image: url("{IMG_ICON_CONTACT_AIM_SRC}"); }
+.yahoo-icon, .yahoo-icon a		 { background-image: url("{IMG_ICON_CONTACT_YAHOO_SRC}"); }
+.web-icon, .web-icon a			 { background-image: url("{IMG_ICON_CONTACT_WWW_SRC}"); }
+.msnm-icon, .msnm-icon a			 { background-image: url("{IMG_ICON_CONTACT_MSNM_SRC}"); }
+.icq-icon, .icq-icon a			 { background-image: url("{IMG_ICON_CONTACT_ICQ_SRC}"); }
+.jabber-icon, .jabber-icon a		 { background-image: url("{IMG_ICON_CONTACT_JABBER_SRC}"); }
+.pm-icon, .pm-icon a				 { background-image: url("{IMG_ICON_CONTACT_PM_SRC}"); }
+.quote-icon, .quote-icon a		 { background-image: url("{IMG_ICON_POST_QUOTE_SRC}"); }
+
 
 /* Moderator icons */
-.report-icon, .report-icon a		{ background-image: url("{IMG_ICON_POST_REPORT_SRC}"); }
-.edit-icon, .edit-icon a			{ background-image: url("{IMG_ICON_POST_EDIT_SRC}"); }
-.delete-icon, .delete-icon a		{ background-image: url("{IMG_ICON_POST_DELETE_SRC}"); }
-.info-icon, .info-icon a			{ background-image: url("{IMG_ICON_POST_INFO_SRC}"); }
-.warn-icon, .warn-icon a			{ background-image: url("{IMG_ICON_USER_WARN_SRC}"); } /* Need updated warn icon */
+.report-icon, .report-icon a		 { background-image: url("{IMG_ICON_POST_REPORT_SRC}"); }
+.edit-icon, .edit-icon a			 { background-image: url("{IMG_ICON_POST_EDIT_SRC}"); }
+.delete-icon, .delete-icon a		 { background-image: url("{IMG_ICON_POST_DELETE_SRC}"); }
+.info-icon, .info-icon a			 { background-image: url("{IMG_ICON_POST_INFO_SRC}"); }
+.warn-icon, .warn-icon a			 { background-image: url("{IMG_ICON_USER_WARN_SRC}"); } /* Need updated warn icon */
 
 /*  	
 --------------------------------------------------------------
@@ -1056,6 +1059,124 @@ input.search {
 	
 }
 
-input.disabled {
+
+div.codeheader  {
+	background: url("{T_THEME_PATH}/images/page_code.gif") no-repeat 0px 0px;
+}
+
+
+input.disabled  {
 	color: #666666;
+}
+
+
+.lightstyle  { display:none !important; }
+.darkstyle  { display:block; }
+
+/* nav menu */
+.menu  {
+	background: #2E3539;
+}
+
+
+.menu a  {
+	color: #FFFFFF;
+}
+
+
+.menu li a:hover  {
+	color: #43A6DF;
+	background: #494C4D;
+}
+
+
+.menu label:before  {
+	color: #FFFFFF;
+}
+
+
+.menu ul.sub-menus {
+	background: #6EB9F7;
+}
+
+
+.menu ul.sub-menus a  {
+	color: #444444;
+}
+
+
+.menu ul.sub-menus a:hover {
+	background: #5A5A5A;
+	color: #FFFFFF;
+}
+
+
+.activetab a  {
+	color: #2598DA !important;
+	background: #494C4D;}
+
+
+.uname  {
+	color: #DA2E2B !important;
+}
+
+	
+.badge  {
+	background-color: #06B0F3;
+	color: #ffffff;}
+
+
+.rb  { 
+    border-color:#DCE0D8;
+    background:#F5F1EE;
+}
+
+
+/* nav menu */
+.menu  {
+	background: #2E3539;
+}
+
+
+.menu a  {
+	color: #FFFFFF;
+}
+
+
+.menu a.dropdown-arrow:after  {
+	content: "\25BF";
+}
+
+
+.menu li a:hover  {
+	color: #43A6DF;
+	background: #494C4D;
+}
+
+
+.menu label:before  {
+	color: #FFFFFF;
+	content: "\2261"; 
+}
+
+
+.menu ul.sub-menus {
+	background: #E9E9EF;
+}
+
+
+.menu ul.sub-menus a  {
+	color: #444444;
+}
+
+
+.menu ul.sub-menus a:hover {
+	background: #5A5A5A;
+	color: #FFFFFF;
+}
+
+@media screen and (max-width: 800px) {
+	.menu ul  {background:#E9E9EF;}
+	.menu a, .menu input:checked + label  {color:#444444}
+	.menu input:checked + label:before  {content:"\00d7"}
 }

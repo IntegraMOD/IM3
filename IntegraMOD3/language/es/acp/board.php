@@ -362,16 +362,49 @@ $lang = array_merge($lang, array(
 $lang = array_merge($lang, array(
 	'ACP_COOKIE_SETTINGS_EXPLAIN'	=> 'Estos detalles determinan los datos usados para enviar cookies a los navegadores de los usuarios. En la mayoría de los casos los valores por defecto para los configuración de las cookies deberían ser suficiente. Si necesita cambiar algo, hágalo con cuidado, parámetros incorrectos impedirían que los usuarios puedan identificarse.',
 
-	'COOKIE_DOMAIN'			=> 'Dominio de la cookie',
-	'COOKIE_NAME'			=> 'Nombre de la cookie',
-	'COOKIE_PATH'			=> 'Ruta de la cookie',
-	'COOKIE_SECURE'			=> 'Cookie segura',
-	'COOKIE_SECURE_EXPLAIN'		=> 'Si su servidor emplea SSL, habilite esta opción, si no, déjelo deshabilitado. Habilitar esto sin usar SSL provocará errores en el servidor.',
-	'ONLINE_LENGTH'			=> 'Lapso de tiempo para verse con estado identificado',
-	'ONLINE_LENGTH_EXPLAIN'		=> 'Número de minutos después de los cuales los usuarios inactivos no aparecerán en la lista "Quién está conectado". Un valor mayor requiere más procesamiento para generar la lista.',
-	'SESSION_LENGTH'		=> 'Duración de la sesión',
-	'SESSION_LENGTH_EXPLAIN'	=> 'Las sesiones expiran transcurrido este tiempo, en segundos.',
+	'COOKIE_DOMAIN'			        => 'Dominio de la cookie',	'COOKIE_HTTPONLY'			    => 'Cookie HTTP only',
+	'COOKIE_DOMAIN_EXPLAIN'			=> 'In most cases the cookie domain is optional. Leave it blank if you are unsure.<br />In the case where you have integrated phpBB with other software or have multiple domains, then to determine the cookie domain you need to know the following. If you have a site like <i>example.com</i> and your board is at <i>www.example.com</i>, or your board is at <i>board.example.com</i>, set the cookie domain to <i>.example.com</i>. The period/dot before the domain name is required for the cookie domain.',
+	'COOKIE_NAME'			        => 'Nombre de la cookie',
+	'COOKIE_NAME_EXPLAIN'			=> 'This can be anything you want, make it original. Whenever the cookie settings are changed, the cookie name should be changed.',
+	'COOKIE_NOTICE'					=> 'Cookie notice',
+	'COOKIE_NOTICE_EXPLAIN'			=> 'Display a cookie notice to visitors. This may be required by law depending on your board content and jurisdiction.',
+	'COOKIE_PATH'			        => 'Ruta de la cookie',
+	'COOKIE_PATH_EXPLAIN'			=> 'This will usually be the same as your script path or simply a forward slash to make the cookie accessible across the entire domain.',
+	'COOKIE_SECURE'			        => 'Cookie segura',
+	'COOKIE_SECURE_EXPLAIN'		    => 'Si su servidor emplea SSL, habilite esta opción, si no, déjelo deshabilitado. Habilitar esto sin usar SSL provocará errores en el servidor.',
+	'COOKIE_SAMESITE'				=> 'Cookie SameSite',
+	'COOKIE_SAMESITE_EXPLAIN'		=> 'Controls when cookies are sent with cross-site requests. <br><strong>None</strong> allows cookies to be sent with all requests<br> (requires Secure flag). <br><strong>Lax</strong> allows cookies with top-level navigation but not with embedded content. <br><strong>Strict</strong> prevents cookies from being sent with any cross-site requests.',
+	'COOKIE_SAMESITE_NONE'			=> 'None (allows all cross-site requests)',
+	'COOKIE_SAMESITE_LAX'			=> 'Lax (allows top-level navigation)',
+	'COOKIE_SAMESITE_STRICT'		=> 'Strict (prevents all cross-site requests)',
+	'COOKIE_PARTITIONED'			=> 'Cookie Partitioned',
+	'COOKIE_PARTITIONED_EXPLAIN'	=> 'Enable partitioned cookies for enhanced privacy in third-party contexts. This is useful for embedded content and prevents cross-site tracking. Requires the Secure flag to be enabled.',
+	'COOKIE_SECURE_ADMIN'			=> 'Force secure cookies for admin',
+	'COOKIE_SECURE_ADMIN_EXPLAIN'	=> 'Forces all admin panel cookies to use the secure flag, regardless of the global secure setting. This adds an extra layer of security for administrative functions.',
+	'ONLINE_LENGTH'			        => 'Lapso de tiempo para verse con estado identificado',
+	'ONLINE_LENGTH_EXPLAIN'		    => 'Número de minutos después de los cuales los usuarios inactivos no aparecerán en la lista "Quién está conectado". Un valor mayor requiere más procesamiento para generar la lista.',
+	'SESSION_GC'					=> 'Session garbage collection',
+	'SESSION_GC_EXPLAIN'			=> 'The system will clean out old sessions every x seconds.',
+	'SESSION_LENGTH'		        => 'Duración de la sesión',
+	'SESSION_LENGTH_EXPLAIN'	    => 'Las sesiones expiran transcurrido este tiempo, en segundos.',
+	'ACTIVE_SESSIONS'				=> 'Active sessions',
+	'ACTIVE_SESSIONS_EXPLAIN'		=> 'Number of active sessions within the last %s minutes',
+
 ));
+
+// Cookie Consent Settings
+$lang = array_merge($lang, [
+   'COOKIE_CONSENT_SETTINGS' => 'Cookie Consent Settings',
+   'COOKIE_CONSENT_ENABLE' => 'Enable Cookie Consent Modal',
+   'COOKIE_CONSENT_TEXT' => 'Consent Modal Text',
+   'COOKIE_CONSENT_CONFIRM' => 'Confirm Button Text',
+   'COOKIE_CONSENT_ACCEPT_TEXT' => 'Accept Cookies Button Text',
+   'COOKIE_CONSENT_DECLINE_TEXT' => 'Decline Cookies Button Text',
+   'COOKIE_CONSENT_POSITION'    => 'Position of the Cookie Consent Modal',
+   'COOKIE_CONSENT_POSITION_TOP'    => 'Top',
+   'COOKIE_CONSENT_POSITION_BOTTOM' => 'Bottom',
+   'COOKIE_CONSENT_POSITION_CENTER' => 'Center',
+]);
 
 // Load Settings
 $lang = array_merge($lang, array(

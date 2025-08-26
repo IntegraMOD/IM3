@@ -60,7 +60,7 @@ function recalc_nested_sets(&$new_id, $pkey, $table, $parent_id = 0, $where = ar
 }
 
 /**
-* Select SameSite cookie attribute
+* Simple version of jumpbox, just lists authed forums
 */
 function samesite_select($value, $key)
 {

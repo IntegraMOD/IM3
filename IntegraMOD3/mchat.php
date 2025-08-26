@@ -21,13 +21,13 @@ if(!defined('MCHAT_INCLUDE'))
   $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
   $phpEx = substr(strrchr(__FILE__, '.'), 1);
   include($phpbb_root_path.'common.'.$phpEx);
+  
   $mchat_include_index = false;
   // Start session management.
   $user->session_begin();
   $auth->acl($user->data);
   $user->setup();
 }
-
 
 // Add lang file
 $user->add_lang(array('mods/mchat_lang', 'viewtopic', 'posting'));
@@ -322,7 +322,6 @@ switch ($mchat_mode)
  
 	// Read function...
 	case 'read':
-
 		// If mChat disabled or user can't view the chat
 		if (!$config['mchat_enable'] || !$mchat_view)
 		{
@@ -527,13 +526,15 @@ switch ($mchat_mode)
 				$message = preg_replace($bbcode_replace, '', $message);
 			}
 		}
-		
+
 		$sql_ary = array(
 			'forum_id' 			=> 0,
 			'post_id'			=> 0,		
 			'user_id'			=> $user->data['user_id'],
 			'user_ip'			=> $user->data['session_ip'],
-			'message' 			=> str_replace('\'', '&rsquo;', $message),
+//			'message' 			=> str_replace('\'', '&rsquo;', $message),
+            'message'           => $message,
+
 			'bbcode_bitfield'	=> $bitfield,
 			'bbcode_uid'		=> $uid,
 			'bbcode_options'	=> $options,
@@ -971,7 +972,16 @@ $template->assign_vars(array(
 	    'S_LINKS_ALLOWED' => $mchat_urls,
 	    'S_BBCODE_IMG' => $config['allow_bbcode'] && $auth->acl_get('u_mchat_bbcode') && $auth->acl_get('u_mchat_img'),
 	    'S_BBCODE_FLASH' => $config['allow_bbcode'] && $auth->acl_get('u_mchat_bbcode') && $auth->acl_get('u_mchat_flash'),
-	    'S_BBCODE_QUOTE' => true,
+		'S_MCHAT_BBCODE_B'     => true,
+		'S_MCHAT_BBCODE_I'     => true,
+		'S_MCHAT_BBCODE_U'     => true,
+		'S_MCHAT_BBCODE_QUOTE' => true,
+		'S_MCHAT_BBCODE_CODE'  => true,
+		'S_MCHAT_BBCODE_LIST'  => true,
+		'S_MCHAT_BBCODE_IMG'   => true,
+		'S_MCHAT_BBCODE_URL'   => true,
+		'S_MCHAT_BBCODE_SIZE'  => true,
+		'S_MCHAT_BBCODE_COLOR' => true,
 	'MCHAT_FILE_NAME'		=> append_sid("{$phpbb_root_path}mchat.$phpEx"),
 	'MCHAT_REFRESH_JS'		=> 1000 * $config_mchat['refresh'],
 	'MCHAT_ADD_MESSAGE'		=> $mchat_add_mess,

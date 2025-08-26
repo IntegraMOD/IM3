@@ -750,7 +750,8 @@ class bbcode extends abbcode
 				case 8:
 					$this->bbcode_cache[$bbcode_id] = array(
 						'callback' => array(
-                            '#\[code(?:=([a-z]+))?:$uid\](.*?)\[/code:$uid\]#is' => function($matches){return $this->bbcode_second_pass_code($matches[1], $matches[2]);},
+                            '#\[code(?:=([a-z0-9_]+))?:$uid\](.*?)\[/code:$uid\]#is' => function($matches){return $this->bbcode_second_pass_code($matches[1], $matches[2]);},
+//                          '#\[code(?:=([a-z]+))?:$uid\](.*?)\[/code:$uid\]#is' => function($matches){return $this->bbcode_second_pass_code($matches[1], $matches[2]);},
 						)
 					);
 				break;
@@ -810,6 +811,16 @@ class bbcode extends abbcode
 						),
 						'preg'	=> array(
 							'#\[attachment=([0-9]+):$uid\]#'	=> $this->bbcode_tpl('inline_attachment_open', $bbcode_id)
+						)
+					);
+				break;
+				
+				case 99:
+					$this->bbcode_cache[$bbcode_id] = array(
+						'callback' => array(
+							'#\[(abap|actionscript|ada|apache|applescript|asm|asp|autoit|bash|blitzbasic|bnf|c|caddcl|cadlisp|cfdg|cfm|cpp-qt|cpp|csharp|css|c_mac|d|delphi|diff|div|dos|dot|eiffel|fortran|freebasic|genero|gml|groovy|haskell|html|html4strict|idl|ini|inno|io|java|java5|javascript|js|latex|lisp|lua|m68k|matlab|mirc|mpasm|mysql|nsis|objc|ocaml-brief|ocaml|oobas|oracle8|pascal|per|perl|php-brief|php|plsql|python|qbasic|rails|reg|robots|ruby|sas|scheme|sdlbasic|smalltalk|smarty|sql|tcl|text|thinbasic|tsql|vb|vbnet|vhdl|visualfoxpro|winbatch|xml|xpp|xsl|z80)(?:=([a-z0-9_]+))?:$uid\](.*?)\[/\1:$uid\]#is' => function($matches) {
+								return $this->bbcode_second_pass_code($matches[2], $matches[3]);
+							},
 						)
 					);
 				break;
@@ -1084,7 +1095,10 @@ class bbcode extends abbcode
 		}
 
 		$code = $this->bbcode_tpl('code_open') . $code . $this->bbcode_tpl('code_close');
-
+		$random_id = rand(0,99999);
+		$code = str_replace('{CB}', 'cb' . $random_id, $code);
+		$code = str_replace("\'", "'", $code);
+		
 		return $code;
 	}
 }

@@ -257,8 +257,7 @@ $template->assign_vars(array(
 	'U_RETURN_LINK'		=> phpbb_gallery_url::append_sid('album', "album_id=$album_id"),
 	'S_RETURN_LINK'		=> $album_data['album_name'],
 	'S_JUMPBOX_ACTION'	=> phpbb_gallery_url::append_sid('album'),
-//	'ALBUM_JUMPBOX'		=> phpbb_gallery_album::get_albumbox(false, '', $album_id),
-    'ALBUM_JUMPBOX'     => (new phpbb_gallery_album())->get_albumbox(false, '', $album_id),
+	'ALBUM_JUMPBOX'		=> phpbb_gallery_album::get_albumbox(false, '', $album_id),
 ));
 
 /**

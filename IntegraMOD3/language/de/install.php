@@ -192,14 +192,13 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'			=> 'Grund-Konfiguration',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Nachdem nun festgestellt wurde, dass phpBB auf deinem Server betrieben werden kann, musst du noch einige Informationen angeben. Wenn du nicht weißt, wie die Verbindungsdaten für deine Datenbank lauten, kontaktiere bitte als erstes deinen Webhosting-Provider oder wende dich an die phpBB Support-Foren. Wenn du Daten eingibst, prüfe diese bitte sorgfältig, bevor du fortfährst.',
 	'INSTALL_CONGRATS'			=> 'Herzlichen Glückwunsch!',
-	'INSTALL_CONGRATS_EXPLAIN'	=> '
-		Du hast phpBB %1$s erfolgreich installiert. Bitte fahre mit einer der folgenden Optionen fort:</p>
-		<h2>Ein bestehendes Board auf phpBB3 konvertieren</h2>
-		<p>Das phpBB-Konvertierungs-System unterstützt die Konvertierung von phpBB 2.0.x und anderen Board-Systemen auf phpBB3. Wenn du ein bestehendes Board konvertieren willst, fahre bitte <a href="%2$s">mit dem Konverter fort</a>.</p>
-		<h2>Starte mit phpBB3 durch!</h2>
-		<p>Wenn du unten auf die Schaltfläche klickst, wirst du zu einem Formular im Administrations-Bereich weitergeleitet, mit dem du statistische Daten an phpBB.com übermitteln kannst. Wir würden uns freuen, wenn du unsere Arbeit mit deinen Angaben unterstützen würdest. Anschließend solltest du dir etwas Zeit nehmen, um die verfügbaren Optionen kennen zu lernen. Hilfe zum Gebrauch von phpBB erhältst du online über die <a href="https://www.phpbb.com/support/documentation/3.0/">Dokumentation (englisch)</a> (<a href="https://www.phpbb.de/go/3/dokumentation">deutsche Übersetzung</a>), die <a href="%3$s">README</a> und das <a href="https://www.phpbb.com/community/viewforum.php?f=46">Support-Forum (englisch)</a> (<a href="https://www.phpbb.de/go/3/supportforum">deutschsprachiges Forum auf phpBB.de</a>).<br /><br /><strong>Bitte lösche oder verschiebe das Installations-Verzeichnis „install“ oder nenne es um, bevor du dein Board benutzt. Solange dieses Verzeichnis existiert, ist nur der Administrations-Bereich zugänglich.</strong>',
-	'INSTALL_INTRO'				=> 'Willkommen bei der Installation',
-	'INSTALL_INTRO_BODY'		=> 'Dieser Assistent ermöglicht dir die Installation von phpBB3 auf deinem Server.</p><p>Bevor du fortsetzen kannst, benötigst du die Daten deiner Datenbank. Wenn du die Daten deiner Datenbank nicht kennst, kontaktiere bitte deinen Server-Betreiber und frage nach den Daten. Ohne die Datenbankdaten kannst du nicht fortfahren. Du benötigst:</p>
+    'INSTALL_SN'                => 'Mit der Installation des Social Network fortfahren',
+	'INSTALL_CONGRATS_EXPLAIN'  => 'Sie haben IntegraMOD %1$s erfolgreich installiert.</p>
+		<h2>Fast geschafft!</h2>
+		<p><strong>Bitte löschen, verschieben oder benennen Sie das Installationsverzeichnis jetzt um, bevor Sie mit dem letzten Schritt fortfahren: der Installation des Social Network-Moduls.</strong>',
+	'INSTALL_INTRO' => 'Willkommen zur IntegraMOD-Installation',
+
+	'INSTALL_INTRO_BODY' => 'Mit dieser Option können Sie IntegraMOD auf Ihrem Server installieren.</p><p>Um fortzufahren, benötigen Sie Ihre Datenbankeinstellungen. Falls Sie diese nicht kennen, wenden Sie sich bitte an Ihren Hosting-Anbieter. Ohne diese Angaben können Sie nicht fortfahren. Sie benötigen:</p>
 	<ul>
 		<li>Den Datenbank-Typ — die Art der Datenbank, auf die du zugreifen wirst.</li>
 		<li>Den Hostname oder DSN des Datenbankservers — die Adresse, unter der der Datenbankserver erreichbar ist.</li>

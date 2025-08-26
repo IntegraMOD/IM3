@@ -449,7 +449,7 @@ a.topictitle:active  {
 
 /* Back to top of page */
 a.top  { 
-	background-image: url("{ IMG_ICON_BACK_TOP_SRC}");
+	background-image: url("{IMG_ICON_BACK_TOP_SRC}");
 }
 
 

@@ -40,9 +40,9 @@ class umil_frontend extends umil
 	// The file we will record any errors in
 	var $error_file = '';
 
-	// Declare the $title property
-	protected $title = '';
-		
+	// Force display of results regardless of success
+	var $force_display_results = false;
+
 	/**
 	* Constructor
 	*
@@ -247,10 +247,10 @@ class umil_frontend extends umil
 
 					// Setting up an error recording file
 					$append = 0;
-                    $this->error_file = "{$phpbb_root_path}umil/error_files/" . strtolower((string) ($this->title ?? '')) . '.txt';
+					$this->error_file = "{$phpbb_root_path}umil/error_files/" . strtolower((string) $this->title) . '.txt';
 					while (file_exists($this->error_file))
 					{
-						$this->error_file = "{$phpbb_root_path}umil/error_files/" . strtolower((string) ($this->title ?? 'unknown')) . $append . '.txt';
+						$this->error_file = "{$phpbb_root_path}umil/error_files/" . strtolower((string) $this->title) . $append . '.txt';
 						$append++;
 					}
 				}
@@ -264,7 +264,7 @@ class umil_frontend extends umil
 				}
 				else
 				{
-					$contents = (isset($user->lang[$this->title]) ? $user->lang[$this->title] : $this->title) . "\n";
+					$contents = ($user->lang[$this->title] ?? $this->title) . "\n";
 					$contents .= 'PHP Version: ' . phpversion() . "\n";
 					$contents .= 'DBMS: ' . $this->db->sql_server_info() . "\n";
 					$contents .= 'phpBB3 Version: ' . $config['version'] . "\n\n";
@@ -283,14 +283,15 @@ class umil_frontend extends umil
 			}
 		}
 
-        if ($result != $user->lang['SUCCESS'] || (isset($this->force_display_results) && $this->force_display_results))// || defined('DEBUG'))
-	    {
+		if ($result != $user->lang['SUCCESS'] || $this->force_display_results) // || defined('DEBUG'))
+		{
 			$template->assign_block_vars('results', array(
 				'COMMAND'	=> $command,
 				'RESULT'	=> $result,
 				'S_SUCCESS'	=> ($result == $user->lang['SUCCESS']) ? true : false,
 			));
 		}
+
 	}
 
 	/**

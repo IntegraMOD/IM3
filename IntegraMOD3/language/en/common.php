@@ -461,7 +461,7 @@ $lang = array_merge($lang, array(
 	'POST_TIME'				=> 'Post time',
 	'POST_TOPIC'			=> 'Post a new topic',
 	'POST_UNAPPROVED'		=> 'This post is waiting for approval',
-	'POWERED_BY'			=> 'Powered by %s',
+	'POWERED_BY'			=> 'This website is powered by %s',
 	'PREVIEW'				=> 'Preview',
 	'PREVIOUS'				=> 'Previous',		// Used in pagination
 	'PREVIOUS_STEP'			=> 'Previous',
@@ -985,3 +985,37 @@ $lang = array_merge($lang, array(
 	'VIEWING_DONATE'			=> 'Viewing Donation page',
 ));
 //-- end : Paypal Donation --------------------------------------------------------
+
+	// Cookie Consent Language Strings
+$lang = array_merge($lang, array(
+//	'COOKIE_CONSENT_TITLE'			=> 'Cookie Consent',
+//	'COOKIE_CONSENT_MESSAGE'		=> 'This website uses cookies to ensure you get the best experience on our website.',
+	'COOKIE_CONSENT_REQUIRED'		=> 'These cookies are essential for the website to function properly. They enable core functionality such as user authentication, security, and accessibility.',
+	'COOKIE_CONSENT_ANALYTICS'		=> 'These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.',
+	'COOKIE_CONSENT_MARKETING'		=> 'These cookies are used to personalize advertisements and track the effectiveness of our marketing campaigns.',
+	'COOKIE_PREFERENCES'			=> 'Cookie Preferences',
+	'REQUIRED_COOKIES'				=> 'Required Cookies',
+	'ANALYTICS_COOKIES'				=> 'Analytics Cookies',
+	'MARKETING_COOKIES'				=> 'Marketing Cookies',
+	'ACCEPT_ALL'					=> 'Accept All',
+	'ACCEPT_SELECTED'				=> 'Accept Selected',
+	'REJECT_ALL'					=> 'Reject All',
+	'PRIVACY_POLICY'				=> 'Privacy Policy',
+	'COOKIE_CONSENT_ACCEPTED'		=> 'Cookie consent accepted',
+	'COOKIE_CONSENT_REJECTED'		=> 'Cookie consent rejected',
+	'COOKIE_CONSENT_CUSTOMIZED'		=> 'Cookie preferences customized',
+	'COOKIE_CONSENT_SETTINGS'		=> 'Cookie Settings',
+	'COOKIE_CONSENT_MANAGE'			=> 'Manage Cookie Preferences',
+	'COOKIE_CONSENT_LEARN_MORE'		=> 'Learn more about cookies',
+	'COOKIE_CONSENT_NECESSARY'		=> 'Necessary cookies cannot be disabled',
+	'COOKIE_CONSENT_EXPIRED'		=> 'Your cookie consent has expired. Please update your preferences.',
+	'COOKIE_CONSENT_UPDATED'		=> 'Your cookie preferences have been updated.',
+	'COOKIE_CONSENT_WITHDRAWN'		=> 'Your cookie consent has been withdrawn.',
+	'COOKIE_CONSENT_BANNER_TITLE'	=> 'We use cookies',
+	'COOKIE_CONSENT_BANNER_MESSAGE'	=> 'We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. You consent to our cookies if you continue to use our website.',
+	'COOKIE_CONSENT_MORE_INFO'		=> 'More information',
+	'COOKIE_CONSENT_DECLINE'		=> 'Decline',
+	'COOKIE_CONSENT_ALLOW'			=> 'Allow cookies',
+	'COOKIE_CONSENT_CUSTOMIZE'		=> 'Customize',
+	'COOKIE_CONSENT_SAVE_PREFERENCES' => 'Save preferences',
+));

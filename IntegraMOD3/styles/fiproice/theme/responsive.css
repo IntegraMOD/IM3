@@ -1,6 +1,6 @@
 /*  phpBB 3.0.15 Style Sheet
     --------------------------------------------------------------
-	Style name: fiproice
+	Style name: prosilver
     --------------------------------------------------------------
 */
 @media only screen and (min-width: 1199px) {
@@ -84,7 +84,12 @@
     ul.topiclist dt {
         overflow: hidden;
     }
-
+	li.cw {
+	   float: right !important;
+	   text-align: right;
+	   white-space: nowrap;
+	   display: inline-block !important;
+	}
 }
 
 
@@ -399,6 +404,12 @@
     .login-link {
         display: inline;
     }
+	li.cw {
+	   float: right !important;
+	   text-align: right;
+	   white-space: nowrap;
+	   display: inline-block !important;
+	}
 }
 
 
@@ -879,4 +890,18 @@
     .login-link {
         display: inline;
     }
+
+  .rightside.cw {
+    float: right !important;
+    text-align: right !important;
+    display: inline-block !important;
+    white-space: nowrap;
+  }
+
+  .rightside.cw li {
+    float: right !important;
+    display: inline-block !important;
+    text-align: right !important;
+  }
+	
 }

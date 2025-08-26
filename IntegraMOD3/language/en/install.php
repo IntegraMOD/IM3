@@ -189,16 +189,13 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'			=> 'Basic configuration',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Now that install has determined your server can run phpBB you need to supply some specific information. If you do not know how to connect to your database please contact your hosting provider (in the first instance) or use the phpBB support forums. When entering data please ensure you check it thoroughly before continuing.',
 	'INSTALL_CONGRATS'			=> 'Congratulations!',
-	'INSTALL_CONGRATS_EXPLAIN'	=> '
-		You have successfully installed phpBB %1$s. Please proceed by choosing one of the following options:</p>
-		<h2>Convert an existing board to phpBB3</h2>
-		<p>The phpBB Unified Convertor Framework supports the conversion of phpBB 2.0.x and other board systems to phpBB3. If you have an existing board that you wish to convert, please <a href="%2$s">proceed to the convertor</a>.</p>
-		<h2>Go live with your phpBB3!</h2>
-		<p>Clicking the button below will take you to a form for submitting statistical data to phpBB in your Administration Control Panel (ACP). We would appreciate it if you could help us by sending that information. Afterwards you should take some time to examine the options available to you. Remember that help is available online via the <a href="https://www.phpbb.com/support/documentation/3.0/">Documentation</a>, <a href="%3$s">README</a> and the <a href="https://www.phpbb.com/community/viewforum.php?f=46">Support Forums</a>.</p><p><strong>Please delete, move or rename the install directory before using your board. While this directory exists, only the Administration Control Panel (ACP) will be accessible.</strong>',
+	'INSTALL_SN'			    => 'Continue to install Social Network',
+	'INSTALL_CONGRATS_EXPLAIN'	=> 'You have successfully installed IntegraMOD %1$s.</p>
+		<h2>Youre almost there!</h2>
+		<p><strong>Please delete, move or rename the install directory now, before continuing to the last step, Installng Social Network.</strong>',
 	'INSTALL_INTRO'				=> 'Welcome to your IntegraMOD Installation',
 
-	'INSTALL_INTRO_BODY'		=> 'With this option, it is possible to install IntegraMOD onto your server.</p><p>In order to proceed, you will need your database settings. If you do not know your database settings, please contact your host and ask for them. You will not be able to continue without them. You need:</p>
-
+	'INSTALL_INTRO_BODY'		=> 'With this option, it is possible to install IntegraMOD onto your server.</p><p>In order to 
 	<ul>
 		<li>The Database Type - the database you will be using.</li>
 		<li>The Database server hostname or DSN - the address of the database server.</li>

@@ -623,12 +623,12 @@ CREATE TABLE phpbb_calendar (
 	enable_magic_url INTEGER DEFAULT 1 NOT NULL,
 	bbcode_bitfield VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
 	bbcode_uid VARCHAR(8) CHARACTER SET NONE DEFAULT '' NOT NULL,
-	event_start INTEGER DEFAULT 0 NOT NULL,
-	event_end INTEGER DEFAULT 0 NOT NULL,
-	event_repeat VARCHAR(8) CHARACTER SET NONE DEFAULT '' NOT NULL,
-	invite_attendees INTEGER DEFAULT 1 NOT NULL,
-	event_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8 DEFAULT '' NOT NULL,
-	event_non_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8 DEFAULT '' NOT NULL
+	event_start INTEGER DEFAULT NULL,
+	event_end INTEGER DEFAULT NULL,
+	event_repeat VARCHAR(8) CHARACTER SET NONE DEFAULT '',
+	invite_attendees INTEGER DEFAULT 1,
+	event_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8,
+	event_non_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8,
 );;
 
 ALTER TABLE phpbb_calendar ADD PRIMARY KEY (event_id);;
@@ -648,9 +648,9 @@ END;;
 # Table: 'phpbb_calendar_repeat_events'
 CREATE TABLE phpbb_calendar_repeat_events (
 	id INTEGER NOT NULL,
-	repeat_id VARCHAR(8) CHARACTER SET NONE DEFAULT '' NOT NULL,
-	event_start_time INTEGER DEFAULT 0 NOT NULL,
-	event_end_time INTEGER DEFAULT 0 NOT NULL
+	repeat_id VARCHAR(8) CHARACTER SET NONE DEFAULT '',
+	event_start_time INTEGER DEFAULT NULL,
+	event_end_time INTEGER DEFAULT NULL,
 );;
 
 ALTER TABLE phpbb_calendar_repeat_events ADD PRIMARY KEY (id);;
@@ -4102,12 +4102,12 @@ CREATE TABLE phpbb_topics (
 	poll_max_options INTEGER DEFAULT 1 NOT NULL,
 	poll_last_vote INTEGER DEFAULT 0 NOT NULL,
 	poll_vote_change INTEGER DEFAULT 0 NOT NULL,
-	topic_calendar_time INTEGER DEFAULT 0 NOT NULL,
-	topic_calendar_duration INTEGER DEFAULT 0 NOT NULL,
-	event_repeat VARCHAR(8) CHARACTER SET NONE DEFAULT '' NOT NULL,
-	invite_attendees INTEGER DEFAULT 0 NOT NULL,
-	event_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8 DEFAULT '' NOT NULL,
-	event_non_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8 DEFAULT '' NOT NULL,
+	topic_calendar_time INTEGER DEFAULT NULL,
+	topic_calendar_duration INTEGER DEFAULT NULL,
+	event_repeat VARCHAR(8) CHARACTER SET NONE DEFAULT '',
+	invite_attendees INTEGER DEFAULT 0,
+	event_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8,
+	event_non_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8,
 	topic_first_post_show INTEGER DEFAULT 0 NOT NULL
 );;
 

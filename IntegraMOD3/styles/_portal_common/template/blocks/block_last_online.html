@@ -7,17 +7,23 @@
 	</div>
 	<div class="top_poster">
 	<!-- BEGIN last_online -->
-		<span class="bg2" style="position: relative; float:left; text-align:left; width:100%; padding:0; font-size: 9px;" >
-			<!-- IF last_online.USER_AVATAR_IMG -->
-				{last_online.USER_AVATAR_IMG}
-			<!-- ELSE -->
-				<img src="{T_THEME_PATH}/images/no_avatar.gif" width="16" height="16" alt="" />
-			<!-- ENDIF -->
-			{last_online.USERNAME_FULL}
-		</span>
-		<span class="bg3" style="position: relative; float:left; text-align:center; width:100%; padding-bottom:3px; font-size: 9px;">
-			{last_online.ONLINE_TIME}
-		</span>
+
+<div class="postprofile bg2" style="width: 100%; min-height: 20px; overflow: hidden;">
+	<div style="display: inline-block; vertical-align: middle;" class="">
+		<!-- IF last_online.USER_AVATAR_IMG -->
+			{last_online.USER_AVATAR_IMG}
+		<!-- ELSE -->
+			<img src="{T_THEME_PATH}/images/no_avatar.gif" width="16" height="16" alt="" />
+		<!-- ENDIF -->
+	</div>
+	<div style="display: inline-block; vertical-align: middle; font-size: 9px; padding-left: 6px;">
+		{last_online.USERNAME_FULL}
+	</div>
+	<div style="display: inline-block; vertical-align: middle; font-size: 9px; float: right; margin-right: 2px; padding-top: 4px;">
+		{last_online.ONLINE_TIME}
+	</div>
+</div>
+
 		<br style="clear:both;" />
 	<!-- END last_online -->
 	<br />

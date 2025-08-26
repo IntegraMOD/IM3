@@ -240,7 +240,7 @@ function notes() {
 		<div class="navbar">
 			<div class="inner"><span class="corners-top"><span></span></span>
 
-			<ul class="linklist navlinks">
+			<ul class="linklist2 navlinks">
 			    <!-- IF STARGATE -->
 				<li class="icon-home"><a href="{U_PORTAL}" accesskey="h">{L_PORTAL}</a> &bull; <a href="{U_INDEX}" accesskey="h">{L_INDEX}</a><!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
 			    <!-- ELSE -->
@@ -255,11 +255,11 @@ function notes() {
 				<!-- INCLUDE style_change_width.html -->
 				<!-- IF S_ARRANGE -->
 				<span style="display:inline;" id="OFF_">
-					&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" style="float:left" title="{L_ARRANGE_OFF}"><img src="{T_PORTAL_THEME_PATH}/images/save_changes.png" width="15" height="15" alt=" {L_ARRANGE_OFF}" title="{L_ARRANGE_OFF}" /></a>
+					&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" title="{L_ARRANGE_OFF}"><i class="fas fa-toolbox fa-lg" style="color: #02ae58;"></i></a>
 				</span>
 				<!-- ELSE -->
 				<span style="display:inline;" id="ON_">
-					&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_'); " style="float:left" title="{L_ARRANGE_ON}"><img src="{T_PORTAL_THEME_PATH}/images/arrange.png" width="15" height="15" alt=" {L_ARRANGE_ON}" title="{L_ARRANGE_ON}" /></a>
+					&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_');" title="{L_ARRANGE_ON}"><i class="fas fa-toolbox fa-lg"></i></a>
 				</span>
 				<!-- ENDIF -->
 				</li>
@@ -267,7 +267,6 @@ function notes() {
 				<!-- IF S_DONATE_ENABLED -->
 				<li class="rightside"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-xl"></i></a></li>
 				<!-- ENDIF -->
-
 				<!-- IF U_EMAIL_TOPIC --><li class="rightside"><a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class="sendemail">{L_EMAIL_TOPIC}</a></li><!-- ENDIF -->
 				<!-- IF U_EMAIL_PM --><li class="rightside"><a href="{U_EMAIL_PM}" title="{L_EMAIL_PM}" class="sendemail">{L_EMAIL_PM}</a></li><!-- ENDIF -->
 				<!-- IF U_PRINT_TOPIC --><li class="rightside"><a href="{U_PRINT_TOPIC}" title="{L_PRINT_TOPIC}" accesskey="p" class="print">{L_PRINT_TOPIC}</a></li><!-- ENDIF -->

@@ -189,16 +189,13 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'			=> 'Basisconfiguratie',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Nu de installatie vastgesteld heeft dat phpBB wel degelijk op je server kan werken, moet je wat specifieke informatie opgeven. Indien je niet weet hoe je een databaseverbinding moet maken, contacteer dan je host (beste optie) of vraag dit in de phpBB-supportforums. Controleer de gegevens die je opgeeft grondig voor je verder gaat.',
 	'INSTALL_CONGRATS'			=> 'Gefeliciteerd!',
-	'INSTALL_CONGRATS_EXPLAIN'	=> '
-		Je hebt phpBB %1$s succesvol geïnstalleerd. Ga verder door één van de volgende opties:</p>
-		<h2>Converteer een bestaand forum naar phpBB3</h2>
-		<p>Het phpBB Framework ondersteunt de conversie van phpBB 2.0.x en andere forums naar phpBB3. Indien je een bestaand forum hebt dat je wenst te converteren, ga dan door naar: <a href="%2$s">converteren</a>.</p>
-		<h2>Ga online met phpBB3!</h2>
-		<p>Door op de onderstaande knop te klikken, ga je naar een formulier voor het verzenden van statistische data naar phpBB in het beheerderspaneel. Wij zouden het erg waarderen als je kunt helpen door die informatie aan ons te sturen. Na afloop zou u wat tijd moeten nemen om de beschikbare opties te bestuderen. Onthoud dat er online hulp is via de <a href="http://www.phpbb.nl/documentatie/3.0/">documentatie</a>, <a href="%3$s">README</a> en de <a href="http://www.phpbb.nl/forums/viewforum.php?f=51">supportforums</a>.</p><p><strong>Verwijder, verplaats of hernoem de installatiemap voordat je het forum gaat gebruiken. Zolang deze map nog bestaat, zal alleen het beheerderspaneel bereikbaar zijn.</strong>',
-	'INSTALL_INTRO'				=> 'Welkom bij de installatie',
+	'INSTALL_SN'                => 'Doorgaan met de installatie van Social Network',
+	'INSTALL_CONGRATS_EXPLAIN'  => 'U heeft IntegraMOD %1$s succesvol geïnstalleerd.</p>
+		<h2>U bent er bijna!</h2>
+		<p><strong>Verwijder, verplaats of hernoem nu de installatiemap voordat u doorgaat naar de laatste stap: het installeren van het Social Network.</strong>',
+	'INSTALL_INTRO' => 'Welkom bij uw IntegraMOD-installatie',
 
-	'INSTALL_INTRO_BODY'		=> 'Met deze optie kun je phpBB3 op je server installeren.</p><p>Om verder te kunnen gaan, heb je de database instellingen nodig. Indien je deze niet weet, contacteer dan je host en vraag ernaar. Zonder kun je niet verder gaan. Dit heb je nodig:</p>
-
+	'INSTALL_INTRO_BODY' => 'Met deze optie is het mogelijk om IntegraMOD op uw server te installeren.</p><p>Om verder te gaan, heeft u uw database-instellingen nodig. Als u deze niet weet, neem dan contact op met uw hostingprovider en vraag ernaar. Zonder deze gegevens kunt u niet verder. U heeft nodig:</p>
 	<ul>
 		<li>Het databasetype - de database die je gebruikt;</li>
 		<li>De hostnaam of DNS van de databaseserver - het adres van de databaseserver;</li>

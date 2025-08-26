@@ -1,5 +1,19 @@
 <?php
+/**
+*
+* @package calendar
+* @version $Id: functions_calendar.php 2008-07-10 21:16:00Z livewirestu and NeXur $
+* @copyright (c) 2008 phpbbireland
+* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+*
+* Description: functions required for event and topic calendar mod.
+* Notes: This project was started after the calendar project by John Cottage (jcc264) on phpbb.com went stale
+* It has since been completely overhauled, although still contains some small sections of John's original code
+*/
 
+/**
+* @ignore
+*/
 if (!defined('IN_PHPBB'))
 {
 	exit;

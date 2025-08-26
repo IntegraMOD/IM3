@@ -28,37 +28,65 @@
 	{SN_FMS_BLOCK_FRIENDPROFILE_PAGINATION_STRING}<div class="clear"></div> -->
 </div>
 <div class="clear"></div>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		if($('#sn-up-friendsButtons').size() > 0) {
-			$sn = socialNetwork;
-			
-			jQuery('#sn-up-friendsButtons').buttonset();
-			$('#sn-up-friendsButtons label').css({
-				width : Math.max(Math.floor(99 / $('#sn-up-friendsButtons label').size(), 16)) + '%'
-			});
+<script>
+jQuery(document).ready(function($) {
+  if ($('#sn-up-friendsButtons').length > 0) {
+    // Safely handle socialNetwork object
+    let $sn = window.socialNetwork || {};
 
-			$('#sn-up-friendsButtons input[type=radio]').click(function() {
-				$.cookie($sn.cookie.name + 'sn-up-friendsTab', $(this).attr('id'), $sn.cookie);
-				var m = $(this).attr('mode');
-				var par = $(this).parent('#sn-up-friendsButtons');
+    // Initialize buttonset with jQuery UI
+    $('#sn-up-friendsButtons').buttonset();
 
-				$sn.fms.usersLoad(m, 0, par.attr('limit'), par.attr('user'), false, false);
+    // Adjust label widths dynamically
+    let $labels = $('#sn-up-friendsButtons label');
+    $labels.css({
+      width: Math.max(Math.floor(99 / $labels.length), 16) + '%'
+    });
 
-				$('.sn-up-friendsContent_friends').children('div[id^="sn-fms-usersBlock"]').hide();
-				$('.sn-up-friendsContent_friends').children('div[id^="sn-fms-usersBlock"][id$=' + m + ']').show();
+    // Event handler for radio buttons
+    $('#sn-up-friendsButtons input[type=radio]').on('click', function() {
+      // Use a more robust cookie method
+      $.cookie($sn.cookie.name + 'sn-up-friendsTab', this.id, $sn.cookie);
 
-			});
-			var snUpFriendsButtons_start = $.cookie($sn.cookie.name + 'sn-up-friendsTab');
-			if(snUpFriendsButtons_start == null || $('#' + snUpFriendsButtons_start).size() == 0) {
-				snUpFriendsButtons_start = $('#sn-up-friendsButtons input[type=radio]:first').attr('id');
-			}
-			$('#' + snUpFriendsButtons_start).trigger('click');
+      let m = $(this).attr('mode');
+      let par = $(this).closest('#sn-up-friendsButtons');
 
-			if($('#sn-up-friendsButtons input').size() == 1){
-				$('#sn-up-friendsButtons').hide();
-			}
-		}
+      // Check and call usersLoad method safely
+      if ($sn.fms && typeof $sn.fms.usersLoad === 'function') {
+        $sn.fms.usersLoad(m, 0, par.attr('limit'), par.attr('user'), false, false);
+      } else {
+        console.warn('usersLoad not available yet for mode:', m);
+      }
 
-	});
+      // Toggle visibility of friends content
+      $('.sn-up-friendsContent_friends')
+        .children('div[id^="sn-fms-usersBlock"]')
+        .hide()
+        .filter(`div[id$="${m}"]`)
+        .show();
+    });
+
+    // Determine initial tab
+    let snUpFriendsButtons_start = $.cookie($sn.cookie.name + 'sn-up-friendsTab');
+    if (!snUpFriendsButtons_start || $(`#${snUpFriendsButtons_start}`).length === 0) {
+      snUpFriendsButtons_start = $('#sn-up-friendsButtons input[type=radio]:first').attr('id');
+    }
+
+    // Improved waiting mechanism for usersLoad
+    const checkUsersLoad = () => {
+      if ($sn.fms && typeof $sn.fms.usersLoad === 'function') {
+        $(`#${snUpFriendsButtons_start}`).trigger('click');
+      } else {
+        // Use requestAnimationFrame for more efficient waiting
+        requestAnimationFrame(checkUsersLoad);
+      }
+    };
+    checkUsersLoad();
+
+    // Hide buttons if only one input exists
+    if ($('#sn-up-friendsButtons input').length === 1) {
+      $('#sn-up-friendsButtons').hide();
+    }
+  }
+});
 </script>

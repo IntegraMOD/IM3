@@ -211,16 +211,13 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'	=> 'Configuración básica',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Ahora que la instalación ha determinado que su servidor puede ejecutar phpBB3 necesita suministrar cierta información específica. Si no sabe cómo conectar a su base de datos por favor contacte con su proveedor de hospedaje (en primera instancia) o visite el foro de soporte de phpBB3. Cuando ingrese los datos por favor asegúrese de haberlos verificado concienzudamente.',
 	'INSTALL_CONGRATS'	=> '¡Felicidades!',
-	'INSTALL_CONGRATS_EXPLAIN'	=> '		
-		Instaló correctamente phpBB3 %1$s. Por favor proceda a elegir una de las siguientes dos opciones:</p>
-		<h2>Convertir un Sitio existente a phpBB3</h2>
-		<p>El Conversor Unificado de phpBB soporta la conversión de phpBB 2.0.x y otros sistemas a phpBB3. Si tiene un Sitio que quiera convertir, por favor <a href="%2$s">diríjase al conversor</a>.</p>
-		<h2>¡Ingresar en su nuevo phpBB3!</h2>
-		<p>Haciendo clic en el botón de abajo llegará a un formulario para enviar información estadística a phpBB en su Panel de Control de Administración (ACP). Le estaríamos muy agradecidos si pudiera ayudarnos enviándonos esa información. Después podría tomarse algún tiempo para examinar las opciones disponibles para usted. Recuerde que hay disponible ayuda en línea mediante <a href="https://www.phpbb.com/support/documentation/3.0/">Documentación</a>, <a href="https://www.phpbb.com/community/viewforum.php?f=46">foros de soporte</a> (ambos en inglés), y <a href="http://www.phpbb-es.com/">phpBB España</a> (en Español), lea el documento <a href="%3$s">LEAME</a> para más información.</p><p><strong>Por favor borre, mueva o renombre la carpeta install antes de usar su Sitio. Si esta carpeta se encuentra presente, solamente el Panel de Administración (ACP) será accesible.</strong>',
-	'INSTALL_INTRO'	=> 'Bienvenido a la Instalación',
-// TODO: write some more introductions here
-	'INSTALL_INTRO_BODY'	=> 'Con esta opción, es posible instalar phpBB en su servidor.</p><p>Para proceder, necesita los configuración de su base de datos. Si no conoce los configuración de su base de datos, por favor contacte a su proveedor de hosting y pregúntele. No podrá continuar sin ellos. Necesita:</p>
+	'INSTALL_SN' => 'Seguir con la instalación del Social Network',
+	'INSTALL_CONGRATS_EXPLAIN' => 'Ha instalado correctamente IntegraMOD %1$s.</p>
+		<h2>¡Ya casi está listo!</h2>
+		<p><strong>Por favor, elimine, mueva o cambie el nombre del directorio de instalación ahora, antes de continuar con el último paso: instalar la Red Social.</strong>',
+	'INSTALL_INTRO' => 'Bienvenido a la instalación de IntegraMOD',
 
+	'INSTALL_INTRO_BODY' => 'Con esta opción, es posible instalar IntegraMOD en su servidor.</p><p>Para continuar, necesitará los datos de configuración de su base de datos. Si no los conoce, contacte a su proveedor de hosting y solicítelos. No podrá continuar sin ellos. Necesita:</p>
 	<ul>
 		<li>El tipo de base de datos - la base de datos que va a usar.</li>
 		<li>El nombre de servidor o DSN - la dirección del servidor.</li>

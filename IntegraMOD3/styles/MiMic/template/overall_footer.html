@@ -91,20 +91,22 @@
 <!-- ENDIF -->
 
 <script src="{ROOT_PATH}assets/js/jquery/jquery.hoverIntent.minified.js"></script>
-<script src="{T_TEMPLATE_PATH}/js/menu_scripts.js"></script>
+
 
 <!-- RANDOM HEADER BACKGROUND IMAGES -->
 <script>
 (function($) {
     $(document).ready(function() {
-        const images = ['header.jpg', 'header2.jpg', 'header3.jpg'];
-        const randomImage = images[Math.floor(Math.random() * images.length)];
+        var images = ['header.jpg', 'header2.jpg', 'header3.jpg'];
+        var randomImage = images[Math.floor(Math.random() * images.length)];
         $('#bground').css({
-            'background-image': `url({T_THEME_PATH}/images/bg/${randomImage})`
+            'background-image': 'url(' + '{T_THEME_PATH}/images/bg/' + randomImage + ')'
         });
     });
 })(jQuery);
 </script>
+
+
 
 </body>
 </html>

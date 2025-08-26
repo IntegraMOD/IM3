@@ -23,8 +23,8 @@ function url_replace($url)
 	$match = array('#', '-', '?', '/', '\\', '\'', '&amp;', '&lt;', '&gt;', '&quot;', ':');
 
 	// First replace all the above items with nothing, then replace spaces with _, then replace 3 _ in a row with a 1 _
-	$url = str_replace(array(' ', '___'), '_', str_replace($match, '', (string) $url));
-	$url = urlencode($url);
+	$url = str_replace(array(' ', '___'), '_', str_replace(isset($match) ? $match : '', '', (string) $url));
+	$url = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
 	$url = str_replace('%2A', '*', $url);
 	return $url;
 }
@@ -505,12 +505,21 @@ function handle_blog_cache($mode, $user_id = 0)
 		$cache->destroy("_blog_rating_{$user_id}");
 	}
 
-	match ($mode) {
-     'plugins' => $cache->destroy('_blog_plugins'),
-     'extensions' => $cache->destroy('_blog_extensions'),
-     'categories' => $cache->destroy('_blog_categories'),
-     default => blog_plugins::plugin_do_arg('function_handle_blog_cache_mode', $mode),
- };
+    switch ($mode) 
+	{
+	    case 'plugins':
+	        $cache->destroy('_blog_plugins');
+	        break;
+	    case 'extensions':
+	        $cache->destroy('_blog_extensions');
+	        break;
+	    case 'categories':
+	        $cache->destroy('_blog_categories');
+	        break;
+	    default:
+	        blog_plugins::plugin_do_arg('function_handle_blog_cache_mode', $mode);
+	        break;
+	}
 }
 
 /**

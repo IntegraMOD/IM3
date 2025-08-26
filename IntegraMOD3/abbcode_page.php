@@ -293,7 +293,8 @@ function abbcode_wizards($abbcode_bbcode, $form_name, $text_name, $in_admin)
 		static $abbcode_video_ary = array();
 		if (empty($abbcode_video_ary))
 		{
-			$abbcode_video_ary = abbcode::video_init();
+			$abbcode = new abbcode();
+			$abbcode_video_ary = $abbcode->video_init();
 			$allowed_videos = explode(';', $config['ABBC3_VIDEO_OPTIONS']);
 
 			foreach ($abbcode_video_ary as $video_name => $video_data)

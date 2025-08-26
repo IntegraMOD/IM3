@@ -49,6 +49,12 @@ body.simple {
 	background-color: #DCDEE2;
 }
 
+.nav-main {
+	text-align: left !important;
+	margin-left: 0px;
+
+}
+
 .forabg, .forumbg {
 	background-color: #505C65;
 	background-image: -moz-linear-gradient(top, #7C8891 0%, #7C8790 4%, #76828B 10%, #5B666F 29%, #505C65 38%, #505C65 100%);
@@ -221,7 +227,8 @@ body.hosting li.but-hosting > a {
 /* Search box
 --------------------------------------------- */
 .phpbb-navbar #search-box {
-	display: block;
+	width: 140px;
+	display: inline-block;
 	float: right;
 	height: 30px;
 	margin: 0;
@@ -384,7 +391,7 @@ body.hosting li.but-hosting > a {
 	}
 
 	.phpbb-navbar .but-menu {
-		display: block;
+		display: inline-block;
 	}
 
 	.phpbb-navbar .phpbb-menu {
@@ -637,3 +644,4 @@ body.hosting li.but-hosting > a {
 .modal a:hover {
   color: red;
 }
+

@@ -448,21 +448,21 @@ CREATE TABLE phpbb_calendar (
 	enable_magic_url tinyint(1) NOT NULL DEFAULT '1',
 	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
 	bbcode_uid varchar(8) NOT NULL DEFAULT '',
-	event_start INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	event_end INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	event_repeat varchar(8) NOT NULL DEFAULT '',
-	invite_attendees tinyint(1) NOT NULL DEFAULT '1',
-	event_attendees mediumtext(16777215) NOT NULL DEFAULT '',
-	event_non_attendees mediumtext(16777215) NOT NULL DEFAULT ''
+	event_start INTEGER DEFAULT NULL,
+	event_end INTEGER DEFAULT NULL,
+	event_repeat TEXT NOT NULL DEFAULT '',
+	invite_attendees INTEGER NOT NULL DEFAULT 1,
+	event_attendees TEXT,
+	event_non_attendees TEXT
 );
 
 
 # Table: 'phpbb_calendar_repeat_events'
 CREATE TABLE phpbb_calendar_repeat_events (
 	id INTEGER PRIMARY KEY NOT NULL ,
-	repeat_id varchar(8) NOT NULL DEFAULT '',
-	event_start_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	event_end_time INTEGER UNSIGNED NOT NULL DEFAULT '0'
+	repeat_id TEXT NOT NULL DEFAULT '',
+	event_start_time INTEGER DEFAULT NULL,
+	event_end_time INTEGER DEFAULT NULL,
 );
 
 
@@ -2711,13 +2711,13 @@ CREATE TABLE phpbb_topics (
 	poll_max_options tinyint(4) NOT NULL DEFAULT '1',
 	poll_last_vote INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	poll_vote_change INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	topic_calendar_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	topic_calendar_duration INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	event_repeat varchar(8) NOT NULL DEFAULT '',
-	invite_attendees INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	event_attendees mediumtext(16777215) NOT NULL DEFAULT '',
-	event_non_attendees mediumtext(16777215) NOT NULL DEFAULT '',
-	topic_first_post_show INTEGER UNSIGNED NOT NULL DEFAULT '0'
+	topic_calendar_time INTEGER DEFAULT NULL,
+	topic_calendar_duration INTEGER DEFAULT NULL,
+	event_repeat TEXT NOT NULL DEFAULT '',
+	invite_attendees INTEGER NOT NULL DEFAULT 0,
+	event_attendees TEXT,
+	event_non_attendees TEXT,
+	topic_first_post_show INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE INDEX phpbb_topics_forum_id ON phpbb_topics (forum_id);

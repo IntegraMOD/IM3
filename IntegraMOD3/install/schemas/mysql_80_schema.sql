@@ -459,8 +459,8 @@ CREATE TABLE phpbb_calendar (
 	enable_magic_url tinyint DEFAULT '1' NOT NULL,
 	bbcode_bitfield varchar(255) DEFAULT '' NOT NULL,
 	bbcode_uid varchar(8) DEFAULT '' NOT NULL,
-	event_start int UNSIGNED DEFAULT '0' NOT NULL,
-	event_end int UNSIGNED DEFAULT '0' NOT NULL,
+	event_start INT UNSIGNED DEFAULT NULL,
+	event_end INT UNSIGNED DEFAULT NULL,
 	event_repeat varchar(8) DEFAULT '' NOT NULL,
 	invite_attendees tinyint DEFAULT '1' NOT NULL,
 	event_attendees mediumtext NOT NULL,
@@ -473,8 +473,8 @@ CREATE TABLE phpbb_calendar (
 CREATE TABLE phpbb_calendar_repeat_events (
 	id int UNSIGNED NOT NULL auto_increment,
 	repeat_id varchar(8) DEFAULT '' NOT NULL,
-	event_start_time int UNSIGNED DEFAULT '0' NOT NULL,
-	event_end_time int UNSIGNED DEFAULT '0' NOT NULL,
+	event_start_time INT UNSIGNED DEFAULT NULL,
+	event_end_time INT UNSIGNED DEFAULT NULL,
 	PRIMARY KEY (id)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;
 
@@ -2832,10 +2832,10 @@ CREATE TABLE phpbb_topics (
     topic_calendar_time int UNSIGNED DEFAULT NULL,
     topic_calendar_duration int UNSIGNED DEFAULT NULL,
     event_repeat varchar(8) DEFAULT NULL,
-	invite_attendees tinyint UNSIGNED DEFAULT '0' NOT NULL,
-	event_attendees mediumtext NOT NULL,
-	event_non_attendees mediumtext NOT NULL,
-	topic_first_post_show tinyint UNSIGNED DEFAULT '0' NOT NULL,
+	invite_attendees TINYINT UNSIGNED DEFAULT NULL,
+	event_attendees MEDIUMTEXT DEFAULT NULL,
+	event_non_attendees MEDIUMTEXT DEFAULT NULL,
+	topic_first_post_show TINYINT UNSIGNED DEFAULT NULL,
 	PRIMARY KEY (topic_id),
 	KEY forum_id (forum_id),
 	KEY forum_id_type (forum_id, topic_type),

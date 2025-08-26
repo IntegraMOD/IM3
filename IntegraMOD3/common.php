@@ -23,6 +23,7 @@ error_reporting  (E_ERROR | E_WARNING | E_PARSE); // This will NOT report uninit
 // ini_set('display_errors',1);
 // error_reporting  (E_ALL);
 
+
 require($phpbb_root_path . 'includes/startup.' . $phpEx);
 
 if (file_exists($phpbb_root_path . 'config.' . $phpEx))

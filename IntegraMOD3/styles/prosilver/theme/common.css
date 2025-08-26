@@ -302,12 +302,12 @@ span.corners-bottom span {
 
 /* Horizontal lists
 ----------------------------------------*/
-ul.linklist {
+ul.linklist, ul.linklist2 {
 	display: block;
 	margin: 0;
 }
 
-ul.linklist li {
+ul.linklist li, ul.linklist2 li {
 	display: block;
 	list-style-type: none;
 	float: left;
@@ -318,6 +318,13 @@ ul.linklist li {
 }
 
 ul.linklist li.rightside, p.rightside {
+	float: right;
+	margin-right: 0;
+	margin-left: 5px;
+	text-align: right;
+}
+
+ul.linklist2 li.rightside, p.rightside {
 	float: right;
 	margin-right: 0;
 	margin-left: 5px;
@@ -343,6 +350,13 @@ ul.rightside {
 	margin-left: 5px;
 	margin-right: -5px;
 	text-align: right;
+}
+
+li.cw {
+   float: right !important;
+   text-align: right;
+   white-space: nowrap;
+   display: inline-block !important;
 }
 
 /* Table styles

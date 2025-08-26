@@ -1,5 +1,6 @@
 <?php
-/** 
+/**
+*
 * @package acp
 * @version $Id$
 * @copyright (c) 2005 phpBB Group
@@ -7,13 +8,17 @@
 *
 */
 
-/** @ignore */
+/**
+* @ignore
+*/
 if (!defined('IN_PHPBB'))
 {
 	exit;
 }
 
-/** @package acp */
+/**
+* @package acp
+*/
 class acp_bbcodes
 {
 	var $u_action;
@@ -75,7 +80,7 @@ class acp_bbcodes
 					trigger_error($user->lang['BBCODE_NOT_EXIST'] . adm_back_link($this->u_action), E_USER_WARNING);
 				}
 
-				// No break here
+			// No break here
 
 			case 'create':
 				$display_on_posting = request_var('display_on_posting', 0);
@@ -94,13 +99,13 @@ class acp_bbcodes
 
 				$template->assign_vars(array(
 					'S_EDIT_BBCODE'		=> true,
-					'U_BACK'		=> $this->u_action,
-					'U_ACTION'		=> $this->u_action . '&amp;action=' . (($action == 'add') ? 'create' : 'modify') . (($bbcode_id) ? "&amp;bbcode=$bbcode_id" : ''),
+					'U_BACK'			=> $this->u_action,
+					'U_ACTION'			=> $this->u_action . '&amp;action=' . (($action == 'add') ? 'create' : 'modify') . (($bbcode_id) ? "&amp;bbcode=$bbcode_id" : ''),
 
 					'L_BBCODE_USAGE_EXPLAIN'=> sprintf($user->lang['BBCODE_USAGE_EXPLAIN'], '<a href="#down">', '</a>'),
-					'BBCODE_MATCH'		=> $bbcode_match,
-					'BBCODE_TPL'		=> $bbcode_tpl,
-					'BBCODE_HELPLINE'	=> $bbcode_helpline,
+					'BBCODE_MATCH'			=> $bbcode_match,
+					'BBCODE_TPL'			=> $bbcode_tpl,
+					'BBCODE_HELPLINE'		=> $bbcode_helpline,
 					'DISPLAY_ON_POSTING'	=> $display_on_posting)
 				);
 
@@ -119,7 +124,7 @@ class acp_bbcodes
 			case 'modify':
 			case 'create':
 
-				$warn_text = preg_match('%<[^>]*{text[\d]*}[^>]*>%i', $bbcode_tpl);
+				$warn_text = preg_match('%<[^>]*\{text[\d]*\}[^>]*>%i', $bbcode_tpl);
 				if (!$warn_text || confirm_box(true))
 				{
 					$data = $this->build_regexp($bbcode_match, $bbcode_tpl);
@@ -127,7 +132,6 @@ class acp_bbcodes
 					// Make sure the user didn't pick a "bad" name for the BBCode tag.
 					$hard_coded = array('code', 'quote', 'quote=', 'attachment', 'attachment=', 'b', 'i', 'url', 'url=', 'img', 'size', 'size=', 'color', 'color=', 'u', 'list', 'list=', 'email', 'email=', 'flash', 'flash=');
 
-					// Modify the condition to prevent false array access
 					if (($action == 'modify' && strtolower($data['bbcode_tag']) !== strtolower($row['bbcode_tag'])) || ($action == 'create'))
 					{
 						$sql = 'SELECT 1 as test
@@ -138,11 +142,7 @@ class acp_bbcodes
 						$db->sql_freeresult($result);
 
 						// Grab the end, interrogate the last closing tag
-						if (
-							($info !== false && $info['test'] === '1') || 
-							in_array(strtolower($data['bbcode_tag']), $hard_coded) || 
-							(preg_match('#\[/([^[]*)]$#', $bbcode_match, $regs) && in_array(strtolower($regs[1]), $hard_coded))
-						)
+						if ($info['test'] === '1' || in_array(strtolower($data['bbcode_tag']), $hard_coded) || (preg_match('#\[/([^[]*)]$#', $bbcode_match, $regs) && in_array(strtolower($regs[1]), $hard_coded)))
 						{
 							trigger_error($user->lang['BBCODE_INVALID_TAG_NAME'] . adm_back_link($this->u_action), E_USER_WARNING);
 						}
@@ -157,7 +157,7 @@ class acp_bbcodes
 						$test = $data['bbcode_tag'];
 					}
 
-					if (!preg_match('%\[' . $test . '[^\]]*\].*?\[/' . $test . ']%s', $bbcode_match))
+					if (!preg_match('%\\[' . $test . '[^]]*].*?\\[/' . $test . ']%s', $bbcode_match))
 					{
 						trigger_error($user->lang['BBCODE_OPEN_ENDED_TAG'] . adm_back_link($this->u_action), E_USER_WARNING);
 					}
@@ -172,21 +172,22 @@ class acp_bbcodes
 						trigger_error($user->lang['BBCODE_TAG_DEF_TOO_LONG'] . adm_back_link($this->u_action), E_USER_WARNING);
 					}
 
+
 					if (strlen($bbcode_helpline) > 255)
 					{
 						trigger_error($user->lang['BBCODE_HELPLINE_TOO_LONG'] . adm_back_link($this->u_action), E_USER_WARNING);
 					}
 
 					$sql_ary = array(
-						'bbcode_tag'		=> $data['bbcode_tag'],
-						'bbcode_match'		=> $bbcode_match,
-						'bbcode_tpl'		=> $bbcode_tpl,
-						'display_on_posting'	=> $display_on_posting,
-						'bbcode_helpline'	=> $bbcode_helpline,
-						'first_pass_match'	=> $data['first_pass_match'],
-						'first_pass_replace'	=> $data['first_pass_replace'],
-						'second_pass_match'	=> $data['second_pass_match'],
-						'second_pass_replace'	=> $data['second_pass_replace']
+						'bbcode_tag'				=> $data['bbcode_tag'],
+						'bbcode_match'				=> $bbcode_match,
+						'bbcode_tpl'				=> $bbcode_tpl,
+						'display_on_posting'		=> $display_on_posting,
+						'bbcode_helpline'			=> $bbcode_helpline,
+						'first_pass_match'			=> $data['first_pass_match'],
+						'first_pass_replace'		=> $data['first_pass_replace'],
+						'second_pass_match'			=> $data['second_pass_match'],
+						'second_pass_replace'		=> $data['second_pass_replace']
 					);
 
 					if ($action == 'create')
@@ -218,7 +219,6 @@ class acp_bbcodes
 						}
 
 						$sql_ary['bbcode_id'] = (int) $bbcode_id;
-
 // MOD : MSSTI ABBC3 - Start
 						$sql = 'SELECT MAX(bbcode_order) as max_bbcode_order
 							FROM ' . BBCODES_TABLE;
@@ -254,13 +254,14 @@ class acp_bbcodes
 				else
 				{
 					confirm_box(false, $user->lang['BBCODE_DANGER'], build_hidden_fields(array(
-						'action'		=> $action,
-						'bbcode'		=> $bbcode_id,
-						'bbcode_match'		=> $bbcode_match,
-						'bbcode_tpl'		=> htmlspecialchars($bbcode_tpl, ENT_COMPAT),
-						'bbcode_helpline'	=> $bbcode_helpline,
+						'action'				=> $action,
+						'bbcode'				=> $bbcode_id,
+						'bbcode_match'			=> $bbcode_match,
+						'bbcode_tpl'			=> htmlspecialchars($bbcode_tpl, ENT_COMPAT),
+						'bbcode_helpline'		=> $bbcode_helpline,
 						'display_on_posting'	=> $display_on_posting,
-					)), 'confirm_bbcode.html');
+						))
+					, 'confirm_bbcode.html');
 				}
 
 			break;
@@ -286,10 +287,10 @@ class acp_bbcodes
 					{
 						confirm_box(false, $user->lang['CONFIRM_OPERATION'], build_hidden_fields(array(
 							'bbcode'	=> $bbcode_id,
-							'i'		=> $id,
-							'mode'	=> $mode,
-							'action'	=> $action)
-						));
+							'i'			=> $id,
+							'mode'		=> $mode,
+							'action'	=> $action))
+						);
 					}
 				}
 
@@ -309,14 +310,14 @@ class acp_bbcodes
 		{
 			$template->assign_block_vars('bbcodes', array(
 				'BBCODE_TAG'		=> $row['bbcode_tag'],
-				'U_EDIT'		=> $this->u_action . '&amp;action=edit&amp;bbcode=' . $row['bbcode_id'],
-				'U_DELETE'		=> $this->u_action . '&amp;action=delete&amp;bbcode=' . $row['bbcode_id'])
+				'U_EDIT'			=> $this->u_action . '&amp;action=edit&amp;bbcode=' . $row['bbcode_id'],
+				'U_DELETE'			=> $this->u_action . '&amp;action=delete&amp;bbcode=' . $row['bbcode_id'])
 			);
 		}
 		$db->sql_freeresult($result);
 	}
 
-	/* 
+	/*
 	* Build regular expression for custom bbcode
 	*/
 	function build_regexp(&$bbcode_match, &$bbcode_tpl)
@@ -324,28 +325,28 @@ class acp_bbcodes
 		$bbcode_match = trim($bbcode_match);
 		$bbcode_tpl = trim($bbcode_tpl);
 
-		// Allow unicode characters for URL|LOCAL_URL|RELATIVE_URL|INTTEXT tokens
+		// make sure we have utf8 support
 		$utf8 = preg_match('/(URL|LOCAL_URL|RELATIVE_URL|INTTEXT)/', $bbcode_match);
 
 		$fp_match = preg_quote($bbcode_match, '!');
 		$fp_replace = preg_replace('#^\[(.*?)\]#', '[$1:$uid]', $bbcode_match);
-		$fp_replace = preg_replace('#\\[/(.*)\\]$#', '[/\\1:$uid]', $fp_replace);
+		$fp_replace = preg_replace('#\[/(.*?)\]$#', '[/$1:$uid]', $fp_replace);
 
 		$sp_match = preg_quote($bbcode_match, '!');
-		$sp_match = preg_replace('#^\\\\\\[(.*)\\\\\\]#', '\\[\\1:$uid\\]', $sp_match);
-		$sp_match = preg_replace('#\\\\\\[/(.*)\\\\\\]$#', '\\[/\\1:$uid\\]', $sp_match);
+		$sp_match = preg_replace('#^\\\\\[(.*?)\\\\\]#', '\[$1:$uid\]', $sp_match);
+		$sp_match = preg_replace('#\\\\\[/(.*?)\\\\\]$#', '\[/$1:$uid\]', $sp_match);
 		$sp_replace = $bbcode_tpl;
 
 		// @todo Make sure to change this too if something changed in message parsing
 		$tokens = array(
-			'URL'	=> array(
+			'URL'	 => array(
 				'!(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('url')) . ')!s'	=> '$this->bbcode_specialchars($matches[1])'
 			),
-			'LOCAL_URL'	=> array(
-				'!(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('relative_url')) . ')!s'	=> '$this->bbcode_specialchars($matches[1])'
+			'LOCAL_URL'	 => array(
+				'!(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('relative_url')) . ')!s' => '$this->bbcode_specialchars($matches[1])'
 			),
 			'RELATIVE_URL'	=> array(
-				'!(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('relative_url')) . ')!s'	=> '$this->bbcode_specialchars($matches[1])'
+				'!(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('relative_url')) . ')!s' => '$this->bbcode_specialchars($matches[1])'
 			),
 			'EMAIL' => array(
 				'!(' . str_replace(array('!', '\/'), array('\!', '/'), get_preg_expression('email')) . ')!s' => '$this->bbcode_specialchars($matches[1])'
@@ -357,7 +358,7 @@ class acp_bbcodes
 				'!([a-zA-Z0-9-+.,_ ]+)!s' => '$matches[1]'
 			),
 			'INTTEXT' => array(
-				'!(\p{L}\p{N}\-+,_. ]+)!s'  => '$matches[1]'
+				'!([\p{L}\p{N}\-+,_. ]+)!s'  => '$matches[1]'
 			),
 			'IDENTIFIER' => array(
 				'!([a-zA-Z0-9-_]+)!s' => '$matches[1]'
@@ -371,9 +372,9 @@ class acp_bbcodes
 		);
 
 		$sp_tokens = array(
-			'URL'	=> '(?i)(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('url')) . ')(?-i)',
-			'LOCAL_URL'	=> '(?i)(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('relative_url')) . ')(?-i)',
-			'RELATIVE_URL'	=> '(?i)(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('relative_url')) . ')(?-i)',
+			'URL'	 => '(?i)(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('url')) . ')(?-i)',
+			'LOCAL_URL'	 => '(?i)(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('relative_url')) . ')(?-i)',
+			'RELATIVE_URL'	 => '(?i)(' . str_replace(array('!', '\#'), array('\!', '#'), get_preg_expression('relative_url')) . ')(?-i)',
 			'EMAIL' => '(' . str_replace(array('!', '\/'), array('\!', '/'), get_preg_expression('email')) . ')',
 			'TEXT' => '(.*?)',
 			'SIMPLETEXT' => '([a-zA-Z0-9-+.,_ ]+)',
@@ -397,7 +398,7 @@ class acp_bbcodes
 				$match = key($tokens[strtoupper($token_type)]);
 				$replace = current($tokens[strtoupper($token_type)]);
 
-				$replace = preg_replace_callback('/\[(\d+)\]/', function($matches) use (&$pad){return "[$pad]";}, $replace);
+				$replace = preg_replace_callback('/\[(\d+)\]/', function($matches) use ($pad){return "[{$pad}]";}, $replace);
 				$pad++;
 
 				// Obtain pattern modifiers to use and alter the regex accordingly
@@ -411,7 +412,7 @@ class acp_bbcodes
 						$fp_replace = "'" . $fp_replace . "'";
 					}
 
-					$replace = "'" . $replace . "'";
+					$replace = "' . $replace . '";
 				}
 
 				$fp_match = str_replace(preg_quote($token, '!'), $regex, $fp_match);
@@ -431,7 +432,7 @@ class acp_bbcodes
 			if (strpos($fp_match, 'e') !== false)
 			{
 				$fp_replace = str_replace("'.'", '', $fp_replace);
-				$fp_replace = str_replace(".'.'", '.', $fp_replace);
+				$fp_replace = str_replace(".'.", '.', $fp_replace);
 			}
 		}
 		else
@@ -442,10 +443,10 @@ class acp_bbcodes
 		}
 
 		// Lowercase tags
-		$bbcode_tag = preg_replace('/.*?\[([a-z0-9_-]+)=?.*/i', '$1', $bbcode_match);
+		$bbcode_tag = preg_replace('/.*?\[([a-z0-9_-]+=?).*/i', '$1', $bbcode_match);
 		$bbcode_search = preg_replace('/.*?\[([a-z0-9_-]+)=?.*/i', '$1', $bbcode_match);
 
-		if (!preg_match('/^[a-zA-Z0-9_-]+?=?$/', $bbcode_tag))
+		if (!preg_match('/^[a-zA-Z0-9_-]+=?$/', $bbcode_tag))
 		{
 			return false;
 		}
@@ -456,11 +457,11 @@ class acp_bbcodes
 		$sp_replace = preg_replace_callback('#\[/?' . $bbcode_search . '#i', function($matches){return strtolower($matches[0]);}, $sp_replace);
 
 		return array(
-			'bbcode_tag'		=> $bbcode_tag,
-			'first_pass_match'	=> $fp_match,
-			'first_pass_replace'	=> $fp_replace,
-			'second_pass_match'	=> $sp_match,
-			'second_pass_replace'	=> $sp_replace
+			'bbcode_tag'				=> $bbcode_tag,
+			'first_pass_match'			=> $fp_match,
+			'first_pass_replace'		=> $fp_replace,
+			'second_pass_match'			=> $sp_match,
+			'second_pass_replace'		=> $sp_replace
 		);
 	}
 }
