@@ -1393,10 +1393,10 @@ class acp_users
 						),
 						'li'			=> array('string', true, 3, 255),
 						'tt'			=> array('string', true, 3, 255),
-						'dc'			=> array(
-							array('string', true, 6, 40),
-							array('match', true, '#^.{2,32}#[0-9]{4}$#')
-						),
+'dc' => array(
+    array('string', true, 7, 37),
+    array('match', true, '/^.{2,32}#[0-9]{4}$/')
+),
 						'icq'			=> array(
 							array('string', true, 3, 15),
 							array('match', true, '#^[0-9]+$#i')),

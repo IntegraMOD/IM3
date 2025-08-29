@@ -1265,21 +1265,23 @@ function validate_date($date_string, $optional = false)
 */
 function validate_match($string, $optional = false, $match = '')
 {
-    if (empty($string) && $optional) {
-        return false;
-    }
+	if (empty($string) && $optional)
+	{
+		return false;
+	}
 
-    if (empty($match)) {
-        return false;
-    }
+	if (empty($match))
+	{
+		return false;
+	}
 
-    if (!preg_match($match, (string) $string)) {
-        return 'WRONG_DATA';
-    }
+	if (!preg_match($match, $string))
+	{
+		return 'WRONG_DATA';
+	}
 
-    return false;
+	return false;
 }
-
 /**
 * Validate Language Pack ISO Name
 *
