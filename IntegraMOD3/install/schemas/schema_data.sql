@@ -100,6 +100,24 @@ INSERT INTO phpbb_config VALUES('asacp_ocban_delete_profile_fields', '0', 0);
 INSERT INTO phpbb_config VALUES('asacp_ocban_delete_signature', '0', 0);
 INSERT INTO phpbb_config VALUES('asacp_ocban_move_to_group', '0', 0);
 INSERT INTO phpbb_config VALUES('asacp_ocban_username', '1', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_fb', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_fb_post_limit', '5', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_ig', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_ig_post_limit', '5', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_pt', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_pt_post_limit', '5', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_twr', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_twr_post_limit', '5', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_skp', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_skp_post_limit', '5', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_tg', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_tg_post_limit', '5', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_li', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_li_post_limit', '5', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_tt', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_tt_post_limit', '5', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_dc', '2', 0);
+INSERT INTO phpbb_config VALUES('asacp_profile_dc_post_limit', '5', 0);
 INSERT INTO phpbb_config VALUES('asacp_profile_aim', '2', 0);
 INSERT INTO phpbb_config VALUES('asacp_profile_aim_post_limit', '5', 0);
 INSERT INTO phpbb_config VALUES('asacp_profile_during_reg', '0', 0);
@@ -372,7 +390,7 @@ INSERT INTO phpbb_config VALUES('donation_default_currency', '4', 0);
 INSERT INTO phpbb_config VALUES('donation_default_value', '10', 0);
 INSERT INTO phpbb_config VALUES('donation_dropbox_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('donation_dropbox_value', '1,2,3,4,5,10,20,25,50,100', 0);
-INSERT INTO phpbb_config VALUES('donation_enable', '0', 0);
+INSERT INTO phpbb_config VALUES('donation_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('donation_goal', '1000000', 0);
 INSERT INTO phpbb_config VALUES('donation_goal_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('donation_install_date', '', 0);
@@ -538,8 +556,8 @@ INSERT INTO phpbb_config VALUES('newest_username', 'IM_Admin', 1);
 INSERT INTO phpbb_config VALUES('notes', '50', 1);
 INSERT INTO phpbb_config VALUES('notes_version', '2.0.11', 0);
 INSERT INTO phpbb_config VALUES('num_files', '0', 1);
-INSERT INTO phpbb_config VALUES('num_posts', '1', 1);
-INSERT INTO phpbb_config VALUES('num_topics', '1', 1);
+INSERT INTO phpbb_config VALUES('num_posts', '-1', 1);
+INSERT INTO phpbb_config VALUES('num_topics', '-1', 1);
 INSERT INTO phpbb_config VALUES('num_users', '1', 1);
 INSERT INTO phpbb_config VALUES('override_user_style', '0', 0);
 INSERT INTO phpbb_config VALUES('paypal_sandbox_address', '', 0);
@@ -716,6 +734,7 @@ INSERT INTO phpbb_config VALUES('user_details_max_cols', '12', 0);
 INSERT INTO phpbb_config VALUES('user_details_opts', '', 1);
 INSERT INTO phpbb_config VALUES('user_details_save', '0', 0);
 INSERT INTO phpbb_config VALUES('version', '3.0.15', 0);
+INSERT INTO phpbb_config VALUES('version_socialNet', '0.7.2', 0);
 INSERT INTO phpbb_config VALUES('warnings_expire_days', '90', 0);
 INSERT INTO phpbb_config VALUES('warnings_gc', '14400', 0);
 INSERT INTO phpbb_config VALUES('warnings_last_gc', '1707674862', 1);
@@ -1177,6 +1196,15 @@ INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, 
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('pm_read', 'topic_read.gif', '', 27, 27, 1);
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('pm_unread', 'topic_unread.gif', '', 27, 27, 1);
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_back_top', 'icon_back_top.gif', '', 11, 11, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_fb', 'icon_contact_fb.gif', '', 20, 20, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_ig', 'icon_contact_ig.gif', '', 20, 20, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_pt', 'icon_contact_pt.gif', '', 20, 20, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_twr', 'icon_contact_twr.gif', '', 20, 20, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_skp', 'icon_contact_skp.gif', '', 20, 20, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_tg', 'icon_contact_tg.gif', '', 20, 20, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_li', 'icon_contact_li.gif', '', 20, 20, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_tt', 'icon_contact_tt.gif', '', 20, 20, 1);
+INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_dc', 'icon_contact_dc.gif', '', 20, 20, 1);
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_aim', 'icon_contact_aim.gif', '', 20, 20, 1);
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_email', 'icon_contact_email.gif', '', 20, 20, 1);
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_contact_icq', 'icon_contact_icq.gif', '', 20, 20, 1);
@@ -1243,10 +1271,10 @@ INSERT INTO phpbb_forums (forum_name, forum_desc, left_id, right_id, parent_id, 
 INSERT INTO phpbb_forums (forum_name, forum_desc, left_id, right_id, parent_id, forum_type, forum_posts, forum_topics, forum_topics_real, forum_last_post_id, forum_last_poster_id, forum_last_poster_name, forum_last_poster_colour, forum_last_post_subject, forum_last_post_time, forum_link, forum_password, forum_image, forum_rules, forum_rules_link, forum_rules_uid, forum_desc_uid, prune_days, prune_viewed, forum_parents, forum_flags) VALUES ('{L_FORUMS_TEST_FORUM_TITLE}', '{L_FORUMS_TEST_FORUM_DESC}', 2, 3, 1, 1, 1, 1, 1, 1, 2, 'Admin', 'AA0000', '{L_TOPICS_TOPIC_TITLE}', 972086460, '', '', '', '', '', '', '', 0, 0, '', 48);
 
 # -- Users / Anonymous user
-INSERT INTO phpbb_users (user_type, group_id, username, username_clean, user_regdate, user_password, user_email, user_lang, user_style, user_rank, user_colour, user_posts, user_permissions, user_ip, user_birthday, user_lastpage, user_last_confirm_key, user_post_sortby_type, user_post_sortby_dir, user_topic_sortby_type, user_topic_sortby_dir, user_avatar, user_sig, user_sig_bbcode_uid, user_from, user_icq, user_aim, user_yim, user_msnm, user_jabber, user_website, user_occ, user_interests, user_actkey, user_newpasswd, user_allow_massemail) VALUES (2, 1, 'Anonymous', 'anonymous', 0, '', '', 'en', 1, 0, '', 0, '', '', '', '', '', 't', 'a', 't', 'd', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0);
+INSERT INTO phpbb_users (user_type, group_id, username, username_clean, user_regdate, user_password, user_email, user_lang, user_style, user_rank, user_colour, user_posts, user_permissions, user_ip, user_birthday, user_lastpage, user_last_confirm_key, user_post_sortby_type, user_post_sortby_dir, user_topic_sortby_type, user_topic_sortby_dir, user_avatar, user_sig, user_sig_bbcode_uid, user_from, user_fb, user_ig, user_pt, user_twr, user_skp, user_tg, user_li, user_tt, user_dc, user_icq, user_aim, user_yim, user_msnm, user_jabber, user_website, user_occ, user_interests, user_actkey, user_newpasswd, user_allow_massemail) VALUES (2, 1, 'Anonymous', 'anonymous', 0, '', '', 'en', 1, 0, '', 0, '', '', '', '', '', 't', 'a', 't', 'd', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0);
 
 # -- username: Admin    password: admin (change this or remove it once everything is working!)
-INSERT INTO phpbb_users (user_type, group_id, username, username_clean, user_regdate, user_password, user_email, user_lang, user_style, user_rank, user_colour, user_posts, user_permissions, user_ip, user_birthday, user_lastpage, user_last_confirm_key, user_post_sortby_type, user_post_sortby_dir, user_topic_sortby_type, user_topic_sortby_dir, user_avatar, user_sig, user_sig_bbcode_uid, user_from, user_icq, user_aim, user_yim, user_msnm, user_jabber, user_website, user_occ, user_interests, user_actkey, user_newpasswd) VALUES (3, 5, 'Admin', 'admin', 0, '21232f297a57a5a743894a0e4a801fc3', 'admin@yourdomain.com', 'en', 1, 1, 'AA0000', 1, '', '', '', '', '', 't', 'a', 't', 'd', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO phpbb_users (user_type, group_id, username, username_clean, user_regdate, user_password, user_email, user_lang, user_style, user_rank, user_colour, user_posts, user_permissions, user_ip, user_birthday, user_lastpage, user_last_confirm_key, user_post_sortby_type, user_post_sortby_dir, user_topic_sortby_type, user_topic_sortby_dir, user_avatar, user_sig, user_sig_bbcode_uid, user_from, user_fb, user_ig, user_pt, user_twr, user_skp, user_tg, user_li, user_tt, user_dc, user_icq, user_aim, user_yim, user_msnm, user_jabber, user_website, user_occ, user_interests, user_actkey, user_newpasswd) VALUES (3, 5, 'Admin', 'admin', 0, '21232f297a57a5a743894a0e4a801fc3', 'admin@yourdomain.com', 'en', 1, 1, 'AA0000', 1, '', '', '', '', '', 't', 'a', 't', 'd', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 # -- Groups
 INSERT INTO phpbb_groups (group_name, group_type, group_founder_manage, group_colour, group_legend, group_avatar, group_desc, group_desc_uid, group_max_recipients) VALUES ('GUESTS', 3, 0, '', 0, '', '', '', 5);

@@ -158,7 +158,7 @@ if (!class_exists('socialnet_profile')) {
 
             $sql = 'SELECT s.about_me, s.sex, s.interested_in, u.user_birthday, u.user_from, s.hometown, s.languages, u.user_sig, u.user_sig_bbcode_bitfield, u.user_sig_bbcode_uid,
                    s.employer, s.university, s.high_school, u.user_occ, s.religion, s.political_views, s.quotations, u.user_interests, s.music, s.books, s.movies, s.games, s.foods,
-                   s.sports, s.sport_teams, s.activities, u.user_website, u.user_icq, u.user_aim, u.user_yim, u.user_msnm, u.user_jabber, u.user_email, u.user_allow_viewemail,
+                   s.sports, s.sport_teams, s.activities, u.user_website, u.user_fb, u.user_ig, u.user_pt, u.user_twr, u.user_skp, u.user_tg, u.user_li, u.user_tt, u.user_dc, u.user_icq, u.user_aim, u.user_yim, u.user_msnm, u.user_jabber, u.user_email, u.user_allow_viewemail,
                    s.skype, s.facebook, s.twitter, s.youtube,
                    u.user_id, u.username, u.user_type, u.user_colour, u.user_inactive_reason, u.user_avatar, u.user_avatar_type, u.user_avatar_width, u.user_avatar_height, u.user_allow_pm
               FROM ' . USERS_TABLE . ' u
@@ -271,6 +271,15 @@ if (!class_exists('socialnet_profile')) {
                 'S_JABBER_ENABLED'		 => ($config['jab_enable']) ? true : false,
                 'U_EMAIL'				 => $email,
                 'U_WWW'					 => ($member['user_website']) ? $member['user_website'] : '',
+				'U_FB'					 => ($member['user_fb']) ? 'https://www.facebook.com/' . urlencode((string) $member['user_fb']) : '',
+				'U_IG'					 => ($member['user_ig']) ? 'https://www.instagram.com/' . urlencode((string) $member['user_ig']) : '',
+				'U_PT'					 => ($member['user_pt']) ? 'https://www.pinterest.com/' . urlencode((string) $member['user_pt']) : '',
+				'U_TWR'					 => ($member['user_twr']) ? 'https://twitter.com/' . urlencode((string) $member['user_twr']) : '',
+				'U_SKP'					 => ($member['user_skp']) ? 'skype:' . urlencode((string) $member['user_skp']) . '?chat' : '',
+				'U_TG'					 => ($member['user_tg']) ? 'https://t.me/' . urlencode((string) $member['user_tg']) : '',
+				'U_LI'					 => ($member['user_li']) ? 'https://www.linkedin.com/in/' . urlencode((string) $member['user_li']) : '',
+				'U_TT'					 => ($member['user_tt']) ? 'https://www.tiktok.com/@' . urlencode((string) $member['user_tt']) : '',
+				'U_DC'					 => ($member['user_dc']) ? 'https://discordapp.com/users/' . urlencode((string) $member['user_dc']) : '',
                 'U_ICQ'					 => ($member['user_icq']) ? 'http://www.icq.com/people/webmsg.php?to=' . urlencode((string) $member['user_icq']) : '',
                 'U_AIM'					 => ($member['user_aim'] && $auth->acl_get('u_sendim')) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=contact&amp;action=aim&amp;u=' . $user_id) : '',
                 'U_YIM'					 => ($member['user_yim']) ? 'http://edit.yahoo.com/config/send_webmesg?.target=' . urlencode((string) $member['user_yim']) . '&amp;.src=pg' : '',
@@ -286,6 +295,15 @@ if (!class_exists('socialnet_profile')) {
                 'BB_UID'				 => $member['user_sig_bbcode_uid'],
                 'BB_BITFIELD'			 => $member['user_sig_bbcode_bitfield'],
                 'USER_WWW'				 => $member['user_website'],
+				'USER_FB'				 => $member['user_fb'],
+				'USER_IG'				 => $member['user_ig'],
+				'USER_PT'				 => $member['user_pt'],
+				'USER_TWR'				 => $member['user_twr'],
+				'USER_SKP'				 => $member['user_skp'],
+				'USER_TG'				 => $member['user_tg'],
+				'USER_LI'				 => $member['user_li'],
+				'USER_TT'				 => $member['user_tt'],
+				'USER_DC'				 => $member['user_dc'],
                 'USER_ICQ'				 => $member['user_icq'],
                 'USER_AIM'				 => $member['user_aim'],
                 'USER_YIM'				 => $member['user_yim'],
@@ -603,6 +621,15 @@ if (!class_exists('socialnet_profile')) {
                          * /includes/ucp/ucp_profile.php LINE 271
                          */
                         $data = array(
+							'user_fb'		 => request_var('fb', $user->data['user_fb']),
+							'user_ig'		 => request_var('ig', $user->data['user_ig']),
+							'user_pt'		 => request_var('pt', $user->data['user_pt']),
+							'user_twr'		 => request_var('twr', $user->data['user_twr']),
+							'user_skp'		 => request_var('skp', $user->data['user_skp']),
+							'user_tg'		 => request_var('tg', $user->data['user_tg']),
+							'user_li'		 => request_var('li', $user->data['user_li']),
+							'user_tt'		 => request_var('tt', $user->data['user_tt']),
+							'user_dc'		 => request_var('dc', $user->data['user_dc']),
                             'user_icq'		 => request_var('icq', $user->data['user_icq']),
                             'user_aim'		 => request_var('aim', $user->data['user_aim']),
                             'user_msnm'		 => request_var('msn', $user->data['user_msnm']),
@@ -632,6 +659,24 @@ if (!class_exists('socialnet_profile')) {
                         }
 
                         $validate_array = array(
+							'fb'			=> array('string', true, 3, 255),
+							'ig'			=> array('string', true, 3, 255),
+							'pt'			=> array('string', true, 3, 255),
+							'twr'			=> array('string', true, 3, 255),
+							'skp'			=> array(
+								array('string', true, 6, 32),
+								array('match', true, '#^[a-zA-Z][a-zA-Z0-9.,\-_]{5,31}$#')
+							),
+							'tg'			=> array(
+								array('string', true, 5, 32),
+								array('match', true, '#^[a-zA-Z0-9_]{5,32}$#')
+							),
+							'li'			=> array('string', true, 3, 255),
+							'tt'			=> array('string', true, 3, 255),
+							'dc'			=> array(
+								array('string', true, 6, 40),
+								array('match', true, '#^.{2,32}#[0-9]{4}$#')
+							),
                             'user_icq'		 => array(
                                 array('string', true, 3, 15),
                                 array('match', true, '#^[0-9]+$#i')

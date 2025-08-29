@@ -189,7 +189,6 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'			=> 'Basic configuration',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Now that install has determined your server can run phpBB you need to supply some specific information. If you do not know how to connect to your database please contact your hosting provider (in the first instance) or use the phpBB support forums. When entering data please ensure you check it thoroughly before continuing.',
 	'INSTALL_CONGRATS'			=> 'Congratulations!',
-	'INSTALL_SN'			    => 'Continue to install Social Network',
 	'INSTALL_CONGRATS_EXPLAIN'	=> 'You have successfully installed IntegraMOD %1$s.</p>
 		<h2>Youre almost there!</h2>
 		<p><strong>Please delete, move or rename the install directory now, before continuing to the last step, Installng Social Network.</strong>',

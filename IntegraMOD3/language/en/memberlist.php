@@ -71,6 +71,15 @@ $lang = array_merge($lang, array(
 
 	'HIDE_MEMBER_SEARCH'	=> 'Hide member search',
 
+	'IM_FB'					=> 'Please note that users may have restricted Facebook contact visibility.',
+	'IM_IG'					=> 'Please note that users may have restricted Instagram contact visibility.',
+	'IM_PT'					=> 'Please note that users may have restricted Pinterest contact visibility.',
+	'IM_TWR'				=> 'Please note that users may have restricted Twitter contact visibility.',
+	'IM_SKP'				=> 'Please note that Skype must be installed and configured to use this.',
+	'IM_TG'					=> 'Please note that users may have restricted Telegram contact visibility.',
+	'IM_LI'					=> 'Please note that users may have restricted LinkedIn contact visibility.',
+	'IM_TT'					=> 'Please note that users may have restricted TikTok contact visibility.',
+	'IM_DC'					=> 'Please note that users may have restricted Discord contact visibility.',
 	'IM_ADD_CONTACT'		=> 'Add Contact',
 	'IM_AIM'				=> 'Please note that you need AOL Instant Messenger installed to use this.',
 	'IM_AIM_EXPRESS'		=> 'AIM Express',
@@ -99,6 +108,17 @@ $lang = array_merge($lang, array(
 	'LOGIN_EXPLAIN_MEMBERLIST'	=> 'The board requires you to be registered and logged in to access the memberlist.',
 	'LOGIN_EXPLAIN_SEARCHUSER'	=> 'The board requires you to be registered and logged in to search users.',
 	'LOGIN_EXPLAIN_VIEWPROFILE'	=> 'The board requires you to be registered and logged in to view profiles.',
+
+//-- Messenger Sort Keys --//
+	'Facebook'		=> 'Facebook',
+	'Instagram'		=> 'Instagram',
+	'Pinterest'		=> 'Pinterest',
+	'Twitter'		=> 'X',
+	'Skype'			=> 'Skype',
+	'Telegram'		=> 'Telegram',
+	'LinkedIn'		=> 'LinkedIn',
+	'TikTok'		=> 'TikTok',
+	'Discord'		=> 'Discord',
 
 	'MORE_THAN'				=> 'More than',
 

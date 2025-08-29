@@ -74,6 +74,16 @@ $lang = array_merge($lang, array(
 
 	'HIDE_MEMBER_SEARCH'	=> 'Das Suchformular ausblenden',
 
+	'IM_FB'					=> 'Bitte beachten Sie, dass Benutzer die Sichtbarkeit ihrer Facebook-Kontakte eingeschränkt haben könnten.',
+	'IM_IG'					=> 'Bitte beachten Sie, dass Benutzer die Sichtbarkeit ihrer Instagram-Kontakte eingeschränkt haben könnten.',
+	'IM_PT'					=> 'Bitte beachten Sie, dass Benutzer die Sichtbarkeit ihrer Pinterest-Kontakte eingeschränkt haben könnten.',
+	'IM_TWR'				=> 'Bitte beachten Sie, dass Benutzer die Sichtbarkeit ihrer Twitter-Kontakte eingeschränkt haben könnten.',
+	'IM_SKP'				=> 'Bitte beachten Sie, dass Skype installiert und konfiguriert sein muss, um dies zu verwenden.',
+	'IM_TG'					=> 'Bitte beachten Sie, dass Benutzer die Sichtbarkeit ihrer Telegram-Kontakte eingeschränkt haben könnten.',
+	'IM_LI'					=> 'Bitte beachten Sie, dass Benutzer die Sichtbarkeit ihrer LinkedIn-Kontakte eingeschränkt haben könnten.',
+	'IM_TT'					=> 'Bitte beachten Sie, dass Benutzer die Sichtbarkeit ihrer TikTok-Kontakte eingeschränkt haben könnten.',
+	'IM_DC'					=> 'Bitte beachten Sie, dass Benutzer die Sichtbarkeit ihrer Discord-Kontakte eingeschränkt haben könnten.',
+	
 	'IM_ADD_CONTACT'		=> 'Kontakt hinzufügen',
 	'IM_AIM'				=> 'Bitte beachte, dass du AOL Instant Messenger installiert haben musst, um diese Funktion zu nutzen.',
 	'IM_AIM_EXPRESS'		=> 'AIM Express',
@@ -102,6 +112,17 @@ $lang = array_merge($lang, array(
 	'LOGIN_EXPLAIN_MEMBERLIST'	=> 'Du musst registriert und angemeldet sein, um auf die Mitgliederliste zuzugreifen.',
 	'LOGIN_EXPLAIN_SEARCHUSER'	=> 'Du musst registriert und angemeldet sein, um nach Mitgliedern zu suchen.',
 	'LOGIN_EXPLAIN_VIEWPROFILE'	=> 'Du musst registriert und angemeldet sein, um Profile anzuschauen.',
+
+//-- Messenger Sort Keys --//
+	'Facebook'		=> 'Facebook',
+	'Instagram'		=> 'Instagram',
+	'Pinterest'		=> 'Pinterest',
+	'Twitter'		=> 'X',
+	'Skype'			=> 'Skype',
+	'Telegram'		=> 'Telegram',
+	'LinkedIn'		=> 'LinkedIn',
+	'TikTok'		=> 'TikTok',
+	'Discord'		=> 'Discord',
 
 	'MORE_THAN'				=> 'Mehr als',
 

@@ -74,12 +74,21 @@
 		<!-- IF AUTHOR_JOINED --><dd><strong>{L_JOINED}:</strong> {AUTHOR_JOINED}</dd><!-- ENDIF -->
 		<!-- IF AUTHOR_FROM --><dd><strong>{L_LOCATION}:</strong> {AUTHOR_FROM}</dd><!-- ENDIF -->
 		
-		<!-- IF U_PM or U_EMAIL or U_WWW or U_MSN or U_ICQ or U_YIM or U_AIM or U_JABBER -->
+		<!-- IF U_PM or U_EMAIL or U_WWW or U_MSN or U_ICQ or U_YIM or U_AIM or U_JABBER or U_FB or U_IG or U_PT or U_TWR or U_SKP or U_TG or U_LI or U_TT or U_DC -->
 		<dd>
 			<ul class="profile-icons">
 			<!-- IF U_PM --><a class="icon_pm" href="{U_PM}" title="{L_PRIVATE_MESSAGE}"><span>{L_PM}</span></a><!-- ENDIF -->
 			<!-- IF U_EMAIL --><li class="email-icon"><a href="{U_EMAIL}" title="{L_SEND_EMAIL_USER} {MESSAGE_AUTHOR}"><span>{L_SEND_EMAIL_USER} {MESSAGE_AUTHOR}</span></a></li><!-- ENDIF -->
 			<!-- IF U_WWW --><li class="web-icon"><a href="{U_WWW}" title="{L_VISIT_WEBSITE}: {U_WWW}"><span>{L_WEBSITE}</span></a></li><!-- ENDIF -->
+			<!-- IF U_FB --><li class="fb-icon"><a href="{U_FB}" onclick="popup(this.href, 780, 550); return false;" title="{L_FB}"><span>{L_FB}</span></a></li><!-- ENDIF -->
+			<!-- IF U_IG --><li class="ig-icon"><a href="{U_IG}" onclick="popup(this.href, 780, 550); return false;" title="{L_IG}"><span>{L_IG}</span></a></li><!-- ENDIF -->
+			<!-- IF U_PT --><li class="pt-icon"><a href="{U_PT}" onclick="popup(this.href, 780, 550); return false;" title="{L_PT}"><span>{L_PT}</span></a></li><!-- ENDIF -->
+			<!-- IF U_TWR --><li class="twr-icon"><a href="{U_TWR}" onclick="popup(this.href, 780, 550); return false;" title="{L_TWR}"><span>{L_TWR}</span></a></li><!-- ENDIF -->
+			<!-- IF U_SKP --><li class="skp-icon"><a href="{U_SKP}" onclick="popup(this.href, 780, 550); return false;" title="{L_SKP}"><span>{L_SKP}</span></a></li><!-- ENDIF -->
+			<!-- IF U_TG --><li class="tg-icon"><a href="{U_TG}" onclick="popup(this.href, 780, 550); return false;" title="{L_TG}"><span>{L_TG}</span></a></li><!-- ENDIF -->
+			<!-- IF U_LI --><li class="li-icon"><a href="{U_LI}" onclick="popup(this.href, 780, 550); return false;" title="{L_LI}"><span>{L_LI}</span></a></li><!-- ENDIF -->
+			<!-- IF U_TT --><li class="tt-icon"><a href="{U_TT}" onclick="popup(this.href, 780, 550); return false;" title="{L_TT}"><span>{L_TT}</span></a></li><!-- ENDIF -->
+			<!-- IF U_DC --><li class="dc-icon"><a href="{U_DC}" onclick="popup(this.href, 780, 550); return false;" title="{L_DC}"><span>{L_DC}</span></a></li><!-- ENDIF -->
 			<!-- IF U_MSN --><li class="msnm-icon"><a href="{U_MSN}" onclick="popup(this.href, 550, 320); return false;" title="{L_MSNM}"><span>{L_MSNM}</span></a></li><!-- ENDIF -->
 			<!-- IF U_ICQ --><li class="icq-icon"><a href="{U_ICQ}" onclick="popup(this.href, 550, 320); return false;" title="{L_ICQ}"><span>{L_ICQ}</span></a></li><!-- ENDIF -->
 			<!-- IF U_YIM --><li class="yahoo-icon"><a href="{U_YIM}" onclick="popup(this.href, 780, 550); return false;" title="{L_YIM}"><span>{L_YIM}</span></a></li><!-- ENDIF -->

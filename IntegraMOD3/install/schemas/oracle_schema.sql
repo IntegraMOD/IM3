@@ -850,12 +850,12 @@ CREATE TABLE phpbb_calendar (
 	enable_magic_url number(1) DEFAULT '1' NOT NULL,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
-	event_start NUMBER(11) DEFAULT NULL,
-	event_end NUMBER(11) DEFAULT NULL,
-	event_repeat VARCHAR2(8) DEFAULT '',
-	invite_attendees NUMBER(1) DEFAULT 1 NOT NULL,
-	event_attendees CLOB,
-	event_non_attendees CLOB,
+	event_start number(8) DEFAULT '0' NULL,
+	event_end number(8) DEFAULT '0' NULL,
+	event_repeat varchar2(8) DEFAULT '' NULL,
+	invite_attendees number(1) DEFAULT '0' NULL,
+	event_attendees clob DEFAULT '' NULL,
+	event_non_attendees clob DEFAULT '' NULL,
 	CONSTRAINT pk_phpbb_calendar PRIMARY KEY (event_id)
 )
 /
@@ -882,9 +882,9 @@ END;
 */
 CREATE TABLE phpbb_calendar_repeat_events (
 	id number(11) NOT NULL,
-	repeat_id VARCHAR2(8) DEFAULT '',
-	event_start_time NUMBER(11) DEFAULT NULL,
-	event_end_time NUMBER(11) DEFAULT NULL,
+	repeat_id varchar2(8) DEFAULT '' NULL,
+	event_start_time number(8) DEFAULT '0' NULL,
+	event_end_time number(8) DEFAULT '0' NULL,
 	CONSTRAINT pk_phpbb_calendar_repeat_events PRIMARY KEY (id)
 )
 /
@@ -4323,7 +4323,7 @@ CREATE TABLE phpbb_sn_users (
 	twitter varchar2(255) DEFAULT '' ,
 	youtube varchar2(255) DEFAULT '' ,
 	profile_views number(11) DEFAULT '0' NOT NULL,
-	profile_last_change number(11) DEFAULT '0' NOT NULL
+	profile_last_change number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_sn_users PRIMARY KEY (user_id)
 )
 /
@@ -5257,13 +5257,13 @@ CREATE TABLE phpbb_topics (
 	poll_max_options number(4) DEFAULT '1' NOT NULL,
 	poll_last_vote number(11) DEFAULT '0' NOT NULL,
 	poll_vote_change number(1) DEFAULT '0' NOT NULL,
-	topic_calendar_time NUMBER(11) DEFAULT NULL,
-	topic_calendar_duration NUMBER(11) DEFAULT NULL,
-	event_repeat VARCHAR2(8) DEFAULT '',
-	invite_attendees NUMBER(1) DEFAULT 0 NOT NULL,
-	event_attendees CLOB,
-	event_non_attendees CLOB,
-	topic_first_post_show NUMBER(1) DEFAULT 0 NOT NULL,
+	topic_calendar_time number(8) DEFAULT '0' NULL,
+	topic_calendar_duration number(11) DEFAULT '0' NULL,
+	event_repeat varchar2(8) DEFAULT '' NULL,
+	invite_attendees number(1) DEFAULT '0' NULL,
+	event_attendees clob DEFAULT '' NULL,
+	event_non_attendees clob DEFAULT '' NULL,
+	topic_first_post_show number(1) DEFAULT '0' NULL,
 	CONSTRAINT pk_phpbb_topics PRIMARY KEY (topic_id)
 )
 /
@@ -5391,6 +5391,15 @@ CREATE TABLE phpbb_users (
 	user_sig clob DEFAULT '' ,
 	user_sig_bbcode_uid varchar2(8) DEFAULT '' ,
 	user_from varchar2(300) DEFAULT '' ,
+	user_fb varchar2(765) DEFAULT '' ,
+	user_ig varchar2(765) DEFAULT '' ,
+	user_pt varchar2(765) DEFAULT '' ,
+	user_twr varchar2(765) DEFAULT '' ,
+	user_skp varchar2(765) DEFAULT '' ,
+	user_tg varchar2(765) DEFAULT '' ,
+	user_li varchar2(765) DEFAULT '' ,
+	user_tt varchar2(765) DEFAULT '' ,
+	user_dc varchar2(765) DEFAULT '' ,
 	user_icq varchar2(15) DEFAULT '' ,
 	user_aim varchar2(765) DEFAULT '' ,
 	user_yim varchar2(765) DEFAULT '' ,

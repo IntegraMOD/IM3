@@ -189,8 +189,7 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'			=> 'Basisconfiguratie',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Nu de installatie vastgesteld heeft dat phpBB wel degelijk op je server kan werken, moet je wat specifieke informatie opgeven. Indien je niet weet hoe je een databaseverbinding moet maken, contacteer dan je host (beste optie) of vraag dit in de phpBB-supportforums. Controleer de gegevens die je opgeeft grondig voor je verder gaat.',
 	'INSTALL_CONGRATS'			=> 'Gefeliciteerd!',
-	'INSTALL_SN'                => 'Doorgaan met de installatie van Social Network',
-	'INSTALL_CONGRATS_EXPLAIN'  => 'U heeft IntegraMOD %1$s succesvol geïnstalleerd.</p>
+	'INSTALL_CONGRATS_EXPLAIN' => 'U heeft IntegraMOD %1$s succesvol geïnstalleerd.</p>
 		<h2>U bent er bijna!</h2>
 		<p><strong>Verwijder, verplaats of hernoem nu de installatiemap voordat u doorgaat naar de laatste stap: het installeren van het Social Network.</strong>',
 	'INSTALL_INTRO' => 'Welkom bij uw IntegraMOD-installatie',

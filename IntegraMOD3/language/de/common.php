@@ -351,7 +351,17 @@ $lang = array_merge($lang, array(
 	'MONTH'					=> 'Monat',
 	'MOVE'					=> 'Verschieben',
 	'MSNM'					=> 'WLM',
-
+//Messengers
+	'FB'					=> 'Facebook',
+	'IG'					=> 'Instagram',
+	'PT'					=> 'Pinterest',
+	'TWR'					=> 'Twitter',
+	'SKP'					=> 'Skype',
+	'TG'					=> 'Telegram',
+	'LI'					=> 'LinkedIn',
+	'TT'					=> 'TikTok',
+	'DC'					=> 'Discord',
+	
 	'NA'						=> 'n/a',
 	'NEWEST_USER'				=> 'Unser neuestes Mitglied: <strong>%s</strong>',
 	'NEW_MESSAGE'				=> 'Neue Nachricht',
@@ -552,6 +562,15 @@ $lang = array_merge($lang, array(
 	'SEND_EMAIL'				=> 'E-Mail senden',					// Used for submit buttons
 	'SEND_EMAIL_USER'			=> 'E-Mail senden an',				// Used as: {L_SEND_EMAIL_USER} {USERNAME} -> E-mail UserX
 	'SEND_PRIVATE_MESSAGE'		=> 'Private Nachricht senden',
+	'SEND_FB_MESSAGE'		=> 'Facebook-Nachricht senden',
+	'SEND_IG_MESSAGE'		=> 'Instagram-Nachricht senden',
+	'SEND_PT_MESSAGE'		=> 'Pinterest-Nachricht senden',
+	'SEND_TWR_MESSAGE'		=> 'Twitter-Nachricht senden',
+	'SEND_SKP_MESSAGE'		=> 'Skype-Nachricht senden',
+	'SEND_TG_MESSAGE'		=> 'Telegram-Nachricht senden',
+	'SEND_LI_MESSAGE'		=> 'LinkedIn-Nachricht senden',
+	'SEND_TT_MESSAGE'		=> 'TikTok-Nachricht senden',
+	'SEND_DC_MESSAGE'		=> 'Discord-Nachricht senden',
 	'SETTINGS'					=> 'Einstellungen',
 	'SIGNATURE'					=> 'Signatur',
 	'SKIP'						=> 'Zum Inhalt',

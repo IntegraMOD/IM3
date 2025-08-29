@@ -218,6 +218,15 @@ $lang = array_merge($lang, array(
 
 	'IMG_ICON_BACK_TOP'		=> 'Догори',
 
+	'IMG_ICON_CONTACT_FB'		=> 'Facebook',
+	'IMG_ICON_CONTACT_IG'		=> 'Instagram',
+	'IMG_ICON_CONTACT_PT'		=> 'Pinterest',
+	'IMG_ICON_CONTACT_TWR'		=> 'Twitter',
+	'IMG_ICON_CONTACT_SKP'		=> 'Skype',
+	'IMG_ICON_CONTACT_TG'		=> 'Telegram',
+	'IMG_ICON_CONTACT_LI'		=> 'LinkedIn',
+	'IMG_ICON_CONTACT_TT'		=> 'TikTok',
+	'IMG_ICON_CONTACT_DC'		=> 'Discord',
 	'IMG_ICON_CONTACT_AIM'		=> 'AIM',
 	'IMG_ICON_CONTACT_EMAIL'	=> 'Відправити e-mail',
 	'IMG_ICON_CONTACT_ICQ'		=> 'ICQ',

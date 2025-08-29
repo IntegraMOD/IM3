@@ -348,7 +348,17 @@ $lang = array_merge($lang, array(
 	'MONTH'					=> 'Maand',
 	'MOVE'					=> 'Verplaats',
 	'MSNM'					=> 'WLM',
-
+//Messengers
+	'FB'					=> 'Facebook',
+	'IG'					=> 'Instagram',
+	'PT'					=> 'Pinterest',
+	'TWR'					=> 'Twitter',
+	'SKP'					=> 'Skype',
+	'TG'					=> 'Telegram',
+	'LI'					=> 'LinkedIn',
+	'TT'					=> 'TikTok',
+	'DC'					=> 'Discord',
+	
 	'NA'						=> 'Niet beschikbaar',
 	'NEWEST_USER'				=> 'Ons nieuwste lid is <strong>%s</strong>',
 	'NEW_MESSAGE'				=> 'Nieuw bericht',
@@ -550,6 +560,15 @@ $lang = array_merge($lang, array(
 	'SEND_EMAIL'				=> 'E-mail',				// Used for submit buttons
 	'SEND_EMAIL_USER'			=> 'E-mail',				// Used as: {L_SEND_EMAIL_USER} {USERNAME} -> E-mail UserX
 	'SEND_PRIVATE_MESSAGE'		=> 'Stuur privébericht',
+	'SEND_FB_MESSAGE'		=> 'Facebook-bericht verzenden',
+	'SEND_IG_MESSAGE'		=> 'Instagram-bericht verzenden',
+	'SEND_PT_MESSAGE'		=> 'Pinterest-bericht verzenden',
+	'SEND_TWR_MESSAGE'		=> 'Twitter-bericht verzenden',
+	'SEND_SKP_MESSAGE'		=> 'Skype-bericht verzenden',
+	'SEND_TG_MESSAGE'		=> 'Telegram-bericht verzenden',
+	'SEND_LI_MESSAGE'		=> 'LinkedIn-bericht verzenden',
+	'SEND_TT_MESSAGE'		=> 'TikTok-bericht verzenden',
+	'SEND_DC_MESSAGE'		=> 'Discord-bericht verzenden',
 	'SETTINGS'					=> 'Instellingen',
 	'SIGNATURE'					=> 'Onderschrift',
 	'SKIP'						=> 'Doorgaan naar inhoud',

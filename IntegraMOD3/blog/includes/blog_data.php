@@ -1017,11 +1017,20 @@ class blog_data
 				$row['status'] = (isset($status_data[$user_id]) && time() - $update_time < $status_data[$user_id]['online_time'] && (($status_data[$user_id]['viewonline'] && $row['user_allow_viewonline']) || $auth->acl_get('u_viewonline'))) ? true : false;
 
 				// IM Links
-				$row['aim_url'] = ($row['user_aim']) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=aim&amp;u=$user_id") : '';
-				$row['icq_url'] = ($row['user_icq']) ? 'http://www.icq.com/people/webmsg.php?to=' . $row['user_icq'] : '';
-				$row['jabber_url'] = ($row['user_jabber']) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=jabber&amp;u=$user_id") : '';
-				$row['msn_url'] = ($row['user_msnm']) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=msnm&amp;u=$user_id") : '';
-				$row['yim_url'] = ($row['user_yim']) ? 'http://edit.yahoo.com/config/send_webmesg?.target=' . $row['user_yim'] . '&amp;.src=pg' : '';
+				$row['fb_url']      = ($row['user_fb'])      ? 'https://www.facebook.com/' . urlencode($row['user_fb'])      : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=fb&u=$user_id");
+				$row['ig_url']      = ($row['user_ig'])      ? 'https://www.instagram.com/' . urlencode($row['user_ig'])      : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=ig&u=$user_id");
+				$row['pt_url']      = ($row['user_pt'])      ? 'https://www.pinterest.com/' . urlencode($row['user_pt'])      : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=pt&u=$user_id");
+				$row['twr_url']     = ($row['user_twr'])     ? 'https://twitter.com/' . urlencode($row['user_twr'])           : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=twr&u=$user_id");
+				$row['skp_url']     = ($row['user_skp'])     ? 'skype:' . urlencode($row['user_skp']) . '?chat'               : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=skp&u=$user_id");
+				$row['tg_url']      = ($row['user_tg'])      ? 'https://t.me/' . urlencode($row['user_tg'])                   : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=tg&u=$user_id");
+				$row['li_url']      = ($row['user_li'])      ? 'https://www.linkedin.com/in/' . urlencode($row['user_li'])    : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=li&u=$user_id");
+				$row['tt_url']      = ($row['user_tt'])      ? 'https://www.tiktok.com/@' . urlencode($row['user_tt'])        : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=tt&u=$user_id");
+				$row['dc_url']      = ($row['user_dc'])      ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&action=dc&u=$user_id")     : '';
+				$row['aim_url'] 	= ($row['user_aim']) 	? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=aim&amp;u=$user_id") : '';
+				$row['icq_url'] 	= ($row['user_icq']) 	? 'http://www.icq.com/people/webmsg.php?to=' . $row['user_icq'] : '';
+				$row['jabber_url'] 	= ($row['user_jabber']) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=jabber&amp;u=$user_id") : '';
+				$row['msn_url'] 	= ($row['user_msnm']) 	? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=contact&amp;action=msnm&amp;u=$user_id") : '';
+				$row['yim_url'] 	= ($row['user_yim']) 	? 'http://edit.yahoo.com/config/send_webmesg?.target=' . $row['user_yim'] . '&amp;.src=pg' : '';
 
 				// PM and email links
 				$row['email_url'] = ($config['board_email_form'] && $config['email_enable']) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=email&amp;u=$user_id")  : (($config['board_hide_emails'] && !$auth->acl_get('a_email')) ? '' : 'mailto:' . $row['user_email']);
@@ -1037,6 +1046,15 @@ class blog_data
 			{
 				$row = array_merge($row, array(
 					'status'		=> false,
+					'fb_url'		=> '',
+					'ig_url'		=> '',
+					'pt_url'		=> '',
+					'twr_url'		=> '',
+					'skp_url'		=> '',
+					'tg_url'		=> '',
+					'li_url'		=> '',
+					'tt_url'		=> '',
+					'dc_url'		=> '',
 					'aim_url'		=> '',
 					'icq_url'		=> '',
 					'jabber_url'	=> '',
@@ -1182,6 +1200,15 @@ class blog_data
 
 			'L_USER_FOE'		=> sprintf($user->lang['POSTED_BY_FOE'], self::$user[$user_id]['username_full']),
 
+			'U_FB'				=> self::$user[$user_id]['fb_url'],
+			'U_IG'				=> self::$user[$user_id]['ig_url'],
+			'U_PT'				=> self::$user[$user_id]['pt_url'],
+			'U_TWR'				=> self::$user[$user_id]['twr_url'],
+			'U_SKP'				=> self::$user[$user_id]['skp_url'],
+			'U_TG'				=> self::$user[$user_id]['tg_url'],
+			'U_LI'				=> self::$user[$user_id]['li_url'],
+			'U_TT'				=> self::$user[$user_id]['tt_url'],
+			'U_DC'				=> self::$user[$user_id]['dc_url'],
 			'U_AIM'				=> self::$user[$user_id]['aim_url'],
 			'U_EMAIL'			=> self::$user[$user_id]['email_url'],
 			'U_ICQ'				=> self::$user[$user_id]['icq_url'],

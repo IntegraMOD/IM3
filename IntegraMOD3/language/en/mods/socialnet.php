@@ -22,6 +22,7 @@ $lang = array_merge($lang, array(
 	/**
 	 * Edit these two lines write your own Welcome text for unregistered guests on Activity page.
 	 */
+	 
 	'SN_AP_WELCOME_TITLE'					 => 'Welcome to our website!',
 	'SN_AP_WELCOME_TEXT'					 => 'Feel free to register and use all of the features of our website.<br /><br />Greetings,<br />the Administrator',
 
@@ -163,6 +164,15 @@ $lang = array_merge($lang, array(
 	'SN_UP_FACEBOOK'						 => 'Facebook',
 	'SN_UP_TWITTER'							 => 'Twitter',
 	'SN_UP_YOUTUBE'							 => 'Youtube',
+	'SN_UP_USER_FB'							=> 'Facebook',
+	'SN_UP_USER_IG'							=> 'Instagram',
+	'SN_UP_USER_PT'							=> 'Pinterest',
+	'SN_UP_USER_TWR'						=> 'Twitter',
+	'SN_UP_USER_SKP'						=> 'Skype',
+	'SN_UP_USER_TG'							=> 'Telegram',
+	'SN_UP_USER_LI'							=> 'LinkedIn',
+	'SN_UP_USER_TT'							=> 'TikTok',
+	'SN_UP_USER_DC'							=> 'Discord',
 	'SN_UP_USER_ICQ'						 => 'ICQ number',
 	'SN_UP_USER_AIM'						 => 'AOL Instant Messenger',
 	'SN_UP_USER_MSNM'						 => 'WL/MSN Messenger',

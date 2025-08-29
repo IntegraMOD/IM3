@@ -211,7 +211,6 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'	=> 'Configuración básica',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Ahora que la instalación ha determinado que su servidor puede ejecutar phpBB3 necesita suministrar cierta información específica. Si no sabe cómo conectar a su base de datos por favor contacte con su proveedor de hospedaje (en primera instancia) o visite el foro de soporte de phpBB3. Cuando ingrese los datos por favor asegúrese de haberlos verificado concienzudamente.',
 	'INSTALL_CONGRATS'	=> '¡Felicidades!',
-	'INSTALL_SN' => 'Seguir con la instalación del Social Network',
 	'INSTALL_CONGRATS_EXPLAIN' => 'Ha instalado correctamente IntegraMOD %1$s.</p>
 		<h2>¡Ya casi está listo!</h2>
 		<p><strong>Por favor, elimine, mueva o cambie el nombre del directorio de instalación ahora, antes de continuar con el último paso: instalar la Red Social.</strong>',

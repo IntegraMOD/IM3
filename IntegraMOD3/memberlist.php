@@ -279,6 +279,47 @@ switch ($mode)
 		$presence_img = '';
 		switch ($action)
 		{
+			case 'fb':
+				$lang = 'Facebook';
+				$sql_field = 'user_fb';
+				$s_select = 'S_SEND_FB';
+				$s_action = '';
+			break;
+
+			case 'ig':
+				$lang = 'Instagram';
+				$sql_field = 'user_ig';
+				$s_select = 'S_SEND_IG';
+				$s_action = '';
+			break;
+
+			case 'tt':
+				$lang = 'TikTok';
+				$sql_field = 'user_tt';
+				$s_select = 'S_SEND_TT';
+				$s_action = '';
+			break;
+
+			case 'dc':
+				$lang = 'Discord';
+				$sql_field = 'user_dc';
+				$s_select = 'S_SEND_DC';
+				$s_action = '';
+			break;
+
+			case 'tg':
+				$lang = 'Telegram';
+				$sql_field = 'user_tg';
+				$s_select = 'S_SEND_TG';
+				$s_action = '';
+			break;
+
+			case 'li':
+				$lang = 'LinkedIn';
+				$sql_field = 'user_li';
+				$s_select = 'S_SEND_LI';
+				$s_action = '';
+			break;
 			case 'aim':
 				$lang = 'AIM';
 				$sql_field = 'user_aim';
@@ -376,6 +417,12 @@ switch ($mode)
 			'IM_CONTACT'	=> $row[$sql_field],
 			'A_IM_CONTACT'	=> addslashes($row[$sql_field]),
 
+			'U_FB_CONTACT'		=> ($action == 'fb') ? 'https://facebook.com/' . urlencode($row[$sql_field]) : '',
+			'U_IG_CONTACT'		=> ($action == 'ig') ? 'https://instagram.com/' . urlencode($row[$sql_field]) : '',
+			'U_TT_CONTACT'		=> ($action == 'tt') ? 'https://www.tiktok.com/@' . urlencode($row[$sql_field]) : '',
+			'U_DC_CONTACT'		=> ($action == 'dc') ? 'https://discordapp.com/users/' . urlencode($row[$sql_field]) : '',
+			'U_TG_CONTACT'		=> ($action == 'tg') ? 'https://t.me/' . urlencode($row[$sql_field]) : '',
+			'U_LI_CONTACT'		=> ($action == 'li') ? 'https://linkedin.com/in/' . urlencode($row[$sql_field]) : '',
 			'U_AIM_CONTACT'	=> ($action == 'aim') ? 'aim:addbuddy?screenname=' . urlencode($row[$sql_field]) : '',
 			'U_AIM_MESSAGE'	=> ($action == 'aim') ? 'aim:goim?screenname=' . urlencode($row[$sql_field]) . '&amp;message=' . urlencode($config['sitename']) : '',
 
@@ -773,6 +820,15 @@ switch ($mode)
 			'PM_IMG'		=> $user->img('icon_contact_pm', $user->lang['SEND_PRIVATE_MESSAGE']),
 			'EMAIL_IMG'		=> $user->img('icon_contact_email', $user->lang['EMAIL']),
 			'WWW_IMG'		=> $user->img('icon_contact_www', $user->lang['WWW']),
+			'FB_IMG'		=> $user->img('icon_contact_fb', $user->lang['Facebook']),
+			'IG_IMG'		=> $user->img('icon_contact_ig', $user->lang['Instagram']),
+			'PT_IMG'		=> $user->img('icon_contact_pt', $user->lang['Pinterest']),
+			'TWR_IMG'		=> $user->img('icon_contact_twr', $user->lang['Twitter']),
+			'SKP_IMG'		=> $user->img('icon_contact_skp', $user->lang['Skype']),
+			'TG_IMG'		=> $user->img('icon_contact_tg', $user->lang['Telegram']),
+			'LI_IMG'		=> $user->img('icon_contact_li', $user->lang['LinkedIn']),
+			'TT_IMG'		=> $user->img('icon_contact_tt', $user->lang['TikTok']),
+			'DC_IMG'		=> $user->img('icon_contact_dc', $user->lang['Discord']),
 			'ICQ_IMG'		=> $user->img('icon_contact_icq', $user->lang['ICQ']),
 			'AIM_IMG'		=> $user->img('icon_contact_aim', $user->lang['AIM']),
 			'MSN_IMG'		=> $user->img('icon_contact_msnm', $user->lang['MSNM']),
@@ -1119,8 +1175,8 @@ switch ($mode)
 		$template_html = 'memberlist_body.html';
 
 		// Sorting
-		$sort_key_text = array('a' => $user->lang['SORT_USERNAME'], 'b' => $user->lang['SORT_LOCATION'], 'c' => $user->lang['SORT_JOINED'], 'd' => $user->lang['SORT_POST_COUNT'], 'f' => $user->lang['WEBSITE'], 'g' => $user->lang['ICQ'], 'h' => $user->lang['AIM'], 'i' => $user->lang['MSNM'], 'j' => $user->lang['YIM'], 'k' => $user->lang['JABBER']);
-		$sort_key_sql = array('a' => 'u.username_clean', 'b' => 'u.user_from', 'c' => 'u.user_regdate', 'd' => 'u.user_posts', 'f' => 'u.user_website', 'g' => 'u.user_icq', 'h' => 'u.user_aim', 'i' => 'u.user_msnm', 'j' => 'u.user_yim', 'k' => 'u.user_jabber');
+		$sort_key_text = array('a' => $user->lang['SORT_USERNAME'], 'b' => $user->lang['SORT_LOCATION'], 'c' => $user->lang['SORT_JOINED'], 'd' => $user->lang['SORT_POST_COUNT'], 'f' => $user->lang['WEBSITE'], 'g' => $user->lang['Facebook'], 'h' => $user->lang['Instagram'], 'i' => $user->lang['Pinterest'], 'j' => $user->lang['Twitter'], 'k' => $user->lang['Skype'], 'l' => $user->lang['Telegram'], 'm' => $user->lang['LinkedIn'], 'n' => $user->lang['TikTok'], 'o' => $user->lang['Discord'], 'p' => $user->lang['ICQ'], 'q' => $user->lang['AIM'], 'r' => $user->lang['MSNM'], 's' => $user->lang['YIM'], 't' => $user->lang['JABBER']);
+		$sort_key_sql = array('a' => 'u.username_clean', 'b' => 'u.user_from', 'c' => 'u.user_regdate', 'd' => 'u.user_posts', 'f' => 'u.user_website', 'g' => 'u.user_fb', 'h' => 'u.user_ig', 'i' => 'u.user_pt', 'j' => 'u.user_twr', 'k' => 'u.user_skp', 'l' => 'u.user_tg', 'm' => 'u.user_li', 'n' => 'u.user_tt', 'o' => 'u.user_dc', 'p' => 'u.user_icq', 'q' => 'u.user_aim', 'r' => 'u.user_msnm', 's' => 'u.user_yim', 't' => 'u.user_jabber');
 
 		if ($auth->acl_get('a_user'))
 		{
@@ -1163,7 +1219,7 @@ switch ($mode)
 		$select_single 	= request_var('select_single', false);
 
 		// Search URL parameters, if any of these are in the URL we do a search
-		$search_params = array('username', 'email', 'icq', 'aim', 'yahoo', 'msn', 'jabber', 'search_group_id', 'joined_select', 'active_select', 'count_select', 'joined', 'active', 'count', 'ip');
+		$search_params = array('username', 'email', 'fb', 'ig', 'pt', 'twr', 'skp', 'tg', 'li', 'tt', 'dc', 'icq', 'aim', 'yahoo', 'msn', 'jabber', 'search_group_id', 'joined_select', 'active_select', 'count_select', 'joined', 'active', 'count', 'ip');
 
 		// We validate form and field here, only id/class allowed
 		$form = (!preg_match('/^[a-z0-9_-]+$/i', $form)) ? '' : $form;
@@ -1172,6 +1228,15 @@ switch ($mode)
 		{
 			$username	= request_var('username', '', true);
 			$email		= strtolower(request_var('email', ''));
+			$fb			= request_var('fb', '');
+			$ig			= request_var('ig', '');
+			$pt			= request_var('pt', '');
+			$twr		= request_var('twr', '');
+			$skp		= request_var('skp', '');
+			$tg			= request_var('tg', '');
+			$li			= request_var('li', '');
+			$tt			= request_var('tt', '');
+			$dc			= request_var('dc', '');
 			$icq		= request_var('icq', '');
 			$aim		= request_var('aim', '');
 			$yahoo		= request_var('yahoo', '');
@@ -1216,6 +1281,15 @@ switch ($mode)
 
 			$sql_where .= ($username) ? ' AND u.username_clean ' . $db->sql_like_expression(str_replace('*', $db->any_char, utf8_clean_string($username))) : '';
 			$sql_where .= ($auth->acl_get('a_user') && $email) ? ' AND u.user_email ' . $db->sql_like_expression(str_replace('*', $db->any_char, $email)) . ' ' : '';
+			$sql_where .= ($fb) ? ' AND u.user_fb ' . $db->sql_like_expression(str_replace('*', $db->any_char, $fb)) . ' ' : '';
+			$sql_where .= ($ig) ? ' AND u.user_ig ' . $db->sql_like_expression(str_replace('*', $db->any_char, $ig)) . ' ' : '';
+			$sql_where .= ($pt) ? ' AND u.user_pt ' . $db->sql_like_expression(str_replace('*', $db->any_char, $pt)) . ' ' : '';
+			$sql_where .= ($twr) ? ' AND u.user_twr ' . $db->sql_like_expression(str_replace('*', $db->any_char, $twr)) . ' ' : '';
+			$sql_where .= ($skp) ? ' AND u.user_skp ' . $db->sql_like_expression(str_replace('*', $db->any_char, $skp)) . ' ' : '';
+			$sql_where .= ($tg) ? ' AND u.user_tg ' . $db->sql_like_expression(str_replace('*', $db->any_char, $tg)) . ' ' : '';
+			$sql_where .= ($li) ? ' AND u.user_li ' . $db->sql_like_expression(str_replace('*', $db->any_char, $li)) . ' ' : '';
+			$sql_where .= ($tt) ? ' AND u.user_tt ' . $db->sql_like_expression(str_replace('*', $db->any_char, $tt)) . ' ' : '';
+			$sql_where .= ($dc) ? ' AND u.user_dc ' . $db->sql_like_expression(str_replace('*', $db->any_char, $dc)) . ' ' : '';
 			$sql_where .= ($icq) ? ' AND u.user_icq ' . $db->sql_like_expression(str_replace('*', $db->any_char, $icq)) . ' ' : '';
 			$sql_where .= ($aim) ? ' AND u.user_aim ' . $db->sql_like_expression(str_replace('*', $db->any_char, $aim)) . ' ' : '';
 			$sql_where .= ($yahoo) ? ' AND u.user_yim ' . $db->sql_like_expression(str_replace('*', $db->any_char, $yahoo)) . ' ' : '';
@@ -1454,6 +1528,15 @@ switch ($mode)
 			'select_single'	=> array('select_single', $select_single),
 			'username'		=> array('username', '', true),
 			'email'			=> array('email', ''),
+			'fb'			=> array('fb', ''),
+			'ig'			=> array('ig', ''),
+			'pt'			=> array('pt', ''),
+			'twr'			=> array('twr', ''),
+			'skp'			=> array('skp', ''),
+			'tg'			=> array('tg', ''),
+			'li'			=> array('li', ''),
+			'tt'			=> array('tt', ''),
+			'dc'			=> array('dc', ''),
 			'icq'			=> array('icq', ''),
 			'aim'			=> array('aim', ''),
 			'yahoo'			=> array('yahoo', ''),
@@ -1586,6 +1669,15 @@ switch ($mode)
 			$template->assign_vars(array(
 				'USERNAME'	=> $username,
 				'EMAIL'		=> $email,
+				'FB'		=> $fb,
+				'IG'		=> $ig,
+				'PT'		=> $pt,
+				'TWR'		=> $twr,
+				'SKP'		=> $skp,
+				'TG'		=> $tg,
+				'LI'		=> $li,
+				'TT'		=> $tt,
+				'DC'		=> $dc,
 				'ICQ'		=> $icq,
 				'AIM'		=> $aim,
 				'YAHOO'		=> $yahoo,
@@ -1742,6 +1834,15 @@ switch ($mode)
 			'PM_IMG'		=> $user->img('icon_contact_pm', $user->lang['SEND_PRIVATE_MESSAGE']),
 			'EMAIL_IMG'		=> $user->img('icon_contact_email', $user->lang['EMAIL']),
 			'WWW_IMG'		=> $user->img('icon_contact_www', $user->lang['WWW']),
+			'FB_IMG'		=> $user->img('icon_contact_fb', $user->lang['FB']),
+			'IG_IMG'		=> $user->img('icon_contact_ig', $user->lang['IG']),
+			'PT_IMG'		=> $user->img('icon_contact_pt', $user->lang['PT']),
+			'TWR_IMG'		=> $user->img('icon_contact_twr', $user->lang['TWR']),
+			'SKP_IMG'		=> $user->img('icon_contact_skp', $user->lang['SKP']),
+			'TG_IMG'		=> $user->img('icon_contact_tg', $user->lang['TG']),
+			'LI_IMG'		=> $user->img('icon_contact_li', $user->lang['LI']),
+			'TT_IMG'		=> $user->img('icon_contact_tt', $user->lang['TT']),
+			'DC_IMG'		=> $user->img('icon_contact_dc', $user->lang['DC']),
 			'ICQ_IMG'		=> $user->img('icon_contact_icq', $user->lang['ICQ']),
 			'AIM_IMG'		=> $user->img('icon_contact_aim', $user->lang['AIM']),
 			'MSN_IMG'		=> $user->img('icon_contact_msnm', $user->lang['MSNM']),
@@ -1758,13 +1859,22 @@ switch ($mode)
 			'U_SORT_EMAIL'			=> $sort_url . '&amp;sk=e&amp;sd=' . (($sort_key == 'e' && $sort_dir == 'a') ? 'd' : 'a'),
 			'U_SORT_WEBSITE'		=> $sort_url . '&amp;sk=f&amp;sd=' . (($sort_key == 'f' && $sort_dir == 'a') ? 'd' : 'a'),
 			'U_SORT_LOCATION'		=> $sort_url . '&amp;sk=b&amp;sd=' . (($sort_key == 'b' && $sort_dir == 'a') ? 'd' : 'a'),
-			'U_SORT_ICQ'			=> $sort_url . '&amp;sk=g&amp;sd=' . (($sort_key == 'g' && $sort_dir == 'a') ? 'd' : 'a'),
-			'U_SORT_AIM'			=> $sort_url . '&amp;sk=h&amp;sd=' . (($sort_key == 'h' && $sort_dir == 'a') ? 'd' : 'a'),
-			'U_SORT_MSN'			=> $sort_url . '&amp;sk=i&amp;sd=' . (($sort_key == 'i' && $sort_dir == 'a') ? 'd' : 'a'),
-			'U_SORT_YIM'			=> $sort_url . '&amp;sk=j&amp;sd=' . (($sort_key == 'j' && $sort_dir == 'a') ? 'd' : 'a'),
-			'U_SORT_ACTIVE'			=> ($auth->acl_get('u_viewonline')) ? $sort_url . '&amp;sk=l&amp;sd=' . (($sort_key == 'l' && $sort_dir == 'a') ? 'd' : 'a') : '',
-			'U_SORT_RANK'			=> $sort_url . '&amp;sk=m&amp;sd=' . (($sort_key == 'm' && $sort_dir == 'a') ? 'd' : 'a'),
-			'U_LIST_CHAR'			=> $sort_url . '&amp;sk=a&amp;sd=' . (($sort_key == 'l' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_FB'				=> $sort_url . '&amp;sk=g&amp;sd=' . (($sort_key == 'g' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_IG'				=> $sort_url . '&amp;sk=h&amp;sd=' . (($sort_key == 'h' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_PT'				=> $sort_url . '&amp;sk=i&amp;sd=' . (($sort_key == 'i' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_TWR'			=> $sort_url . '&amp;sk=j&amp;sd=' . (($sort_key == 'j' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_SKP'			=> $sort_url . '&amp;sk=k&amp;sd=' . (($sort_key == 'k' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_TG'				=> $sort_url . '&amp;sk=l&amp;sd=' . (($sort_key == 'l' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_LI'				=> $sort_url . '&amp;sk=m&amp;sd=' . (($sort_key == 'm' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_TT'				=> $sort_url . '&amp;sk=n&amp;sd=' . (($sort_key == 'n' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_DC'				=> $sort_url . '&amp;sk=o&amp;sd=' . (($sort_key == 'o' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_ICQ'			=> $sort_url . '&amp;sk=p&amp;sd=' . (($sort_key == 'p' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_AIM'			=> $sort_url . '&amp;sk=q&amp;sd=' . (($sort_key == 'q' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_MSN'			=> $sort_url . '&amp;sk=r&amp;sd=' . (($sort_key == 'r' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_YIM'			=> $sort_url . '&amp;sk=s&amp;sd=' . (($sort_key == 's' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_SORT_ACTIVE'			=> ($auth->acl_get('u_viewonline')) ? $sort_url . '&amp;sk=t&amp;sd=' . (($sort_key == 't' && $sort_dir == 'a') ? 'd' : 'a') : '',
+			'U_SORT_RANK'			=> $sort_url . '&amp;sk=u&amp;sd=' . (($sort_key == 'u' && $sort_dir == 'a') ? 'd' : 'a'),
+			'U_LIST_CHAR'			=> $sort_url . '&amp;sk=v&amp;sd=' . (($sort_key == 'v' && $sort_dir == 'a') ? 'd' : 'a'),
 
 			'S_SHOW_GROUP'		=> ($mode == 'group') ? true : false,
 			'S_VIEWONLINE'		=> $auth->acl_get('u_viewonline'),

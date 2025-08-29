@@ -56,7 +56,7 @@ class install_install extends module
 
 	function main($mode, $sub)
 	{
-		global $lang, $template, $language, $phpbb_root_path, $phpEx, $cache;
+		global $lang, $template, $language, $phpbb_root_path, $cache;
 
 		switch ($sub)
 		{
@@ -116,6 +116,10 @@ class install_install extends module
 				@unlink($phpbb_root_path . 'cache/install_lock');
 
 			break;
+			
+			case 'sn_install':
+				$this->install_sn($mode, $sub);
+			break;	
 		}
 
 		$this->tpl_name = 'install_install';
@@ -1593,7 +1597,7 @@ class install_install extends module
 				$row = $db->sql_fetchrow($result);
 				$db->sql_freeresult($result);
 
-				$_module->move_module_by($row, 'move_up', 6);
+				$_module->move_module_by($row, 'move_up', 4);
 
 				// Move permissions intro screen module 4 up...
 				$sql = 'SELECT *
@@ -1770,7 +1774,7 @@ class install_install extends module
 				}
 
 				$valid_localized = array(
-					'icon_back_top', 'icon_contact_aim', 'icon_contact_email', 'icon_contact_icq', 'icon_contact_jabber', 'icon_contact_msnm', 'icon_contact_pm', 'icon_contact_yahoo', 'icon_contact_www', 'icon_post_delete', 'icon_post_edit', 'icon_post_info', 'icon_post_quote', 'icon_post_report', 'icon_user_online', 'icon_user_offline', 'icon_user_profile', 'icon_user_search', 'icon_user_warn', 'button_pm_forward', 'button_pm_new', 'button_pm_reply', 'button_topic_locked', 'button_topic_new', 'button_topic_reply',
+					'icon_back_top', 'icon_contact_fb', 'icon_contact_ig', 'icon_contact_pt', 'icon_contact_twr', 'icon_contact_skp', 'icon_contact_tg', 'icon_contact_li', 'icon_contact_tt', 'icon_contact_dc', 'icon_contact_aim', 'icon_contact_email', 'icon_contact_icq', 'icon_contact_jabber', 'icon_contact_msnm', 'icon_contact_pm', 'icon_contact_yahoo', 'icon_contact_www', 'icon_post_delete', 'icon_post_edit', 'icon_post_info', 'icon_post_quote', 'icon_post_report', 'icon_user_online', 'icon_user_offline', 'icon_user_profile', 'icon_user_search', 'icon_user_warn', 'button_pm_forward', 'button_pm_new', 'button_pm_reply', 'button_topic_locked', 'button_topic_new', 'button_topic_reply',
 				);
 
 				$sql_ary = array();
@@ -1917,6 +1921,30 @@ class install_install extends module
 
 			$result = $db->sql_query($sql);
 		}
+	}
+
+	/**
+	 * Install Social Network
+	 */
+	function install_sn($mode, $sub)
+	{
+	    global $auth, $config, $db, $lang, $template, $user, $phpbb_root_path, $phpEx;
+	 
+	    $this->page_title = $lang['STAGE_SN_INSTALL'];
+	 
+	    include($phpbb_root_path . 'socialnet/install_sn.' . $phpEx);
+	 
+	    // Obtain any submitted data
+	    $data = $this->get_submitted_data();
+	 
+	    $url = $this->p_master->module_url . "?mode=$mode&amp;sub=install_sn";
+	 
+	    $template->assign_vars([
+	        'BODY'      => $lang['STAGE_SN_INSTALL'],
+	        'L_SUBMIT'  => $submit,
+	        'S_HIDDEN'  => $s_hidden_fields,
+	        'U_ACTION'  => $url,
+	    ]);
 	}
 
 	/**
@@ -2409,7 +2437,6 @@ class install_install extends module
 				'ACP_BOTS',
 				'ACP_PHP_INFO',
 			),
-			
 			'ACP_FORUM_BASED_PERMISSIONS' => array(
 				'ACP_FORUM_PERMISSIONS',
 				'ACP_FORUM_PERMISSIONS_COPY',

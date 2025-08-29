@@ -5,11 +5,47 @@
 <h2>{L_TITLE}</h2>
 
 <div class="panel">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 	<p>{L_PROFILE_INFO_NOTICE}</p>
 
 	<fieldset>
 	<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+	<dl>
+		<dt><label for="fb">{L_UCP_FB}:</label></dt>
+		<dd><input type="text" name="fb" id="fb" maxlength="255" value="{FB}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="ig">{L_UCP_IG}:</label></dt>
+		<dd><input type="text" name="ig" id="ig" maxlength="255" value="{IG}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="pt">{L_UCP_PT}:</label></dt>
+		<dd><input type="text" name="pt" id="pt" maxlength="255" value="{PT}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="twr">{L_UCP_TWR}:</label></dt>
+		<dd><input type="text" name="twr" id="twr" maxlength="255" value="{TWR}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="skp">{L_UCP_SKP}:</label></dt>
+		<dd><input type="text" name="skp" id="skp" maxlength="255" value="{SKP}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="tg">{L_UCP_TG}:</label></dt>
+		<dd><input type="text" name="tg" id="tg" maxlength="255" value="{TG}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="li">{L_UCP_LI}:</label></dt>
+		<dd><input type="text" name="li" id="li" maxlength="255" value="{LI}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="tt">{L_UCP_TT}:</label></dt>
+		<dd><input type="text" name="tt" id="tt" maxlength="255" value="{TT}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="dc">{L_UCP_DC}:</label></dt>
+		<dd><input type="text" name="dc" id="dc" maxlength="255" value="{DC}" class="inputbox" /></dd>
+	</dl>
 	<dl>
 		<dt><label for="icq">{L_UCP_ICQ}:</label></dt>
 		<dd><input type="text" name="icq" id="icq" maxlength="15" value="{ICQ}" class="inputbox" /></dd>
@@ -66,7 +102,7 @@
 	<!-- END profile_fields -->
 	</fieldset>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 <fieldset class="submit-buttons">

@@ -353,7 +353,16 @@ $lang = array_merge($lang, array(
 	'MONTH'					=> 'Month',
 	'MOVE'					=> 'Move',
 	'MSNM'					=> 'MSNM/WLM',
-
+//Messengers
+	'FB'					=> 'Facebook',
+	'IG'					=> 'Instagram',
+	'PT'					=> 'Pinterest',
+	'TWR'					=> 'Twitter',
+	'SKP'					=> 'Skype',
+	'TG'					=> 'Telegram',
+	'LI'					=> 'LinkedIn',
+	'TT'					=> 'TikTok',
+	'DC'					=> 'Discord',
 	'NA'						=> 'N/A',
 	'NEWEST_USER'				=> 'Our newest member <strong>%s</strong>',
 	'NEW_MESSAGE'				=> 'New message',
@@ -461,7 +470,7 @@ $lang = array_merge($lang, array(
 	'POST_TIME'				=> 'Post time',
 	'POST_TOPIC'			=> 'Post a new topic',
 	'POST_UNAPPROVED'		=> 'This post is waiting for approval',
-	'POWERED_BY'			=> 'This website is powered by %s',
+	'POWERED_BY'			=> 'Powered by %s',
 	'PREVIEW'				=> 'Preview',
 	'PREVIOUS'				=> 'Previous',		// Used in pagination
 	'PREVIOUS_STEP'			=> 'Previous',
@@ -554,6 +563,17 @@ $lang = array_merge($lang, array(
 	'SEND_EMAIL'				=> 'E-mail',				// Used for submit buttons
 	'SEND_EMAIL_USER'			=> 'E-mail',				// Used as: {L_SEND_EMAIL_USER} {USERNAME} -> E-mail UserX
 	'SEND_PRIVATE_MESSAGE'		=> 'Send private message',
+	
+	'SEND_FB_MESSAGE'		=> 'Send Facebook message',
+	'SEND_IG_MESSAGE'		=> 'Send Instagram message',
+	'SEND_PT_MESSAGE'		=> 'Send Pinterest message',
+	'SEND_TWR_MESSAGE'	    => 'Send Twitter message',
+	'SEND_SKP_MESSAGE'	    => 'Send Skype message',
+	'SEND_TG_MESSAGE'		=> 'Send Telegram message',
+	'SEND_LI_MESSAGE'		=> 'Send LinkedIn message',
+	'SEND_TT_MESSAGE'		=> 'Send TikTok message',
+	'SEND_DC_MESSAGE'		=> 'Send Discord message',
+	
 	'SETTINGS'					=> 'Settings',
 	'SIGNATURE'					=> 'Signature',
 	'SKIP'						=> 'Skip to content',

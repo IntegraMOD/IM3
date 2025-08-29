@@ -438,7 +438,7 @@ if ($this_page[0] == 'viewtopic')
 		'STARGATE'            => true,
 		'MESSAGE'             => '',
 		'L_QUICK_TITLE'       => $user->lang['K_QUICK_REPLY'],
-        'S_QUICK_TITLE'       => 'Re: ' . (!empty($topic_data) && isset($topic_data['topic_title']) ? $topic_data['topic_title'] : ''),
+		'S_QUICK_TITLE'       => 'Re: ' . $topic_data['topic_title'],
 		'S_SMILIES_ALLOWED'   => $smilies_status,
 		'S_LINKS_ALLOWED'     => $url_status,
 		'S_SIG_ALLOWED'       => ($auth->acl_get('f_sigs', $forum_id) && $config['allow_sig'] && $user->data['is_registered']) ? true : false,

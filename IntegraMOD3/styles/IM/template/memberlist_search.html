@@ -44,7 +44,7 @@ function insert_single(user)
 
 <form method="post" action="{S_MODE_ACTION}" id="search_memberlist">
 <div class="panel">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<p>{L_FIND_USERNAME_EXPLAIN}</p>
 
@@ -59,6 +59,42 @@ function insert_single(user)
 		<dd><input type="text" name="email" id="email" value="{EMAIL}" class="inputbox" /></dd>
 	</dl>
 <!-- ENDIF -->
+	<dl>
+		<dt><label for="fb">{L_FB}:</label></dt>
+		<dd><input type="text" name="fb" id="fb" value="{FB}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="ig">{L_IG}:</label></dt>
+		<dd><input type="text" name="ig" id="ig" value="{IG}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="pt">{L_PT}:</label></dt>
+		<dd><input type="text" name="pt" id="pt" value="{PT}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="twr">{L_TWR}:</label></dt>
+		<dd><input type="text" name="twr" id="twr" value="{TWR}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="skp">{L_SKP}:</label></dt>
+		<dd><input type="text" name="skp" id="skp" value="{SKP}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="tg">{L_TG}:</label></dt>
+		<dd><input type="text" name="tg" id="tg" value="{TG}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="li">{L_LI}:</label></dt>
+		<dd><input type="text" name="li" id="li" value="{LI}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="tt">{L_TT}:</label></dt>
+		<dd><input type="text" name="tt" id="tt" value="{TT}" class="inputbox" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="dc">{L_DC}:</label></dt>
+		<dd><input type="text" name="dc" id="dc" value="{DC}" class="inputbox" /></dd>
+	</dl>
 	<dl>
 		<dt><label for="icq">{L_ICQ}:</label></dt>
 		<dd><input type="text" name="icq" id="icq" value="{ICQ}" class="inputbox" /></dd>
@@ -122,7 +158,7 @@ function insert_single(user)
 		{S_FORM_TOKEN}
 	</fieldset>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 
 </form>

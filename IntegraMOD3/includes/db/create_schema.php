@@ -241,7 +241,7 @@ class create_dbms
 				'VARBINARY'	=> 'varbinary(255)',
 			),
 
-			'mysql_41'		=> array(
+			'mysql_80'		=> array(
 				'INT:'		=> 'int(%d)',
 				'BINT'		=> 'bigint(20)',
 				'UINT'		=> 'mediumint(8) UNSIGNED',
@@ -481,7 +481,7 @@ class create_dbms
 
 		// A list of types being unsigned for better reference in some db's
 		$unsigned_types = array('UINT', 'UINT:', 'USINT', 'BOOL', 'TIMESTAMP');
-		$supported_dbms = array('firebird', 'mssql', 'mysql', 'mysql_40', 'mysql_41', 'db2', 'oracle', 'postgres', 'sqlite');
+		$supported_dbms = array('firebird', 'mssql', 'mysql', 'mysql_40', 'mysql_80', 'db2', 'oracle', 'postgres', 'sqlite');
 
 		$dbms_array = array();
 
@@ -517,7 +517,7 @@ class create_dbms
 				{
 					case 'mysql':
 					case 'mysql_40':
-					case 'mysql_41':
+					case 'mysql_80':
 					case 'firebird':
 					case 'oracle':
 					case 'sqlite':
@@ -600,7 +600,7 @@ class create_dbms
 					{
 						case 'mysql':
 						case 'mysql_40':
-						case 'mysql_41':
+						case 'mysql_80':
 							$line .= "\t{$column_name} {$column_type} ";
 
 							// For hexadecimal values do not use single quotes
@@ -608,7 +608,14 @@ class create_dbms
 							{
 								$line .= (strpos($column_data[1], '0x') === 0) ? "DEFAULT {$column_data[1]} " : "DEFAULT '{$column_data[1]}' ";
 							}
-							$line .= 'NOT NULL';
+							if (isset($column_data[2]) && $column_data[2] === 'null')
+							{
+								$line .= 'NULL';
+							}
+							else
+							{
+								$line .= 'NOT NULL';
+							}
 
 							if (isset($column_data[2]))
 							{
@@ -616,7 +623,7 @@ class create_dbms
 								{
 									$line .= ' auto_increment';
 								}
-								else if ($dbms === 'mysql_41' && $column_data[2] == 'true_sort')
+								else if ($dbms === 'mysql_80' && $column_data[2] == 'true_sort')
 								{
 									$line .= ' COLLATE utf8_unicode_ci';
 								}
@@ -784,7 +791,7 @@ class create_dbms
 					{
 						case 'mysql':
 						case 'mysql_40':
-						case 'mysql_41':
+						case 'mysql_80':
 						case 'postgres':
 						case 'db2':
 							$line .= "\tPRIMARY KEY (" . implode(', ', $table_data['PRIMARY_KEY']) . "),\n";
@@ -874,7 +881,7 @@ class create_dbms
 						{
 							case 'mysql':
 							case 'mysql_40':
-							case 'mysql_41':
+							case 'mysql_80':
 								$line .= ($key_data[0] == 'INDEX') ? "\tKEY" : '';
 								$line .= ($key_data[0] == 'UNIQUE') ? "\tUNIQUE" : '';
 								foreach ($key_data[1] as $key => $col_name)
@@ -951,7 +958,7 @@ class create_dbms
 						$line .= "\n);\n\n";
 					break;
 
-					case 'mysql_41':
+					case 'mysql_80':
 					case 'mysql':
 						// Remove last line delimiter...
 						$line = substr($line, 0, -2);

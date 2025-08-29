@@ -71,6 +71,16 @@ $lang = array_merge($lang, array(
 
 	'HIDE_MEMBER_SEARCH'	=> 'Verberg gebruiker zoeken',
 
+	'IM_FB'					=> 'Houd er rekening mee dat gebruikers mogelijk beperkte zichtbaarheid van Facebook-contacten hebben.',
+	'IM_IG'					=> 'Houd er rekening mee dat gebruikers mogelijk beperkte zichtbaarheid van Instagram-contacten hebben.',
+	'IM_PT'					=> 'Houd er rekening mee dat gebruikers mogelijk beperkte zichtbaarheid van Pinterest-contacten hebben.',
+	'IM_TWR'				=> 'Houd er rekening mee dat gebruikers mogelijk beperkte zichtbaarheid van Twitter-contacten hebben.',
+	'IM_SKP'				=> 'Houd er rekening mee dat Skype geïnstalleerd en geconfigureerd moet zijn om dit te gebruiken.',
+	'IM_TG'					=> 'Houd er rekening mee dat gebruikers mogelijk beperkte zichtbaarheid van Telegram-contacten hebben.',
+	'IM_LI'					=> 'Houd er rekening mee dat gebruikers mogelijk beperkte zichtbaarheid van LinkedIn-contacten hebben.',
+	'IM_TT'					=> 'Houd er rekening mee dat gebruikers mogelijk beperkte zichtbaarheid van TikTok-contacten hebben.',
+	'IM_DC'					=> 'Houd er rekening mee dat gebruikers mogelijk beperkte zichtbaarheid van Discord-contacten hebben.',
+	
 	'IM_ADD_CONTACT'		=> 'Voeg contact toe',
 	'IM_AIM'				=> 'Hiervoor dien je AOL Instant Messenger te hebben geïnstalleerd',
 	'IM_AIM_EXPRESS'		=> 'AIM Express',
@@ -99,6 +109,17 @@ $lang = array_merge($lang, array(
 	'LOGIN_EXPLAIN_MEMBERLIST'	=> 'Het forum vereist dat je geregistreerd en ingelogd bent om toegang te krijgen tot de gebruikerslijst.',
 	'LOGIN_EXPLAIN_SEARCHUSER'	=> 'Het forum vereist dat je geregistreerd en ingelogd bent om naar gebruikers te zoeken.',
 	'LOGIN_EXPLAIN_VIEWPROFILE'	=> 'Het forum vereist dat je geregistreerd en ingelogd bent om profielen te bekijken.',
+
+//-- Messenger Sort Keys --//
+	'Facebook'		=> 'Facebook',
+	'Instagram'		=> 'Instagram',
+	'Pinterest'		=> 'Pinterest',
+	'Twitter'		=> 'X',
+	'Skype'			=> 'Skype',
+	'Telegram'		=> 'Telegram',
+	'LinkedIn'		=> 'LinkedIn',
+	'TikTok'		=> 'TikTok',
+	'Discord'		=> 'Discord',
 
 	'MORE_THAN'				=> 'Meer dan',
 

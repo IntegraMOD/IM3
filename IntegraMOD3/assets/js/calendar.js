@@ -107,10 +107,7 @@ function time_show(obj)
         
 function time_close()
 {
-    var el = document.getElementById('time_java');
-    if (el) {
-        el.style.display = 'none';
-    }
+        document.getElementById('time_java').style.display='none';
 }
 
 function date_show(obj)
@@ -138,10 +135,7 @@ function date_show(obj)
 
 function date_close()
 {
-    var el = document.getElementById('date_java');
-    if (el) {
-        el.style.display = 'none';
-    }
+        document.getElementById('date_java').style.display='none';
 }
 
 //Positioning functions

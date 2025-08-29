@@ -31,6 +31,15 @@ class antispam
 	*	var $profile_types = array(FIELD_INT => 'int', FIELD_STRING => 'string', FIELD_TEXT => 'text', FIELD_BOOL => 'bool', FIELD_DROPDOWN => 'dropdown', FIELD_DATE => 'date');
 	*/
 	public static $profile_fields = array(
+		'fb'   			=> array('lang' => 'UCP_FB',   'db' => 'user_fb',   'field_type' => FIELD_STRING),
+		'ig'   			=> array('lang' => 'UCP_IG',   'db' => 'user_ig',   'field_type' => FIELD_STRING),
+		'pt'   			=> array('lang' => 'UCP_PT',   'db' => 'user_pt',   'field_type' => FIELD_STRING),
+		'twr'  			=> array('lang' => 'UCP_TWR',  'db' => 'user_twr',  'field_type' => FIELD_STRING),
+		'skp'  			=> array('lang' => 'UCP_SKP',  'db' => 'user_skp',  'field_type' => FIELD_STRING),
+		'tg'   			=> array('lang' => 'UCP_TG',   'db' => 'user_tg',   'field_type' => FIELD_STRING),
+		'li'   			=> array('lang' => 'UCP_LI',   'db' => 'user_li',   'field_type' => FIELD_STRING),
+		'tt'  			=> array('lang' => 'UCP_TT',   'db' => 'user_tt',   'field_type' => FIELD_STRING),
+		'dc'  			=> array('lang' => 'UCP_DC',   'db' => 'user_dc',   'field_type' => FIELD_STRING),
 		'icq'			=> array('lang' => 'UCP_ICQ', 'db' => 'user_icq', 'field_type' => FIELD_STRING),
 		'aim'			=> array('lang' => 'UCP_AIM', 'db' => 'user_aim', 'field_type' => FIELD_STRING),
 		'msn'			=> array('lang' => 'UCP_MSNM', 'db' => 'user_msnm', 'field_type' => FIELD_STRING),

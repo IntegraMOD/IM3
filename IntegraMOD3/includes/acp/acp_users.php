@@ -1342,6 +1342,15 @@ class acp_users
 				$user_row['iso_lang_id'] = $row['lang_id'];
 
 				$data = array(
+					'fb'			=> request_var('fb', $user_row['user_fb']),
+					'ig'			=> request_var('ig', $user_row['user_ig']),
+					'pt'			=> request_var('pt', $user_row['user_pt']),
+					'twr'			=> request_var('twr', $user_row['user_twr']),
+					'skp'			=> request_var('skp', $user_row['user_skp']),
+					'tg'			=> request_var('tg', $user_row['user_tg']),
+					'li'			=> request_var('li', $user_row['user_li']),
+					'tt'			=> request_var('tt', $user_row['user_tt']),
+					'dc'			=> request_var('dc', $user_row['user_dc']),
 					'icq'			=> request_var('icq', $user_row['user_icq']),
 					'aim'			=> request_var('aim', $user_row['user_aim']),
 					'msn'			=> request_var('msn', $user_row['user_msnm']),
@@ -1370,6 +1379,24 @@ class acp_users
 				if ($submit)
 				{
 					$error = validate_data($data, array(
+						'fb'			=> array('string', true, 3, 255),
+						'ig'			=> array('string', true, 3, 255),
+						'pt'			=> array('string', true, 3, 255),
+						'twr'			=> array('string', true, 3, 255),
+						'skp'			=> array(
+							array('string', true, 6, 32),
+							array('match', true, '#^[a-zA-Z][a-zA-Z0-9.,\-_]{5,31}$#')
+						),
+						'tg'			=> array(
+							array('string', true, 5, 32),
+							array('match', true, '#^[a-zA-Z0-9_]{5,32}$#')
+						),
+						'li'			=> array('string', true, 3, 255),
+						'tt'			=> array('string', true, 3, 255),
+						'dc'			=> array(
+							array('string', true, 6, 40),
+							array('match', true, '#^.{2,32}#[0-9]{4}$#')
+						),
 						'icq'			=> array(
 							array('string', true, 3, 15),
 							array('match', true, '#^[0-9]+$#i')),
@@ -1406,6 +1433,15 @@ class acp_users
 					if (!sizeof($error))
 					{
 						$sql_ary = array(
+							'user_fb'		=> $data['fb'],
+							'user_ig'		=> $data['ig'],
+							'user_pt'		=> $data['pt'],
+							'user_twr'		=> $data['twr'],
+							'user_skp'		=> $data['skp'],
+							'user_tg'		=> $data['tg'],
+							'user_li'		=> $data['li'],
+							'user_tt'		=> $data['tt'],
+							'user_dc'		=> $data['dc'],
 							'user_icq'		=> $data['icq'],
 							'user_aim'		=> $data['aim'],
 							'user_msnm'		=> $data['msn'],
@@ -1458,6 +1494,15 @@ class acp_users
 				unset($now);
 
 				$template->assign_vars(array(
+					'FB'			=> $data['fb'],
+					'IG'			=> $data['ig'],
+					'PT'			=> $data['pt'],
+					'TWR'			=> $data['twr'],
+					'SKP'			=> $data['skp'],
+					'TG'			=> $data['tg'],
+					'LI'			=> $data['li'],
+					'TT'			=> $data['tt'],
+					'DC'			=> $data['dc'],
 					'ICQ'			=> $data['icq'],
 					'YIM'			=> $data['yim'],
 					'AIM'			=> $data['aim'],

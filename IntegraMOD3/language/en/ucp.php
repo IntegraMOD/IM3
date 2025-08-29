@@ -434,6 +434,17 @@ $lang = array_merge($lang, array(
 	'UCP_ICQ'					=> 'ICQ number',
 	'UCP_JABBER'				=> 'Jabber address',
 
+    // messengers
+	'UCP_FB'					=> 'Facebook',
+	'UCP_IG'					=> 'Instagram',
+	'UCP_PT'					=> 'Pinterest',
+	'UCP_TWR'					=> 'Twitter',
+	'UCP_SKP'					=> 'Skype',
+	'UCP_TG'					=> 'Telegram',
+	'UCP_LI'					=> 'LinkedIn',
+	'UCP_TT'					=> 'TikTok',
+	'UCP_DC'					=> 'Discord',
+	
 	'UCP_MAIN'					=> 'Overview',
 	'UCP_MAIN_ATTACHMENTS'		=> 'Manage attachments',
 	'UCP_MAIN_BOOKMARKS'		=> 'Manage bookmarks',

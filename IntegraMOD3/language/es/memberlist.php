@@ -93,6 +93,16 @@ $lang = array_merge($lang, array(
 	'GROUP_LEADER'			=> 'Líder de grupo',
 	
 	'HIDE_MEMBER_SEARCH'    => 'Ocultar búsqueda de usuarios',
+
+	'IM_FB'					=> 'Tenga en cuenta que los usuarios pueden tener visibilidad restringida de los contactos de Facebook.',
+	'IM_IG'					=> 'Tenga en cuenta que los usuarios pueden tener visibilidad restringida de los contactos de Instagram.',
+	'IM_PT'					=> 'Tenga en cuenta que los usuarios pueden tener visibilidad restringida de los contactos de Pinterest.',
+	'IM_TWR'				=> 'Tenga en cuenta que los usuarios pueden tener visibilidad restringida de los contactos de Twitter.',
+	'IM_SKP'				=> 'Tenga en cuenta que Skype debe estar instalado y configurado para poder utilizarlo.',
+	'IM_TG'					=> 'Tenga en cuenta que los usuarios pueden tener visibilidad restringida de los contactos de Telegram.',
+	'IM_LI'					=> 'Tenga en cuenta que los usuarios pueden tener visibilidad restringida de los contactos de LinkedIn.',
+	'IM_TT'					=> 'Tenga en cuenta que los usuarios pueden tener visibilidad restringida de los contactos de TikTok.',
+	'IM_DC'					=> 'Tenga en cuenta que los usuarios pueden tener visibilidad restringida de los contactos de Discord.',
 	
 	'IM_ADD_CONTACT'	=> 'Añadir Contacto',
 	'IM_AIM'			=> 'Por favor tenga en cuenta que necesita AOL Instant Messenger instalado para usar esta opción.',
@@ -122,6 +132,17 @@ $lang = array_merge($lang, array(
 	'LOGIN_EXPLAIN_MEMBERLIST'	=> 'El administrador del Sitio requiere que esté registrado y se haya identificado para acceder a la lista de usuarios.',
 	'LOGIN_EXPLAIN_SEARCHUSER'	=> 'El administrador del Sitio requiere que esté registrado y se haya identificado para buscar usuarios.',
 	'LOGIN_EXPLAIN_VIEWPROFILE'	=> 'El administrador del Sitio requiere que esté registrado y se haya identificado para ver perfiles.',
+	
+//-- Messenger Sort Keys --//
+	'Facebook'		=> 'Facebook',
+	'Instagram'		=> 'Instagram',
+	'Pinterest'		=> 'Pinterest',
+	'Twitter'		=> 'X',
+	'Skype'			=> 'Skype',
+	'Telegram'		=> 'Telegram',
+	'LinkedIn'		=> 'LinkedIn',
+	'TikTok'		=> 'TikTok',
+	'Discord'		=> 'Discord',
 	
 	'MORE_THAN'	=> 'Más que',
 	

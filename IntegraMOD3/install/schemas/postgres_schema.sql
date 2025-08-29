@@ -623,12 +623,12 @@ CREATE TABLE phpbb_calendar (
 	enable_magic_url INT2 DEFAULT '1' NOT NULL,
 	bbcode_bitfield varchar(255) DEFAULT '' NOT NULL,
 	bbcode_uid varchar(8) DEFAULT '' NOT NULL,
-	event_start INT4 DEFAULT NULL CHECK (event_start >= 0),
-	event_end INT4 DEFAULT NULL CHECK (event_end >= 0),
-	event_repeat VARCHAR(8) DEFAULT '' NOT NULL,
-	invite_attendees INT2 DEFAULT 1 NOT NULL,
-	event_attendees TEXT,
-	event_non_attendees TEXT,
+	event_start INT4 DEFAULT '0' NULL CHECK (event_start >= 0),
+	event_end INT4 DEFAULT '0' NULL CHECK (event_end >= 0),
+	event_repeat varchar(8) DEFAULT '' NULL,
+	invite_attendees INT2 DEFAULT '0' NULL CHECK (invite_attendees >= 0),
+	event_attendees TEXT DEFAULT '' NULL,
+	event_non_attendees TEXT DEFAULT '' NULL,
 	PRIMARY KEY (event_id)
 );
 
@@ -640,9 +640,9 @@ CREATE SEQUENCE phpbb_calendar_repeat_events_seq;
 
 CREATE TABLE phpbb_calendar_repeat_events (
 	id INT4 DEFAULT nextval('phpbb_calendar_repeat_events_seq'),
-	repeat_id VARCHAR(8) DEFAULT '' NOT NULL,
-	event_start_time INT4 DEFAULT NULL CHECK (event_start_time >= 0),
-	event_end_time INT4 DEFAULT NULL CHECK (event_end_time >= 0),
+	repeat_id varchar(8) DEFAULT '' NULL,
+	event_start_time INT4 DEFAULT '0' NULL CHECK (event_start_time >= 0),
+	event_end_time INT4 DEFAULT '0' NULL CHECK (event_end_time >= 0),
 	PRIMARY KEY (id)
 );
 
@@ -3461,13 +3461,13 @@ CREATE TABLE phpbb_topics (
 	poll_max_options INT2 DEFAULT '1' NOT NULL,
 	poll_last_vote INT4 DEFAULT '0' NOT NULL CHECK (poll_last_vote >= 0),
 	poll_vote_change INT2 DEFAULT '0' NOT NULL CHECK (poll_vote_change >= 0),
-	topic_calendar_time INT4 DEFAULT NULL CHECK (topic_calendar_time >= 0),
-	topic_calendar_duration INT4 DEFAULT NULL CHECK (topic_calendar_duration >= 0),
-	event_repeat VARCHAR(8) DEFAULT '' NOT NULL,
-	invite_attendees INT2 DEFAULT 0 NOT NULL CHECK (invite_attendees >= 0),
-	event_attendees TEXT,
-	event_non_attendees TEXT,
-	topic_first_post_show INT2 DEFAULT '0' NOT NULL CHECK (topic_first_post_show >= 0),
+	topic_calendar_time INT4 DEFAULT '0' NULL CHECK (topic_calendar_time >= 0),
+	topic_calendar_duration INT4 DEFAULT '0' NULL CHECK (topic_calendar_duration >= 0),
+	event_repeat varchar(8) DEFAULT '' NULL,
+	invite_attendees INT2 DEFAULT '0' NULL CHECK (invite_attendees >= 0),
+	event_attendees TEXT DEFAULT '' NULL,
+	event_non_attendees TEXT DEFAULT '' NULL,
+	topic_first_post_show INT2 DEFAULT '0' NULL CHECK (topic_first_post_show >= 0),
 	PRIMARY KEY (topic_id)
 );
 
@@ -3562,6 +3562,15 @@ CREATE TABLE phpbb_users (
 	user_sig TEXT DEFAULT '' NOT NULL,
 	user_sig_bbcode_uid varchar(8) DEFAULT '' NOT NULL,
 	user_from varchar(100) DEFAULT '' NOT NULL,
+	user_fb varchar(255) DEFAULT '' NOT NULL,
+	user_ig varchar(255) DEFAULT '' NOT NULL,
+	user_pt varchar(255) DEFAULT '' NOT NULL,
+	user_twr varchar(255) DEFAULT '' NOT NULL,
+	user_skp varchar(255) DEFAULT '' NOT NULL,
+	user_tg varchar(255) DEFAULT '' NOT NULL,
+	user_li varchar(255) DEFAULT '' NOT NULL,
+	user_tt varchar(255) DEFAULT '' NOT NULL,
+	user_dc varchar(255) DEFAULT '' NOT NULL,
 	user_icq varchar(15) DEFAULT '' NOT NULL,
 	user_aim varchar(255) DEFAULT '' NOT NULL,
 	user_yim varchar(255) DEFAULT '' NOT NULL,

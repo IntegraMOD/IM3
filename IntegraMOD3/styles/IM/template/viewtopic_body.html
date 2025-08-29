@@ -171,7 +171,6 @@
 <!-- ENDIF -->
 
 <!-- BEGIN postrow -->
-
 	<span class="<!-- IF postrow.S_ONLINE and not postrow.S_IGNORE_POST -->online_member" title="{L_ONLINE}"<!-- ELSE -->offline_member" title="{L_OFFLINE}"<!-- ENDIF -->></span>
 	<!-- IF postrow.S_FIRST_UNREAD --><a id="unread"></a><!-- ENDIF -->
 	<div id="p{postrow.POST_ID}" class="post <!-- IF postrow.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF postrow.S_UNREAD_POST --> unreadpost<!-- ENDIF --><!-- IF postrow.S_POST_REPORTED --> reported<!-- ENDIF -->">
@@ -292,12 +291,21 @@
 		<!-- END custom_fields -->
 
 		<!-- IF not S_IS_BOT -->
-		<!-- IF postrow.U_PM or postrow.U_EMAIL or postrow.U_WWW or postrow.U_MSN or postrow.U_ICQ or postrow.U_YIM or postrow.U_AIM or postrow.U_JABBER -->
+		<!-- IF postrow.U_PM or postrow.U_EMAIL or postrow.U_WWW or postrow.U_MSN or postrow.U_ICQ or postrow.U_YIM or postrow.U_AIM or postrow.U_JABBER or postrow.U_GALLERY or postrow.U_FB or postrow.U_IG or postrow.U_PT or postrow.U_TWR or postrow.U_SKP or postrow.U_TG or postrow.U_LI or postrow.U_TT or postrow.U_DC -->
 			<dd>
 				<ul class="profile-icons">
 					<!-- IF postrow.U_PM --><li><a href="{postrow.U_PM}" title="{L_PRIVATE_MESSAGE}"><i class="fa-solid fa-inbox fa-2x"></i></a></li><!-- ENDIF -->
 					<!-- IF postrow.U_EMAIL --><li><a href="{postrow.U_EMAIL}" title="{L_SEND_EMAIL_USER} {postrow.POST_AUTHOR}"><i class="fa-regular fa-envelope fa-2x"></i></a></li><!-- ENDIF -->
 					<!-- IF postrow.U_WWW --><li><a href="{postrow.U_WWW}" title="{L_VISIT_WEBSITE}: {postrow.U_WWW}"><i class="fa-solid fa-globe fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_FB --><li><a href="{postrow.U_FB}" onclick="popup(this.href, 780, 550); return false;" title="{L_FB}"><i class="fa-brands fa-facebook fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_IG --><li><a href="{postrow.U_IG}" onclick="popup(this.href, 780, 550); return false;" title="{L_IG}"><i class="fa-brands fa-instagram fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_PT --><li><a href="{postrow.U_PT}" onclick="popup(this.href, 780, 550); return false;" title="{L_PT}"><i class="fa-brands fa-pinterest fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_TWR --><li><a href="{postrow.U_TWR}" onclick="popup(this.href, 780, 550); return false;" title="{L_TWR}"><i class="fa-brands fa-x-twitter fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_SKP --><li><a href="{postrow.U_SKP}" onclick="popup(this.href, 780, 550); return false;" title="{L_SKP}"><i class="fa-brands fa-skype fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_TG --><li><a href="{postrow.U_TG}" onclick="popup(this.href, 780, 550); return false;" title="{L_TG}"><i class="fa-brands fa-telegram fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_LI --><li><a href="{postrow.U_LI}" onclick="popup(this.href, 780, 550); return false;" title="{L_LI}"><i class="fa-brands fa-linkedin fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_TT --><li><a href="{postrow.U_TT}" onclick="popup(this.href, 780, 550); return false;" title="{L_TT}"><i class="fa-brands fa-tiktok fa-2x"></i></a></li><!-- ENDIF -->
+					<!-- IF postrow.U_DC --><li><a href="{postrow.U_DC}" onclick="popup(this.href, 780, 550); return false;" title="{L_DC}"><i class="fa-brands fa-discord fa-2x"></i></a></li><!-- ENDIF -->
 					<!-- IF postrow.U_MSN --><li><a href="{postrow.U_MSN}" onclick="popup(this.href, 550, 320); return false;" title="{L_MSNM}"><i class="fa-solid fa-msnm-logo fa-2x"></i></a></li><!-- ENDIF -->
 					<!-- IF postrow.U_ICQ --><li><a href="{postrow.U_ICQ}" onclick="popup(this.href, 550, 320); return false;" title="{L_ICQ}"><i class="fa-solid fa-icq-logo fa-2x"></i></a></li><!-- ENDIF -->
 					<!-- IF postrow.U_YIM --><li><a href="{postrow.U_YIM}" onclick="popup(this.href, 780, 550); return false;" title="{L_YIM}"><i class="fa-brands fa-yahoo fa-2x"></i></a></li><!-- ENDIF -->
@@ -316,7 +324,6 @@
 
 		</div>
 	</div>
-
 	<hr class="divider" />
 
 	<!-- IF (ADS_5 and postrow.S_FIRST_ROW) or (ADS_6 and not postrow.S_FIRST_ROW) -->

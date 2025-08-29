@@ -825,12 +825,12 @@ CREATE TABLE [phpbb_calendar] (
 	[enable_magic_url] [int] DEFAULT (1) NOT NULL ,
 	[bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL ,
-	[event_start] [int] DEFAULT NULL,
-	[event_end] [int] DEFAULT NULL,
-	[event_repeat]  DEFAULT ('') NOT NULL,
-	[invite_attendees] [int] DEFAULT (1) NOT NULL,
-	[event_attendees] [text] NULL,
-	[event_non_attendees] [text] NULL
+	[event_start] [int] DEFAULT (0) NULL ,
+	[event_end] [int] DEFAULT (0) NULL ,
+	[event_repeat] [varchar] (8) DEFAULT ('') NULL ,
+	[invite_attendees] [int] DEFAULT (0) NULL ,
+	[event_attendees] [text] DEFAULT ('') NULL ,
+	[event_non_attendees] [text] DEFAULT ('') NULL 
 )GO
 
 ALTER TABLE [phpbb_calendar] WITH NOCHECK ADD 
@@ -846,9 +846,9 @@ GO
 */
 CREATE TABLE [phpbb_calendar_repeat_events] (
 	[id] [int] IDENTITY (1, 1) NOT NULL ,
-[repeat_id] [varchar] DEFAULT ('') NOT NULL,
-[event_start_time] [int] DEFAULT NULL,
-[event_end_time] [int] DEFAULT NULL
+	[repeat_id] [varchar] (8) DEFAULT ('') NULL ,
+	[event_start_time] [int] DEFAULT (0) NULL ,
+	[event_end_time] [int] DEFAULT (0) NULL 
 )GO
 
 ALTER TABLE [phpbb_calendar_repeat_events] WITH NOCHECK ADD 
@@ -3954,7 +3954,7 @@ CREATE TABLE [phpbb_sn_users] (
 	[twitter] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[youtube] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[profile_views] [int] DEFAULT (0) NOT NULL ,
-	[profile_last_change] [int] DEFAULT (0) NOT NULL
+	[profile_last_change] [int] DEFAULT (0) NOT NULL 
 )GO
 
 ALTER TABLE [phpbb_sn_users] WITH NOCHECK ADD 
@@ -4776,13 +4776,13 @@ CREATE TABLE [phpbb_topics] (
 	[poll_max_options] [int] DEFAULT (1) NOT NULL ,
 	[poll_last_vote] [int] DEFAULT (0) NOT NULL ,
 	[poll_vote_change] [int] DEFAULT (0) NOT NULL ,
-	[topic_calendar_time] [int] DEFAULT NULL,
-	[topic_calendar_duration] [int] DEFAULT NULL,
-	[event_repeat]  DEFAULT ('') NOT NULL,
-	[invite_attendees] [int] DEFAULT (0) NOT NULL,
-	[event_attendees] [text] NULL,
-	[event_non_attendees] [text] NULL,
-	[topic_first_post_show] [int] DEFAULT (0) NOT NULL
+	[topic_calendar_time] [int] DEFAULT (0) NULL ,
+	[topic_calendar_duration] [int] DEFAULT (0) NULL ,
+	[event_repeat] [varchar] (8) DEFAULT ('') NULL ,
+	[invite_attendees] [int] DEFAULT (0) NULL ,
+	[event_attendees] [text] DEFAULT ('') NULL ,
+	[event_non_attendees] [text] DEFAULT ('') NULL ,
+	[topic_first_post_show] [int] DEFAULT (0) NULL 
 )GO
 
 ALTER TABLE [phpbb_topics] WITH NOCHECK ADD 
@@ -4939,6 +4939,15 @@ CREATE TABLE [phpbb_users] (
 	[user_sig] [text] DEFAULT ('') NOT NULL ,
 	[user_sig_bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL ,
 	[user_from] [varchar] (100) DEFAULT ('') NOT NULL ,
+	[user_fb] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_ig] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_pt] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_twr] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_skp] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_tg] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_li] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_tt] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_dc] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[user_icq] [varchar] (15) DEFAULT ('') NOT NULL ,
 	[user_aim] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[user_yim] [varchar] (255) DEFAULT ('') NOT NULL ,

@@ -6,16 +6,97 @@
 <form method="post" action="{S_IM_ACTION}">
 
 <div class="panel bg2">
-	<div class="inner">
+	<div class="inner"><span class="corners-top"><span></span></span>
 
 	<p>{L_SEND_IM_EXPLAIN}</p>
 
 	<fieldset>
 	<dl class="fields2">
 		<dt><label>{L_IM_RECIPIENT}:</label></dt>
-		<dd><strong>{USERNAME}</strong><!-- IF S_SEND_ICQ or S_SEND_AIM or S_SEND_MSNM or S_NO_SEND_JABBER --> [ {IM_CONTACT} ]<!-- ENDIF --><!-- IF PRESENCE_IMG --> {PRESENCE_IMG}<!-- ENDIF --></dd>
+		<dd><strong>{USERNAME}</strong><!-- IF S_SEND_ICQ or S_SEND_AIM or S_SEND_MSNM or S_NO_SEND_JABBER or S_SEND_FB or S_SEND_IG or S_SEND_PT or S_SEND_TWR or S_SEND_SKP or S_SEND_TG or S_SEND_LI or S_SEND_TT or S_SEND_DC --> [ {IM_CONTACT} ]<!-- ENDIF --><!-- IF PRESENCE_IMG --> {PRESENCE_IMG}<!-- ENDIF --></dd>
 	</dl>
 
+	<!-- IF S_SEND_FB -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_FB_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_FB_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://www.facebook.com">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_SEND_IG -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_IG_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_IG_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://www.instagram.com">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_SEND_PT -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_PT_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_PT_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://www.pinterest.com">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_SEND_TWR -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_TWR_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_TWR_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://twitter.com/download">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_SEND_SKP -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_SKP_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_SKP_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://www.skype.com/en/get-skype">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_SEND_TG -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_TG_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_TG_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://telegram.org">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_SEND_LI -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_LI_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_LI_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://www.linkedin.com">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_SEND_TT -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_TT_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_TT_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://www.tiktok.com/download">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+
+	<!-- IF S_SEND_DC -->
+		<dl class="fields2">
+			<dt>&nbsp;</dt>
+			<dd><a href="{U_DC_CONTACT}">{L_IM_ADD_CONTACT}</a></dd>
+			<dd><a href="{U_DC_MESSAGE}">{L_IM_SEND_MESSAGE}</a></dd>
+			<dd><a href="https://discord.com/download">{L_IM_DOWNLOAD_APP}</a></dd>
+		</dl>
+	<!-- ENDIF -->
+	
 	<!-- IF S_SEND_ICQ -->
 		<dl class="fields2">
 			<dt><label for="from">{L_IM_NAME}:</label></dt>
@@ -79,7 +160,7 @@
 	{S_FORM_TOKEN}
 	</fieldset>
 
-	</div>
+	<span class="corners-bottom"><span></span></span></div>
 </div>
 </form>
 

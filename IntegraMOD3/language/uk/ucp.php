@@ -403,6 +403,18 @@ $lang = array_merge($lang, array(
 	'UCP_EMAIL_ACTIVATE'	=> 'Зауважте, вам необхідно ввести реальну адресу e-mail для того, щоб активувати ваш обліковий запис. На вказану вами адресу прийде лист з посиланням для активації облікового запису.',
 	'UCP_ICQ'	=> 'Номер ICQ',
 	'UCP_JABBER'	=> 'Адреса Jabber',
+	
+    // messengers
+	'UCP_FB'					=> 'Facebook',
+	'UCP_IG'					=> 'Instagram',
+	'UCP_PT'					=> 'Pinterest',
+	'UCP_TWR'					=> 'Twitter',
+	'UCP_SKP'					=> 'Skype',
+	'UCP_TG'					=> 'Telegram',
+	'UCP_LI'					=> 'LinkedIn',
+	'UCP_TT'					=> 'TikTok',
+	'UCP_DC'					=> 'Discord',
+	
 	'UCP_MAIN'	=> 'Огляд',
 	'UCP_MAIN_ATTACHMENTS'	=> 'Керування приєднаними файлами',
 	'UCP_MAIN_BOOKMARKS'	=> 'Керування закладками',
