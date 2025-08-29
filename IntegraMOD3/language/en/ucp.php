@@ -444,7 +444,7 @@ $lang = array_merge($lang, array(
 	'UCP_LI'					=> 'LinkedIn',
 	'UCP_TT'					=> 'TikTok',
 	'UCP_DC'					=> 'Discord',
-    'UCP_DC_TAG'				=> 'Discord tag — e.g. HelterSkelter#1337',
+    'UCP_DC_TAG'				=> 'Discord Username',
 	  
 	'UCP_MAIN'					=> 'Overview',
 	'UCP_MAIN_ATTACHMENTS'		=> 'Manage attachments',

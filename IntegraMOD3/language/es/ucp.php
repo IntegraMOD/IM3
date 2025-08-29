@@ -458,7 +458,8 @@ $lang = array_merge($lang, array(
 	'UCP_LI'					=> 'LinkedIn',
 	'UCP_TT'					=> 'TikTok',
 	'UCP_DC'					=> 'Discord',
-    'UCP_DC_TAG'				=> 'Etiqueta de Discord — ej. HelterSkelter#1337',
+    'UCP_DC_TAG'				=> 'Nombre de usuario de Discord',
+
 
 	'UCP_MAIN'				=> 'Vista General',
 	'UCP_MAIN_ATTACHMENTS'	=> 'Organizar adjuntos',
