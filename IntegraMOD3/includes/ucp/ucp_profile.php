@@ -332,10 +332,10 @@ class ucp_profile
 						),
 						'li'			=> array('string', true, 3, 255),
 						'tt'			=> array('string', true, 3, 255),
-'dc' => array(
-    array('string', true, 7, 37),
-    array('match', true, '/^.{2,32}#[0-9]{4}$/')
-),
+						'dc' => array(
+							array('string', true, 7, 37),
+							array('match', true, '/^.{2,32}#[0-9]{4}$/')
+						),
 						'icq'			=> array(
 							array('string', true, 3, 15),
 							array('match', true, '#^[0-9]+$#i')),
@@ -699,7 +699,7 @@ class ucp_profile
 
 		$template->assign_vars(array(
 			'L_TITLE'	=> $user->lang['UCP_PROFILE_' . strtoupper((string) $mode)],
-
+            'UCP_DC_TAG'		=> $user->lang['UCP_DC_TAG'],
 			'S_HIDDEN_FIELDS'	=> $s_hidden_fields,
 			'S_UCP_ACTION'		=> $this->u_action)
 		);
