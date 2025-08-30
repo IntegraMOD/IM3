@@ -6,7 +6,7 @@
 		<div class="r_block_vert_gap rtl" id="right">
 			<script>
 				// <![CDATA[
-				if(get_cookie('right_blocks_col_hide') == '2')
+				if(Get_Cookie('right_blocks_col_hide') == '2')
 				{
 					ShowHide('right');
 					ShowHide('right_blocks_col_hide');
@@ -33,11 +33,11 @@
 		var _right;
 		var _center;
 
-		$_left = get_cookie('{COOKIE_NAME}_sgp_left');
-		$_center = get_cookie('{COOKIE_NAME}_sgp_center');
-		$_right = get_cookie('{COOKIE_NAME}_sgp_right');
+		$_left = Get_Cookie('{COOKIE_NAME}_sgp_left');
+		$_center = Get_Cookie('{COOKIE_NAME}_sgp_center');
+		$_right = Get_Cookie('{COOKIE_NAME}_sgp_right');
 
-		set_cookie('{COOKIE_NAME}_sgp_block_cache', '0');
+		Set_Cookie('{COOKIE_NAME}_sgp_block_cache', '0');
 
 		Sortable.create("left",
 			{tag:'div',dropOnEmpty:true,handle:'handle',containment:["left","center","right"],constraint:false,
@@ -47,9 +47,9 @@
 					$_left = $('leftdebug').innerHTML = Sortable.serialize('left');
 					$_center = $('centerdebug').innerHTML = Sortable.serialize('center');
 					$_right = $('rightdebug').innerHTML = Sortable.serialize('right');
-					set_cookie('{COOKIE_NAME}_sgp_left', $_left);
-					set_cookie('{COOKIE_NAME}_sgp_center', $_center);
-					set_cookie('{COOKIE_NAME}_sgp_right', $_right);
+					Set_Cookie('{COOKIE_NAME}_sgp_left', $_left);
+					Set_Cookie('{COOKIE_NAME}_sgp_center', $_center);
+					Set_Cookie('{COOKIE_NAME}_sgp_right', $_right);
 				}
 			});
 		Sortable.create("center",
@@ -60,9 +60,9 @@
 					$_left = $('leftdebug').innerHTML = Sortable.serialize('left');
 					$_center = $('centerdebug').innerHTML = Sortable.serialize('center');
 					$_right = $('rightdebug').innerHTML = Sortable.serialize('right');
-					set_cookie('{COOKIE_NAME}_sgp_left', $_left);
-					set_cookie('{COOKIE_NAME}_sgp_center', $_center);
-					set_cookie('{COOKIE_NAME}_sgp_right', $_right);
+					Set_Cookie('{COOKIE_NAME}_sgp_left', $_left);
+					Set_Cookie('{COOKIE_NAME}_sgp_center', $_center);
+					Set_Cookie('{COOKIE_NAME}_sgp_right', $_right);
 				}
 			});
 		Sortable.create("right",
@@ -73,9 +73,9 @@
 					$_left = $('leftdebug').innerHTML = Sortable.serialize('left');
 					$_center = $('centerdebug').innerHTML = Sortable.serialize('center');
 					$_right = $('rightdebug').innerHTML = Sortable.serialize('right');
-					set_cookie('{COOKIE_NAME}_sgp_left', $_left);
-					set_cookie('{COOKIE_NAME}_sgp_center', $_center);
-					set_cookie('{COOKIE_NAME}_sgp_right', $_right);
+					Set_Cookie('{COOKIE_NAME}_sgp_left', $_left);
+					Set_Cookie('{COOKIE_NAME}_sgp_center', $_center);
+					Set_Cookie('{COOKIE_NAME}_sgp_right', $_right);
 				}
 			});
 	// ]]>
@@ -91,7 +91,7 @@
 	<!-- IF S_IS_PORTAL and not S_ARRANGE -->
 	<script>
 	// <![CDATA[
-		set_cookie('{COOKIE_NAME}_sgp_block_cache', '300');
+		Set_Cookie('{COOKIE_NAME}_sgp_block_cache', '300');
 	 // ]]>
 	</script>
 	<!-- ENDIF -->
@@ -99,10 +99,10 @@
 	<!-- IF S_CLEAR_CACHE -->
 	<script>
 	// <![CDATA[
-		set_cookie('{COOKIE_NAME}_sgp_block_cache', '0');
-		set_cookie('{COOKIE_NAME}_sgp_left', '', 0);
-		set_cookie('{COOKIE_NAME}_sgp_center', '', 0);
-		set_cookie('{COOKIE_NAME}_sgp_right', '', 0);
+		Set_Cookie('{COOKIE_NAME}_sgp_block_cache', '0');
+		Set_Cookie('{COOKIE_NAME}_sgp_left', '', 0);
+		Set_Cookie('{COOKIE_NAME}_sgp_center', '', 0);
+		Set_Cookie('{COOKIE_NAME}_sgp_right', '', 0);
 	 // ]]>
 	</script>
 	<!-- ENDIF -->

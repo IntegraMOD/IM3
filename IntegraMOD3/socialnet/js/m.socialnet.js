@@ -80,9 +80,18 @@ var socialNetwork = (function($) {
 				self._documentClick(event);
 			});
 
-			$('.sn-page-content').bind('DOMSubtreeModified', function() {
-				self._DOMSubtreeModified();
-			});
+			var targetNode = document.querySelector('.sn-page-content');
+			if (targetNode) {
+				var observer = new MutationObserver(function(mutationsList) {
+					if (typeof self._DOMSubtreeModified === 'function') {
+						self._DOMSubtreeModified();
+					}
+				});
+				observer.observe(targetNode, {
+					childList: true,
+					subtree: true
+				});
+			}
 
 			this.rtl = $('body').hasClass('rtl');
 			if (!this.cookie.domain.match(/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/) && !this.cookie.domain.match(/^\./)) {

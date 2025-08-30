@@ -18,7 +18,7 @@ if (!defined('IN_PHPBB'))
 * @package module_install
 */
 
-class acp_imod_config_info
+class acp_imod_config
 {
 	function module()
 	{

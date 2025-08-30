@@ -41,12 +41,10 @@
 	<div class="copyright">
 		<!-- IF U_MCP --><a class="mcp" href="{U_MCP}">{L_MCP}</a><!-- IF not U_ACP --><br /><br /><!-- ENDIF --><!-- ENDIF --><!-- IF U_ACP --><!-- IF U_MCP --> | <!-- ENDIF --><a class="acp" href="{U_ACP}">{L_ACP}</a><br /><br /><!-- ENDIF -->
         <!-- IF U_MCP -->{CURRENT_TIME}<br /><br /><!-- ELSEIF S_USER_LOGGED_IN -->{CURRENT_TIME}<br /><br /><!-- ENDIF -->
-				
-        <a href="https://integramod.com/portal.php" target="_blank">IntegraMOD®</a> is {CREDIT_LINE}
-
-        <!-- IF SCRIPT_NAME eq 'activitypage' or SCRIPT_NAME eq 'profile' --><br />Powered by <a href="#" title="phpBB Social Network">phpBB Social Network</a> &copy; phpBB SN Group'<!-- ENDIF -->	
-		<!-- IF S_IS_PORTAL --><br /><!-- INCLUDE portal_copyright.html --><!-- ENDIF -->		
-		
+        {CREDIT_LINE}
+        <!-- IF SCRIPT_NAME eq 'activitypage' or SCRIPT_NAME eq 'profile' -->Powered by <a href="#" title="phpBB Social Network">phpBB Social Network</a> &copy; phpBB SN Group'<!-- ENDIF -->	
+		<!-- IF STARGATE --><!-- INCLUDE portal_copyright.html --><!-- ENDIF -->
+		<!-- IF SITE_COPYRIGHT -->{COPYRIGHT}<!-- ENDIF -->
 		<!-- IF TRANSLATION_INFO --><br />{TRANSLATION_INFO}<!-- ENDIF -->
 		<!-- IF DEBUG_OUTPUT --><br />{DEBUG_OUTPUT}<!-- ENDIF -->
 	</div>

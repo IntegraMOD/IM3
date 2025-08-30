@@ -192,6 +192,7 @@ $lang = array_merge($lang, array(
 	'INSTALL_CONGRATS_EXPLAIN'	=> 'You have successfully installed IntegraMOD %1$s.</p>
 		<h2>Youre almost there!</h2>
 		<p><strong>Please delete, move or rename the install directory now, before continuing to the last step, Installng Social Network.</strong>',
+    'INSTALL_SN'				=> 'Install Social Network',
 	'INSTALL_INTRO'				=> 'Welcome to your IntegraMOD Installation',
 
 	'INSTALL_INTRO_BODY'		=> 'With this option, it is possible to install IntegraMOD onto your server.</p><p>In order to 

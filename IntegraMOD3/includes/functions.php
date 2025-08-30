@@ -4303,7 +4303,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '	</div>';
 			echo '	</div>';
 			echo '	<div id="page-footer">';
-			echo '		Powered by <a href="#">phpBB</a>&reg; Forum Software &copy; phpBB Group';
+			echo '		Powered by <a href="https://www.integramod.com/">IntegraMOD</a>&reg; Communuty Software &copy; IntegraMOD Team';
 			echo '	</div>';
 			echo '</div>';
 			echo '</body>';
@@ -5667,7 +5667,9 @@ function page_footer($run_cron = true)
 	$template->assign_vars(array(
 		'DEBUG_OUTPUT'			=> (defined('DEBUG')) ? $debug_output : '',
 		'TRANSLATION_INFO'		=> (!empty($user->lang['TRANSLATION_INFO'])) ? $user->lang['TRANSLATION_INFO'] : '',
-		'CREDIT_LINE'			=> $user->lang('POWERED_BY', '<a href="#">phpBB</a>&reg; Forum Software &copy; phpBB Group'),
+		'CREDIT_LINE'			=> $user->lang('POWERED_BY', '<a href="https://www.integramod.com/">IntegraMOD</a>&reg; Communuty Software &copy; IntegraMOD Team'),
+        'COPYRIGHT'             => sprintf($user->lang('MY_WEBSITE'), '&copy; ' . $config['sitename']),
+	    'SITE_COPYRIGHT'		=> (!empty($config['site_copyright_enable'])),
 
 		'U_ACP' => ($auth->acl_get('a_') && !empty($user->data['is_registered'])) ? append_sid("{$phpbb_root_path}adm/index.$phpEx", false, true, $user->session_id) : '')
 	);

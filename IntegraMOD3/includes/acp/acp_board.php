@@ -53,6 +53,7 @@ class acp_board
 					'vars'	=> array(
 						'legend1'				=> 'ACP_BOARD_SETTINGS',
 						'sitename'				=> array('lang' => 'SITE_NAME',				'validate' => 'string',	'type' => 'text:40:255', 'explain' => false),
+						'site_copyright_enable'	=> array('lang' => 'SITE_COPYRIGHT_ENABLE',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'site_desc'				=> array('lang' => 'SITE_DESC',				'validate' => 'string',	'type' => 'text:40:255', 'explain' => false),
 						'board_disable'			=> array('lang' => 'DISABLE_BOARD',			'validate' => 'bool',	'type' => 'custom', 'method' => 'board_disable', 'explain' => true),
 						'board_disable_msg'		=> false,

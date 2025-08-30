@@ -56,7 +56,7 @@ class install_install extends module
 
 	function main($mode, $sub)
 	{
-		global $lang, $template, $language, $phpbb_root_path, $cache;
+		global $lang, $template, $language, $phpbb_root_path, $phpEx, $cache;
 
 		switch ($sub)
 		{
@@ -1597,7 +1597,7 @@ class install_install extends module
 				$row = $db->sql_fetchrow($result);
 				$db->sql_freeresult($result);
 
-				$_module->move_module_by($row, 'move_up', 4);
+				$_module->move_module_by($row, 'move_up', 6);
 
 				// Move permissions intro screen module 4 up...
 				$sql = 'SELECT *

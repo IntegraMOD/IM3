@@ -214,6 +214,7 @@ $lang = array_merge($lang, array(
 	'INSTALL_CONGRATS_EXPLAIN' => 'Ha instalado correctamente IntegraMOD %1$s.</p>
 		<h2>¡Ya casi está listo!</h2>
 		<p><strong>Por favor, elimine, mueva o cambie el nombre del directorio de instalación ahora, antes de continuar con el último paso: instalar la Red Social.</strong>',
+    'INSTALL_SN'				=> 'Instalar red social',
 	'INSTALL_INTRO' => 'Bienvenido a la instalación de IntegraMOD',
 
 	'INSTALL_INTRO_BODY' => 'Con esta opción, es posible instalar IntegraMOD en su servidor.</p><p>Para continuar, necesitará los datos de configuración de su base de datos. Si no los conoce, contacte a su proveedor de hosting y solicítelos. No podrá continuar sin ellos. Necesita:</p>

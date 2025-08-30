@@ -72,6 +72,7 @@ $lang = array_merge($lang, array(
 	'OVERRIDE_STYLE_EXPLAIN'	=> 'Reemplaza el estilo del usuario por el estilo por defecto.',
 	'SITE_DESC'			=> 'Descripción del Sitio',
 	'SITE_NAME'			=> 'Nombre del Sitio',
+	'SITE_COPYRIGHT_ENABLE'	=> 'Mostrar el nombre del sitio como copyright en el pie de página',
 	'SYSTEM_DST'			=> 'Habilitar horario de ahorro de energía',
 	'SYSTEM_TIMEZONE'		=> 'Zona horaria para invitados',
 	'SYSTEM_TIMEZONE_EXPLAIN'   	=> 'Zona horaria a usar para mostrar horarios a usuarios no identificados (invitados, bots). Los usuarios identificados eligen su zona horaria durante el proceso de registro y pueden cambiarla en su Panel de Usuario.',

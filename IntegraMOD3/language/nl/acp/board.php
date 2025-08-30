@@ -49,6 +49,7 @@ $lang = array_merge($lang, array(
 	'OVERRIDE_STYLE_EXPLAIN'		=> 'Negeer de gebruikersstijl door de standaard stijl.',
 	'SITE_DESC'						=> 'Omschrijving van de site',
 	'SITE_NAME'						=> 'Naam van de site',
+	'SITE_COPYRIGHT_ENABLE'	        => 'Naam van de site als copyright in de footer weergeven',
 	'SYSTEM_DST'					=> 'Zomertijd toepassen',
 	'SYSTEM_TIMEZONE'				=> 'Tijdzone voor gasten',
 	'SYSTEM_TIMEZONE_EXPLAIN'		=> 'Tijdzone die wordt weergegeven aan gebruikers die niet ingelogd zijn(gasten, bots). Ingelogde gebruikers stellen hun tijdzone in bij de registratie en kunnen dit aanpassen in hun gebruikerspaneel.',

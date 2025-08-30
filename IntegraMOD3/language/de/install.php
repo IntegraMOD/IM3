@@ -192,9 +192,10 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'			=> 'Grund-Konfiguration',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Nachdem nun festgestellt wurde, dass phpBB auf deinem Server betrieben werden kann, musst du noch einige Informationen angeben. Wenn du nicht weißt, wie die Verbindungsdaten für deine Datenbank lauten, kontaktiere bitte als erstes deinen Webhosting-Provider oder wende dich an die phpBB Support-Foren. Wenn du Daten eingibst, prüfe diese bitte sorgfältig, bevor du fortfährst.',
 	'INSTALL_CONGRATS'			=> 'Herzlichen Glückwunsch!',
-	'INSTALL_CONGRATS_EXPLAIN' => '	Sie haben IntegraMOD %1$s erfolgreich installiert.</p>
+	'INSTALL_CONGRATS_EXPLAIN'  => '	Sie haben IntegraMOD %1$s erfolgreich installiert.</p>
 		<h2>Fast geschafft!</h2>
 		<p><strong>Bitte löschen, verschieben oder benennen Sie das Installationsverzeichnis jetzt um, bevor Sie mit dem letzten Schritt fortfahren: der Installation des Social Network-Moduls.</strong>',
+    'INSTALL_SN'				=> 'Social Network installieren',
 	'INSTALL_INTRO' => 'Willkommen zur IntegraMOD-Installation',
 
 	'INSTALL_INTRO_BODY' => 'Mit dieser Option können Sie IntegraMOD auf Ihrem Server installieren.</p><p>Um fortzufahren, benötigen Sie Ihre Datenbankeinstellungen. Falls Sie diese nicht kennen, wenden Sie sich bitte an Ihren Hosting-Anbieter. Ohne diese Angaben können Sie nicht fortfahren. Sie benötigen:</p>

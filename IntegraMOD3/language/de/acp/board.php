@@ -52,6 +52,7 @@ $lang = array_merge($lang, array(
 	'OVERRIDE_STYLE_EXPLAIN'		=> 'Verwendet den Standard-Style statt der individuell von den Benutzern gewählten Styles.',
 	'SITE_DESC'						=> 'Beschreibung des Boards',
 	'SITE_NAME'						=> 'Name des Boards',
+	'SITE_COPYRIGHT_ENABLE'	        => 'Website-Name als Copyright im Footer anzeigen',
 	'SYSTEM_DST'					=> 'Derzeit ist Sommerzeit',
 	'SYSTEM_TIMEZONE'				=> 'Zeitzone für Gäste',
 	'SYSTEM_TIMEZONE_EXPLAIN'		=> 'Zeitzone, die für Benutzer verwendet wird, die nicht angemeldet sind (Gäste, Bots). Angemeldete Benutzer legen ihre Zeitzone während der Registrierung fest und können sie im persönlichen Bereich ändern.',

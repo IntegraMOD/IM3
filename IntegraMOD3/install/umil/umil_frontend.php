@@ -3,7 +3,7 @@
  *
  * @author Nathan Guse (EXreaction) http://lithiumstudios.org
  * @author David Lewis (Highway of Life) highwayoflife@gmail.com
- * @package umil
+ * @package umil v2
  * @copyright (c) 2008 phpBB Group
  * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  */
@@ -31,9 +31,6 @@ if (!class_exists('umil'))
  */
 class umil_frontend extends umil
 {
-	// The title of the mod
-	var $title = '';
-
 	// Were there any errors so far (used when displaying results)?
 	var $errors = false;
 
@@ -43,8 +40,11 @@ class umil_frontend extends umil
 	// The file we will record any errors in
 	var $error_file = '';
 
-	// Force displaying of the results?
+	// Force display of results regardless of success
 	var $force_display_results = false;
+
+    var $title = '';
+
 
 	/**
 	* Constructor
@@ -54,16 +54,13 @@ class umil_frontend extends umil
 	* @param bool $force_display_results Allows you to force this to automatically display all results
 	* @param object|bool $db Allows you to use your own $db object instead of the global $db
 	*/
-	function umil_frontend($title = '', $auto_display_results = false, $force_display_results = false, $db = false)
+	function __construct($title = '', $auto_display_results = false, $force_display_results = false, $db = false)
 	{
 		global $phpbb_root_path, $phpEx, $template, $user;
-
-		$this->title = $title;
 
 		// we must call the main constructor
 		$this->umil(false, $db);
 		$this->auto_display_results = $auto_display_results;
-		$this->force_display_results = $force_display_results;
 
 		$user->add_lang('install');
 
@@ -77,8 +74,8 @@ class umil_frontend extends umil
 			'body' => 'index_body.html',
 		));
 
-		$title_explain = (isset($user->lang[$title . '_EXPLAIN'])) ? $user->lang[$title . '_EXPLAIN'] : '';
-		$title = (isset($user->lang[$title])) ? $user->lang[$title] : $title;
+		$title_explain = isset($user->lang[$title . '_EXPLAIN']) ? $user->lang[$title . '_EXPLAIN'] : '';
+		$title = isset($user->lang[$title]) ? $user->lang[$title] : $title;
 
 		page_header($title, false);
 
@@ -118,8 +115,8 @@ class umil_frontend extends umil
 			}
 
 			$template->assign_block_vars('l_block', array(
-				'L_TITLE'			=> (isset($user->lang[$stage])) ? $user->lang[$stage] : $stage,
-				'U_TITLE'			=> (isset($data['url'])) ? $data['url'] : false,
+				'L_TITLE'			=> isset($user->lang[$stage]) ? $user->lang[$stage] : $stage,
+				'U_TITLE'			=> isset($data['url']) ? $data['url'] : false,
 				'S_COMPLETE'		=> ($i < $selected) ? true : false,
 				'S_SELECTED'		=> ($i == $selected) ? true : false,
 			));
@@ -169,31 +166,31 @@ class umil_frontend extends umil
 
 		foreach ($options as $name => $vars)
 		{
-			if (!is_array($vars) && strpos($name, 'legend') === false)
+			if (!is_array($vars) && !str_contains($name, 'legend'))
 			{
 				continue;
 			}
 
-			if (strpos($name, 'legend') !== false)
+			if (str_contains($name, 'legend'))
 			{
 				$template->assign_block_vars('options', array(
 					'S_LEGEND'		=> true,
-					'LEGEND'		=> (isset($user->lang[$vars])) ? $user->lang[$vars] : $vars)
-				);
+					'LEGEND'		=> isset($user->lang[$vars]) ? $user->lang[$vars] : $vars,
+				));
 
 				continue;
 			}
 
-			$type = explode(':', $vars['type']);
+			$type = explode(':', (string) $vars['type']);
 
 			$l_explain = '';
 			if (isset($vars['explain']) && $vars['explain'] && isset($vars['lang_explain']))
 			{
-				$l_explain = (isset($user->lang[$vars['lang_explain']])) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
+				$l_explain = isset($user->lang[$vars['lang_explain']]) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
 			}
 			else if (isset($vars['explain']) && $vars['explain'])
 			{
-				$l_explain = (isset($user->lang[$vars['lang'] . '_EXPLAIN'])) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
+				$l_explain = isset($user->lang[$vars['lang'] . '_EXPLAIN']) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
 			}
 
 			$content = $this->build_cfg_template($type, $name, $vars);
@@ -205,8 +202,8 @@ class umil_frontend extends umil
 
 			$template->assign_block_vars('options', array(
 				'KEY'			=> $name,
-				'TITLE'			=> (isset($user->lang[$vars['lang']])) ? $user->lang[$vars['lang']] : $vars['lang'],
-				'S_EXPLAIN'		=> (isset($vars['explain'])) ? $vars['explain'] : false,
+				'TITLE'			=> isset($user->lang[$vars['lang']]) ? $user->lang[$vars['lang']] : $vars['lang'],
+				'S_EXPLAIN'		=> isset($vars['explain']) ? $vars['explain'] : false,
 				'TITLE_EXPLAIN'	=> $l_explain,
 				'CONTENT'		=> $content['tpl'],
 
@@ -230,9 +227,9 @@ class umil_frontend extends umil
 		global $config, $template, $user, $phpbb_root_path;
 
 		$command = ($command) ? $command : $this->command;
-		$command = (isset($user->lang[$command])) ? $user->lang[$command] : $command;
+		$command = isset($user->lang[$command]) ? $user->lang[$command] : $command;
 		$result = ($result) ? $result : $this->result;
-		$result = (isset($user->lang[$result])) ? $user->lang[$result] : $result;
+		$result = isset($user->lang[$result]) ? $user->lang[$result] : $result;
 
 		$this->results = true;
 
@@ -253,10 +250,12 @@ class umil_frontend extends umil
 
 					// Setting up an error recording file
 					$append = 0;
-					$this->error_file = "{$phpbb_root_path}umil/error_files/" . strtolower($this->title) . '.txt';
+					$base_error_file = "{$phpbb_root_path}umil/error_files/" . strtolower((string) $this->title);
+					$this->error_file = $base_error_file . '.txt';
+
 					while (file_exists($this->error_file))
 					{
-						$this->error_file = "{$phpbb_root_path}umil/error_files/" . strtolower($this->title) . $append . '.txt';
+						$this->error_file = $base_error_file . $append . '.txt';
 						$append++;
 					}
 				}
@@ -270,7 +269,7 @@ class umil_frontend extends umil
 				}
 				else
 				{
-					$contents = ((isset($user->lang[$this->title])) ? $user->lang[$this->title] : $this->title) . "\n";
+                    $contents = (isset($user->lang[$this->title]) ? $user->lang[$this->title] : $this->title) . "\n";
 					$contents .= 'PHP Version: ' . phpversion() . "\n";
 					$contents .= 'DBMS: ' . $this->db->sql_server_info() . "\n";
 					$contents .= 'phpBB3 Version: ' . $config['version'] . "\n\n";
@@ -289,7 +288,7 @@ class umil_frontend extends umil
 			}
 		}
 
-		if ($result != $user->lang['SUCCESS'] || $this->force_display_results == true)// || defined('DEBUG'))
+		if ($result != $user->lang['SUCCESS'] || $this->force_display_results) // || defined('DEBUG'))
 		{
 			$template->assign_block_vars('results', array(
 				'COMMAND'	=> $command,
@@ -297,6 +296,7 @@ class umil_frontend extends umil
 				'S_SUCCESS'	=> ($result == $user->lang['SUCCESS']) ? true : false,
 			));
 		}
+
 	}
 
 	/**
@@ -308,8 +308,8 @@ class umil_frontend extends umil
 	{
 		global $phpbb_root_path, $phpEx, $template, $user;
 
-		$download_file = ($this->error_file) ? append_sid("{$phpbb_root_path}umil/file.$phpEx", 'file=' . basename($this->error_file, '.txt')) : '';
-		$filename = ($this->error_file) ? 'umil/error_files/' . basename($this->error_file) : '';
+		$download_file = ($this->error_file) ? append_sid("{$phpbb_root_path}umil/file.$phpEx", 'file=' . basename((string) $this->error_file, '.txt')) : '';
+		$filename = ($this->error_file) ? 'umil/error_files/' . basename((string) $this->error_file) : '';
 
 		$template->assign_vars(array(
 			'U_ERROR_FILE'		=> $this->error_file,
@@ -365,7 +365,7 @@ class umil_frontend extends umil
 				$name_yes	= ($default) ? ' checked="checked"' : '';
 				$name_no	= (!$default) ? ' checked="checked"' : '';
 
-				$tpl_type_cond = explode('_', $tpl_type[1]);
+				$tpl_type_cond = explode('_', (string) $tpl_type[1]);
 				$type_no = ($tpl_type_cond[0] == 'disabled' || $tpl_type_cond[0] == 'enabled') ? false : true;
 
 				$tpl_no = '<label><input type="radio" name="' . $name . '" value="0"' . $name_no . ' class="radio" /> ' . (($type_no) ? $user->lang['NO'] : $user->lang['DISABLED']) . '</label>';
@@ -418,7 +418,7 @@ class umil_frontend extends umil
 				{
 					if ($tpl_type[0] == 'select_multiple')
 					{
-						$new[$config_key] = @unserialize(trim($new[$config_key]));
+						$new[$config_key] = @unserialize(trim((string) $new[$config_key]));
 					}
 
 					$args = array($default, $name);
@@ -615,4 +615,3 @@ if (!function_exists('phpbb_chmod'))
 		return $result;
 	}
 }
-?>

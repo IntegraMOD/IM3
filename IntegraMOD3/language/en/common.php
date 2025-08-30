@@ -363,6 +363,8 @@ $lang = array_merge($lang, array(
 	'LI'					=> 'LinkedIn',
 	'TT'					=> 'TikTok',
 	'DC'					=> 'Discord',
+    'MY_WEBSITE'            => 'Website %s',
+
 	'NA'						=> 'N/A',
 	'NEWEST_USER'				=> 'Our newest member <strong>%s</strong>',
 	'NEW_MESSAGE'				=> 'New message',

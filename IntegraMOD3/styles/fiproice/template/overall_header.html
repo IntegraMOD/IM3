@@ -2,7 +2,7 @@
 <html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}">
 <head>
 
-<meta charset="utf-8" />
+<meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="content-style-type" content="text/css" />
@@ -42,9 +42,7 @@
 <link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
 <link href="{T_THEME_PATH}/light.css" rel="stylesheet" type="text/css" title="light" id="light" />
 
-<script src="{ROOT_PATH}assets/js/jquery/jquery-3.6.0.js"></script>
-<script src="{ROOT_PATH}assets/js/jquery/jquery-migrate-1.4.1.js"></script>
-<script src="{ROOT_PATH}assets/js/jquery/jquery-ui-1.14.1.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-1.8.3.min.js"></script>
 
 <!-- IF S_MCHAT_ENABLE and (S_MCHAT_ON_INDEX or U_MCHAT) -->
 <script src="{ROOT_PATH}assets/js/jquery/jquery_cookie_mini.js"></script>
@@ -253,11 +251,11 @@ function notes() {
 				<!-- INCLUDE style_change_width.html -->
 				<!-- IF S_ARRANGE -->
 				<span style="display:inline;" id="OFF_">
-					&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" style="float:left" title="{L_ARRANGE_OFF}"><img src="{T_PORTAL_THEME_PATH}/images/save_changes.png" width="15" height="15" alt=" {L_ARRANGE_OFF}" title="{L_ARRANGE_OFF}" /></a>
+					&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" title="{L_ARRANGE_OFF}"><i class="fas fa-toolbox fa-lg" style="color: #02ae58;"></i></a>
 				</span>
 				<!-- ELSE -->
 				<span style="display:inline;" id="ON_">
-					&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_'); " style="float:left" title="{L_ARRANGE_ON}"><img src="{T_PORTAL_THEME_PATH}/images/arrange.png" width="15" height="15" alt=" {L_ARRANGE_ON}" title="{L_ARRANGE_ON}" /></a>
+					&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_');" title="{L_ARRANGE_ON}"><i class="fas fa-toolbox fa-lg"></i></a>
 				</span>
 				<!-- ENDIF -->
 				</li>
@@ -265,7 +263,6 @@ function notes() {
 				<!-- IF S_DONATE_ENABLED -->
 				<li class="rightside"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-xl"></i></a></li>
 				<!-- ENDIF -->
-
 				<!-- IF U_EMAIL_TOPIC --><li class="rightside"><a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class="sendemail">{L_EMAIL_TOPIC}</a></li><!-- ENDIF -->
 				<!-- IF U_EMAIL_PM --><li class="rightside"><a href="{U_EMAIL_PM}" title="{L_EMAIL_PM}" class="sendemail">{L_EMAIL_PM}</a></li><!-- ENDIF -->
 				<!-- IF U_PRINT_TOPIC --><li class="rightside"><a href="{U_PRINT_TOPIC}" title="{L_PRINT_TOPIC}" accesskey="p" class="print">{L_PRINT_TOPIC}</a></li><!-- ENDIF -->
@@ -331,6 +328,9 @@ function notes() {
 				<li style="--delay: 6;"><a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><i class="fa-solid fa-thumbs-up fa-lg"></i><span id="ajaxlike_not_new"><strong> {AL_NEW_LIKE}</strong>{L_AL_LIKE_NEW}</span></a></li>
 				<!-- ENDIF -->
 				<li style="--delay: 7;"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a></li>
+                <!-- IF U_ACP -->
+				<li style="--delay: 8;"><a href="{U_ACP}"><i class="fa-solid fa-gears fa-lg"></i> {L_ACP}</a></li>
+				<!-- ENDIF -->
 			</ul>
 			</div>
 			<!-- ENDIF -->
@@ -359,7 +359,7 @@ function notes() {
 				<!-- IF S_SHOW_CAL -->
 				<li style="--delay: 5;"><a href="{U_CALENDAR}" title="{L_CALENDAR}"><i class="fa-regular fa-calendar-days fa-lg"></i> {L_LANG_CALENDAR}</a></li>
 				<!-- ENDIF -->
-				<!-- IF S_SHOW_CHT and S_MCHAT_ENABLE and U_MCHAT -->
+				<!-- IF S_MCHAT_ENABLE and U_MCHAT -->
 				<li style="--delay: 3;"><a href="{U_MCHAT}#mChat" title="{L_CHAT_EXPLAIN}"><i class="fa-solid fa-comment fa-lg"></i> {L_CHAT}</a></li>
 				<!-- ENDIF -->				
 				<!-- IF S_SHOW_CONTACT and S_CONTACT_ENABLED -->

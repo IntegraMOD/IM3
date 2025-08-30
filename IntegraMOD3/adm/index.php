@@ -354,7 +354,7 @@ function adm_page_footer($copyright_html = true)
 		'DEBUG_OUTPUT'		=> (defined('DEBUG')) ? $debug_output : '',
 		'TRANSLATION_INFO'	=> (!empty($user->lang['TRANSLATION_INFO'])) ? $user->lang['TRANSLATION_INFO'] : '',
 		'S_COPYRIGHT_HTML'	=> $copyright_html,
-		'CREDIT_LINE'		=> $user->lang('POWERED_BY', '<a href="#">phpBB</a>&reg; Forum Software &copy; phpBB Group'),
+		'CREDIT_LINE'		=> $user->lang('POWERED_BY', '<a href="https://www.integramod.com/">IntegraMOD</a>&reg; Communuty Software &copy; IntegraMOD Team'),
 		'VERSION'			=> $config['version'])
 	);
 

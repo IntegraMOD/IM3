@@ -3,7 +3,7 @@
  *
  * @author Nathan Guse (EXreaction) http://lithiumstudios.org
  * @author David Lewis (Highway of Life) highwayoflife@gmail.com
- * @package umil
+ * @package umil v2
  * @copyright (c) 2008 phpBB Group
  * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  */
@@ -43,6 +43,9 @@ class umil_frontend extends umil
 	// Force display of results regardless of success
 	var $force_display_results = false;
 
+    var $title = '';
+
+
 	/**
 	* Constructor
 	*
@@ -71,8 +74,8 @@ class umil_frontend extends umil
 			'body' => 'index_body.html',
 		));
 
-		$title_explain = $user->lang[$title . '_EXPLAIN'] ?? '';
-		$title = $user->lang[$title] ?? $title;
+		$title_explain = isset($user->lang[$title . '_EXPLAIN']) ? $user->lang[$title . '_EXPLAIN'] : '';
+		$title = isset($user->lang[$title]) ? $user->lang[$title] : $title;
 
 		page_header($title, false);
 
@@ -112,8 +115,8 @@ class umil_frontend extends umil
 			}
 
 			$template->assign_block_vars('l_block', array(
-				'L_TITLE'			=> $user->lang[$stage] ?? $stage,
-				'U_TITLE'			=> $data['url'] ?? false,
+				'L_TITLE'			=> isset($user->lang[$stage]) ? $user->lang[$stage] : $stage,
+				'U_TITLE'			=> isset($data['url']) ? $data['url'] : false,
 				'S_COMPLETE'		=> ($i < $selected) ? true : false,
 				'S_SELECTED'		=> ($i == $selected) ? true : false,
 			));
@@ -172,8 +175,8 @@ class umil_frontend extends umil
 			{
 				$template->assign_block_vars('options', array(
 					'S_LEGEND'		=> true,
-					'LEGEND'		=> $user->lang[$vars] ?? $vars)
-				);
+					'LEGEND'		=> isset($user->lang[$vars]) ? $user->lang[$vars] : $vars,
+				));
 
 				continue;
 			}
@@ -183,11 +186,11 @@ class umil_frontend extends umil
 			$l_explain = '';
 			if (isset($vars['explain']) && $vars['explain'] && isset($vars['lang_explain']))
 			{
-				$l_explain = $user->lang[$vars['lang_explain']] ?? $vars['lang_explain'];
+				$l_explain = isset($user->lang[$vars['lang_explain']]) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
 			}
 			else if (isset($vars['explain']) && $vars['explain'])
 			{
-				$l_explain = $user->lang[$vars['lang'] . '_EXPLAIN'] ?? '';
+				$l_explain = isset($user->lang[$vars['lang'] . '_EXPLAIN']) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
 			}
 
 			$content = $this->build_cfg_template($type, $name, $vars);
@@ -199,8 +202,8 @@ class umil_frontend extends umil
 
 			$template->assign_block_vars('options', array(
 				'KEY'			=> $name,
-				'TITLE'			=> $user->lang[$vars['lang']] ?? $vars['lang'],
-				'S_EXPLAIN'		=> $vars['explain'] ?? false,
+				'TITLE'			=> isset($user->lang[$vars['lang']]) ? $user->lang[$vars['lang']] : $vars['lang'],
+				'S_EXPLAIN'		=> isset($vars['explain']) ? $vars['explain'] : false,
 				'TITLE_EXPLAIN'	=> $l_explain,
 				'CONTENT'		=> $content['tpl'],
 
@@ -224,9 +227,9 @@ class umil_frontend extends umil
 		global $config, $template, $user, $phpbb_root_path;
 
 		$command = ($command) ? $command : $this->command;
-		$command = $user->lang[$command] ?? $command;
+		$command = isset($user->lang[$command]) ? $user->lang[$command] : $command;
 		$result = ($result) ? $result : $this->result;
-		$result = $user->lang[$result] ?? $result;
+		$result = isset($user->lang[$result]) ? $user->lang[$result] : $result;
 
 		$this->results = true;
 
@@ -247,10 +250,12 @@ class umil_frontend extends umil
 
 					// Setting up an error recording file
 					$append = 0;
-					$this->error_file = "{$phpbb_root_path}umil/error_files/" . strtolower((string) $this->title) . '.txt';
+					$base_error_file = "{$phpbb_root_path}umil/error_files/" . strtolower((string) $this->title);
+					$this->error_file = $base_error_file . '.txt';
+
 					while (file_exists($this->error_file))
 					{
-						$this->error_file = "{$phpbb_root_path}umil/error_files/" . strtolower((string) $this->title) . $append . '.txt';
+						$this->error_file = $base_error_file . $append . '.txt';
 						$append++;
 					}
 				}
@@ -264,7 +269,7 @@ class umil_frontend extends umil
 				}
 				else
 				{
-					$contents = ($user->lang[$this->title] ?? $this->title) . "\n";
+                    $contents = (isset($user->lang[$this->title]) ? $user->lang[$this->title] : $this->title) . "\n";
 					$contents .= 'PHP Version: ' . phpversion() . "\n";
 					$contents .= 'DBMS: ' . $this->db->sql_server_info() . "\n";
 					$contents .= 'phpBB3 Version: ' . $config['version'] . "\n\n";
