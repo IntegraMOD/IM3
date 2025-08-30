@@ -168,7 +168,7 @@ dd.lastpost span, ul.topiclist dd.searchby span, ul.topiclist dd.info span, ul.t
 }
 
 dd.cchdr {
-	width: 7%;
+	width: 18px;
 	float: right !important;
 	font-size: 1.1em;
 }

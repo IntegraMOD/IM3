@@ -76,6 +76,26 @@ dl.icon {
 	width: 25%;
 }
 
+li.header dl.icon {
+	display: flex;
+	align-items: center !important;     /* vertical centering */
+	height: 35px;            /* adjust to match your layout */
+}
+li.header dl.icon dt {
+	margin: 0;
+	padding: 0 8px;
+}
+
+li.header dl.icon dd.space {
+	margin-right: 2.2em;
+}
+
+li.header dl.icon dd.cchdr {
+	margin-right: 0;
+	float: right;
+}
+
+
 /* Correctly clear floating for details on profile view */
 *:first-child+html dl.details dd {
 	margin-left: 30%;

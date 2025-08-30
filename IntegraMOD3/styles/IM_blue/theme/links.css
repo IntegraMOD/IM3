@@ -219,5 +219,5 @@ a.right:hover {
 /* Feed icon in forumlist_body.html */
 a.feed-icon-forum {
 	float: right;
-	margin: 3px;
+	margin: 8px 6px;
 }
