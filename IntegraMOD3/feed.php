@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package phpBB3
 * @version $Id$
@@ -172,6 +172,7 @@ if (defined('DEBUG_EXTRA') && request_var('explain', 0) && $auth->acl_get('a_'))
 
 header("Content-Type: application/atom+xml; charset=UTF-8");
 header("Last-Modified: " . gmdate('D, d M Y H:i:s', $feed_updated_time) . ' GMT');
+echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 
 if (!empty($user->data['is_bot']))
 {
@@ -179,7 +180,6 @@ if (!empty($user->data['is_bot']))
 	header('X-PHPBB-IS-BOT: yes');
 }
 
-echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 echo '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="' . $global_vars['FEED_LANG'] . '">' . "\n";
 echo '<link rel="self" type="application/atom+xml" href="' . $global_vars['SELF_LINK'] . '" />' . "\n\n";
 
@@ -1484,4 +1484,3 @@ class phpbb_feed_topics_active extends phpbb_feed_topic_base
 		$item_row['title'] = (isset($row['forum_name']) && $row['forum_name'] !== '') ? $row['forum_name'] . ' ' . $this->separator . ' ' . $item_row['title'] : $item_row['title'];
 	}
 }
-
