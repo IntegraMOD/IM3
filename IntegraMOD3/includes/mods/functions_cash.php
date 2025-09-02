@@ -119,7 +119,7 @@ function cash_array($data, $user_id)
 {
 	global $config, $auth, $phpbb_root_path, $phpEx;
 	return array(
-		'CASH'				=> $data['cash'] ?? '',
+		'CASH' 				=> isset($data['cash']) ? $data['cash'] : '',
 		'CASH_AMT'			=> ($config['cash_mod'] && isset($data['cash_amt'])) ? $data['cash_amt'] : 0,
 		'CASH_NAME'			=> ($config['cash_mod'] && isset($data['cash_amt'])) ? $config['cash_name'] : '',
 		'U_MANAGE_ACCOUNT'	=> ($auth->acl_get('a_bank_manage') || $auth->acl_get('m_bank_manage')) ? append_sid("{$phpbb_root_path}ucp.$phpEx", "i=bank&amp;mode=management&amp;u=$user_id") : '',

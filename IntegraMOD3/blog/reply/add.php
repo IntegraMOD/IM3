@@ -232,7 +232,7 @@ else // user submitted and there are no errors
 	}
 	else
 	{
-		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (blog_data::$user[$user_id]['username'] ?? null), '</a>') . '<br />';
+		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (isset(blog_data::$user[$user_id]['username']) ? blog_data::$user[$user_id]['username'] : null), '</a>') . '<br />';
 		$message .= sprintf($user->lang['RETURN_BLOG_OWN'], '<a href="' . $blog_urls['view_user_self'] . '">', '</a>');
 	}
 

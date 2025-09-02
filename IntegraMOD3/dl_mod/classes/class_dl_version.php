@@ -124,7 +124,7 @@ class dl_version extends dl_mod
 				case 4:
 					if ($value['type'] == 'complete')
 					{
-						$ary[$one][$two][$three][$value['tag']] = $value['value'] ?? '';
+						$ary[$one][$two][$three][$value['tag']] = isset($value['value']) ? $value['value'] : '';
 					}
 				break;
 			}

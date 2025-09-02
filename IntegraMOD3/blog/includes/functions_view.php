@@ -425,7 +425,7 @@ function add_blog_links($user_id, $block, $user_data = null, $grab_from_db = fal
 		return $data;
 	}
 
-	if ($config['user_blog_links_output_block'] ?? null)
+	if (isset($config['user_blog_links_output_block']) && $config['user_blog_links_output_block'])
 	{
 		$template->assign_block_vars($block, $data);
 	}
@@ -1483,7 +1483,7 @@ function parse_attachments_for_view(&$message, &$attachments, &$update_count, $p
 		$index = ($config['display_order']) ? ($tpl_size-($matches[1][$num] + 1)) : $matches[1][$num];
 
 		$replace['from'][] = $matches[0][$num];
-		$replace['to'][] = $attachments[$index] ?? sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
+        $replace['to'][] = (isset($attachments[$index])) ? $attachments[$index] : sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
 
 		$unset_tpl[] = $index;
 	}

@@ -35,14 +35,20 @@
 		<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_MEETING and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
       </a>
       <ul class="sub-menus">
+ 		<!-- IF S_SHOW_ACTIVITY -->
         <li><a href="{U_SN_ACTIVITYPAGE}"><i class="fa-solid fa-clipboard"></i> {L_SN_AP_ACTIVITYPAGE}</a></li>
-        <li><a href="{U_FAQ}"><i class="fa-solid fa-circle-question"></i> {L_FAQ}</a></li>
-        <li><a href="{U_KB}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</a></li>
+		<!-- ENDIF -->
+ 		<!-- IF S_SHOW_FAQ -->
+		<li><a href="{U_FAQ}"><i class="fa-solid fa-circle-question"></i> {L_FAQ}</a></li>
+		<!-- ENDIF -->
+ 		<!-- IF S_SHOW_KB -->
+		<li><a href="{U_KB}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</a></li>
+		<!-- ENDIF -->
 	  <!-- IF not S_IS_BOT -->
-		<!-- IF S_DISPLAY_MEMBERLIST -->
+		<!-- IF S_DISPLAY_MEMBERLIST and S_SHOW_MEM -->
 		<li><a href="{U_MEMBERLIST}"><i class="fa-solid fa-user-group"></i> {L_MEMBERLIST}</a></li>
 		<!-- ENDIF -->	  
-		<!-- IF S_SHOW_DL_LINK -->
+		<!-- IF S_SHOW_DL_LINK and S_SHOW_DLS -->
 		<li><a href="{U_DL_NAVS}"><i class="fa-solid fa-file-arrow-down"></i> {L_DOWNLOADS}</a></li>
 		<!-- ENDIF -->
 		<!-- IF S_HACKLIST_ON -->
@@ -54,19 +60,18 @@
 		<!-- IF S_SHOW_GALL -->
 		<li><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image"></i> {L_GALLERY}</a></li>
 		<!-- ENDIF -->
-		<!-- IF S_SHOW_CHT -->
+		<!-- IF S_SHOW_CHT and S_MCHAT_ENABLE and U_MCHAT -->
 		<li><a href="{U_MCHAT}" title="{L_MCHAT_TITLE}"><i class="fa-solid fa-comment"></i> {L_CHAT}</a></li>
 		<!-- ENDIF -->
-		<!-- IF S_USER_LOGGED_IN -->
+		<!-- IF S_USER_LOGGED_IN and S_SHOW_MEETING -->
         <li><a href="{U_MEETING_LINK_N}" title="{L_MEETING}"><i class="fa-solid fa-people-arrows"></i> {L_MEETINGS}</a></li>
 		<!-- ENDIF -->
-		<!-- IF S_CONTACT_ENABLED -->
+		<!-- IF S_CONTACT_ENABLED and S_SHOW_CONTACT -->
         <li><a href="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><i class="fa-solid fa-message"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
 		<!-- ENDIF -->
-		
-		<!-- BEGIN blog_links -->
+		<!-- IF S_SHOW_BLOG --><!-- BEGIN blog_links -->
 		<li><a href="{blog_links.URL}"><i class="fa-solid fa-book-open-reader"></i> {blog_links.TEXT}</a></li>
-		<!-- END blog_links -->
+		<!-- END blog_links --><!-- ENDIF -->
       <!-- ENDIF -->
       </ul>
     </li>

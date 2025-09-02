@@ -115,7 +115,7 @@ class acp_gallery
                         user_get_id_name($user_id, $username);
                     }
                     if (is_array($user_id)) {
-                        $user_id = $user_id[0] ?? 0;
+                        $user_id = isset($user_id[0]) ? $user_id[0] : 0;
                     }
 
                     $sql = 'SELECT username, user_colour, user_id
@@ -402,31 +402,31 @@ class acp_gallery
                         case 'image/pjpeg':
                             $filetype_ext = '.jpg';
                             $read_function = 'imagecreatefromjpeg';
-                            if ((!str_ends_with(strtolower($image_src), '.jpg')) && (!str_ends_with(strtolower($image_src), '.jpeg'))) {
-                                $this->log_import_error($import_schema, sprintf($user->lang['FILETYPE_MIMETYPE_MISMATCH'], $image_src, $filetype['mime']));
-                                $error_occured = true;
-                            }
+							if ((substr(strtolower($image_src), -4) !== '.jpg') && (substr(strtolower($image_src), -5) !== '.jpeg')) {
+								$this->log_import_error($import_schema, sprintf($user->lang['FILETYPE_MIMETYPE_MISMATCH'], $image_src, $filetype['mime']));
+								$error_occured = true;
+							}
                             break;
 
                         case 'image/png':
-                        case 'image/x-png':
-                            $filetype_ext = '.png';
-                            $read_function = 'imagecreatefrompng';
-                            if (!str_ends_with(strtolower($image_src), '.png')) {
-                                $this->log_import_error($import_schema, sprintf($user->lang['FILETYPE_MIMETYPE_MISMATCH'], $image_src, $filetype['mime']));
-                                $error_occured = true;
-                            }
-                            break;
+						case 'image/x-png':
+							$filetype_ext = '.png';
+							$read_function = 'imagecreatefrompng';
+							if (substr(strtolower($image_src), -4) !== '.png') {
+								$this->log_import_error($import_schema, sprintf($user->lang['FILETYPE_MIMETYPE_MISMATCH'], $image_src, $filetype['mime']));
+								$error_occured = true;
+							}
+							break;
 
-                        case 'image/gif':
-                        case 'image/giff':
-                            $filetype_ext = '.gif';
-                            $read_function = 'imagecreatefromgif';
-                            if (!str_ends_with(strtolower($image_src), '.gif')) {
-                                $this->log_import_error($import_schema, sprintf($user->lang['FILETYPE_MIMETYPE_MISMATCH'], $image_src, $filetype['mime']));
-                                $error_occured = true;
-                            }
-                            break;
+						case 'image/gif':
+						case 'image/giff':
+							$filetype_ext = '.gif';
+							$read_function = 'imagecreatefromgif';
+							if (substr(strtolower($image_src), -4) !== '.gif') {
+								$this->log_import_error($import_schema, sprintf($user->lang['FILETYPE_MIMETYPE_MISMATCH'], $image_src, $filetype['mime']));
+								$error_occured = true;
+							}
+							break;
 
                         default:
                             $this->log_import_error($import_schema, $user->lang['NOT_ALLOWED_FILE_TYPE']);
@@ -623,16 +623,16 @@ class acp_gallery
 
         $handle = opendir(phpbb_gallery_url::path('import'));
         $files = array();
-        while ($file = readdir($handle)) {
-            if (!is_dir(phpbb_gallery_url::path('import') . $file) && (
-                ((str_ends_with(strtolower($file), '.png')) && phpbb_gallery_config::get('allow_png')) ||
-            ((str_ends_with(strtolower($file), '.gif')) && phpbb_gallery_config::get('allow_gif')) ||
-            ((str_ends_with(strtolower($file), '.jpg')) && phpbb_gallery_config::get('allow_jpg')) ||
-            ((str_ends_with(strtolower($file), '.jpeg')) && phpbb_gallery_config::get('allow_jpg'))
-            )) {
-                $files[utf8_strtolower($file)] = $file;
-            }
-        }
+		while ($file = readdir($handle)) {
+			if (!is_dir(phpbb_gallery_url::path('import') . $file) && (
+				((substr(strtolower($file), -4) === '.png') && phpbb_gallery_config::get('allow_png')) ||
+				((substr(strtolower($file), -4) === '.gif') && phpbb_gallery_config::get('allow_gif')) ||
+				((substr(strtolower($file), -4) === '.jpg') && phpbb_gallery_config::get('allow_jpg')) ||
+				((substr(strtolower($file), -5) === '.jpeg') && phpbb_gallery_config::get('allow_jpg'))
+			)) {
+				$files[utf8_strtolower($file)] = $file;
+			}
+		}
         closedir($handle);
 
         // Sort the files by name again
@@ -947,10 +947,11 @@ class acp_gallery
                 if (!is_dir($directory . $file) &&
                  ((substr(strtolower($file), '-4') == '.png') || (substr(strtolower($file), '-4') == '.gif') || (substr(strtolower($file), '-4') == '.jpg'))
                  && !in_array($file, $requested_source)
-                ) {
-                    if ((str_contains($file, 'image_not_exist')) || (str_contains($file, 'not_authorised')) || (str_contains($file, 'no_hotlinking'))) {
-                        continue;
-                    }
+                ) 
+				{
+					if ((strpos($file, 'image_not_exist') !== false) || (strpos($file, 'not_authorised') !== false) || (strpos($file, 'no_hotlinking') !== false)) {
+						continue;
+					}
 
                     $template->assign_block_vars('entryrow', array(
                         'FILE_NAME'				=> mb_convert_encoding($file, 'UTF-8', 'ISO-8859-1'),

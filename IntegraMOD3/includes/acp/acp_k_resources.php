@@ -66,12 +66,12 @@ class acp_k_resources
 
 				if (isset($k_config[$new_word]))
 				{
-					$value = $k_config[$new_word] ?? '';
+					$value = isset($k_config[$new_word]) ? $k_config[$new_word] : '';
 					$table = $user->lang['K_CONFIG'];
 				}
 				else if (isset($config[$new_word]))
 				{
-					$value = $config[$new_word] ?? '';
+					$value = isset($config[$new_word]) ? $config[$new_word] : '';
 					$table = $user->lang['CONFIG'];
 				}
 				else
@@ -134,12 +134,12 @@ class acp_k_resources
 
 			if (isset($k_config[$name]))
 			{
-				$value = $k_config[$name] ?? '';
+				$value = isset($k_config[$name]) ? $k_config[$name] : '';
 				$table = $user->lang['K_CONFIG'];
 			}
 			else if (isset($config[$name]))
 			{
-				$value = $config[$name] ?? '';
+				$value = isset($config[$name]) ? $config[$name] : '';
 				$table = $user->lang['CONFIG'];
 			}
 			else

@@ -79,7 +79,7 @@ $lang = array_merge($lang, array(
 	'SN_US_CHOOSE_THUMB'					 => 'images',
 	'SN_CB_FETCH_ERROR'						 => 'An error was encountered when fetching the web page',
 
-	'SN_AP_ACTIVITYPAGE'					 => 'Activity page',
+	'SN_AP_ACTIVITYPAGE'					 => 'What\'s new?',
 	'SN_AP_AND'								 => 'and',
 	'SN_AP_ARE_FRIENDS'						 => 'are now friends',
 	'SN_AP_ADD_AS_FRIEND'					 => 'Add as a Friend',

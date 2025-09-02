@@ -107,7 +107,7 @@ function blog_url($user_id, $blog_id = false, $reply_id = false, $url_data = arr
 			{
 				$url_data['page'] = urlencode((string) $extra_data['username']);
 			}
-			else if (class_exists('blog_data') && isset(blog_data::$user[$user_id]) && !strpbrk((string) (blog_data::$user[$user_id]['username'] ?? null), $username_check))
+			else if (class_exists('blog_data') && isset(blog_data::$user[$user_id]) && !strpbrk((string) (isset(blog_data::$user[$user_id]['username']) ? blog_data::$user[$user_id]['username'] : null), $username_check))
 			{
 				$url_data['page'] = urlencode((string) blog_data::$user[$user_id]['username']);
 			}
@@ -393,18 +393,18 @@ function update_user_blog_settings($user_id, $data, $resync = false)
 	{
 		$sql_array = array(
 			'user_id'							=> $user_id,
-			'perm_guest'						=> $data['perm_guest'] ?? 1,
-			'perm_registered'					=> $data['perm_registered'] ?? 2,
-			'perm_foe'							=> $data['perm_foe'] ?? 0,
-			'perm_friend'						=> $data['perm_friend'] ?? 2,
-			'title'								=> $data['title'] ?? '',
-			'description'						=> $data['description'] ?? '',
-			'description_bbcode_bitfield'		=> $data['description_bbcode_bitfield'] ?? '',
-			'description_bbcode_uid'			=> $data['description_bbcode_uid'] ?? '',
-			'instant_redirect'					=> $data['instant_redirect'] ?? 0,
-			'blog_subscription_default'			=> $data['blog_subscription_default'] ?? 0,
-			'blog_style'						=> $data['blog_style'] ?? 0,
-			'blog_css'							=> $data['blog_css'] ?? '',
+			'perm_guest'						=> (isset($data['perm_guest'])) ? $data['perm_guest'] : 1,
+			'perm_registered'					=> (isset($data['perm_registered'])) ? $data['perm_registered'] : 2,
+			'perm_foe'							=> (isset($data['perm_foe'])) ? $data['perm_foe'] : 0,
+			'perm_friend'						=> (isset($data['perm_friend'])) ? $data['perm_friend'] : 2,
+			'title'								=> (isset($data['title'])) ? $data['title'] : '',
+			'description'						=> (isset($data['description'])) ? $data['description'] : '',
+			'description_bbcode_bitfield'		=> (isset($data['description_bbcode_bitfield'])) ? $data['description_bbcode_bitfield'] : '',
+			'description_bbcode_uid'			=> (isset($data['description_bbcode_uid'])) ? $data['description_bbcode_uid'] : '',
+			'instant_redirect'					=> (isset($data['instant_redirect'])) ? $data['instant_redirect'] : 0,
+			'blog_subscription_default'			=> (isset($data['blog_subscription_default'])) ? $data['blog_subscription_default'] : 0,
+			'blog_style'						=> (isset($data['blog_style'])) ? $data['blog_style'] : 0,
+			'blog_css'							=> (isset($data['blog_css'])) ? $data['blog_css'] : '',
 		);
 
 		$temp = compact('sql_array', 'user_id', 'data');
@@ -426,10 +426,10 @@ function update_user_blog_settings($user_id, $data, $resync = false)
 	if ($resync && (array_key_exists('perm_guest', $data) || array_key_exists('perm_registered', $data) || array_key_exists('perm_foe', $data) || array_key_exists('perm_friend', $data)))
 	{
 		$sql_array = array(
-			'perm_guest'						=> $data['perm_guest'] ?? 1,
-			'perm_registered'					=> $data['perm_registered'] ?? 2,
-			'perm_foe'							=> $data['perm_foe'] ?? 0,
-			'perm_friend'						=> $data['perm_friend'] ?? 2,
+		'perm_guest'						=> isset($data['perm_guest']) ? $data['perm_guest'] : 1,
+		'perm_registered'					=> isset($data['perm_registered']) ? $data['perm_registered'] : 2,
+		'perm_foe'							=> isset($data['perm_foe']) ? $data['perm_foe'] : 0,
+		'perm_friend'						=> isset($data['perm_friend']) ? $data['perm_friend'] : 2,
 		);
 
 		$sql = 'UPDATE ' . BLOGS_TABLE . ' SET ' . $db->sql_build_array('UPDATE', $sql_array) . ' WHERE user_id = ' . intval($user_id);

@@ -353,6 +353,7 @@ $lang = array_merge($lang, array(
 	'MB'	=> 'MB',
 	'MIB'	=> 'MiB',
 	'MCP'	=> 'Panel de Control de Moderador',
+	'MEETINGS'	 => 'Reuniones',
 	'MEMBERLIST'	=> 'Usuarios',
 	'MEMBERLIST_EXPLAIN'	=> 'Ver lista completa de usuarios',
 	'MERGE'	=> 'Unir',

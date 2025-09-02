@@ -333,6 +333,7 @@ $lang = array_merge($lang, array(
 	'MB'					=> 'MB',
 	'MIB'					=> 'MiB',
 	'MCP'					=> 'Moderations-Bereich',
+	'MEETINGS'				=> 'Treffen',
 	'MEMBERLIST'			=> 'Mitglieder',
 	'MEMBERLIST_EXPLAIN'	=> 'Zeigt eine vollständige Liste aller Mitglieder an',
 	'MERGE'					=> 'Zusammenführen',

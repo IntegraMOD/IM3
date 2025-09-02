@@ -1191,7 +1191,7 @@ class custom_profile_admin extends custom_profile
 	{
 		global $user, $config, $lang_defs;
 
-        $default_lang_id = $lang_defs['iso'][$config['default_lang']] ?? null;
+        $default_lang_id = isset($lang_defs['iso'][$config['default_lang']]) ? $lang_defs['iso'][$config['default_lang']] : null;
 
 		$profile_row = array(
 			'var_name'				=> 'field_default_value',

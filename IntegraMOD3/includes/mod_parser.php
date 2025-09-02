@@ -321,7 +321,7 @@ class parser_xml
 
             case 1.2:
             default:
-                $phpbb_version = $header['INSTALLATION'][0]['children']['TARGET-VERSION'][0]['data'] ?? 0;
+                $phpbb_version = isset($header['INSTALLATION'][0]['children']['TARGET-VERSION'][0]['data']) ? $header['INSTALLATION'][0]['children']['TARGET-VERSION'][0]['data'] : 0;
             break;
         }
 
@@ -345,7 +345,7 @@ class parser_xml
         for ($i = 0; $i < $history_size; ++$i) {
             $changes = [];
             $entry = $history_info[$i]['children'];
-            $changelog = $entry['CHANGELOG'] ?? [];
+            $changelog = isset($entry['CHANGELOG']) ? $entry['CHANGELOG'] : array();
             $changelog_size = count($changelog);
             $changelog_id = 0;
 
@@ -365,7 +365,7 @@ class parser_xml
 
             switch ($this->modx_version) {
                 case 1.0:
-                    $changelog_version_ary = $entry['REV-VERSION'][0]['children'] ?? [];
+                    $changelog_version_ary = isset($entry['REV-VERSION'][0]['children']) ? $entry['REV-VERSION'][0]['children'] : array();
 
                     $changelog_version = (isset($changelog_version_ary['MAJOR'][0]['data'])) ? trim($changelog_version_ary['MAJOR'][0]['data']) : 0;
                     $changelog_version .= '.'.((isset($changelog_version_ary['MINOR'][0]['data'])) ? trim($changelog_version_ary['MINOR'][0]['data']) : 0);
@@ -375,7 +375,7 @@ class parser_xml
 
                 case 1.2:
                 default:
-                    $changelog_version = $entry['REV-VERSION'][0]['data'] ?? '0.0.0';
+                    $changelog_version = isset($entry['REV-VERSION'][0]['data']) ? $entry['REV-VERSION'][0]['data'] : '0.0.0';
                 break;
             }
 
@@ -390,7 +390,7 @@ class parser_xml
 
         // Parse links
         if (1.2 == $this->modx_version) {
-            $link_group = $header['LINK-GROUP'][0]['children'] ?? [];
+            $link_group = isset($header['LINK-GROUP'][0]['children']) ? $header['LINK-GROUP'][0]['children'] : array();
 
             if (isset($link_group['LINK'])) {
                 for ($i = 0, $size = count($link_group['LINK']); $i < $size; ++$i) {
@@ -409,7 +409,7 @@ class parser_xml
 
                     $children[$link_group['LINK'][$i]['attrs']['TYPE']][] = [
                         'href' => $link_group['LINK'][$i]['attrs']['HREF'],
-                        'realname' => $link_group['LINK'][$i]['attrs']['REALNAME'] ?? core_basename($link_group['LINK'][$i]['attrs']['HREF']),
+                        'realname' => isset($link_group['LINK'][$i]['attrs']['REALNAME']) ? $link_group['LINK'][$i]['attrs']['REALNAME'] : core_basename($link_group['LINK'][$i]['attrs']['HREF']),
                         'title' => localise_tags($link_group, 'LINK', $i),
                         'lang' => $link_group['LINK'][$i]['attrs']['LANG'],
                     ];

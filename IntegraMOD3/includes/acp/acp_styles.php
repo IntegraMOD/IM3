@@ -426,9 +426,9 @@ inherit_from = {INHERIT_FROM}
 
 							foreach ($cfg_data_imageset as $image_name => $value)
 							{
-								if (str_contains((string) $value, '*'))
+								if (strpos((string) $value, '*') !== false)
 								{
-									if (str_ends_with((string) $value, '*'))
+									if (substr((string) $value, -1) === '*')
 									{
 										[$image_filename, $image_height] = explode('*', (string) $value);
 										$image_width = 0;
@@ -444,7 +444,7 @@ inherit_from = {INHERIT_FROM}
 									$image_height = $image_width = 0;
 								}
 
-								if (str_starts_with((string) $image_name, 'img_') && $image_filename)
+								if ((strncmp((string) $image_name, 'img_', 4) === 0) && $image_filename)
 								{
 									$image_name = substr((string) $image_name, 4);
 									if (in_array($image_name, $imageset_definitions))
@@ -472,9 +472,9 @@ inherit_from = {INHERIT_FROM}
 									$cfg_data_imageset_data = parse_cfg_file("{$phpbb_root_path}styles/{$imageset_row['imageset_path']}/imageset/{$row['lang_dir']}/imageset.cfg");
 									foreach ($cfg_data_imageset_data as $image_name => $value)
 									{
-										if (str_contains((string) $value, '*'))
+										if (strpos((string) $value, '*') !== false)
 										{
-											if (str_ends_with((string) $value, '*'))
+											if (substr((string) $value, -1) === '*')
 											{
 												[$image_filename, $image_height] = explode('*', (string) $value);
 												$image_width = 0;
@@ -490,7 +490,7 @@ inherit_from = {INHERIT_FROM}
 											$image_height = $image_width = 0;
 										}
 
-										if (str_starts_with((string) $image_name, 'img_') && $image_filename)
+										if ((strncmp((string) $image_name, 'img_', 4) === 0) && $image_filename)
 										{
 											$image_name = substr((string) $image_name, 4);
 											if (in_array($image_name, $imageset_definitions))
@@ -1377,7 +1377,7 @@ inherit_from = {INHERIT_FROM}
 		$imageset_path		= $imageset_row['imageset_path'];
 		$imageset_name		= $imageset_row['imageset_name'];
 
-		if (str_contains($imgname, '-'))
+		if (strpos($imgname, '-') !== false)
 		{
 			[$imgname, $imgnamelang] = explode('-', $imgname);
 			$sql_extra = " AND image_lang IN ('" . $db->sql_escape($imgnamelang) . "', '')";
@@ -1446,7 +1446,7 @@ inherit_from = {INHERIT_FROM}
 				$imgheight	= (int) $imgheight;
 			}
 
-			if (str_contains($imgpath, '/'))
+			if (strpos($imgpath, '/') !== false)
 			{
 				[$imglang, $imgfilename] = explode('/', $imgpath);
 			}
@@ -1580,7 +1580,7 @@ inherit_from = {INHERIT_FROM}
 			foreach ($img_ary as $img)
 			{
 				$imgtext = preg_replace('/^([^\/]+\/)/', '', $img);
-				$selected = (!empty($imgname) && str_contains((string) $image_filename, $imgtext));
+				$selected = (!empty($imgname) && strpos((string) $image_filename, $imgtext) !== false);
 				if ($selected)
 				{
 					$image_found = true;
@@ -2683,10 +2683,10 @@ inherit_from = {INHERIT_FROM}
 			'S_TEMPLATE'			=> ($mode == 'template') ? true : false,
 			'S_THEME'				=> ($mode == 'theme') ? true : false,
 			'S_IMAGESET'			=> ($mode == 'imageset') ? true : false,
-			'S_STORE_DB'			=> $style_row[$mode . '_storedb'] ?? 0,
-			'S_STORE_DB_DISABLED'	=> $style_row[$mode . '_inherits_id'] ?? 0,
-			'S_STYLE_ACTIVE'		=> $style_row['style_active'] ?? 0,
-			'S_STYLE_DEFAULT'		=> $style_row['style_default'] ?? 0,
+			'S_STORE_DB'			=> isset($style_row[$mode . '_storedb']) ? $style_row[$mode . '_storedb'] : 0,
+			'S_STORE_DB_DISABLED'	=> isset($style_row[$mode . '_inherits_id']) ? $style_row[$mode . '_inherits_id'] : 0,
+			'S_STYLE_ACTIVE'		=> isset($style_row['style_active']) ? $style_row['style_active'] : 0,
+			'S_STYLE_DEFAULT'		=> isset($style_row['style_default']) ? $style_row['style_default'] : 0,
 			'S_SUPERTEMPLATE'		=> (isset($style_row[$mode . '_inherits_id']) && $style_row[$mode . '_inherits_id']) ? $super['template_name'] : 0,
 
 			'S_TEMPLATE_OPTIONS'	=> ($mode == 'style') ? $template_options : '',
@@ -2834,7 +2834,7 @@ inherit_from = {INHERIT_FROM}
 			foreach ($file_ary as $file)
 			{
 				// Skip index.
-				if (str_starts_with((string) $file, 'index.'))
+				if (strncmp((string) $file, 'index.', 6) === 0)
 				{
 					continue;
 				}
@@ -2890,7 +2890,7 @@ inherit_from = {INHERIT_FROM}
 				continue;
 			}
 
-			if (is_file($phpbb_root_path . 'cache/' . $file) && (str_starts_with($file, $cache_prefix)))
+			if (is_file($phpbb_root_path . 'cache/' . $file) && (strncmp($file, $cache_prefix, strlen($cache_prefix)) === 0))
 			{
 				$file_ary[] = str_replace('.', '/', preg_replace('#^' . preg_quote($cache_prefix, '#') . '_(.*?)\.html\.' . $phpEx . '$#i', '\1', $file));
 			}
@@ -2993,9 +2993,9 @@ inherit_from = {INHERIT_FROM}
 						'style_copyright'	=> $installcfg['copyright']
 					);
 
-					$reqd_template = $installcfg['required_template'] ?? false;
-					$reqd_theme = $installcfg['required_theme'] ?? false;
-					$reqd_imageset = $installcfg['required_imageset'] ?? false;
+					$reqd_template	= isset($installcfg['required_template']) ? $installcfg['required_template'] : false;
+					$reqd_theme		= isset($installcfg['required_theme']) ? $installcfg['required_theme'] : false;
+					$reqd_imageset	= isset($installcfg['required_imageset']) ? $installcfg['required_imageset'] : false;
 
 					// Check to see if each element is already installed, if it is grab the id
 					foreach ($element_ary as $element => $table)
@@ -3090,12 +3090,12 @@ inherit_from = {INHERIT_FROM}
 			'S_LOCATION'		=> (isset($installcfg['inherit_from']) && $installcfg['inherit_from']) ? false : true,
 			'S_STYLE'			=> ($mode == 'style') ? true : false,
 			'S_TEMPLATE'		=> ($mode == 'template') ? true : false,
-			'S_SUPERTEMPLATE'	=> $installcfg['inherit_from'] ?? '',
+			'S_SUPERTEMPLATE'	=> isset($installcfg['inherit_from']) ? $installcfg['inherit_from'] : '',
 			'S_THEME'			=> ($mode == 'theme') ? true : false,
 
-			'S_STORE_DB'			=> $style_row[$mode . '_storedb'] ?? 0,
-			'S_STYLE_ACTIVE'		=> $style_row['style_active'] ?? 0,
-			'S_STYLE_DEFAULT'		=> $style_row['style_default'] ?? 0,
+			'S_STORE_DB'		=> isset($style_row[$mode . '_storedb']) ? $style_row[$mode . '_storedb'] : 0,
+			'S_STYLE_ACTIVE'	=> isset($style_row['style_active']) ? $style_row['style_active'] : 0,
+			'S_STYLE_DEFAULT'	=> isset($style_row['style_default']) ? $style_row['style_default'] : 0,
 
 			'U_ACTION'			=> $this->u_action . "&amp;action=install&amp;path=" . urlencode((string) $install_path),
 			'U_BACK'			=> $this->u_action,
@@ -3179,9 +3179,9 @@ inherit_from = {INHERIT_FROM}
 
 			if (!sizeof($error))
 			{
-				$style_row['template_id']	= $row['template_id'] ?? $style_row['template_id'];
-				$style_row['theme_id']		= $row['theme_id'] ?? $style_row['theme_id'];
-				$style_row['imageset_id']	= $row['imageset_id'] ?? $style_row['imageset_id'];
+				$style_row['template_id']	= isset($row['template_id']) ? $row['template_id'] : $style_row['template_id'];
+				$style_row['theme_id']		= isset($row['theme_id']) ? $row['theme_id'] : $style_row['theme_id'];
+				$style_row['imageset_id']	= isset($row['imageset_id']) ? $row['imageset_id'] : $style_row['imageset_id'];
 			}
 		}
 
@@ -3246,9 +3246,9 @@ inherit_from = {INHERIT_FROM}
 			'S_THEME'			=> ($mode == 'theme') ? true : false,
 			'S_BASIS'			=> ($basis) ? true : false,
 
-			'S_STORE_DB'			=> $style_row['storedb'] ?? 0,
-			'S_STYLE_ACTIVE'		=> $style_row['style_active'] ?? 0,
-			'S_STYLE_DEFAULT'		=> $style_row['style_default'] ?? 0,
+			'S_STORE_DB'			=> isset($style_row['storedb']) ? $style_row['storedb'] : 0,
+			'S_STYLE_ACTIVE'		=> isset($style_row['style_active']) ? $style_row['style_active'] : 0,
+			'S_STYLE_DEFAULT'		=> isset($style_row['style_default']) ? $style_row['style_default'] : 0,
 			'S_TEMPLATE_OPTIONS'	=> ($mode == 'style') ? $template_options : '',
 			'S_THEME_OPTIONS'		=> ($mode == 'style') ? $theme_options : '',
 			'S_IMAGESET_OPTIONS'	=> ($mode == 'style') ? $imageset_options : '',
@@ -3621,9 +3621,9 @@ inherit_from = {INHERIT_FROM}
 
 			foreach ($cfg_data as $key => $value)
 			{
-				if (str_contains((string) $value, '*'))
+				if (strpos((string) $value, '*') !== false)
 				{
-					if (str_ends_with((string) $value, '*'))
+					if (substr((string) $value, -1) === '*')
 					{
 						[$image_filename, $image_height] = explode('*', (string) $value);
 						$image_width = 0;
@@ -3639,7 +3639,7 @@ inherit_from = {INHERIT_FROM}
 					$image_height = $image_width = 0;
 				}
 
-				if (str_starts_with((string) $key, 'img_') && $image_filename)
+				if ((strncmp((string) $key, 'img_', 4) === 0) && $image_filename)
 				{
 					$key = substr((string) $key, 4);
 					if (in_array($key, $imageset_definitions))
@@ -3669,9 +3669,9 @@ inherit_from = {INHERIT_FROM}
 					$cfg_data_imageset_data = parse_cfg_file("$root_path$mode/{$row['lang_dir']}/imageset.cfg");
 					foreach ($cfg_data_imageset_data as $image_name => $value)
 					{
-						if (str_contains((string) $value, '*'))
+						if (strpos((string) $value, '*') !== false)
 						{
-							if (str_ends_with((string) $value, '*'))
+							if (substr((string) $value, -1) === '*')
 							{
 								[$image_filename, $image_height] = explode('*', (string) $value);
 								$image_width = 0;
@@ -3687,7 +3687,7 @@ inherit_from = {INHERIT_FROM}
 							$image_height = $image_width = 0;
 						}
 
-						if (str_starts_with((string) $image_name, 'img_') && $image_filename)
+						if ((strncmp((string) $image_name, 'img_', 4) === 0) && $image_filename)
 						{
 							$image_name = substr((string) $image_name, 4);
 							if (in_array($image_name, $imageset_definitions))
@@ -3703,7 +3703,7 @@ inherit_from = {INHERIT_FROM}
 								$db->sql_query('INSERT INTO ' . STYLES_IMAGESET_DATA_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 							}
 						}
-					}
+											}
 					unset($cfg_data_imageset_data);
 				}
 			}

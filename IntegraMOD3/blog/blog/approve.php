@@ -76,7 +76,7 @@ if (blog_data::$blog[$blog_id]['blog_approved'] == 0)
 		}
 		else
 		{
-			$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (blog_data::$user[$user_id]['username'] ?? null), '</a>') . '<br />';
+			$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (isset(blog_data::$user[$user_id]['username'])) ? blog_data::$user[$user_id]['username'] : null, '</a>') . '<br />';
 			$message .= sprintf($user->lang['RETURN_BLOG_OWN'], '<a href="' . $blog_urls['view_user_self'] . '">', '</a>');
 		}
 
@@ -97,7 +97,7 @@ else
 	}
 	else
 	{
-		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (blog_data::$user[$user_id]['username'] ?? null), '</a>') . '<br />';
+        $message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (isset(blog_data::$user[$user_id]['username'])) ? blog_data::$user[$user_id]['username'] : null, '</a>') . '<br />';
 		$message .= sprintf($user->lang['RETURN_BLOG_OWN'], '<a href="' . $blog_urls['view_user_self'] . '">', '</a>');
 	}
 

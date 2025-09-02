@@ -396,7 +396,7 @@ class blog_attachment
 		blog_plugins::plugin_do('get_submitted_attachment_data');
 
 		$this->filename_data['filecomment'] = utf8_normalize_nfc(request_var('filecomment', '', true));
-		$attachment_data = $_POST['attachment_data'] ?? array();
+		$attachment_data = (isset($_POST['attachment_data'])) ? $_POST['attachment_data'] : array();
 		$this->attachment_data = array();
 
 		$check_user_id = ($check_user_id === false) ? $user->data['user_id'] : $check_user_id;
@@ -525,7 +525,7 @@ class blog_attachment
 			return $filedata;
 		}
 
-		$cat_id = $extensions[$file->get('extension')]['display_cat'] ?? ATTACHMENT_CATEGORY_NONE;
+		$cat_id = (isset($extensions[$file->get('extension')]['display_cat'])) ? $extensions[$file->get('extension')]['display_cat'] : ATTACHMENT_CATEGORY_NONE;
 
 		// Make sure the image category only holds valid images...
 		if ($cat_id == ATTACHMENT_CATEGORY_IMAGE && !$file->is_image())
@@ -1001,7 +1001,7 @@ class blog_attachment
 			$index = ($config['display_order']) ? ($tpl_size-($matches[1][$num] + 1)) : $matches[1][$num];
 
 			$replace['from'][] = $matches[0][$num];
-			$replace['to'][] = $attachments[$index] ?? sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
+            $replace['to'][] = (isset($attachments[$index])) ? $attachments[$index] : sprintf($user->lang['MISSING_INLINE_ATTACHMENT'], $matches[2][array_search($index, $matches[1])]);
 
 			$unset_tpl[] = $index;
 		}

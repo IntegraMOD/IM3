@@ -98,8 +98,8 @@ if ($submit || $preview || $refresh)
 
 		$message_parser->parse_poll($poll);
 
-		$poll_options = $poll['poll_options'] ?? '';
-		$poll_title = $poll['poll_title'] ?? '';
+		$poll_options = (isset($poll['poll_options'])) ? $poll['poll_options'] : '';
+		$poll_title = (isset($poll['poll_title'])) ? $poll['poll_title'] : '';
 	}
 	else
 	{
@@ -367,7 +367,7 @@ else // user submitted and there are no errors
 	}
 	else
 	{
-		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (blog_data::$user[$user_id]['username'] ?? null), '</a>');
+		$message .= sprintf($user->lang['RETURN_BLOG_MAIN'], '<a href="' . $blog_urls['view_user'] . '">', (isset(blog_data::$user[$user_id]['username'])) ? blog_data::$user[$user_id]['username'] : null, '</a>');
 	}
 
 	blog_meta_refresh(3, $blog_urls['view_blog']);

@@ -196,7 +196,7 @@ class acp_abbcodes
 		// We go through the display_vars to make sure no one is trying to set variables he/she is not allowed to...
 		foreach ($display_vars['vars'] as $config_name => $null)
 		{
-			if (!isset($cfg_array[$config_name]) || str_contains($config_name, 'legend'))
+			if (!isset($cfg_array[$config_name]) || strpos($config_name, 'legend') !== false)
 			{
 				continue;
 			}
@@ -237,16 +237,16 @@ class acp_abbcodes
 		// Output relevant page
 		foreach ($display_vars['vars'] as $config_key => $vars)
 		{
-			if (!is_array($vars) && !str_contains($config_key, 'legend'))
+			if (!is_array($vars) && strpos($config_key, 'legend') === false)
 			{
 				continue;
 			}
 
-			if (str_contains($config_key, 'legend'))
+			if (strpos($config_key, 'legend') !== false)
 			{
 				$template->assign_block_vars('options', array(
 					'S_LEGEND'		=> true,
-					'LEGEND'		=> $user->lang[$vars] ?? $vars)
+					'LEGEND'		=> isset($user->lang[$vars]) ? $user->lang[$vars] : $vars)
 				);
 
 				continue;
@@ -460,7 +460,7 @@ class acp_abbcodes
 			);
 
 			// Fix for break line?
-			if (str_starts_with((string) $abbcode_name[$bbcode], 'ABBCODES_BREAK'))
+			if (strncmp((string) $abbcode_name[$bbcode], 'ABBCODES_BREAK', strlen('ABBCODES_BREAK')) === 0)
 			{
 				$bbcode_sql['bbcode_image'] = $img_spacer;
 			}
@@ -553,10 +553,11 @@ class acp_abbcodes
 
 			$is_a_bbcode	= true;
 			// is a break line or division ?
-			if ((str_contains($abbcode_name, 'ABBC3_DIVISION')) || (str_contains($abbcode_name, 'ABBC3_BREAK')) || in_array($row['bbcode_tag'], array('imgshack', 'cut', 'copy', 'paste', 'plain')))
+			if ((strpos($abbcode_name, 'ABBC3_DIVISION') !== false) || (strpos($abbcode_name, 'ABBC3_BREAK') !== false) || in_array($row['bbcode_tag'], array('imgshack', 'cut', 'copy', 'paste', 'plain')))
 			{
-				$is_a_bbcode	= false;
-				if (str_contains($abbcode_name, 'ABBC3_DIVISION'))
+				$is_a_bbcode = false;
+
+				if (strpos($abbcode_name, 'ABBC3_DIVISION') !== false)
 				{
 					if ($config['ABBC3_TAB'])
 					{
@@ -567,9 +568,9 @@ class acp_abbcodes
 						continue;
 					}
 				}
-				else if (str_contains($abbcode_name, 'ABBC3_BREAK'))
+				else if (strpos($abbcode_name, 'ABBC3_BREAK') !== false)
 				{
-						$abbcode_name = 'ABBCODES_BREAK';
+					$abbcode_name = 'ABBCODES_BREAK';
 				}
 			}
 

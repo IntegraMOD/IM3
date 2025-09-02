@@ -47,9 +47,9 @@ class acp_jabber
 		$this->tpl_name = 'acp_jabber';
 		$this->page_title = 'ACP_JABBER_SETTINGS';
 
-		$jab_verify_peer		= $config['jab_verify_peer'] ?? false;
-		$jab_verify_peer_name	= $config['jab_verify_peer_name'] ?? false;
-		$jab_allow_self_signed	= $config['jab_allow_self_signed'] ?? true;
+		$jab_verify_peer		= isset($config['jab_verify_peer']) ? $config['jab_verify_peer'] : false;
+		$jab_verify_peer_name	= isset($config['jab_verify_peer_name']) ? $config['jab_verify_peer_name'] : false;
+		$jab_allow_self_signed	= isset($config['jab_allow_self_signed']) ? $config['jab_allow_self_signed'] : true;
 
 		$jab_enable				= request_var('jab_enable',				(bool) $config['jab_enable']);
 		$jab_host				= request_var('jab_host',				(string) $config['jab_host']);

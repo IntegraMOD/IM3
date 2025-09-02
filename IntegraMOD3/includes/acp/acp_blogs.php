@@ -142,7 +142,7 @@ class acp_blogs
 		{
 			if ($submit)
 			{
-				if (!isset($cfg_array[$config_key]) || str_contains($config_key, 'legend'))
+				if (!isset($cfg_array[$config_key]) || strpos($config_key, 'legend') !== false)
 				{
 					continue;
 				}
@@ -153,17 +153,17 @@ class acp_blogs
 			}
 			else
 			{
-				if ((!is_array($vars) || !isset($this->new_config[$config_key])) && !str_contains($config_key, 'legend'))
+				if ((!is_array($vars) || !isset($this->new_config[$config_key])) && strpos($config_key, 'legend') === false)
 				{
 					continue;
 				}
 
-				if (str_contains($config_key, 'legend'))
+				if (strpos($config_key, 'legend') !== false)
 				{
 					$template->assign_block_vars('options', array(
 						'S_LEGEND'		=> true,
-						'LEGEND'		=> $user->lang[$vars] ?? $vars)
-					);
+						'LEGEND'		=> isset($user->lang[$vars]) ? $user->lang[$vars] : $vars,
+					));
 
 					continue;
 				}
@@ -173,16 +173,16 @@ class acp_blogs
 				$l_explain = '';
 				if ($vars['explain'] && isset($vars['lang_explain']))
 				{
-					$l_explain = $user->lang[$vars['lang_explain']] ?? $vars['lang_explain'];
+					$l_explain = isset($user->lang[$vars['lang_explain']]) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
 				}
 				else if ($vars['explain'])
 				{
-					$l_explain = $user->lang[$vars['lang'] . '_EXPLAIN'] ?? '';
+					$l_explain = isset($user->lang[$vars['lang'] . '_EXPLAIN']) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
 				}
 
 				$template->assign_block_vars('options', array(
 					'KEY'			=> $config_key,
-					'TITLE'			=> $user->lang[$vars['lang']] ?? $vars['lang'],
+					'TITLE'			=> isset($user->lang[$vars['lang']]) ? $user->lang[$vars['lang']] : $vars['lang'],
 					'S_EXPLAIN'		=> $vars['explain'],
 					'TITLE_EXPLAIN'	=> $l_explain,
 					'CONTENT'		=> build_cfg_template($type, $config_key, $this->new_config, $config_key, $vars),
@@ -748,23 +748,23 @@ class acp_blogs
 			if ($installed)
 			{
 				$installed_plugins[$name] = array(
-					'NAME'				=> $data['plugin_title'] ?? $name,
-					'DESCRIPTION'		=> $data['plugin_description'] ?? '',
+					'NAME'				=> isset($data['plugin_title']) ? $data['plugin_title'] : $name,
+					'DESCRIPTION'		=> isset($data['plugin_description']) ? $data['plugin_description'] : '',
 					'S_ACTIONS'			=> implode(' | ', $s_actions),
-					'COPYRIGHT'			=> $data['plugin_copyright'] ?? '',
-					'DATABASE_VERSION'	=> ($installed) ? blog_plugins::$plugins[$name]['plugin_version'] : false,
-					'FILES_VERSION'		=> $data['plugin_version'] ?? '',
+					'COPYRIGHT'			=> isset($data['plugin_copyright']) ? $data['plugin_copyright'] : '',
+					'DATABASE_VERSION'	=> isset(blog_plugins::$plugins[$name]['plugin_version']) ? blog_plugins::$plugins[$name]['plugin_version'] : false,
+					'FILES_VERSION'		=> isset($data['plugin_version']) ? $data['plugin_version'] : '',
 				);
 			}
 			else
 			{
 				$template->assign_block_vars('uninstalled', array(
-					'NAME'				=> $data['plugin_title'] ?? $name,
-					'DESCRIPTION'		=> $data['plugin_description'] ?? '',
+					'NAME'				=> isset($data['plugin_title']) ? $data['plugin_title'] : $name,
+					'DESCRIPTION'		=> isset($data['plugin_description']) ? $data['plugin_description'] : '',
 					'S_ACTIONS'			=> implode(' | ', $s_actions),
-					'COPYRIGHT'			=> $data['plugin_copyright'] ?? '',
-					'DATABASE_VERSION'	=> ($installed) ? blog_plugins::$plugins[$name]['plugin_version'] : false,
-					'FILES_VERSION'		=> $data['plugin_version'] ?? '',
+					'COPYRIGHT'			=> isset($data['plugin_copyright']) ? $data['plugin_copyright'] : '',
+					'DATABASE_VERSION'	=> isset(blog_plugins::$plugins[$name]['plugin_version']) ? blog_plugins::$plugins[$name]['plugin_version'] : false,
+					'FILES_VERSION'		=> isset($data['plugin_version']) ? $data['plugin_version'] : '',
 				));
 			}
 		}
@@ -1106,8 +1106,8 @@ class acp_blogs
 				$template->assign_block_vars('backend.data', array(
 					'STATISTIC_1'	=> $statistic['statistic_1'],
 					'VALUE_1'		=> $statistic['value_1'],
-					'STATISTIC_2'	=> $statistic['statistic_2'] ?? '',
-					'VALUE_2'		=> $statistic['value_2'] ?? '')
+					'STATISTIC_2'	=> isset($statistic['statistic_2']) ? $statistic['statistic_2'] : '',
+					'VALUE_2'		=> isset($statistic['value_2']) ? $statistic['value_2'] : '',
 				);
 			}
 		}

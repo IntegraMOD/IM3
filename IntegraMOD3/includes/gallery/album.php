@@ -167,7 +167,7 @@ class phpbb_gallery_album
 			}
 			else if ($row['left_id'] > $right + 1)
 			{
-				$padding = $padding_store[$row['parent_id']] ?? '';
+				$padding = isset($padding_store[$row['parent_id']]) ? $padding_store[$row['parent_id']] : '';
 			}
 
 			$right = $row['right_id'];
@@ -1003,7 +1003,7 @@ class phpbb_gallery_album
 				'UNAPPROVED_IMAGES'		=> (phpbb_gallery::$auth->acl_check('m_status', $album_id, $row['album_user_id'])) ? ($row['album_images_real'] - $row['album_images']) : 0,
 				'ALBUM_FOLDER_IMG'		=> $user->img($folder_image, $folder_alt),
 				'ALBUM_FOLDER_IMG_SRC'	=> $user->img($folder_image, $folder_alt, false, '', 'src'),
-				'ALBUM_FOLDER_IMG_ALT'	=> $user->lang[$folder_alt] ?? '',
+				'ALBUM_FOLDER_IMG_ALT'	=> isset($user->lang[$folder_alt]) ? $user->lang[$folder_alt] : '',
 				'ALBUM_IMAGE'			=> ($row['album_image']) ? phpbb_gallery_url::path('phpbb') . $row['album_image'] : '',
 				'LAST_IMAGE_TIME'		=> $lastimage_time,
 				'LAST_USER_FULL'		=> ($s_username_hidden) ? $user->lang['CONTEST_USERNAME'] : get_username_string('full', $row['album_last_user_id'], $row['album_last_username'], $row['album_last_user_colour']),

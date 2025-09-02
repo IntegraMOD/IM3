@@ -35,7 +35,7 @@ class mcp_socialnet
         $this->page_title = 'MCP_SOCIALNET';
 
         $mcpPanel_title = 'MCP_SN_' . strtoupper(preg_replace('/^module_/si', '', (string) $mode));
-        $mcpPanel_title = $user->lang[$mcpPanel_title] ?? $mcpPanel_title;
+        $mcpPanel_title = isset($user->lang[$mcpPanel_title]) ? $user->lang[$mcpPanel_title] : $mcpPanel_title;
 
         $template->assign_vars(array(
             'L_TITLE' => $mcpPanel_title,
@@ -143,7 +143,7 @@ class mcp_socialnet
                 if (str_contains((string) $config_key, 'legend')) {
                     $template->assign_block_vars('options', array(
                         'S_LEGEND'	 => true,
-                        'LEGEND'	 => $user->lang[$vars] ?? $vars));
+                        'LEGEND' => isset($user->lang[$vars]) ? $user->lang[$vars] : $vars,
 
                     continue;
                 }
@@ -151,11 +151,14 @@ class mcp_socialnet
                 $type = explode(':', (string) $vars['type']);
 
                 $l_explain = '';
-                if ($vars['explain'] && isset($vars['lang_explain'])) {
-                    $l_explain = $user->lang[$vars['lang_explain']] ?? $vars['lang_explain'];
-                } elseif ($vars['explain']) {
-                    $l_explain = $user->lang[$vars['lang'] . '_EXPLAIN'] ?? '';
-                }
+				if ($vars['explain'] && isset($vars['lang_explain']))
+				{
+					$l_explain = isset($user->lang[$vars['lang_explain']]) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
+				}
+				elseif ($vars['explain'])
+				{
+					$l_explain = isset($user->lang[$vars['lang'] . '_EXPLAIN']) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
+				}
 
                 $content = build_cfg_template($type, $config_key, $this->new_config, $config_key, $vars);
 
@@ -165,7 +168,7 @@ class mcp_socialnet
 
                 $template->assign_block_vars('options', array(
                     'KEY'			 => $config_key,
-                    'TITLE'			 => $user->lang[$vars['lang']] ?? $vars['lang'],
+                    'TITLE' => isset($user->lang[$vars['lang']]) ? $user->lang[$vars['lang']] : $vars['lang'],
                     'S_EXPLAIN'		 => $vars['explain'],
                     'TITLE_EXPLAIN'	 => $l_explain,
                     'CONTENT'		 => $content,

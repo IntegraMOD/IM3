@@ -680,8 +680,8 @@ class blog_fulltext_native extends blog_search
 		// BBcode
 		$match[] = '#\[\/?[a-z0-9\*\+\-]+(?:=.*?)?(?::[a-z])?(\:?[0-9a-z]{5,})\]#';
 
-		($min = $this->word_length['min'] ?? null);
-		($max = $this->word_length['max'] ?? null);
+        ($min = (isset($this->word_length['min'])) ? $this->word_length['min'] : null);
+		($max = (isset($this->word_length['max'])) ? $this->word_length['max'] : null);
 
 		$isset_min = $min - 1;
 

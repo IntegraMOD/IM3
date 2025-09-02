@@ -84,9 +84,9 @@ class jabber
 
 		$this->password				= $password;
 		$this->use_ssl				= ($use_ssl && self::can_use_ssl()) ? true : false;
-		$this->verify_peer			= $verify_peer ?? ($config['jab_verify_peer'] ?? false);
-		$this->verify_peer_name		= $verify_peer_name ?? ($config['jab_verify_peer_name'] ?? false);
-		$this->allow_self_signed	= $allow_self_signed ?? ($config['jab_allow_self_signed'] ?? true);
+		$this->verify_peer			= isset($verify_peer) ? $verify_peer : (isset($config['jab_verify_peer']) ? $config['jab_verify_peer'] : false);
+		$this->verify_peer_name		= isset($verify_peer_name) ? $verify_peer_name : (isset($config['jab_verify_peer_name']) ? $config['jab_verify_peer_name'] : false);
+		$this->allow_self_signed	= isset($allow_self_signed) ? $allow_self_signed : (isset($config['jab_allow_self_signed']) ? $config['jab_allow_self_signed'] : true);
 
 		// Change port if we use SSL
 		if ($this->port == 5222 && $this->use_ssl)

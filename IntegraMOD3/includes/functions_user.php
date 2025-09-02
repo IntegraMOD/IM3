@@ -174,7 +174,7 @@ function user_add(mixed $user_row, $cp_data = false, $subscribe = false)
     $sql_ary = array(
         'username'			=> $user_row['username'],
         'username_clean'	=> $username_clean,
-        'user_password'		=> $user_row['user_password'] ?? '',
+        'user_password'		=> isset($user_row['user_password']) ? $user_row['user_password'] : '',
         'user_pass_convert'	=> 0,
         'user_email'		=> strtolower((string) $user_row['user_email']),
         'user_email_hash'	=> phpbb_email_hash($user_row['user_email']),
@@ -196,7 +196,7 @@ function user_add(mixed $user_row, $cp_data = false, $subscribe = false)
         'user_options'		=> 230271,
         // We do not set the new flag here - registration scripts need to specify it
         'user_new'			    => 0,
-        'user_points'           => $register_points ?? 0,
+        'user_points'           => isset($register_points) ? $register_points : 0,
         'user_inactive_reason'	=> 0,
         'user_inactive_time'	=> 0,
         'user_lastmark'			=> time(),
@@ -236,7 +236,7 @@ function user_add(mixed $user_row, $cp_data = false, $subscribe = false)
 
     // Now fill the sql array with not required variables
     foreach ($additional_vars as $key => $default_value) {
-        $sql_ary[$key] = $user_row[$key] ?? $default_value;
+        $sql_ary[$key] = isset($user_row[$key]) ? $user_row[$key] : $default_value;
     }
 
     // Any additional variables in $user_row not covered above?
@@ -1124,13 +1124,17 @@ function user_ipwhois($ip)
     $match = array();
 
     // Test for referrals from $whois_host to other whois databases, roll on rwhois
-    if (preg_match('#ReferralServer: whois://(.+)#im', $ipwhois, $match)) {
-        if (str_contains($match[1], ':')) {
-            $pos	= strrpos($match[1], ':');
-            $server	= substr($match[1], 0, $pos);
-            $port	= (int) substr($match[1], $pos + 1);
-            unset($pos);
-        } else {
+    if (preg_match('#ReferralServer: whois://(.+)#im', $ipwhois, $match)) 
+	{
+		if (strpos($match[1], ':') !== false)
+		{
+			$pos	= strrpos($match[1], ':');
+			$server	= substr($match[1], 0, $pos);
+			$port	= (int) substr($match[1], $pos + 1);
+			unset($pos);
+		}
+		else 
+		{
             $server	= $match[1];
             $port	= 43;
         }
@@ -1329,9 +1333,10 @@ function validate_username($username, $allowed_username = false)
     }
 
     // ... fast checks first.
-    if (str_contains($username, '&quot;') || str_contains($username, '"') || empty($clean_username)) {
-        return 'INVALID_CHARS';
-    }
+	if (strpos($username, '&quot;') !== false || strpos($username, '"') !== false || empty($clean_username))
+	{
+		return 'INVALID_CHARS';
+	}
 
     $mbstring = $pcre = false;
 
@@ -1594,10 +1599,12 @@ function validate_jabber($jid)
         return 'WRONG_DATA';
     }
 
-    foreach ($arr as $part) {
-        if (str_starts_with($part, '-') || str_ends_with($part, '-')) {
-            return 'WRONG_DATA';
-        }
+    foreach ($arr as $part) 
+	{
+		if (strncmp($part, '-', 1) === 0 || substr($part, -1) === '-')
+		{
+			return 'WRONG_DATA';
+		}
 
         if (!preg_match("@^[a-zA-Z0-9-.]+$@", $part)) {
             return 'WRONG_DATA';
@@ -1801,10 +1808,12 @@ function avatar_delete($mode, $row, $clean_db = false)
     global $phpbb_root_path, $config, $db, $user;
 
     // Check if the users avatar is actually *not* a group avatar
-    if ($mode == 'user') {
-        if (str_starts_with((string) $row['user_avatar'], 'g') || (((int)$row['user_avatar'] !== 0) && ((int)$row['user_avatar'] !== (int)$row['user_id']))) {
-            return false;
-        }
+    if ($mode == 'user') 
+	{
+		if (strncmp((string) $row['user_avatar'], 'g', 1) === 0 || (((int) $row['user_avatar'] !== 0) && ((int) $row['user_avatar'] !== (int) $row['user_id'])))
+		{
+			return false;
+		}
     }
 
     if ($clean_db) {
@@ -1907,9 +1916,10 @@ function avatar_upload($data, &$error)
     $destination = $config['avatar_path'];
 
     // Adjust destination path (no trailing slash)
-    if (str_ends_with((string) $destination, '/') || str_ends_with((string) $destination, '\\')) {
-        $destination = substr((string) $destination, 0, -1);
-    }
+	if (substr((string) $destination, -1) === '/' || substr((string) $destination, -1) === '\\')
+	{
+		$destination = substr((string) $destination, 0, -1);
+	}
 
     $destination = str_replace(array('../', '..\\', './', '.\\'), '', (string) $destination);
     if ($destination && ($destination[0] == '/' || $destination[0] == "\\")) {
@@ -2015,7 +2025,7 @@ function avatar_gallery($category, $avatar_select, $items_per_column, $block_var
         'S_CAT_OPTIONS'			=> $s_category_options)
     );
 
-    $avatar_list = $avatar_list[$category] ?? array();
+    $avatar_list = isset($avatar_list[$category]) ? $avatar_list[$category] : array();
 
     foreach ($avatar_list as $avatar_row_ary) {
         $template->assign_block_vars($block_var, array());
@@ -2347,15 +2357,17 @@ function group_create(&$group_id, $type, $name, $desc, $group_attributes, $allow
                 }
 
                 // If we are about to set an avatar, we will not overwrite user avatars if no group avatar is set...
-                if (str_starts_with($attribute, 'group_avatar') && !$group_attributes[$attribute]) {
-                    continue;
-                }
+				if (strncmp($attribute, 'group_avatar', 12) === 0 && !$group_attributes[$attribute])
+				{
+					continue;
+				}
 
                 $sql_ary[$attribute] = $group_attributes[$attribute];
             }
         }
 
-        if (sizeof($sql_ary) && sizeof($user_ary)) {
+        if (sizeof($sql_ary) && sizeof($user_ary)) 
+		{
             group_set_user_default($group_id, $user_ary, $sql_ary);
         }
 
@@ -2991,9 +3003,10 @@ function group_set_user_default($group_id, $user_id_ary, $group_attributes = fal
     foreach ($attribute_ary as $attribute => $type) {
         if (isset($group_attributes[$attribute])) {
             // If we are about to set an avatar or rank, we will not overwrite with empty, unless we are not actually changing the default group
-            if ((str_starts_with($attribute, 'group_avatar') || str_starts_with($attribute, 'group_rank')) && !$group_attributes[$attribute]) {
-                continue;
-            }
+			if ((strncmp($attribute, 'group_avatar', 12) === 0 || strncmp($attribute, 'group_rank', 10) === 0) && !$group_attributes[$attribute])
+			{
+				continue;
+			}
 
             settype($group_attributes[$attribute], $type);
             $sql_ary[str_replace('group_', 'user_', $attribute)] = $group_attributes[$attribute];

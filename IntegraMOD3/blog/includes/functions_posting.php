@@ -130,7 +130,7 @@ function handle_basic_posting_data($check = false, $page = 'blog', $mode = 'add'
 			{
 				$template->assign_block_vars('subscriptions', array(
 					'TYPE'		=> 'subscription_' . $type,
-					'NAME'		=> ($user->lang[$name] ?? $name),
+					'NAME'		=> (isset($user->lang[$name]) ? $user->lang[$name] : $name),
 					'S_CHECKED'	=> ((($submitted && request_var('subscription_' . $type, false)) || isset($subscribed[$type])) ? true : false),
 				));
 			}

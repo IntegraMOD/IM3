@@ -294,12 +294,12 @@ if (!function_exists('process_for_vars'))
 
 			if (isset($k_config[$search]))
 			{
-				$replace = $k_config[$search] ?? '';
+				$replace = $k_config[$search];
 				$data = str_replace($find, $replace, (string) $data);
 			}
 			else if (isset($config[$search]))
 			{
-				$replace = $config[$search] ?? '';
+				$replace = $config[$search];
 				$data = str_replace($find, $replace, (string) $data);
 			}
 		}

@@ -274,7 +274,7 @@ class template_compile
 		for ($i = 0, $size = sizeof($text_blocks); $i < $size; $i++)
 		{
 			$trim_check_text = trim($text_blocks[$i]);
-			$template_php .= (!$no_echo) ? (($trim_check_text != '') ? $text_blocks[$i] : '') . ($compile_blocks[$i] ?? '') : (($trim_check_text != '') ? $text_blocks[$i] : '') . ($compile_blocks[$i] ?? '');
+			$template_php .= ($trim_check_text != '' ? $text_blocks[$i] : '') . (isset($compile_blocks[$i]) ? $compile_blocks[$i] : '');
 		}
 
 		// Remove unused opening/closing tags
@@ -331,9 +331,8 @@ class template_compile
 		}
 
 		// Handle remaining varrefs
-		$text_blocks = preg_replace('#\{([A-Z0-9\-_]+)\}#', "<?php echo \$this->_rootref['\\1'] ?? ''; ?>", (string) $text_blocks);
-		$text_blocks = preg_replace('#\{\$([A-Z0-9\-_]+)\}#', "<?php echo \$this->_tpldata['DEFINE']['.']['\\1'] ?? ''; ?>", $text_blocks);
-
+		$text_blocks = preg_replace('#\{([A-Z0-9\-_]+)\}#', "<?php echo (isset(\$this->_rootref['\\1'])) ? \$this->_rootref['\\1'] : ''; ?>", (string) $text_blocks);
+		$text_blocks = preg_replace('#\{\$([A-Z0-9\-_]+)\}#', "<?php echo (isset(\$this->_tpldata['DEFINE']['.']['\\1'])) ? \$this->_tpldata['DEFINE']['.']['\\1'] : ''; ?>", $text_blocks);
 		return;
 	}
 
@@ -555,7 +554,7 @@ class template_compile
 					if (preg_match('#^((?:[a-z0-9\-_]+\.)+)?(\$)?(?=[A-Z])([A-Z0-9\-_]+)#s', (string) $token, $varrefs))
 					{
 						// should the end of this be '' or null ??? null seems correct, but...
-						$token = (!empty($varrefs[1])) ? $this->generate_block_data_ref(substr($varrefs[1], 0, -1), true, $varrefs[2]) . '[\'' . $varrefs[3] . '\']' : (($varrefs[2]) ? '(isset($this->_tpldata[\'DEFINE\']) && $this->_tpldata[\'DEFINE\'][\'.\'][\'' . $varrefs[3] . '\'])' : '($this->_rootref[\'' . $varrefs[3] . '\'] ?? null)');
+						$token = !empty($varrefs[1]) ? $this->generate_block_data_ref(substr($varrefs[1], 0, -1), true, $varrefs[2]) . '[\'' . $varrefs[3] . '\']' : ($varrefs[2] ? '(isset($this->_tpldata[\'DEFINE\'][\'.\'][\'' . $varrefs[3] . '\']) ? $this->_tpldata[\'DEFINE\'][\'.\'][\'' . $varrefs[3] . '\'] : \'\')' : '(isset($this->_rootref[\'' . $varrefs[3] . '\']) ? $this->_rootref[\'' . $varrefs[3] . '\'] : \'\')');
 					}
 					else if (preg_match('#^\.((?:[a-z0-9\-_]+\.?)+)$#s', (string) $token, $varrefs))
 					{
@@ -767,7 +766,7 @@ class template_compile
 
 		// Append the variable reference.
 		$varref .= "['$varname']";
-		$varref = ($echo) ? "<?php echo $varref; ?>" : ($varref ?? '');
+		$varref = $echo ? "<?php echo $varref; ?>" : (isset($varref) ? $varref : '');
 
 		return $varref;
 	}

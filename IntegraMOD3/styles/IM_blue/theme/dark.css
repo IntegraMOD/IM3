@@ -112,10 +112,51 @@ hr.dashed {
 	color: #475257;
 }
 
-.bg1	{ background-color: #202022; overflow: hidden; }
-.bg2	{ background-color: #202022; overflow: hidden; }
-.bg3	{ background-color: #202022; overflow: hidden; }
+.box {
+ background: #1F242E none repeat-x 0 0 !important;
+ border: solid 1px #2B3240 !important;
+}
 
+div.mChatBodyFix {
+	background-color: #343C42 !important;
+}
+
+.bg1	{ background-color: #272D3A !important; }
+.bg2	{ background-color: #191D24 !important; }
+.bg3	{ background-color: #1F242E !important; }
+
+tr.cal_block_header {
+    background-color:#242A36 !important;
+}
+
+tr.cal_block_header, td.calendar, table.calendar {
+    border-color:#2B3240 !important;
+}	
+
+/* Clock css*/
+
+#clock {
+  border: solid 2px #2D323E !important;
+  background-color:#242A36 !important;
+}
+
+#clock #hour, #clock #minute {
+  background-color: #2A8FF7 !important;
+  border: solid 1px #000000 !important;
+}
+
+#clock #second, #clock #center {
+  background-color: #2A8FF7 !important;
+  border: solid 1px #353D50 !important;
+}
+
+.smallTick, .mediumTick, .largeTick {
+  background-color: #11A0E7 !important;
+}
+
+.tickNum {
+  color: #1798E9 !important;
+}
 .ucprowbg {
 	background-color: #DCDEE2;
 }
@@ -755,6 +796,36 @@ fieldset.polls dd div {
 --------------------------------------------------------------
 Colours and backgrounds for buttons.css
 -------------------------------------------------------------- */
+div.buttons div.locked-icon a, div.buttons div.post-icon a, div.buttons div.reply-icon a, div.buttons div.upload-icon a, div.buttons div.qreply-icon a, .postbody ul.profile-icons li.edit-icon a, .postbody ul.profile-icons li.quote-icon a, div.buttons div.pmreply-icon a, div.buttons div.newpm-icon a, div.buttons div.forwardpm-icon a {
+	color : #E0E0E0;
+}
+div.buttons div.locked-icon, div.buttons div.post-icon, div.buttons div.reply-icon, div.buttons div.upload-icon, div.buttons div.qreply-icon, div.buttons div.pmreply-icon, div.buttons div.newpm-icon, div.buttons div.forwardpm-icon {
+	border: 1px solid rgba(255,255,255,0.04);
+	background: rgba(255,255,255,0.1);
+	background-image : linear-gradient(to bottom, #242A36, #171B24);
+}
+div.buttons div.locked-icon:hover, div.buttons div.post-icon:hover, div.buttons div.reply-icon:hover, div.buttons div.upload-icon:hover, div.buttons div.qreply-icon:hover, div.buttons div.pmreply-icon:hover, div.buttons div.newpm-icon:hover, div.buttons div.forwardpm-icon:hover {
+	border : #242A36 solid 1px;
+	background: #313949;
+	background-image : linear-gradient(to bottom, #242A36, #242A36);
+}
+.postbody ul.profile-icons li.edit-icon, .postbody ul.profile-icons li.quote-icon {
+	border: 1px solid #3F424B;
+	background-color : #FBFBFB;
+	background-image : linear-gradient(to bottom, #272D3A, #12151C);
+}
+.postbody ul.profile-icons li.edit-icon:hover, .postbody ul.profile-icons li.quote-icon:hover {
+	border : #373A42 solid 1px;
+	background-color : #313949;
+	background-image : linear-gradient(to bottom, #242A36, #242A36);
+}
+ul.profile-icons li.pm-icon:hover {
+	color : #243D5B;
+	text-shadow : -1px -1px 0 #FBFFCB;
+	border : #242A36 solid 1px;
+	background-color : #313949;
+	background-image : linear-gradient(to bottom, #242A36, #171B24);
+}
 
 /* Big button images */
 .reply-icon span	{ background-image: url("{IMG_BUTTON_TOPIC_REPLY_SRC}"); }

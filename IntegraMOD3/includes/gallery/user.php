@@ -467,7 +467,7 @@ class phpbb_gallery_user
 			$user_cache[$user_id] = array(
 				'joined'		=> $user->format_date($row['user_regdate']),
 				'posts'			=> $row['user_posts'],
-				'warnings'		=> $row['user_warnings'] ?? 0,
+				'warnings'		=> isset($row['user_warnings']) ? $row['user_warnings'] : 0,
 				'from'			=> (!empty($row['user_from'])) ? $row['user_from'] : '',
 
 				'sig'					=> $user_sig,

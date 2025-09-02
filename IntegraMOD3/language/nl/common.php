@@ -329,6 +329,7 @@ $lang = array_merge($lang, array(
 	'MARK_SUBFORUMS_READ'	=> 'Markeer subforums als gelezen',
 	'MB'					=> 'MB',
 	'MIB'					=> 'MiB',
+    'MEETINGS'				=> 'Vergaderingen',
 	'MCP'					=> 'Moderatorpaneel',
 	'MEMBERLIST'			=> 'Leden',
 	'MEMBERLIST_EXPLAIN'	=> 'Bekijk de volledige ledenlijst',

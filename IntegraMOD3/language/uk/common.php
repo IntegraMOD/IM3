@@ -324,6 +324,7 @@ $lang = array_merge($lang, array(
   'MARK_SUBFORUMS_READ'	=> 'Позначити всі підфоруми прочитаними',
 	'MB'	=> 'Мб',
 	'MIB'               => 'Мб',
+	'MEETINGS'		=> 'Зустрічі',
 	'MCP'	=> 'Панель модератора',
 	'MEMBERLIST'	=> 'Учасники',
 	'MEMBERLIST_EXPLAIN'	=> 'Переглянути повний список учасників',

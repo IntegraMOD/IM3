@@ -74,8 +74,8 @@ if ($submit || $preview || $refresh)
 
 		$message_parser->parse_poll($poll);
 
-		$poll_options = $poll['poll_options'] ?? '';
-		$poll_title = $poll['poll_title'] ?? '';
+		$poll_options	= (isset($poll['poll_options'])) ? $poll['poll_options'] : '';
+		$poll_title		= (isset($poll['poll_title'])) ? $poll['poll_title'] : '';
 	}
 	else
 	{
@@ -197,10 +197,10 @@ if (!$submit || sizeof($error))
 	$template->assign_vars(array(
 		'ERROR'						=> (sizeof($error)) ? implode('<br />', $error) : '',
 		'MESSAGE'					=> $blog_text,
-		'POLL_TITLE'				=> $poll_title ?? '',
+		'POLL_TITLE'				=> (isset($poll_title)) ? $poll_title : '',
 		'POLL_OPTIONS'				=> (!empty($poll_options)) ? implode("\n", $poll_options) : '',
-		'POLL_MAX_OPTIONS'			=> $poll_max_options ?? 1,
-		'POLL_LENGTH'				=> $poll_length ?? 0,
+		'POLL_MAX_OPTIONS'			=> (isset($poll_max_options)) ? $poll_max_options : 1,
+		'POLL_LENGTH'				=> (isset($poll_length)) ? $poll_length : 0,
 		'SUBJECT'					=> $blog_subject,
 		'VOTE_CHANGE_CHECKED'		=> (isset($poll_vote_change) && $poll_vote_change) ? 'checked="checked"' : '',
 

@@ -597,7 +597,7 @@ function define_check_option($hardcoded, $check_option, $check_lang)
 	$template->assign_vars(array(
 		'S_CHECK_DEFINED'	=> true,
 		'S_CHECK_SELECT'	=> ($hardcoded) ? false : true,
-		'CHECK_CURRENT'		=> $check_lang[$check_option] ?? '',
+		'CHECK_CURRENT'		=> isset($check_lang[$check_option]) ? $check_lang[$check_option] : '',
 		'S_CHECK_OPTIONS'	=> $s_check_options,
 		'CHECK_OPTION'		=> $check_option)
 	);
@@ -686,7 +686,7 @@ function define_rule_option($hardcoded, $rule_option, $rule_lang, $check_ary)
 	$template->assign_vars(array(
 		'S_RULE_DEFINED'	=> true,
 		'S_RULE_SELECT'		=> !$hardcoded,
-		'RULE_CURRENT'		=> $rule_lang[$rule_option] ?? '',
+		'RULE_CURRENT'		=> isset($rule_lang[$rule_option]) ? $rule_lang[$rule_option] : '',
 		'S_RULE_OPTIONS'	=> $s_rule_options,
 		'RULE_OPTION'		=> $rule_option)
 	);

@@ -267,7 +267,7 @@ function blog_acp_profile($user_id, $submit)
 			$template->assign_vars(array(
 				'BLOG_TITLE'		=> $user_settings[$user_id]['title'],
 				'BLOG_DESCRIPTION'	=> $user_settings[$user_id]['description'],
-				'DEFAULT_DEMO'		=> $default_demo ?? $phpbb_root_path . 'images/spacer.gif',
+				'DEFAULT_DEMO'		=> (isset($default_demo)) ? $default_demo : $phpbb_root_path . 'images/spacer.gif',
 				'BLOG_CSS'			=> $user_settings[$user_id]['blog_css'],
 			));
 		}

@@ -449,8 +449,8 @@ public function inline_find($find, $inline_find, $start_offset = false, $end_off
         // - number to increment by.  optional
         preg_match('#{%:(\d+)} ?([+-]) ?(\d*)#', $operation, $action);
         // make sure there is actually a number here
-        $action[2] = $action[2] ?? '+';
-        $action[3] = $action[3] ?? 1;
+		$action[2] = isset($action[2]) ? $action[2] : '+';
+		$action[3] = isset($action[3]) ? $action[3] : 1;
  
         $matches = 0;
         // $start_offset _should_ equal $end_offset, but we allow other cases

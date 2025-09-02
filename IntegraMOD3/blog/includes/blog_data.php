@@ -48,15 +48,14 @@ class blog_data
 		blog_plugins::plugin_do_ref('blog_data_start', $selection_data);
 
 		// input options for selection_data
-		$category_id	= $selection_data['category_id'] ?? 0;			// The category ID
-		$start			= $selection_data['start'] ?? 0;			// the start used in the Limit sql query
-		$limit			= $selection_data['limit'] ?? 5;			// the limit on how many blogs we will select
-		$order_by		= $selection_data['order_by'] ?? 'default';	// the way we want to order the request in the SQL query
-		$order_dir		= $selection_data['order_dir'] ?? 'DESC';		// the direction we want to order the request in the SQL query
-		$sort_days		= $selection_data['sort_days'] ?? 0;			// the sort days selection
-		$deleted		= $selection_data['deleted'] ?? false;		// to view only deleted blogs
-		$custom_sql		= $selection_data['custom_sql'] ?? '';			// here you can add in a custom section to the WHERE part of the query
-
+		$category_id	= (isset($selection_data['category_id'])) ? $selection_data['category_id'] : 0;			// The category ID
+		$start			= (isset($selection_data['start'])) ? $selection_data['start'] : 0;			// the start used in the Limit sql query
+		$limit			= (isset($selection_data['limit'])) ? $selection_data['limit'] : 5;			// the limit on how many blogs we will select
+		$order_by		= (isset($selection_data['order_by'])) ? $selection_data['order_by'] : 'default';	// the way we want to order the request in the SQL query
+		$order_dir		= (isset($selection_data['order_dir'])) ? $selection_data['order_dir'] : 'DESC';		// the direction we want to order the request in the SQL query
+		$sort_days		= (isset($selection_data['sort_days'])) ? $selection_data['sort_days'] : 0;			// the sort days selection
+		$deleted		= (isset($selection_data['deleted'])) ? $selection_data['deleted'] : false;		// to view only deleted blogs
+		$custom_sql		= (isset($selection_data['custom_sql'])) ? $selection_data['custom_sql'] : '';			// here you can add in a custom section to the WHERE part of the query
 		// Setup some variables...
 		$blog_ids = $to_query = array();
 
@@ -401,7 +400,7 @@ class blog_data
 			$poll_options[] = array(
 				'POLL_OPTION_ID' 		=> $option_id,
 				'POLL_OPTION_CAPTION' 	=> generate_text_for_display($poll_row['poll_option_text'], $blog['bbcode_uid'], $blog['bbcode_bitfield'], $bbcode_options),
-				'POLL_OPTION_RESULT' 	=> $blog['poll_votes'][$option_id]['votes'] ?? 0,
+                'POLL_OPTION_RESULT' 	=> (isset($blog['poll_votes'][$option_id]['votes'])) ? $blog['poll_votes'][$option_id]['votes'] : 0,
 				'POLL_OPTION_PERCENT' 	=> $option_pct_txt,
 				'POLL_OPTION_PCT'		=> round($option_pct * 100),
 				'POLL_OPTION_IMG' 		=> $user->img('poll_center', $option_pct_txt, round($option_pct * 250)),
@@ -429,7 +428,7 @@ class blog_data
 			'EDITED_MESSAGE'		=> $blog['edited_message'],
 			'EXTRA'					=> '',
 			'POLL_QUESTION'			=> generate_text_for_display($blog['poll_title'], $blog['bbcode_uid'], $blog['bbcode_bitfield'], $bbcode_options),
-			'RATING_STRING'			=> ($config['user_blog_enable_ratings']) ? get_star_rating($rate_url, $delete_rate_url, $blog['rating'], $blog['num_ratings'], ($rating_data[$id] ?? false), (($user->data['user_id'] == $user_id) ? true : false)) : false,
+			'RATING_STRING'			=> ($config['user_blog_enable_ratings']) ? get_star_rating($rate_url, $delete_rate_url, $blog['rating'], $blog['num_ratings'], (isset($rating_data[$id]) ? $rating_data[$id] : false), (($user->data['user_id'] == $user_id) ? true : false)) : false,
 			'NUM_REPLIES'			=> $reply_count,
 			'REPLIES'				=> '<a href="' . blog_url($user_id, $id, false, array('anchor' => 'replies')) . '">' . (($reply_count == 1) ? $user->lang['ONE_COMMENT'] : sprintf($user->lang['CNT_COMMENTS'], $reply_count)) . '</a>',
 			'TITLE'					=> $blog_subject,
@@ -580,14 +579,13 @@ class blog_data
 		blog_plugins::plugin_do_ref('reply_data_start', $selection_data);
 
 		// input options for selection_data
-		$start			= $selection_data['start'] ?? 0;			// the start used in the Limit sql query
-		$limit			= $selection_data['limit'] ?? 10;			// the limit on how many blogs we will select
-		$order_by		= $selection_data['order_by'] ?? 'reply_id';	// the way we want to order the request in the SQL query
-		$order_dir		= $selection_data['order_dir'] ?? 'DESC';		// the direction we want to order the request in the SQL query
-		$sort_days		= $selection_data['sort_days'] ?? 0;			// the sort days selection
-		$custom_sql		= $selection_data['custom_sql'] ?? '';			// add your own custom WHERE part to the query
-		$category_id	= $selection_data['category_id'] ?? 0;			// The category ID, if selecting replies only from blogs from a certain category
-
+		$start			= (isset($selection_data['start'])) ? $selection_data['start'] : 0;			// the start used in the Limit sql query
+		$limit			= (isset($selection_data['limit'])) ? $selection_data['limit'] : 10;			// the limit on how many blogs we will select
+		$order_by		= (isset($selection_data['order_by'])) ? $selection_data['order_by'] : 'reply_id';	// the way we want to order the request in the SQL query
+		$order_dir		= (isset($selection_data['order_dir'])) ? $selection_data['order_dir'] : 'DESC';		// the direction we want to order the request in the SQL query
+		$sort_days		= (isset($selection_data['sort_days'])) ? $selection_data['sort_days'] : 0;			// the sort days selection
+		$custom_sql		= (isset($selection_data['custom_sql'])) ? $selection_data['custom_sql'] : '';			// add your own custom WHERE part to the query
+		$category_id	= (isset($selection_data['category_id'])) ? $selection_data['category_id'] : 0;			// The category ID, if selecting replies only from blogs from a certain category
 		// Setup some variables...
 		$reply_ids = array();
 

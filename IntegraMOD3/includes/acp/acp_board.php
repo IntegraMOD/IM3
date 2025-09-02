@@ -107,6 +107,8 @@ class acp_board
 						'load_cpf_viewtopic'	=> array('lang' => 'LOAD_CPF_VIEWTOPIC',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),
 
 						'legend3'				=> 'MOD_LINKS',
+						'show_activity'			=> array('lang' => 'SHOW_ACTIVITY',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+						'show_blog'				=> array('lang' => 'SHOW_BLOG',				'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'show_kb'				=> array('lang' => 'SHOW_KB',				'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'show_cal'				=> array('lang' => 'SHOW_CAL',				'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'show_gall'				=> array('lang' => 'SHOW_GALL',				'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),

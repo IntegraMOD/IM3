@@ -334,6 +334,7 @@ $lang = array_merge($lang, array(
 	'MARK_SUBFORUMS_READ'	=> 'Mark subforums read',
 	'MB'					=> 'MB',
 	'MIB'					=> 'MiB',
+	'MEETINGS'				=> 'Meetings',
 	'MCP'					=> 'Moderator Control Panel',
 	'MEMBERLIST'			=> 'Members',
 	'MEMBERLIST_EXPLAIN'	=> 'View complete list of members',

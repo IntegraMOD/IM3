@@ -158,8 +158,8 @@ class acp_k_modules
 						'S_MOD_STATUS'			=> $mod_status,
 						'S_MOD_IMAGE'			=> $mod_image,
 						'S_MOD_LAST_UPDATED'	=> $mod_last_update,
-						'TITLE'					=> $user->lang[strtoupper((string) $mod_name)] ?? $mod_name,
-						'TITLE_EXPLAIN'			=> $user->lang[strtoupper($mod_name . '_EXPLAIN')] ?? $mod_name,
+						'TITLE'					=> isset($user->lang[strtoupper((string) $mod_name)]) ? $user->lang[strtoupper((string) $mod_name)] : $mod_name,
+						'TITLE_EXPLAIN'			=> isset($user->lang[strtoupper($mod_name . '_EXPLAIN')]) ? $user->lang[strtoupper($mod_name . '_EXPLAIN')] : $mod_name,
 					));
 
 					$template->assign_var('S_OPTION', $mode);
@@ -173,8 +173,8 @@ class acp_k_modules
 						'S_MOD_TYPE'			=> $mod_type,
 						'S_MOD_NAME'			=> $mod_name,
 						'S_MOD_DETAILS'			=> $mod_details,
-						'TITLE'					=> $user->lang[strtoupper((string) $mod_name)] ?? $mod_name,
-						'TITLE_EXPLAIN'			=> $user->lang[strtoupper($mod_name . '_EXPLAIN')] ?? $mod_name,
+						'TITLE'					=> isset($user->lang[strtoupper((string) $mod_name)]) ? $user->lang[strtoupper((string) $mod_name)] : $mod_name,
+						'TITLE_EXPLAIN'			=> isset($user->lang[strtoupper($mod_name . '_EXPLAIN')]) ? $user->lang[strtoupper($mod_name . '_EXPLAIN')] : $mod_name,
 						'S_MOD_DOWNLOAD_COUNT'	=> $mod_download_count,
 					));
 

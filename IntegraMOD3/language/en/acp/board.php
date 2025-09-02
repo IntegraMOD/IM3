@@ -717,6 +717,10 @@ $lang = array_merge($lang, array(
 // Mod links in header
 $lang = array_merge($lang, array(
 	'MOD_LINKS'				=> 'Choose links to display on header',
+	'SHOW_ACTIVITY'			=> 'Social Network',
+	'SHOW_ACTIVITY_EXPLAIN'	=> 'Show Activity Page link on header.',	
+	'SHOW_BLOG'			    => 'Blog',
+	'SHOW_BLOG_EXPLAIN'	    => 'Show Blog link on header.',
 	'SHOW_KB'				=> 'Knowledge Base',
 	'SHOW_KB_EXPLAIN'		=> 'Show Knowledge Base link on header.',
 	'SHOW_CAL'				=> 'Calendar',
@@ -736,7 +740,7 @@ $lang = array_merge($lang, array(
 	'SHOW_MEETING'			=> 'Meetings',
 	'SHOW_MEETING_EXPLAIN'	=> 'Show Meetings link on header.',	
 	'SHOW_CONTACT'			=> 'Contact Us',
-	'SHOW_CONTACT_EXPLAIN'	=> 'Show Contact link on header.',		
+	'SHOW_CONTACT_EXPLAIN'	=> 'Show Contact link on header.',	
 ));
 
 

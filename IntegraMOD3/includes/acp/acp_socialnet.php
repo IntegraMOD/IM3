@@ -104,7 +104,7 @@ class acp_socialnet extends AddOnsHookSystem
         $module_filename = "{$socialnet_root_path}{$module}.{$phpEx}";
 
         // Exists ACP function file for this module?
-        $s_sn_module = $user->lang['SN_MODULE_' . strtoupper($module)] ?? '{ SN_MODULE_' . strtoupper($module) . ' }';
+        $s_sn_module = isset($user->lang['SN_MODULE_' . strtoupper($module)]) ? $user->lang['SN_MODULE_' . strtoupper($module)] : '{ SN_MODULE_' . strtoupper($module) . ' }';
         if (!file_exists($module_acp_filename)) {
             $module_acp_filename = str_replace($phpbb_root_path, '/', $module_acp_filename);
             $access_module = false;
@@ -141,10 +141,10 @@ class acp_socialnet extends AddOnsHookSystem
         $template->assign_var('B_ACP_SN_' . strtoupper($module), true);
 
         if ($this->acpPanel_title == '') {
-            $this->acpPanel_title = $user->lang['ACP_SN_' . strtoupper($module) . '_SETTINGS'] ?? '{ ACP_SN_' . strtoupper($module) . '_SETTINGS }';
+			$this->acpPanel_title = isset($user->lang['ACP_SN_' . strtoupper($module) . '_SETTINGS']) ? $user->lang['ACP_SN_' . strtoupper($module) . '_SETTINGS'] : '{ ACP_SN_' . strtoupper($module) . '_SETTINGS }';
         }
         if ($this->acpPanel_explain == '') {
-            $this->acpPanel_explain = sprintf($user->lang['ACP_SN_MODULE_SETTINGS_EXPLAIN'], $user->lang['SN_MODULE_' . strtoupper($module)] ?? '{ SN_MODULE_' . strtoupper($module) . ' }');
+			$this->acpPanel_explain = sprintf($user->lang['ACP_SN_MODULE_SETTINGS_EXPLAIN'], isset($user->lang['SN_MODULE_' . strtoupper($module)]) ? $user->lang['SN_MODULE_' . strtoupper($module)] : '{ SN_MODULE_' . strtoupper($module) . ' }');
         }
     }
 
@@ -167,7 +167,7 @@ class acp_socialnet extends AddOnsHookSystem
 
         $cfg_array = request_var('config', array('' => ''), true);
 
-        $enabled = $cfg_array['sn_global_enable'] ?? $config['sn_global_enable'];
+        $enabled = isset($cfg_array['sn_global_enable']) ? $cfg_array['sn_global_enable'] : $config['sn_global_enable'];
 
         $new_value = $enabled ? '1' : '0';
 
@@ -243,7 +243,7 @@ class acp_socialnet extends AddOnsHookSystem
             $module_lang = 'SN_' . $CONFIG_NAME . '_NAME';
             $module_lang = isset($user->lang[$module_lang]) ? $module_lang : 'SN_' . $CONFIG_NAME;
             $modules[$row['config_name']] = array('lang' => $module_lang, 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true);
-            $module_lang_explain = sprintf($user->lang['SN_MODULE_EXPLAIN'], $user->lang[$module_lang] ?? $module_lang);
+            $module_lang_explain = sprintf($user->lang['SN_MODULE_EXPLAIN'], isset($user->lang[$module_lang]) ? $user->lang[$module_lang] : $module_lang);
             if (isset($user->lang['SN_' . $CONFIG_NAME . '_DETAIL'])) {
                 $module_lang_explain .= '<br />' . $user->lang['SN_' . $CONFIG_NAME . '_DETAIL'];
             }
@@ -368,7 +368,7 @@ class acp_socialnet extends AddOnsHookSystem
         if (!empty($blocks)) {
             foreach ($blocks as $key => $value) {
                 $lang_key = strtoupper((string) $key);
-                $user->lang[$lang_key . '_EXPLAIN'] = $user->lang['SN_BLOCK_ENABLE_EXPLAIN'] ?? '{ SN_BLOCK_ENABLE_EXPLAIN } %1$s';
+				$user->lang[$lang_key . '_EXPLAIN'] = isset($user->lang['SN_BLOCK_ENABLE_EXPLAIN']) ? $user->lang['SN_BLOCK_ENABLE_EXPLAIN'] : '{ SN_BLOCK_ENABLE_EXPLAIN } %1$s';
                 $user->lang[$lang_key . '_EXPLAIN'] = sprintf($user->lang[$lang_key . '_EXPLAIN'], $user->lang[$lang_key]);
                 $block_vars[$key] = array('lang' => $lang_key, 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true);
             }
@@ -496,9 +496,9 @@ class acp_socialnet extends AddOnsHookSystem
         // We go through the display_vars to make sure no one is trying to set variables he/she is not allowed to...
         if (sizeOf($display_vars['vars'])) {
             foreach ($display_vars['vars'] as $config_name => $null) {
-                if (!isset($cfg_array[$config_name]) || str_contains((string) $config_name, 'legend')) {
-                    continue;
-                }
+				if (!isset($cfg_array[$config_name]) || strpos((string) $config_name, 'legend') !== false) {
+					continue;
+				}
 
                 $this->new_config[$config_name] = $config_value = $cfg_array[$config_name];
 
@@ -526,28 +526,30 @@ class acp_socialnet extends AddOnsHookSystem
         // Output relevant page
         if (sizeOf($display_vars['vars'])) {
             foreach ($display_vars['vars'] as $config_key => $vars) {
-                if (!is_array($vars) && !str_contains((string) $config_key, 'legend')) {
-                    continue;
-                }
+				if (!is_array($vars) && strpos((string) $config_key, 'legend') === false) {
+					continue;
+				}
 
-                if (str_contains((string) $config_key, 'legend')) {
-                    $template->assign_block_vars('options', array(
-                        'S_LEGEND'	 => true,
-                        'LEGEND'	 => $user->lang[$vars] ?? $vars,
-                    ));
+				if (strpos((string) $config_key, 'legend') !== false) {
+					$template->assign_block_vars('options', array(
+						'S_LEGEND'	 => true,
+						'LEGEND'	=> isset($user->lang[$vars]) ? $user->lang[$vars] : $vars,
+					));
 
-                    continue;
-                }
+					continue;
+				}
 
                 $type = explode(':', (string) $vars['type']);
 
                 $l_explain = '';
-                if ($vars['explain'] && isset($vars['lang_explain'])) {
-                    $l_explain = $user->lang[$vars['lang_explain']] ?? $vars['lang_explain'];
-                } elseif ($vars['explain']) {
-                    $l_explain = $user->lang[$vars['lang'] . '_EXPLAIN'] ?? '';
-                }
-
+				if ($vars['explain'] && isset($vars['lang_explain']))
+				{
+					$l_explain = isset($user->lang[$vars['lang_explain']]) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
+				}
+				elseif ($vars['explain'])
+				{
+					$l_explain = isset($user->lang[$vars['lang'] . '_EXPLAIN']) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
+				}
                 $content = build_cfg_template($type, $config_key, $this->new_config, $config_key, $vars);
 
                 if (empty($content)) {
@@ -556,7 +558,7 @@ class acp_socialnet extends AddOnsHookSystem
 
                 $template->assign_block_vars('options', array(
                     'KEY'			 => $config_key,
-                    'TITLE'			 => $user->lang[$vars['lang']] ?? $vars['lang'],
+                    'TITLE'			 => isset($user->lang[$vars['lang']]) ? $user->lang[$vars['lang']] : $vars['lang'],
                     'S_EXPLAIN'		 => $vars['explain'],
                     'TITLE_EXPLAIN'	 => $l_explain,
                     'CONTENT'		 => $content,
@@ -752,14 +754,14 @@ class AddOnsHookSystem
             }
             $template->assign_block_vars('sn_tabs', array(
                 'HREF'		 => $this->u_action . '&amp;sub=' . $tab['sub'] . '&amp;ph_id=' . $ph_id,
-                'NAME'		 => $user->lang[$tab['name']] ?? "{ {$tab['name']} }",
+                'NAME'		 => isset($user->lang[$tab['name']]) ? $user->lang[$tab['name']] : '{ ' . $tab['name'] . ' }',
                 'SELECTED'	 => $this->aoh_sub == $tab['sub'] ? true : false,
             ));
 
         }
 
         $this->acpPanel_title = $user->lang['ACP_SN_ADDONS_HOOK_CONFIGURATION'];
-        $this->acpPanel_explain = $user->lang['ACP_SN_ADDONS_HOOK_CONFIGURATION_EXPLAIN'] ?? '{ ACP_SN_ADDONS_HOOK_CONFIGURATION_EXPLAIN }';
+		$this->acpPanel_explain = isset($user->lang['ACP_SN_ADDONS_HOOK_CONFIGURATION_EXPLAIN']) ? $user->lang['ACP_SN_ADDONS_HOOK_CONFIGURATION_EXPLAIN'] : '{ ACP_SN_ADDONS_HOOK_CONFIGURATION_EXPLAIN }';
 
         $template->assign_vars(array(
             'B_SN_ACP_ADDONS_HOOK_MANAGEMENT'	 => true,

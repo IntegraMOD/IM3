@@ -32,7 +32,7 @@ $block_cache_time = $k_config['k_block_cache_time_default'];
 $blocks_width = array_key_exists('blocks_width', $config) ? $config['blocks_width'] : null;
 $blocks_enabled = array_key_exists('blocks_enabled', $config) ? $config['blocks_enabled'] : null;
 
-$use_block_cookies = $k_config['use_block_cookies'] ?? 0;
+$use_block_cookies = isset($k_config['use_block_cookies']) ? $k_config['use_block_cookies'] : 0;
 
 // if block disabled, generate message and return... //
 if (!$blocks_enabled)

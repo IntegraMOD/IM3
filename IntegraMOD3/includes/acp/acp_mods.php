@@ -237,7 +237,7 @@ class acp_mods
 	                case 'pre_upload_mod':
 	                case 'upload_mod':
 	                default:
-	                    $action = $action ?? '';
+	                    $action = isset($action) ? $action : '';
 	                    if (!$this->upload_mod($action)) {
 	                        $this->list_installed();
 	                        $this->list_uninstalled();
@@ -1460,7 +1460,7 @@ class acp_mods
 	                    ];
 	                } else {
 	                    $check = end($mods['main']);
-	                    $check = $check['href'] ?? '';
+	                    $check = isset($check['href']) ? $check['href'] : '';
 	 
 	                    // we take the first file alphabetically with install in the filename
 	                    if (!$check || dirname($check) == $dir) {

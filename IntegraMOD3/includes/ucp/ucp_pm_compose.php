@@ -50,7 +50,7 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 	$reply_to_all	= request_var('reply_to_all', 0);
 
 	// Do NOT use request_var or specialchars here
-	$address_list	= $_REQUEST['address_list'] ?? array();
+	$address_list = isset($_REQUEST['address_list']) ? $_REQUEST['address_list'] : array();
 
 	if (!is_array($address_list))
 	{
@@ -286,8 +286,8 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		}
 
 		$msg_id			= (int) $post['msg_id'];
-		$folder_id		= $post['folder_id'] ?? 0;
-		$message_text	= $post['message_text'] ?? '';
+		$folder_id		= isset($post['folder_id']) ? $post['folder_id'] : 0;
+		$message_text	= isset($post['message_text']) ? $post['message_text'] : '';
 
 		if ((!$post['author_id'] || ($post['author_id'] == ANONYMOUS && $action != 'delete')) && $msg_id)
 		{
@@ -303,15 +303,15 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		if ($action != 'delete')
 		{
 			$enable_urls = $post['enable_magic_url'];
-			$enable_sig = $post['enable_sig'] ?? 0;
+			$enable_sig = isset($post['enable_sig']) ? $post['enable_sig'] : 0;
 
-			$message_attachment = $post['message_attachment'] ?? 0;
+			$message_attachment = isset($post['message_attachment']) ? $post['message_attachment'] : 0;
 			$message_subject = $post['message_subject'];
 			$message_time = $post['message_time'];
 			$bbcode_uid = $post['bbcode_uid'];
 
-			$quote_username = $post['quote_username'] ?? '';
-			$icon_id = $post['icon_id'] ?? 0;
+			$quote_username	= isset($post['quote_username']) ? $post['quote_username'] : '';
+			$icon_id		= isset($post['icon_id']) ? $post['icon_id'] : 0;
 
 			if (($action == 'reply' || $action == 'quote' || $action == 'quotepost') && !sizeof($address_list) && !$refresh && !$submit && !$preview)
 			{
@@ -1092,7 +1092,7 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		'L_ICON'					=> $user->lang['PM_ICON'],
 		'L_MESSAGE_BODY_EXPLAIN'	=> (intval($config['max_post_chars'])) ? sprintf($user->lang['MESSAGE_BODY_EXPLAIN'], intval($config['max_post_chars'])) : '',
 
-		'SUBJECT'				=> $message_subject ?? '',
+		'SUBJECT'				=> isset($message_subject) ? $message_subject : '',
 		'MESSAGE'				=> $message_text,
 		'BBCODE_STATUS'			=> ($bbcode_status) ? sprintf($user->lang['BBCODE_IS_ON'], '<a href="' . append_sid("{$phpbb_root_path}faq.$phpEx", 'mode=bbcode') . '">', '</a>') : sprintf($user->lang['BBCODE_IS_OFF'], '<a href="' . append_sid("{$phpbb_root_path}faq.$phpEx", 'mode=bbcode') . '">', '</a>'),
 		'IMG_STATUS'			=> ($img_status) ? $user->lang['IMAGES_ARE_ON'] : $user->lang['IMAGES_ARE_OFF'],
