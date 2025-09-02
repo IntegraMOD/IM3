@@ -155,6 +155,7 @@ $db->sql_freeresult($result);
 // Template variables for Left column
 $redirect = '&redirect=' . strtr(base64_encode(append_sid("{$phpbb_root_path}profile.$phpEx", 'u=' . $user_id)), '+/=', '-_,');
 $template->assign_vars(array(
+	'S_IN_ACTIVITY'			 => true,
 	'USER_ID'				 => $user_id,
 	'S_OWN_PROFILE'			 => ($user_id === (int) $user->data['user_id']) ? true : false,
 	'USERNAME_FULL'			 => $socialnet->get_username_string(1, 'full', $user_id, $member['username'], $member['user_colour']),

@@ -46,9 +46,10 @@ $socialnet->blocks(array(
 $socialnet->online_users();
 
 $template->assign_vars(array(
-    'U_BOARD'			 					=> append_sid("{$phpbb_root_path}index.$phpEx"),
-    'S_ON_ACTIVITYPAGE'		 	=> true,
-    'S_ALLOW_LAST_POSTS' 		=> ($config['ap_num_last_posts'] > 0) ? true : false,
+	'S_IN_ACTIVITY'			=> true,
+    'U_BOARD'				=> append_sid("{$phpbb_root_path}index.$phpEx"),
+    'S_ON_ACTIVITYPAGE'		=> true,
+    'S_ALLOW_LAST_POSTS' 	=> ($config['ap_num_last_posts'] > 0) ? true : false,
 ));
 
 // Output page
