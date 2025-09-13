@@ -51,13 +51,14 @@
 			    </div>
 		    </div>
 		</p>
-	<div class="copyright">{CREDIT_LINE}
-        <!-- IF SCRIPT_NAME eq 'activitypage' or SCRIPT_NAME eq 'profile' -->Powered by <a href="#" title="phpBB Social Network">phpBB Social Network</a> &copy; phpBB SN Group'<!-- ENDIF -->	
-		<!-- IF STARGATE --><!-- INCLUDE portal_copyright.html --><!-- ENDIF -->
-		<!-- IF SITE_COPYRIGHT -->{COPYRIGHT}<!-- ENDIF -->
+	<div class="copyright">
+		<!-- IF U_MCP --><a class="mcp" href="{U_MCP}">{L_MCP}</a><!-- IF not U_ACP --><br /><br /><!-- ENDIF --><!-- ENDIF --><!-- IF U_ACP --><!-- IF U_MCP --> | <!-- ENDIF --><a class="acp" href="{U_ACP}">{L_ACP}</a><br /><br /><!-- ENDIF -->
+        <!-- IF U_MCP -->{CURRENT_TIME}<br /><br /><!-- ELSEIF S_USER_LOGGED_IN -->{CURRENT_TIME}<br /><br /><!-- ENDIF -->
+        {CREDIT_LINE}
+		<!-- IF STARGATE and SCRIPT_NAME eq 'portal' --><!-- INCLUDE portal_copyright.html --><!-- ENDIF -->
 		<!-- IF TRANSLATION_INFO --><br />{TRANSLATION_INFO}<!-- ENDIF -->
+        <!-- IF SITE_COPYRIGHT --><br>{COPYRIGHT}<!-- ENDIF -->
 		<!-- IF DEBUG_OUTPUT --><br />{DEBUG_OUTPUT}<!-- ENDIF -->
-		<!-- IF U_ACP --><br /><strong><a href="{U_ACP}">{L_ACP}</a></strong><!-- ENDIF -->
 	</div>
 	{ADS_8}
 </div>

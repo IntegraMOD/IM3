@@ -17,7 +17,7 @@
 
 <div class="panel">
 	<div class="inner"><span class="corners-top"><span></span></span>
-
+<!-- IF not S_SIGNATURE_DISABLED -->
 	<p>{L_SIGNATURE_EXPLAIN}</p>
 
 	<!-- DEFINE $SIG_EDIT = 1 -->
@@ -35,7 +35,9 @@
 		<!-- ENDIF -->
 
 	</fieldset>
-
+<!-- ELSE -->
+	<p class="error">{L_SIGNATURE_DISABLED}</p>
+<!-- ENDIF -->
 	<span class="corners-bottom"><span></span></span></div>
 </div>
 

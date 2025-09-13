@@ -105,7 +105,7 @@ p.right {
 	border-radius: 8px;
 	margin: 0 auto;
 	max-width: 1220px;
-	min-width: 625px;
+	min-width: 425px;
 	padding: 15px;
 }
 
@@ -1173,29 +1173,38 @@ ul.links li img{
 	margin: 2px;
 }
 
-.column_chat {
-	display: inline-block;
-	width: 67%;
-	margin: 0 0 0 1em;
+.extra {
+	overflow: hidden;
+	width: 100%;
 }
 
 .column_cal {
-	display: inline-block;
+	float: left;
 	width: 32%;
-}	
+	max-width: 250px;
+}
 
+.column_chat {
+	overflow: hidden; /* triggers block formatting context */
+}
 
- /* For mobile phones: */
- @media only screen and (max-width: 500px) {
-	 .row_resp {
-		display: block !important; 
-	 }
-    .column_resp, .column_home, .column_chat, .column_cal {
-		width: 100%;
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	.column_cal,
+	.column_chat {
 		display: block;
-        width: auto;
-	}	
-    .column_chat {
-        margin: 0px;
-    }		
- }
+		width: 100%;
+		float: none;
+		margin: 0 0 1em 0;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.column_cal,
+	.column_chat {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		float: none;
+		margin: 0 0 1em 0;
+	}
+}

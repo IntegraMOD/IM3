@@ -10,78 +10,114 @@
 
 	<fieldset>
 	<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+<!-- IF not S_FB_DISABLED -->
 	<dl>
-		<dt><label for="fb">{L_UCP_FB}:</label></dt>
+		<dt><label for="fb">{L_UCP_FB}:<!-- IF S_FB_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="fb" id="fb" maxlength="255" value="{FB}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_IG_DISABLED -->
 	<dl>
-		<dt><label for="ig">{L_UCP_IG}:</label></dt>
+		<dt><label for="ig">{L_UCP_IG}:<!-- IF S_IG_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="ig" id="ig" maxlength="255" value="{IG}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_PT_DISABLED -->
 	<dl>
-		<dt><label for="pt">{L_UCP_PT}:</label></dt>
+		<dt><label for="pt">{L_UCP_PT}:<!-- IF S_PT_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="pt" id="pt" maxlength="255" value="{PT}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_TWR_DISABLED -->
 	<dl>
-		<dt><label for="twr">{L_UCP_TWR}:</label></dt>
+		<dt><label for="twr">{L_UCP_TWR}:<!-- IF S_TWR_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="twr" id="twr" maxlength="255" value="{TWR}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_SKP_DISABLED -->
 	<dl>
-		<dt><label for="skp">{L_UCP_SKP}:</label></dt>
+		<dt><label for="skp">{L_UCP_SKP}:<!-- IF S_SKP_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="skp" id="skp" maxlength="255" value="{SKP}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_TG_DISABLED -->
 	<dl>
-		<dt><label for="tg">{L_UCP_TG}:</label></dt>
+		<dt><label for="tg">{L_UCP_TG}:<!-- IF S_TG_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="tg" id="tg" maxlength="255" value="{TG}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_LI_DISABLED -->
 	<dl>
-		<dt><label for="li">{L_UCP_LI}:</label></dt>
+		<dt><label for="li">{L_UCP_LI}:<!-- IF S_LI_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="li" id="li" maxlength="255" value="{LI}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_TT_DISABLED -->
 	<dl>
-		<dt><label for="tt">{L_UCP_TT}:</label></dt>
+		<dt><label for="tt">{L_UCP_TT}:<!-- IF S_TT_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="tt" id="tt" maxlength="255" value="{TT}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_DC_DISABLED -->
 	<dl>
-		<dt><label for="dc">{L_UCP_DC}:</label></dt>
+		<dt><label for="dc">{L_UCP_DC}:<!-- IF S_DC_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="dc" id="dc" maxlength="255" value="{DC}" placeholder="{UCP_DC_TAG}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_ICQ_DISABLED -->
 	<dl>
-		<dt><label for="icq">{L_UCP_ICQ}:</label></dt>
+		<dt><label for="icq">{L_UCP_ICQ}:<!-- IF S_ICQ_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="icq" id="icq" maxlength="15" value="{ICQ}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_AIM_DISABLED -->
 	<dl>
-		<dt><label for="aim">{L_UCP_AIM}:</label></dt>
+		<dt><label for="aim">{L_UCP_AIM}:<!-- IF S_AIM_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="aim" id="aim" maxlength="255" value="{AIM}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_MSN_DISABLED -->
 	<dl>
-		<dt><label for="msn">{L_UCP_MSNM}:</label></dt>
+		<dt><label for="msn">{L_UCP_MSN}:<!-- IF S_MSN_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="msn" id="msn" maxlength="255" value="{MSN}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_YIM_DISABLED -->
 	<dl>
-		<dt><label for="yim">{L_UCP_YIM}:</label></dt>
+		<dt><label for="yim">{L_UCP_YIM}:<!-- IF S_YIM_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="yim" id="yim" maxlength="255" value="{YIM}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_JABBER_DISABLED -->
 	<dl>
-		<dt><label for="jabber">{L_UCP_JABBER}:</label></dt>
+		<dt><label for="jabber">{L_UCP_JABBER}:<!-- IF S_JABBER_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="jabber" id="jabber" maxlength="255" value="{JABBER}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_WEBSITE_DISABLED -->
 	<dl>
-		<dt><label for="website">{L_WEBSITE}:</label></dt>
+		<dt><label for="website">{L_WEBSITE}:<!-- IF S_YIM_WEBSITE --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="website" id="website" maxlength="255" value="{WEBSITE}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_LOCATION_DISABLED -->
 	<dl>
-		<dt><label for="location">{L_LOCATION}:</label></dt>
+		<dt><label for="location">{L_LOCATION}:<!-- IF S_LOCATION_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><input type="text" name="location" id="location" maxlength="255" value="{LOCATION}" class="inputbox" /></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_OCCUPATION_DISABLED  -->
 	<dl>
-		<dt><label for="occupation">{L_OCCUPATION}:</label></dt>
+		<dt><label for="occupation">{L_OCCUPATION}:<!-- IF S_OCCUPATION_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><textarea name="occupation" id="occupation" class="inputbox" rows="3" cols="30">{OCCUPATION}</textarea></dd>
 	</dl>
+<!-- ENDIF -->
+<!-- IF not S_INTERESTS_DISABLED -->
 	<dl>
-		<dt><label for="interests">{L_INTERESTS}:</label></dt>
+		<dt><label for="interests">{L_INTERESTS}:<!-- IF S_INTERESTS_REQUIRED --> *<!-- ENDIF --></label></dt>
 		<dd><textarea name="interests" id="interests" class="inputbox" rows="3" cols="30">{INTERESTS}</textarea></dd>
 	</dl>
+<!-- ENDIF -->
 	<!-- IF S_BIRTHDAYS_ENABLED -->
 		<dl>
 			<dt><label for="bday_day">{L_BIRTHDAY}:</label><br /><span>{L_BIRTHDAY_EXPLAIN}</span></dt>

@@ -1,23 +1,30 @@
-<div class="extra_container">
-<div class="row_resp">
-	<div class="column_cal">
+<div class="extra clearfix">
+
+	<!-- IF S_SHOW_MINICAL -->
+	<div id="minical"  class="column_cal" style="padding-right: 5px;">
 		<div class="forabg">
-				<div class="inner">
-					<ul class="topiclist">
-						<li class="header">
-							<dl>
-								<dt><a href="{U_CALENDAR}">{L_LANG_CALENDAR}</a></dt>
-							</dl>
-						</li>
-					</ul>
-					<div class="bg4" style="padding: 5px; margin: 0px auto;">
+			<div class="inner">
+				<span class="corners-top"><span><a name="mini_cal"></a></span></span>
+				<ul class="topiclist">
+					<li class="header">
+						<dl>
+							<dt><a href="{U_CALENDAR}">{L_LANG_CALENDAR}</a></dt>
+						</dl>
+					</li>
+				</ul>
+				<div class="panel" style="padding: 5px 4px 2px 4px; font-size: 1.1em; background-color: #ECF1F3; margin: 0 auto; text-align: center;">
 					<!-- INCLUDE blocks/block_calendar.html -->
-					</div>
 				</div>
+				<span class="corners-bottom"><span></span></span>
+			</div>
 		</div>
 	</div>
+	<!-- ENDIF -->
+
 	<!-- IF S_MCHAT_ENABLE and S_MCHAT_ON_INDEX and not S_MCHAT_LOCATION -->
-	<div class="column_chat"><!-- INCLUDE mchat_body.html --></div>
-<!-- ENDIF -->
-</div>
+	<div class="column_chat" style="overflow: hidden;">
+		<!-- INCLUDE mchat_body.html -->
+	</div>
+	<!-- ENDIF -->
+
 </div>

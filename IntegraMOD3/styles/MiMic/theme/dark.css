@@ -261,6 +261,9 @@ div.mChatBodyFix {
 .bg1	{ background-color: #272D3A !important; }
 .bg2	{ background-color: #191D24 !important; }
 .bg3	{ background-color: #1F242E !important; }
+.mChatBG1 { background-color: #3D474C !important; }
+.mChatBG2 { background-color: #444F55 !important; }
+.mChatBodyFix { color: #fff !important; }
 
 tr.cal_block_header {
     background-color:#242A36 !important;
