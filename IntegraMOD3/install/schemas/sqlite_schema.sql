@@ -1350,7 +1350,7 @@ CREATE TABLE phpbb_kb_article (
 );
 
 CREATE INDEX phpbb_kb_article_activ ON phpbb_kb_article (activ);
-CREATE INDEX phpbb_kb_article_titel ON phpbb_kb_article (titel);
+ phpbb_kb_article_titel_fulltext ON phpbb_kb_article (titel);
 
 # Table: 'phpbb_kb_article_diff'
 CREATE TABLE phpbb_kb_article_diff (
@@ -1400,7 +1400,7 @@ CREATE TABLE phpbb_kb_categorie (
 	last_article_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	last_article_poster_name varchar(255) NOT NULL DEFAULT '',
 	last_article_poster_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	last_article_poster_colour INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	last_article_poster_colour varchar(8) NOT NULL DEFAULT '',
 	last_article_title varchar(255) NOT NULL DEFAULT '',
 	ads mediumtext(16777215) NOT NULL DEFAULT ''
 );

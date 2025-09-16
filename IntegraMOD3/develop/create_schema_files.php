@@ -2387,8 +2387,8 @@ function get_schema_struct()
 		),
 		'PRIMARY_KEY'	=> 'article_id',
 		'KEYS'			=> array(
-			'activ'	=> array('INDEX', 'activ'),
-			'titel'	=> array('INDEX', 'titel'),
+			'activ'	         => array('INDEX', 'activ'),
+			'titel_fulltext' => array('FULLTEXT', 'titel'),
 		),		
 	);
 	
@@ -2439,12 +2439,12 @@ function get_schema_struct()
 			'image'					=> array('VCHAR:255', ''),	
 			'display_on_index'		=> array('BOOL', 0),
 			'cat_articles'			=> array('UINT', 0),
-			'last_article_url'		=> array('VCHAR:255', ''),	
+			'last_article_url'		=> array('VCHAR:255', ''),
 			'last_article_time'		=> array('TIMESTAMP', 0),
 			'last_article_id'		=> array('UINT', 0),
 			'last_article_poster_name'	 => array('VCHAR:255', ''),	
 			'last_article_poster_id'	 => array('UINT', 0),
-			'last_article_poster_colour' => array('UINT', 0),
+			'last_article_poster_colour' => array('VCHAR:8', ''),
 			'last_article_title'	=> array('VCHAR:255', ''),	
 			'ads'	 				=> array('MTEXT_UNI', ''),
 		),

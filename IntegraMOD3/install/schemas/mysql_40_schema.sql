@@ -1394,7 +1394,7 @@ CREATE TABLE phpbb_kb_article (
 	rating mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (article_id),
 	KEY activ (activ),
-	KEY titel (titel)
+ titel_fulltext (titel)
 );
 
 
@@ -1446,7 +1446,7 @@ CREATE TABLE phpbb_kb_categorie (
 	last_article_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	last_article_poster_name varbinary(255) DEFAULT '' NOT NULL,
 	last_article_poster_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	last_article_poster_colour mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	last_article_poster_colour varbinary(8) DEFAULT '' NOT NULL,
 	last_article_title varbinary(255) DEFAULT '' NOT NULL,
 	ads mediumblob NOT NULL,
 	PRIMARY KEY (cat_id)

@@ -2332,7 +2332,7 @@ GO
 CREATE  INDEX [activ] ON [phpbb_kb_article]([activ])
 GO
 
-CREATE  INDEX [titel] ON [phpbb_kb_article]([titel])
+ [titel_fulltext] ON [phpbb_kb_article]([titel])
 GO
 
 
@@ -2406,7 +2406,7 @@ CREATE TABLE [phpbb_kb_categorie] (
 	[last_article_id] [int] DEFAULT (0) NOT NULL ,
 	[last_article_poster_name] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[last_article_poster_id] [int] DEFAULT (0) NOT NULL ,
-	[last_article_poster_colour] [int] DEFAULT (0) NOT NULL ,
+	[last_article_poster_colour] [varchar] (8) DEFAULT ('') NOT NULL ,
 	[last_article_title] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[ads] [text] DEFAULT ('') NOT NULL 
 )GO

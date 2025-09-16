@@ -1394,7 +1394,7 @@ CREATE TABLE phpbb_kb_article (
 	rating mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (article_id),
 	KEY activ (activ),
-	KEY titel (titel)
+ titel_fulltext (titel)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 
@@ -1446,7 +1446,7 @@ CREATE TABLE phpbb_kb_categorie (
 	last_article_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	last_article_poster_name varchar(255) DEFAULT '' NOT NULL,
 	last_article_poster_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	last_article_poster_colour mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	last_article_poster_colour varchar(8) DEFAULT '' NOT NULL,
 	last_article_title varchar(255) DEFAULT '' NOT NULL,
 	ads mediumtext NOT NULL,
 	PRIMARY KEY (cat_id)

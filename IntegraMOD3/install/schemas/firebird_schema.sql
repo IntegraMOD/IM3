@@ -1984,7 +1984,7 @@ CREATE TABLE phpbb_kb_article (
 ALTER TABLE phpbb_kb_article ADD PRIMARY KEY (article_id);;
 
 CREATE INDEX phpbb_kb_article_activ ON phpbb_kb_article(activ);;
-CREATE INDEX phpbb_kb_article_titel ON phpbb_kb_article(titel);;
+ phpbb_kb_article_titel_fulltext ON phpbb_kb_article(titel);;
 
 CREATE GENERATOR phpbb_kb_article_gen;;
 SET GENERATOR phpbb_kb_article_gen TO 0;;
@@ -2058,7 +2058,7 @@ CREATE TABLE phpbb_kb_categorie (
 	last_article_id INTEGER DEFAULT 0 NOT NULL,
 	last_article_poster_name VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
 	last_article_poster_id INTEGER DEFAULT 0 NOT NULL,
-	last_article_poster_colour INTEGER DEFAULT 0 NOT NULL,
+	last_article_poster_colour VARCHAR(8) CHARACTER SET NONE DEFAULT '' NOT NULL,
 	last_article_title VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
 	ads BLOB SUB_TYPE TEXT CHARACTER SET UTF8 DEFAULT '' NOT NULL
 );;

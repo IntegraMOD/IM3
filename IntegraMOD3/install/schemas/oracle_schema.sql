@@ -2540,7 +2540,7 @@ CREATE TABLE phpbb_kb_article (
 
 CREATE INDEX phpbb_kb_article_activ ON phpbb_kb_article (activ)
 /
-CREATE INDEX phpbb_kb_article_titel ON phpbb_kb_article (titel)
+ phpbb_kb_article_titel_fulltext ON phpbb_kb_article (titel)
 /
 
 CREATE SEQUENCE phpbb_kb_article_seq
@@ -2633,7 +2633,7 @@ CREATE TABLE phpbb_kb_categorie (
 	last_article_id number(8) DEFAULT '0' NOT NULL,
 	last_article_poster_name varchar2(255) DEFAULT '' ,
 	last_article_poster_id number(8) DEFAULT '0' NOT NULL,
-	last_article_poster_colour number(8) DEFAULT '0' NOT NULL,
+	last_article_poster_colour varchar2(8) DEFAULT '' ,
 	last_article_title varchar2(255) DEFAULT '' ,
 	ads clob DEFAULT '' ,
 	CONSTRAINT pk_phpbb_kb_categorie PRIMARY KEY (cat_id)
