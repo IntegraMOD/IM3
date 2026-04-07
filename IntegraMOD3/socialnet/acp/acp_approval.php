@@ -101,7 +101,7 @@ class acp_approval extends socialnet
      * @access private
      * @return @void
      */
-    public function acp_sett_main()
+    public static function acp_sett_main()
     {
         global $db;
 

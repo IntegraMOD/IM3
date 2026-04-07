@@ -18,20 +18,20 @@ if (!defined('IN_PHPBB')) {
 
 class phpbb_gallery_auth
 {
-    final public const SETTING_PERMISSIONS	= -39839;
-    final public const PERSONAL_ALBUM		= -3;
-    final public const OWN_ALBUM				= -2;
-    final public const PUBLIC_ALBUM			= 0;
+    public const SETTING_PERMISSIONS	= -39839;
+    public const PERSONAL_ALBUM		= -3;
+    public const OWN_ALBUM				= -2;
+    public const PUBLIC_ALBUM			= 0;
 
-    final public const ACCESS_ALL			= 0;
-    final public const ACCESS_REGISTERED	= 1;
-    final public const ACCESS_NOT_FOES		= 2;
-    final public const ACCESS_FRIENDS		= 3;
+    public const ACCESS_ALL			= 0;
+    public const ACCESS_REGISTERED	= 1;
+    public const ACCESS_NOT_FOES		= 2;
+    public const ACCESS_FRIENDS		= 3;
 
     // ACL - slightly different
-    final public const ACL_NO		= 0;
-    final public const ACL_YES		= 1;
-    final public const ACL_NEVER		= 2;
+    public const ACL_NO		= 0;
+    public const ACL_YES		= 1;
+    public const ACL_NEVER		= 2;
 
     private static array $_permission_i = array('i_view', 'i_watermark', 'i_upload', 'i_approve', 'i_edit', 'i_delete', 'i_report', 'i_rate');
     private static array $_permission_c = array('c_read', 'c_post', 'c_edit', 'c_delete');

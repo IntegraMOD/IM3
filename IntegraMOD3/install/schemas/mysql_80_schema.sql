@@ -1394,7 +1394,7 @@ CREATE TABLE phpbb_kb_article (
 	rating mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (article_id),
 	KEY activ (activ),
- titel_fulltext (titel)
+  KEY titel_fulltext (titel)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 
@@ -2811,7 +2811,7 @@ CREATE TABLE phpbb_topics (
 	poll_max_options tinyint(4) DEFAULT '1' NOT NULL,
 	poll_last_vote int(11) UNSIGNED DEFAULT '0' NOT NULL,
 	poll_vote_change tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	topic_calendar_time mediumint(8) UNSIGNED DEFAULT '0' NULL,
+	topic_calendar_time int(11) UNSIGNED DEFAULT '0' NULL,
 	topic_calendar_duration int(11) UNSIGNED DEFAULT '0' NULL,
 	event_repeat varchar(8) DEFAULT '' NULL,
 	invite_attendees tinyint(1) UNSIGNED DEFAULT '0' NULL,

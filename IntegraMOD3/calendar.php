@@ -825,8 +825,8 @@ if (!empty($event_data['event_end'])) {
 
 		if (!empty($tid))
 		{
-			$message .= '<br /><br />' . $user->lang['RETURN_TOPIC'];
 			$meta_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$fid&amp;t=$tid");
+			$message .= '<br /><br />' . sprintf($user->lang['RETURN_TOPIC'], '<a href="' . $meta_url . '">', '</a>');
 		}
 		else
 		{
