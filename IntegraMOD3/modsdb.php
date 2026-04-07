@@ -22,7 +22,9 @@ $user->session_begin();
 $auth->acl($user->data);
 $user->setup(array('mods_db'));
 
-$is_authorised = ( $config['mod_show'] == 0 && $user->data['is_registered'] && !$user->data['is_bot']) ? true : ( $config['mod_show'] == 1 && $auth->acl_get('a_',' m_') ) ? true : ( $config['mod_show'] == 2 && $auth->acl_get('a_') ) ? true : false;
+$is_authorised = ( $config['mod_show'] == 0 && $user->data['is_registered'] && !$user->data['is_bot'])
+  || ( $config['mod_show'] == 1 && $auth->acl_get('a_',' m_') )
+  || ( $config['mod_show'] == 2 && $auth->acl_get('a_') ) ;
 
 if (!$is_authorised)
 {

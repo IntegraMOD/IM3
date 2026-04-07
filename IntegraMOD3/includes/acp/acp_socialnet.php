@@ -194,9 +194,9 @@ class acp_socialnet extends AddOnsHookSystem
             $acp_filename = "{$socialnet_root_path}acp/acp_{$module}.{$phpEx}";
             if (file_exists($acp_filename)) {
                 include_once($acp_filename);
-                static $acp_moduleclass = 'acp_' . $module;
+                $acp_moduleclass = 'acp_' . $module;
                 if (method_exists($acp_moduleclass, 'acp_sett_main')) {
-                    eval("$acp_moduleclass::acp_sett_main();");
+                  call_user_func(array($acp_moduleclass, 'acp_sett_main'));
                 }
             }
         }
