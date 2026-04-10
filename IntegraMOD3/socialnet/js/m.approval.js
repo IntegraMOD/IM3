@@ -138,7 +138,7 @@
 
 		_changeButtons: function(obj, chCls) {
 			var snFmsButtons = $(obj).parents('form[id^=ucp] .inner').children('fieldset.submit-buttons').children('input');
-			if ($(obj).parent().children('.sn-fms-friend.' + chCls).size() != 0) {
+			if ($(obj).parent().children('.sn-fms-friend.' + chCls).length != 0) {
 				$(snFmsButtons).removeAttr('disabled').removeClass('disabled');
 			} else {
 				$(snFmsButtons).attr('disabled', 'disabled').addClass('disabled');
@@ -166,7 +166,7 @@
 		},
 
 		_initUcpFormAdd: function() {
-			if ($('form#ucp #add').size() == 0 || $('form#ucp #usernames').size() != 0) {
+			if ($('form#ucp #add').length == 0 || $('form#ucp #usernames').length != 0) {
 				return;
 			}
 
@@ -194,7 +194,8 @@
 
 		_initUcpForms: function() {
 			var self = this;
-			if ($('form[id=ucp_friend]').size() == 0 && $('form[id=ucp_approve]').size() == 0 && $('form[id=ucp_cancel]').size() == 0) {
+			if ($('form[id=ucp_friend]').length == 0 && $('form[id=ucp_approve]').length == 0 && $('form[id=ucp_cancel]').length == 0) {
+        console.log('socialnet m.approval.js: missing #ucp_friend or #ucp_approve or #ucp_cancel forms');
 				return;
 			}
 			this.callbackInit('friend');
@@ -246,7 +247,7 @@
 		_initGroupAccordion: function() {
 			var self = this;
 			// Group Accordion with droppable
-			if ($('#sn-fms-groupAccordion').size() == 0) {
+			if ($('#sn-fms-groupAccordion').length == 0) {
 				return;
 			}
 
@@ -263,7 +264,7 @@
 			$('#sn-fms-groupAccordion > div').droppable({
 				drop: function(event, ui) {
 					var $drag = $(this).children('div[title="' + ui.draggable.attr('title') + '"]');
-					if ($drag.size() > 0) {
+					if ($drag.length > 0) {
 						return;
 					}
 
@@ -352,7 +353,7 @@
 
 		_initUpGroupMenu: function() {
 			var self = this;
-			if ($('.sn-up-menu li').size() == 0) {
+			if ($('.sn-up-menu li').length == 0) {
 				return;
 			}
 
@@ -374,7 +375,7 @@
 				var g_t = $text.val();
 				data = self._groupChange('create', gid, uid, g_t);
 
-				if ($('a[class*="gid:' + data.gid + '"]').size() > 0) {
+				if ($('a[class*="gid:' + data.gid + '"]').length > 0) {
 					$('a[class*="gid:' + data.gid + '"]').children('.ui-icon').toggleClass('ui-icon-no ui-icon-check');
 					$(this).val('');
 					return;
