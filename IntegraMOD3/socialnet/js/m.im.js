@@ -376,7 +376,7 @@
 			}
 			if ($sn.isKey(e, $sn.im.opts.sendSequence)) {
 				var msg = $(obj).val();
-				var getC = $sn.getCaret(obj) + ($.browser.msie && $.browser.version < 9 ? 1 : 0);
+				var getC = $sn.getCaret(obj);
 				if (getC != msg.length) {
 					msg = msg.substring(0, getC - 1) + msg.substring(getC);
 				}
