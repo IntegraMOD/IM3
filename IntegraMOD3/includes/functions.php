@@ -5923,7 +5923,8 @@ function get_random_image($dir_path, $add_link = false, $token = '', $raw = fals
 	$rand_image = '';
 	$imglist = "";
 
-	mt_srand((double)microtime()*1000001);
+//	mt_srand((double)microtime()*1000001);
+    mt_srand((int)(microtime(true) * 1000001));
 
 	$handle = @opendir($dir_path);
 
@@ -5942,7 +5943,9 @@ function get_random_image($dir_path, $add_link = false, $token = '', $raw = fals
 
 	while (($file = readdir($handle)) !== false)
 	{
-		if (strpos($file, ".gif") || strpos($file, ".jpg") || strpos($file, ".png") && strpos($file ,$token))
+//		if (strpos($file, ".gif") || strpos($file, ".jpg") || strpos($file, ".png") && strpos($file ,$token))
+        if ((strpos($file, '.gif') !== false || strpos($file, '.jpg') !== false || strpos($file, '.png') !== false) && strpos($file, $token) !== false)
+
 		{
 			$imglist .= "$file ";
 		}
@@ -5954,7 +5957,8 @@ function get_random_image($dir_path, $add_link = false, $token = '', $raw = fals
 	$random = mt_rand(0, $a);
 	$image = $imglist[$random];
 
-	if (strpos($image, 'www') || strpos($image, 'http'))
+//	if (strpos($image, 'www') || strpos($image, 'http'))
+    if (strpos($image,'www')!==false || strpos($image,'http')!==false)
 	{
 		$add_link = true;
 	}
@@ -5994,4 +5998,3 @@ function get_random_image($dir_path, $add_link = false, $token = '', $raw = fals
 }
 
 /* Stargate functions ends */
-?>

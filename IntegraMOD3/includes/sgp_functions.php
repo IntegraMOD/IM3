@@ -48,7 +48,8 @@ if (!function_exists('sgp_get_rand_logo'))
 			return $user->img('site_logo');
 		}
 
-		mt_srand((double)microtime()*1_000_001);
+//		mt_srand((double)microtime()*1_000_001);
+        mt_srand((int)(microtime(true) * 1000001));
 
 		$logos_dir = "{$phpbb_root_path}styles/" . $user->theme['theme_path'] . '/theme/images/logos';
 
