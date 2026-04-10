@@ -254,11 +254,10 @@ var socialNetwork = (function($) {
 			}
 		},
 		getAttr: function(o, a) {
-			if (o.length == 0) {
-				return false;
-			}
+      if (o.data(a) != undefined)
+        return o.data(a);
 			if (o.attr(a) == undefined) {
-				if (o.metadata()[a] == undefined) {
+				if (o.length == 0 || o.metadata()[a] == undefined) {
 					return false;
 				}
 				return o.metadata()[a];
