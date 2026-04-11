@@ -2232,99 +2232,119 @@ class install_install extends module
 	*/
 	var $php_dlls_other = array('zlib', 'ftp', 'gd', 'xml');
 
-	/**
+/**
 	* A list of the web-crawlers/bots we recognise by default
 	*
 	* Candidates but not included:
-	* 'Accoona [Bot]'				'Accoona-AI-Agent/'
-	* 'ASPseek [Crawler]'			'ASPseek/'
-	* 'Boitho [Crawler]'			'boitho.com-dc/'
-	* 'Bunnybot [Bot]'				'powered by www.buncat.de'
-	* 'Cosmix [Bot]'				'cfetch/'
-	* 'Crawler Search [Crawler]'	'.Crawler-Search.de'
-	* 'Findexa [Crawler]'			'Findexa Crawler ('
-	* 'GBSpider [Spider]'			'GBSpider v'
-	* 'genie [Bot]'					'genieBot ('
-	* 'Hogsearch [Bot]'				'oegp v. 1.3.0'
-	* 'Insuranco [Bot]'				'InsurancoBot'
-	* 'IRLbot [Bot]'				'http://irl.cs.tamu.edu/crawler'
-	* 'ISC Systems [Bot]'			'ISC Systems iRc Search'
-	* 'Jyxobot [Bot]'				'Jyxobot/'
-	* 'Kraehe [Metasuche]'			'-DIE-KRAEHE- META-SEARCH-ENGINE/'
-	* 'LinkWalker'					'LinkWalker'
-	* 'MMSBot [Bot]'				'http://www.mmsweb.at/bot.html'
-	* 'Naver [Bot]'					'nhnbot@naver.com)'
-	* 'NetResearchServer'			'NetResearchServer/'
-	* 'Nimble [Crawler]'			'NimbleCrawler'
-	* 'Ocelli [Bot]'				'Ocelli/'
-	* 'Onsearch [Bot]'				'onCHECK-Robot'
-	* 'Orange [Spider]'				'OrangeSpider'
-	* 'Sproose [Bot]'				'http://www.sproose.com/bot'
-	* 'Susie [Sync]'				'!Susie (http://www.sync2it.com/susie)'
-	* 'Tbot [Bot]'					'Tbot/'
-	* 'Thumbshots [Capture]'		'thumbshots-de-Bot'
-	* 'Vagabondo [Crawler]'			'http://webagent.wise-guys.nl/'
-	* 'Walhello [Bot]'				'appie 1.1 (www.walhello.com)'
-	* 'WissenOnline [Bot]'			'WissenOnline-Bot'
-	* 'WWWeasel [Bot]'				'WWWeasel Robot v'
-	* 'Xaldon [Spider]'				'Xaldon WebSpider'
+	* 'Accoona [Bot]'                'Accoona-AI-Agent/'
+	* 'ASPseek [Crawler]'            'ASPseek/'
+	* 'Boitho [Crawler]'             'boitho.com-dc/'
+	* 'Bunnybot [Bot]'               'powered by www.buncat.de'
+	* 'Cosmix [Bot]'                 'cfetch/'
+	* 'Crawler Search [Crawler]'     '.Crawler-Search.de'
+	* 'Findexa [Crawler]'            'Findexa Crawler ('
+	* 'GBSpider [Spider]'            'GBSpider v'
+	* 'genie [Bot]'                  'genieBot ('
+	* 'Hogsearch [Bot]'              'oegp v. 1.3.0'
+	* 'Insuranco [Bot]'              'InsurancoBot'
+	* 'IRLbot [Bot]'                 'http://irl.cs.tamu.edu/crawler'
+	* 'ISC Systems [Bot]'            'ISC Systems iRc Search'
+	* 'Jyxobot [Bot]'                'Jyxobot/'
+	* 'Kraehe [Metasuche]'           '-DIE-KRAEHE- META-SEARCH-ENGINE/'
+	* 'LinkWalker'                   'LinkWalker'
+	* 'MMSBot [Bot]'                 'http://www.mmsweb.at/bot.html'
+	* 'Naver [Bot]'                  'nhnbot@naver.com)'
+	* 'NetResearchServer'            'NetResearchServer/'
+	* 'Nimble [Crawler]'             'NimbleCrawler'
+	* 'Ocelli [Bot]'                 'Ocelli/'
+	* 'Onsearch [Bot]'               'onCHECK-Robot'
+	* 'Orange [Spider]'              'OrangeSpider'
+	* 'Sproose [Bot]'                'http://www.sproose.com/bot'
+	* 'Susie [Sync]'                 '!Susie (http://www.sync2it.com/susie)'
+	* 'Tbot [Bot]'                   'Tbot/'
+	* 'Thumbshots [Capture]'         'thumbshots-de-Bot'
+	* 'Vagabondo [Crawler]'          'http://webagent.wise-guys.nl/'
+	* 'Walhello [Bot]'               'appie 1.1 (www.walhello.com)'
+	* 'WissenOnline [Bot]'           'WissenOnline-Bot'
+	* 'WWWeasel [Bot]'               'WWWeasel Robot v'
+	* 'Xaldon [Spider]'              'Xaldon WebSpider'
+	*
+	* Added modern AI / LLM crawlers:
+	* 'GPTBot [AI Crawler]'          'GPTBot/'
+	* 'ChatGPT-User [AI Client]'     'ChatGPT-User'
+	* 'ChatGPT-User [AI Client]'     'ChatGPT-User/'
+	* 'ChatGPT-User [AI Client]'     'ChatGPT-User-Agent'
+	* 'ClaudeBot [AI Crawler]'       'ClaudeBot/'
+	* 'CCBot [AI Crawler]'           'CCBot/'
+	* 'PerplexityBot [AI Crawler]'   'PerplexityBot/'
+	* 'Google-Extended [AI Crawler]' 'Google-Extended'
+	* 'GoogleOther [Bot]'            'GoogleOther'
+	* 'GoogleOther [Bot]'            'GoogleOther/'
+	* 'AppleBot [Bot]'               'AppleBot/'
+	* 'FacebookBot [Bot]'            'facebookexternalhit/'
+	* 'FacebookBot [Bot]'            'Facebot'
+	* 'Meta-External [Bot]'          'Meta-ExternalAgent/'
 	*/
+	
 	var $bot_list = array(
-		'AdsBot [Google]'			=> array('AdsBot-Google', ''),
-		'Ahrefs [Bot]'			    => array('AhrefsBot/', ''),
-		'Alexa [Bot]'			    => array('ia_archiver', ''),
-		'Alta Vista [Bot]'			=> array('Scooter/', ''),
-		'Amazon [Bot]'			    => array('Amazonbot/', ''),
-		'Ask Jeeves [Bot]'			=> array('Ask Jeeves', ''),
-		'Baidu [Spider]'			=> array('Baiduspider', ''),
-		'Bing [Bot]'			    => array('bingbot/', ''),
-		'DuckDuckGo [Bot]'			=> array('DuckDuckBot/', ''),
-		'Exabot [Bot]'			    => array('Exabot/', ''),
-		'FAST Enterprise [Crawler]'	=> array('FAST Enterprise Crawler', ''),
-		'FAST WebCrawler [Crawler]'	=> array('FAST-WebCrawler/', ''),
-		'Francis [Bot]'       	    => array('http://www.neomo.de/', ''),
-		'Gigabot [Bot]'	            => array('Gigabot/', ''),
-		'Google Adsense [Bot]'	    => array('Mediapartners-Google', ''),
-		'Google Desktop'			=> array('Google Desktop', ''),
-		'Google Feedfetcher'		=> array('Feedfetcher-Google', ''),
-		'Google [Bot]'		        => array('Googlebot', ''),
-		'Heise IT-Markt [Crawler]'	=> array('heise-IT-Markt-Crawler', ''),
-		'Heritrix [Crawler]'		=> array('heritrix/1.', ''),
-		'IBM Research [Bot]'		=> array('ibm.com/cs/crawler', ''),
-		'ICCrawler - ICjobs'		=> array('ICCrawler - ICjobs', ''),
-		'ichiro [Crawler]'		    => array('ichiro/', ''),
-		'Majestic-12 [Bot]'		    => array('MJ12bot/', ''),
-		'Metager [Bot]'		        => array('MetagerBot/', ''),
-		'MSN NewsBlogs'		        => array('msnbot-NewsBlogs/', ''),
-		'MSN [Bot]'		            => array('msnbot/', ''),
-		'MSNbot Media'		        => array('msnbot-media/', ''),
-		'NG-Search [Bot]'		    => array('NG-Search/', ''),
-		'Nutch [Bot]'		        => array('http://lucene.apache.org/nutch/', ''),
-		'Nutch/CVS [Bot]'		    => array('NutchCVS/', ''),
-		'OmniExplorer [Bot]'		=> array('OmniExplorer_Bot/', ''),
-		'Online link [Validator]'	=> array('online link validator', ''),
-		'psbot [Picsearch]'		    => array('psbot/0', ''),
-		'Seekport [Bot]'		    => array('Seekbot/', ''),
-		'Semrush [Bot]'		        => array('SemrushBot/', ''),
-		'Sensis [Crawler]'		    => array('Sensis Web Crawler', ''),
-		'SEO Crawler'		        => array('SEO search Crawler/', ''),
-		'Seoma [Crawler]'		    => array('Seoma [SEO Crawler]', ''),
-		'SEOSearch [Crawler]'		=> array('SEOsearch/', ''),
-		'Snappy [Bot]'		        => array('Snappy/1.1 ( http://www.urltrends.com/ )', ''),
-		'Steeler [Crawler]'		    => array('http://www.tkl.iis.u-tokyo.ac.jp/~crawler/', ''),
-		'Synoo [Bot]'		        => array('SynooBot/', ''),
-		'Telekom [Bot]'		        => array('crawleradmin.t-info@telekom.de', ''),
-		'TurnitinBot [Bot]'		    => array('TurnitinBot/', ''),
-		'Voyager [Bot]'		        => array('voyager/', ''),
-		'W3 [Sitesearch]'		    => array('W3 SiteSearch Crawler', ''),
-		'W3C [Linkcheck]'		    => array('W3C-checklink/', ''),
-		'W3C [Validator]'		    => array('W3C_*Validator', ''),
-		'WiseNut [Bot]'		        => array('http://www.WISEnutbot.com', ''),
-		'YaCy [Bot]'		        => array('yacybot', ''),
-		'Yahoo MMCrawler [Bot]'		=> array('Yahoo-MMCrawler/', ''),
-		'Yahoo Slurp [Bot]'		    => array('Yahoo! DE Slurp', ''),
-		'Yahoo [Bot]'		        => array('Yahoo! Slurp', ''),
-		'YahooSeeker [Bot]'		    => array('YahooSeeker/', ''),
+
+		/* --- Major Search Engines --- */
+		'Google [Bot]'               => array('Googlebot', ''),
+		'GoogleOther [Bot]'          => array('GoogleOther', ''),
+		'Google-Extended [Bot]'      => array('Google-Extended', ''),
+		'Bing [Bot]'                 => array('bingbot/', ''),
+		'Baidu [Spider]'             => array('Baiduspider', ''),
+		'Yandex [Bot]'               => array('YandexBot/', ''),
+		'DuckDuckGo [Bot]'           => array('DuckDuckBot/', ''),
+		'Petal [Bot]'                => array('PetalBot/', ''),
+		'Sogou [Spider]'             => array('Sogou web spider', ''),
+		'Seznam [Bot]'               => array('SeznamBot/', ''),
+		'YouBot [Bot]'               => array('YouBot/', ''),
+
+		/* --- AI Crawlers (Legit) --- */
+		'GPTBot [Bot]'               => array('GPTBot/', ''),
+		'ChatGPT-User [Bot]'         => array('ChatGPT-User', ''),
+		'ClaudeBot [Bot]'            => array('ClaudeBot/', ''),
+		'CCBot [Bot]'                => array('CCBot/', ''),
+		'Meta-External [Bot]'        => array('Meta-ExternalAgent/', ''),
+		'Applebot [Bot]'             => array('Applebot/', ''),
+
+		/* --- Social Media Preview Bots --- */
+		'Facebook [Bot]'             => array('facebookexternalhit/', ''),
+		'LinkedIn [Bot]'             => array('LinkedInBot/', ''),
+		'Pinterest [Bot]'            => array('Pinterestbot/', ''),
+		'Reddit [Bot]'               => array('redditbot/', ''),
+		'Twitter [Bot]'              => array('Twitterbot/', ''),
+		'TikTok [Bot]'               => array('TikTokBot/', ''),
+
+		/* --- SEO Tools (Legit Crawlers Only) --- */
+		'Ahrefs [Bot]'               => array('AhrefsBot/', ''),
+		'Semrush [Bot]'              => array('SemrushBot/', ''),
+		'Majestic-12 [Bot]'          => array('MJ12bot/', ''),
+		'Moz [Bot]'                  => array('rogerbot/', ''),
+		'Serpstat [Bot]'             => array('SerpstatBot/', ''),
+
+		/* --- Feed Readers --- */
+		'Feedfetcher [Google]'       => array('Feedfetcher-Google', ''),
+		'Feedly [Bot]'               => array('FeedlyBot/', ''),
+		'Flipboard [Bot]'            => array('FlipboardProxy/', ''),
+		'Inoreader [Bot]'            => array('Inoreader', ''),
+		'NewsBlur [Bot]'             => array('NewsBlur', ''),
+
+		/* --- Uptime / Monitoring Bots --- */
+		'UptimeRobot [Monitor]'      => array('UptimeRobot/', ''),
+		'Pingdom [Monitor]'          => array('Pingdom.com_bot', ''),
+		'Site24x7 [Monitor]'         => array('Site24x7', ''),
+		'BetterUptime [Monitor]'     => array('BetterUptimeBot/', ''),
+
+		/* --- Archivers --- */
+		'Archive.org [Bot]'          => array('archive.org_bot', ''),
+		'Heritrix [Crawler]'         => array('heritrix/', ''),
+
+		/* --- Misc Legit Bots --- */
+		'Amazon [Bot]'               => array('Amazonbot/', ''),
+		'AdsBot [Google]'            => array('AdsBot-Google', ''),
+		'Mediapartners [Google]'     => array('Mediapartners-Google', '')
 	);
 
 	/**

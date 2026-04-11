@@ -69,3 +69,40 @@ Rewriterule ^blog/(.+)/(.+)$		./blog/view/blog.php?page=$1&mode=$2 [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^blog/(.+)$ ./blog/blog.php?page=$1 [NC]
 </IfModule>
+
+# Block common malicious scrapers and bad bots
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Block generic scrapers
+RewriteCond %{HTTP_USER_AGENT} "curl" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "wget" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "python-requests" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "urllib" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "libwww-perl" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "HTTrack" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "SiteSucker" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Scrapy" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Go-http-client" [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} "Java/" [NC]
+
+RewriteRule .* - [F,L]
+</IfModule>
+
+# Block known malicious bots by signature
+BrowserMatchNoCase "MJ12bot/v1" bad_bot
+BrowserMatchNoCase "EmailCollector" bad_bot
+BrowserMatchNoCase "DataForSeoBot" bad_bot
+BrowserMatchNoCase "CensysInspect" bad_bot
+BrowserMatchNoCase "ZoominfoBot" bad_bot
+
+<IfModule mod_setenvif.c>
+SetEnvIf bad_bot 1 BlockAccess
+</IfModule>
+
+<IfModule mod_authz_core.c>
+<RequireAll>
+    Require all granted
+    Require not env BlockAccess
+</RequireAll>
+</IfModule>
