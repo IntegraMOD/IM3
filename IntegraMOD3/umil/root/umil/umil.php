@@ -526,8 +526,8 @@ class umil
 	/**
 	* Multicall Helper
 	*
-	* @param mixed $function Function name to call
-	* @param mixed $params The parameters array
+	* @param $function Function name to call
+	* @param $params The parameters array
 	*
 	* @return bool True if we have done a multicall ($params is an array), false if not ($params is not an array)
 	*/
@@ -969,7 +969,7 @@ class umil
 	* This function allows you to add a config setting.
 	*
 	* @param string $config_name The name of the config setting you would like to add
-	* @param mixed $config_value The value of the config setting
+	* @param $config_value The value of the config setting
 	* @param bool $is_dynamic True if it is dynamic (changes very often) and should not be stored in the cache, false if not.
 	*
 	* @return result
@@ -1000,7 +1000,7 @@ class umil
 	* This function allows you to update an existing config setting.
 	*
 	* @param string $config_name The name of the config setting you would like to update
-	* @param mixed $config_value The value of the config setting
+	* @param $config_value The value of the config setting
 	* @param bool $is_dynamic True if it is dynamic (changes very often) and should not be stored in the cache, false if not.
 	*
 	* @return result

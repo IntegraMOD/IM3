@@ -5583,7 +5583,8 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 
 		// new random background image 10 January 2009 Mike //
 		$rand_image = get_random_image('images/rand_backgrounds', false, '', true);
-		$rand_color = basename($rand_image, ".jpg");
+//		$rand_color = basename($rand_image, ".jpg");
+        $rand_color = $rand_image ? basename($rand_image, '.jpg') : '';
 
 		$template->assign_vars(array(
 			'STARGATE'						=> true,
@@ -5923,7 +5924,7 @@ function get_random_image($dir_path, $add_link = false, $token = '', $raw = fals
 	$rand_image = '';
 	$imglist = "";
 
-//	mt_srand((double)microtime()*1000001);
+	//	mt_srand((double)microtime()*1000001);
     mt_srand((int)(microtime(true) * 1000001));
 
 	$handle = @opendir($dir_path);

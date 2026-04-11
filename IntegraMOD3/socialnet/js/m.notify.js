@@ -43,7 +43,7 @@
 				theme: this.theme
 			});
 
-			$(document).on('click', '.sn-ntf-delete', function() {
+			$('.sn-ntf-delete').live('click', function() {
 				var $ntf_bl = $(this).parents('.sn-ntf-block');
 				var ntf_id = $sn.getAttr($(this), 'ntf_id');
 
@@ -66,7 +66,7 @@
 				});
 			});
 
-			$(document).on('click', '.sn-ntf-markRead', function() {
+			$('.sn-ntf-markRead').live('click', function() {
 				var $this = $(this);
 				var $ntf_bl = $(this).parents('.sn-ntf-block');
 				var ntf_id = $sn.getAttr($(this), 'ntf_id');

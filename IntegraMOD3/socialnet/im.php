@@ -728,15 +728,16 @@ if (!class_exists('socialnet_im')) {
             $config['min_post_chars'] = $min_post_chars;
 
             if (!is_array($uid)) {
-                $uid = array(
-                  'from' => $user->data['user_id'],
-                  'to' => $uid
+                $sql_arr = array(
+                    'uid_from'	 => $user->data['user_id'],
+                    'uid_to'	 => $uid,
+                );
+            } else {
+                $sql_arr = array(
+                    'uid_from'	 => $uid['from'],
+                    'uid_to'	 => $uid['to']
                 );
             }
-            $sql_arr = array(
-                'uid_from'	 => $uid['from'],
-                'uid_to'	 => $uid['to']
-            );
 
             $message_time = $starttime;
 

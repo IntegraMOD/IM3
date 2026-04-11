@@ -122,7 +122,7 @@ if (!class_exists('socialnet_profile')) {
                     "sn_{$call_mode}" 	 => "socialnet/user_profile_{$call_mode}.html",
                 ));
 
-                if (!$fullpage || $fullpage == 'false') {
+                if ($fullpage == 'false') {
                     $content = $this->p_master->get_page("sn_{$call_mode}");
                     header('Content-type: text/html; charset=UTF-8');
                     die($content);

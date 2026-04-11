@@ -15,16 +15,8 @@ if (!defined('IN_PHPBB'))
 }
 
 // Report all errors, except notices and deprecation messages
-if (!defined('E_DEPRECATED'))
-{
-	define('E_DEPRECATED', 8192);
-}
-if (!defined('E_STRICT'))
-{
-	define('E_STRICT', 2048);
-}
-
-error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE & ~E_DEPRECATED);
+// No error_reporting here.
+// common.php will handle all error reporting settings.
 
 /*
 * Remove variables created by register_globals from the global scope

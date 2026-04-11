@@ -45,7 +45,7 @@ class p_master
 		$this->include_path = ($include_path !== false) ? $include_path : $phpbb_root_path . 'includes/';
 
 		// Make sure the path ends with /
-		if (substr((string) $this->include_path, -1) !== '/')
+        if (substr($this->include_path . '', -1) !== '/')
 		{
 			$this->include_path .= '/';
 		}
@@ -877,4 +877,10 @@ class p_master
 			}
 		}
 	}
+}
+
+// Compatibility wrapper for legacy instantiation
+function p_master($include_path = false)
+{
+	return new p_master($include_path);
 }

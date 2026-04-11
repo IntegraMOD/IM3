@@ -203,12 +203,19 @@ class phpbb_gallery_auth
         }
 
         foreach (self::$_permissions as $permission) {
-            if (!str_contains((string) $permission, '_count')) {
+            $perm = (string) $permission;
+        
+            // PHP 7.4-safe replacements
+            $contains_count = (strpos($perm, '_count') !== false);
+            $starts_with_m  = (substr($perm, 0, 2) === 'm_');
+        
+            if (!$contains_count) {
                 if ($data[$permission] == self::ACL_NEVER) {
                     $this->_auth_data_never[$album_id]->set_bit(self::$_permissions_flipped[$permission], true);
                 } elseif ($data[$permission] == self::ACL_YES) {
                     $this->_auth_data[$album_id]->set_bit(self::$_permissions_flipped[$permission], true);
-                    if (str_starts_with((string) $permission, 'm_')) {
+        
+                    if ($starts_with_m) {
                         $this->_auth_data[$album_id]->set_bit(self::$_permissions_flipped['m_'], true);
                     }
                 }
@@ -216,6 +223,8 @@ class phpbb_gallery_auth
                 $this->_auth_data[$album_id]->set_count($permission, $data[$permission]);
             }
         }
+
+
     }
 
     /**
@@ -225,9 +234,16 @@ class phpbb_gallery_auth
     {
         foreach ($this->_auth_data as $album_id => $obj) {
             foreach (self::$_permissions as $acl) {
-                if (!str_contains('_count', (string) $acl)) {
+    
+                $perm = (string) $acl;
+    
+                // PHP 7.4-safe replacement for: !str_contains($perm, '_count')
+                $contains_count = (strpos($perm, '_count') !== false);
+    
+                if (!$contains_count) {
                     $bit = self::$_permissions_flipped[$acl];
-                    // If the yes and the never bit are set, we overwrite the yes with a false.
+    
+                    // If the yes and the never bit are set, overwrite yes with false
                     if ($obj->get_bit($bit) && $this->_auth_data_never[$album_id]->get_bit($bit)) {
                         $obj->set_bit($bit, false);
                     }
