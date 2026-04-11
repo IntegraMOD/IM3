@@ -65,7 +65,7 @@ if (!function_exists('sgp_get_rand_logo'))
 
 		while (false !== ($file = readdir($handle)))
 		{
-			if (stripos($file, ".svg") || stripos($file, ".gif") || stripos($file, ".jpg") || stripos($file, ".png") && stripos($file ,"ogo_") || stripos($file ,"logo"))
+			if (stripos($file, ".svg") || stripos($file, ".gif") || stripos($file, ".jpg") || stripos($file, ".png") && stripos($file, "ogo_") || stripos($file, "logo"))
 			{
 				$imglist .= "$file ";
 			}
@@ -497,7 +497,7 @@ if (!function_exists('ready_text_from_storage'))
 // Stargate Random Banner mod //
 if (!function_exists('get_user_data'))
 {
-	function get_user_data($what = '', $id)
+	function get_user_data($id, $what = '')
 	{
 		global $db, $template, $user;
 
