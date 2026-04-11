@@ -20,9 +20,9 @@ class ucp_im
 {
     public $p_master = null;
 
-    public function __construct(&$p_master)
+    public function __construct($p_master)
     {
-        $this->p_master = &$p_master;
+        $this->p_master = $p_master;
     }
 
     public function main($id, $module)
@@ -33,13 +33,16 @@ class ucp_im
         switch ($module) {
             case 'default':
 
+                $self = $this;
                 $display_vars = array(
                     'title'	 => 'ACP_IM_SETTINGS',
                     'vars'	 => array(
                         'legend1'			 => 'UCP_SN_IM_SETTINGS',
                         'user_im_online'	 => array('lang' => 'IM_ONLINE', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
                         'user_im_sound'		 => array('lang' => 'IM_ALLOW_SOUND', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
-                        'user_im_soundname'	 => array('lang' => 'IM_SOUND_SELECT_NAME', 'validate' => 'string', 'type' => 'custom', 'function' => $this->_soundSelect(...), 'explain' => true),
+                        'user_im_soundname'	 => array('lang' => 'IM_SOUND_SELECT_NAME', 'validate' => 'string', 'type' => 'custom', 'function' => function () use ($self) {
+                          call_user_func_array(array($self, '_soundSelect'), func_get_args());
+                        }, 'explain' => true),
                     )
                 );
 

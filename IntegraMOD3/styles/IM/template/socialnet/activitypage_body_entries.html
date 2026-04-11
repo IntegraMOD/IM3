@@ -1,10 +1,10 @@
 <!-- BEGIN ap_entries -->
   <!-- IF ap_entries.TYPE eq 1 -->
-    <div id="sn-ap-entry{ap_entries.ID}" class="sn-ap-textBlock" data-t="ap_entries.TIME"<!-- IF B_SN_AP_MORE_LOAD --> style="display:none"<!-- ENDIF -->>
+    <div id="sn-ap-entry{ap_entries.ID}" class="sn-ap-textBlock" data-t="{ap_entries.TIME}"<!-- IF B_SN_AP_MORE_LOAD --> style="display:none"<!-- ENDIF -->>
 			{ap_entries.DATA}
     </div>
   <!-- ELSEIF ap_entries.TYPE eq 3 -->
-    <div class="sn-ap-textBlock sn-page-innerContent sn-ap-textBlock-addUser" data-t="ap_entries.TIME" id="sn-ap-entry{ap_entries.ID}"<!-- IF B_SN_AP_MORE_LOAD --> style="display:none"<!-- ENDIF -->>
+    <div class="sn-ap-textBlock sn-page-innerContent sn-ap-textBlock-addUser" data-t="{ap_entries.TIME}" id="sn-ap-entry{ap_entries.ID}"<!-- IF B_SN_AP_MORE_LOAD --> style="display:none"<!-- ENDIF -->>
     	<span class="sn-ap-entryIcon">&nbsp;</span>
     	<div class="sn-action-blockHidden">
     	  <div class="sn-actions">

@@ -24,7 +24,6 @@
  */
 var socialNetwork = (function($) {
 	return {
-		mobileBrowser: $.browser.mobile,
 		_debug: false,
 		allow_load: true,
 		rtl: false,
@@ -73,7 +72,7 @@ var socialNetwork = (function($) {
 				self._resizeBlocks();
 			}).scroll(function() {
 				self._scrollBlocks();
-			}).unload(function() {
+			}).on('unload', function() {
 				self._unloadBlocks();
 			});
 			$(document).click(function(event) {
@@ -98,14 +97,14 @@ var socialNetwork = (function($) {
 				this.cookie.domain = '.' + this.cookie.domain;
 			}
 
-			if ($('ul.sn-menu').size() > 0) {
+			if ($('ul.sn-menu').length > 0) {
 				$('ul.sn-menu').menu({
 					position: this.menuPosition
 				}).removeClass('ui-corner-all');
 				$('.sn-menu *').removeClass('ui-corner-all ui-corner-top ui-corner-bottom');
 			}
 
-			$('.sn-menu.ui-menu .ui-menu').live('mouseleave', function() {
+			$(document).on('mouseleave', '.sn-menu.ui-menu .ui-menu', function() {
 				$(this).delay(500).hide();
 				$(this).children('a.ui-state-active').removeClass('ui-state-active');
 				$(this).parent('.ui-menu-item').children('a.ui-state-active').delay(500).removeClass('ui-state-active');
@@ -255,11 +254,10 @@ var socialNetwork = (function($) {
 			}
 		},
 		getAttr: function(o, a) {
-			if (o.size() == 0) {
-				return false;
-			}
+      if (o.data(a) != undefined)
+        return o.data(a);
 			if (o.attr(a) == undefined) {
-				if (o.metadata()[a] == undefined) {
+				if (o.length == 0 || o.metadata()[a] == undefined) {
 					return false;
 				}
 				return o.metadata()[a];
@@ -331,7 +329,7 @@ var socialNetwork = (function($) {
 		},
 		_resize: function() {
 			this._DOMinited = true;
-			if ($('.sn-page').size() > 0) {
+			if ($('.sn-page').length > 0) {
 				// $('.sn-page-content').removeAttr('style');
 				$('.sn-page-content').css({
 					minHeight: Math.max($('.sn-page-columnLeft').height(), $('.sn-page-columnRight').height())
@@ -374,7 +372,7 @@ var socialNetwork = (function($) {
 
 		},
 		_textExpander: function() {
-			if ($('.sn-expander-text:not([aria-expander="expander"])').size() != 0) {
+			if ($('.sn-expander-text:not([aria-expander="expander"])').length != 0) {
 				$('.sn-expander-text:not([aria-expander="expander"])').attr('aria-expander', 'expander').expander({
 					slicePoint: 500,
 					widow: 1,
@@ -390,32 +388,7 @@ var socialNetwork = (function($) {
 			}
 		},
 		_minBrowser: function() {
-			var minBrowsers = {
-				msie: 8,
-				opera: 6,
-				webkit: 12,
-				mozilla: 6
-			};
-
-			var browser = '';
-			if ($.browser.msie) {
-				browser = 'msie';
-			} else if ($.browser.opera) {
-				browser = 'opera';
-			} else if ($.browser.mozilla) {
-				browser = 'mozilla';
-			} else if ($.browser.webkit || $.browser.safari) {
-				browser = 'webkit';
-			}
-			if (minBrowsers[browser] >= $.browser.version) {
-				if (this.showBrowserOutdated && this.getCookie('sn_showBrowserOutdated', 0) == 0) {
-					this.setCookie('sn_showBrowserOutdated', 1);
-					snConfirmBox(this.browserOutdatedTitle, this.browserOutdated + '<br />' + $.browser.version);
-				}
-				this.isOutdatedBrowser = true;
-				return false;
-			}
-
+      // V: remove all of this since it's largely outdated
 			return true;
 		},
 		_debugInit: function() {
@@ -638,7 +611,7 @@ var socialNetwork = (function($) {
 			var self = this;
 			var confirmBox = $sn.confirmBox;
 			// Delete comment
-			$(".sn-deleteComment").live('click', function() {
+			$(document).on('click', ".sn-deleteComment", function() {
 				var comment_id = $sn.getAttr($(this), "cid");
 				var mUrl = $sn.getAttr($(this), 'url');
 				var comment = $('#sn-comment' + comment_id).html();
