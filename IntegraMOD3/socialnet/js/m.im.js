@@ -108,14 +108,14 @@
 				$sn.im._cwClose($(this).parents('#sn-im-online'));
 			});
 
-			eval('var messages = ' + $sn.getCookie('sn-im-textmessage', '{}') + ';');
+      var messages = JSON.parse($sn.getCookie('sn-im-textmessage', '{}'));
 			if (!$.isEmptyObject(messages)) {
 				$.each(messages, function(idx, msg) {
 					$('#sn-im-chatBoxBlock' + idx).find('.sn-im-message').val(msg).trigger('focus');
 				});
 			}
 
-			eval('var _unRM = ' + $sn.getCookie('sn-im-unreadblink', '{}') + ';');
+      var _unRM = JSON.parse($sn.getCookie('sn-im-unreadblink', '{}'));
 			if (!$.isEmptyObject(_unRM)) {
 				$.each(_unRM, function(idx, blink) {
 					if (blink == true) {
@@ -142,10 +142,8 @@
 			if (opts.linkNewWindow) {
 				$(document).on('click', '.sn-im-msgs .sn-im-msgText a:not(.postlink-local)', function() {
 					if ($(this).attr('onclick') != undefined) {
-						var expl = $(this).attr('onclick').replace('return false;', '').replace(/(^\s+|\s+$)/i, '').split(';');
-						for (i = 0; i < expl.length; i++) {
-							eval(expl[i] + ';');
-						}
+						var expl = $(this).attr('onclick').replace('return false;', '').replace(/(^\s+|\s+$)/i, '');
+            eval(expl);
 						return false;
 					}
 					window.open(this.href);
@@ -698,7 +696,7 @@
 					$(chatBox).removeClass('sn-im-msgUnread');
 					clearTimeout($sn.im._unReadToken[uid]);
 					$sn.im._unReadToken[uid] = null;
-					eval('var _unRM = ' + $sn.getCookie('sn-im-unreadblink', '{}') + ';');
+          var _unRM = JSON.parse($sn.getCookie('sn-im-unreadblink', '{}'))
 					_unRM[uid] = undefined;
 					$sn.setCookie('sn-im-unreadblink', $sn.serializeJSON(_unRM));
 					break;
@@ -706,8 +704,10 @@
 				case true:
 					if ($sn.im._unReadToken[uid] == null || $sn.im._unReadToken[uid] == undefined) {
 						$(chatBox).toggleClass('sn-im-msgUnread');
-						$sn.im._unReadToken[uid] = setTimeout('socialNetwork.im._unReadToggle($("#sn-im-chatBox' + uid + '"),"loop")', 1000);
-						eval('var _unRM = ' + $sn.getCookie('sn-im-unreadblink', '{}') + ';');
+						$sn.im._unReadToken[uid] = setTimeout(function () {
+              socialNetwork.im._unReadToggle($("#sn-im-chatBox" + uid), "loop");
+            }, 1000);
+            var _unRM = JSON.parse($sn.getCookie('sn-im-unreadblink', '{}'))
 						_unRM[uid] = true;
 
 						$sn.setCookie('sn-im-unreadblink', $sn.serializeJSON(_unRM));
@@ -716,7 +716,9 @@
 				case 2:
 				case 'loop':
 					$(chatBox).toggleClass('sn-im-msgUnread');
-					$sn.im._unReadToken[uid] = setTimeout('socialNetwork.im._unReadToggle($("#sn-im-chatBox' + uid + '"),"loop")', 1000);
+					$sn.im._unReadToken[uid] = setTimeout(function () {
+            socialNetwork.im._unReadToggle($("#sn-im-chatBox" + uid),"loop");
+          }, 1000);
 					break;
 			}
 

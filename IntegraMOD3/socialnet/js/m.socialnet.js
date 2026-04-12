@@ -228,30 +228,7 @@ var socialNetwork = (function($) {
 		 * @returns {string} serialized object
 		 */
 		serializeJSON: function(obj) {
-			var t = typeof (obj);
-			if (t != "object" || obj === null) {
-				// simple data type
-				if (t == "string") {
-					obj = '"' + obj + '"';
-				}
-				return String(obj);
-			} else {
-				// array or object
-				var json = [], arr = (obj && obj.constructor == Array);
-
-				$.each(obj, function(k, v) {
-					t = typeof (v);
-					if (t == "string") {
-						v = '"' + v + '"';
-					}
-					else if (t == "object" & v !== null) {
-						v = this.serializeJSON(v);
-					}
-					json.push((arr ? "" : '"' + k + '":') + String(v));
-				});
-
-				return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
-			}
+      return JSON.stringify(obj);
 		},
 		getAttr: function(o, a) {
       if (o.data(a) != undefined)
@@ -285,7 +262,7 @@ var socialNetwork = (function($) {
 			cookieName = cookieName.replace(/-/g, '_');
 
 			var myCookie = $.cookie(this.cookie.name + cookieName);
-			if (myCookie == null && defaultValue != undefined) {
+			if ((myCookie == null || myCookie === "") && defaultValue != undefined) {
 				myCookie = defaultValue;
 			}
 			return myCookie;

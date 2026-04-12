@@ -30,7 +30,7 @@ if (!defined('IN_PHPBB')) {
 
 class EmbeVi
 {
-    final public const VERSION = '1.3'; //EmbeVi version
+    public const VERSION = '1.3'; //EmbeVi version
     private array $objectAttr = array(); //object attributes
     private array $objectParam = array(); //object parameters
     private array $embedAttr = array(); //parameters

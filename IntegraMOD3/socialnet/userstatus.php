@@ -44,19 +44,17 @@ if (!class_exists('socialnet_userstatus')) {
         public $commentModule = 'userstatus';
         public $pageVideoCounter = 0;
 
-        public function __construct(&$p_master)
+        public function __construct($p_master)
         {
-            $this->p_master = &$p_master;
+            $this->p_master = $p_master;
         }
 
         public function init()
         {
             global $db, $template, $user, $config, $auth, $phpEx, $phpbb_root_path, $phpEx;
 
-            if (!empty($script_name)) {
-                $this->script_name = $this->p_master->script_name;
-                $mode = request_var('mode', '', true);
-            }
+            $this->script_name = $this->p_master->script_name;
+            $mode = request_var('mode', '', true);
 
             $template_assign_vars = array(
                 'B_LOAD_FIRST_USERSTATUS_COMMENTS'	 => $config['userstatus_comments_load_last'] ?? 1,

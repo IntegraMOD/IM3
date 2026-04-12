@@ -40,7 +40,7 @@
 				useNative: false,
 				className: 'sn-us-watermark'
 			});
-      $(document).on('focusin keyup input cut paste', '#sn-us-wallInput', function() {
+      function checkFetchButton() {
 				var snUsShare = $(this).val();
 				$(this).parents('.sn-us-share').children('input[name=sn-us-wallButton]').show();
 				if ($sn.isValidURL(snUsShare) == true) {
@@ -49,7 +49,8 @@
 					$('input[name="sn-us-fetchButton"]').hide();
 					$('input[name="sn-us-fetchClear"]').trigger('click');
 				}
-			}).elastic({
+			}
+      $(document).on('focusin keyup input cut paste', '#sn-us-wallInput', checkFetchButton).elastic({
 				parentElement: '.sn-us-share',
 				submitElement: '.sn-us-wallButton, .sn-us-fetchButton'
 			}).trigger('blur');
@@ -436,7 +437,9 @@
 				$(this).hide();
 				if ($sn.isValidURL($('#sn-us-wallInput').val()) == true) {
 					$('input[name="sn-us-fetchButton"]').show();
-				}
+				} else {
+					$('input[name="sn-us-fetchButton"]').hide();
+        }
 			}).hide();
 
 			$('#sn-us-noImg').change(function() {

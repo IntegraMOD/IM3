@@ -38,9 +38,9 @@ if (!class_exists('socialnet_activitypage')) {
         public $p_master = null;
         public $friends_entry = array();
 
-        public function __construct(&$p_master = null)
+        public function __construct($p_master = null)
         {
-            $this->p_master = &$p_master;
+            $this->p_master = $p_master;
         }
 
         public function init()
