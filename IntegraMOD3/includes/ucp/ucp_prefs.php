@@ -128,7 +128,7 @@ class ucp_prefs
 				foreach ($user->lang['dateformats'] as $format => $null)
 				{
 					$dateformat_options .= '<option value="' . $format . '"' . (($format == $data['dateformat']) ? ' selected="selected"' : '') . '>';
-					$dateformat_options .= $user->format_date(time(), $format, false) . ((str_contains((string) $format, '|')) ? $user->lang['VARIANT_DATE_SEPARATOR'] . $user->format_date(time(), $format, true) : '');
+                    $dateformat_options .= $user->format_date(time(), $format, false) . ((strpos((string)$format, '|') !== false) ? $user->lang['VARIANT_DATE_SEPARATOR'] . $user->format_date(time(), $format, true) : '');
 					$dateformat_options .= '</option>';
 				}
 

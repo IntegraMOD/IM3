@@ -9,7 +9,7 @@ html, body {
 }
 
 h1 {
-	color: #069;
+	color: #006699;
 }
 
 h2 {
@@ -22,7 +22,7 @@ h3 {
 }
 
 hr {
-	border-color: #069;
+	border-color: #006699;
 	border-top-color: #CCCCCC;
 }
 
@@ -53,7 +53,6 @@ hr.dashed {
 	margin: 10px;
 	padding: 10px;
 }
-
 /* Round cornered boxes and backgrounds
 ---------------------------------------- */
 .headerbar {
@@ -61,7 +60,7 @@ hr.dashed {
 	background-image : linear-gradient(to bottom, #ACC0D8, #DAE3ED);
 	border : #ACC0D8 solid 1px;
 	padding: 0 10px;
-	color: #069;
+	color: #006699;
 }
 
 .navbar {
@@ -252,11 +251,11 @@ a:active	{ color: #005784; }
 
 /* Links on gradient backgrounds */
 #search-box a:link, .navbg a:link, .forumbg .header a:link, .forabg .header a:link, th a:link {
-	color: #069;
+	color: #006699;
 }
 
 #search-box a:visited, .navbg a:visited, .forumbg .header a:visited, .forabg .header a:visited, th a:visited {
-	color: #069;
+	color: #006699;
 }
 
 #search-box a:hover, .navbg a:hover, .forumbg .header a:hover, .forabg .header a:hover, th a:hover {
@@ -352,10 +351,10 @@ a.top2 {
 }
 
 /* Arrow links  */
-a.up		{ background-image: url("{T_THEME_PATH}/images/arrow_up.gif") }
-a.down		{ background-image: url("{T_THEME_PATH}/images/arrow_down.gif") }
-a.left		{ background-image: url("{T_THEME_PATH}/images/arrow_left.gif") }
-a.right		{ background-image: url("{T_THEME_PATH}/images/arrow_right.gif") }
+a.up		{ background-image: url("{T_THEME_PATH}/images/arrow_up.gif"); }
+a.down		{ background-image: url("{T_THEME_PATH}/images/arrow_down.gif"); }
+a.left		{ background-image: url("{T_THEME_PATH}/images/arrow_left.gif"); }
+a.right		{ background-image: url("{T_THEME_PATH}/images/arrow_right.gif"); }
 
 a.up:hover {
 	background-color: transparent;
@@ -424,7 +423,7 @@ li.row:hover dd {
 }
 
 li.header dt, li.header dd {
-	color: #069;
+	color: #006699;
 }
 
 /* Forum list column styles */
@@ -511,6 +510,10 @@ dl.codebox dt {
 
 dl.codebox code {
 	color: #2E8B57;
+}
+
+div.codeheader {
+	background: url("{T_THEME_PATH}/images/page_code.gif") no-repeat 0px 0px;
 }
 
 .syntaxbg		{ color: #FFFFFF; }
@@ -734,12 +737,12 @@ a.fontsize {
 .aim-icon, .aim-icon a			{ background-image: url("{IMG_ICON_CONTACT_AIM_SRC}"); }
 .yahoo-icon, .yahoo-icon a		{ background-image: url("{IMG_ICON_CONTACT_YAHOO_SRC}"); }
 .web-icon, .web-icon a			{ background-image: url("{IMG_ICON_CONTACT_WWW_SRC}"); }
+.download-icon, .download-icon a	{ background-image: url("{IMG_ICON_DOWNLOAD_SRC}"); } /*LEFTY74 MODSDB */
 .msnm-icon, .msnm-icon a			{ background-image: url("{IMG_ICON_CONTACT_MSNM_SRC}"); }
 .icq-icon, .icq-icon a			{ background-image: url("{IMG_ICON_CONTACT_ICQ_SRC}"); }
 .jabber-icon, .jabber-icon a		{ background-image: url("{IMG_ICON_CONTACT_JABBER_SRC}"); }
 .pm-icon, .pm-icon a				{ background-image: url("{IMG_ICON_CONTACT_PM_SRC}"); }
 .quote-icon, .quote-icon a		{ background-image: url("{IMG_ICON_POST_QUOTE_SRC}"); }
-.download-icon, .download-icon a	{ background-image: url("{IMG_ICON_DOWNLOAD_SRC}"); }
 
 /* Moderator icons */
 .report-icon, .report-icon a		{ background-image: url("{IMG_ICON_POST_REPORT_SRC}"); }
@@ -869,38 +872,22 @@ ul.cplist {
 	background-color: #FFFFFF;
 }
 
-#cp-main span.corners-top, #cp-menu span.corners-top {
-	background-image: url("{T_THEME_PATH}/images/corners_left2.gif");
-}
+#cp-main span.corners-top, #cp-menu span.corners-top {}
 
-#cp-main span.corners-top span, #cp-menu span.corners-top span {
-	background-image: url("{T_THEME_PATH}/images/corners_right2.gif");
-}
+#cp-main span.corners-top span, #cp-menu span.corners-top span {}
 
-#cp-main span.corners-bottom, #cp-menu span.corners-bottom {
-	background-image: url("{T_THEME_PATH}/images/corners_left2.gif");
-}
+#cp-main span.corners-bottom, #cp-menu span.corners-bottom {}
 
-#cp-main span.corners-bottom span, #cp-menu span.corners-bottom span {
-	background-image: url("{T_THEME_PATH}/images/corners_right2.gif");
-}
+#cp-main span.corners-bottom span, #cp-menu span.corners-bottom span {}
 
 /* Topicreview */
-#cp-main .panel #topicreview span.corners-top, #cp-menu .panel #topicreview span.corners-top {
-	background-image: url("{T_THEME_PATH}/images/corners_left.gif");
-}
+#cp-main .panel #topicreview span.corners-top, #cp-menu .panel #topicreview span.corners-top {}
 
-#cp-main .panel #topicreview span.corners-top span, #cp-menu .panel #topicreview span.corners-top span {
-	background-image: url("{T_THEME_PATH}/images/corners_right.gif");
-}
+#cp-main .panel #topicreview span.corners-top span, #cp-menu .panel #topicreview span.corners-top span {}
 
-#cp-main .panel #topicreview span.corners-bottom, #cp-menu .panel #topicreview span.corners-bottom {
-	background-image: url("{T_THEME_PATH}/images/corners_left.gif");
-}
+#cp-main .panel #topicreview span.corners-bottom, #cp-menu .panel #topicreview span.corners-bottom {}
 
-#cp-main .panel #topicreview span.corners-bottom span, #cp-menu .panel #topicreview span.corners-bottom span {
-	background-image: url("{T_THEME_PATH}/images/corners_right.gif");
-}
+#cp-main .panel #topicreview span.corners-bottom span, #cp-menu .panel #topicreview span.corners-bottom span {}
 
 /* Friends list */
 .cp-mini {
@@ -1050,10 +1037,6 @@ a.button1:hover, input.button1:hover, a.button2:hover, input.button2:hover, inpu
 
 input.search {
 	background-image: url("{T_THEME_PATH}/images/icon_textbox_search.gif");
-}
-
-div.codeheader {
-	background: url("{T_THEME_PATH}/images/page_code.gif") no-repeat 0px 0px;
 }
 
 input.disabled {

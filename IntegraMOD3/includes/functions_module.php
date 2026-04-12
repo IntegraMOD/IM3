@@ -273,7 +273,7 @@ class p_master
 	*
 	* @return bool Returns true if module is loaded and accessible, else returns false
 	*/
-	function loaded($module_basename, mixed $module_mode = NULL)
+	function loaded($module_basename, $module_mode = false)
 	{
 		if (empty($this->loaded_cache))
 		{
@@ -302,10 +302,10 @@ class p_master
 
 		if ($module_mode === false)
 		{
-			return (isset($this->loaded_cache[$module_basename])) ? true : false;
+			return isset($this->loaded_cache[$module_basename]);
 		}
 
-		return (!empty($this->loaded_cache[$module_basename][$module_mode])) ? true : false;
+		return !empty($this->loaded_cache[$module_basename][$module_mode]);
 	}
 
 	/**
