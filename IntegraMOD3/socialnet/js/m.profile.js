@@ -253,7 +253,9 @@
 						data: {
 							mode: 'emote',
 							emote: $sn.getAttr($this, 'emote'),
-							u: $sn.getAttr($this, 'u')
+              // V: called user in the template,
+              //  leave fallback in case it's different depending on location
+							u: $sn.getAttr($this, 'u') || $sn.getAttr($this, 'user')
 						},
 						success: function(data) {
 							snConfirmBox(data.cbTitle, data.cbText, function() {

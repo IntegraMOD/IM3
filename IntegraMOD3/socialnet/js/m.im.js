@@ -108,14 +108,26 @@
 				$sn.im._cwClose($(this).parents('#sn-im-online'));
 			});
 
-      var messages = JSON.parse($sn.getCookie('sn-im-textmessage', '{}'));
+      var messages = {};
+      try {
+        messages = JSON.parse($sn.getCookie('sn-im-textmessage', '{}'));
+      } catch (_) {
+        console.log("Recovered `sn-im-textmessage`", $sn.getCookie('sn-im-textmessage', '{}'));
+        $sn.setCookie('sn-im-textmessage', '{}');
+      }
 			if (!$.isEmptyObject(messages)) {
 				$.each(messages, function(idx, msg) {
 					$('#sn-im-chatBoxBlock' + idx).find('.sn-im-message').val(msg).trigger('focus');
 				});
 			}
 
-      var _unRM = JSON.parse($sn.getCookie('sn-im-unreadblink', '{}'));
+      var _unRM = {};
+      try {
+        _unRM = JSON.parse($sn.getCookie('sn-im-unreadblink', '{}'));
+      } catch (_) {
+        console.log("Recovered `sn-im-unreadblink`", $sn.getCookie('sn-im-unreadblink', '{}'));
+        $sn.setCookie('sn-im-unreadblink', '{}');
+      }
 			if (!$.isEmptyObject(_unRM)) {
 				$.each(_unRM, function(idx, blink) {
 					if (blink == true) {
