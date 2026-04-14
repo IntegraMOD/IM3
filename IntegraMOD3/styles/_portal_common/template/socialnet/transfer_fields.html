@@ -1,0 +1,58 @@
+<!-- IF SELECT_MODE -->
+	<a href="{U_MOD_FIELDS}">Transfer field from MOD to SN</a><br />
+	<a href="{U_CPF}">Transfer custom profile fields to SN</a><br />
+	<a href="{U_SIMPLE_COMMENTS_MOD}">Transfer Simple profile comments MOD to SN statuses</a>
+<!-- ENDIF -->
+
+<!-- IF SELECT_TABLE or SELECT_COLUMN or SELECT_UID_COLUMN or SELECT_SN_COLUMN -->
+	<form method="post" action="{U_ACTION}">
+
+	<!-- IF SELECT_TABLE -->
+		Select table:
+		<select name="table" size="10">
+			<!-- BEGIN tables -->
+			<option value="{tables.TABLE}">{tables.TABLE}</option>
+			<!-- END tables -->
+		</select>
+	<!-- ENDIF -->
+
+	<!-- IF SELECT_COLUMN -->
+		Select column:
+		<select name="column" size="10">
+			<!-- BEGIN columns -->
+			<option value="{columns.COLUMN}">{columns.COLUMN}</option>
+			<!-- END columns -->
+		</select>
+	<!-- ENDIF -->
+
+	<!-- IF SELECT_UID_COLUMN -->
+		Select user ID column:
+		<select name="uid_column" size="10">
+			<!-- BEGIN columns -->
+			<option value="{columns.COLUMN}">{columns.COLUMN}</option>
+			<!-- END columns -->
+		</select>
+	<!-- ENDIF -->
+
+	<!-- IF SELECT_SN_COLUMN -->
+		Select SN column:
+		<select name="sn_column" size="10">
+			<!-- BEGIN columns -->
+			<option value="{columns.COLUMN}">{columns.COLUMN}</option>
+			<!-- END columns -->
+		</select>
+	<!-- ENDIF -->
+
+	<!-- IF TABLE --><input type="hidden" name="table" value="{TABLE}" /><!-- ENDIF -->
+	<!-- IF COLUMN --><input type="hidden" name="column" value="{COLUMN}" /><!-- ENDIF -->
+	<!-- IF UID_COLUMN --><input type="hidden" name="uid_column" value="{UID_COLUMN}" /><!-- ENDIF -->
+	<!-- IF SN_COLUMN --><input type="hidden" name="sn_column" value="{SN_COLUMN}" /><!-- ENDIF -->
+
+	<input type="submit" name="submit" value="{L_SUBMIT}" />
+
+	</form>
+<!-- ENDIF -->
+
+<!-- IF TRANSFERING -->Transfering ...<!-- ENDIF -->
+
+<!-- IF FINISHED --><br />Finished<!-- ENDIF -->
