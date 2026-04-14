@@ -7,8 +7,9 @@ div.codebox {
 
 div.codeholder {
 	margin: 0;
-	overflow: auto;
+	overflow: scroll;
 	max-height: 300px;
+	width: 100%;
 }
 
 div.codeheader {

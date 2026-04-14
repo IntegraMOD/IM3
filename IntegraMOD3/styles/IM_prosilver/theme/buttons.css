@@ -130,6 +130,15 @@ ul.profile-icons li a:hover { background: none; }
 
 /* Profile & navigation icons */
 .email-icon, .email-icon a		{ background: none top left no-repeat; }
+.fb-icon, .fb-icon a			{ background: none top left no-repeat; }
+.ig-icon, .ig-icon a			{ background: none top left no-repeat; }
+.pt-icon, .pt-icon a			{ background: none top left no-repeat; }
+.twr-icon, .twr-icon a			{ background: none top left no-repeat; }
+.skp-icon, .skp-icon a			{ background: none top left no-repeat; }
+.tg-icon, .tg-icon a			{ background: none top left no-repeat; }
+.li-icon, .li-icon a			{ background: none top left no-repeat; }
+.tt-icon, .tt-icon a			{ background: none top left no-repeat; }
+.dc-icon, .dc-icon a			{ background: none top left no-repeat; }
 .aim-icon, .aim-icon a			{ background: none top left no-repeat; }
 .yahoo-icon, .yahoo-icon a		{ background: none top left no-repeat; }
 .web-icon, .web-icon a			{ background: none top left no-repeat; }
@@ -149,6 +158,15 @@ ul.profile-icons li a:hover { background: none; }
 
 /* Set profile icon dimensions */
 ul.profile-icons li.email-icon		{ width: {IMG_ICON_CONTACT_EMAIL_WIDTH}px; height: {IMG_ICON_CONTACT_EMAIL_HEIGHT}px; }
+ul.profile-icons li.fb-icon		{ width: {IMG_ICON_CONTACT_FB_WIDTH}px; height: {IMG_ICON_CONTACT_FB_HEIGHT}px; }
+ul.profile-icons li.ig-icon		{ width: {IMG_ICON_CONTACT_IG_WIDTH}px; height: {IMG_ICON_CONTACT_IG_HEIGHT}px; }
+ul.profile-icons li.pt-icon		{ width: {IMG_ICON_CONTACT_PT_WIDTH}px; height: {IMG_ICON_CONTACT_PT_HEIGHT}px; }
+ul.profile-icons li.twr-icon	{ width: {IMG_ICON_CONTACT_TWR_WIDTH}px; height: {IMG_ICON_CONTACT_TWR_HEIGHT}px; }
+ul.profile-icons li.skp-icon	{ width: {IMG_ICON_CONTACT_SKP_WIDTH}px; height: {IMG_ICON_CONTACT_SKP_HEIGHT}px; }
+ul.profile-icons li.tg-icon		{ width: {IMG_ICON_CONTACT_TG_WIDTH}px; height: {IMG_ICON_CONTACT_TG_HEIGHT}px; }
+ul.profile-icons li.li-icon		{ width: {IMG_ICON_CONTACT_LI_WIDTH}px; height: {IMG_ICON_CONTACT_LI_HEIGHT}px; }
+ul.profile-icons li.tt-icon		{ width: {IMG_ICON_CONTACT_TT_WIDTH}px; height: {IMG_ICON_CONTACT_TT_HEIGHT}px; }
+ul.profile-icons li.dc-icon		{ width: {IMG_ICON_CONTACT_DC_WIDTH}px; height: {IMG_ICON_CONTACT_DC_HEIGHT}px; }
 ul.profile-icons li.aim-icon	{ width: {IMG_ICON_CONTACT_AIM_WIDTH}px; height: {IMG_ICON_CONTACT_AIM_HEIGHT}px; }
 ul.profile-icons li.yahoo-icon	{ width: {IMG_ICON_CONTACT_YAHOO_WIDTH}px; height: {IMG_ICON_CONTACT_YAHOO_HEIGHT}px; }
 ul.profile-icons li.web-icon	{ width: {IMG_ICON_CONTACT_WWW_WIDTH}px; height: {IMG_ICON_CONTACT_WWW_HEIGHT}px; }

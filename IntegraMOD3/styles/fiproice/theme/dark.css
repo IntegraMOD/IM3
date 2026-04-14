@@ -9,6 +9,11 @@
 	color: #2A8FF7;
 }
 
+#wrap {
+	border : #98AAB1 solid 1px;
+	background-color: #363E45;
+}
+
 div.buttons div.locked-icon a, div.buttons div.post-icon a, div.buttons div.reply-icon a, div.buttons div.upload-icon a, div.buttons div.qreply-icon a, .postbody ul.profile-icons li.edit-icon a, .postbody ul.profile-icons li.quote-icon a, div.buttons div.pmreply-icon a, div.buttons div.newpm-icon a, div.buttons div.forwardpm-icon a {
 	color : #E0E0E0;
 }
@@ -348,4 +353,24 @@ div.mini_cal {
 	color: #43A5DE;
 }
 
+div.mChatBG1 {
+	background-color: #343C42 !important;
+}
 
+div.mChatBG2 {
+	background-color: #434E56 !important;
+}
+
+input.mChatText {
+	background-color: #434E56 !important;
+	border: 1px solid #B4BAC0;
+	color: #CCCCCC;
+}
+
+input.mChatText:hover {
+	border-color: #2D323E;
+}
+
+div.mChatHover:hover {
+	background-color: #1F242E !important;
+}

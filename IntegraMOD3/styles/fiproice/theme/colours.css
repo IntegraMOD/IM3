@@ -52,6 +52,7 @@ hr.dashed {
 	background-color: #F7F8FC;
 	margin: 10px;
 	padding: 10px;
+	border-radius: 6px;
 }
 /* Round cornered boxes and backgrounds
 ---------------------------------------- */

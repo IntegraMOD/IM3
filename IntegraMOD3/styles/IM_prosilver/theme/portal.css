@@ -210,8 +210,8 @@ div.faceBox {
   text-align: center;
   overflow: visible;
 }
-div#cssclock {
-  width: 190px !important;
+div.cssclock {
+  font-size: 6px;
   margin: auto;
 }
 

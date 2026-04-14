@@ -60,13 +60,8 @@ html, body, .headerbar p, .copyright, ul.topiclist li, .panel, label, dd label, 
 }
 
 /* Dark bg colours */
-html, body, .wrap, .panel-container .panel, .catpanel, .navigation .active-subsection a, .navigation a:hover, .cp-mini, .codebox, blockquote, blockquote blockquote blockquote, .attachbox, .message-box textarea, .phpbb_alert, select, .minitabs a:hover, .minitabs .activetab > a, .minitabs .activetab > a:hover, .cp-main .pm, .bg3 .topicreview .bg2, .bg3 .topicreview .bg1 {
+html, body, .wrap, .panel-container .panel, .navigation .active-subsection a, .navigation a:hover, .cp-mini, .codebox, blockquote, blockquote blockquote blockquote, .attachbox, .message-box textarea, .phpbb_alert, select, .minitabs a:hover, .minitabs .activetab > a, .minitabs .activetab > a:hover, .cp-main .pm, .bg3 .topicreview .bg2, .bg3 .topicreview .bg1 {
 	background-color: #171b24 !important;
-}
-
-ul.forums {
-	background-color: #000000 !important;
-	background-image: none !important
 }
 
 li.row {
@@ -326,3 +321,51 @@ tr.cal_block_header, td.calendar, table.calendar {
   color: #FFF;
 }
 
+.block_data_calc {
+    background-color: #343C42 !important;
+}
+
+table.calendar {
+    border:solid 1px;
+    border-color:#000;
+    background-color: #343C42 !important;
+}
+
+td.calendar {
+    border:solid 1px;
+    border-color:#000;
+    background-color: #343C42 !important;
+}
+
+tr.cal_block_header {
+    background-color:#1A1A1B;
+    border-color:#000;
+}
+
+div.mini_cal {
+	border: solid 1px #30383B;
+	background-color: #1A1A1B; 
+	color: #43A5DE;
+}
+
+div.mChatBG1 {
+	background-color: #343C42 !important;
+}
+
+div.mChatBG2 {
+	background-color: #434E56 !important;
+}
+
+input.mChatText {
+	background-color: #434E56 !important;
+	border: 1px solid #B4BAC0;
+	color: #CCCCCC;
+}
+
+input.mChatText:hover {
+	border-color: #2D323E;
+}
+
+div.mChatHover:hover {
+	background-color: #1F242E !important;
+}

@@ -348,4 +348,24 @@ div.mini_cal {
 	color: #43A5DE;
 }
 
+div.mChatBG1 {
+	background-color: #343C42 !important;
+}
 
+div.mChatBG2 {
+	background-color: #434E56 !important;
+}
+
+input.mChatText {
+	background-color: #434E56 !important;
+	border: 1px solid #B4BAC0;
+	color: #CCCCCC;
+}
+
+input.mChatText:hover {
+	border-color: #2D323E;
+}
+
+div.mChatHover:hover {
+	background-color: #1F242E !important;
+}

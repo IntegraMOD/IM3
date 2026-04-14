@@ -59,13 +59,20 @@
 
 /* Horizontal lists
 ----------------------------------------*/
-.rtl ul.linklist li {
+.rtl ul.linklist li, .rtl ul.linklist2 li {
 	float: right;
 	margin-right: 0;
 	margin-left: 5px;
 }
 
 .rtl ul.linklist li.rightside, .rtl p.rightside {
+	float: left;
+	margin-right: 5px;
+	margin-left: 0;
+	text-align: left;
+}
+
+.rtl ul.linklist2 li.rightside, .rtl p.rightside {
 	float: left;
 	margin-right: 5px;
 	margin-left: 0;
