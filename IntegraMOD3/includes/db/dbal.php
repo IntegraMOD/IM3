@@ -601,7 +601,7 @@ class dbal
 		switch ($query)
 		{
 			case 'SELECT':
-			case 'SELECT_DISTINCT';
+			case 'SELECT_DISTINCT':
 
 				$sql = str_replace('_', ' ', $query) . ' ' . $array['SELECT'] . ' FROM ';
 
