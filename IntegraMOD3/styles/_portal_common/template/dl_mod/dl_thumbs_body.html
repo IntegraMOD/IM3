@@ -1,0 +1,73 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{DL_THUMBS_SECOND}</h2>
+
+<br />
+
+<form action="{S_FORMS_ACTION}" method="post" {ENCTYPE} id="dl_thumbs">
+
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<h3>{L_DL_EDIT_THUMBS}</h3>
+
+	<fieldset>
+
+	<dl>
+		<dt><label>{L_DL_FILE_NAME}</label></dt>
+		<dd><input type="file" name="img_link" class="inputbox" size="60" /><br /><span class="small">{DL_THUMB_MAX_SIZE}</span></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_DL_FILE_DESCRIPTION}</label></dt>
+		<dd><input type="text" name="img_title" size="70" maxlength="255" value="{EDIT_IMG_TITLE}" class="inputbox autowidth" /></dd>
+	</dl>
+
+	</fieldset>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<fieldset class="submit-buttons">
+	<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />&nbsp;&nbsp;<input type="reset" name="reset" value="{L_RESET}" class="button2" />
+</fieldset>
+
+<div>{S_FORM_TOKEN}{S_HIDDEN_FIELDS}</div>
+
+</form>
+
+<!-- BEGIN thumbnails -->
+<!-- IF thumbnails.S_FIRST_ROW -->
+<br />
+
+<div class="rules">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	{L_DL_THUMB_HINTS}
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<ul class="topiclist">
+<!-- ENDIF -->
+	<li class="row bg<!-- IF thumbnails.S_ROW_COUNT is even -->2<!-- ELSE -->1<!-- ENDIF -->">
+		<dl>
+			<dt><a href="{thumbnails.IMG_LINK}" rel="lytebox" title="{thumbnails.IMG_TITLE}"><img src="{thumbnails.IMG_LINK}" alt="{thumbnails.IMG_TITLE}" title="{thumbnails.IMG_TITLE}" style="max-weight: 150px; max-height: 100px;" /></a></dt>
+			<dd class="posts"><a href="{thumbnails.U_DELETE}">{L_DL_DELETE}</a></dd>
+			<dd class="topics"><a href="{thumbnails.U_EDIT}">{L_DL_EDIT_FILE}</a></dd>
+		</dl>
+	</li>
+
+<!-- IF thumbnails.S_LAST_ROW -->
+	</ul>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+<!-- END thumbnails -->
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

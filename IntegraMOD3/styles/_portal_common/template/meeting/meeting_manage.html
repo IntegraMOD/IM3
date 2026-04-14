@@ -1,0 +1,86 @@
+<form action="{S_FORM_ACTION}" method="post" id="filter_meetings">
+
+<div class="panel bg1">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<fieldset>
+		<dl>
+			<dt><label>{L_MEETING_SORT}:</label></dt>
+			<dd>{SORT_BY_FIELD}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_MEETING_ORDER}:</label></dt>
+			<dd>{SORT_BY_ORDER}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_MEETING_FILTER}:</label></dt>
+			<dd>{FILTER_BY_FIELD}&nbsp;&raquo;&nbsp;<input type="text" name="filter" value="{FILTER_FIELD}" class="inputbox autowidth" size="20" maxlength="50" /></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_MEETING_CLOSE_STATUS}:</label></dt>
+			<dd class="time"><label><input type="radio" class="radio" name="closed" value="1" {CLOSED_NO} /> {L_MEETING_OPEN}</label>
+				<label><input type="radio" class="radio" name="closed" value="2" {CLOSED_YES} /> {L_MEETING_CLOSED}</label><br />
+				<label><input type="radio" class="radio" name="closed" value="3" {CLOSED_PERIOD} /> {L_MEETING_NO_PERIOD}</label><br />
+				<label><input type="radio" class="radio" name="closed" value="4" {CLOSED_NONE} /> {L_MEETING_ALL}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_MEETING_SIGNONS}:</label></dt>
+			<dd><label><input type="checkbox" class="checkbox" name="meeting_signon" value="1" {S_MEETING_SIGNON} /></label></dd>
+		</dl>
+		<!-- IF S_CHECK_APPROVE -->
+		<dl>
+			<dt><label style="color: #FF0000">{L_MEETING_UNAPPROVED_COMMENTS}:</label></dt>
+			<dd><label><input type="checkbox" class="checkbox" name="meeting_approve" value="1" {S_MEETING_APPROVE} /></label></dd>
+		</dl>
+		<!-- ENDIF -->
+		<p class="select-buttons">
+			<input type="submit" name="submit_filter" class="button1" value="{L_SELECT}" />
+		</p>
+	</fieldset>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+</form>
+
+<div class="panel bg1">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<table cellspacing="1" class="table1" width="100%">
+	<thead>
+	<tr class="row bg1">
+		<td><strong>{L_MEETING_SUBJECT}</strong></td>
+		<td><strong>{L_MEETING_TIME}</strong></td>
+		<td><strong>{L_MEETING_UNTIL}</strong></td>
+		<td><strong>{L_MEETING_LOCATION}</strong></td>
+		<td><strong>{L_MEETING_CLOSED}</strong></td>
+		<td><strong>{L_REPLIES}</strong></td>
+		<td><strong>{L_OPTIONS}</strong></td>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN meeting_row -->
+	<tr class="row bg<!-- IF meeting_row.S_ROW_COUNT is even -->2<!-- ELSE -->3<!-- ENDIF -->">
+		<td><!-- IF S_M_CAN_VIEW --><a href="{meeting_row.U_MEETING_DETAIL}"><!-- ENDIF -->{meeting_row.MEETING_SUBJECT}<!-- IF S_M_CAN_VIEW --></a><!-- ENDIF --></td>
+		<td>{meeting_row.MEETING_TIME}</td>
+		<td>{meeting_row.MEETING_UNTIL}</td>
+		<td>{meeting_row.MEETING_LOCATION}</td>
+		<td>{meeting_row.MEETING_CLOSED}</td>
+		<td><span class="small">{meeting_row.MEETING_USERS}</span></td>
+		<td>
+			<!-- IF meeting_row.S_MEETING_EDIT --><a href="{meeting_row.MEETING_EDIT}">{L_MEETING_EDIT}</a><!-- ENDIF -->
+			<!-- IF meeting_row.S_MEETING_EDIT and meeting_row.S_MEETING_DELETE -->&nbsp;|&nbsp;<!-- ENDIF -->
+			<!-- IF meeting_row.S_MEETING_DELETE --><a href="{meeting_row.MEETING_DELETE}">{L_DELETE}</a><!-- ENDIF -->
+		</td>
+	</tr>
+	<!-- END meeting_row -->
+	<!-- IF S_NO_MEETING -->
+	<tr class="row1">
+		<td colspan="7">{L_NO_MEETING}</td>
+	</tr>
+	<!-- ENDIF -->
+	</tbody>
+	</table>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<!-- IF PAGINATION --><div class="pagination"><span>{PAGINATION}</span></div><!-- ENDIF -->
+<br />

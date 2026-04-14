@@ -1,0 +1,245 @@
+<!-- INCLUDE overall_header.html -->
+<br />
+<form id="postform" method="post" action="{S_POST_ACTION}" onsubmit="return checkForm(this);"{S_FORM_ENCTYPE}>
+<!-- IF S_DISPLAY_PREVIEW --><!-- INCLUDE posting_preview.html --><!-- ENDIF -->
+
+<!-- IF not S_EDIT and S_SEO_URI -->
+<script type="text/javascript">
+// <![CDATA[
+function update_url(titel)
+{
+	titel = titel.split(' ').join('-').toLowerCase();
+	titel = titel.split('ä').join('ae');
+	titel = titel.split('ö').join('oe');
+	titel = titel.split('ü').join('ur');
+	titel = titel.split('ß').join('ss');
+	titel = titel.split('?').join('');
+	titel = titel.split('!').join('');
+	document.getElementById('page_uri').value = escape(titel);
+}
+// ]]>
+</script>
+<!-- ENDIF -->
+
+<div class="panel" id="postingbox">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<h3>{L_POST_A}</h3>
+	<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+	<div class="column1">
+	<fieldset class="fields1">
+		<dl style="clear: left;">
+			<dt><label for="title">{L_ARTICLE_TITLE}:</label></dt>
+			<dd><input type="text" name="title" id="title" size="45" maxlength="64"<!-- IF not S_EDIT and S_SEO_URI --> onkeyup="update_url(this.value);"<!-- ENDIF --> tabindex="1" value="{TITLE}" class="inputbox autowidth" /></dd>
+		</dl>
+
+
+		<!-- IF S_SEO_URI -->
+		<dl style="clear: left;">
+			<dt><label for="page_uri">{L_FIENAME}:</label></dt>
+			<dd><input type="text" name="page_uri" id="page_uri" size="45" maxlength="64" tabindex="2" value="{PAGE_URI}" class="inputbox autowidth" />.html</dd>
+		</dl>
+		<!-- ENDIF -->
+		
+		<dl style="clear: left;">
+			<dt><label for="description">{L_ARTICLE_DESCRIPTION}:</label></dt>
+			<dd><textarea cols="40" rows="4" id="description" tabindex="3" name="description" class="inputbox autowidth">{DESCRIPTION}</textarea></dd>
+		</dl>
+	</fieldset>
+	</div>
+	
+	
+	<div class="column2">
+	<fieldset class="fields1">
+		<dl style="clear: left;">
+			<dt><label for="cat_id">{L_CATEGORIE}:</label></dt>
+			<dd><select size="1" tabindex="4" id="cat_id" name="cat_id">{CAT_LIST}</select></dd>
+		</dl>
+		<!-- IF S_ARTICLE_TYPES -->
+		<dl style="clear: left;">
+			<dt><label for="type_id">{L_TYPE}:</label></dt>
+			<dd><select size="1" tabindex="5" id="type_id" name="type_id">{TYPE_LIST}</select></dd>
+		</dl>
+		<!-- ELSE -->
+		<input type="hidden" name="type_id" value="{TYPE_ID}" />
+		<!-- ENDIF -->
+		<!-- IF S_EDIT_MODE -->
+		<dl style="clear: left;">
+			<dt><label for="post_id">{L_POST_ID}:</label></dt>
+			<dd><input type="text" name="post_id" id="post_id" size="4" maxlength="64" tabindex="6" value="{POST_ID}" class="inputbox autowidth" /></dd>
+		</dl>
+		<!-- ENDIF -->
+
+		<!-- IF S_ACTIVATE_ARTICLE -->
+		<dl style="clear: left;">
+			<dt><label for="activ">{L_AKTIVATE}:</label></dt>
+			<dd><input type="checkbox" name="activ" id="activ" tabindex="7" value="1" {ACTIV} /></dd>
+		</dl>
+		<!-- ENDIF -->
+	</fieldset>
+	</div>
+	<br style="clear:both;" />
+	<fieldset class="fields1">
+	<!-- INCLUDE posting_buttons.html -->
+	<div id="smiley-box">
+		<!-- IF .smiley -->
+			<strong>{L_SMILIES}</strong><br />
+			<!-- BEGIN smiley -->
+				<a href="#" onclick="insert_text('{smiley.A_SMILEY_CODE}', true); return false;"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+			<!-- END smiley -->
+		<!-- ENDIF -->
+		<!-- IF U_MORE_SMILIES -->
+			<br /><a href="{U_MORE_SMILIES}" onclick="popup(this.href, 300, 350, '_phpbbsmilies'); return false;">{L_MORE_SMILIES}</a>
+		<!-- ENDIF -->
+		<hr />
+		{BBCODE_STATUS}<br />
+		{L_IMAGES_ARE_ON}<br />
+		{L_FLASH_IS_ON}<br />
+		{L_URL_IS_ON}<br />
+		{L_SMILIES_ARE_ON}
+	</div>
+	<div id="message-box">
+		<textarea name="message" id="message" rows="20" cols="76" tabindex="8" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" class="inputbox">{MESSAGE}</textarea>
+	</div>
+	</fieldset>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<!-- IF S_HAS_ATTACHMENTS -->
+	<div class="panel bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+		<h3>{L_POSTED_ATTACHMENTS}</h3>
+
+		<fieldset class="fields2">
+
+		<!-- BEGIN attach_row -->
+		<dl>
+
+			<dt><label for="comment_list[{attach_row.ASSOC_INDEX}]">{L_FILE_COMMENT}:</label></dt>
+			<dd><textarea name="comment_list[{attach_row.ASSOC_INDEX}]" id="comment_list[{attach_row.ASSOC_INDEX}]" rows="1" cols="35" class="inputbox">{attach_row.FILE_COMMENT}</textarea></dd>
+			<dd><a href="{attach_row.U_VIEW_ATTACHMENT}" class="{S_CONTENT_FLOW_END}">{attach_row.FILENAME}</a></dd>
+			<dd style="margin-top: 5px;">
+				<!-- IF S_INLINE_ATTACHMENT_OPTIONS --><input type="button" value="{L_PLACE_INLINE}" onclick="attach_inline({attach_row.ASSOC_INDEX}, '{attach_row.A_FILENAME}');" class="button2" />&nbsp; <!-- ENDIF -->
+				<input type="submit" name="delete_file[{attach_row.ASSOC_INDEX}]" value="{L_DELETE_FILE}" class="button2" />
+			</dd>
+		</dl>
+		{attach_row.S_HIDDEN}
+			<!-- IF not attach_row.S_LAST_ROW --><hr class="dashed" /><!-- ENDIF -->
+		<!-- END attach_row -->
+
+		</fieldset>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF S_EDIT -->
+<div class="panel bg3">
+	<div class="inner"><span class="corners-top"><span></span></span>
+		{L_EDIT_REASON} <input type="text" name="edit_reason" value="{EDIT_REASON}" size="80" tabindex="9" class="inputbox autowidth" />
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+<div class="panel bg2">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<fieldset class="submit-buttons">
+		{S_HIDDEN_FIELDS}
+		{S_FORM_TOKEN}
+		<input type="submit" tabindex="10" name="preview" value="{L_PREVIEW}" class="button1" onclick="document.getElementById('postform').action += '#preview';" />&nbsp;
+		<input type="submit" accesskey="s" tabindex="11" name="post" value="{L_SUBMIT}" class="button1" />
+	</fieldset>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+
+
+<div id="tabs">
+	<ul>
+		<li id="options-panel-tab" class="activetab"><a href="#tabs" onclick="subPanels('options-panel'); return false;"><span>{L_OPTIONS}</span></a></li>
+		<!-- IF S_SHOW_ATTACH_BOX --><li id="attach-panel-tab"><a href="#tabs" onclick="subPanels('attach-panel'); return false;"><span>{L_ADD_ATTACHMENT}</span></a></li><!-- ENDIF -->
+		<!-- IF S_ACTIV_DIFF and .diff_row --><li id="poll-panel-tab"><a href="#tabs" onclick="subPanels('poll-panel'); return false;"><span>{L_OLD_VERSIONS}</span></a></li><!-- ENDIF -->
+
+
+	</ul>
+</div>
+
+<div class="panel bg3" id="options-panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<fieldset class="fields1">
+			<div><label for="disable_bbcode"><input type="checkbox" name="disable_bbcode" id="disable_bbcode"{S_BBCODE_CHECKED} /> {L_DISABLE_BBCODE}</label></div>
+			<div><label for="disable_smilies"><input type="checkbox" name="disable_smilies" id="disable_smilies"{S_SMILIES_CHECKED} /> {L_DISABLE_SMILIES}</label></div>
+			<div><label for="disable_magic_url"><input type="checkbox" name="disable_magic_url" id="disable_magic_url"{S_MAGIC_URL_CHECKED} /> {L_DISABLE_MAGIC_URL}</label></div>
+	</fieldset>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<!-- IF S_SHOW_ATTACH_BOX -->
+<div class="panel bg3" id="attach-panel" style="display: none;">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<p>{L_ADD_ATTACHMENT_EXPLAIN}</p>
+	
+	<fieldset class="fields2">
+	<dl>
+		<dt><label for="fileupload">{L_FILENAME}:</label></dt>
+		<dd>
+			<input type="file" name="fileupload" id="fileupload" maxlength="{FILESIZE}" value="" class="inputbox autowidth" /> 
+			<input type="submit" name="add_file" value="{L_ADD_FILE}" class="button2" onclick="upload = true;" />
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="filecomment">{L_FILE_COMMENT}:</label></dt>
+		<dd><textarea name="filecomment" id="filecomment" rows="1" cols="40" class="inputbox autowidth">{FILE_COMMENT}</textarea></dd>
+	</dl>
+	</fieldset>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+
+
+
+
+<!-- IF .diff_row and S_ACTIV_DIFF-->
+<div class="panel bg3" id="poll-panel" style="display: none;">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<table class="table1" cellspacing="1">
+	<thead>
+	<tr>
+		<th class="name" style="color:#000;">{L_TIME}</th>
+		<th class="name" style="color:#000;">{L_USER}</th>
+		<th class="name" style="color:#000;">{L_EDIT_REASON}</th>
+		<!-- IF S_DELETE_DIFF or S_RESTORE_ARTICLE --><th class="name" style="width:15%">{L_ACTION}</th><!-- ENDIF -->
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN diff_row -->
+	<tr class="bg1">
+		<td><strong><a href="{diff_row.U_DIFF}">{L_CHANGED_AT} {diff_row.TIME}</a></strong></td>
+		<td>{diff_row.USER}</td>
+		<td>{diff_row.EDIT_REASON}</td>
+		<!-- IF S_DELETE_DIFF or S_RESTORE_ARTICLE --><td><!-- IF S_DELETE_DIFF -->[<a href="{diff_row.U_DELETE}">{L_DELETE}</a>]<!-- ENDIF --><!-- IF S_RESTORE_ARTICLE --> &nbsp; [<a href="{diff_row.U_RESTORE}">{L_RESTORE}</a>]<!-- ENDIF --></td><!-- ENDIF -->
+	</tr>
+	<!-- END diff_row -->
+	</tbody>
+	</table>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+</form>
+<!-- IF DIFF_MESSAGE and S_ACTIV_DIFF -->
+<h3>{DIFFERENCE}</h3>
+<div class="panel bg1">
+	<div class="inner"><span class="corners-top"><span></span></span>
+		<a name="diff"></a>
+		<div class="diff_codepanel">
+		{DIFF_MESSAGE}
+		</div>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+<br />
+<!-- INCLUDE overall_footer.html -->
+
+

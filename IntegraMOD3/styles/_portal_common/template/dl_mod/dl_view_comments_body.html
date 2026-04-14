@@ -1,0 +1,50 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+	<!-- BEGIN comment_row -->
+	<div class="panel <!-- IF comment_row.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="post">
+			<div class="postbody">
+				<ul class="profile-icons">
+					<!-- BEGIN action_button -->
+						<li class="edit-icon"><a href="{comment_row.U_EDIT_COMMENT}" title="{L_EDIT_POST}"><span>{L_EDIT_POST}</span></a></li>
+						<li class="delete-icon"><a href="{comment_row.U_DELETE_COMMENT}" title="{L_DELETE_POST}"><span>{L_DELETE}</span></a></li>
+					<!-- END action_button -->
+				</ul>
+				<div class="content">{comment_row.MESSAGE}</div>
+				<!-- IF comment_row.EDITED_BY --><br /><div class="notice">{comment_row.EDITED_BY}</div><!-- ENDIF -->
+			</div>
+			<dl class="postprofile">
+			<dt>
+				{comment_row.POSTER}<br /><span class="small">{comment_row.POST_TIME}</span><br />{comment_row.POSTER_AVATAR}
+			</dt>
+			</dl>
+		</div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+	<!-- END comment_row -->
+
+	<!-- IF PAGE_NUMBER -->
+	<ul class="linklist">
+		<li class="rightside pagination">
+			{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span>
+		</li>
+	</ul>
+	<!-- ENDIF -->
+
+	<!-- IF S_COMMENT_BUTTON -->
+	<form action="{S_FORM_ACTION}" method="post" id="comments_view">
+
+	<fieldset class="submit-buttons">
+		<input type="submit" name="post" value="{L_POST_COMMENT}" class="button2" />
+		{S_HIDDEN_FIELDS}
+	</fieldset>
+
+	</form>
+	<!-- ENDIF -->
+
+<br />
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

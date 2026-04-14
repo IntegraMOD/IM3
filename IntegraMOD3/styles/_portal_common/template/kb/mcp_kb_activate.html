@@ -1,0 +1,61 @@
+<!-- INCLUDE mcp_header.html -->
+<h2>{L_ARTICLE_NEW}</h2>
+
+<form id="mcp" method="post" action="{S_MCP_ACTION}">
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+<p>{L_ARTICLE_NEW_DESC}</p>
+<ul class="linklist">
+	<li class="rightside pagination">
+		{TOTAL_REPORTS}
+		<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+	</li>
+</ul>	
+<ul class="topiclist">
+	<li class="header">
+		<dl>
+			<dt>{L_ARTICLE}</dt>
+			<dd class="moderation"><span>{L_CATEGORIE}</span></dd>
+			<dd class="mark">{L_MARK}</dd>
+		</dl>
+	</li>
+</ul>
+<ul class="topiclist cplist">
+
+<!-- BEGIN article_row -->
+	<li class="row<!-- IF article_row.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+		<dl>
+			<dt>
+				<a href="{article_row.U_SHOW}" class="topictitle">{article_row.TITLE}</a><br />
+				<span>{article_row.DESCRIPTION}</span>
+			</dt>
+			<dd class="moderation">
+				<span><a href="{article_row.U_CATEGORIE}">{article_row.CAT}</a></span>
+			</dd>
+			<dd class="mark"><input type="checkbox" name="article_id_list[]" value="{article_row.ARTICLE_ID}" /></dd>
+		</dl>
+	</li>
+<!-- END article_row -->
+</ul>
+<ul class="linklist">
+	<li class="rightside pagination">
+		{TOTAL_REPORTS}
+		<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+	</li>
+</ul>	
+
+
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- IF .article_row -->
+	<fieldset class="display-actions">		
+		<input class="button2" type="submit" value="{L_DELETE}" name="action[disapprove]" />
+		<!-- IF not S_CLOSED -->&nbsp;<input class="button1" type="submit" name="action[approve]" value="{L_AKTIVATE}" /><!-- ENDIF -->
+		<div><a href="#" onclick="marklist('mcp', 'article_id_list', true); return false;">{L_MARK_ALL}</a> :: <a href="#" onclick="marklist('mcp', 'article_id_list', false); return false;">{L_UNMARK_ALL}</a></div>
+	</fieldset>
+<!-- ENDIF -->
+</form>
+
+<br />
+<!-- INCLUDE mcp_footer.html -->

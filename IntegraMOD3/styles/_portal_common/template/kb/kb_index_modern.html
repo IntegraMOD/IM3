@@ -1,0 +1,37 @@
+<!-- IF S_UCATS -->
+<!-- BEGIN maincat -->
+<!-- IF maincat.S_ROW_COUNT is even --><div class="post bg1"><!-- ELSE --><div class="post bg2"><!-- ENDIF -->
+	<div class="inner">
+	<span class="corners-top"><span></span></span>
+		<h2>{maincat.TITLE}</h2>
+		{maincat.DESCRIPTION}
+		<table border="0" width="100%" cellspacing="7">
+		<!-- BEGIN ucat -->
+			<!-- IF maincat.ucat.S_ROW_COUNT is even --><tr><!-- ENDIF -->
+			<td valign="top" style="width:50%;">
+			<h3><a href="{maincat.ucat.U_CATEGORIE}">{maincat.ucat.TITLE}</a></h3>
+
+			<!-- BEGIN article -->
+				<b><a href="{maincat.ucat.article.U_ARTICLE}">{maincat.ucat.article.TITLE}</a></b><br />
+				{maincat.ucat.article.DESCRIPTION}<br />
+				<br />
+			<!-- END article -->
+
+<!-- IF maincat.ucat.SUB_CAT} --><br /><strong>{L_SUB_CATGEGORIES}: {maincat.ucat.SUB_CAT}</strong><!-- ENDIF -->
+
+
+			<!-- IF maincat.ucat.S_MORE_LINK --><br />[ <a href="{maincat.ucat.U_CATEGORIE}">{maincat.ucat.READ_MORE}</a> ]<!-- ENDIF -->
+
+
+
+			</td>
+			<!-- IF maincat.ucat.S_ROW_COUNT is not even --></tr><!-- ENDIF -->
+		<!-- END ucat -->
+		</table>
+		<div class="back2top"><a href="{U_KB}#wrap" class="top" title="{L_BACK_TO_TOP}">{L_BACK_TO_TOP}</a></div>
+	<span class="corners-bottom"><span></span></span>
+	</div>
+</div> 
+<br />
+<!-- END maincat -->
+<!-- ENDIF -->
