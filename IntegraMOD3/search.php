@@ -635,7 +635,8 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 			$zebra = array();
 			while ($row = $db->sql_fetchrow($result))
 			{
-				$zebra[($row['friend']) ? 'friend' : 'foe'][] = $row['zebra_id'];
+//				$zebra[($row['friend']) ? 'friend' : 'foe'][] = $row['zebra_id'];
+                $zebra[($row['foe']) ? 'foe' : 'friend'][] = $row['zebra_id'];
 			}
 			$db->sql_freeresult($result);
 
