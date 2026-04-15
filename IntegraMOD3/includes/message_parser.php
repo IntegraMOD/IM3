@@ -79,7 +79,18 @@ class bbcode_firstpass extends bbcode
 						{
 							// eval() sucks, but we must use preg_replace_callback() to support
 							// PHP 7.0, and custom BBcode replacement function is stored as a string
-							$this->message = preg_replace_callback($regexp, function($matches) use($replacement) {eval('$str=' . $replacement[1]); return $str;}, $this->message);
+							$this->message = preg_replace_callback($regexp, function($matches) use($replacement) {
+								$fixed = $replacement[1];
+								// V: The replacement string uses ${1}, ${2} etc which do not work with eval()
+								//  Start from 1 as 0 is the whole string.
+								//  I'm worried about using addslashes() here, but no other solution.
+								for ($i = 1; $i < count($matches); $i++)
+								{
+									$fixed = str_replace('${'.$i.'}', addslashes($matches[$i]), $fixed);
+								}
+								eval('$str=' . $fixed);
+								return $str;
+							}, $this->message);
 						}
 						else
 						{
@@ -161,16 +172,11 @@ class bbcode_firstpass extends bbcode
 		if (!is_array($rowset))
 		{
 			global $db;
-			$rowset = array();
 
 			$sql = 'SELECT *
 				FROM ' . BBCODES_TABLE;
 			$result = $db->sql_query($sql);
-
-			while ($row = $db->sql_fetchrow($result))
-			{
-				$rowset[] = $row;
-			}
+			$rowset = $db->sql_fetchrowset($result);
 			$db->sql_freeresult($result);
 		}
 
@@ -203,8 +209,6 @@ class bbcode_firstpass extends bbcode
 	*/
 	function check_bbcode($bbcode, &$in)
 	{
-		// when using the /e modifier, preg_replace slashes double-quotes but does not
-		// seem to slash anything else
 		$in = str_replace("\r\n", "\n", str_replace('\"', '"', $in));
 
 		// Trimming here to make sure no empty bbcodes are parsed accidently
