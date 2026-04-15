@@ -648,7 +648,7 @@ class acp_abbcodes
 /**
 * Select list of images in current style folder
 */
-function image_select($dir, $current, $name, $show = false, $u_action, $ide = 'ABBC3_BG')
+function image_select($dir, $current, $name, $u_action, $show = false, $ide = 'ABBC3_BG')
 {
 	global $user, $config, $phpbb_admin_path, $phpbb_root_path, $phpEx;
 
@@ -744,7 +744,7 @@ function video_select($current, $name, $u_action, $ide = 'ABBC3_VIDEO_OPTIONS')
 /**
 * Select list of display full size image
 */
-function method_select($selected_method = 'AdvancedBox', $name, $ide)
+function method_select($name, $ide, $selected_method = 'AdvancedBox')
 {
 	global $user;
 
