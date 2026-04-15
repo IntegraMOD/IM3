@@ -80,15 +80,17 @@ class bbcode_firstpass extends bbcode
 							// eval() sucks, but we must use preg_replace_callback() to support
 							// PHP 7.0, and custom BBcode replacement function is stored as a string
 							$this->message = preg_replace_callback($regexp, function($matches) use($replacement) {
-								$fixed = $replacement[1];
 								// V: The replacement string uses ${1}, ${2} etc which do not work with eval()
-								//  Start from 1 as 0 is the whole string.
-								//  I'm worried about using addslashes() here, but no other solution.
-								for ($i = 1; $i < count($matches); $i++)
+								// Use strtr instead of str_replace because the latter replaces sequentially,
+								//  so we can expand ${1} to something that contains ${2} and this would get replaced as well.
+								// strtr find all matches before replacing, so no nested expansion is possible.
+								$repl_table = array();
+								for ($i = 0; $i < count($matches); $i++)
 								{
-									$fixed = str_replace('${'.$i.'}', addslashes($matches[$i]), $fixed);
+									// V: I'm worried about using addslashes() here, but that's what /e used to do.
+									$repl_table['${'.$i.'}'] = addslashes($matches[$i]);
 								}
-								eval('$str=' . $fixed);
+								eval('$str=' . strtr($replacement[1], $repl_table));
 								return $str;
 							}, $this->message);
 						}
