@@ -68,7 +68,8 @@ if ($auth->acl_gets('u_viewprofile'))
 			continue;
 		}
 
-		$session_times[$row['session_user_id']] = $row['session_time'];
+		$uid = ($row['session_user_id'] === null) ? '' : $row['session_user_id'];
+		$session_times[$uid] = $row['session_time'];
 		$row['session_time'] = (!empty($session_times[$row['user_id']])) ? $session_times[$row['user_id']] : 0;
 		$row['last_visit'] = (!empty($row['session_time'])) ? $row['session_time'] : $row['user_lastvisit'];
 		$last_visit = (!empty($row['session_time'])) ? $row['session_time'] : $row['user_lastvisit'];
