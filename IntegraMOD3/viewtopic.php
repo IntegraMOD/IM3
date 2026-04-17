@@ -1314,7 +1314,7 @@ while ($row = $db->sql_fetchrow($result))
 			$user_cache[$poster_id] = array(
 			    'joined'		=> $user->format_date($row['user_regdate']),
 				'posts'			=> $row['user_posts'],
-				'warnings'		=> $row['user_warnings'] ?? 0,
+				'warnings'		=> (isset($row['user_warnings'])) ? $row['user_warnings'] : 0,
 				'from'			=> (!empty($row['user_from'])) ? $row['user_from'] : '',
 				// Start Ultimate Points
 				'points'		=> $row['user_points'],
@@ -2075,7 +2075,7 @@ if (isset($topic_tracking_info[$topic_id]) && $topic_data['topic_last_post_time'
 	markread('topic', (($topic_data['topic_type'] == POST_GLOBAL) ? 0 : $forum_id), $topic_id, $max_post_time);
 
 	// Update forum info
-	$all_marked_read = update_forum_tracking_info((($topic_data['topic_type'] == POST_GLOBAL) ? 0 : $forum_id), $topic_data['forum_last_post_time'], $topic_data['forum_mark_time'] ?? false, false);
+	$all_marked_read = update_forum_tracking_info((($topic_data['topic_type'] == POST_GLOBAL) ? 0 : $forum_id), $topic_data['forum_last_post_time'], (isset($topic_data['forum_mark_time'])) ? $topic_data['forum_mark_time'] : false, false);
 }
 else
 {
@@ -2191,4 +2191,3 @@ $template->set_filenames(array(
 make_jumpbox(append_sid("{$phpbb_root_path}viewforum.$phpEx"), $forum_id);
 
 page_footer();
- 

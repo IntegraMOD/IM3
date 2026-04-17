@@ -3179,9 +3179,9 @@ inherit_from = {INHERIT_FROM}
 
 			if (!sizeof($error))
 			{
-				$style_row['template_id']	= isset($row['template_id']) ? $row['template_id'] : $style_row['template_id'];
-				$style_row['theme_id']		= isset($row['theme_id']) ? $row['theme_id'] : $style_row['theme_id'];
-				$style_row['imageset_id']	= isset($row['imageset_id']) ? $row['imageset_id'] : $style_row['imageset_id'];
+				$style_row['template_id']	= (isset($row['template_id'])) ? $row['template_id'] : $style_row['template_id'];
+				$style_row['theme_id']		= (isset($row['theme_id'])) ? $row['theme_id'] : $style_row['theme_id'];
+				$style_row['imageset_id']	= (isset($row['imageset_id'])) ? $row['imageset_id'] : $style_row['imageset_id'];
 			}
 		}
 

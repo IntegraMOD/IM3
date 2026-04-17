@@ -196,7 +196,7 @@ $lang = array_merge($lang, array(
 	'FIELD_INVALID_CHARS_ALPHA_ONLY'	=> 'The field “%s” has invalid characters, only alphanumeric characters are allowed.',
 	'FIELD_INVALID_CHARS_SPACERS_ONLY'	=> 'The field “%s” has invalid characters, only alphanumeric, space or -+_[] characters are allowed.',
 	'FIELD_INVALID_DATE'				=> 'The field “%s” has an invalid date.',
-'FIELD_MULTI_TOO_LOW'				=> 'You have not enough options selected on field „%1$s“. %2$d options must be selected.',
+    'FIELD_MULTI_TOO_LOW'				=> 'You have not enough options selected on field „%1$s“. %2$d options must be selected.',
 	'FIELD_MULTI_TOO_MANY'				=> 'You have to many options selected on field „%1$s“. %2$d selected options are maximum.',
 	'FIELD_INVALID_VALUE'				=> 'The field “%s” has an invalid value.',
 
