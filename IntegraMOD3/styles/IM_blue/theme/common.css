@@ -1248,7 +1248,7 @@ div.menu ul.menu li.menu-item.active > .submenu {
 
 
 
-@media only screen and (min-width: 360px) and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
 	.sm-right-arrow, .sm-style {display: inline-block; position: relative; float: right !important;}
 	li.arrows, .style {display: none !important;}
     .menu .responsive-menu {width:70%}
