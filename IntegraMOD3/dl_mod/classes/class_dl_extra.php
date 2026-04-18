@@ -58,7 +58,7 @@ class dl_extra extends dl_mod
 		return $todo;
 	}
 
-	public static function dl_dropdown($parent = 0, $level = 0, $select_cat = 0, $perm, $rem_cat = 0)
+	public static function dl_dropdown($perm, $parent = 0, $level = 0, $select_cat = 0, $rem_cat = 0)
 	{
 		static $dl_index, $dl_auth, $user_admin;
 
@@ -109,7 +109,7 @@ class dl_extra extends dl_mod
 				}
 
 				$level++;
-				$catlist .= self::dl_dropdown($cat_id, $level, $select_cat, $perm, $rem_cat);
+				$catlist .= self::dl_dropdown($perm, $cat_id, $level, $select_cat, $rem_cat);
 				$level--;
 			}
 		}
@@ -158,5 +158,3 @@ class dl_extra extends dl_mod
 		return $catlist;
 	}
 }
-
-?>
