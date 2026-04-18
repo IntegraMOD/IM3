@@ -463,7 +463,7 @@ INSERT INTO phpbb_config VALUES('img_max_thumb_width', '400', 0);
 INSERT INTO phpbb_config VALUES('img_max_width', '0', 0);
 INSERT INTO phpbb_config VALUES('img_min_thumb_filesize', '12000', 0);
 INSERT INTO phpbb_config VALUES('imod_enabled', '1', 0);
-INSERT INTO phpbb_config VALUES('imod_version', '3.0.15', 0);
+INSERT INTO phpbb_config VALUES('imod_version', '3.0.17', 0);
 INSERT INTO phpbb_config VALUES('ip_check', '3', 0);
 INSERT INTO phpbb_config VALUES('ip_login_limit_max', '50', 0);
 INSERT INTO phpbb_config VALUES('ip_login_limit_time', '21600', 0);
@@ -736,7 +736,7 @@ INSERT INTO phpbb_config VALUES('upload_path', 'files', 0);
 INSERT INTO phpbb_config VALUES('user_details_max_cols', '12', 0);
 INSERT INTO phpbb_config VALUES('user_details_opts', '', 1);
 INSERT INTO phpbb_config VALUES('user_details_save', '0', 0);
-INSERT INTO phpbb_config VALUES('version', '3.0.15', 0);
+INSERT INTO phpbb_config VALUES('version', '3.0.17', 0);
 INSERT INTO phpbb_config VALUES('warnings_expire_days', '90', 0);
 INSERT INTO phpbb_config VALUES('warnings_gc', '14400', 0);
 INSERT INTO phpbb_config VALUES('warnings_last_gc', '1707674862', 1);
@@ -1143,7 +1143,7 @@ INSERT INTO phpbb_gallery_roles VALUES(6, 1, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 1,
 INSERT INTO phpbb_gallery_roles VALUES(7, 1, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0);
 
 # -- phpbb_imod_config
-INSERT INTO phpbb_imod_config VALUES(1, '3.0.15', 0);
+INSERT INTO phpbb_imod_config VALUES(1, '3.0.17', 0);
 
 # -- phpbb_styles
 INSERT INTO phpbb_styles (style_name, style_copyright, style_active, template_id, theme_id, imageset_id) VALUES ('prosilver', '&copy; phpBB Group', 1, 1, 1, 1);
@@ -1903,17 +1903,18 @@ INSERT INTO phpbb_mods_database VALUES(15, 'Ajax ShoutBox', '1.0.3a', '', 'This 
 INSERT INTO phpbb_mods_database VALUES(16, 'Users of the day', '0.0.2', '', 'This mod displays, under the online users list, a list of all the registered users who visited during the last XX hours.\nIt can also display the list of the users who didn\'t come.', 'http://stotis.net', 'Justin', '', '3.0.14', '', 0, 'sanis@portalas.us', 0);
 INSERT INTO phpbb_mods_database VALUES(17, 'Topic Calendar', '2.0.0b1', '', 'Adds a calendar to you forum with the ability to add events and post topic events', '', 'LivewireStu', '', '3.0.14', '', 0, '', 0);
 INSERT INTO phpbb_mods_database VALUES(18, 'ACP Selectable Mod Links in Header', '1', '', 'Allows administrators to select which mod links to display in the overall header and to decide which groups can see them.', 'https://www.integramod.com', 'Helter', '', '3.0.14', '', 0, '', 0);
-INSERT INTO phpbb_mods_database VALUES(19, '2 phpBB3 core updates', '3.0.15', '', 'IntegraMOD3 incorporates phpBB3.0.14 core fixes written by Dion of dion-designs.com\n\nWhile doing some research during my tedious task of updating the core to support php 7.4 I found many posts directing me to dion-designs.com. Dion\'s updates were superior to mine and pushed php support to version 8.', 'https://forum.dion-designs.com/index.php', 'DionDesigns', '', '3.0.14', '', 0, '', 0);
-INSERT INTO phpbb_mods_database VALUES(20, 'phpBB Digests', '2.2.9', '', 'Sends daily or weekly digests of posts to subscribers', 'http://phpbbservices.com/digests/', 'Mark D Hamill', '', '3.0.15', '', 0, 'mark@phpbbservices.com', 0);
-INSERT INTO phpbb_mods_database VALUES(21, 'Advertisement Management', '1.0.10', '', 'Adds an easy to use Advertisement Manager to a phpBB3 forum', 'https://www.phpbb.com/community/memberlist.php?mode=viewprofile&amp;un=EXreaction', 'Nathan Guse', '', '3.0.15', '', 0, 'exreaction@lithiumstudios.org', 0);
-INSERT INTO phpbb_mods_database VALUES(22, 'ACP file backup', '1.0', '', 'Utility for quickly backing up phpbb3 files via the ACP. Directories and files in the root phpBB3 directory can be selected to add to a \nzip archive which can be stored locally, downloaded or both.\nThis eliminates the need to download all your files seperately via an FTP client. For users without SSH, and for users without any facility \nto compress files online, this utility will offer significant time savings in backing up files, as downloading a single archive requires \nsignificantly less overhead than downloading each individual file.', '', 'livewirestu  (Stuart McConnel)', '', '3.0.15', '', 0, 'stumcconnel@sky.com', 0);
-INSERT INTO phpbb_mods_database VALUES(23, 'Groups on Registration and Custom Profile Fields', '1.0.1', '', 'This mod can display groups on registration screen to join. Displayed groups cannot be special groups; request, closed and hidden type group membership requests need to be approved. It can also brings the ability of adding users to groups based on custom profile fields data. Whenever a user\'s custom profile fields data is changed, custom profile fields groups are updated. Admininistrators can batch add/remove users to/from custom profile fields based groups at ACP.', '', 'mtrs', '', '3.0.15', '', 0, 'trst2007@gmail.com', 0);
-INSERT INTO phpbb_mods_database VALUES(24, 'Multi Selection Profile Fields', '1.0.0', '', 'Adds a new mode to custom profile field system for multible choice options', 'https://djchrisnet.de/', 'Christoph Kühl', '', '3.0.15', '', 0, 'info@djchrisnet.de', 0);
-INSERT INTO phpbb_mods_database VALUES(25, 'phpBB mini Chat', '1.3.8', '', 'Мini-chat for the forum index and seperate page.', 'https://www.phpbb.com/community/memberlist.php?mode=viewprofile&amp;un=RMcGirr83', 'Rich McGirr', '', '3.0.15', '', 0, 'rmcgirr83@gmail.com', 0);
-INSERT INTO phpbb_mods_database VALUES(26, 'FAQ Manager', '1.2.4', '', 'Adds an easy to use FAQ Manager to the ACP.', '', 'EXreaction  (Nathan Guse)', '', '3.0.15', '', 0, '', 0);
-INSERT INTO phpbb_mods_database VALUES(27, 'First post on every page', '1.2.2', '', 'This mod allows to show first post of topic on top of it\'s every page in phpBB3.', 'http://phpbbguru.net', 'rxu', '', '3.0.15', '', 0, 'rxu@sunlan.ru', 0);
-INSERT INTO phpbb_mods_database VALUES(28, 'Who posted?', '1.0.1', '', 'This MOD will allow users to view who posted in a topic.', '', 'eviL&lt;3 (Igor Wiedler)', '', '3.0.15', '', 0, 'evil@phpbbmodders.net', 0);
-INSERT INTO phpbb_mods_database VALUES(29, 'Show Password Strength', '1.0.3', '', 'This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for \'Very Weak\', \'Weak\', \'Good\', \'Strong\' and \'Very Strong\' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.', 'http://www.phpbb.com/customise/db/mod/show_password_strength/', 'VSE (Matt Friedman)', '', '3.0.15', '', 0, '', 0);
+INSERT INTO phpbb_mods_database VALUES(19, 'phpBB Digests', '2.2.9', '', 'Sends daily or weekly digests of posts to subscribers', 'http://phpbbservices.com/digests/', 'Mark D Hamill', '', '3.0.15', '', 0, 'mark@phpbbservices.com', 0);
+INSERT INTO phpbb_mods_database VALUES(20, 'Advertisement Management', '1.0.10', '', 'Adds an easy to use Advertisement Manager to a phpBB3 forum', 'https://www.phpbb.com/community/memberlist.php?mode=viewprofile&amp;un=EXreaction', 'Nathan Guse', '', '3.0.15', '', 0, 'exreaction@lithiumstudios.org', 0);
+INSERT INTO phpbb_mods_database VALUES(21, 'ACP file backup', '1.0', '', 'Utility for quickly backing up phpbb3 files via the ACP. Directories and files in the root phpBB3 directory can be selected to add to a \nzip archive which can be stored locally, downloaded or both.\nThis eliminates the need to download all your files seperately via an FTP client. For users without SSH, and for users without any facility \nto compress files online, this utility will offer significant time savings in backing up files, as downloading a single archive requires \nsignificantly less overhead than downloading each individual file.', '', 'livewirestu  (Stuart McConnel)', '', '3.0.15', '', 0, 'stumcconnel@sky.com', 0);
+INSERT INTO phpbb_mods_database VALUES(22, 'Groups on Registration and Custom Profile Fields', '1.0.1', '', 'This mod can display groups on registration screen to join. Displayed groups cannot be special groups; request, closed and hidden type group membership requests need to be approved. It can also brings the ability of adding users to groups based on custom profile fields data. Whenever a user\'s custom profile fields data is changed, custom profile fields groups are updated. Admininistrators can batch add/remove users to/from custom profile fields based groups at ACP.', '', 'mtrs', '', '3.0.15', '', 0, 'trst2007@gmail.com', 0);
+INSERT INTO phpbb_mods_database VALUES(23, 'Multi Selection Profile Fields', '1.0.0', '', 'Adds a new mode to custom profile field system for multible choice options', 'https://djchrisnet.de/', 'Christoph Kühl', '', '3.0.15', '', 0, 'info@djchrisnet.de', 0);
+INSERT INTO phpbb_mods_database VALUES(24, 'phpBB mini Chat', '1.3.8', '', 'Мini-chat for the forum index and seperate page.', 'https://www.phpbb.com/community/memberlist.php?mode=viewprofile&amp;un=RMcGirr83', 'Rich McGirr', '', '3.0.15', '', 0, 'rmcgirr83@gmail.com', 0);
+INSERT INTO phpbb_mods_database VALUES(25, 'FAQ Manager', '1.2.4', '', 'Adds an easy to use FAQ Manager to the ACP.', '', 'EXreaction  (Nathan Guse)', '', '3.0.15', '', 0, '', 0);
+INSERT INTO phpbb_mods_database VALUES(26, 'First post on every page', '1.2.2', '', 'This mod allows to show first post of topic on top of it\'s every page in phpBB3.', 'http://phpbbguru.net', 'rxu', '', '3.0.15', '', 0, 'rxu@sunlan.ru', 0);
+INSERT INTO phpbb_mods_database VALUES(27, 'Who posted?', '1.0.1', '', 'This MOD will allow users to view who posted in a topic.', '', 'eviL&lt;3 (Igor Wiedler)', '', '3.0.15', '', 0, 'evil@phpbbmodders.net', 0);
+INSERT INTO phpbb_mods_database VALUES(28, 'Show Password Strength', '1.0.3', '', 'This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for \'Very Weak\', \'Weak\', \'Good\', \'Strong\' and \'Very Strong\' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.', 'http://www.phpbb.com/customise/db/mod/show_password_strength/', 'VSE (Matt Friedman)', '', '3.0.15', '', 0, '', 0);
+INSERT INTO phpbb_mods_database VALUES(29, 'phpBB Social Network', '1.0.0', '', 'phpBB Social Network is a modification for phpBB software which turns your board into a full valued social network software', 'https://github.com/IntegraMOD/phpBB-Social-Network', 'Helter, vendethiel, senky & team', '', '3.0.15', '', 0, '', 0);
+INSERT INTO phpbb_mods_database VALUES(30, 'Cookie Consent', '1.0.0', '', 'The Cookie Consent mod informs users about cookie usage and allows them to acknowledge or decline non-essential cookies. It ensures compliance with privacy laws', 'https://integramod.com', 'Helter', '', '3.0.15', '', 0, '', 0);
 
 # -- phpbb_pages
 INSERT INTO phpbb_pages VALUES(1, 'Chat', 'Chatroom', 'to be filled', 'chat', '', '', 0, 0, 1, 0, 2);
