@@ -1904,7 +1904,7 @@ class GeSHi {
                                 $COMMENT_MATCHED = true;
                                 if ($comment_perm) {
                                   if (!$this->use_classes) {
-                                    $attributes = $style !== '' ? ' style="' . $style . '"' : '';
+                                    $attributes = isset($style) && $style !== '' ? ' style="' . $style . '"' : '';
                                   } else {
                                     $attributes = ' class="co' . $comment_key . '"';
                                   }
