@@ -120,7 +120,7 @@ clear:both;
   width: 30.75em;
   height: 30.75em;
   border-radius: 50%;
-  border: solid 2px #11A0E7;
+  border: solid 2px #98AAB1;
   margin: auto auto;
   position: relative;
   background-color:#E1E8F1;
@@ -141,7 +141,7 @@ clear:both;
   height: 6em;
   top: 9em;
   left: 14.25em;
-  background-color: #11A0E7;
+  background-color: #C5D0DC;
   border: solid 1px #486386;
 }
 #clock #minute {
@@ -150,7 +150,7 @@ clear:both;
   height: 11em;
   top: 4em;
   left: 14.5em;
-  background-color: #11A0E7;
+  background-color: #C5D0DC;
   border: solid 1px #486386;
 }
 #clock #second {
@@ -159,7 +159,7 @@ clear:both;
   height: 14em;
   top: 1em;
   left: 14.75em;
-  background-color: #11A0E7;
+  background-color: #C5D0DC;
 }
 #clock #center {
   height: 2em;
@@ -168,25 +168,25 @@ clear:both;
   top: 14em;
   left: 14em;
   transform: rotate(0deg);
-  background-color: #11A0E7;
+  background-color: #C5D0DC;
   border: solid 1px #486386;
 }
 .smallTick {
   width: 0.1em;
   height: 0.5em;
-  background-color: #11A0E7;
+  background-color: #98AAB1;
   margin: 0 1.45em;
 }
 .mediumTick {
   width: 0.25em;
   height: 0.8em;
-  background-color: #11A0E7;
+  background-color: #98AAB1;
   margin: 0 1.375em;
 }
 .largeTick {
   width: 0.4em;
   height: 0.8em;
-  background-color: #11A0E7;
+  background-color: #98AAB1;
   position: relative;
   margin: 0 1.3em;
 }

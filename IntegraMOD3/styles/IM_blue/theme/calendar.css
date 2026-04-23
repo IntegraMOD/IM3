@@ -70,7 +70,8 @@ tr.cal_block_header {
     background-color:#43A6DF;
     height:16px;
     border-color:#C2E6F6;
-    font-weight:bold;
+    font-weight:600;
+	color:#FFFFFF;
 }
 
 .button_event_new_icon {

@@ -67,10 +67,11 @@ tr.calendar {
 }
 
 tr.cal_block_header {
-    background-color:#43A6DF;
+    background-color:#0262A1;
     height:16px;
     border-color:#C2E6F6;
-    font-weight:bold;
+    font-weight:600;
+	color:#FFFFFF;
 }
 
 .button_event_new_icon {
