@@ -147,20 +147,46 @@ class acp_k_menus
 
 					$cache->destroy('sql', K_MENUS_TABLE);
 
-					$mode = match ($menu_type) {
-						1 => 'nav',
-						2 => 'sub',
-						3 => 'head',
-						4 => 'foot',
-						5 => 'link',
-						default => 'nav',
-					};
+					switch ((int) $menu_type)
+					{
+						case 1:
+							$mode = 'nav';
+						break;
+
+						case 2:
+							$mode = 'sub';
+						break;
+
+						case 3:
+							$mode = 'head';
+						break;
+
+						case 4:
+							$mode = 'foot';
+						break;
+
+						case 5:
+							$mode = 'link';
+						break;
+
+						default:
+							$mode = 'nav';
+						break;
+					}
 
 					meta_refresh(2, append_sid("{$phpbb_admin_path}index.$phpEx", 'i=k_menus&amp;mode=' . $mode));
 
-					trigger_error($user->lang['CONFIG_UPDATED'] . '<br /><br />' . sprintf($user->lang['RETURN_PAGE'], '<a href="' . append_sid("{$phpbb_admin_path}index.$phpEx", 'i=k_menus&amp;mode=' . $mode) . '">', '</a>'));
+					trigger_error(
+						$user->lang['CONFIG_UPDATED'] . '<br /><br />' .
+						sprintf(
+							$user->lang['RETURN_PAGE'],
+							'<a href="' . append_sid("{$phpbb_admin_path}index.$phpEx", 'i=k_menus&amp;mode=' . $mode) . '">',
+							'</a>'
+						)
+					);
 
 					break;
+
 				}
 
 				// get all groups and fill array //
