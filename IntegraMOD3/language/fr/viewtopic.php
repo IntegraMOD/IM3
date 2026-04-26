@@ -114,4 +114,35 @@ $lang = array_merge($lang, array(
 
 ));
 
-?>
+$lang = array_merge($lang, array(
+// ajaxlike
+	'AL_YOU_TEXT'						=> 'Vous',						// `You` like this post.
+	'AL_AND_TEXT'						=> 'et',						// userX `and` y like this post.
+	'AL_OTHER_TEXT'						=> 'autre',						// userX and 1 `other`  like this post.
+	'AL_OTHERS_TEXT'					=> 'autres',					// userX and 5 `others` like this post.
+	'AL_PEOPLE_TEXT'					=> 'personnes',					// 4 `people` like this post.
+	'AL_LIKE_POST_TEXT'					=> 'aiment ce message.',			// 3 people `like this post`.
+	'AL_ONE_LIKE_POST_TEXT'				=> 'aime ce message.',			// userX `likes this post`.
+	'AL_LIKE_POST_WITH_YOU_TEXT'		=> 'aiment ce message.',			// You and 2 others `like this post`.
+	'AL_YOU_LIKE_TEXT'					=> 'aimez ce message.',			// You `like this post`.
+	// 																		alternative mode:
+	'AL_ALTER_ONE_PEOPLE_TEXT'			=> 'personne',					// 1 `person` likes this post.
+	'AL_ALTER_TWO_PEOPLE_TEXT'			=> 'personnes',					// 2 `people` like this post.
+	'AL_ALTER_THREE_PEOPLE_TEXT'		=> 'personnes',					// 3 `people` like this post.
+	'AL_ALTER_MORE_PEOPLE_TEXT'			=> 'personnes',					// 12 `people` like this post.
+	'AL_ALTER_ONE_LIKE_POST_TEXT'		=> 'aime ce message.',			// 1 person `likes this post`.
+	'AL_ALTER_TWO_LIKE_POST_TEXT'		=> 'aiment ce message.',			// 2 people `like this post`.
+	'AL_ALTER_THREE_LIKE_POST_TEXT'		=> 'aiment ce message.',			// 3 people `like this post`.
+	'AL_ALTER_MORE_LIKE_POST_TEXT'		=> 'aiment ce message.',			// 10 people `like this post`.
+	//
+	'AL_LIKE_TEXT'						=> 'J’aime',
+	'AL_UNLIKE_TEXT'					=> 'Je n’aime plus',
+	'AL_PEOPLE_LIKE_THIS_TEXT'			=> 'Les personnes qui aiment ce message',		// dialog box title
+	'AL_LIKE_COUNT_TEXT'				=> 'J’aime',						// number of likes
+	'AL_LIKED_COUNT_TEXT'				=> 'Aimé dans',					// number of received likes
+	'AL_POSTS_TEXT'						=> 'messages',
+	'AL_POST_TEXT'						=> 'message',
+	'AL_LIKE_AT_TEXT'					=> 'Aimé le',					// like date
+	'AL_ERROR_INVALID_REQUEST'			=> 'Requête invalide !',
+	'AL_ERROR_ACCESS_DENIED'			=> 'Accès refusé !',
+));

@@ -1,7 +1,7 @@
 <?php
 /** 
 *
-* acp_modsdb [English]
+* acp_modsdb [French]
 *
 * @package language
 * @version $Id:modsdb.php,v 1.0 2007/08/20 lefty74 Exp $
@@ -32,45 +32,45 @@ if (empty($lang) || !is_array($lang))
 
 // Bot settings
 $lang = array_merge($lang, array(
-	'MODS_DATABASE_DETAIL'		=> 'Mods Database - Mod Detail',
-	'MODS_DATABASE'				=> 'Mods Database',
-	'MODS_DATABASE_EXPLAIN'		=> 'You can maintain your Mods Database here. Add, Edit or Delete Mods to and from the database.',
+	'MODS_DATABASE_DETAIL'		=> 'Base de données des mods - Détail du mod',
+	'MODS_DATABASE'				=> 'Base de données des mods',
+	'MODS_DATABASE_EXPLAIN'		=> 'Vous pouvez gérer ici votre base de données des mods. Ajouter, modifier ou supprimer des mods dans la base de données.',
 
-	'MOD_ADD'			=> 'Add Mod',
-	'MOD_ADDED'			=> 'New Mod successfully added.',
-	'MOD_DELETED'		=> 'Mod successfully deleted.',
-	'MOD_DETAIL'		=> 'Mod Details',
-	'MOD_EDIT'			=> 'Edit Mods',
-	'MOD_EDIT_EXPLAIN'	=> 'Here you can add or edit an existing Mod entry. The Title and version number are required. You will also be able to enter details of where the Mod can be downloaded from and where the Mod itself can be found.',
-	'BOT_NAME'			=> 'Bot name',
-	'BOT_NAME_EXPLAIN'	=> 'Used only for your own information.',
-	'MOD_NAME_TAKEN'	=> 'The Title is already in use in the Mods Database and can’t be used again.',
-	'MOD_UPDATED'		=> 'Existing Mod updated successfully.',
+	'MOD_ADD'			=> 'Ajouter un mod',
+	'MOD_ADDED'			=> 'Nouveau mod ajouté avec succès.',
+	'MOD_DELETED'		=> 'Mod supprimé avec succès.',
+	'MOD_DETAIL'		=> 'Détails du mod',
+	'MOD_EDIT'			=> 'Modifier les mods',
+	'MOD_EDIT_EXPLAIN'	=> 'Vous pouvez ici ajouter ou modifier une entrée de mod existante. Le titre et le numéro de version sont obligatoires. Vous pourrez également saisir les détails de l’endroit où le mod peut être téléchargé et où le mod lui-même peut être trouvé.',
+	'BOT_NAME'			=> 'Nom du bot',
+	'BOT_NAME_EXPLAIN'	=> 'Utilisé uniquement pour vos propres informations.',
+	'MOD_NAME_TAKEN'	=> 'Le titre est déjà utilisé dans la base de données des mods et ne peut pas être réutilisé.',
+	'MOD_UPDATED'		=> 'Mod existant mis à jour avec succès.',
 
-	'ERR_MOD_NO_MATCHES'		=> 'You must supply at least the Mod Title and Mod Version for this Mod entry.',
+	'ERR_MOD_NO_MATCHES'		=> 'Vous devez fournir au minimum le titre du mod et la version du mod pour cette entrée.',
 
-	'NO_MOD'					=> 'Found no Mod with the specified ID.',
+	'NO_MOD'					=> 'Aucun mod trouvé avec l’ID spécifié.',
 
-	'MOD_INSTALL_DATE'			=>	'Mod Installation Date',
-	'MOD_TITLE'					=>	'Mod Title',
-	'MOD_COMMENTS'				=>	'Comments',
-	'MOD_PHPBB_VERSION'			=>	'phpbb Version',
+	'MOD_INSTALL_DATE'			=>	'Date d’installation du mod',
+	'MOD_TITLE'					=>	'Titre du mod',
+	'MOD_COMMENTS'				=>	'Commentaires',
+	'MOD_PHPBB_VERSION'			=>	'Version phpBB',
 	'MOD_VERSION'				=>	'Version',
-	'MOD_VERSION_TYPE'			=>	'Version Type',
-	'MOD_VERSION_TYPE_EXPLAIN'	=>	'Beta, Alpha, Dev or RC*',
+	'MOD_VERSION_TYPE'			=>	'Type de version',
+	'MOD_VERSION_TYPE_EXPLAIN'	=>	'Bêta, Alpha, Dev ou RC*',
 	'MOD_DESC'					=>	'Description',
-	'MOD_AUTHOR'				=>	'Author',
-	'MOD_URL'					=>	'Location',
-	'VISIT_WEBSITE'				=>	'URL Link where Mod is published',
-	'DOWNLOAD_MOD'				=>	'URL Link where Mod can be downloaded',
-	'LIST_MOD'					=>  '1 Mod installed',
-	'LIST_MODS'					=>  '%s Mods installed',
+	'MOD_AUTHOR'				=>	'Auteur',
+	'MOD_URL'					=>	'Emplacement',
+	'VISIT_WEBSITE'				=>	'Lien URL où le mod est publié',
+	'DOWNLOAD_MOD'				=>	'Lien URL où le mod peut être téléchargé',
+	'LIST_MOD'					=>  '1 mod installé',
+	'LIST_MODS'					=>  '%s mods installés',
 	'SORT_MOD_TITLE'			=>  'SORT_MOD_TITLE',
 	'SORT_MOD_VERSION'			=>  'SORT_MOD_VERSION',
 	'SORT_MOD_VERSION'			=>  'SORT_MOD_VERSION',
 	'SORT_MOD_AUTHOR'			=>  'SORT_MOD_AUTHOR',
-	'WWW'						=>  'Website',
-	'DOWNLOAD'					=>  'Download',
+	'WWW'						=>  'Site web',
+	'DOWNLOAD'					=>  'Télécharger',
 	
 ));
 

@@ -37,26 +37,26 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'KISS_PORTAL_ENGINE' 		=> 'Kiss Portal Engine',
-	'STARGATE_PORTAL_EXPLAIN' 	=> 'Simplified version of Stargate Portal for phpBB3 with a basic features all of which are configurable via the ACP.',
+	'KISS_PORTAL_ENGINE' 		=> 'Moteur du portail Kiss',
+	'STARGATE_PORTAL_EXPLAIN' 	=> 'Version simplifiée du portail Stargate pour phpBB3 avec des fonctionnalités de base, toutes configurables via l’ACP.',
 
-	'NONE'				=> 'Not Installed',
-	'INSTALL_PANEL'		=> 'Stargate Portal Installation Panel',
+	'NONE'				=> 'Non installé',
+	'INSTALL_PANEL'		=> 'Panneau d’installation du portail Stargate',
 	'SUB_INTRO'			=> 'Introduction',
-	'OVERVIEW_BODY'		=> '<p><strong>This code is a rework of the phpBB install code &copy; phpBB 2000, 2002, 2005, 2007 phpBB Group, to facilitate the Stargate Portal installation...</strong></p><hr /><br /><strong>Welcome to our pre-test release of Stargate Portal  RC1 (Prometheus Edition) <img src="./../portal/portal_install.png" alt="" border="none"></strong><br /><br />If you are <b>upgrading</b>, please run the remove_portal.php script before continuing... (See portal/Read_Me_First.txt)<br /><br />This release is intended for wider scale use to help us identifying last bugs and problematic areas.<br />Please read <a href="../portal/docs/install.html"><b>our installation guide</b></a> for more information about installing Stargate Portal.</p><p><strong style="text-transform: uppercase;"><br />Note:</strong> This release is <strong style="text-transform: uppercase;">a beta product</strong>. You may want to wait for the full final release before running it live.</p><p>This installation system will guide you through the process of installing the portal and updating to the latest version.<br />For more information on each option, select it from the menu above.<br />',
-	'SELECT_LANG'		=> 'Select language',
-	'SUPPORT_BODY'		=> 'During the beta phase full support will be given at <a href="http://www.phpbbireland.com/phpBB3/">phpbbireland</a>. We will provide answers to general setup questions, configuration problems, conversion problems and support for determining common problems mostly related to bugs. We also allow discussions about modifications and custom code/style additions.</p><p>For further assistance with the Stargate Portal contact <a href="http://www.phpbbireland.com/phpBB3/"> phpbbireland development site.</a></p><p>For assistance with phpBB, please refer to the <a href="http://www.phpbb.com/support/documentation/3.0/quickstart/">Quick Start Guide</a> and <a href="http://www.phpbb.com/support/documentation/3.0/">the online documentation</a>.</p><p>To ensure you stay up to date please visit the <a href="http://www.phpbbireland.com/portal/">dev site</a> or subscribe to our <a href="http://www.phpbbireland.com/support/">mailing list</a>...',
+	'OVERVIEW_BODY'		=> '<p><strong>Ce code est une refonte du code d’installation de phpBB &copy; phpBB 2000, 2002, 2005, 2007 Groupe phpBB, afin de faciliter l’installation du portail Stargate...</strong></p><hr /><br /><strong>Bienvenue dans notre version pré-test du portail Stargate RC1 (Édition Prometheus) <img src="./../portal/portal_install.png" alt="" border="none"></strong><br /><br />Si vous effectuez une <b>mise à niveau</b>, veuillez exécuter le script remove_portal.php avant de continuer... (Voir portal/Read_Me_First.txt)<br /><br />Cette version est destinée à une utilisation à plus grande échelle afin de nous aider à identifier les derniers bugs et zones problématiques.<br />Veuillez lire <a href="../portal/docs/install.html"><b>notre guide d’installation</b></a> pour plus d’informations sur l’installation du portail Stargate.</p><p><strong style="text-transform: uppercase;"><br />Remarque :</strong> cette version est <strong style="text-transform: uppercase;">un produit bêta</strong>. Vous préférerez peut-être attendre la version finale complète avant de l’utiliser en production.</p><p>Ce système d’installation vous guidera tout au long du processus d’installation du portail et de mise à jour vers la dernière version.<br />Pour plus d’informations sur chaque option, sélectionnez-la dans le menu ci-dessus.<br />',
+	'SELECT_LANG'		=> 'Sélectionner la langue',
+	'SUPPORT_BODY'		=> 'Pendant la phase bêta, une assistance complète sera fournie sur <a href="http://www.phpbbireland.com/phpBB3/">phpbbireland</a>. Nous fournirons des réponses aux questions générales de configuration, aux problèmes de configuration, aux problèmes de conversion et une aide pour identifier les problèmes courants principalement liés aux bugs. Nous autorisons également les discussions sur les modifications et les ajouts de code/style personnalisés.</p><p>Pour une assistance supplémentaire concernant le portail Stargate, contactez le <a href="http://www.phpbbireland.com/phpBB3/">site de développement phpbbireland</a>.</p><p>Pour obtenir de l’aide sur phpBB, veuillez consulter le <a href="http://www.phpbb.com/support/documentation/3.0/quickstart/">Guide de démarrage rapide</a> et <a href="http://www.phpbb.com/support/documentation/3.0/">la documentation en ligne</a>.</p><p>Pour vous assurer de rester à jour, veuillez visiter le <a href="http://www.phpbbireland.com/portal/">site de développement</a> ou vous abonner à notre <a href="http://www.phpbbireland.com/support/">liste de diffusion</a>...',
 	'SUB_SUPPORT'		=> 'Support',
-	'REPORT_INSTALLED'	=> 'The portal in already installed',
-	'INSTALL_INTRO'		=> 'Welcome to the Stargate Portal Installation <img src="./../portal/portal_install.png" alt="" border="none">',
+	'REPORT_INSTALLED'	=> 'Le portail est déjà installé',
+	'INSTALL_INTRO'		=> 'Bienvenue dans l’installation du portail Stargate <img src="./../portal/portal_install.png" alt="" border="none">',
 
 
-	'VERSION_NOT_UP_TO_DATE'	=> 'Your version of the portal is not up to date. Please continue the update process.',
-	'VERSION_NOT_UP_TO_DATE'	=> 'Cannot retrieve version info... code not yet written.',
-	'VERSION_CHECK'				=> 'Version check',
-	'VERSION_CHECK_EXPLAIN'		=> 'Checks to see if the portal version you are currently running is up to date.',
-	'CURRENT_VERSION'			=> 'Current version',
-	'LATEST_VERSION'			=> 'Latest version',
+	'VERSION_NOT_UP_TO_DATE'	=> 'Votre version du portail n’est pas à jour. Veuillez poursuivre le processus de mise à jour.',
+	'VERSION_NOT_UP_TO_DATE'	=> 'Impossible de récupérer les informations de version... code pas encore écrit.',
+	'VERSION_CHECK'				=> 'Vérification de la version',
+	'VERSION_CHECK_EXPLAIN'		=> 'Vérifie si la version du portail que vous utilisez actuellement est à jour.',
+	'CURRENT_VERSION'			=> 'Version actuelle',
+	'LATEST_VERSION'			=> 'Dernière version',
 
 ));
 

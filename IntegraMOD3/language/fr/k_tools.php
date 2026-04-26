@@ -42,14 +42,14 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'LEFT_BLOCKS'			=> 'Left blocks',
-	'LEFT_BLOCKS_EXPLAIN'	=> 'comma separated string',
+	'LEFT_BLOCKS'			=> 'Blocs de gauche',
+	'LEFT_BLOCKS_EXPLAIN'	=> 'chaîne séparée par des virgules',
 
-	'CENTER_BLOCKS'			=> 'Centre blocks',
-	'CENTER_BLOCKS_EXPLAIN' => 'comma separated string',
+	'CENTER_BLOCKS'			=> 'Blocs du centre',
+	'CENTER_BLOCKS_EXPLAIN' => 'chaîne séparée par des virgules',
 
-	'RIGHT_BLOCKS'			=> 'Right blocks',
-	'RIGHT_BLOCKS_EXPLAIN' 	=> 'comma separated string',
+	'RIGHT_BLOCKS'			=> 'Blocs de droite',
+	'RIGHT_BLOCKS_EXPLAIN' 	=> 'chaîne séparée par des virgules',
 
 ));
 

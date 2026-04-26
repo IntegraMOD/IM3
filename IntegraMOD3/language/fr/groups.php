@@ -93,4 +93,3 @@ $lang = array_merge($lang, array(
 	'USER_GROUP_DEMOTED'		=> 'Vous n’êtes à présent plus responsable du groupe que vous avez sélectionné.',
 ));
 
-?>

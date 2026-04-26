@@ -37,14 +37,14 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'IMG_NEWS_READ'					=> 'News',
-	'IMG_NEWS_READ_MINE'			=> 'News posted to',
-	'IMG_NEWS_READ_LOCKED'			=> 'News locked',
-	'IMG_NEWS_READ_LOCKED_MINE'		=> 'News locked posted to',
-	'IMG_NEWS_UNREAD'				=> 'News new posts',
-	'IMG_NEWS_UNREAD_MINE'			=> 'News posted to new',
-	'IMG_NEWS_UNREAD_LOCKED'		=> 'News locked new post',
-	'IMG_NEWS_UNREAD_LOCKED_MINE'	=> 'News locked posted to new',
+	'IMG_NEWS_READ'					=> 'Actualité',
+	'IMG_NEWS_READ_MINE'			=> 'Actualité à laquelle vous avez participé',
+	'IMG_NEWS_READ_LOCKED'			=> 'Actualité verrouillée',
+	'IMG_NEWS_READ_LOCKED_MINE'		=> 'Actualité verrouillée à laquelle vous avez participé',
+	'IMG_NEWS_UNREAD'				=> 'Actualité avec nouveaux messages',
+	'IMG_NEWS_UNREAD_MINE'			=> 'Actualité avec nouveaux messages à laquelle vous avez participé',
+	'IMG_NEWS_UNREAD_LOCKED'		=> 'Actualité verrouillée avec nouveau message',
+	'IMG_NEWS_UNREAD_LOCKED_MINE'	=> 'Actualité verrouillée avec nouveaux messages à laquelle vous avez participé',
 
 ));
 

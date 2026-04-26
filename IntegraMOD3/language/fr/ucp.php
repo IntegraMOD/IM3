@@ -196,6 +196,8 @@ $lang = array_merge($lang, array(
 	'FIELD_INVALID_CHARS_ALPHA_ONLY'	=> 'Le champ « %s » contient des caractères incorrects, seuls les lettres et les chiffres sont autorisés.',
 	'FIELD_INVALID_CHARS_SPACERS_ONLY'	=> 'Le champ « %s » contient des caractères incorrects, seuls les lettres, les chiffres, les espaces, les tirets bas, les crochets et les signes plus et moins sont autorisés.',
 	'FIELD_INVALID_DATE'				=> 'La date que vous avez spécifiée dans le champ « %s » est incorrecte.',
+    'FIELD_MULTI_TOO_LOW'				=> 'Vous n’avez pas sélectionné suffisamment d’options dans le champ « %1$s ». %2$d options doivent être sélectionnées.',
+	'FIELD_MULTI_TOO_MANY'				=> 'Vous avez sélectionné trop d’options dans le champ « %1$s ». %2$d options sélectionnées au maximum.',
 	'FIELD_INVALID_VALUE'				=> 'Le champ « %s » contient une valeur incorrecte.',
 
 	'FOE_MESSAGE'				=> 'Message d’un ignoré',
@@ -421,9 +423,28 @@ $lang = array_merge($lang, array(
 	'UCP_ATTACHMENTS'			=> 'Pièces jointes',
 	'UCP_COPPA_BEFORE'			=> 'Avant le %s',
 	'UCP_COPPA_ON_AFTER'		=> 'Le ou après le %s',
+	// Begin phpBB Digests Mod
+	'UCP_DIGESTS'						=> 'Résumés',
+	'UCP_DIGESTS_ADDITIONAL_CRITERIA'	=> 'Critères supplémentaires',
+	'UCP_DIGESTS_BASICS'				=> 'Paramètres de base',
+	'UCP_DIGESTS_FORUMS_SELECTION'		=> 'Sélection des forums',
+	'UCP_DIGESTS_POST_FILTERS'			=> 'Filtres des messages',
+	// End phpBB Digests Mod
 	'UCP_EMAIL_ACTIVATE'		=> 'Veuillez noter que vous devez saisir une adresse de courrier électronique correcte afin que votre compte soit activé. Vous recevrez un courrier électronique qui contiendra le lien d’activation à l’adresse de courrier électronique que vous avez spécifiée.',
 	'UCP_ICQ'					=> 'Numéro ICQ',
 	'UCP_JABBER'				=> 'Adresse Jabber',
+
+    // messengers
+	'UCP_FB'					=> 'Facebook',
+	'UCP_IG'					=> 'Instagram',
+	'UCP_PT'					=> 'Pinterest',
+	'UCP_TWR'					=> 'Twitter',
+	'UCP_SKP'					=> 'Skype',
+	'UCP_TG'					=> 'Telegram',
+	'UCP_LI'					=> 'LinkedIn',
+	'UCP_TT'					=> 'TikTok',
+	'UCP_DC'					=> 'Discord',
+    'UCP_DC_TAG'				=> 'Nom d’utilisateur Discord',
 
 	'UCP_MAIN'					=> 'Vue d’ensemble',
 	'UCP_MAIN_ATTACHMENTS'		=> 'Gérer les pièces jointes',
@@ -503,6 +524,8 @@ $lang = array_merge($lang, array(
 	'VIEW_POSTS_DAYS'			=> 'Afficher les messages selon leur ancienneté',
 	'VIEW_POSTS_DIR'			=> 'Afficher les messages triés par ordre',
 	'VIEW_POSTS_KEY'			=> 'Afficher les messages triés par',
+	'VIEW_SHOUT_INDEX'			=> 'Afficher la shoutbox sur la page d’index',
+	'VIEW_CAL_INDEX'			=> 'Afficher le mini calendrier sur la page d’index',
 
 	'WATCHED_EXPLAIN'			=> 'La liste ci-dessous vous affiche les forums et les sujets auxquels vous êtes abonné(e). Vous recevrez une notification à chaque fois qu’un nouveau message est publié dans un de ces derniers. Si vous souhaitez vous désabonner d’un forum ou d’un sujet, sélectionnez-le et cliquez sur le bouton <em>Ne plus surveiller la sélection</em>.',
 	'WATCHED_FORUMS'			=> 'Forums auxquels vous êtes abonné(e)',
@@ -560,4 +583,16 @@ $lang = array_merge($lang, array(
 	'NO_NONMEMBER'	=> 'Aucun non-membre du groupe',
 ));
 
-?>
+$lang = array_merge($lang, array(
+// mChat MOD
+	'UCP_CAT_MCHAT'		=> 'mChat',
+	'UCP_MCHAT_CONFIG'	=> 'Préférences',
+// ajaxlike
+	'AJ_SHOW_LIKES'		=> 'Afficher les derniers j’aime dans le profil',
+//Begin : Show Password Strength
+	'PS_VERY_WEAK'		=> 'Très faible',
+	'PS_WEAK'			=> 'Faible',
+	'PS_GOOD'			=> 'Bon',
+	'PS_STRONG'			=> 'Fort',
+	'PS_VERY_STRONG'	=> 'Très fort',
+));

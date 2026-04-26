@@ -27,13 +27,14 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 
 	'IMOD' 					=> 'IntegraMod',
-	'TITLE' 				=> 'Integramod Main Configuration',
-	'TITLE_EXPLAIN'			=> 'Here you have access to modifications controlled by IntegraMOD.',
+	'TITLE' 				=> 'Configuration principale d’IntegraMod',
+	'TITLE_EXPLAIN'			=> 'Vous avez ici accès aux modifications contrôlées par IntegraMOD.',
 	'IMOD_CONFIG_HEADING'	=> 'IntegraMOD',
 
-	'IMOD_VERSION'			=> 'IntegraMod Version',
-	'IMOD_ENABLED'			=> 'Disable/Enable IntegraMod',
+	'IMOD_VERSION'			=> 'Version d’IntegraMod',
+	'IMOD_ENABLED'			=> 'Désactiver/Activer IntegraMod',
 
-	'IMOD_VERSION_EXPLAIN'	=> 'This is the currently installed version.',
-	'IMOD_ENABLED_EXPLAIN'	=> '0 (zero) disables, 1 Enables. All other positive numbers enable with debug options.',
+	'IMOD_VERSION_EXPLAIN'	=> 'Il s’agit de la version actuellement installée.',
+	'IMOD_ENABLED_EXPLAIN'	=> '0 (zéro) désactive, 1 active. Tous les autres nombres positifs activent avec les options de débogage.',
+
 ));

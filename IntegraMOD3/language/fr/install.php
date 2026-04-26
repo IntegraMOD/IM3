@@ -189,15 +189,13 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'			=> 'Configuration basique',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Maintenant que l’installation a déterminé que votre serveur peut correctement faire fonctionner phpBB, vous devez saisir certaines informations spécifiques. Si vous ne savez pas comment vous connecter à votre base de données, contactez en premier lieu votre hébergeur ou utilisez les forums de support de phpBB. Lorsque vous saisissez des données, assurez-vous de les vérifier intégralement avant de continuer.',
 	'INSTALL_CONGRATS'			=> 'Félicitations !',
-	'INSTALL_CONGRATS_EXPLAIN'	=> '
-		Vous avez correctement installé phpBB %1$s. Veuillez continuer en sélectionnant une des options suivantes :</p>
-		<h2>Convertir un forum existant vers phpBB 3.0</h2>
-		<p>L’outil de conversion de phpBB permet de convertir phpBB 2.0.x, ou d’autres logiciels de forums de discussions, vers phpBB 3.0. Si vous avez à disposition un forum existant et que vous souhaitez le convertir, veuillez <a href="%2$s">continuer en sélectionnant un convertisseur</a>.</p>
-		<h2>Utiliser votre forum en ligne !</h2>
-		<p>En cliquant sur le bouton ci-dessous, vous accéderez à un formulaire vous proposant d’envoyer des données statistiques à phpBB depuis votre panneau de contrôle d’administration. Nous vous serions reconnaissants de prendre le temps de nous aider en nous envoyant ces informations. Par la suite, vous pourrez prendre le temps de consulter toutes les options qui vous seront disponibles. N’oubliez pas que de l’aide en ligne est disponible dans la <a href="https://www.phpbb.com/support/documentation/3.0/">documentation</a>, dans le fichier <a href="%3$s">README</a> et sur les <a href="https://www.phpbb.com/community/viewforum.php?f=46">forums de support</a>.</p><p><strong>Veuillez supprimer, déplacer ou renommer le répertoire « install » de votre serveur afin d’utiliser votre forum. Tant que ce répertoire est présent, seul le panneau de contrôle d’administration sera accessible.</strong>',
-	'INSTALL_INTRO'				=> 'Bienvenue à l’installation',
+	'INSTALL_CONGRATS_EXPLAIN'	=> 'Vous avez installé IntegraMOD %1$s avec succès.</p>
+		<h2>Vous y êtes presque !</h2>
+		<p><strong>Veuillez supprimer, déplacer ou renommer le répertoire install maintenant, avant de passer à la dernière étape, l’installation du réseau social.</strong>',
+    'INSTALL_SN'				=> 'Installer le réseau social',
+	'INSTALL_INTRO'				=> 'Bienvenue dans l’installation d’IntegraMOD',
 
-	'INSTALL_INTRO_BODY'		=> 'Grâce à cette option, il est possible d’installer phpBB 3.0 sur votre serveur.</p><p>Avant de continuer, vous allez avoir besoin de vous munir des réglages de votre base de données. Si vous ne les connaissez pas, veuillez les demander à votre hébergeur car vous ne pourrez pas continuer sans saisir ces informations. Vous avez besoin du :</p>
+	'INSTALL_INTRO_BODY'		=> 'Grâce à cette option, il est possible d’installer IntegraMOD sur votre serveur.</p><p>Avant de continuer, vous allez avoir besoin de vous munir des réglages de votre base de données. Si vous ne les connaissez pas, veuillez les demander à votre hébergeur car vous ne pourrez pas continuer sans saisir ces informations. Vous avez besoin du :</p>
 
 	<ul>
 		<li>Type de base de données - la base de données que vous allez utiliser.</li>
@@ -625,7 +623,6 @@ $lang = array_merge($lang, array(
 	'SMILIES_VERY_HAPPY'			=> 'Heureux',
 	'SMILIES_WINK'					=> 'Clin d’œil',
 
-	'TOPICS_TOPIC_TITLE'			=> 'Bienvenue sur phpBB 3.0',
+	'TOPICS_TOPIC_TITLE'			=> 'Bienvenue sur IntegraMOD',
 ));
 
-?>

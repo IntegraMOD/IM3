@@ -143,6 +143,9 @@ $lang = array_merge($lang, array(
 	'DELETE_POST'			=> 'Supprimer le message',
 	'DELIMITER'				=> 'Séparateur',
 	'DESCENDING'			=> 'Décroissant',
+	// phpBB Digests MOD - Addition begin -------------------------------------------------------
+	'DIGESTS'				=> 'Résumés',
+	// phpBB Digests MOD - Addition end -------------------------------------------------------
 	'DISABLED'				=> 'Désactivé',
 	'DISPLAY'				=> 'Afficher',
 	'DISPLAY_GUESTS'		=> 'Afficher les invités',
@@ -188,6 +191,7 @@ $lang = array_merge($lang, array(
 	'FILE_COMMENT'			=> 'Description du fichier',
 	'FILE_NOT_FOUND'		=> 'Le fichier que vous recherchez est introuvable.',
 	'FIND_USERNAME'			=> 'Trouver un membre',
+	'FIRST_POST_SHOW'		=> 'Afficher en haut de chaque page',
 	'FOLDER'				=> 'Boîte',
 	'FORGOT_PASS'			=> 'J’ai oublié mon mot de passe',
 	'FORM_INVALID'			=> 'Le formulaire que vous avez envoyé est incorrect. Veuillez réessayer.',
@@ -293,7 +297,8 @@ $lang = array_merge($lang, array(
 
 	'KB'					=> 'Ko',
 	'KIB'					=> 'Kio',
-
+	'KB_SHORT'				=> 'BC',
+	
 	'LAST_POST'							=> 'Dernier message',
 	'LAST_UPDATED'						=> 'Dernière mise à jour',
 	'LAST_VISIT'						=> 'Dernière visite',
@@ -329,6 +334,7 @@ $lang = array_merge($lang, array(
 	'MARK_SUBFORUMS_READ'	=> 'Marquer les sous-forums comme lus',
 	'MB'					=> 'Mo',
 	'MIB'					=> 'Mio',
+	'MEETINGS'				=> 'Réunions',
 	'MCP'					=> 'Panneau de contrôle du modérateur',
 	'MEMBERLIST'			=> 'Membres',
 	'MEMBERLIST_EXPLAIN'	=> 'Consulter la liste complète des membres',
@@ -348,6 +354,17 @@ $lang = array_merge($lang, array(
 	'MONTH'					=> 'Mois',
 	'MOVE'					=> 'Déplacer',
 	'MSNM'					=> 'MSNM/WLM',
+//Messengers
+	'FB'					=> 'Facebook',
+	'IG'					=> 'Instagram',
+	'PT'					=> 'Pinterest',
+	'TWR'					=> 'Twitter',
+	'SKP'					=> 'Skype',
+	'TG'					=> 'Telegram',
+	'LI'					=> 'LinkedIn',
+	'TT'					=> 'TikTok',
+	'DC'					=> 'Discord',
+    'MY_WEBSITE'            => 'Site web %s',
 
 	'NA'						=> 'N/A',
 	'NEWEST_USER'				=> 'Notre membre le plus récent est <strong>%s</strong>',
@@ -549,6 +566,17 @@ $lang = array_merge($lang, array(
 	'SEND_EMAIL'				=> 'Envoyer un courrier électronique',				// Used for submit buttons
 	'SEND_EMAIL_USER'			=> 'Envoyer un courrier électronique à',				// Used as: {L_SEND_EMAIL_USER} {USERNAME} -> E-mail UserX
 	'SEND_PRIVATE_MESSAGE'		=> 'Envoyer un message privé',
+
+	'SEND_FB_MESSAGE'		=> 'Envoyer un message Facebook',
+	'SEND_IG_MESSAGE'		=> 'Envoyer un message Instagram',
+	'SEND_PT_MESSAGE'		=> 'Envoyer un message Pinterest',
+	'SEND_TWR_MESSAGE'	    => 'Envoyer un message Twitter',
+	'SEND_SKP_MESSAGE'	    => 'Envoyer un message Skype',
+	'SEND_TG_MESSAGE'		=> 'Envoyer un message Telegram',
+	'SEND_LI_MESSAGE'		=> 'Envoyer un message LinkedIn',
+	'SEND_TT_MESSAGE'		=> 'Envoyer un message TikTok',
+	'SEND_DC_MESSAGE'		=> 'Envoyer un message Discord',
+
 	'SETTINGS'					=> 'Réglages',
 	'SIGNATURE'					=> 'Signature',
 	'SKIP'						=> 'Accéder au contenu',
@@ -741,6 +769,7 @@ $lang = array_merge($lang, array(
 	'YOU_NEW_PM'		=> 'Vous avez un nouveau message privé dans votre boîte de réception.',
 	'YOU_NEW_PMS'		=> 'Vous avez de nouveaux messages privés dans votre boîte de réception.',
 	'YOU_NO_NEW_PM'		=> 'Vous n’avez aucun nouveau message privé dans votre boîte de réception.',
+	'KNOWLEDGE_BASE'	=> 'Base de connaissances',
 
 	'datetime'			=> array(
 		'TODAY'		=> 'Aujourd’hui',
@@ -897,7 +926,120 @@ $lang = array_merge($lang, array(
 	// The default dateformat which will be used on new installs in this language
 	// Translators should change this if a the usual date format is different
 	'default_dateformat'	=> 'd F Y, H:i', // 01 January 2007, 13:37
-
 ));
 
-?>
+// IntegraMod
+$lang = array_merge($lang, array(
+	'ACP_CAT_IMOD'					=> 'Integramod',
+	'ACP_IMOD_CONFIG'				=> 'Configuration Integramod',
+	'ACP_IMOD_KB'					=> 'Base de connaissances',
+	'ACP_IMOD_DOWNLOADS'			=> 'Module de téléchargements',
+	'ACP_IMOD_ALBUM'				=> 'Galerie phpBB',
+	'CONNECT_SOCKET_ERROR_INTEGRA'  => 'Erreur de connexion au flux d’actualités IntegraMod',
+	'ACP_SHORT'						=> 'ACP',	
+	'BOTTOM' 						=> 'Aller en bas de la page',
+	'CONNECT_SOCKET_ERROR_INTEGRA'  => 'Erreur de connexion au flux d’actualités IntegraMod',
+	'CONTACT_BOARD_ADMIN'		    => 'Contacter l’administration du forum',
+	'CONTACT_BOARD_ADMIN_SHORT'	    => 'Contact',
+	'DOWNLOAD' 						=> '<h6>télécharger</h6>',
+	'EDIT' 							=> 'modifier',
+	'ENABLE_IMOD'					=> 'Activer IntegraMod',
+	'FAST_REPLY'					=> 'réponse<h6>rapide</h6>',
+	'IFS' 							=> 'téléchargements',
+	'IFS_EXPLAIN' 					=> 'IntegraFileShare',
+	'INTEGRA_NEWS'					=> 'Actualités',
+	'INTEGRA_TITLE'					=> '<a href="http://www.integramod.com">Actualités d’IntegraMOD</a>',
+	'INTEGRA_WELCOME'				=> 'Bienvenue sur IntegraMOD3',
+	'LANG_CALENDAR'					=> 'Calendrier',
+	'MCHAT_TITLE'					=> 'Salon de discussion',
+	'MCP_SHORT'						=> 'MCP',	
+	'MODS_DB'						=> 'Base de données des mods', //lefty74	
+	'NEW_IMAGE' 					=> 'nouvelle<h6>image</h6>',
+	'PM_FORWARD' 					=> '<h6>transférer</h6>',	
+	'PM_NEW' 						=> 'nouveau<h6>mp</h6>',
+	'PM_REPLY' 						=> 'envoyer<h6>réponse</h6>',
+	'PM_REPLY_ALL' 					=> 'envoyer<h6>réponse</h6>',
+	'POST_REPLY'					=> 'poster<h6>réponse</h6>',
+	'POST_TOPIC'					=> 'nouveau<h6>sujet</h6>',
+	'QREPLY' 						=> 'réponse<h6>rapide</h6>',
+	'QREPLY_NO' 					=> 'masquer réponse<h6>rapide</h6>',
+	'QUOTE' 						=> 'citer',
+	'QUICK_LINKS' 					=> 'Liens rapides',
+	'SOCKET_FUNCTIONS_DISABLED' 	=> 'Socket désactivé.',
+	'STYLE_LIGHT'					=> 'Style clair',
+	'STYLE_DARK'					=> 'Style sombre',	
+	'TOPIC_LOCKED' 					=> '<h6>verrouillé</h6>',
+	'TOPIC_NEW' 					=> 'nouveau<h6>sujet</h6>',	
+	'TOPIC_REPLY' 					=> 'poster<h6>réponse</h6>',
+	'UPLOAD' 						=> '<h6>téléverser</h6>',
+	'LINE_NUMBERS'				    => 'Numéros de ligne Activé/Désactivé',
+	'EXPAND_CODE'				    => 'Développer/Réduire',
+));
+
+// Notes settings by OXPUS
+$lang = array_merge($lang, array(
+	'NOTES'			=> 'Notes',
+	'POPUP_NOTES'	=> 'Afficher les notes personnelles en fenêtre popup',
+	'FILTER_NOTES'	=> '<strong>Mode filtre</strong><br />Appuyez à nouveau sur le bouton de recherche ou changez la méthode de tri pour afficher toutes les notes.',
+	'NOTES_MEM'		=> 'Temps de mémorisation',
+	'NOTES_MEMTEXT'	=> '<strong>Vous avez saisi des notes avec un temps de mémorisation.</strong><br />%sCliquez ici pour afficher ces notes.%s<br />(Un rappel ne vous sera plus affiché pour ces notes)',
+	'NO_NOTES'		=> 'Vous n’avez actuellement aucune note',
+));
+
+
+$lang = array_merge($lang, array(
+	'DAY_USERS' => '%d utilisateurs enregistrés ont visité durant les %d dernières heures :',
+	'NOT_DAY_USERS' => '%d utilisateurs enregistrés <span style="color:red">N\'ONT PAS</span> visité durant les %d dernières heures :',
+	'USERS_OF_THE_DAY_TITLE' => 'Utilisateurs du jour',
+));
+
+$lang = array_merge($lang, array(
+	// ajaxlike
+	'AL_LIKE_NEW'					    => '&nbsp;nouveau(x) j\'aime reçu(s)',	// header link message
+	'AL_LIKE_NEW_TITLE'				    => 'Liste des nouveaux j\'aime',				// notification dialog title
+    'AL_LIKE_INFO'					    => 'Aime votre&nbsp;',				// userX `likes your` post
+	'AL_LIKE_SELF'				        => 'Voir votre message',
+	'AL_NO_LIKE_RECEIVED'				=> 'Aucun j\'aime reçu pour le moment.',
+	// ajaxlike
+));
+
+//-- mod : Paypal Donation --------------------------------------------------------
+$lang = array_merge($lang, array(
+	'DONATEINDEX'				=> 'Faire un don',
+	'VIEWING_DONATE'			=> 'Affichage de la page des dons',
+));
+//-- end : Paypal Donation --------------------------------------------------------
+
+	// Cookie Consent Language Strings
+$lang = array_merge($lang, array(
+//	'COOKIE_CONSENT_TITLE'			=> 'Consentement aux cookies',
+//	'COOKIE_CONSENT_MESSAGE'		=> 'Ce site utilise des cookies pour vous garantir la meilleure expérience possible.',
+	'COOKIE_CONSENT_REQUIRED'		=> 'Ces cookies sont essentiels au bon fonctionnement du site. Ils activent les fonctionnalités de base telles que l’authentification des utilisateurs, la sécurité et l’accessibilité.',
+	'COOKIE_CONSENT_ANALYTICS'		=> 'Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site en collectant et en rapportant des informations de manière anonyme.',
+	'COOKIE_CONSENT_MARKETING'		=> 'Ces cookies sont utilisés pour personnaliser les publicités et suivre l’efficacité de nos campagnes marketing.',
+	'COOKIE_PREFERENCES'			=> 'Préférences des cookies',
+	'REQUIRED_COOKIES'				=> 'Cookies requis',
+	'ANALYTICS_COOKIES'				=> 'Cookies analytiques',
+	'MARKETING_COOKIES'				=> 'Cookies marketing',
+	'ACCEPT_ALL'					=> 'Tout accepter',
+	'ACCEPT_SELECTED'				=> 'Accepter la sélection',
+	'REJECT_ALL'					=> 'Tout refuser',
+	'PRIVACY_POLICY'				=> 'Politique de confidentialité',
+	'COOKIE_CONSENT_ACCEPTED'		=> 'Consentement aux cookies accepté',
+	'COOKIE_CONSENT_REJECTED'		=> 'Consentement aux cookies refusé',
+	'COOKIE_CONSENT_CUSTOMIZED'		=> 'Préférences des cookies personnalisées',
+	'COOKIE_CONSENT_SETTINGS'		=> 'Paramètres des cookies',
+	'COOKIE_CONSENT_MANAGE'			=> 'Gérer les préférences des cookies',
+	'COOKIE_CONSENT_LEARN_MORE'		=> 'En savoir plus sur les cookies',
+	'COOKIE_CONSENT_NECESSARY'		=> 'Les cookies nécessaires ne peuvent pas être désactivés',
+	'COOKIE_CONSENT_EXPIRED'		=> 'Votre consentement aux cookies a expiré. Veuillez mettre à jour vos préférences.',
+	'COOKIE_CONSENT_UPDATED'		=> 'Vos préférences de cookies ont été mises à jour.',
+	'COOKIE_CONSENT_WITHDRAWN'		=> 'Votre consentement aux cookies a été retiré.',
+	'COOKIE_CONSENT_BANNER_TITLE'	=> 'Nous utilisons des cookies',
+	'COOKIE_CONSENT_BANNER_MESSAGE'	=> 'Nous utilisons des cookies pour personnaliser le contenu et les publicités, fournir des fonctionnalités de réseaux sociaux et analyser notre trafic. Vous consentez à nos cookies si vous continuez à utiliser notre site.',
+	'COOKIE_CONSENT_MORE_INFO'		=> 'Plus d’informations',
+	'COOKIE_CONSENT_DECLINE'		=> 'Refuser',
+	'COOKIE_CONSENT_ALLOW'			=> 'Autoriser les cookies',
+	'COOKIE_CONSENT_CUSTOMIZE'		=> 'Personnaliser',
+	'COOKIE_CONSENT_SAVE_PREFERENCES' => 'Enregistrer les préférences',
+));

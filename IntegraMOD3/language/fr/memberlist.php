@@ -71,6 +71,15 @@ $lang = array_merge($lang, array(
 
 	'HIDE_MEMBER_SEARCH'	=> 'Masquer la recherche des membres',
 
+	'IM_FB'					=> 'Veuillez noter que les utilisateurs peuvent avoir restreint la visibilité de leur contact Facebook.',
+	'IM_IG'					=> 'Veuillez noter que les utilisateurs peuvent avoir restreint la visibilité de leur contact Instagram.',
+	'IM_PT'					=> 'Veuillez noter que les utilisateurs peuvent avoir restreint la visibilité de leur contact Pinterest.',
+	'IM_TWR'				=> 'Veuillez noter que les utilisateurs peuvent avoir restreint la visibilité de leur contact Twitter.',
+	'IM_SKP'				=> 'Veuillez noter que Skype doit être installé et configuré pour utiliser ceci.',
+	'IM_TG'					=> 'Veuillez noter que les utilisateurs peuvent avoir restreint la visibilité de leur contact Telegram.',
+	'IM_LI'					=> 'Veuillez noter que les utilisateurs peuvent avoir restreint la visibilité de leur contact LinkedIn.',
+	'IM_TT'					=> 'Veuillez noter que les utilisateurs peuvent avoir restreint la visibilité de leur contact TikTok.',
+	'IM_DC'					=> 'Veuillez noter que les utilisateurs peuvent avoir restreint la visibilité de leur contact Discord.',
 	'IM_ADD_CONTACT'		=> 'Ajouter un contact',
 	'IM_AIM'				=> 'Veuillez noter que vous avez besoin d’AOL Instant Messenger afin d’utiliser cette fonctionnalité.',
 	'IM_AIM_EXPRESS'		=> 'AIM Express',
@@ -99,6 +108,17 @@ $lang = array_merge($lang, array(
 	'LOGIN_EXPLAIN_MEMBERLIST'	=> 'Vous devez vous inscrire et vous connecter afin de pouvoir consulter la liste des membres.',
 	'LOGIN_EXPLAIN_SEARCHUSER'	=> 'Vous devez vous inscrire et vous connecter afin de pouvoir rechercher des utilisateurs.',
 	'LOGIN_EXPLAIN_VIEWPROFILE'	=> 'Vous devez vous inscrire et vous connecter afin de pouvoir consulter le profil des utilisateurs.',
+
+//-- Messenger Sort Keys --//
+	'Facebook'		=> 'Facebook',
+	'Instagram'		=> 'Instagram',
+	'Pinterest'		=> 'Pinterest',
+	'Twitter'		=> 'X',
+	'Skype'			=> 'Skype',
+	'Telegram'		=> 'Telegram',
+	'LinkedIn'		=> 'LinkedIn',
+	'TikTok'		=> 'TikTok',
+	'Discord'		=> 'Discord',
 
 	'MORE_THAN'				=> 'Plus que',
 
@@ -146,4 +166,16 @@ $lang = array_merge($lang, array(
 	'WWW'					=> 'Site internet',
 ));
 
-?>
+$lang = array_merge($lang, array(
+	// ajaxlike
+	'AL_TITLE'				=> 'Derniers j’aime',
+	'AL_NO_LIKE'			=> 'Aucun message aimé pour le moment.',
+	'AL_BY'					=> 'posté par',			// like by
+	'AL_AT'					=> 'Aimé le',			// like date
+	'AL_VIEW'				=> '[Voir le message]',
+	'AL_LIKE_COUNT_TEXT'	=> 'J’aime',				// number of likes
+	'AL_LIKED_COUNT_TEXT'	=> 'Aimé dans',			// number of recieved likes
+	'AL_POSTS_TEXT'			=> 'messages',
+	'AL_POST_TEXT'			=> 'message',
+	// ajaxlike
+));

@@ -40,6 +40,6 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'LOGIN_TO_USE_SEARCH'	=> 'There are no public forums, search has been disabled...',
+	'LOGIN_TO_USE_SEARCH'	=> 'Il n’y a aucun forum public, la recherche a été désactivée...',
 ));
 
