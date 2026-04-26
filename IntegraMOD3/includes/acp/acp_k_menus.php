@@ -148,20 +148,18 @@ class acp_k_menus
 					$cache->destroy('sql', K_MENUS_TABLE);
 
 					$mode = match ($menu_type) {
-         1 => 'nav',
-         2 => 'sub',
-         3 => 'head',
-         3 => 'foot',
-         5 => 'link',
-         default => $mode,
-     };
+						1 => 'nav',
+						2 => 'sub',
+						3 => 'head',
+						4 => 'foot',
+						5 => 'link',
+						default => 'nav',
+					};
 
-					$template->assign_vars(array(
-						'L_MENU_REPORT' => $user->lang['SAVED'] . '<br />',
-						'S_OPTIONS' => 'save',
-					));
+					meta_refresh(2, append_sid("{$phpbb_admin_path}index.$phpEx", 'i=k_menus&amp;mode=' . $mode));
 
-					meta_refresh (1, append_sid("{$phpbb_admin_path}index.$phpEx", 'i=k_menus&amp;mode=' . $mode));
+					trigger_error($user->lang['CONFIG_UPDATED'] . '<br /><br />' . sprintf($user->lang['RETURN_PAGE'], '<a href="' . append_sid("{$phpbb_admin_path}index.$phpEx", 'i=k_menus&amp;mode=' . $mode) . '">', '</a>'));
+
 					break;
 				}
 
@@ -547,32 +545,32 @@ function get_menu_item($item)
 {
 	global $db, $template;
 
-	$m_id = $item;
-
 	$sql = 'SELECT *
 		FROM ' . K_MENUS_TABLE . '
-		WHERE m_id=' . (int)$item;
+		WHERE m_id = ' . (int) $item;
 
-	if ($result = $db->sql_query($sql))
+	$result = $db->sql_query($sql);
+	$row = $db->sql_fetchrow($result);
+
+	if ($row !== false)
 	{
-		$row = $db->sql_fetchrow($result);
+		$template->assign_vars(array(
+			'S_MENUID'          => $row['m_id'],
+			'S_MENU_NDX'        => $row['ndx'],
+			'S_MENU_TYPE'       => $row['menu_type'],
+			'S_MENU_ICON'       => $row['menu_icon'],
+			'S_MENU_ITEM_NAME'  => $row['name'],
+			'S_MENU_LINK'       => $row['link_to'],
+			'S_VIEW_ALL'        => $row['view_all'],
+			'S_VIEW_GROUPS'     => $row['view_groups'],
+			'S_MENU_APPEND_SID' => $row['append_sid'],
+			'S_MENU_APPEND_UID' => $row['append_uid'],
+			'S_MENU_EXTERN'     => $row['extern'],
+			'S_SOFT_HR'         => $row['soft_hr'],
+			'S_SUB_HEADING'     => $row['sub_heading'],
+		));
 	}
 
-	$template->assign_vars(array(
-		'S_MENUID'          => $row['m_id'],
-		'S_MENU_NDX'        => $row['ndx'],
-		'S_MENU_TYPE'       => $row['menu_type'],
-		'S_MENU_ICON'       => $row['menu_icon'],
-		'S_MENU_ITEM_NAME'  => $row['name'],
-		'S_MENU_LINK'       => $row['link_to'],
-		'S_VIEW_ALL'        => $row['view_all'],
-		'S_VIEW_GROUPS'     => $row['view_groups'],
-		'S_MENU_APPEND_SID' => $row['append_sid'],
-		'S_MENU_APPEND_UID' => $row['append_uid'],
-		'S_MENU_EXTERN'     => $row['extern'],
-		'S_SOFT_HR'         => $row['soft_hr'],
-		'S_SUB_HEADING'     => $row['sub_heading'],
-	));
 	$db->sql_freeresult($result);
 }
 

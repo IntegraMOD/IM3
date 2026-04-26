@@ -5304,6 +5304,19 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
         {
          $unread_posts_count = 0;
         }
+		$user_lang = $user->data['user_lang'];
+
+		$portal_label = (!empty($config['portal_name_' . $user_lang]))
+			? $config['portal_name_' . $user_lang]
+			: ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal')
+				? $config['portal_name']
+				: $user->lang['PORTAL']);
+
+		$forum_label = (!empty($config['forum_name_' . $user_lang]))
+			? $config['forum_name_' . $user_lang]
+			: ((isset($config['forum_name']) && $config['forum_name'] !== 'Forum')
+				? $config['forum_name']
+				: $user->lang['FORUM']);
 
        $template->assign_vars(array(
             'L_NEW_POST'        => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_NEW'],
@@ -5395,15 +5408,17 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'L_LOGIN_LOGOUT'	=> $l_login_logout,
 		'L_INDEX'			=> $user->lang['FORUM_INDEX'],
 		'L_ONLINE_EXPLAIN'	=> $l_online_time,
-		'L_PERS_NOTES' => $user->lang['NOTES'],
-		'U_PERS_NOTES' => $u_notes,
+		'L_PERS_NOTES' 		=> $user->lang['NOTES'],
+		'U_PERS_NOTES' 		=> $u_notes,
 		'U_PERS_NOTES_POPUP' => $u_notes_popup,
-		'L_HACKLIST' => $l_hacks_list,
-		'IMG_HACKLIST' => $img_hacklist,
-		'L_DOWNLOADS' => $user->lang['DOWNLOADS'],
-		'U_HACKLIST' => $u_hacks_list,
-		'U_DL_NAVS' => append_sid("{$phpbb_root_path}downloads.$phpEx"),
-
+		'L_HACKLIST'		=> $l_hacks_list,
+		'IMG_HACKLIST' 		=> $img_hacklist,
+		'L_DOWNLOADS' 		=> $user->lang['DOWNLOADS'],
+		'U_HACKLIST'		=> $u_hacks_list,
+		'U_DL_NAVS' 		=> append_sid("{$phpbb_root_path}downloads.$phpEx"),
+		'PORTAL_LABEL'		=> $portal_label,
+		'FORUM_LABEL'		=> $forum_label,
+		
 		'U_PRIVATEMSGS'			=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&amp;folder=inbox'),
 		'U_RETURN_INBOX'		=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&amp;folder=inbox'),
 		'U_POPUP_PM'			=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&amp;mode=popup'),

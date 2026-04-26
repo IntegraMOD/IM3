@@ -81,6 +81,7 @@
 			<dd>{options.CONTENT}</dd>
 		</dl>
 
+
 	<!-- ENDIF -->
 <!-- END options -->
 
@@ -357,5 +358,51 @@
 	{S_FORM_TOKEN}
 </fieldset>
 </form>
+
+<script>
+window.onload = function()
+{
+	var rows = document.getElementsByTagName('dl');
+	var forum_visible = false;
+	var portal_visible = false;
+
+	function set_rows(prefix, visible)
+	{
+		for (var i = 0; i < rows.length; i++)
+		{
+			var html = rows[i].innerHTML;
+
+			if (html.indexOf('for="' + prefix + '_') !== -1)
+			{
+				rows[i].style.display = visible ? '' : 'none';
+			}
+		}
+	}
+
+	set_rows('forum_name', false);
+	set_rows('portal_name', false);
+
+	var forum = document.getElementById('forum_name');
+	var portal = document.getElementById('portal_name');
+
+	if (forum)
+	{
+		forum.onclick = function()
+		{
+			forum_visible = !forum_visible;
+			set_rows('forum_name', forum_visible);
+		};
+	}
+
+	if (portal)
+	{
+		portal.onclick = function()
+		{
+			portal_visible = !portal_visible;
+			set_rows('portal_name', portal_visible);
+		};
+	}
+};
+</script>
 
 <!-- INCLUDE overall_footer.html -->

@@ -212,9 +212,9 @@ function notes() {
 
 			<div id="site-description">
 				<!-- IF STARGATE -->
-					<a href="{U_PORTAL}" title="{L_PORTAL}" id="logo">{SITE_LOGO_IMG}</a>
+					<a href="{U_PORTAL}" title="{PORTAL_LABEL}" id="logo">{SITE_LOGO_IMG}</a>
 				<!-- ELSE -->
-					<a href="{U_INDEX}" title="{L_INDEX}" id="logo">{SITE_LOGO_IMG}</a>
+					<a href="{U_INDEX}" title="{FORUM_LABEL}" id="logo">{SITE_LOGO_IMG}</a>
 				<!-- ENDIF -->
 				<h1>{SITENAME}</h1>
 				<p>{SITE_DESCRIPTION}</p>
@@ -240,9 +240,9 @@ function notes() {
 
 			<ul class="linklist2 navlinks">
 			    <!-- IF STARGATE -->
-				<li class="icon-home"><a href="{U_PORTAL}" accesskey="h">{L_PORTAL}</a> &bull; <a href="{U_INDEX}" accesskey="h">{L_INDEX}</a><!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
+				<li class="icon-home"><a href="{U_PORTAL}" accesskey="h">{PORTAL_LABEL}</a> &bull; <a href="{U_INDEX}" accesskey="h">{FORUM_LABEL}</a><!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
 			    <!-- ELSE -->
-				<li class="icon-home"><a href="{U_INDEX}" accesskey="h">{L_INDEX}</a> <!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
+				<li class="icon-home"><a href="{U_INDEX}" accesskey="h">{FORUM_LABEL}</a> <!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
 			    <!-- ENDIF -->
  				<li class="rightside">
 				    <a class="lightstyle" href="javascript:void(0)" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-inverse fa-lg"></i></a> 

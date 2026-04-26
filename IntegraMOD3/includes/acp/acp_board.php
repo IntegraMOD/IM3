@@ -63,14 +63,122 @@ class acp_board
 						'board_dst'				=> array('lang' => 'SYSTEM_DST',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),
 						'default_style'			=> array('lang' => 'DEFAULT_STYLE',			'validate' => 'int',	'type' => 'select', 'function' => 'style_select', 'params' => array('{CONFIG_VALUE}', false), 'explain' => false),
 						'override_user_style'	=> array('lang' => 'OVERRIDE_STYLE',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+
+						'forum_name'			=> array('lang' => 'FORUM_NAME',			'validate' => 'string',	'type' => 'text:20:255', 'explain' => true),
+						'portal_name'			=> array('lang' => 'PORTAL_NAME',			'validate' => 'string',	'type' => 'text:20:255', 'explain' => true),
 						'portal_enabled'		=> array('lang' => 'ENABLE_PORTAL',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 
 						'legend2'				=> 'WARNINGS',
 						'warnings_expire_days'	=> array('lang' => 'WARNINGS_EXPIRE',		'validate' => 'int',	'type' => 'text:3:4', 'explain' => true, 'append' => ' ' . $user->lang['DAYS']),
 
-						'legend3'					=> 'ACP_SUBMIT_CHANGES',
+						'legend3'				=> 'ACP_SUBMIT_CHANGES',
+						
 					)
 				);
+
+				$languages = array();
+
+				$language_names = array(
+					'de'	=> 'German',
+					'en'	=> 'English',
+					'es'	=> 'Spanish',
+					'nl'	=> 'Dutch',
+					'fr'	=> 'French',
+					'uk'	=> 'Ukrainian',
+				);
+
+				if ($dir = @opendir($phpbb_root_path . 'language'))
+				{
+					while (($lang_dir = readdir($dir)) !== false)
+					{
+						if ($lang_dir == '.' || $lang_dir == '..')
+						{
+							continue;
+						}
+
+						if (is_dir($phpbb_root_path . 'language/' . $lang_dir) && file_exists($phpbb_root_path . 'language/' . $lang_dir . '/common.' . $phpEx))
+						{
+							$languages[$lang_dir] = (isset($language_names[$lang_dir])) ? $language_names[$lang_dir] : ucfirst(str_replace('_', ' ', $lang_dir));
+						}
+					}
+
+					closedir($dir);
+				}
+
+				if (empty($languages))
+				{
+					$languages['en'] = 'English';
+				}
+
+				ksort($languages);
+
+				$translation_vars = array();
+
+				if ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal') || (isset($config['forum_name']) && $config['forum_name'] !== 'Forum'))
+				{
+					$translation_vars['legend_portal_lang'] = 'LOCALIZED_NAMES';
+
+					foreach ($languages as $lang_iso => $lang_name)
+					{
+						if (isset($config['portal_name']) && $config['portal_name'] !== 'Portal')
+						{
+							$translation_vars['portal_name_' . $lang_iso] = array(
+								'lang'		=> sprintf($user->lang['PORTAL_NAME_LANG'], $lang_name),
+								'validate'	=> 'string',
+								'type'		=> 'text:20:255',
+								'explain'	=> false,
+							);
+						}
+
+						if (isset($config['forum_name']) && $config['forum_name'] !== 'Forum')
+						{
+							$translation_vars['forum_name_' . $lang_iso] = array(
+								'lang'		=> sprintf($user->lang['FORUM_NAME_LANG'], $lang_name),
+								'validate'	=> 'string',
+								'type'		=> 'text:20:255',
+								'explain'	=> false,
+							);
+						}
+					}
+
+					$temp_vars = $display_vars['vars'];
+					$display_vars['vars'] = array();
+
+					foreach ($temp_vars as $key => $value)
+					{
+						$display_vars['vars'][$key] = $value;
+
+						if ($key === 'forum_name' && isset($config['forum_name']) && $config['forum_name'] !== 'Forum')
+						{
+							foreach ($languages as $lang_iso => $lang_name)
+							{
+								$display_vars['vars']['forum_name_' . $lang_iso] = array(
+									'lang'		=> sprintf($user->lang['FORUM_NAME_LANG'], $lang_name),
+									'validate'	=> 'string',
+									'type'		=> 'text:20:255',
+									'explain'	=> false,
+									'localized'	=> true,
+								);
+							}
+						}
+
+						if ($key === 'portal_name' && isset($config['portal_name']) && $config['portal_name'] !== 'Portal')
+						{
+							foreach ($languages as $lang_iso => $lang_name)
+							{
+							$display_vars['vars']['portal_name_' . $lang_iso] = array(
+								'lang'		=> sprintf($user->lang['PORTAL_NAME_LANG'], $lang_name),
+								'validate'	=> 'string',
+								'type'		=> 'text:20:255',
+								'explain'	=> false,
+								'localized'	=> true,
+							);
+							}
+						}
+					}
+
+				}
+
 			break;
 
 			case 'features':
@@ -1270,6 +1378,37 @@ class acp_board
 				else
 				{
 					trigger_error('NO_AUTH_PLUGIN', E_USER_ERROR);
+				}
+			}
+			if ($submit && $mode == 'settings')
+			{
+				$languages = array();
+
+				if ($dir = @opendir($phpbb_root_path . 'language'))
+				{
+					while (($lang_dir = readdir($dir)) !== false)
+					{
+						if ($lang_dir == '.' || $lang_dir == '..')
+						{
+							continue;
+						}
+
+						if (is_dir($phpbb_root_path . 'language/' . $lang_dir) && file_exists($phpbb_root_path . 'language/' . $lang_dir . '/common.' . $phpEx))
+						{
+							$languages[$lang_dir] = $lang_dir;
+						}
+					}
+
+					closedir($dir);
+				}
+
+				foreach ($languages as $lang_iso => $lang_name)
+				{
+					$portal_key = 'portal_name_' . $lang_iso;
+					$forum_key = 'forum_name_' . $lang_iso;
+
+					set_config($portal_key, request_var($portal_key, '', true));
+					set_config($forum_key, request_var($forum_key, '', true));
 				}
 			}
 		}
