@@ -141,9 +141,9 @@ class bbcode_firstpass extends bbcode
 		// To parse multiline URL we enable dotall option setting only for URL text
 		// but not for link itself, thus [url][/url] is not affected.
 		$this->bbcodes = array(
-			'geshi'			=> array('bbcode_id' => 99,	'regexp' => array('#\[(abap|actionscript|ada|apache|applescript|asm|asp|autoit|bash|blitzbasic|bnf|c|caddcl|cadlisp|cfdg|cfm|cpp-qt|cpp|csharp|css|c_mac|d|delphi|diff|div|dos|dot|eiffel|fortran|freebasic|genero|gml|groovy|haskell|html|html4strict|idl|ini|inno|io|java|java5|js|latex|lisp|lua|m68k|matlab|mirc|mpasm|mysql|nsis|objc|ocaml-brief|ocaml|oobas|oracle8|pascal|per|perl|php-brief|php|plsql|python|qbasic|rails|reg|robots|ruby|sas|scheme|sdlbasic|smalltalk|smarty|sql|tcl|text|thinbasic|tsql|vb|vbnet|vhdl|visualfoxpro|winbatch|xml|xpp|xsl|z80)\](.+\[/(abap|actionscript|ada|apache|applescript|asm|asp|autoit|bash|blitzbasic|bnf|c|caddcl|cadlisp|cfdg|cfm|cpp-qt|cpp|csharp|css|c_mac|d|delphi|diff|div|dos|dot|eiffel|fortran|freebasic|genero|gml|groovy|haskell|html|html4strict|idl|ini|inno|io|java|java5|js|latex|lisp|lua|m68k|matlab|mirc|mpasm|mysql|nsis|objc|ocaml-brief|ocaml|oobas|oracle8|pascal|per|perl|php-brief|php|plsql|python|qbasic|rails|reg|robots|ruby|sas|scheme|sdlbasic|smalltalk|smarty|sql|tcl|text|thinbasic|tsql|vb|vbnet|vhdl|visualfoxpro|winbatch|xml|xpp|xsl|z80)\])#is' => "\$this->bbcode_geshi('[\$1]', '\$2')")),
+			'geshi'			=> array('bbcode_id' => 99,	'regexp' => array('#\[(abap|actionscript|ada|apache|applescript|asm|asp|autoit|bash|blitzbasic|bnf|c|caddcl|cadlisp|cfdg|cfm|cpp-qt|cpp|csharp|css|c_mac|d|delphi|diff|div|dos|dot|eiffel|fortran|freebasic|genero|gml|groovy|haskell|html|html4strict|idl|ini|inno|io|java|java5|js|latex|lisp|lua|m68k|matlab|mirc|mpasm|mysql|nsis|objc|ocaml-brief|ocaml|oobas|oracle8|pascal|per|perl|php-brief|php|plsql|python|qbasic|rails|reg|robots|ruby|sas|scheme|sdlbasic|smalltalk|smarty|sql|tcl|text|thinbasic|tsql|vb|vbnet|vhdl|visualfoxpro|winbatch|xml|xpp|xsl|z80)\](.+\[/\1\])#is' => function($matches){return $this->bbcode_geshi('[' . $matches[1] . ']', $matches[2]);})),
 //			'code'          => array('bbcode_id' => 8,  'regexp' => array('#\[code(?:=([a-z]+))?\](.+)\[/code\]#is' => function($matches) {return $this->bbcode_code($matches[1] ?? '', $matches[2]);	})),
-			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z0-9_]+))?\](.+\[/code\])#uis' => function($matches){return $this->bbcode_code($matches[1], $matches[2]);})),
+			'code'			=> array('bbcode_id' => 8,	'regexp' => array('#\[code(?:=([a-z0-9_]+))?\](.+\[/code\])#uis' => function($matches){return $this->bbcode_code(isset($matches[1]) ? $matches[1] : '', $matches[2]);})),
 			'quote'			=> array('bbcode_id' => 0,	'regexp' => array('#\[quote(?:=&quot;(.*?)&quot;)?\](.+)\[/quote\]#uis' => function($matches){return $this->bbcode_quote($matches[0]);})),
 			'attachment'	=> array('bbcode_id' => 12,	'regexp' => array('#\[attachment=([0-9]+)\](.*?)\[/attachment\]#uis' => function($matches){return $this->bbcode_attachment($matches[1], $matches[2]);})),
 			'b'				=> array('bbcode_id' => 1,	'regexp' => array('#\[b\](.*?)\[/b\]#uis' => function($matches){return $this->bbcode_strong($matches[1]);})),
@@ -448,9 +448,11 @@ class bbcode_firstpass extends bbcode
 	* Parse code text from code tag
 	* @access private
 	*/
+
+
 	function bbcode_parse_code($stx, &$code)
 	{
-		if ($stx == '')
+		if ($stx === '')
 		{
 			$stx = 'text';
 		}
@@ -459,14 +461,15 @@ class bbcode_firstpass extends bbcode
 		return "[code=$stx:" . $this->bbcode_uid . ']' . $code . '[/code:' . $this->bbcode_uid . ']';
 	}
 
-	function bbcode_parse_geshi($stx, &$code){
+	function bbcode_parse_geshi($stx, &$code)
+	{
 		$code = $this->bbcode_highlight($code, $stx);
 		$code = str_replace('[code', '&#91;code', $code);
+
 		return "[$stx:" . $this->bbcode_uid . ']' . $code . '[/' . $stx . ':' . $this->bbcode_uid . ']';
 	}
-
 	/**
-	* Highlight code
+	* Highlight code using GeSHi
 	*/
 	function bbcode_highlight($code, $stx)
 	{
@@ -478,32 +481,11 @@ class bbcode_firstpass extends bbcode
 		$geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS, 2);
 		$geshi->set_header_type(GESHI_HEADER_DIV);
 		$geshi->set_tab_width(4);
-		$geshi->set_overall_id("{CB}");
+		$geshi->set_overall_id('{CB}');
 
-		$result = $geshi->parse_code();
-		return $result;
+		return $geshi->parse_code();
 	}
 
-	function bbcode_geshi($stx, $in){
-		$text = $stx . $in;
-
-		$syntaxes = array('abap', 'actionscript', 'ada', 'apache', 'applescript', 'asm', 'asp', 'autoit', 'bash', 'blitzbasic', 'bnf', 'c', 'caddcl', 'cadlisp', 'cfdg', 'cfm', 'cpp-qt', 'cpp', 'csharp', 'css', 'c_mac', 'd', 'delphi', 'diff', 'div', 'dos', 'dot', 'eiffel', 'fortran', 'freebasic', 'genero', 'gml', 'groovy', 'haskell', 'html', 'html4strict', 'idl', 'ini', 'inno', 'io', 'java', 'java5', 'js', 'latex', 'lisp', 'lua', 'm68k', 'matlab', 'mirc', 'mpasm', 'mysql', 'nsis', 'objc', 'ocaml-brief', 'ocaml', 'oobas', 'oracle8', 'pascal', 'per', 'perl', 'php-brief', 'php', 'plsql', 'python', 'qbasic', 'rails', 'reg', 'robots', 'ruby', 'sas', 'scheme', 'sdlbasic', 'smalltalk', 'smarty', 'sql', 'tcl', 'text', 'thinbasic', 'tsql', 'vb', 'vbnet', 'vhdl', 'visualfoxpro', 'winbatch', 'xml', 'xpp', 'xsl', 'z80');
-
-		foreach($syntaxes as $syntax => $value){
-			$tag_count = preg_match_all('#\[' . $value . '\](.*?)\[/' . $value . '\]#is', $text, $matches);
-
-			for ($i = 0; $i < $tag_count; $i++){
-				$text = str_replace($matches[0][$i], $this->bbcode_parse_geshi($value, $matches[1][$i]), $text);
-			}
-
-			$matches = array();
-		}
-
-		unset($syntaxes);
-		unset($matches);
-
-		return $text;
-	}
 
 	/**
 	* Parse code tag

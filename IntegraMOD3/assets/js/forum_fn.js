@@ -197,27 +197,36 @@ function displayBlocks(c, e, t)
 
 function selectCode(a)
 {
-	var e = a.closest('.codebox')?.querySelector('.codeholder');
-	if (!e) {
-		console.warn('selectCode: Code block not found');
-		return;
-	}
+	// Get ID of code block
+	var divs = a.parentNode.parentNode.getElementsByTagName('DIV');
+	var e = divs.length > 1 ? divs[1] : divs[0];
 
+	// Not IE and IE9+
 	if (window.getSelection)
 	{
 		var s = window.getSelection();
+
+		// Safari
 		if (s.setBaseAndExtent)
 		{
 			s.setBaseAndExtent(e, 0, e, e.innerText.length - 1);
 		}
+		// Firefox and Opera
 		else
 		{
+			// workaround for bug #42885
+			if (window.opera && e.innerHTML.substring(e.innerHTML.length - 4) == '<BR>')
+			{
+				e.innerHTML = e.innerHTML + '&nbsp;';
+			}
+
 			var r = document.createRange();
 			r.selectNodeContents(e);
 			s.removeAllRanges();
 			s.addRange(r);
 		}
 	}
+	// Some older browsers
 	else if (document.getSelection)
 	{
 		var s = document.getSelection();
@@ -226,6 +235,7 @@ function selectCode(a)
 		s.removeAllRanges();
 		s.addRange(r);
 	}
+	// IE
 	else if (document.selection)
 	{
 		var r = document.body.createTextRange();
@@ -235,7 +245,7 @@ function selectCode(a)
 }
 
 /**
-* Play quicktime file by determining it's width/height
+* Play quicktime file by determining its width/height
 * from the displayed rectangle area
 */
 function play_qt_file(obj)
@@ -245,10 +255,10 @@ function play_qt_file(obj)
 	if (rectangle)
 	{
 		rectangle = rectangle.split(',');
-		var x1 = parseInt(rectangle[0]);
-		var x2 = parseInt(rectangle[2]);
-		var y1 = parseInt(rectangle[1]);
-		var y2 = parseInt(rectangle[3]);
+		var x1 = parseInt(rectangle[0], 10);
+		var x2 = parseInt(rectangle[2], 10);
+		var y1 = parseInt(rectangle[1], 10);
+		var y2 = parseInt(rectangle[3], 10);
 
 		var width = (x1 < 0) ? (x1 * -1) + x2 : x2 - x1;
 		var height = (y1 < 0) ? (y1 * -1) + y2 : y2 - y1;
@@ -266,75 +276,99 @@ function play_qt_file(obj)
 	obj.Play();
 }
 
-	function linenumberOnOff(id){
+function linenumberOnOff(id)
+{
 	var parent = document.getElementById(id);
 	var holder = parent.parentNode;
-	if (parent.firstChild.tagName == "OL"){
+	var first = parent.firstElementChild;
+
+	if (first.nodeName === "OL")
+	{
 		var show = 'hide';
-	} else if (parent.firstChild.tagName == "DIV"){
+	}
+	else if (first.nodeName === "DIV")
+	{
 		var show = 'show';
 	}
-if (show == 'hide'){
-	var child = parent.getElementsByTagName("ol");
-	var children = child[0].children;
-	var replacement = document.createElement("div");
-	replacement.setAttribute("id", id);
-	replacement.setAttribute("class", parent.getAttribute("class"));
-	replacement.setAttribute("className", parent.getAttribute("class"));
-	replacement.setAttribute("style", parent.getAttribute("style"));
-	for (var b = 0; b < children.length; b++){
-		if (children[b].nodeType == 1){
-			var row = document.createElement("div");
-			row.setAttribute("class", children[b].getAttribute("class"));
-			row.setAttribute("className", children[b].getAttribute("class"));
-			row.setAttribute("style", children[b].getAttribute("style") + "; border-left: none;");
-			row.style.cssText = 'border-left: none;';
-			var rowdata = children[b].children;
-			for (var c = 0; c < rowdata.length; c++){
+
+	if (show == 'hide')
+	{
+		var child = parent.getElementsByTagName("ol");
+		var children = child[0].childNodes;
+
+		var replacement = document.createElement("div");
+		replacement.setAttribute("id", id);
+		replacement.setAttribute("class", parent.getAttribute("class"));
+		replacement.setAttribute("className", parent.getAttribute("className"));
+		replacement.setAttribute("style", parent.getAttribute("style"));
+
+		for (var b = 0; b < children.length; b++)
+		{
+			if (children[b].nodeType == 1)
+			{
+				var row = document.createElement("div");
+
+				row.setAttribute("class", children[b].getAttribute("class"));
+				row.setAttribute("className", children[b].getAttribute("className"));
+				row.style.cssText = (children[b].getAttribute("style") || '') + '; border-left: none;';
+
+				var rowdata = children[b].childNodes;
+
+				for (var c = 0; c < rowdata.length; c++)
+				{
+					row.appendChild(rowdata[c].cloneNode(true));
+				}
+
+				replacement.appendChild(row);
+			}
+		}
+
+		holder.replaceChild(replacement, parent);
+	}
+	else
+	{
+		var replacement = document.createElement("div");
+		replacement.setAttribute("id", id);
+		replacement.setAttribute("class", parent.getAttribute("class"));
+		replacement.setAttribute("className", parent.getAttribute("className"));
+		replacement.setAttribute("style", parent.getAttribute("style"));
+
+		var list = document.createElement("ol");
+		var dds = parent.getElementsByTagName("div");
+
+		for (var b = 0; b < dds.length; b++)
+		{
+			var row = document.createElement("li");
+			row.setAttribute("class", dds[b].getAttribute("class"));
+			row.setAttribute("className", dds[b].getAttribute("className"));
+			row.setAttribute("style", (dds[b].getAttribute("style") || '') + '; border-left: 1px solid #999;');
+
+			var rowdata = dds[b].childNodes;
+
+			for (var c = 0; c < rowdata.length; c++)
+			{
 				row.appendChild(rowdata[c].cloneNode(true));
 			}
-			replacement.appendChild(row);
-		}
-	}
-	holder.replaceChild(replacement, parent);
-} else {
-	var replacement = document.createElement("div");
-	replacement.setAttribute("id", id);
-	replacement.setAttribute("class", parent.getAttribute("class"));
-	replacement.setAttribute("className", parent.getAttribute("class"));
-	replacement.setAttribute("style", parent.getAttribute("style"));
 
-	var list = document.createElement("ol");
-
-	var dds = parent.getElementsByTagName("div");
-
-	for (var b = 0; b < dds.length; b++){
-		var row = document.createElement("li");
-		row.setAttribute("class", dds[b].getAttribute("class"));
-		row.setAttribute("className", dds[b].getAttribute("class"));
-		row.setAttribute("style", dds[b].getAttribute('style') + "; border-left: 1px solid #999;");
-
-		var rowdata = dds[b].children;
-
-		for (var c = 0; c < rowdata.length; c++){
-			row.appendChild(rowdata[c].cloneNode(true));
+			list.appendChild(row);
 		}
 
-		list.appendChild(row);
+		replacement.appendChild(list);
+		holder.replaceChild(replacement, parent);
 	}
-
-	replacement.appendChild(list);
-	holder.replaceChild(replacement, parent);
-}
 }
 
-	function expandCode(id){
+function expandCode(id)
+{
 	var parent = document.getElementById(id);
- 
-	if (window.getComputedStyle(parent).getPropertyValue('display') === 'block' || window.getComputedStyle(parent).getPropertyValue('display') === ''){
-		parent.style.display = 'none';
-	} else {
+
+	if (window.getComputedStyle(parent).display === 'none')
+	{
 		parent.style.display = 'block';
+	}
+	else
+	{
+		parent.style.display = 'none';
 	}
 }
 
@@ -394,69 +428,68 @@ var last_key_entered = '';
 */
 function phpbb_check_key(event)
 {
-	// Keycode is array down or up?
-	if (event.keyCode && (event.keyCode == 40 || event.keyCode == 38))
-		in_autocomplete = true;
-
-	// Make sure we are not within an "autocompletion" field
-	if (in_autocomplete)
-	{
-		// If return pressed and key changed we reset the autocompletion
-		if (!last_key_entered || last_key_entered == event.which)
-		{
-			in_autocompletion = false;
-			return true;
-		}
-	}
-
-	// Keycode is not return, then return. ;)
-	if (event.which != 13)
-	{
-		last_key_entered = event.which;
-		return true;
-	}
-
-	return false;
+    // Keycode is array down or up?
+    if (event.keyCode && (event.keyCode == 40 || event.keyCode == 38))
+        in_autocomplete = true;
+ 
+    // Make sure we are not within an "autocompletion" field
+    if (in_autocomplete)
+    {
+        // If return pressed and key changed we reset the autocompletion
+        if (!last_key_entered || last_key_entered == event.which)
+        {
+            in_autocomplete = false;
+            return true;
+        }
+    }
+ 
+    // Keycode is not return, then return. ;)
+    if (event.which != 13)
+    {
+        last_key_entered = event.which;
+        return true;
+    }
+ 
+    return false;
 }
-
+ 
 /**
 * Usually used for onkeypress event, to submit a form on enter
 */
 function submit_default_button(event, selector, class_name)
 {
-	// Add which for key events
-	if (!event.which && ((event.charCode || event.charCode === 0) ? event.charCode : event.keyCode))
-		event.which = event.charCode || event.keyCode;
-
-	if (phpbb_check_key(event))
-		return true;
-
-	var current = selector['parentNode'];
-
-	// Search parent form element
-	while (current && (!current.nodeName || current.nodeType != 1 || !is_node_name(current, 'form')) && current != document)
-		current = current['parentNode'];
-
-	// Find the input submit button with the class name
-	//current = find_in_tree(current, 'input', 'submit', class_name);
-	var input_tags = current.getElementsByTagName('input');
-	current = false;
-
-	for (var i = 0, element = input_tags[0]; i < input_tags.length; element = input_tags[++i])
-	{
-		if (element.type == 'submit' && is_in_array(class_name, (element.className || element).toString().split(/\s+/)) > -1)
-			current = element;
-	}
-
-	if (!current)
-		return true;
-
-	// Submit form
-	current.focus();
-	current.click();
-	return false;
+    // Add which for key events
+    if (!event.which && ((event.charCode || event.charCode === 0) ? event.charCode : event.keyCode))
+        event.which = event.charCode || event.keyCode;
+ 
+    if (phpbb_check_key(event))
+        return true;
+ 
+    var current = selector['parentNode'];
+ 
+    // Search parent form element
+    while (current && (!current.nodeName || current.nodeType != 1 || !is_node_name(current, 'form')) && current != document)
+        current = current['parentNode'];
+ 
+    // Find the input submit button with the class name
+    var input_tags = current.getElementsByTagName('input');
+    current = false;
+ 
+    for (var i = 0, element = input_tags[0]; i < input_tags.length; element = input_tags[++i])
+    {
+        if (element.type == 'submit' && is_in_array(class_name, (element.className || element).toString().split(/\s+/)) > -1)
+            current = element;
+    }
+ 
+    if (!current)
+        return true;
+ 
+    // Submit form
+    current.focus();
+    current.click();
+    return false;
 }
-
+ 
 /**
 * Apply onkeypress event for forcing default submit button on ENTER key press
 * The jQuery snippet used is based on http://greatwebguy.com/programming/dom/default-html-button-submit-on-enter-with-jquery/
@@ -464,43 +497,43 @@ function submit_default_button(event, selector, class_name)
 */
 function apply_onkeypress_event()
 {
-	// jQuery code in case jQuery is used
-	if (jquery_present)
-	{
-		jQuery('form input[type=text], form input[type=password]').live('keypress', function (e)
-		{
-			var default_button = jQuery(this).parents('form').find('input[type=submit].default-submit-action');
-			
-			if (!default_button || default_button.length <= 0)
-				return true;
-
-			if (phpbb_check_key(e))
-				return true;
-
-			if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13))
-			{
-				default_button.click();
-				return false;
-			}
-
-			return true;
-		});
-	
-		return;
-	}
-
-	var input_tags = document.getElementsByTagName('input');
-
-	for (var i = 0, element = input_tags[0]; i < input_tags.length ; element = input_tags[++i])
-	{
-		if (element.type == 'text' || element.type == 'password')
-		{
-			// onkeydown is possible too
-			element.onkeypress = function (evt) { submit_default_button((evt || window.event), this, 'default-submit-action'); };
-		}
-	}
+    // jQuery code in case jQuery is used
+    if (jquery_present)
+    {
+        jQuery('form input[type=text], form input[type=password]').on('keypress', function (e)
+        {
+            var default_button = jQuery(this).parents('form').find('input[type=submit].default-submit-action');
+            
+            if (!default_button || default_button.length <= 0)
+                return true;
+ 
+            if (phpbb_check_key(e))
+                return true;
+ 
+            if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13))
+            {
+                default_button.click();
+                return false;
+            }
+ 
+            return true;
+        });
+    
+        return;
+    }
+ 
+    var input_tags = document.getElementsByTagName('input');
+ 
+    for (var i = 0, element = input_tags[0]; i < input_tags.length ; element = input_tags[++i])
+    {
+        if (element.type == 'text' || element.type == 'password')
+        {
+            // onkeydown is possible too
+            element.onkeypress = function (evt) { submit_default_button((evt || window.event), this, 'default-submit-action'); };
+        }
+    }
 }
-
+ 
 /**
 * Detect JQuery existance. We currently do not deliver it, but some styles do, so why not benefit from it. ;)
 */
