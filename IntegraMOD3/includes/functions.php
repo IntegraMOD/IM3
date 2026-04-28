@@ -5306,18 +5306,6 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
         }
 		$user_lang = $user->data['user_lang'];
 
-		$portal_label = (!empty($config['portal_name_' . $user_lang]))
-			? $config['portal_name_' . $user_lang]
-			: ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal')
-				? $config['portal_name']
-				: $user->lang['PORTAL']);
-
-		$forum_label = (!empty($config['forum_name_' . $user_lang]))
-			? $config['forum_name_' . $user_lang]
-			: ((isset($config['forum_name']) && $config['forum_name'] !== 'Forum')
-				? $config['forum_name']
-				: $user->lang['FORUM']);
-
        $template->assign_vars(array(
             'L_NEW_POST'        => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_NEW'],
             'L_NEW_POSTS'        => $user->lang['SEARCH_NEW'] . '&nbsp;<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>',
@@ -5325,9 +5313,10 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
             'L_SELF_POSTS'        => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $you_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_SELF'],
             ));
     }
-    //
-    // - new posts since last visit & you post number
-    //       
+
+	$portal_label = (!empty($config['portal_name_' . $user_lang])) ? $config['portal_name_' . $user_lang] : ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal') ? $config['portal_name'] : $user->lang['PORTAL']);
+	$forum_label = (!empty($config['forum_name_' . $user_lang])) ? $config['forum_name_' . $user_lang] : ((isset($config['forum_name']) && $config['forum_name'] !== 'Forum') ? $config['forum_name'] : $user->lang['FORUM']);
+    
 	
     assign_cookie_consent_vars();
 	// The following assigns all _common_ variables that may be used at any point in a template.
