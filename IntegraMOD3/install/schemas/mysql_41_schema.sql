@@ -2274,7 +2274,8 @@ CREATE TABLE phpbb_sessions (
 	KEY session_time (session_time),
 	KEY session_user_id (session_user_id),
 	KEY session_fid (session_forum_id),
-	KEY session_aid (session_album_id)
+	KEY session_aid (session_album_id),
+	KEY session_user_id_ip (session_user_id,session_ip)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
