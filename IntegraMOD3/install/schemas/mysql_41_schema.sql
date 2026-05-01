@@ -1683,7 +1683,8 @@ CREATE TABLE phpbb_mchat_config (
 CREATE TABLE phpbb_mchat_sessions (
 	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	user_lastupdate int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	user_ip varchar(40) DEFAULT '' NOT NULL
+	user_ip varchar(40) DEFAULT '' NOT NULL,
+	KEY user_lastupdate_user (user_lastupdate, user_id)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
