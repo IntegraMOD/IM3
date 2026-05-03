@@ -303,14 +303,15 @@ class acp_modsdb
 			set_config('mod_show', (int) $mod_show);
 		}
 
+		$mod_show = isset($config['mod_show']) ? (int) $config['mod_show'] : 0;
 
 		$template->assign_vars(array(
-			'U_ACTION'		=> $this->u_action,
-			'S_MOD_SHOW_MEMBERS'		=> ( $config['mod_show'] == 0 ) ? true:false,
-			'S_MOD_SHOW_MODS'			=> ( $config['mod_show'] == 1 ) ? true:false,
-			'S_MOD_SHOW_ADMINS'		=> ( $config['mod_show'] == 2 ) ? true:false,
-			'S_MOD_OPTIONS'	=> $s_options)
-		);
+			'U_ACTION'           => $this->u_action,
+			'S_MOD_SHOW_MEMBERS' => ($mod_show === 0),
+			'S_MOD_SHOW_MODS'    => ($mod_show === 1),
+			'S_MOD_SHOW_ADMINS'  => ($mod_show === 2),
+			'S_MOD_OPTIONS'      => $s_options,
+		));
 
 		$sql = 'SELECT * 
 			FROM ' . MODS_DATABASE_TABLE . ' 
@@ -354,5 +355,3 @@ class acp_modsdb
 		
 		return $text;
 	}
-
-?>
