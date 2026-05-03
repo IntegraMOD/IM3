@@ -934,7 +934,9 @@ class acp_language
 				while ($row = $db->sql_fetchrow($result))
 				{
 					$row['lang_id'] = $lang_id;
-					$db->sql_query('INSERT INTO ' . PROFILE_LANG_TABLE . ' ' . $db->sql_build_array('INSERT', $row));
+
+					$db->sql_query('INSERT IGNORE INTO ' . PROFILE_LANG_TABLE . ' ' . $db->sql_build_array('INSERT', $row));
+
 					$notify_cpf_update = true;
 				}
 				$db->sql_freeresult($result);
@@ -947,10 +949,13 @@ class acp_language
 				while ($row = $db->sql_fetchrow($result))
 				{
 					$row['lang_id'] = $lang_id;
-					$db->sql_query('INSERT INTO ' . PROFILE_FIELDS_LANG_TABLE . ' ' . $db->sql_build_array('INSERT', $row));
+
+					$db->sql_query('INSERT IGNORE INTO ' . PROFILE_FIELDS_LANG_TABLE . ' ' . $db->sql_build_array('INSERT', $row));
+
 					$notify_cpf_update = true;
 				}
 				$db->sql_freeresult($result);
+
 
 				add_log('admin', 'LOG_LANGUAGE_PACK_INSTALLED', $lang_pack['name']);
 
