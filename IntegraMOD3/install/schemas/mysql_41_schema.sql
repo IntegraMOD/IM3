@@ -2256,6 +2256,7 @@ CREATE TABLE phpbb_search_wordmatch (
 
 
 # Table: 'phpbb_sessions'
+# Table: 'phpbb_sessions'
 CREATE TABLE phpbb_sessions (
 	session_id char(32) DEFAULT '' NOT NULL,
 	session_user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
@@ -2273,11 +2274,13 @@ CREATE TABLE phpbb_sessions (
 	session_album_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (session_id),
 	KEY session_time (session_time),
+	KEY session_user_time (session_user_id, session_time),
 	KEY session_user_id (session_user_id),
 	KEY session_fid (session_forum_id),
 	KEY session_aid (session_album_id),
 	KEY session_user_id_ip (session_user_id,session_ip)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
+
 
 
 # Table: 'phpbb_sessions_keys'
