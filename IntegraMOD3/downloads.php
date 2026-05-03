@@ -28,48 +28,50 @@ $auth->acl($user->data);
 $user->setup();
 
 $template->assign_var('S_IN_DL', true);
+
 /*
 * init and get various values
 */
-$submit		= request_var('submit', '');
-$preview	= request_var('preview', '');
-$cancel		= request_var('cancel', '');
-$confirm	= request_var('confirm', '');
-$delete		= request_var('delete', '');
-$cdelete	= request_var('cdelete', '');
-$save		= request_var('save', '');
-$post		= request_var('post', '');
-$view		= request_var('view', '');
-$show		= request_var('show', '');
-$order		= request_var('order', '');
-$action		= request_var('action', '');
-$save		= request_var('save', '');
-$goback		= request_var('goback', '');
-$edit		= request_var('edit', '');
-$bt_show	= request_var('bt_show', '');
-$move		= request_var('move', '');
-$fmove		= request_var('fmove', '');
-$lock		= request_var('lock', '');
-$sort		= request_var('sort', '');
-$code		= request_var('code', '');
-$sid		= request_var('sid', '');
+$submit     = request_var('submit', false);
+$preview    = request_var('preview', '');
+$cancel     = request_var('cancel', '');
+$confirm    = request_var('confirm', '');
+$delete     = request_var('delete', '');
+$cdelete    = request_var('cdelete', '');
+$save       = request_var('save', '');
+$post       = request_var('post', '');
+$view       = request_var('view', '');
+$show       = request_var('show', '');
+$order      = request_var('order', '');
+$action     = request_var('action', '');
+$goback     = request_var('goback', '');
+$edit       = request_var('edit', '');
+$bt_show    = request_var('bt_show', '');
+$move       = request_var('move', '');
+$fmove      = request_var('fmove', '');
+$lock       = request_var('lock', '');
+$sort       = request_var('sort', '');
+$code       = request_var('code', '');
+$sid        = request_var('sid', '');
 
-$df_id		= request_var('df_id', 0);
-$cat		= request_var('cat', 0);
-$new_cat	= request_var('new_cat', 0);
-$cat_id		= request_var('cat_id', 0);
-$fav_id		= request_var('fav_id', 0);
-$dl_id		= request_var('dl_id', 0);
-$start		= request_var('start', 0);
-$sort_by	= request_var('sort_by', 0);
-$rate_point	= request_var('rate_point', 0);
-$del_file	= request_var('del_file', 0);
-$bt_filter	= request_var('bt_filter', -1);
-$modcp		= request_var('modcp', 0);
+$df_id      = request_var('df_id', 0);
+$cat        = request_var('cat', 0);
+$new_cat    = request_var('new_cat', 0);
+$cat_id     = request_var('cat_id', 0);
+$fav_id     = request_var('fav_id', 0);
+$dl_id      = request_var('dl_id', 0);
+$start      = request_var('start', 0);
+$sort_by    = request_var('sort_by', 0);
+$rate_point = request_var('rate_point', 0);
+$del_file   = request_var('del_file', 0);
+$bt_filter  = request_var('bt_filter', -1);
+$modcp      = request_var('modcp', 0);
 
-$file_option	= request_var('file_ver_opt', 0);
-$file_version	= request_var('file_version', 0);
-$file_ver_del	= request_var('file_ver_del', array(0));
+$file_option  = request_var('file_ver_opt', 0);
+$file_version = request_var('file_version', 0);
+$file_ver_del = request_var('file_ver_del', array(0));
+
+
 
 $dl_mod_is_active = true;
 $dl_mod_link_show = true;
@@ -666,7 +668,7 @@ if ($view == 'broken' && $df_id && $cat_id && ($user->data['is_registered'] || (
 
 		$processing_user = dl_auth::dl_auth_users($cat_id, 'auth_mod');
 
-		$report_notify_text = utf8_normalize_nfc(request_var('report_notify_text', '', true));
+        $report_notify_text = utf8_normalize_nfc(request_var('report_notify_text', '', true));
 		$report_notify_text = ($report_notify_text) ? sprintf($user->lang['DL_REPORT_NOTIFY_TEXT'], $report_notify_text) : '';
 
 		$mail_data = array(
@@ -948,14 +950,14 @@ if (empty($view) && !$inc_module)
 
 $view_check = array('broken', 'bug_tracker', 'comment', 'detail', 'fav', 'load', 'modcp', 'overall', 'popup', 'rss', 'search', 'stat', 'thumbs', 'todo', 'unbroken', 'unfav', 'upload', 'user_config', 'view');
 
-if (in_array($view, $view_check))
+if (in_array($view, $view_check, true))
 {
 	dl_version::dl_mod_version('check');
 }
 
-if (!in_array($view, $view_check) || !isset($template->filename['body']))
+if (!in_array($view, $view_check, true) || !isset($template->filename['body']))
 {
-	trigger_error('DL_NO_PERMISSION');
+    trigger_error('DL_NO_PERMISSION');
 }
 
 $template->assign_vars(array(
