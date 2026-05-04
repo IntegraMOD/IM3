@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* viewtopic [English]
+* viewtopic [Deutsch]
 *
 * @package language
 * @version $Id$
@@ -37,35 +37,35 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'ADD_ATTACHMENT'			=> 'Upload attachment',
-	'ADD_ATTACHMENT_EXPLAIN'	=> 'If you wish to attach one or more files enter the details below.',
-	'ADD_FILE'					=> 'Add the file',
-	'ADD_POLL'					=> 'Poll creation',
-	'ADD_POLL_EXPLAIN'			=> 'If you do not want to add a poll to your topic leave the fields blank.',
-	'ALREADY_DELETED'			=> 'Sorry but this message is already deleted.',
-	'ATTACH_QUOTA_REACHED'		=> 'Sorry, the board attachment quota has been reached.',
-	'ATTACH_SIG'				=> 'Attach a signature (signatures can be altered via the UCP)',
+	'ADD_ATTACHMENT'			=> 'Anhang hinzufügen',
+	'ADD_ATTACHMENT_EXPLAIN'	=> 'Wenn Sie eine oder mehrere Dateien anhängen möchten, geben Sie die Angaben unten ein.',
+	'ADD_FILE'					=> 'Datei hinzufügen',
+	'ADD_POLL'					=> 'Umfrage erstellen',
+	'ADD_POLL_EXPLAIN'			=> 'Wenn Sie Ihrem Thema keine Umfrage hinzufügen möchten, lassen Sie die Felder leer.',
+	'ALREADY_DELETED'			=> 'Entschuldigung, diese Nachricht wurde bereits gelöscht.',
+	'ATTACH_QUOTA_REACHED'		=> 'Das Kontingent für Forenanhänge wurde erreicht.',
+	'ATTACH_SIG'				=> 'Signatur anhängen (Signaturen können im UCP geändert werden)',
 
-	'BBCODE_A_HELP'				=> 'Inline uploaded attachment: [attachment=]filename.ext[/attachment]',
-	'BBCODE_B_HELP'				=> 'Bold text: [b]text[/b]',
-	'BBCODE_C_HELP'				=> 'Code display: [code]code[/code]',
-	'BBCODE_E_HELP'				=> 'List: Add list element',
-	'BBCODE_F_HELP'				=> 'Font size: [size=85]small text[/size]',
-	'BBCODE_IS_OFF'				=> '%sBBCode%s is <em>OFF</em>',
-	'BBCODE_IS_ON'				=> '%sBBCode%s is <em>ON</em>',
-	'BBCODE_I_HELP'				=> 'Italic text: [i]text[/i]',
-	'BBCODE_L_HELP'				=> 'List: [list]text[/list]',
-	'BBCODE_LISTITEM_HELP'		=> 'List item: [*]text[/*]',
-	'BBCODE_O_HELP'				=> 'Ordered list: [list=]text[/list]',
-	'BBCODE_P_HELP'				=> 'Insert image: [img]http://image_url[/img]',
-	'BBCODE_Q_HELP'				=> 'Quote text: [quote]text[/quote]',
-	'BBCODE_S_HELP'				=> 'Font colour: [color=red]text[/color]  Tip: you can also use color=#FF0000',
-	'BBCODE_U_HELP'				=> 'Underline text: [u]text[/u]',
-	'BBCODE_W_HELP'				=> 'Insert URL: [url]http://url[/url] or [url=http://url]URL text[/url]',
-	'BBCODE_D_HELP'				=> 'Flash: [flash=width,height]http://url[/flash]',
-	'BUMP_ERROR'				=> 'You cannot bump this topic so soon after the last post.',
+	'BBCODE_A_HELP'				=> 'Inline hochgeladener Anhang: [attachment=]dateiname.ext[/attachment]',
+	'BBCODE_B_HELP'				=> 'Fetter Text: [b]Text[/b]',
+	'BBCODE_C_HELP'				=> 'Code-Anzeige: [code]Code[/code]',
+	'BBCODE_E_HELP'				=> 'Liste: Listenelement hinzufügen',
+	'BBCODE_F_HELP'				=> 'Schriftgröße: [size=85]kleiner Text[/size]',
+	'BBCODE_IS_OFF'				=> '%sBBCode%s ist <em>AUS</em>',
+	'BBCODE_IS_ON'				=> '%sBBCode%s ist <em>AN</em>',
+	'BBCODE_I_HELP'				=> 'Kursiver Text: [i]Text[/i]',
+	'BBCODE_L_HELP'				=> 'Liste: [list]Text[/list]',
+	'BBCODE_LISTITEM_HELP'		=> 'Listenelement: [*]Text[/*]',
+	'BBCODE_O_HELP'				=> 'Nummerierte Liste: [list=]Text[/list]',
+	'BBCODE_P_HELP'				=> 'Bild einfügen: [img]http://bild_url[/img]',
+	'BBCODE_Q_HELP'				=> 'Zitat: [quote]Text[/quote]',
+	'BBCODE_S_HELP'				=> 'Schriftfarbe: [color=red]Text[/color]  Tipp: Sie können auch color=#FF0000 verwenden',
+	'BBCODE_U_HELP'				=> 'Unterstrichener Text: [u]Text[/u]',
+	'BBCODE_W_HELP'				=> 'URL einfügen: [url]http://url[/url] oder [url=http://url]Linktext[/url]',
+	'BBCODE_D_HELP'				=> 'Flash: [flash=Breite,Höhe]http://url[/flash]',
+	'BUMP_ERROR'				=> 'Sie können dieses Thema nicht so bald nach dem letzten Beitrag erneut hochschieben.',
 
-	'MAKE_NEWS'					=> 'Change to “News”',
-	'MAKE_NEWS_GLOBAL'			=> 'Change to “Global News”',
+	'MAKE_NEWS'					=> 'In "News" ändern',
+	'MAKE_NEWS_GLOBAL'			=> 'In "Global News" ändern',
 
 ));

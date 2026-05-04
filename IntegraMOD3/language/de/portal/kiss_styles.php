@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* styles [English]
+* styles [Deutsch]
 *
 * @package language
 * @version $Id$
@@ -37,15 +37,14 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'IMG_NEWS_READ'					=> 'News',
-	'IMG_NEWS_READ_MINE'			=> 'News posted to',
-	'IMG_NEWS_READ_LOCKED'			=> 'News locked',
-	'IMG_NEWS_READ_LOCKED_MINE'		=> 'News locked posted to',
-	'IMG_NEWS_UNREAD'				=> 'News new posts',
-	'IMG_NEWS_UNREAD_MINE'			=> 'News posted to new',
-	'IMG_NEWS_UNREAD_LOCKED'		=> 'News locked new post',
-	'IMG_NEWS_UNREAD_LOCKED_MINE'	=> 'News locked posted to new',
+	'IMG_NEWS_READ'					=> 'Neuigkeiten',
+	'IMG_NEWS_READ_MINE'			=> 'Neuigkeiten (zugeordnet)',
+	'IMG_NEWS_READ_LOCKED'			=> 'Neuigkeiten (gesperrt)',
+	'IMG_NEWS_READ_LOCKED_MINE'		=> 'Neuigkeiten (gesperrt, zugeordnet)',
+	'IMG_NEWS_UNREAD'				=> 'Neuigkeiten (neue Beiträge)',
+	'IMG_NEWS_UNREAD_MINE'			=> 'Neuigkeiten (neue Beiträge, zugeordnet)',
+	'IMG_NEWS_UNREAD_LOCKED'		=> 'Neuigkeiten (gesperrt, neue Beiträge)',
+	'IMG_NEWS_UNREAD_LOCKED_MINE'	=> 'Neuigkeiten (gesperrt, neue Beiträge, zugeordnet)',
 
 ));
 
-?>

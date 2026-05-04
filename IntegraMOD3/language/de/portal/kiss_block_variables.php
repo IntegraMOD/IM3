@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* common [English]
+* kis_block_variables [Deutsch]
 *
 * @package language (Kiss Portal Engine)
 * @version $Id:$
@@ -43,103 +43,101 @@ if (empty($lang) || !is_array($lang))
 // Portal Menu Names + add you menu language variables here! //
 
 $lang = array_merge($lang, array(
-	'SGP_BLOG'         => 'SGP Integrated Blog',
-	'LINKS_MENU'       => 'Links Menu',
-	'RATINGS_LATEST'   => 'Latest Ratings',
-	'REFRESH_ALL'      => 'Refresh All',
+	'SGP_BLOG'         => 'SGP Integriertes Blog',
+	'LINKS_MENU'       => 'Links‑Menü',
+	'RATINGS_LATEST'   => 'Neueste Bewertungen',
+	'REFRESH_ALL'      => 'Alle aktualisieren',
 	'SITE_NAVIGATOR'   => 'Navigator',
-	'SITE_RULES'       => 'Site Rules',
-	'SITE_STATISTICS'  => 'Site Statistics',
+	'SITE_RULES'       => 'Seitenregeln',
+	'SITE_STATISTICS'  => 'Seitenstatistik',
 	'STYLES_DEMO'      => 'Styles Demo',
-	'STYLE_SELECT'     => 'Style Select',
-	'UNRESOLVED/BUGS'  => 'Unresolved/Bugs',
-	'UPLOAD_IMAGES'    => 'Upload Images',
-	'USER_INFORMATION' => 'User Information',
+	'STYLE_SELECT'     => 'Style wählen',
+	'UNRESOLVED/BUGS'  => 'Offene Fehler/Bugs',
+	'UPLOAD_IMAGES'    => 'Bilder hochladen',
+	'USER_INFORMATION' => 'Benutzerinformationen',
 
 ));
 
 // Portal Block Names + add your block name language variables here! //
 $lang = array_merge($lang, array(
 	'ACP_SMALL'         => 'Admin CP',
-	'BOARD_MINI_NAV'    => 'Sub Nav',
-	'BOARD_STYLE'       => 'Board Style',
-	'BOARD_NAV'         => 'Board Navigation',
-	'BOT_TRACKER'       => 'Bot Tracker',
-	'BOT_TRACKER_SMALL' => 'Bot Tracker',
-	'CLOUD9_LINKS'      => 'Cloud9 Links',
-	'CLOUD9_SEARCHES'   => 'Cloud9 Searches',
+	'BOARD_MINI_NAV'    => 'Untermenü',
+	'BOARD_STYLE'       => 'Board‑Design',
+	'BOARD_NAV'         => 'Board‑Navigation',
+	'BOT_TRACKER'       => 'Bot‑Tracker',
+	'BOT_TRACKER_SMALL' => 'Bot‑Tracker',
+	'CLOUD9_LINKS'      => 'Cloud9‑Links',
+	'CLOUD9_SEARCHES'   => 'Cloud9‑Suchen',
 	'FM_RADIO'          => 'FM Radio',
-	'FORUM_CATEGORIES'  => 'Forum categories',
-	'MAIN_MENU'         => 'Board Navigation',
-	'MP3_PLAYER'        => 'Mp3 player',
-	'NEWS_REPORT'       => 'Site News Report',
-	'PORTAL_STATUS'     => 'Portal Status',
-	'RECENT_TOPICS'     => 'Recent Topics',
-	'SELECT_STYLE'      => 'Select a new style',
-	'SITE_LINK_TXT'     => 'Link to us',
-	'STATS'             => 'Statistics',
-	'STYLE_STATUS'      => 'Styles Status',
-	'SUB_MENU'          => 'Sub Menu',
-	'TOP_10_PICS'       => 'Top 10 Rated Pictures',
+	'FORUM_CATEGORIES'  => 'Forenkategorien',
+	'MAIN_MENU'         => 'Hauptmenü',
+	'MP3_PLAYER'        => 'MP3‑Player',
+	'NEWS_REPORT'       => 'Seiten‑Nachrichten',
+	'PORTAL_STATUS'     => 'Portalstatus',
+	'RECENT_TOPICS'     => 'Aktuelle Themen',
+	'SELECT_STYLE'      => 'Neuen Style auswählen',
+	'SITE_LINK_TXT'     => 'Link zu uns',
+	'STATS'             => 'Statistiken',
+	'STYLE_STATUS'      => 'Style‑Status',
+	'SUB_MENU'          => 'Untermenü',
+	'TOP_10_PICS'       => 'Top 10 bewertete Bilder',
 	'TOP_DOWNLOADS'     => 'Top Downloads',
-	'TOP_POSTERS'       => 'Top Posters',
-	'TOP_TOPICS_DAYS'   => 'in the last %d days',
-	'WELCOME_SITE'      => 'Welcome to<br /><strong>%s</strong>',
-	'YOUR_PROFILE'      => 'User profile',
+	'TOP_POSTERS'       => 'Top Poster',
+	'TOP_TOPICS_DAYS'   => 'in den letzten %d Tagen',
+	'WELCOME_SITE'      => 'Willkommen bei<br /><strong>%s</strong>',
+	'YOUR_PROFILE'      => 'Benutzerprofil',
 
 ));
 
 // Block Names
 $lang = array_merge($lang, array(
-	'ADMIN_OPTIONS'           => 'Admin Options',
-	'BUG_TRACKER'             => 'Bug Tracker',
-	'TRANSLATE_SITE'          => '<strong>Translate site to...</strong>',
-	'TRANSLATE_RESET'         => '<strong>Reset to original language</strong>',
-	'ANNOUNCEMENTS_AND_NEWS'  => 'News and Announcements',
+	'ADMIN_OPTIONS'           => 'Administrator‑Optionen',
+	'BUG_TRACKER'             => 'Bug‑Tracker',
+	'TRANSLATE_SITE'          => '<strong>Seite übersetzen in...</strong>',
+	'TRANSLATE_RESET'         => '<strong>Zur Original‑Sprache zurücksetzen</strong>',
+	'ANNOUNCEMENTS_AND_NEWS'  => 'Nachrichten und Ankündigungen',
 ));
 
 // Acronyms
 $lang = array_merge($lang, array(
-	'ALLOW_ACRONYMS'         => 'Process Local Acronyms (built in) in posts',
-	'ALLOW_ACRONYMS_EXPLAIN' => 'Allow local acronyms in posts',
+	'ALLOW_ACRONYMS'         => 'Lokale Abkürzungen in Beiträgen verarbeiten (eingebaut)',
+	'ALLOW_ACRONYMS_EXPLAIN' => 'Lokale Abkürzungen in Beiträgen erlauben',
 ));
 
 // IRC Channel(s)
 $lang = array_merge($lang, array(
-	'IRC_POPUP'    => 'Popup IRC Channel',
-	'SIGNED_OFF'   => 'Signed off',
-	'NO_JAVA_SUP'  => 'No java support',
-	'NO_JAVA_VER'  => 'Sorry, but you need a Java 1.4.x enabled browser to use PJIRC',
+	'IRC_POPUP'    => 'IRC‑Popup',
+	'SIGNED_OFF'   => 'Abgemeldet',
+	'NO_JAVA_SUP'  => 'Keine Java‑Unterstützung',
+	'NO_JAVA_VER'  => 'Sorry, Sie benötigen einen Java 1.4.x‑fähigen Browser, um PJIRC zu nutzen',
 ));
 
 // Age ranges
 $lang = array_merge($lang, array(
-	'AGE_RANGE'        => 'Age range',
-	'AVERAGE_AGE'      => 'Average age',
-	'TOTAL_AGE'        => 'Total age',
-	'TOTAL_AGE_COUNTS' => 'Total age counts',
+	'AGE_RANGE'        => 'Altersbereich',
+	'AVERAGE_AGE'      => 'Durchschnittsalter',
+	'TOTAL_AGE'        => 'Gesamtalter',
+	'TOTAL_AGE_COUNTS' => 'Anzahl Altersangaben',
 ));
 
 // RSS Newsfeeds
 $lang = array_merge($lang, array(
-	'NO_CURL'               => 'curl not installed. Use fopen instead (change in ACP)',
-	'NO_FOPEN'              => 'fopen not installed. Use curl instead (change in ACP)',
-	'RSS_CACHE_ERROR'       => 'Sorry, no RSS items found in the cache file.',
-	'RSS_DISABLED'          => 'Newsfeeds are currently disabled',
-	'RSS_FEED_ERROR'        => 'Or something wrong with RSS feed.',
-	'RSS_LIST_ERROR'        => 'Could not get RSS list.',
-	'RSS_ERROR'             => 'RSS Error - Check feed link (above) to confirm.',
-	'LOG_RSS_CACHE_CLEANED' => 'RSS cache cleared',
+	'NO_CURL'               => 'curl nicht installiert. Verwenden Sie stattdessen fopen (Änderung im ACP)',
+	'NO_FOPEN'              => 'fopen nicht installiert. Verwenden Sie stattdessen curl (Änderung im ACP)',
+	'RSS_CACHE_ERROR'       => 'Entschuldigung, keine RSS‑Einträge im Cache gefunden.',
+	'RSS_DISABLED'          => 'Newsfeeds sind derzeit deaktiviert',
+	'RSS_FEED_ERROR'        => 'Oder es gibt ein Problem mit dem RSS‑Feed.',
+	'RSS_LIST_ERROR'        => 'RSS‑Liste konnte nicht abgerufen werden.',
+	'RSS_ERROR'             => 'RSS‑Fehler – Überprüfen Sie den Feed‑Link (oben).',
+	'LOG_RSS_CACHE_CLEANED' => 'RSS‑Cache geleert',
 ));
 
 // HTTP Referrals
 $lang = array_merge($lang, array(
-	'TOT_REF' => 'Total Referrals',
+	'TOT_REF' => 'Gesamt‑Referrals',
 ));
 
 // Mini Mods
 $lang = array_merge($lang, array(
-	'CHECK_VERSION'  => 'Check for updates',
+	'CHECK_VERSION'  => 'Auf Updates prüfen',
 ));
-
-?>

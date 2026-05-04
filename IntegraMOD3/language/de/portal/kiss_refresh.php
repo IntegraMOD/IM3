@@ -1,6 +1,9 @@
 <?php
 /**
 *
+*
+* kiss_refresh [Deutsch]
+* 
 * @package kiss refresh
 * @version $Id$
 * @copyright (c) 2005 phpbbireland

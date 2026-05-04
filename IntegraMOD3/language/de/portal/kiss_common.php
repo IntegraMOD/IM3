@@ -1,6 +1,8 @@
 <?php
 /**
 *
+* kiss_common [Deutsch]
+*
 * @author Original Author Michael O'Toole
 * @www.stargate-portal.com
 *
@@ -370,8 +372,9 @@ $lang = array_merge($lang, array(
 	'TOOLS_ON'					=> 'Portal Tools',
 	'TOOLS_OFF'					=> 'Save Changes',
 	'TOPICS_PER_FORUM_DISPLAY'	=> ' topics per forum &bull; Display: ',
+	'TOTAL_LANGUAGES'			=> 'Total available languages',
 	'TOTAL_STYLES'				=> 'Total available styles',
-
+	
 	'UNDER_CONSTRUCTION'	=> "<strong>The page you requested is currently under construction...</strong><br /><br />Please use the 'Back' button to return to previous page.",
 
 	'VIDEO_COMMENTS'		=> 'Comments',
@@ -540,4 +543,3 @@ $lang = array_merge($lang, array(
 
 ));
 
-?>
