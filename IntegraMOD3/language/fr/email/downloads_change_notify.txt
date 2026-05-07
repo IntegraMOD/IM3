@@ -1,18 +1,17 @@
-Subject: Changed Download
+Objet : Téléchargement modifié
 
-Hello {USERNAME},
+Bonjour {USERNAME},
 
-You have received this email because the following download on {SITENAME} in the category "{CATEGORY}" is changed:
+Vous recevez cet e-mail car le téléchargement suivant sur {SITENAME}, dans la catégorie « {CATEGORY} », a été modifié :
 
----------------------------
 {DOWNLOAD}
-{DESCRIPTION}
----------------------------
 
-If you want to take a look on this download click the following link:
+{DESCRIPTION}
+
+Si vous souhaitez consulter ce téléchargement, cliquez sur le lien suivant :
 
 {U_CATEGORY}
 
-Remember that you can always choose not to be notified about edited downloads by dropping the notifications in the download details or your downloads user profile.
+N’oubliez pas que vous pouvez à tout moment choisir de ne plus être notifié des téléchargements modifiés en désactivant les notifications dans les détails du téléchargement ou dans votre profil utilisateur des téléchargements.
 
 {BOARD_EMAIL}

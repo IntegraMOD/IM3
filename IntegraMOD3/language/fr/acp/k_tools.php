@@ -41,12 +41,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	'ALL_USERS_RESET'	=> 'Reset login attempts for all users',
-	'REPORT'			=> 'Resetting login attempt for all users...',
-	'REPORT_ONE'		=> 'Resetting login attempt for: %s',
-	'TITLE' 			=> 'Portal Tools',
-	'TITLE_EXPLAIN'		=> 'Miscellaneous portal tools.',
-	'TOOL_OPTIONS'		=> 'Available options',
-	'USER_RESET'		=> 'Reset login attempts for user (users name)',
+	'ALL_USERS_RESET'	=> 'Réinitialiser les tentatives de connexion pour tous les utilisateurs',
+	'REPORT'			=> 'Réinitialisation des tentatives de connexion pour tous les utilisateurs...',
+	'REPORT_ONE'		=> 'Réinitialisation des tentatives de connexion pour : %s',
+	'TITLE' 			=> 'Outils du portail',
+	'TITLE_EXPLAIN'		=> 'Outils divers du portail.',
+	'TOOL_OPTIONS'		=> 'Options disponibles',
+	'USER_RESET'		=> 'Réinitialiser les tentatives de connexion pour un utilisateur (nom d’utilisateur)',
+
 ));
 

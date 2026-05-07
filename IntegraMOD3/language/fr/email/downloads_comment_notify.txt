@@ -1,18 +1,17 @@
-Subject: New Download Comment
+Objet : Nouveau commentaire de téléchargement
 
-Hello {USERNAME},
+Bonjour {USERNAME},
 
-you have received this email because there is a new download comment on {SITENAME}for one of your subscribed downloads:
+Vous recevez cet e-mail car un nouveau commentaire de téléchargement a été publié sur {SITENAME} pour l’un de vos téléchargements suivis :
 
----------------------------
-Category {CATEGORY}
-Download {DOWNLOAD}
----------------------------
+Catégorie {CATEGORY}
 
-If you want to take a look on this comment click the following link:
+Téléchargement {DOWNLOAD}
+
+Si vous souhaitez consulter ce commentaire, cliquez sur le lien suivant :
 
 {U_DOWNLOAD}
 
-Remember that you can always choose not to be notified about new comments by changing the appropriate setting in your download profile.
+N’oubliez pas que vous pouvez à tout moment choisir de ne plus être notifié des nouveaux commentaires en modifiant le paramètre approprié dans votre profil de téléchargement.
 
 {BOARD_EMAIL}

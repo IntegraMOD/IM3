@@ -70,14 +70,14 @@ $lang['permission_cat']['shoutbox'] = 'Ajax Shoutbox';
 
 // Teh permissions
 $lang = array_merge($lang, array(
-	'acl_u_as_post'				=> array('lang' => 'A user can post message to the shoutbox', 'cat' => 'shoutbox'),
-	'acl_u_as_view'				=> array('lang' => 'A user can view the shoutbox', 'cat' => 'shoutbox'),
-	'acl_u_as_info'				=> array('lang' => 'A user can view IPs from other users.', 'cat' => 'shoutbox'),
-	'acl_u_as_delete'			=> array('lang' => 'A user can delete shouts from other users', 'cat' => 'shoutbox'),
-	'acl_u_as_edit'				=> array('lang' => 'A user can edit shouts from himself', 'cat' => 'shoutbox'),
-	'acl_u_as_smilies'			=> array('lang' => 'A user can post smilies', 'cat' => 'shoutbox'),
-	'acl_u_as_bbcode'			=> array('lang' => 'A user can post bbcode', 'cat' => 'shoutbox'),
-	'acl_u_as_mod_edit'			=> array('lang' => 'A user can edit shouts from other users', 'cat' => 'shoutbox'),
-	'acl_u_as_ignore_flood'		=> array('lang' => 'A user can ignore the flood limit', 'cat' => 'shoutbox'),
-	'acl_a_as_manage'			=> array('lang' => 'The user can manage the shoutbox settings', 'cat' => 'shoutbox'),
+	'acl_u_as_post'				=> array('lang' => 'Peut poster des messages dans la shoutbox', 'cat' => 'shoutbox'),
+	'acl_u_as_view'				=> array('lang' => 'Peut voir la shoutbox', 'cat' => 'shoutbox'),
+	'acl_u_as_info'				=> array('lang' => 'Peut voir les adresses IP des autres utilisateurs', 'cat' => 'shoutbox'),
+	'acl_u_as_delete'			=> array('lang' => 'Peut supprimer les messages des autres utilisateurs', 'cat' => 'shoutbox'),
+	'acl_u_as_edit'				=> array('lang' => 'Peut modifier ses propres messages', 'cat' => 'shoutbox'),
+	'acl_u_as_smilies'			=> array('lang' => 'Peut poster des smileys', 'cat' => 'shoutbox'),
+	'acl_u_as_bbcode'			=> array('lang' => 'Peut utiliser le BBCode', 'cat' => 'shoutbox'),
+	'acl_u_as_mod_edit'			=> array('lang' => 'Peut modifier les messages des autres utilisateurs', 'cat' => 'shoutbox'),
+	'acl_u_as_ignore_flood'		=> array('lang' => 'Peut ignorer la limite anti-flood', 'cat' => 'shoutbox'),
+	'acl_a_as_manage'			=> array('lang' => 'Peut gérer les paramètres de la shoutbox', 'cat' => 'shoutbox'),
 ));

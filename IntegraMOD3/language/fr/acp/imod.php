@@ -27,7 +27,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 
 	'IMOD'				=> 'IntegraMod',
-	'TITLE' 			=> 'Integramod Information',
-	'TITLE_EXPLAIN'		=> 'Extended details for installed blocks... Author, Revision, Site/Links etc.',
-	'IMOD_MAIN'			=> 'Main Configuration',
+	'TITLE' 			=> 'Informations IntegraMod',
+	'TITLE_EXPLAIN'		=> 'Détails étendus des blocs installés... Auteur, révision, site/liens, etc.',
+	'IMOD_MAIN'			=> 'Configuration principale',
 ));

@@ -283,7 +283,7 @@ $lang = array_merge($lang, array(
 
 	'SHOW_ALL_OPERATIONS'	=> 'Afficher toutes les opérations',
 
-	'UCP'					=> 'Panneau de contrôle de l’utilisateur',
+	'UCP'					=> 'Panneau utilisateur',
 	'USERNAMES_EXPLAIN'		=> 'Insérez chaque nom d’utilisateur sur une nouvelle ligne.',
 	'USER_CONTROL_PANEL'	=> 'Panneau de contrôle de l’utilisateur',
 

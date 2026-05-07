@@ -1,7 +1,7 @@
 <?php
 /** 
 *
-* contact [English]
+* contact [French]
 *
 * @package	language
 * @version	1.0.9 2009-12-25
@@ -41,42 +41,41 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 
-	// teh form
+	// the form
 	
-	'CONTACT_BOT_ERROR'						=> 'You can’t use the contact form at the moment because there is an error in the configuration.  An email has been sent to the board founder.',
-	'CONTACT_BOT_NONE'						=> 'The user %1$s tried to use the Contact Admin Modification at %2$s to send a %3$s, but there are no Administrators that allow %3$ss by users.' . "\n\n" . 'Please enter the Contact Bot Configuration in the Admin Panel for the forum %4$s and choose the “Board Founder” option' . "\n\n" . 'The modification has been disabled',
-	'CONTACT_BOT_SUBJECT'					=> 'Contact Board Administration Modification Error',
-	'CONTACT_BOT_USER_MESSAGE'				=> 'The user %1$s tried to use the Contact Admin modification at %2$s, but the user selected in the configuration is incorrect.' . "\n\n" . 'Please visit the forum %3$s and choose a different user in the ACP for the Contact Board Administration.' . "\n\n" . 'The modification has been disabled',
-	'CONTACT_BOT_FORUM_MESSAGE'				=> 'The user %1$s tried to use the Contact Admin modification at %2$s, but the forum selected in the configuration is incorrect.' . "\n\n" . 'Please visit the forum %3$s and choose a different forum in the ACP for the Contact Board Administration.' . "\n\n" . 'The modification has been disabled',
-	'CONTACT_CONFIRM'						=> 'Confirm',
-	'CONTACT_INSTALLED'						=> 'The “Contact Board Administration” modification has been installed successfully.',
+	'CONTACT_BOT_ERROR'						=> 'Vous ne pouvez pas utiliser le formulaire de contact pour le moment car il y a une erreur dans la configuration. Un e‑mail a été envoyé au fondateur du forum.',
+	'CONTACT_BOT_NONE'						=> 'L\'utilisateur %1$s a tenté d\'utiliser la modification Contact Admin à %2$s pour envoyer un(e) %3$s, mais il n\'existe aucun administrateur autorisant les %3$ss par les utilisateurs.' . "\n\n" . 'Veuillez configurer le Contact Bot dans le panneau d\'administration pour le forum %4$s et choisir l\'option « Board Founder ».' . "\n\n" . 'La modification a été désactivée',
+	'CONTACT_BOT_SUBJECT'					=> 'Erreur de la modification Contact Board Administration',
+	'CONTACT_BOT_USER_MESSAGE'				=> 'L\'utilisateur %1$s a tenté d\'utiliser la modification Contact Admin à %2$s, mais l\'utilisateur sélectionné dans la configuration est incorrect.' . "\n\n" . 'Veuillez visiter le forum %3$s et choisir un autre utilisateur dans l\'ACP pour le Contact Board Administration.' . "\n\n" . 'La modification a été désactivée',
+	'CONTACT_BOT_FORUM_MESSAGE'				=> 'L\'utilisateur %1$s a tenté d\'utiliser la modification Contact Admin à %2$s, mais le forum sélectionné dans la configuration est incorrect.' . "\n\n" . 'Veuillez visiter le forum %3$s et choisir un autre forum dans l\'ACP pour le Contact Board Administration.' . "\n\n" . 'La modification a été désactivée',
+	'CONTACT_CONFIRM'						=> 'Confirmer',
+	'CONTACT_INSTALLED'						=> 'La modification « Contact Board Administration » a été installée avec succès.',
 
-	'CONTACT_DISABLED'			=> 'You can’t use the contact form at the moment because it is disabled.',
-	'CONTACT_MAIL_DISABLED'		=> 'There is an error with the configuration of the Contact Board Administration Mod.<br />The mod is set to send an email but the board configuration isn’t setup to send emails.  Please notify the board administrator or webmaster: <a href="mailto:%1$s">%1$s</a>', 
-	'CONTACT_MSG_SENT'			=> 'Your message has been sent successfully',
-	'CONTACT_MSG_BODY_EXPLAIN'	=> '<br /><span>Please use the contact form <strong><em>only</em></strong> if there is no other way to contact us.<br /><br /><span style="text-align:center;"><strong>Your ΙΡ address is being recorded and any abuse attempt will be punished.</strong></span></span>',
-	'CONTACT_NO_NAME'			=> 'You didn’t enter a name.',
-	'CONTACT_NO_EMAIL'			=> 'You didn’t enter an email address.',
-	'CONTACT_NO_MSG'			=> 'You didn’t enter a message.',
-	'CONTACT_NO_SUBJ'			=> 'You didn’t enter a subject.',
-	'CONTACT_NO_REASON'			=> 'You didn’t enter a valid reason.',
-	'CONTACT_OUTDATED'			=> 'The database for the contact page has not been updated yet. Please wait for an administrator to update it.',
-	'CONTACT_REASON'			=> 'Reason',
-	'CONTACT_TEMPLATE'			=> '<strong>Name:</strong> %1$s' . "\n" . '<strong>Email Address:</strong> %2$s' . "\n" . '<strong>IP:</strong> %3$s' . "\n" . '<strong>Date:</strong> %4$s' . "\n" . '<strong>Reason:</strong> %5$s' . "\n" . '<strong>Subject:</strong> %6$s' . "\n\n" . '<strong>Has entered the following message into the contact form:</strong>' . "\n" . '%7$s',
-	'CONTACT_TEMPLATE_NO_REASON'	=> '<strong>Name:</strong> %1$s' . "\n" . '<strong>Email Address:</strong> %2$s' . "\n" . '<strong>IP:</strong> %3$s' . "\n" . '<strong>Date:</strong> %4$s' . "\n" . '<strong>Subject:</strong> %5$s' . "\n\n" . '<strong>Has entered the following message into the contact form:</strong>' . "\n" . '%6$s',
-	'CONTACT_TITLE'				=> 'Contact Board Administration',
-	'CONTACT_TOO_MANY'			=> 'You have exceeded the maximum number of contact confirmation attempts for this session. Please try again later.',
-	'CONTACT_UNINSTALLED'		=> 'The “contact board administration” modification has been uninstalled successfully.',
-	'CONTACT_UPDATED'			=> 'The “contact board administration” modification has been updated to version %s successfully.',
+	'CONTACT_DISABLED'			=> 'Vous ne pouvez pas utiliser le formulaire de contact pour le moment car il est désactivé.',
+	'CONTACT_MAIL_DISABLED'		=> 'Il y a une erreur dans la configuration de la modification Contact Board Administration.<br />Le mod est configuré pour envoyer un e‑mail mais la configuration du forum ne permet pas l\'envoi d\'e‑mails. Veuillez en informer l\'administrateur du forum ou le webmaster : <a href="mailto:%1$s">%1$s</a>', 
+	'CONTACT_MSG_SENT'			=> 'Votre message a été envoyé avec succès',
+	'CONTACT_MSG_BODY_EXPLAIN'	=> '<br /><span>Veuillez n\'utiliser le formulaire de contact <strong><em>que</em></strong> s\'il n\'existe aucun autre moyen de nous contacter.<br /><br /><span style="text-align:center;"><strong>Votre adresse IP est enregistrée et toute tentative d\'abus sera sanctionnée.</strong></span></span>',
+	'CONTACT_NO_NAME'			=> 'Vous n\'avez pas saisi de nom.',
+	'CONTACT_NO_EMAIL'			=> 'Vous n\'avez pas saisi d\'adresse e‑mail.',
+	'CONTACT_NO_MSG'			=> 'Vous n\'avez pas saisi de message.',
+	'CONTACT_NO_SUBJ'			=> 'Vous n\'avez pas saisi d\'objet.',
+	'CONTACT_NO_REASON'			=> 'Vous n\'avez pas saisi de raison valide.',
+	'CONTACT_OUTDATED'			=> 'La base de données de la page de contact n\'a pas encore été mise à jour. Veuillez attendre qu\'un administrateur procède à la mise à jour.',
+	'CONTACT_REASON'			=> 'Raison',
+	'CONTACT_TEMPLATE'			=> '<strong>Nom :</strong> %1$s' . "\n" . '<strong>Adresse e‑mail :</strong> %2$s' . "\n" . '<strong>IP :</strong> %3$s' . "\n" . '<strong>Date :</strong> %4$s' . "\n" . '<strong>Raison :</strong> %5$s' . "\n" . '<strong>Objet :</strong> %6$s' . "\n\n" . '<strong>A saisi le message suivant dans le formulaire de contact :</strong>' . "\n" . '%7$s',
+	'CONTACT_TEMPLATE_NO_REASON'	=> '<strong>Nom :</strong> %1$s' . "\n" . '<strong>Adresse e‑mail :</strong> %2$s' . "\n" . '<strong>IP :</strong> %3$s' . "\n" . '<strong>Date :</strong> %4$s' . "\n" . '<strong>Objet :</strong> %5$s' . "\n\n" . '<strong>A saisi le message suivant dans le formulaire de contact :</strong>' . "\n" . '%6$s',
+	'CONTACT_TITLE'				=> 'Contacter l\'administration du forum',
+	'CONTACT_TOO_MANY'			=> 'Vous avez dépassé le nombre maximal de tentatives de confirmation de contact pour cette session. Veuillez réessayer plus tard.',
+	'CONTACT_UNINSTALLED'		=> 'La modification « contact board administration » a été désinstallée avec succès.',
+	'CONTACT_UPDATED'			=> 'La modification « contact board administration » a été mise à jour vers la version %s avec succès.',
 	
-	'CONTACT_YOUR_NAME'				=> 'Your name',
-	'CONTACT_YOUR_NAME_EXPLAIN'		=> 'Please enter your name, so the message has an identity.',
-	'CONTACT_YOUR_EMAIL'			=> 'Your email address',
-	'CONTACT_YOUR_EMAIL_EXPLAIN'	=> 'Please enter a valid email address, so we can contact you.',
-	'CONTACT_YOUR_EMAIL_CONFIRM'	=> 'Reenter your email address',
-	'CONTACT_YOUR_EMAIL_CONFIRM_EXPLAIN'	=> 'Please re-enter your email address.',	
+	'CONTACT_YOUR_NAME'				=> 'Votre nom',
+	'CONTACT_YOUR_NAME_EXPLAIN'		=> 'Veuillez saisir votre nom, afin que le message ait une identité.',
+	'CONTACT_YOUR_EMAIL'			=> 'Votre adresse e‑mail',
+	'CONTACT_YOUR_EMAIL_EXPLAIN'	=> 'Veuillez saisir une adresse e‑mail valide afin que nous puissions vous répondre.',
+	'CONTACT_YOUR_EMAIL_CONFIRM'	=> 'Saisir de nouveau votre adresse e‑mail',
+	'CONTACT_YOUR_EMAIL_CONFIRM_EXPLAIN'	=> 'Veuillez ressaisir votre adresse e‑mail.',	
 
-	'RETURN_CONTACT'				=> '%sReturn to the contact page%s',
-	'URL_UNAUTHED'		=> 'You can not post urls, please remove or rename:<br /><em>%1$s</em>',
+	'RETURN_CONTACT'				=> '%sRetour à la page de contact%s',
+	'URL_UNAUTHED'		=> 'Vous ne pouvez pas poster d\'URL, veuillez supprimer ou renommer :<br /><em>%1$s</em>',
 ));
-

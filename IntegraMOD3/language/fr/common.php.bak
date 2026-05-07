@@ -481,7 +481,7 @@ $lang = array_merge($lang, array(
 	'PRIVATE_MESSAGE'		=> 'Message privé',
 	'PRIVATE_MESSAGES'		=> 'Messages privés',
 	'PRIVATE_MESSAGING'		=> 'Messagerie privée',
-	'PROFILE'				=> 'Panneau utilisateur',
+	'PROFILE'				=> 'Panneau de contrôle de l’utilisateur',
 
 	'RANK'						=> 'Rang',
 	'READING_FORUM'				=> 'Consulte des sujets dans %s',

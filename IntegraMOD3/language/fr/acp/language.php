@@ -99,5 +99,4 @@ $lang = array_merge($lang, array(
 
 	'WRONG_LANGUAGE_FILE'		=> 'Le fichier de langue que vous avez sélectionné est incorrect.',
 ));
-
-?>
+ 

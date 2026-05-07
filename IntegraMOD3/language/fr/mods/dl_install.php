@@ -11,7 +11,7 @@
 */
 
 /*
-* [ english ] language file for Download MOD 6
+* [French] language file for Download MOD 6
 */
 
 /**
@@ -30,15 +30,14 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'DOWNLOAD_MOD'						=> 'Download MOD',
 
-	'INSTALL_DOWNLOAD_MOD'				=> 'Install Download MOD',
-	'INSTALL_DOWNLOAD_MOD_CONFIRM'		=> 'From here you can install the Download MOD into your forum.<br />Click on the button to continue.',
-	'UPDATE_DOWNLOAD_MOD'				=> 'Update Download MOD',
-	'UPDATE_DOWNLOAD_MOD_CONFIRM'		=> 'From here you can update the Download MOD into your forum.<br />Click on the button to continue.',
-	'UNINSTALL_DOWNLOAD_MOD'			=> 'Remove Download MOD',
-	'UNINSTALL_DOWNLOAD_MOD_CONFIRM'	=> 'From here you can uninstall the Download MOD completely.<br />Click on the button to continue.',
+	'INSTALL_DOWNLOAD_MOD'				=> 'Installer Download MOD',
+	'INSTALL_DOWNLOAD_MOD_CONFIRM'		=> 'Vous pouvez installer le Download MOD sur votre forum à partir d\'ici.<br />Cliquez sur le bouton pour continuer.',
+	'UPDATE_DOWNLOAD_MOD'				=> 'Mettre à jour Download MOD',
+	'UPDATE_DOWNLOAD_MOD_CONFIRM'		=> 'Vous pouvez mettre à jour le Download MOD sur votre forum depuis ici.<br />Cliquez sur le bouton pour continuer.',
+	'UNINSTALL_DOWNLOAD_MOD'			=> 'Désinstaller Download MOD',
+	'UNINSTALL_DOWNLOAD_MOD_CONFIRM'	=> 'Vous pouvez désinstaller complètement le Download MOD depuis ici.<br />Cliquez sur le bouton pour continuer.',
 
-	'DL_CHANGE_CONFIG'					=> 'Change config settings',
-	'DL_RESET_VC_VALUES'				=> 'Convert settings for visual confirmations',
+	'DL_CHANGE_CONFIG'					=> 'Modifier les paramètres de configuration',
+	'DL_RESET_VC_VALUES'				=> 'Convertir les paramètres de confirmation visuelle',
 
 ));
-

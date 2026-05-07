@@ -1,12 +1,11 @@
-Subject: Assigned Bug Report on {SITENAME}
+Objet : Rapport de bug assigné sur {SITENAME}
 
-Hello {USERNAME},
+Bonjour {USERNAME},
 
-you receive this email because a bug report on {SITENAME} was assigned to you to work on it.
-For more details about this report follow up this link:
+Vous recevez cet e-mail car un rapport de bug sur {SITENAME} vous a été assigné afin que vous travailliez dessus. Pour plus de détails concernant ce rapport, veuillez suivre ce lien :
+
 
 {U_BUG_REPORT}
 
-----------------------------
 
 {BOARD_EMAIL}

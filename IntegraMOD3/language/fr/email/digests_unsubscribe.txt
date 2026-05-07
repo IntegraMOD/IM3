@@ -1,8 +1,9 @@
-Dear {USERNAME},
+Cher/Chère {USERNAME},
 
-This is to notify you that an administrator of {FORUM_NAME} has unsubscribed you from receiving an 
-email digest.
+Ceci est pour vous informer qu’un administrateur de {FORUM_NAME} vous a désinscrit de la réception du digest par e-mail.
 
-Sincerely,
 
-{FORUM_NAME} Administration Team
+Cordialement,
+
+
+L’équipe d’administration de {FORUM_NAME}

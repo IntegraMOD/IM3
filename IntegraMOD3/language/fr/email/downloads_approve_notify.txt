@@ -1,18 +1,17 @@
-Subject: New Download
+Objet : Nouveau téléchargement
 
-Hello {USERNAME},
+Bonjour {USERNAME},
 
-you receive this email because of a new or edited download on {SITENAME} in the category {CATEGORY} which must be approved:
+Vous recevez cet e-mail car un téléchargement, nouveau ou modifié, sur {SITENAME} dans la catégorie {CATEGORY} doit être approuvé :
 
----------------------------
 {DOWNLOAD}
-{DESCRIPTION}
----------------------------
 
-If you want to approve this download click the following link:
+{DESCRIPTION}
+
+Si vous souhaitez approuver ce téléchargement, cliquez sur le lien suivant :
 
 {U_APPROVE}
 
-Remember that you can always choose not to be notified about new or edited downloads by changing the appropriate setting in your download profile.
+N’oubliez pas que vous pouvez à tout moment choisir de ne plus être notifié des nouveaux téléchargements ou des modifications en changeant le paramètre approprié dans votre profil de téléchargement.
 
 {BOARD_EMAIL}

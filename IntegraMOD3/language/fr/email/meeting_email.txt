@@ -1,21 +1,21 @@
-Subject: {MEETING_MAIL_SUBJECT}
+Objet : {MEETING_MAIL_SUBJECT}
 
-Hello {USERNAME},
+Bonjour {USERNAME},
 
-the following is an email sent to you about the meeting {MEETING_SUBJECT}
-from {FROM_USER} of {SITENAME}.
+le message suivant vous est envoyé concernant la réunion {MEETING_SUBJECT}
+de la part de {FROM_USER} sur {SITENAME}.
 
-If this message is spam, contains abusive or other comments you find offensive please contact the webmaster of the board at the following address:
+Si ce message est du spam, contient des propos abusifs ou d’autres commentaires que vous jugez offensants, veuillez contacter le webmaster du forum à l’adresse suivante :
 
 {BOARD_EMAIL}
 
-This message is sent to you:
+Ce message vous est envoyé :
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 {MEETING_MAIL_TEXT}
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To take a look at the meeting, please follow this link:
+Pour consulter la réunion, veuillez suivre ce lien :
 
 {U_MEETING_MAIL_LINK}

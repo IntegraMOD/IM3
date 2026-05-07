@@ -1,13 +1,12 @@
-Subject: Broken Download
+Objet : Téléchargement défectueux
 
-Hello {USERNAME},
+Bonjour {USERNAME},
 
-you have received this email because {REPORTER} have reported a broken download on {SITENAME}.
-Use the following link to check this report:
+Vous recevez cet e-mail car {REPORTER} a signalé un téléchargement défectueux sur {SITENAME}.
+Utilisez le lien suivant pour consulter ce signalement :
 
----------------------------
 {U_DOWNLOAD}
+
 {REPORT_NOTIFY_TEXT}
----------------------------
 
 {BOARD_EMAIL}

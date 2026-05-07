@@ -22,14 +22,15 @@ if (empty($lang) || !is_array($lang))
 }
 
 // Social Network Permissions
-$lang['permission_cat']['socialnet'] = 'Social Network';
+$lang['permission_cat']['socialnet'] = 'Réseau social';
 
 // Adding the permissions
 $lang = array_merge($lang, array(
-	'acl_a_sn_settings'			 => array('lang' => 'Can edit Social Network settings', 'cat' => 'settings'),
-	'acl_u_sn_im'				 => array('lang' => 'Can use Instant Messenger', 'cat' => 'socialnet'),
-	'acl_u_sn_notify'			 => array('lang' => 'Can use notifications', 'cat' => 'socialnet'),
-	'acl_u_sn_userstatus'		 => array('lang' => 'Can use User status', 'cat' => 'socialnet'),
-	'acl_m_sn_close_reports'	 => array('lang' => 'Can close user reports', 'cat' => 'misc'),
+	'acl_a_sn_settings'			 => array('lang' => 'Peut modifier les paramètres du réseau social', 'cat' => 'settings'),
+	'acl_u_sn_im'				 => array('lang' => 'Peut utiliser la messagerie instantanée', 'cat' => 'socialnet'),
+	'acl_u_sn_notify'			 => array('lang' => 'Peut utiliser les notifications', 'cat' => 'socialnet'),
+	'acl_u_sn_userstatus'		 => array('lang' => 'Peut utiliser le statut utilisateur', 'cat' => 'socialnet'),
+	'acl_m_sn_close_reports'	 => array('lang' => 'Peut clôturer les signalements utilisateurs', 'cat' => 'misc'),
 ));
+
 

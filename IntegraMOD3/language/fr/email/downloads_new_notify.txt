@@ -1,18 +1,18 @@
-Subject: New Download
+Objet : Nouveau téléchargement
 
-Hello {USERNAME},
+Bonjour {USERNAME},
 
-You have received this email because there is a new download on {SITENAME} in the category {CATEGORY}:
+Vous recevez cet e-mail car il y a un nouveau téléchargement sur {SITENAME} dans la catégorie {CATEGORY} :
 
 ---------------------------
 {DOWNLOAD}
 {DESCRIPTION}
 ---------------------------
 
-If you want to take a look on this download click the following link:
+Si vous souhaitez consulter ce téléchargement, cliquez sur le lien suivant :
 
 {U_CATEGORY}
 
-Remember that you can always choose not to be notified about new or edited downloads by changing the appropriate setting in your download profile.
+N’oubliez pas que vous pouvez à tout moment choisir de ne plus être notifié des nouveaux téléchargements ou des modifications en changeant le paramètre approprié dans votre profil de téléchargement.
 
 {BOARD_EMAIL}

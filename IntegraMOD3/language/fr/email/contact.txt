@@ -1,12 +1,11 @@
-Subject: {SUBJECT}
+Objet : {SUBJECT}
 
-Hello {ADM_USERNAME},
+Bonjour {ADM_USERNAME},
 
-An individual by the name of "{USERNAME}" with an email address of "{USER_EMAIL}" and an IP address of "{USER_IP}" on "{DATE}" with a reason of "{REASON}" sent the following message:
+Une personne nommée « {USERNAME} », avec l’adresse e-mail « {USER_EMAIL} » et l’adresse IP « {USER_IP} », le « {DATE} », pour la raison suivante « {REASON} », a envoyé le message suivant :
 
 {MESSAGE}
 
-using the Contact form at "{SITENAME}".
-
+en utilisant le formulaire de contact sur « {SITENAME} ».
 
 {EMAIL_SIG}

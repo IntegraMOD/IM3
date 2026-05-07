@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* captcha_recaptcha_new [English]
+* captcha_recaptcha_new [French]
 *
 * @package language
 * @copyright (c) 2015 Vinny
@@ -34,18 +34,17 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'RECAPTCHA_NEW_LANG'			=> 'en', // reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
-	'RECAPTCHA_NEW_NOT_AVAILABLE'	=> 'In order to use reCAPTCHA v2, you must create an account on <a href="http://www.google.com/recaptcha/intro/index.html">www.google.com/recaptcha</a>.',
+	'RECAPTCHA_NEW_LANG'			=> 'fr', // reCAPTCHA supported 40+ languages listed here: https://developers.google.com/recaptcha/docs/language
+	'RECAPTCHA_NEW_NOT_AVAILABLE'	=> 'Pour utiliser reCAPTCHA v2, vous devez créer un compte sur <a href="http://www.google.com/recaptcha/intro/index.html">www.google.com/recaptcha</a>.',
 	'CAPTCHA_RECAPTCHA_NEW'			=> 'reCAPTCHA v2',
 
-	'RECAPTCHA_INCORRECT'			=> 'The solution you provided was incorrect',
-	'RECAPTCHA_NOSCRIPT'			=> 'Please enable JavaScript in your browser to load the challenge.',
+	'RECAPTCHA_INCORRECT'			=> 'La solution que vous avez fournie est incorrecte',
+	'RECAPTCHA_NOSCRIPT'			=> 'Veuillez activer JavaScript dans votre navigateur pour charger le défi.',
 
-	'RECAPTCHA_PUBLIC'				=> 'Public reCAPTCHA v2 key',
-	'RECAPTCHA_PUBLIC_EXPLAIN'		=> 'Your public reCAPTCHA v2 key. Keys can be obtained on <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a>.',
-	'RECAPTCHA_PRIVATE'				=> 'Private reCAPTCHA v2 key',
-	'RECAPTCHA_PRIVATE_EXPLAIN'		=> 'Your private reCaptcha key. Keys can be obtained on <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a>.',
+	'RECAPTCHA_PUBLIC'				=> 'Clé publique reCAPTCHA v2',
+	'RECAPTCHA_PUBLIC_EXPLAIN'		=> 'Votre clé publique reCAPTCHA v2. Les clés peuvent être obtenues sur <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a>.',
+	'RECAPTCHA_PRIVATE'				=> 'Clé privée reCAPTCHA v2',
+	'RECAPTCHA_PRIVATE_EXPLAIN'		=> 'Votre clé privée reCAPTCHA. Les clés peuvent être obtenues sur <a href="http://www.google.com/recaptcha">www.google.com/recaptcha</a>.',
 
-	'RECAPTCHA_NEW_EXPLAIN'			=> 'In an effort to prevent automatic submissions, we require that you complete the following challenge.',
+	'RECAPTCHA_NEW_EXPLAIN'			=> 'Afin d\'empêcher les soumissions automatiques, nous vous demandons de compléter le défi suivant.',
 ));
-

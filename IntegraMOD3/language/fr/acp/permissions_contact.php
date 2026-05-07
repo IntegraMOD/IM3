@@ -37,6 +37,6 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 
 	// Admin perms
-	'acl_a_contact'				=> array('lang' => 'Can manage contact board admin settings', 'cat' => 'permissions'), // Using a phpBB category here
+	'acl_a_contact'				=> array('lang' => 'Peut gérer les paramètres de contact de l’administration du forum', 'cat' => 'permissions'), // Using a phpBB category here
 ));
 

@@ -36,41 +36,41 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'ACP_SHOUTBOX_SETTINGS'				=> 'Ajax shoutbox settings',
-	'ACP_SHOUTBOX_SETTINGS_EXPLAIN'     => 'You will find some basic settings of the ajax shoutbox.',
-	'ACP_SHOUTBOX_OVERVIEW'             => 'Ajax shoutbox overview',
+	'ACP_SHOUTBOX_SETTINGS'				=> 'Paramètres de la shoutbox Ajax',
+	'ACP_SHOUTBOX_SETTINGS_EXPLAIN'     => 'Vous trouverez ici quelques paramètres de base de la shoutbox Ajax.',
+	'ACP_SHOUTBOX_OVERVIEW'             => 'Aperçu de la shoutbox Ajax',
 
 	// Overview
-	'AS_OVERVIEW'			=> 'MOD overview',
-	'AS_OVERVIEW_EXPLAIN'	=> 'Here below you will find some stats about the Ajax Shoutbox.<br />
-	If you find a bug, or want to request a feature, please visit our <a href="http://www.paulsohier.nl/ajax">trac</a>.<br />
-	Before submitting, please check first if the bug or feature isnt already reported. <br />
-	A lot information about the shoutbox, the development status and more can also be found at our trac.<br />
-	The permissions for the shoutbox can be found at the permission tab at the top, and then user or groups permissions.',
+	'AS_OVERVIEW'			=> 'Aperçu du MOD',
+	'AS_OVERVIEW_EXPLAIN'	=> 'Vous trouverez ci-dessous quelques statistiques sur la shoutbox Ajax.<br />
+	Si vous trouvez un bug ou souhaitez proposer une fonctionnalité, veuillez visiter notre <a href="http://www.paulsohier.nl/ajax">trac</a>.<br />
+	Avant de soumettre, veuillez vérifier si le bug ou la fonctionnalité n’a pas déjà été signalé(e). <br />
+	Beaucoup d’informations sur la shoutbox, son état de développement et plus encore sont également disponibles sur notre trac.<br />
+	Les permissions de la shoutbox se trouvent dans l’onglet permissions en haut, puis dans les permissions utilisateur ou groupe.',
 
 	
-	'AS_STATS'      => 'Shoutbox statistics',
-	'NUMBER_SHOUTS' => 'Total number of shouts',
-	'AS_VERSION'    => 'Shoutbox version',
-	'AS_OPTIONS'    => 'Shoutbox options',
-	'PURGE_AS'      => 'Delete all messages',
+	'AS_STATS'      => 'Statistiques de la shoutbox',
+	'NUMBER_SHOUTS' => 'Nombre total de messages',
+	'AS_VERSION'    => 'Version de la shoutbox',
+	'AS_OPTIONS'    => 'Options de la shoutbox',
+	'PURGE_AS'      => 'Supprimer tous les messages',
 	
-	'UNABLE_CONNECT'    => 'I was unable to connect to the version check server, I got this error: %s',
-	'NEW_VERSION'       => 'Your version of ajax shoutbox is not up to date. Your version is %1$s, the newest version is %2$s. Read <a href="%3$s">this</a> for more information',
+	'UNABLE_CONNECT'    => 'Impossible de se connecter au serveur de vérification de version, erreur : %s',
+	'NEW_VERSION'       => 'Votre version de la shoutbox Ajax n’est pas à jour. Votre version est %1$s, la version la plus récente est %2$s. Lisez <a href="%3$s">ceci</a> pour plus d’informations',
 	
 	
 	// Configuration
-	'AS_PRUNE_TIME'				=> 'Prune time',
-	'AS_PRUNE_TIME_EXPLAIN'		=> 'The time when the messages are pruned automaticcly. When maximum posts setting is enabled, that will overide this setting. Set this setting to 0 to disable',
-	'AS_MAX_POSTS'				=> 'Maximum number of shouts',
-	'AS_MAX_POSTS_EXPLAIN'		=> 'Maximum numbers of shouts. Set 0 to disable. If this setting if enabled, it will <strong>overide</strong> the prune setting!',
+	'AS_PRUNE_TIME'				=> 'Temps de purge',
+	'AS_PRUNE_TIME_EXPLAIN'		=> 'Temps après lequel les messages sont automatiquement supprimés. Si le paramètre du nombre maximum de messages est activé, il remplacera ce paramètre. Définissez cette valeur à 0 pour désactiver',
+	'AS_MAX_POSTS'				=> 'Nombre maximum de messages',
+	'AS_MAX_POSTS_EXPLAIN'		=> 'Nombre maximum de messages. Définissez 0 pour désactiver. Si ce paramètre est activé, il <strong>remplacera</strong> le paramètre de purge !',
 	
-	'AS_FLOOD_INTERVAL'         => 'Flood interval',
-	'AS_FLOOD_INTERVAL_EXPLAIN' => 'The time minimum time between 2 posts for users. Set 0 to disable.',
+	'AS_FLOOD_INTERVAL'         => 'Intervalle anti-flood',
+	'AS_FLOOD_INTERVAL_EXPLAIN' => 'Temps minimum entre deux messages pour les utilisateurs. Définissez 0 pour désactiver.',
 	
-	'AS_IE_NR'				=> 'Number of messages',
-	'AS_IE_NR_EXPLAIN'		=> 'The number of messages in internet explorer. Due to some IE bugs, you need to make it not to high.',
-	'AS_NON_IE_NR'			=> 'Number of messages',
-	'AS_NON_IE_NR_EXPLAIN'	=> 'The number of messages in other browser as IE.',
+	'AS_IE_NR'				=> 'Nombre de messages',
+	'AS_IE_NR_EXPLAIN'		=> 'Nombre de messages dans Internet Explorer. En raison de certains bugs d’IE, vous devez éviter de définir une valeur trop élevée.',
+	'AS_NON_IE_NR'			=> 'Nombre de messages',
+	'AS_NON_IE_NR_EXPLAIN'	=> 'Nombre de messages dans les autres navigateurs que IE.',
 ));
-?>
+

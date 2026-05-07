@@ -36,15 +36,13 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-
-	'IMG_NEWS_READ'					=> 'News',
-	'IMG_NEWS_READ_MINE'			=> 'News posted to',
-	'IMG_NEWS_READ_LOCKED'			=> 'News locked',
-	'IMG_NEWS_READ_LOCKED_MINE'		=> 'News locked posted to',
-	'IMG_NEWS_UNREAD'				=> 'News new posts',
-	'IMG_NEWS_UNREAD_MINE'			=> 'News posted to new',
-	'IMG_NEWS_UNREAD_LOCKED'		=> 'News locked new post',
-	'IMG_NEWS_UNREAD_LOCKED_MINE'	=> 'News locked posted to new',
-
+	'IMG_NEWS_READ'					=> 'Actualités',
+	'IMG_NEWS_READ_MINE'			=> 'Actualités auxquelles vous avez participé',
+	'IMG_NEWS_READ_LOCKED'			=> 'Actualités verrouillées',
+	'IMG_NEWS_READ_LOCKED_MINE'		=> 'Actualités verrouillées auxquelles vous avez participé',
+	'IMG_NEWS_UNREAD'				=> 'Nouvelles actualités',
+	'IMG_NEWS_UNREAD_MINE'			=> 'Actualités auxquelles vous avez participé (nouvelles)',
+	'IMG_NEWS_UNREAD_LOCKED'		=> 'Actualités verrouillées (nouveaux messages)',
+	'IMG_NEWS_UNREAD_LOCKED_MINE'	=> 'Actualités verrouillées auxquelles vous avez participé (nouveaux messages)',
 ));
 

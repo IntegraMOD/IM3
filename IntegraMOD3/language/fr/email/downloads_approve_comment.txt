@@ -1,16 +1,15 @@
-Subject: New Download Comment
+Objet : Nouveau commentaire de téléchargement
 
-Hello {USERNAME},
+Bonjour {USERNAME},
 
-you receive this email because of a new or edited download comment for {DOWNLOAD} on {SITENAME} in the category {CATEGORY} which must be approved.
+Vous recevez cet e-mail car un commentaire de téléchargement, nouveau ou modifié, pour {DOWNLOAD} sur {SITENAME}, dans la catégorie {CATEGORY}, doit être approuvé.
 
-If you want to approve this comment click the following link:
+Si vous souhaitez approuver ce commentaire, cliquez sur le lien suivant :
 
 {U_APPROVE}
 
-Or you can view this comment by using this second link:
+Ou vous pouvez consulter ce commentaire en utilisant ce second lien :
 
 {U_DOWNLOAD}
-
 
 {BOARD_EMAIL}

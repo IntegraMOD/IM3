@@ -40,19 +40,18 @@ $lang['permission_cat']['mchat'] = 'mChat';
 // Adding the permissions
 $lang = array_merge($lang, array(
 	// User perms
-	'acl_u_mchat_use'			=> array('lang' => 'Can use mChat', 'cat' => 'mchat'),
-	'acl_u_mchat_view'			=> array('lang' => 'Can view mChat', 'cat' => 'mchat'),
-	'acl_u_mchat_edit'			=> array('lang' => 'Can edit mChat messages', 'cat' => 'mchat'),
-	'acl_u_mchat_delete'		=> array('lang' => 'Can delete mChat messages', 'cat' => 'mchat'),
-	'acl_u_mchat_ip'			=> array('lang' => 'Can use view mChat IP addresses', 'cat' => 'mchat'),
-	'acl_u_mchat_flood_ignore'	=> array('lang' => 'Can ignore mChat flood', 'cat' => 'mchat'),
-	'acl_u_mchat_archive'		=> array('lang' => 'Can view the Archive', 'cat' => 'mchat'),
-	'acl_u_mchat_bbcode'		=> array('lang' => 'Can use bbcode in mChat', 'cat' => 'mchat'),
-	'acl_u_mchat_smilies'		=> array('lang' => 'Can use smilies in mChat', 'cat' => 'mchat'),
-	'acl_u_mchat_urls'			=> array('lang' => 'Can post urls in mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_use'			=> array('lang' => 'Peut utiliser mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_view'			=> array('lang' => 'Peut voir mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_edit'			=> array('lang' => 'Peut modifier les messages mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_delete'		=> array('lang' => 'Peut supprimer les messages mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_ip'			=> array('lang' => 'Peut voir les adresses IP mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_flood_ignore'	=> array('lang' => 'Peut ignorer l’anti-flood mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_archive'		=> array('lang' => 'Peut voir l’archive', 'cat' => 'mchat'),
+	'acl_u_mchat_bbcode'		=> array('lang' => 'Peut utiliser le BBCode dans mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_smilies'		=> array('lang' => 'Peut utiliser les smileys dans mChat', 'cat' => 'mchat'),
+	'acl_u_mchat_urls'			=> array('lang' => 'Peut poster des URLs dans mChat', 'cat' => 'mchat'),
 
 	// Admin perms
-	'acl_a_mchat'				=> array('lang' => 'Can manage mChat settings', 'cat' => 'permissions'), // Using a phpBB category here
+	'acl_a_mchat'				=> array('lang' => 'Peut gérer les paramètres mChat', 'cat' => 'permissions'),
 ));
 
-?>

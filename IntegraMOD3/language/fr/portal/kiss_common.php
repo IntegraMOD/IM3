@@ -366,6 +366,7 @@ $lang = array_merge($lang, array(
 	'TOOLS_ON'					=> 'Outils du portail',
 	'TOOLS_OFF'					=> 'Enregistrer les modifications',
 	'TOPICS_PER_FORUM_DISPLAY'	=> ' sujets par forum &bull; Affichage : ',
+	'TOTAL_LANGUAGES'           => 'Nombre total de langues disponibles',
 	'TOTAL_STYLES'				=> 'Nombre total de styles disponibles',
 
 	'UNDER_CONSTRUCTION'	=> "<strong>La page demandée est actuellement en construction...</strong><br /><br />Veuillez utiliser le bouton 'Retour' pour revenir à la page précédente.",
