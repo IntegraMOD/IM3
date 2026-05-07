@@ -30,10 +30,30 @@
 	phpBB style name: prosilver
 	Based on style:   prosilver (this is the default phpBB3 style)
 	Original author:  Tom Beddard ( http://www.subBlue.com/ )
-	Modified by:      ForumImages      
+	Modified by:
 -->
+
 <link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
 <link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" onload="this.media='all'" />
+<!-- ajaxlike -->
+<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/tipsy.css" rel="stylesheet" type="text/css" />
+
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="{T_THEME_PATH}/light.css" rel="stylesheet" type="text/css" title="light" id="light" />
+
+<script src="{ROOT_PATH}assets/js/jquery/jquery-3.6.0.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-migrate-1.4.1.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/jquery-ui-1.14.1.js"></script>
+
+<!-- IF S_MCHAT_ENABLE and (S_MCHAT_ON_INDEX or U_MCHAT) -->
+<script src="{ROOT_PATH}assets/js/jquery/jquery_cookie_mini.js"></script>
+<!-- ENDIF -->
+
+<!-- IF SCRIPT_NAME eq 'activitypage' or SCRIPT_NAME eq 'profile' or SCRIPT_NAME eq 'ucp' -->
+<!-- INCLUDE socialnet/overall_header_hook_css.html -->
+<!-- INCLUDE socialnet/overall_header_hook_js.html -->	
+<!-- ENDIF -->
 
 <script>
 // <![CDATA[
@@ -115,39 +135,87 @@ function checkCookieConsent() {
 }
 
 onload_functions.push('checkCookieConsent()');
+
 // ]]>
 </script>
-<script src="{ROOT_PATH}assets/js/jquery/jquery-3.7.1.js"></script>
-<script src="{ROOT_PATH}assets/js/jquery/jquery-migrate-1.4.1.js"></script>
-<script src="{ROOT_PATH}assets/js/jquery/jquery-ui-1.14.1.js"></script>
 <script src="{ROOT_PATH}assets/js/styleswitch.js"></script>
 <script src="{ROOT_PATH}assets/js/forum_fn.js"></script>
-<!-- Font Awesome 6.4.2 -->
-<script defer src="{ROOT_PATH}assets/js/all-custom.js"></script>
-<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<script src="{ROOT_PATH}assets/js/select_code.js"></script>
 
-<link href="{T_THEME_PATH}/light.css" rel="stylesheet" type="text/css" title="light" id="light" />
+<!-- Font Awesome 6.5.2  -->
+<!-- <link href="{ROOT_PATH}assets/css/all-custom.css" rel="stylesheet" type="text/css">  -->
+<script src="{ROOT_PATH}assets/js/all-custom.js"></script>
+
+
+<!-- IF S_NEW_DL_POPUP -->
+<script>
+// <![CDATA[
+	window.open('{U_NEW_DOWNLOAD_POPUP}', '_blank', 'HEIGHT=225,resizable=yes,WIDTH=400');
+// ]] >
+</script>
+<!-- ENDIF -->
+
+<!-- IF S_DL_LYTEBOX -->
+<script src="{ROOT_PATH}assets/js/lytebox/lytebox.js"></script>
+<link rel="stylesheet" type="text/css" href="{ROOT_PATH}assets/js/lytebox/lytebox.css" />
+<!-- ENDIF -->
+
+<!-- IF S_TOTAL_IMAGES -->
+<script src="{ROOT_PATH}assets/js/jquery/jquery.jcarousel.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{ROOT_PATH}assets/js/jquery/skins/tango/skin.css" />
+<!-- ENDIF -->
 
 <!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
-	<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
 <!-- ENDIF -->
-	
+
+<!-- IF STARGATE -->
+<!-- INCLUDE set-width.html -->
+<!-- INCLUDE portal_scripts.html -->
+<!-- ENDIF -->
+
+<!-- INCLUDE js.html -->
+
+<script> 
+// 
+function notes() { 
+	window.open("{U_PERS_NOTES_POPUP}", "_blank", "width=800,height=600,scrollbars=yes,resizable=no");
+} 
+// 
+</script>
+<!-- INCLUDE ads/ads.js -->
+
+<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+<!-- INCLUDE ./../../abbcode/abbcode_header.html -->
+<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
+<!-- INCLUDE gallery/plugins_header.html -->
+<!-- ajaxlike -->
+<script src="{ROOT_PATH}assets/js/jquery/jquery.tipsy.js"></script>
+<script src="{ROOT_PATH}assets/js/jquery/common.js"></script>
+
 </head>
 
-<body id="phpbb" class="section-{SCRIPT_NAME} {S_CONTENT_DIRECTION}">
-
+<body id="phpbb" class="section-{SCRIPT_NAME} {S_CONTENT_DIRECTION} {BODY_CLASS}<!-- IF SN_MODULE_IM_ENABLED --> sn-im-page<!-- ENDIF -->">
 <!-- IF S_COOKIE_CONSENT_ENABLE -->
 <!-- INCLUDE cookie_consent.html -->
+<!-- ENDIF -->
+<!-- IF STARGATE -->
+<div id="page-width" class="stylewidth">
 <!-- ENDIF -->
 
 <div id="wrap">
 	<a id="top" name="top" accesskey="t"></a>
 	<div id="page-header">
+		{ADS_1}
 		<div class="headerbar">
 			<div class="inner"><span class="corners-top"><span></span></span>
 
 			<div id="site-description">
-				<a href="{U_INDEX}" title="{FORUM_LABEL}" id="phpbb_logo"><span class="font-phpbb_logo"></span></a>
+				<!-- IF STARGATE -->
+					<a href="{U_PORTAL}" title="{PORTAL_LABEL}" id="logo">{SITE_LOGO_IMG}</a>
+				<!-- ELSE -->
+					<a href="{U_INDEX}" title="{FORUM_LABEL}" id="logo">{SITE_LOGO_IMG}</a>
+				<!-- ENDIF -->
 				<h1>{SITENAME}</h1>
 				<p>{SITE_DESCRIPTION}</p>
 				<p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
@@ -164,58 +232,208 @@ onload_functions.push('checkCookieConsent()');
 				</form>
 			</div>
 		<!-- ENDIF -->
-
 			<span class="corners-bottom"><span></span></span></div>
 		</div>
 
 		<div class="navbar">
 			<div class="inner"><span class="corners-top"><span></span></span>
 
-			<ul class="linklist navlinks">
-				<li><a href="{U_INDEX}" accesskey="h"><i class="fa-solid fa-house fa-lg"></i> {FORUM_LABEL}</a> <!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --></li>
-				<li class="lightstyle rightside"><a href="#" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-inverse fa-lg"></i></a></li>
-				<li class="darkstyle rightside"><a href="#" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg"></i></a></li> 
-				<!-- IF U_EMAIL_TOPIC --><li class="rightside"><a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class=""><i class="fa-regular fa-envelope fa-lg"></i></a></li><!-- ENDIF -->
-				<!-- IF U_EMAIL_PM --><li class="rightside"><a href="{U_EMAIL_PM}" title="{L_EMAIL_PM}" class=""><i class="fa-regular fa-envelope fa-lg"></i></a></li><!-- ENDIF -->
-				<!-- IF U_PRINT_TOPIC --><li class="rightside"><a href="{U_PRINT_TOPIC}" title="{L_PRINT_TOPIC}" accesskey="p" class=""><i class="fa-solid fa-print fa-lg"></i></a></li><!-- ENDIF -->
-				<!-- IF U_PRINT_PM --><li class="rightside"><a href="{U_PRINT_PM}" title="{L_PRINT_PM}" accesskey="p" class=""><i class="fa-solid fa-print fa-lg"></i></a></li><!-- ENDIF -->
+			<ul class="linklist2 navlinks">
+			    <!-- IF STARGATE -->
+				<li class="icon-home"><a href="{U_PORTAL}" accesskey="h">{PORTAL_LABEL}</a> &bull; <a href="{U_INDEX}" accesskey="h">{FORUM_LABEL}</a><!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
+			    <!-- ELSE -->
+				<li class="icon-home"><a href="{U_INDEX}" accesskey="h">{FORUM_LABEL}</a> <!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></li>
+			    <!-- ENDIF -->
+ 				<li class="rightside">
+				    <a class="lightstyle" href="javascript:void(0)" onclick="setActiveStyleSheet('light'); return false;" title="{L_STYLE_LIGHT}"><i class="fa-solid fa-lightbulb fa-inverse fa-lg"></i></a> 
+				    <a class="darkstyle" href="javascript:void(0)" onclick="setActiveStyleSheet('dark'); return false;" title="{L_STYLE_DARK}"><i class="fa-solid fa-lightbulb fa-lg"></i></a> 
+				</li>
+				<!-- IF STARGATE -->
+				<li class="rightside">
+				<!-- INCLUDE style_change_width.html -->
+				<!-- IF S_ARRANGE -->
+				<span style="display:inline;" id="OFF_">
+					&nbsp;<a href="{U_PORTAL}" onclick="ShowHide('ON_'); ShowHide('OFF_');" title="{L_ARRANGE_OFF}"><i class="fas fa-toolbox fa-lg" style="color: #02ae58;"></i></a>
+				</span>
+				<!-- ELSE -->
+				<span style="display:inline;" id="ON_">
+					&nbsp;<a href="{U_PORTAL_ARRANGE}" onclick="ShowHide('OFF_'); ShowHide('ON_');" title="{L_ARRANGE_ON}"><i class="fas fa-toolbox fa-lg"></i></a>
+				</span>
+				<!-- ENDIF -->
+				</li>
+				<!-- ENDIF -->
+				<!-- IF S_DONATE_ENABLED -->
+				<li class="rightside"><a href="{U_DONATE}" title="{L_DONATEINDEX}"><i class="fa-solid fa-circle-dollar-to-slot fa-xl"></i></a></li>
+				<!-- ENDIF -->
+				<!-- IF U_EMAIL_TOPIC --><li class="rightside"><a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class="sendemail">{L_EMAIL_TOPIC}</a></li><!-- ENDIF -->
+				<!-- IF U_EMAIL_PM --><li class="rightside"><a href="{U_EMAIL_PM}" title="{L_EMAIL_PM}" class="sendemail">{L_EMAIL_PM}</a></li><!-- ENDIF -->
+				<!-- IF U_PRINT_TOPIC --><li class="rightside"><a href="{U_PRINT_TOPIC}" title="{L_PRINT_TOPIC}" accesskey="p" class="print">{L_PRINT_TOPIC}</a></li><!-- ENDIF -->
+				<!-- IF U_PRINT_PM --><li class="rightside"><a href="{U_PRINT_PM}" title="{L_PRINT_PM}" accesskey="p" class="print">{L_PRINT_PM}</a></li><!-- ENDIF -->
 			</ul>
 
 			<!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
 			<ul class="linklist leftside">
 				<li>
-					<a href="{U_PROFILE}" title="{L_PROFILE}" accesskey="e"><i class="fa-solid fa-sliders fa-lg"></i> {L_PROFILE}</a>
-						<!-- IF S_DISPLAY_PM --> (<a href="{U_PRIVATEMSGS}">{PRIVATE_MESSAGE_INFO}</a>)<!-- ENDIF -->
-					<!-- IF S_DISPLAY_SEARCH --> &bull;
-					<a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a>
-					<!-- ENDIF -->
-					<!-- IF U_RESTORE_PERMISSIONS --> &bull;
+				    <!-- IF not S_IS_BOT and not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+				    <a href="{U_REGISTER}" title="{L_REGISTER}"><i class="fa-regular fa-handshake fa-lg"></i> {L_REGISTER}</a>
+				    <!-- ENDIF -->
+				    <!-- IF not S_IS_BOT and not S_USER_LOGGED_IN --> 
+				    <a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a>
+				    <!-- ENDIF -->	
+					<!-- IF S_DISPLAY_PM --> <a href="{U_PRIVATEMSGS}"><i class="fa-regular fa-message fa-lg"></i> {PRIVATE_MESSAGE_INFO}</a> &bull; <!-- ENDIF -->
+                    <a href="{U_SEARCH_NEW}">{L_NEW_POST}</a>
+				    <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED --> &bull; 
+				    <span id="sn-ntf-notify"><a href="{U_VIEW_NOTIFY}" class="snbadge">{S_SN_USER_UNREAD_NOTIFY}</a></span><a href="{U_SN_ACTIVITYPAGE}"> {L_SN_AP_ACTIVITYPAGE}</a>
+				    <!-- ENDIF -->					
+					<!-- IF S_SHOW_MEETING and L_MEETING_LINK_N --> &bull; 
+				    <a href="{U_MEETING_LINK_N}" title="{L_MEETING}">{L_MEETING_LINK_N}</a>
+				    <!-- ENDIF -->
+					<!-- IF U_RESTORE_PERMISSIONS --> &bull; 
 					<a href="{U_RESTORE_PERMISSIONS}">{L_RESTORE_PERMISSIONS}</a>
 					<!-- ENDIF -->
+                    <!-- Ajax like notification -->
+                    <!-- IF AJAXLIKE_ENABLE --> &bull; 
+                    <a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><span id="ajaxlike_not_new"><strong><span class="badge">{AL_NEW_LIKE}</span></strong>{L_AL_LIKE_NEW}</span></a>
+					<!-- ENDIF -->
+                    <!-- Ajax like notification -->
+					<!-- IF U_USER_FLAG_NEW --> &bull; 
+					<a href="{U_USER_FLAG_NEW}" style="color: red; font-weight: bold;">{L_USER_FLAG_NEW}</a>
+					<!-- ENDIF -->
 				</li>
+				<!-- IF S_HACKLIST_ON --> &bull; <li class="icon-hacklist"><a href="{U_HACKLIST}" title="{L_HACKLIST}">{L_HACKLIST}</a></li><!-- ENDIF -->
+				<!-- IF S_BUGTRACKER_ON --> &bull; <li class="icon-tracker"><a href="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}">{L_BUG_TRACKER}</a></li><!-- ENDIF -->
 			</ul>
 			<!-- ENDIF -->
 
-			<ul class="linklist rightside">
-				<li><a href="{U_FAQ}" title="{L_FAQ_EXPLAIN}"><i class="fa-solid fa-circle-question fa-lg"></i> {L_FAQ}</a></li>
-				<!-- IF not S_IS_BOT -->
-					<!-- IF S_DISPLAY_MEMBERLIST --><li><a href="{U_MEMBERLIST}" title="{L_MEMBERLIST_EXPLAIN}"><i class="fa-solid fa-user-group fa-lg"></i> {L_MEMBERLIST}</a></li><!-- ENDIF -->
-					<!-- IF not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) --><li><a href="{U_REGISTER}"><i class="fa-solid fa-pen-to-square fa-lg"></i> {L_REGISTER}</a></li><!-- ENDIF -->
-					<li><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a></li>
+			<!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
+			<div class="dropdown" tabindex="0">
+			<button class="dropdown-btn" aria-haspopup="membermenu"><span class="username">{S_USERNAME}&nbsp;</span><span class="arrow"></span></button>
+			<ul class="dropdown-content" role="membermenu">
+				<!-- IF SN_MODULE_PROFILE_ENABLED -->
+				<li style="--delay: 1;"><a href="{U_SN_MY_PROFILE}" title="{L_SN_MYPROFILE}"><i class="fa-solid fa-user fa-lg"></i> <strong>{S_USERNAME}</strong></a></li>
+				<!-- ELSE -->
+				<li style="--delay: 1;"><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><i class="fa-solid fa-user fa-lg"></i> {L_READ_PROFILE}</a></li>
+				<!-- ENDIF -->
+				<li style="--delay: 2;"><a href="{U_PROFILE}" title="{L_PROFILE}" accesskey="e"><i class="fa-solid fa-user-gear fa-lg"></i> {L_PROFILE}</a></li>
+	            <!-- IF S_DISPLAY_SEARCH -->
+				<li style="--delay: 3;"><a href="{U_SEARCH_SELF}"><i class="fa-regular fa-file fa-lg"></i> {L_SEARCH_SELF}</a></li>
+				<!-- ENDIF -->
+				<!-- IF S_SHOW_NOTES -->
+				<li style="--delay: 4;"><a href="{U_PERS_NOTES}"><i class="fa-solid fa-note-sticky"></i> {L_PERS_NOTES}</a></li>
+				<!-- ENDIF -->
+				<!-- Start Ultimate Points -->
+				<!-- IF S_POINTS_ENABLE -->
+				<li style="--delay: 5;"><a href="{U_POINTS}" title="{L_POINTS_EXPLAIN}"><i class="fa-solid fa-sack-dollar fa-lg"></i> {POINTS_LINK}<!-- IF S_USER_LOGGED_IN and S_USE_POINTS --> [ {USER_POINTS} ] <!-- ENDIF --></a></li>
+				<!-- ENDIF -->
+				<!-- End Ultimate Points -->
+                <!-- IF AJAXLIKE_ENABLE -->
+				<li style="--delay: 6;"><a href="#" onclick="ajaxlike_liked_listbox('{AJAXLIKE_NOTIFY_CALLBACK}'); return false;"><i class="fa-solid fa-thumbs-up fa-lg"></i><span id="ajaxlike_not_new"><strong> {AL_NEW_LIKE}</strong>{L_AL_LIKE_NEW}</span></a></li>
+				<!-- ENDIF -->
+				<li style="--delay: 7;"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a></li>
+                <!-- IF U_ACP -->
+				<li style="--delay: 8;"><a href="{U_ACP}"><i class="fa-solid fa-gears fa-lg"></i> {L_ACP}</a></li>
 				<!-- ENDIF -->
 			</ul>
-
+			</div>
+			<!-- ENDIF -->
+			<div>
+			<ul class="linklist rightside">
+			<!-- IF not S_IS_BOT and not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+				<li><a href="{U_REGISTER}" title="{L_REGISTER}"><i class="fa-regular fa-handshake fa-lg"></i><b> {L_REGISTER}</b></a></li>
+				<!-- ENDIF -->
+				<!-- IF not S_IS_BOT and not S_USER_LOGGED_IN --> 
+				<li><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i><b> {L_LOGIN_LOGOUT}</b></a></li>
+				<!-- ENDIF -->
+		    </ul>
+			</div>
+			<div class="dropdown" tabindex="1">
+			<button class="dropdown-btn" aria-haspopup="menu"><span><b><i class="fa-solid fa-bars fa-lg"></i></b> {L_LINKS}</span></button>
+			<ul class="dropdown-content" role="menu">
+				<!-- IF not S_IS_BOT and not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+				<li style="--delay: 1;"><a href="{U_REGISTER}" title="{L_REGISTER}"><i class="fa-regular fa-handshake fa-lg"></i> {L_REGISTER}</a></li>
+				<!-- ENDIF -->
+				<!-- IF not S_IS_BOT and not S_USER_LOGGED_IN --> 
+				<li style="--delay: 1;"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a></li>
+				<!-- ENDIF -->
+ 				<!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED -->
+				<li style="--delay: 2;"><a href="{U_SN_ACTIVITYPAGE}"><i class="fa-regular fa-pen-to-square fa-lg"></i> {L_SN_AP_ACTIVITYPAGE}</a></li>
+				<!-- ENDIF -->	
+				<!-- IF S_SHOW_CAL -->
+				<li style="--delay: 5;"><a href="{U_CALENDAR}" title="{L_CALENDAR}"><i class="fa-regular fa-calendar-days fa-lg"></i> {L_LANG_CALENDAR}</a></li>
+				<!-- ENDIF -->
+				<!-- IF S_MCHAT_ENABLE and U_MCHAT -->
+				<li style="--delay: 3;"><a href="{U_MCHAT}#mChat" title="{L_CHAT_EXPLAIN}"><i class="fa-solid fa-comment fa-lg"></i> {L_CHAT}</a></li>
+				<!-- ENDIF -->				
+				<!-- IF S_SHOW_CONTACT and S_CONTACT_ENABLED -->
+				<li style="--delay: 7;"><a href="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><i class="fa-solid fa-message fa-lg"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
+				<!-- ENDIF --> 	
+				<!-- IF S_SHOW_DLS and S_SHOW_DL_LINK-->
+				<li style="--delay: 9;"><a href="{U_DL_NAVS}" title="{L_DOWNLOADS}"><i class="fa-solid fa-file-arrow-down fa-lg"></i> {L_DOWNLOADS}</a></li>
+				<!-- ENDIF -->			
+				<!-- IF S_SHOW_FAQ -->
+				<li style="--delay: 8;"><a href="{U_FAQ}" title="{L_FAQ_EXPLAIN}"><i class="fa-solid fa-circle-question fa-lg"></i> {L_FAQ}</a></li>
+				<!-- ENDIF -->
+				<!-- IF S_SHOW_GALL -->
+				<li style="--delay: 6;"><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image fa-lg"></i> {L_GALLERY}</a></li>
+				<!-- ENDIF -->				
+				<!-- IF S_SHOW_KB -->
+				<li style="--delay: 4;"><a href="{U_KB}" title="{L_KNOWLEDGE_BASE}" accesskey="k"><i class="fa-solid fa-circle-info fa-lg"></i> {L_KNOWLEDGE_BASE}</a></li>
+				<!-- ENDIF -->				
+				<!-- IF S_SHOW_MEM and S_DISPLAY_MEMBERLIST -->
+				<li style="--delay: 2;"><a href="{U_MEMBERLIST}" title="{L_MEMBERLIST_EXPLAIN}"><i class="fa-solid fa-user-group fa-lg"></i> {L_MEMBERLIST}</a></li>
+				<!-- ENDIF -->
+				<!-- BEGIN blog_links -->
+				<li style="--delay: 3;"><a href="{blog_links.URL}"><i class="fa-solid fa-book-open-reader fa-lg"></i> {blog_links.TEXT}</a></li>
+				<!-- END blog_links -->
+				
+		    </ul>
+		    </div>
 			<span class="corners-bottom"><span></span></span></div>
 		</div>
-
 	</div>
 
+	<!-- IF ADS_2 -->
+	<br />
+	<div class="forabg">
+		<div class="inner"><span class="corners-top"><span></span></span>
+			<ul class="topiclist">
+				<li class="header">
+					<dl class="icon">
+						<dt>{L_ADVERTISEMENT}</dt>
+					</dl>
+				</li>
+			</ul>
+			<div class="panel" style="padding: 5px 5px 2px 5px; margin: 0px auto; text-align: center;">
+				{ADS_2}
+			</div>
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+	<!-- ENDIF -->
 	<a name="start_here"></a>
 	<div id="page-body">
+
+		<!-- IF S_NEW_DL_MESSAGE -->
+			<div id="message" class="rules">
+				<div class="inner"><span class="corners-top"><span></span></span>
+					{NEW_DOWNLOAD_MESSAGE}
+				<span class="corners-bottom"><span></span></span></div>
+			</div>
+		<!-- ENDIF -->
+
+		<!-- IF S_NOTES_MEM -->
+			<div id="message" class="rules">
+				<div class="inner"><span class="corners-top"><span></span></span>
+					{NOTES_MEM}
+				<span class="corners-bottom"><span></span></span></div>
+			</div>
+		<!-- ENDIF -->
 		<!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN and (U_MCP or U_ACP) -->
 		<div id="information" class="rules">
 			<div class="inner"><span class="corners-top"><span></span></span>
 				<strong>{L_INFORMATION}:</strong> {L_BOARD_DISABLED}
 			<span class="corners-bottom"><span></span></span></div>
 		</div>
+		<!-- ENDIF -->
+		<!-- IF STARGATE -->
+			<!-- INCLUDE portal_header.html -->
 		<!-- ENDIF -->

@@ -198,12 +198,14 @@ function displayBlocks(c, e, t)
 function selectCode(a)
 {
 	// Get ID of code block
-	var e = a.parentNode.parentNode.getElementsByTagName('DIV')[1];
+	var divs = a.parentNode.parentNode.getElementsByTagName('DIV');
+	var e = divs.length > 1 ? divs[1] : divs[0];
 
 	// Not IE and IE9+
 	if (window.getSelection)
 	{
 		var s = window.getSelection();
+
 		// Safari
 		if (s.setBaseAndExtent)
 		{
@@ -212,7 +214,7 @@ function selectCode(a)
 		// Firefox and Opera
 		else
 		{
-			// workaround for bug # 42885
+			// workaround for bug #42885
 			if (window.opera && e.innerHTML.substring(e.innerHTML.length - 4) == '<BR>')
 			{
 				e.innerHTML = e.innerHTML + '&nbsp;';
@@ -243,7 +245,7 @@ function selectCode(a)
 }
 
 /**
-* Play quicktime file by determining it's width/height
+* Play quicktime file by determining its width/height
 * from the displayed rectangle area
 */
 function play_qt_file(obj)
@@ -253,10 +255,10 @@ function play_qt_file(obj)
 	if (rectangle)
 	{
 		rectangle = rectangle.split(',');
-		var x1 = parseInt(rectangle[0]);
-		var x2 = parseInt(rectangle[2]);
-		var y1 = parseInt(rectangle[1]);
-		var y2 = parseInt(rectangle[3]);
+		var x1 = parseInt(rectangle[0], 10);
+		var x2 = parseInt(rectangle[2], 10);
+		var y1 = parseInt(rectangle[1], 10);
+		var y2 = parseInt(rectangle[3], 10);
 
 		var width = (x1 < 0) ? (x1 * -1) + x2 : x2 - x1;
 		var height = (y1 < 0) ? (y1 * -1) + y2 : y2 - y1;
@@ -274,19 +276,24 @@ function play_qt_file(obj)
 	obj.Play();
 }
 
-function linenumberOnOff(id){
+function linenumberOnOff(id)
+{
 	var parent = document.getElementById(id);
 	var holder = parent.parentNode;
+	var first = parent.firstElementChild;
 
-	if (parent.firstChild.nodeName == "OL"){
+	if (first.nodeName === "OL")
+	{
 		var show = 'hide';
-	} else if (parent.firstChild.nodeName == "DIV"){
+	}
+	else if (first.nodeName === "DIV")
+	{
 		var show = 'show';
 	}
 
-	if (show == 'hide'){
+	if (show == 'hide')
+	{
 		var child = parent.getElementsByTagName("ol");
-
 		var children = child[0].childNodes;
 
 		var replacement = document.createElement("div");
@@ -294,28 +301,32 @@ function linenumberOnOff(id){
 		replacement.setAttribute("class", parent.getAttribute("class"));
 		replacement.setAttribute("className", parent.getAttribute("className"));
 		replacement.setAttribute("style", parent.getAttribute("style"));
-		
-		for (var b = 0; b <= children.length - 1; b++){
-			if (children[b].nodeType == 1){
+
+		for (var b = 0; b < children.length; b++)
+		{
+			if (children[b].nodeType == 1)
+			{
 				var row = document.createElement("div");
 
 				row.setAttribute("class", children[b].getAttribute("class"));
 				row.setAttribute("className", children[b].getAttribute("className"));
-				row.setAttribute("style", children[b].getAttribute("style") + "; border-left: none;");
-				row.style.cssText = 'border-left: none;';
+				row.style.cssText = (children[b].getAttribute("style") || '') + '; border-left: none;';
 
 				var rowdata = children[b].childNodes;
 
-				for (var c = 0; c <= rowdata.length - 1; c++){
+				for (var c = 0; c < rowdata.length; c++)
+				{
 					row.appendChild(rowdata[c].cloneNode(true));
 				}
 
 				replacement.appendChild(row);
 			}
 		}
-		
+
 		holder.replaceChild(replacement, parent);
-	} else {
+	}
+	else
+	{
 		var replacement = document.createElement("div");
 		replacement.setAttribute("id", id);
 		replacement.setAttribute("class", parent.getAttribute("class"));
@@ -323,18 +334,19 @@ function linenumberOnOff(id){
 		replacement.setAttribute("style", parent.getAttribute("style"));
 
 		var list = document.createElement("ol");
-
 		var dds = parent.getElementsByTagName("div");
 
-		for (var b = 0; b <= dds.length -1; b++){
+		for (var b = 0; b < dds.length; b++)
+		{
 			var row = document.createElement("li");
 			row.setAttribute("class", dds[b].getAttribute("class"));
 			row.setAttribute("className", dds[b].getAttribute("className"));
-			row.setAttribute("style", dds[b].getAttribute('style') + "; border-left: 1px solid #999;");
+			row.setAttribute("style", (dds[b].getAttribute("style") || '') + '; border-left: 1px solid #999;');
 
 			var rowdata = dds[b].childNodes;
 
-			for (var c = 0; c <= rowdata.length - 1; c++){
+			for (var c = 0; c < rowdata.length; c++)
+			{
 				row.appendChild(rowdata[c].cloneNode(true));
 			}
 
@@ -346,15 +358,19 @@ function linenumberOnOff(id){
 	}
 }
 
-function expandCode(id){
+function expandCode(id)
+{
 	var parent = document.getElementById(id);
 
-	if (parent.style.display === 'block' || parent.style.display === ''){
-		parent.style.display = 'none';
-	} else {
+	if (window.getComputedStyle(parent).display === 'none')
+	{
 		parent.style.display = 'block';
 	}
-}	
+	else
+	{
+		parent.style.display = 'none';
+	}
+}
 
 /**
 * Check if the nodeName of elem is name
