@@ -93,7 +93,7 @@ $lang = array_merge($lang, array(
 $lang = array_merge($lang, array(
 	'ADMIN_OPTIONS'           => 'Admin Options',
 	'BUG_TRACKER'             => 'Bug Tracker',
-	'TRANSLATE_SITE'          => '<strong>Translate site to...</strong>',
+	'TRANSLATE_SITE'          => '<strong>Taal selecteren</strong>',
 	'TRANSLATE_RESET'         => '<strong>Reset to original language</strong>',
 	'ANNOUNCEMENTS_AND_NEWS'  => 'News and Announcements',
 ));

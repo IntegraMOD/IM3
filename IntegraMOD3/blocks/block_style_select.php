@@ -111,4 +111,3 @@ $template->assign_vars(array(
 	'STYLE_COUNT'	=> $style_count,
 	'S_SHOW_PERM'	=> ($this_page[0] == 'portal') ? true : false,
 ));
-?>

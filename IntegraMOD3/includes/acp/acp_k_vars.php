@@ -54,17 +54,25 @@ class acp_k_vars
 		if (isset($block))
 		{
 			$sql = "SELECT id, title, var_file_name
-				FROM ". K_BLOCKS_TABLE . "
-				WHERE id = " . (int)$block;
+				FROM " . K_BLOCKS_TABLE . "
+				WHERE id = " . (int) $block;
 			$result = $db->sql_query($sql);
 
 			$row = $db->sql_fetchrow($result);
 
-			$title = strtoupper((string) $row['title']);
-			$title = str_replace(' ','_', (string) $row['title']);
-
-			$block_id = $row['id'];
-			$var_file_name = $row['var_file_name'];
+			if ($row)
+			{
+				$title = strtoupper(str_replace(' ', '_', (string) $row['title']));
+				$block_id = (int) $row['id'];
+				$var_file_name = $row['var_file_name'];
+			}
+			else
+			{
+				// handle missing block (important!)
+				$title = '';
+				$block_id = 0;
+				$var_file_name = '';
+			}
 
 			$db->sql_freeresult($result);
 			get_all_groups();
