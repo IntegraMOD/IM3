@@ -856,20 +856,42 @@ class session
 
 			unset($cookie_expire);
 
-			$sql = 'SELECT COUNT(session_id) AS sessions
-					FROM ' . SESSIONS_TABLE . '
-					WHERE session_user_id = ' . (int) $this->data['user_id'] . '
-					AND session_time >= ' . (int) ($this->time_now - (max($config['session_length'], $config['form_token_lifetime'])));
-			$result = $db->sql_query($sql);
-			$row = $db->sql_fetchrow($result);
-			$db->sql_freeresult($result);
+// Cap session scan window
+$session_scan_window = 3600;
 
-			if ((int) $row['sessions'] <= 1 || empty($this->data['user_form_salt']))
+// Only check if MORE than one session exists (no COUNT)
+$sql = 'SELECT session_id
+        FROM ' . SESSIONS_TABLE . '
+        WHERE session_user_id = ' . (int) $this->data['user_id'] . '
+        AND session_time >= ' . (int) ($this->time_now - $session_scan_window) . '
+        LIMIT 2';
+
+$result = $db->sql_query($sql);
+
+$session_count = 0;
+while ($db->sql_fetchrow($result))
+{
+    $session_count++;
+}
+$db->sql_freeresult($result);
+
+if ($session_count <= 1 || empty($this->data['user_form_salt']))
+{
+    $this->data['user_form_salt'] = unique_id();
+
+    $sql = 'UPDATE ' . USERS_TABLE . '
+        SET user_form_salt = \'' . $db->sql_escape($this->data['user_form_salt']) . '\'
+        WHERE user_id = ' . (int) $this->data['user_id'];
+    $db->sql_query($sql);
+}
+
+			// Delay updating last visit to preserve unread posts
+			$update_threshold = 86400; // 24 hours (adjust as needed)
+
+			if (($this->time_now - (int) $this->data['session_last_visit']) > $update_threshold)
 			{
-				$this->data['user_form_salt'] = unique_id();
-				// Update the form key
 				$sql = 'UPDATE ' . USERS_TABLE . '
-					SET user_form_salt = \'' . $db->sql_escape($this->data['user_form_salt']) . '\'
+					SET user_lastvisit = ' . (int) $this->data['session_time'] . '
 					WHERE user_id = ' . (int) $this->data['user_id'];
 				$db->sql_query($sql);
 			}
@@ -878,7 +900,7 @@ class session
 		{
 			$this->data['session_time'] = $this->data['session_last_visit'] = $this->time_now;
 
-			// Update the last visit time
+			// Keep bot behavior unchanged (always update last visit)
 			$sql = 'UPDATE ' . USERS_TABLE . '
 				SET user_lastvisit = ' . (int) $this->data['session_time'] . '
 				WHERE user_id = ' . (int) $this->data['user_id'];

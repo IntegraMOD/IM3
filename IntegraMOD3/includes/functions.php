@@ -4421,17 +4421,7 @@ function phpbb_filter_root_path($errfile)
 */
 function obtain_guest_count($item_id = 0, $item = 'forum')
 {
-	global $db, $config, $cache;
-
-	// Unique cache key per context
-	$cache_key = '_guest_count_' . $item . '_' . (int)$item_id;
-
-	$guests_online = $cache->get($cache_key);
-
-	if ($guests_online !== false)
-	{
-		return (int) $guests_online;
-	}
+	global $db, $config;
 
 	if ($item_id)
 	{
@@ -4441,11 +4431,10 @@ function obtain_guest_count($item_id = 0, $item = 'forum')
 	{
 		$reading_sql = '';
 	}
+	$time = (time() - (intval($config['load_online_time']) * 60));
 
-	$time = (time() - ((int)$config['load_online_time'] * 60));
-	$time = $time - ($time % 60);
+	// Get number of online guests
 
-	// Original query (unchanged logic)
 	if ($db->sql_layer === 'sqlite')
 	{
 		$sql = 'SELECT COUNT(session_ip) as num_guests
@@ -4453,29 +4442,24 @@ function obtain_guest_count($item_id = 0, $item = 'forum')
 				SELECT DISTINCT s.session_ip
 				FROM ' . SESSIONS_TABLE . ' s
 				WHERE s.session_user_id = ' . ANONYMOUS . '
-					AND s.session_time >= ' . $time .
-				$reading_sql . '
-			)';
+					AND s.session_time >= ' . ($time - ((int) ($time % 60))) .
+				$reading_sql .
+			')';
 	}
 	else
 	{
 		$sql = 'SELECT COUNT(DISTINCT s.session_ip) as num_guests
 			FROM ' . SESSIONS_TABLE . ' s
 			WHERE s.session_user_id = ' . ANONYMOUS . '
-				AND s.session_time >= ' . $time .
+				AND s.session_time >= ' . ($time - ((int) ($time % 60))) .
 			$reading_sql;
 	}
-
 	$result = $db->sql_query($sql);
 	$guests_online = (int) $db->sql_fetchfield('num_guests');
 	$db->sql_freeresult($result);
 
-	// Cache for 60 seconds
-	$cache->put($cache_key, $guests_online, 60);
-
 	return $guests_online;
 }
-
 
 /**
 * Queries the session table to get information about online users
