@@ -1,8 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" xml:lang="{S_USER_LANG}">
+<!DOCTYPE html>
+<html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}">
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset={S_CONTENT_ENCODING}" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Language" content="{S_USER_LANG}" />
 <meta http-equiv="imagetoolbar" content="no" />
@@ -183,7 +185,7 @@ function switch_menu()
 		<div id="tabs">
 			<ul>
 			<!-- BEGIN t_block1 -->
-				<li<!-- IF t_block1.S_SELECTED --> id="activetab"<!-- ENDIF -->><a href="{t_block1.U_TITLE}"><span>{t_block1.L_TITLE}</span></a></li>
+				<li class="tab<!-- IF t_block1.S_SELECTED --> activetab<!-- ENDIF -->"><a href="{t_block1.U_TITLE}">{t_block1.L_TITLE}</a></li>
 			<!-- END t_block1 -->
 			</ul>
 		</div>
@@ -205,7 +207,10 @@ function switch_menu()
 	
 						<!-- BEGIN l_block2 -->
 							<!-- IF .l_block1.l_block2.l_block3 -->
-							<li class="header">{l_block1.l_block2.L_TITLE}</li>
+							<!-- IF $LI_USED --></ul></div><!-- ENDIF -->
+							<div class="menu-block">
+								<a class="header" href="javascript:void(0);">{l_block1.l_block2.L_TITLE}</a>
+								<ul>
 							<!-- DEFINE $LI_USED = 1 -->
 							<!-- ENDIF -->
 	
@@ -217,8 +222,9 @@ function switch_menu()
 						
 							<!-- ENDIF -->
 						<!-- END l_block1 -->
-						<!-- IF not $LI_USED -->
-							<li></li>
+						<!-- IF $LI_USED -->
+								</ul>
+							</div>
 						<!-- ENDIF -->
 						</ul>
 					</div>
