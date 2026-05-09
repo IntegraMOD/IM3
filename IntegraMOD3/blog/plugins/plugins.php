@@ -137,7 +137,7 @@ class blog_plugins
 		// If the template file does not exist, we will have the system fall back and use the one in the prosilver folder
 		if (!file_exists($tpl_path . $template_file))
 		{
-			$template_path = '../../../styles/prosilver/template/';
+			$template_path = '../../../styles/_portal_common/template/';
 
 			if (!file_exists($tpl_path . $template_path . $template_file))
 			{
