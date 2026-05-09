@@ -1394,7 +1394,7 @@ CREATE TABLE phpbb_kb_article (
 	rating mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (article_id),
 	KEY activ (activ),
- titel_fulltext (titel)
+	KEY titel_fulltext (titel)
 );
 
 
@@ -1683,8 +1683,7 @@ CREATE TABLE phpbb_mchat_config (
 CREATE TABLE phpbb_mchat_sessions (
 	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	user_lastupdate int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	user_ip varbinary(40) DEFAULT '' NOT NULL,
-	KEY user_lastupdate_user (user_lastupdate, user_id)
+	user_ip varbinary(40) DEFAULT '' NOT NULL
 );
 
 
@@ -2273,12 +2272,9 @@ CREATE TABLE phpbb_sessions (
 	session_album_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (session_id),
 	KEY session_time (session_time),
-	KEY session_user_time (session_user_id, session_time),
 	KEY session_user_id (session_user_id),
 	KEY session_fid (session_forum_id),
-	KEY session_aid (session_album_id),
-	KEY session_user_id_ip (session_user_id, session_ip),
-	KEY session_guest_time_ip (session_user_id, session_time, session_ip)
+	KEY session_aid (session_album_id)
 );
 
 
@@ -2333,6 +2329,62 @@ CREATE TABLE phpbb_smilies (
 );
 
 
+# Table: 'phpbb_sn_addons'
+CREATE TABLE phpbb_sn_addons (
+	addon_id int(8) UNSIGNED NOT NULL auto_increment,
+	addon_placeholder int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	addon_name varbinary(64) DEFAULT '' NOT NULL,
+	addon_php varbinary(32) DEFAULT '' NOT NULL,
+	addon_function varbinary(32) DEFAULT '' NOT NULL,
+	addon_active smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
+	addon_order int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (addon_id),
+	UNIQUE u (addon_placeholder, addon_name, addon_php, addon_function),
+	KEY a (addon_name, addon_php, addon_active),
+	KEY b (addon_order)
+);
+
+
+# Table: 'phpbb_sn_addons_placeholder'
+CREATE TABLE phpbb_sn_addons_placeholder (
+	ph_id int(8) UNSIGNED NOT NULL auto_increment,
+	ph_script varbinary(64) DEFAULT '' NOT NULL,
+	ph_block varbinary(16) DEFAULT '' NOT NULL,
+	PRIMARY KEY (ph_id),
+	UNIQUE u (ph_script, ph_block),
+	KEY a (ph_script),
+	KEY b (ph_block)
+);
+
+
+# Table: 'phpbb_sn_comments'
+CREATE TABLE phpbb_sn_comments (
+	cmt_id mediumint(8) UNSIGNED NOT NULL auto_increment,
+	cmt_module mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	cmt_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	cmt_mid mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	cmt_poster mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	cmt_text blob NOT NULL,
+	bbcode_bitfield varbinary(255) DEFAULT '' NOT NULL,
+	bbcode_uid varbinary(8) DEFAULT '' NOT NULL,
+	PRIMARY KEY (cmt_id),
+	KEY a (cmt_module),
+	KEY b (cmt_time),
+	KEY c (cmt_module, cmt_mid),
+	KEY d (cmt_module, cmt_mid, cmt_time),
+	KEY e (cmt_module, cmt_mid, cmt_time, cmt_poster)
+);
+
+
+# Table: 'phpbb_sn_comments_modules'
+CREATE TABLE phpbb_sn_comments_modules (
+	cmtmd_id mediumint(8) UNSIGNED NOT NULL auto_increment,
+	cmtmd_name varbinary(255) DEFAULT '' NOT NULL,
+	PRIMARY KEY (cmtmd_id),
+	UNIQUE a (cmtmd_name)
+);
+
+
 # Table: 'phpbb_sn_config'
 CREATE TABLE phpbb_sn_config (
 	config_name varbinary(255) DEFAULT '' NOT NULL,
@@ -2340,6 +2392,201 @@ CREATE TABLE phpbb_sn_config (
 	is_dynamic tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (config_name),
 	KEY a (is_dynamic)
+);
+
+
+# Table: 'phpbb_sn_emotes'
+CREATE TABLE phpbb_sn_emotes (
+	emote_id int(8) UNSIGNED NOT NULL auto_increment,
+	emote_name varbinary(255) DEFAULT '' NOT NULL,
+	emote_image varbinary(255) DEFAULT '' NOT NULL,
+	emote_order int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (emote_id),
+	UNIQUE u (emote_name),
+	KEY a (emote_name, emote_order),
+	KEY b (emote_order)
+);
+
+
+# Table: 'phpbb_sn_entries'
+CREATE TABLE phpbb_sn_entries (
+	entry_id mediumint(8) UNSIGNED NOT NULL auto_increment,
+	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	entry_target mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	entry_type int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	entry_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	entry_additionals blob NOT NULL,
+	PRIMARY KEY (entry_id),
+	KEY a (user_id, entry_target, entry_type, entry_time)
+);
+
+
+# Table: 'phpbb_sn_family'
+CREATE TABLE phpbb_sn_family (
+	id mediumint(8) UNSIGNED NOT NULL auto_increment,
+	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	relative_user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	status_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	approved tinyint(1) DEFAULT '0' NOT NULL,
+	anniversary varbinary(10) DEFAULT '' NOT NULL,
+	family tinyint(1) DEFAULT '0' NOT NULL,
+	name varbinary(255) DEFAULT '' NOT NULL,
+	PRIMARY KEY (id),
+	KEY a (user_id),
+	KEY b (relative_user_id),
+	KEY c (status_id),
+	KEY d (approved)
+);
+
+
+# Table: 'phpbb_sn_fms_groups'
+CREATE TABLE phpbb_sn_fms_groups (
+	fms_gid mediumint(8) UNSIGNED NOT NULL auto_increment,
+	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	fms_name varbinary(255) DEFAULT '' NOT NULL,
+	fms_clean varbinary(255) DEFAULT '' NOT NULL,
+	fms_collapse tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (fms_gid),
+	UNIQUE a (user_id, fms_name),
+	KEY b (user_id),
+	KEY c (fms_gid, user_id),
+	UNIQUE d (user_id, fms_clean),
+	KEY e (user_id, fms_clean)
+);
+
+
+# Table: 'phpbb_sn_fms_users_group'
+CREATE TABLE phpbb_sn_fms_users_group (
+	fms_gid mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	owner_id int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (fms_gid, user_id, owner_id),
+	KEY a (user_id),
+	KEY b (fms_gid),
+	KEY c (fms_gid, owner_id),
+	KEY d (owner_id, user_id)
+);
+
+
+# Table: 'phpbb_sn_im'
+CREATE TABLE phpbb_sn_im (
+	im_id mediumint(8) UNSIGNED NOT NULL auto_increment,
+	uid_from mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	uid_to mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	message blob NOT NULL,
+	sent decimal(20,3) DEFAULT '0' NOT NULL,
+	recd tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	bbcode_bitfield varbinary(255) DEFAULT '' NOT NULL,
+	bbcode_uid varbinary(8) DEFAULT '' NOT NULL,
+	PRIMARY KEY (im_id),
+	KEY a (uid_to, recd, sent),
+	KEY b (uid_from, uid_to, sent),
+	KEY c (sent)
+);
+
+
+# Table: 'phpbb_sn_im_chatboxes'
+CREATE TABLE phpbb_sn_im_chatboxes (
+	uid_from mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	uid_to mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	username_to varbinary(255) DEFAULT '' NOT NULL,
+	starttime int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	UNIQUE a (uid_from, uid_to),
+	KEY b (uid_from, uid_to, starttime)
+);
+
+
+# Table: 'phpbb_sn_menu'
+CREATE TABLE phpbb_sn_menu (
+	button_id mediumint(8) UNSIGNED NOT NULL auto_increment,
+	button_url blob NOT NULL,
+	button_name varbinary(255) DEFAULT '' NOT NULL,
+	button_external tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	button_display tinyint(1) UNSIGNED DEFAULT '1' NOT NULL,
+	button_only_registered tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	button_only_guest tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	left_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	right_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	parent_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (button_id),
+	KEY a (left_id),
+	KEY b (right_id),
+	KEY c (parent_id),
+	KEY d (parent_id, left_id)
+);
+
+
+# Table: 'phpbb_sn_notify'
+CREATE TABLE phpbb_sn_notify (
+	ntf_id int(11) UNSIGNED NOT NULL auto_increment,
+	ntf_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	ntf_type smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
+	ntf_user mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	ntf_poster mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	ntf_read smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
+	ntf_change int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	ntf_data blob NOT NULL,
+	PRIMARY KEY (ntf_id),
+	KEY a (ntf_user, ntf_read, ntf_time),
+	KEY b (ntf_read, ntf_time),
+	KEY c (ntf_read, ntf_change)
+);
+
+
+# Table: 'phpbb_sn_profile_visitors'
+CREATE TABLE phpbb_sn_profile_visitors (
+	profile_uid mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	visitor_uid mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	visit_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	KEY a (profile_uid, visit_time),
+	KEY b (visitor_uid),
+	KEY c (visit_time)
+);
+
+
+# Table: 'phpbb_sn_reports'
+CREATE TABLE phpbb_sn_reports (
+	report_id mediumint(8) UNSIGNED NOT NULL auto_increment,
+	reason_id smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
+	report_text blob NOT NULL,
+	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	reporter mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	report_closed tinyint(1) DEFAULT '0' NOT NULL,
+	PRIMARY KEY (report_id),
+	KEY a (report_closed, user_id),
+	KEY b (reporter)
+);
+
+
+# Table: 'phpbb_sn_reports_reasons'
+CREATE TABLE phpbb_sn_reports_reasons (
+	reason_id smallint(4) UNSIGNED NOT NULL auto_increment,
+	reason_text blob NOT NULL,
+	PRIMARY KEY (reason_id)
+);
+
+
+# Table: 'phpbb_sn_smilies'
+CREATE TABLE phpbb_sn_smilies (
+	smiley_id int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	smiley_allowed tinyint(1) DEFAULT '0' NOT NULL,
+	PRIMARY KEY (smiley_id)
+);
+
+
+# Table: 'phpbb_sn_status'
+CREATE TABLE phpbb_sn_status (
+	status_id mediumint(8) UNSIGNED NOT NULL auto_increment,
+	poster_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
+	status_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	status_text blob NOT NULL,
+	bbcode_bitfield varbinary(255) DEFAULT '' NOT NULL,
+	bbcode_uid varbinary(8) DEFAULT '' NOT NULL,
+	page_data blob NOT NULL,
+	wall_id int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (status_id),
+	KEY a (poster_id, status_time),
+	KEY b (wall_id, status_time)
 );
 
 
@@ -2378,249 +2625,6 @@ CREATE TABLE phpbb_sn_users (
 	profile_views int(11) UNSIGNED DEFAULT '0' NOT NULL,
 	profile_last_change int(11) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (user_id)
-);
-
-
-# Table: 'phpbb_sn_im'
-CREATE TABLE phpbb_sn_im (
-	uid_from mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	uid_to mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	message blob NOT NULL,
-	sent decimal(20,3) DEFAULT '0' NOT NULL,
-	recd tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	bbcode_bitfield varbinary(255) DEFAULT '' NOT NULL,
-	bbcode_uid varbinary(8) DEFAULT '' NOT NULL,
-	KEY a (sent)
-);
-
-
-# Table: 'phpbb_sn_im_chatboxes'
-CREATE TABLE phpbb_sn_im_chatboxes (
-	uid_from mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	uid_to mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	username_to varbinary(255) DEFAULT '' NOT NULL,
-	starttime int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	UNIQUE a (uid_from, uid_to),
-	KEY b (uid_from, uid_to, starttime)
-);
-
-
-# Table: 'phpbb_sn_status'
-CREATE TABLE phpbb_sn_status (
-	status_id mediumint(8) UNSIGNED NOT NULL auto_increment,
-	poster_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	status_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	status_text blob NOT NULL,
-	bbcode_bitfield varbinary(255) DEFAULT '' NOT NULL,
-	bbcode_uid varbinary(8) DEFAULT '' NOT NULL,
-	page_data blob NOT NULL,
-	wall_id int(8) UNSIGNED DEFAULT '0' NOT NULL,
-	PRIMARY KEY (status_id),
-	KEY b (poster_id, status_time)
-);
-
-
-# Table: 'phpbb_sn_entries'
-CREATE TABLE phpbb_sn_entries (
-	entry_id mediumint(8) UNSIGNED NOT NULL auto_increment,
-	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	entry_target mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	entry_type int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	entry_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	entry_additionals blob NOT NULL,
-	PRIMARY KEY (entry_id),
-	KEY a (user_id, entry_target, entry_type, entry_time)
-);
-
-
-# Table: 'phpbb_sn_notify'
-CREATE TABLE phpbb_sn_notify (
-	ntf_id int(11) UNSIGNED NOT NULL auto_increment,
-	ntf_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	ntf_type smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
-	ntf_user mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	ntf_poster mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	ntf_read smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
-	ntf_change int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	ntf_data blob NOT NULL,
-	PRIMARY KEY (ntf_id),
-	KEY a (ntf_read, ntf_user),
-	KEY b (ntf_read, ntf_time),
-	KEY c (ntf_read, ntf_change)
-);
-
-
-# Table: 'phpbb_sn_reports'
-CREATE TABLE phpbb_sn_reports (
-	report_id mediumint(8) UNSIGNED NOT NULL auto_increment,
-	reason_id smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
-	report_text blob NOT NULL,
-	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	reporter mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	report_closed tinyint(1) DEFAULT '0' NOT NULL,
-	PRIMARY KEY (report_id)
-);
-
-
-# Table: 'phpbb_sn_reports_reasons'
-CREATE TABLE phpbb_sn_reports_reasons (
-	reason_id smallint(4) UNSIGNED NOT NULL auto_increment,
-	reason_text blob NOT NULL,
-	PRIMARY KEY (reason_id)
-);
-
-
-# Table: 'phpbb_sn_menu'
-CREATE TABLE phpbb_sn_menu (
-	button_id mediumint(8) UNSIGNED NOT NULL auto_increment,
-	button_url blob NOT NULL,
-	button_name varbinary(255) DEFAULT '' NOT NULL,
-	button_external tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	button_display tinyint(1) UNSIGNED DEFAULT '1' NOT NULL,
-	button_only_registered tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	button_only_guest tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	left_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	right_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	parent_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	PRIMARY KEY (button_id),
-	KEY a (left_id),
-	KEY b (right_id),
-	KEY c (parent_id),
-	KEY d (parent_id)
-);
-
-
-# Table: 'phpbb_sn_family'
-CREATE TABLE phpbb_sn_family (
-	id mediumint(8) UNSIGNED NOT NULL auto_increment,
-	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	relative_user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	status_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	approved tinyint(1) DEFAULT '0' NOT NULL,
-	anniversary varbinary(10) DEFAULT '' NOT NULL,
-	family tinyint(1) DEFAULT '0' NOT NULL,
-	name varbinary(255) DEFAULT '' NOT NULL,
-	PRIMARY KEY (id),
-	KEY a (user_id),
-	KEY b (relative_user_id),
-	KEY c (status_id),
-	KEY d (approved)
-);
-
-
-# Table: 'phpbb_sn_profile_visitors'
-CREATE TABLE phpbb_sn_profile_visitors (
-	profile_uid mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	visitor_uid mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	visit_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	KEY a (profile_uid),
-	KEY b (visitor_uid),
-	KEY c (visit_time)
-);
-
-
-# Table: 'phpbb_sn_fms_groups'
-CREATE TABLE phpbb_sn_fms_groups (
-	fms_gid mediumint(8) UNSIGNED NOT NULL auto_increment,
-	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	fms_name varbinary(255) DEFAULT '' NOT NULL,
-	fms_clean varbinary(255) DEFAULT '' NOT NULL,
-	fms_collapse tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	UNIQUE a (user_id, fms_name),
-	KEY b (fms_gid, user_id),
-	KEY c (user_id),
-	KEY d (fms_gid, user_id, fms_clean),
-	KEY e (fms_gid, user_id, fms_clean, fms_collapse),
-	UNIQUE f (user_id, fms_clean)
-);
-
-
-# Table: 'phpbb_sn_fms_users_group'
-CREATE TABLE phpbb_sn_fms_users_group (
-	fms_gid mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	user_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	owner_id int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	PRIMARY KEY (fms_gid, user_id, owner_id),
-	KEY a (user_id),
-	KEY b (fms_gid),
-	KEY c (fms_gid, owner_id)
-);
-
-
-# Table: 'phpbb_sn_comments_modules'
-CREATE TABLE phpbb_sn_comments_modules (
-	cmtmd_id mediumint(8) UNSIGNED NOT NULL auto_increment,
-	cmtmd_name varbinary(255) DEFAULT '' NOT NULL,
-	PRIMARY KEY (cmtmd_id, cmtmd_name),
-	UNIQUE a (cmtmd_name)
-);
-
-
-# Table: 'phpbb_sn_comments'
-CREATE TABLE phpbb_sn_comments (
-	cmt_id mediumint(8) UNSIGNED NOT NULL auto_increment,
-	cmt_module mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	cmt_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	cmt_mid mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	cmt_poster mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	cmt_text blob NOT NULL,
-	bbcode_bitfield varbinary(255) DEFAULT '' NOT NULL,
-	bbcode_uid varbinary(8) DEFAULT '' NOT NULL,
-	PRIMARY KEY (cmt_id, cmt_module, cmt_mid),
-	KEY a (cmt_module),
-	KEY b (cmt_time),
-	KEY c (cmt_module, cmt_mid),
-	KEY d (cmt_module, cmt_mid, cmt_time),
-	KEY e (cmt_module, cmt_mid, cmt_time, cmt_poster)
-);
-
-
-# Table: 'phpbb_sn_emotes'
-CREATE TABLE phpbb_sn_emotes (
-	emote_id int(8) UNSIGNED NOT NULL auto_increment,
-	emote_name varbinary(255) DEFAULT '' NOT NULL,
-	emote_image varbinary(255) DEFAULT '' NOT NULL,
-	emote_order int(8) UNSIGNED DEFAULT '0' NOT NULL,
-	PRIMARY KEY (emote_id),
-	UNIQUE u (emote_name),
-	KEY a (emote_name, emote_order),
-	KEY b (emote_order)
-);
-
-
-# Table: 'phpbb_sn_addons_placeholder'
-CREATE TABLE phpbb_sn_addons_placeholder (
-	ph_id int(8) UNSIGNED NOT NULL auto_increment,
-	ph_script varbinary(64) DEFAULT '' NOT NULL,
-	ph_block varbinary(16) DEFAULT '' NOT NULL,
-	PRIMARY KEY (ph_id),
-	UNIQUE u (ph_script, ph_block),
-	KEY a (ph_script),
-	KEY b (ph_block)
-);
-
-
-# Table: 'phpbb_sn_addons'
-CREATE TABLE phpbb_sn_addons (
-	addon_id int(8) UNSIGNED NOT NULL auto_increment,
-	addon_placeholder int(8) UNSIGNED DEFAULT '0' NOT NULL,
-	addon_name varbinary(64) DEFAULT '' NOT NULL,
-	addon_php varbinary(32) DEFAULT '' NOT NULL,
-	addon_function varbinary(32) DEFAULT '' NOT NULL,
-	addon_active smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
-	addon_order int(8) UNSIGNED DEFAULT '0' NOT NULL,
-	PRIMARY KEY (addon_id),
-	UNIQUE u (addon_placeholder, addon_name, addon_php, addon_function),
-	KEY a (addon_name, addon_php, addon_active),
-	KEY b (addon_order)
-);
-
-
-# Table: 'phpbb_sn_smilies'
-CREATE TABLE phpbb_sn_smilies (
-	smiley_id int(8) UNSIGNED DEFAULT '0' NOT NULL,
-	smiley_allowed tinyint(1) DEFAULT '0' NOT NULL,
-	PRIMARY KEY (smiley_id)
 );
 
 

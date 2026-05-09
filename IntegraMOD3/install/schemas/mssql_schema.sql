@@ -2332,7 +2332,7 @@ GO
 CREATE  INDEX [activ] ON [phpbb_kb_article]([activ])
 GO
 
- [titel_fulltext] ON [phpbb_kb_article]([titel])
+CREATE  INDEX [titel_fulltext] ON [phpbb_kb_article]([titel])
 GO
 
 
@@ -3900,6 +3900,118 @@ GO
 
 
 /*
+	Table: 'phpbb_sn_addons'
+*/
+CREATE TABLE [phpbb_sn_addons] (
+	[addon_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[addon_placeholder] [int] DEFAULT (0) NOT NULL ,
+	[addon_name] [varchar] (64) DEFAULT ('') NOT NULL ,
+	[addon_php] [varchar] (32) DEFAULT ('') NOT NULL ,
+	[addon_function] [varchar] (32) DEFAULT ('') NOT NULL ,
+	[addon_active] [int] DEFAULT (0) NOT NULL ,
+	[addon_order] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_addons] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_addons] PRIMARY KEY  CLUSTERED 
+	(
+		[addon_id]
+	)
+GO
+
+CREATE  UNIQUE  INDEX [u] ON [phpbb_sn_addons]([addon_placeholder], [addon_name], [addon_php], [addon_function])
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_addons]([addon_name], [addon_php], [addon_active])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_addons]([addon_order])
+GO
+
+
+/*
+	Table: 'phpbb_sn_addons_placeholder'
+*/
+CREATE TABLE [phpbb_sn_addons_placeholder] (
+	[ph_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[ph_script] [varchar] (64) DEFAULT ('') NOT NULL ,
+	[ph_block] [varchar] (16) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_addons_placeholder] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_addons_placeholder] PRIMARY KEY  CLUSTERED 
+	(
+		[ph_id]
+	)
+GO
+
+CREATE  UNIQUE  INDEX [u] ON [phpbb_sn_addons_placeholder]([ph_script], [ph_block])
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_addons_placeholder]([ph_script])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_addons_placeholder]([ph_block])
+GO
+
+
+/*
+	Table: 'phpbb_sn_comments'
+*/
+CREATE TABLE [phpbb_sn_comments] (
+	[cmt_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[cmt_module] [int] DEFAULT (0) NOT NULL ,
+	[cmt_time] [int] DEFAULT (0) NOT NULL ,
+	[cmt_mid] [int] DEFAULT (0) NOT NULL ,
+	[cmt_poster] [int] DEFAULT (0) NOT NULL ,
+	[cmt_text] [varchar] (8000) DEFAULT ('') NOT NULL ,
+	[bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_comments] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_comments] PRIMARY KEY  CLUSTERED 
+	(
+		[cmt_id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_comments]([cmt_module])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_comments]([cmt_time])
+GO
+
+CREATE  INDEX [c] ON [phpbb_sn_comments]([cmt_module], [cmt_mid])
+GO
+
+CREATE  INDEX [d] ON [phpbb_sn_comments]([cmt_module], [cmt_mid], [cmt_time])
+GO
+
+CREATE  INDEX [e] ON [phpbb_sn_comments]([cmt_module], [cmt_mid], [cmt_time], [cmt_poster])
+GO
+
+
+/*
+	Table: 'phpbb_sn_comments_modules'
+*/
+CREATE TABLE [phpbb_sn_comments_modules] (
+	[cmtmd_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[cmtmd_name] [varchar] (255) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_comments_modules] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_comments_modules] PRIMARY KEY  CLUSTERED 
+	(
+		[cmtmd_id]
+	)
+GO
+
+CREATE  UNIQUE  INDEX [a] ON [phpbb_sn_comments_modules]([cmtmd_name])
+GO
+
+
+/*
 	Table: 'phpbb_sn_config'
 */
 CREATE TABLE [phpbb_sn_config] (
@@ -3916,6 +4028,391 @@ ALTER TABLE [phpbb_sn_config] WITH NOCHECK ADD
 GO
 
 CREATE  INDEX [a] ON [phpbb_sn_config]([is_dynamic])
+GO
+
+
+/*
+	Table: 'phpbb_sn_emotes'
+*/
+CREATE TABLE [phpbb_sn_emotes] (
+	[emote_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[emote_name] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[emote_image] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[emote_order] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_emotes] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_emotes] PRIMARY KEY  CLUSTERED 
+	(
+		[emote_id]
+	)
+GO
+
+CREATE  UNIQUE  INDEX [u] ON [phpbb_sn_emotes]([emote_name])
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_emotes]([emote_name], [emote_order])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_emotes]([emote_order])
+GO
+
+
+/*
+	Table: 'phpbb_sn_entries'
+*/
+CREATE TABLE [phpbb_sn_entries] (
+	[entry_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[entry_target] [int] DEFAULT (0) NOT NULL ,
+	[entry_type] [int] DEFAULT (0) NOT NULL ,
+	[entry_time] [int] DEFAULT (0) NOT NULL ,
+	[entry_additionals] [varchar] (8000) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_entries] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_entries] PRIMARY KEY  CLUSTERED 
+	(
+		[entry_id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_entries]([user_id], [entry_target], [entry_type], [entry_time])
+GO
+
+
+/*
+	Table: 'phpbb_sn_family'
+*/
+CREATE TABLE [phpbb_sn_family] (
+	[id] [int] IDENTITY (1, 1) NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[relative_user_id] [int] DEFAULT (0) NOT NULL ,
+	[status_id] [int] DEFAULT (0) NOT NULL ,
+	[approved] [int] DEFAULT (0) NOT NULL ,
+	[anniversary] [varchar] (10) DEFAULT ('') NOT NULL ,
+	[family] [int] DEFAULT (0) NOT NULL ,
+	[name] [varchar] (255) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_family] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_family] PRIMARY KEY  CLUSTERED 
+	(
+		[id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_family]([user_id])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_family]([relative_user_id])
+GO
+
+CREATE  INDEX [c] ON [phpbb_sn_family]([status_id])
+GO
+
+CREATE  INDEX [d] ON [phpbb_sn_family]([approved])
+GO
+
+
+/*
+	Table: 'phpbb_sn_fms_groups'
+*/
+CREATE TABLE [phpbb_sn_fms_groups] (
+	[fms_gid] [int] IDENTITY (1, 1) NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[fms_name] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[fms_clean] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[fms_collapse] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_fms_groups] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_fms_groups] PRIMARY KEY  CLUSTERED 
+	(
+		[fms_gid]
+	)
+GO
+
+CREATE  UNIQUE  INDEX [a] ON [phpbb_sn_fms_groups]([user_id], [fms_name])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_fms_groups]([user_id])
+GO
+
+CREATE  INDEX [c] ON [phpbb_sn_fms_groups]([fms_gid], [user_id])
+GO
+
+CREATE  UNIQUE  INDEX [d] ON [phpbb_sn_fms_groups]([user_id], [fms_clean])
+GO
+
+CREATE  INDEX [e] ON [phpbb_sn_fms_groups]([user_id], [fms_clean])
+GO
+
+
+/*
+	Table: 'phpbb_sn_fms_users_group'
+*/
+CREATE TABLE [phpbb_sn_fms_users_group] (
+	[fms_gid] [int] DEFAULT (0) NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[owner_id] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_fms_users_group] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_fms_users_group] PRIMARY KEY  CLUSTERED 
+	(
+		[fms_gid],
+		[user_id],
+		[owner_id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_fms_users_group]([user_id])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_fms_users_group]([fms_gid])
+GO
+
+CREATE  INDEX [c] ON [phpbb_sn_fms_users_group]([fms_gid], [owner_id])
+GO
+
+CREATE  INDEX [d] ON [phpbb_sn_fms_users_group]([owner_id], [user_id])
+GO
+
+
+/*
+	Table: 'phpbb_sn_im'
+*/
+CREATE TABLE [phpbb_sn_im] (
+	[im_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[uid_from] [int] DEFAULT (0) NOT NULL ,
+	[uid_to] [int] DEFAULT (0) NOT NULL ,
+	[message] [varchar] (8000) DEFAULT ('') NOT NULL ,
+	[sent] [float] DEFAULT (0) NOT NULL ,
+	[recd] [int] DEFAULT (0) NOT NULL ,
+	[bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_im] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_im] PRIMARY KEY  CLUSTERED 
+	(
+		[im_id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_im]([uid_to], [recd], [sent])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_im]([uid_from], [uid_to], [sent])
+GO
+
+CREATE  INDEX [c] ON [phpbb_sn_im]([sent])
+GO
+
+
+/*
+	Table: 'phpbb_sn_im_chatboxes'
+*/
+CREATE TABLE [phpbb_sn_im_chatboxes] (
+	[uid_from] [int] DEFAULT (0) NOT NULL ,
+	[uid_to] [int] DEFAULT (0) NOT NULL ,
+	[username_to] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[starttime] [int] DEFAULT (0) NOT NULL ,
+	[mssqlindex] [int] IDENTITY (1, 1) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_im_chatboxes] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_im_chatboxes] PRIMARY KEY  CLUSTERED 
+	(
+		[mssqlindex]
+	)
+GO
+
+CREATE  UNIQUE  INDEX [a] ON [phpbb_sn_im_chatboxes]([uid_from], [uid_to])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_im_chatboxes]([uid_from], [uid_to], [starttime])
+GO
+
+
+/*
+	Table: 'phpbb_sn_menu'
+*/
+CREATE TABLE [phpbb_sn_menu] (
+	[button_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[button_url] [varchar] (8000) DEFAULT ('') NOT NULL ,
+	[button_name] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[button_external] [int] DEFAULT (0) NOT NULL ,
+	[button_display] [int] DEFAULT (1) NOT NULL ,
+	[button_only_registered] [int] DEFAULT (0) NOT NULL ,
+	[button_only_guest] [int] DEFAULT (0) NOT NULL ,
+	[left_id] [int] DEFAULT (0) NOT NULL ,
+	[right_id] [int] DEFAULT (0) NOT NULL ,
+	[parent_id] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_menu] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_menu] PRIMARY KEY  CLUSTERED 
+	(
+		[button_id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_menu]([left_id])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_menu]([right_id])
+GO
+
+CREATE  INDEX [c] ON [phpbb_sn_menu]([parent_id])
+GO
+
+CREATE  INDEX [d] ON [phpbb_sn_menu]([parent_id], [left_id])
+GO
+
+
+/*
+	Table: 'phpbb_sn_notify'
+*/
+CREATE TABLE [phpbb_sn_notify] (
+	[ntf_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[ntf_time] [int] DEFAULT (0) NOT NULL ,
+	[ntf_type] [int] DEFAULT (0) NOT NULL ,
+	[ntf_user] [int] DEFAULT (0) NOT NULL ,
+	[ntf_poster] [int] DEFAULT (0) NOT NULL ,
+	[ntf_read] [int] DEFAULT (0) NOT NULL ,
+	[ntf_change] [int] DEFAULT (0) NOT NULL ,
+	[ntf_data] [varchar] (8000) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_notify] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_notify] PRIMARY KEY  CLUSTERED 
+	(
+		[ntf_id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_notify]([ntf_user], [ntf_read], [ntf_time])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_notify]([ntf_read], [ntf_time])
+GO
+
+CREATE  INDEX [c] ON [phpbb_sn_notify]([ntf_read], [ntf_change])
+GO
+
+
+/*
+	Table: 'phpbb_sn_profile_visitors'
+*/
+CREATE TABLE [phpbb_sn_profile_visitors] (
+	[profile_uid] [int] DEFAULT (0) NOT NULL ,
+	[visitor_uid] [int] DEFAULT (0) NOT NULL ,
+	[visit_time] [int] DEFAULT (0) NOT NULL ,
+	[mssqlindex] [int] IDENTITY (1, 1) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_profile_visitors] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_profile_visitors] PRIMARY KEY  CLUSTERED 
+	(
+		[mssqlindex]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_profile_visitors]([profile_uid], [visit_time])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_profile_visitors]([visitor_uid])
+GO
+
+CREATE  INDEX [c] ON [phpbb_sn_profile_visitors]([visit_time])
+GO
+
+
+/*
+	Table: 'phpbb_sn_reports'
+*/
+CREATE TABLE [phpbb_sn_reports] (
+	[report_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[reason_id] [int] DEFAULT (0) NOT NULL ,
+	[report_text] [varchar] (8000) DEFAULT ('') NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[reporter] [int] DEFAULT (0) NOT NULL ,
+	[report_closed] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_reports] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_reports] PRIMARY KEY  CLUSTERED 
+	(
+		[report_id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_reports]([report_closed], [user_id])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_reports]([reporter])
+GO
+
+
+/*
+	Table: 'phpbb_sn_reports_reasons'
+*/
+CREATE TABLE [phpbb_sn_reports_reasons] (
+	[reason_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[reason_text] [varchar] (8000) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_reports_reasons] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_reports_reasons] PRIMARY KEY  CLUSTERED 
+	(
+		[reason_id]
+	)
+GO
+
+
+/*
+	Table: 'phpbb_sn_smilies'
+*/
+CREATE TABLE [phpbb_sn_smilies] (
+	[smiley_id] [int] DEFAULT (0) NOT NULL ,
+	[smiley_allowed] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_smilies] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_smilies] PRIMARY KEY  CLUSTERED 
+	(
+		[smiley_id]
+	)
+GO
+
+
+/*
+	Table: 'phpbb_sn_status'
+*/
+CREATE TABLE [phpbb_sn_status] (
+	[status_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[poster_id] [int] DEFAULT (0) NOT NULL ,
+	[status_time] [int] DEFAULT (0) NOT NULL ,
+	[status_text] [varchar] (8000) DEFAULT ('') NOT NULL ,
+	[bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL ,
+	[page_data] [varchar] (8000) NOT NULL ,
+	[wall_id] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_sn_status] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_sn_status] PRIMARY KEY  CLUSTERED 
+	(
+		[status_id]
+	)
+GO
+
+CREATE  INDEX [a] ON [phpbb_sn_status]([poster_id], [status_time])
+GO
+
+CREATE  INDEX [b] ON [phpbb_sn_status]([wall_id], [status_time])
 GO
 
 
@@ -3961,492 +4458,6 @@ ALTER TABLE [phpbb_sn_users] WITH NOCHECK ADD
 	CONSTRAINT [PK_phpbb_sn_users] PRIMARY KEY  CLUSTERED 
 	(
 		[user_id]
-	)
-GO
-
-
-/*
-	Table: 'phpbb_sn_im'
-*/
-CREATE TABLE [phpbb_sn_im] (
-	[uid_from] [int] DEFAULT (0) NOT NULL ,
-	[uid_to] [int] DEFAULT (0) NOT NULL ,
-	[message] [varchar] (8000) DEFAULT ('') NOT NULL ,
-	[sent] [float] DEFAULT (0) NOT NULL ,
-	[recd] [int] DEFAULT (0) NOT NULL ,
-	[bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL ,
-	[mssqlindex] [int] IDENTITY (1, 1) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_im] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_im] PRIMARY KEY  CLUSTERED 
-	(
-		[mssqlindex]
-	)
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_im]([sent])
-GO
-
-
-/*
-	Table: 'phpbb_sn_im_chatboxes'
-*/
-CREATE TABLE [phpbb_sn_im_chatboxes] (
-	[uid_from] [int] DEFAULT (0) NOT NULL ,
-	[uid_to] [int] DEFAULT (0) NOT NULL ,
-	[username_to] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[starttime] [int] DEFAULT (0) NOT NULL ,
-	[mssqlindex] [int] IDENTITY (1, 1) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_im_chatboxes] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_im_chatboxes] PRIMARY KEY  CLUSTERED 
-	(
-		[mssqlindex]
-	)
-GO
-
-CREATE  UNIQUE  INDEX [a] ON [phpbb_sn_im_chatboxes]([uid_from], [uid_to])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_im_chatboxes]([uid_from], [uid_to], [starttime])
-GO
-
-
-/*
-	Table: 'phpbb_sn_status'
-*/
-CREATE TABLE [phpbb_sn_status] (
-	[status_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[poster_id] [int] DEFAULT (0) NOT NULL ,
-	[status_time] [int] DEFAULT (0) NOT NULL ,
-	[status_text] [varchar] (8000) DEFAULT ('') NOT NULL ,
-	[bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL ,
-	[page_data] [varchar] (8000) NOT NULL ,
-	[wall_id] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_status] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_status] PRIMARY KEY  CLUSTERED 
-	(
-		[status_id]
-	)
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_status]([poster_id], [status_time])
-GO
-
-
-/*
-	Table: 'phpbb_sn_entries'
-*/
-CREATE TABLE [phpbb_sn_entries] (
-	[entry_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[user_id] [int] DEFAULT (0) NOT NULL ,
-	[entry_target] [int] DEFAULT (0) NOT NULL ,
-	[entry_type] [int] DEFAULT (0) NOT NULL ,
-	[entry_time] [int] DEFAULT (0) NOT NULL ,
-	[entry_additionals] [varchar] (8000) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_entries] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_entries] PRIMARY KEY  CLUSTERED 
-	(
-		[entry_id]
-	)
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_entries]([user_id], [entry_target], [entry_type], [entry_time])
-GO
-
-
-/*
-	Table: 'phpbb_sn_notify'
-*/
-CREATE TABLE [phpbb_sn_notify] (
-	[ntf_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[ntf_time] [int] DEFAULT (0) NOT NULL ,
-	[ntf_type] [int] DEFAULT (0) NOT NULL ,
-	[ntf_user] [int] DEFAULT (0) NOT NULL ,
-	[ntf_poster] [int] DEFAULT (0) NOT NULL ,
-	[ntf_read] [int] DEFAULT (0) NOT NULL ,
-	[ntf_change] [int] DEFAULT (0) NOT NULL ,
-	[ntf_data] [varchar] (8000) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_notify] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_notify] PRIMARY KEY  CLUSTERED 
-	(
-		[ntf_id]
-	)
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_notify]([ntf_read], [ntf_user])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_notify]([ntf_read], [ntf_time])
-GO
-
-CREATE  INDEX [c] ON [phpbb_sn_notify]([ntf_read], [ntf_change])
-GO
-
-
-/*
-	Table: 'phpbb_sn_reports'
-*/
-CREATE TABLE [phpbb_sn_reports] (
-	[report_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[reason_id] [int] DEFAULT (0) NOT NULL ,
-	[report_text] [varchar] (8000) DEFAULT ('') NOT NULL ,
-	[user_id] [int] DEFAULT (0) NOT NULL ,
-	[reporter] [int] DEFAULT (0) NOT NULL ,
-	[report_closed] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_reports] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_reports] PRIMARY KEY  CLUSTERED 
-	(
-		[report_id]
-	)
-GO
-
-
-/*
-	Table: 'phpbb_sn_reports_reasons'
-*/
-CREATE TABLE [phpbb_sn_reports_reasons] (
-	[reason_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[reason_text] [varchar] (8000) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_reports_reasons] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_reports_reasons] PRIMARY KEY  CLUSTERED 
-	(
-		[reason_id]
-	)
-GO
-
-
-/*
-	Table: 'phpbb_sn_menu'
-*/
-CREATE TABLE [phpbb_sn_menu] (
-	[button_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[button_url] [varchar] (8000) DEFAULT ('') NOT NULL ,
-	[button_name] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[button_external] [int] DEFAULT (0) NOT NULL ,
-	[button_display] [int] DEFAULT (1) NOT NULL ,
-	[button_only_registered] [int] DEFAULT (0) NOT NULL ,
-	[button_only_guest] [int] DEFAULT (0) NOT NULL ,
-	[left_id] [int] DEFAULT (0) NOT NULL ,
-	[right_id] [int] DEFAULT (0) NOT NULL ,
-	[parent_id] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_menu] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_menu] PRIMARY KEY  CLUSTERED 
-	(
-		[button_id]
-	)
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_menu]([left_id])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_menu]([right_id])
-GO
-
-CREATE  INDEX [c] ON [phpbb_sn_menu]([parent_id])
-GO
-
-CREATE  INDEX [d] ON [phpbb_sn_menu]([parent_id])
-GO
-
-
-/*
-	Table: 'phpbb_sn_family'
-*/
-CREATE TABLE [phpbb_sn_family] (
-	[id] [int] IDENTITY (1, 1) NOT NULL ,
-	[user_id] [int] DEFAULT (0) NOT NULL ,
-	[relative_user_id] [int] DEFAULT (0) NOT NULL ,
-	[status_id] [int] DEFAULT (0) NOT NULL ,
-	[approved] [int] DEFAULT (0) NOT NULL ,
-	[anniversary] [varchar] (10) DEFAULT ('') NOT NULL ,
-	[family] [int] DEFAULT (0) NOT NULL ,
-	[name] [varchar] (255) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_family] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_family] PRIMARY KEY  CLUSTERED 
-	(
-		[id]
-	)
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_family]([user_id])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_family]([relative_user_id])
-GO
-
-CREATE  INDEX [c] ON [phpbb_sn_family]([status_id])
-GO
-
-CREATE  INDEX [d] ON [phpbb_sn_family]([approved])
-GO
-
-
-/*
-	Table: 'phpbb_sn_profile_visitors'
-*/
-CREATE TABLE [phpbb_sn_profile_visitors] (
-	[profile_uid] [int] DEFAULT (0) NOT NULL ,
-	[visitor_uid] [int] DEFAULT (0) NOT NULL ,
-	[visit_time] [int] DEFAULT (0) NOT NULL ,
-	[mssqlindex] [int] IDENTITY (1, 1) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_profile_visitors] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_profile_visitors] PRIMARY KEY  CLUSTERED 
-	(
-		[mssqlindex]
-	)
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_profile_visitors]([profile_uid])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_profile_visitors]([visitor_uid])
-GO
-
-CREATE  INDEX [c] ON [phpbb_sn_profile_visitors]([visit_time])
-GO
-
-
-/*
-	Table: 'phpbb_sn_fms_groups'
-*/
-CREATE TABLE [phpbb_sn_fms_groups] (
-	[fms_gid] [int] IDENTITY (1, 1) NOT NULL ,
-	[user_id] [int] DEFAULT (0) NOT NULL ,
-	[fms_name] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[fms_clean] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[fms_collapse] [int] DEFAULT (0) NOT NULL ,
-	[mssqlindex] [int] IDENTITY (1, 1) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_fms_groups] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_fms_groups] PRIMARY KEY  CLUSTERED 
-	(
-		[mssqlindex]
-	)
-GO
-
-CREATE  UNIQUE  INDEX [a] ON [phpbb_sn_fms_groups]([user_id], [fms_name])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_fms_groups]([fms_gid], [user_id])
-GO
-
-CREATE  INDEX [c] ON [phpbb_sn_fms_groups]([user_id])
-GO
-
-CREATE  INDEX [d] ON [phpbb_sn_fms_groups]([fms_gid], [user_id], [fms_clean])
-GO
-
-CREATE  INDEX [e] ON [phpbb_sn_fms_groups]([fms_gid], [user_id], [fms_clean], [fms_collapse])
-GO
-
-CREATE  UNIQUE  INDEX [f] ON [phpbb_sn_fms_groups]([user_id], [fms_clean])
-GO
-
-
-/*
-	Table: 'phpbb_sn_fms_users_group'
-*/
-CREATE TABLE [phpbb_sn_fms_users_group] (
-	[fms_gid] [int] DEFAULT (0) NOT NULL ,
-	[user_id] [int] DEFAULT (0) NOT NULL ,
-	[owner_id] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_fms_users_group] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_fms_users_group] PRIMARY KEY  CLUSTERED 
-	(
-		[fms_gid],
-		[user_id],
-		[owner_id]
-	)
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_fms_users_group]([user_id])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_fms_users_group]([fms_gid])
-GO
-
-CREATE  INDEX [c] ON [phpbb_sn_fms_users_group]([fms_gid], [owner_id])
-GO
-
-
-/*
-	Table: 'phpbb_sn_comments_modules'
-*/
-CREATE TABLE [phpbb_sn_comments_modules] (
-	[cmtmd_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[cmtmd_name] [varchar] (255) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_comments_modules] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_comments_modules] PRIMARY KEY  CLUSTERED 
-	(
-		[cmtmd_id],
-		[cmtmd_name]
-	)
-GO
-
-CREATE  UNIQUE  INDEX [a] ON [phpbb_sn_comments_modules]([cmtmd_name])
-GO
-
-
-/*
-	Table: 'phpbb_sn_comments'
-*/
-CREATE TABLE [phpbb_sn_comments] (
-	[cmt_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[cmt_module] [int] DEFAULT (0) NOT NULL ,
-	[cmt_time] [int] DEFAULT (0) NOT NULL ,
-	[cmt_mid] [int] DEFAULT (0) NOT NULL ,
-	[cmt_poster] [int] DEFAULT (0) NOT NULL ,
-	[cmt_text] [varchar] (8000) DEFAULT ('') NOT NULL ,
-	[bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_comments] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_comments] PRIMARY KEY  CLUSTERED 
-	(
-		[cmt_id],
-		[cmt_module],
-		[cmt_mid]
-	)
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_comments]([cmt_module])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_comments]([cmt_time])
-GO
-
-CREATE  INDEX [c] ON [phpbb_sn_comments]([cmt_module], [cmt_mid])
-GO
-
-CREATE  INDEX [d] ON [phpbb_sn_comments]([cmt_module], [cmt_mid], [cmt_time])
-GO
-
-CREATE  INDEX [e] ON [phpbb_sn_comments]([cmt_module], [cmt_mid], [cmt_time], [cmt_poster])
-GO
-
-
-/*
-	Table: 'phpbb_sn_emotes'
-*/
-CREATE TABLE [phpbb_sn_emotes] (
-	[emote_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[emote_name] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[emote_image] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[emote_order] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_emotes] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_emotes] PRIMARY KEY  CLUSTERED 
-	(
-		[emote_id]
-	)
-GO
-
-CREATE  UNIQUE  INDEX [u] ON [phpbb_sn_emotes]([emote_name])
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_emotes]([emote_name], [emote_order])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_emotes]([emote_order])
-GO
-
-
-/*
-	Table: 'phpbb_sn_addons_placeholder'
-*/
-CREATE TABLE [phpbb_sn_addons_placeholder] (
-	[ph_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[ph_script] [varchar] (64) DEFAULT ('') NOT NULL ,
-	[ph_block] [varchar] (16) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_addons_placeholder] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_addons_placeholder] PRIMARY KEY  CLUSTERED 
-	(
-		[ph_id]
-	)
-GO
-
-CREATE  UNIQUE  INDEX [u] ON [phpbb_sn_addons_placeholder]([ph_script], [ph_block])
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_addons_placeholder]([ph_script])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_addons_placeholder]([ph_block])
-GO
-
-
-/*
-	Table: 'phpbb_sn_addons'
-*/
-CREATE TABLE [phpbb_sn_addons] (
-	[addon_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[addon_placeholder] [int] DEFAULT (0) NOT NULL ,
-	[addon_name] [varchar] (64) DEFAULT ('') NOT NULL ,
-	[addon_php] [varchar] (32) DEFAULT ('') NOT NULL ,
-	[addon_function] [varchar] (32) DEFAULT ('') NOT NULL ,
-	[addon_active] [int] DEFAULT (0) NOT NULL ,
-	[addon_order] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_addons] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_addons] PRIMARY KEY  CLUSTERED 
-	(
-		[addon_id]
-	)
-GO
-
-CREATE  UNIQUE  INDEX [u] ON [phpbb_sn_addons]([addon_placeholder], [addon_name], [addon_php], [addon_function])
-GO
-
-CREATE  INDEX [a] ON [phpbb_sn_addons]([addon_name], [addon_php], [addon_active])
-GO
-
-CREATE  INDEX [b] ON [phpbb_sn_addons]([addon_order])
-GO
-
-
-/*
-	Table: 'phpbb_sn_smilies'
-*/
-CREATE TABLE [phpbb_sn_smilies] (
-	[smiley_id] [int] DEFAULT (0) NOT NULL ,
-	[smiley_allowed] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_sn_smilies] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_sn_smilies] PRIMARY KEY  CLUSTERED 
-	(
-		[smiley_id]
 	)
 GO
 

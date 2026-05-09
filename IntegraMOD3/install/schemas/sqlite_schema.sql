@@ -1350,7 +1350,7 @@ CREATE TABLE phpbb_kb_article (
 );
 
 CREATE INDEX phpbb_kb_article_activ ON phpbb_kb_article (activ);
- phpbb_kb_article_titel_fulltext ON phpbb_kb_article (titel);
+CREATE INDEX phpbb_kb_article_titel_fulltext ON phpbb_kb_article (titel);
 
 # Table: 'phpbb_kb_article_diff'
 CREATE TABLE phpbb_kb_article_diff (
@@ -2250,6 +2250,58 @@ CREATE TABLE phpbb_smilies (
 
 CREATE INDEX phpbb_smilies_display_on_post ON phpbb_smilies (display_on_posting);
 
+# Table: 'phpbb_sn_addons'
+CREATE TABLE phpbb_sn_addons (
+	addon_id INTEGER PRIMARY KEY NOT NULL ,
+	addon_placeholder INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	addon_name varchar(64) NOT NULL DEFAULT '',
+	addon_php varchar(32) NOT NULL DEFAULT '',
+	addon_function varchar(32) NOT NULL DEFAULT '',
+	addon_active INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	addon_order INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE UNIQUE INDEX phpbb_sn_addons_u ON phpbb_sn_addons (addon_placeholder, addon_name, addon_php, addon_function);
+CREATE INDEX phpbb_sn_addons_a ON phpbb_sn_addons (addon_name, addon_php, addon_active);
+CREATE INDEX phpbb_sn_addons_b ON phpbb_sn_addons (addon_order);
+
+# Table: 'phpbb_sn_addons_placeholder'
+CREATE TABLE phpbb_sn_addons_placeholder (
+	ph_id INTEGER PRIMARY KEY NOT NULL ,
+	ph_script varchar(64) NOT NULL DEFAULT '',
+	ph_block varchar(16) NOT NULL DEFAULT ''
+);
+
+CREATE UNIQUE INDEX phpbb_sn_addons_placeholder_u ON phpbb_sn_addons_placeholder (ph_script, ph_block);
+CREATE INDEX phpbb_sn_addons_placeholder_a ON phpbb_sn_addons_placeholder (ph_script);
+CREATE INDEX phpbb_sn_addons_placeholder_b ON phpbb_sn_addons_placeholder (ph_block);
+
+# Table: 'phpbb_sn_comments'
+CREATE TABLE phpbb_sn_comments (
+	cmt_id INTEGER PRIMARY KEY NOT NULL ,
+	cmt_module INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cmt_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cmt_mid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cmt_poster INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	cmt_text text(65535) NOT NULL DEFAULT '',
+	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	bbcode_uid varchar(8) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_comments_a ON phpbb_sn_comments (cmt_module);
+CREATE INDEX phpbb_sn_comments_b ON phpbb_sn_comments (cmt_time);
+CREATE INDEX phpbb_sn_comments_c ON phpbb_sn_comments (cmt_module, cmt_mid);
+CREATE INDEX phpbb_sn_comments_d ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time);
+CREATE INDEX phpbb_sn_comments_e ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time, cmt_poster);
+
+# Table: 'phpbb_sn_comments_modules'
+CREATE TABLE phpbb_sn_comments_modules (
+	cmtmd_id INTEGER PRIMARY KEY NOT NULL ,
+	cmtmd_name varchar(255) NOT NULL DEFAULT ''
+);
+
+CREATE UNIQUE INDEX phpbb_sn_comments_modules_a ON phpbb_sn_comments_modules (cmtmd_name);
+
 # Table: 'phpbb_sn_config'
 CREATE TABLE phpbb_sn_config (
 	config_name varchar(255) NOT NULL DEFAULT '',
@@ -2259,6 +2311,191 @@ CREATE TABLE phpbb_sn_config (
 );
 
 CREATE INDEX phpbb_sn_config_a ON phpbb_sn_config (is_dynamic);
+
+# Table: 'phpbb_sn_emotes'
+CREATE TABLE phpbb_sn_emotes (
+	emote_id INTEGER PRIMARY KEY NOT NULL ,
+	emote_name varchar(255) NOT NULL DEFAULT '',
+	emote_image varchar(255) NOT NULL DEFAULT '',
+	emote_order INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE UNIQUE INDEX phpbb_sn_emotes_u ON phpbb_sn_emotes (emote_name);
+CREATE INDEX phpbb_sn_emotes_a ON phpbb_sn_emotes (emote_name, emote_order);
+CREATE INDEX phpbb_sn_emotes_b ON phpbb_sn_emotes (emote_order);
+
+# Table: 'phpbb_sn_entries'
+CREATE TABLE phpbb_sn_entries (
+	entry_id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	entry_target INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	entry_type INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	entry_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	entry_additionals text(65535) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_entries_a ON phpbb_sn_entries (user_id, entry_target, entry_type, entry_time);
+
+# Table: 'phpbb_sn_family'
+CREATE TABLE phpbb_sn_family (
+	id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	relative_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	status_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	approved tinyint(1) NOT NULL DEFAULT '0',
+	anniversary varchar(10) NOT NULL DEFAULT '',
+	family tinyint(1) NOT NULL DEFAULT '0',
+	name varchar(255) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_family_a ON phpbb_sn_family (user_id);
+CREATE INDEX phpbb_sn_family_b ON phpbb_sn_family (relative_user_id);
+CREATE INDEX phpbb_sn_family_c ON phpbb_sn_family (status_id);
+CREATE INDEX phpbb_sn_family_d ON phpbb_sn_family (approved);
+
+# Table: 'phpbb_sn_fms_groups'
+CREATE TABLE phpbb_sn_fms_groups (
+	fms_gid INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	fms_name varchar(255) NOT NULL DEFAULT '',
+	fms_clean varchar(255) NOT NULL DEFAULT '',
+	fms_collapse INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE UNIQUE INDEX phpbb_sn_fms_groups_a ON phpbb_sn_fms_groups (user_id, fms_name);
+CREATE INDEX phpbb_sn_fms_groups_b ON phpbb_sn_fms_groups (user_id);
+CREATE INDEX phpbb_sn_fms_groups_c ON phpbb_sn_fms_groups (fms_gid, user_id);
+CREATE UNIQUE INDEX phpbb_sn_fms_groups_d ON phpbb_sn_fms_groups (user_id, fms_clean);
+CREATE INDEX phpbb_sn_fms_groups_e ON phpbb_sn_fms_groups (user_id, fms_clean);
+
+# Table: 'phpbb_sn_fms_users_group'
+CREATE TABLE phpbb_sn_fms_users_group (
+	fms_gid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	owner_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (fms_gid, user_id, owner_id)
+);
+
+CREATE INDEX phpbb_sn_fms_users_group_a ON phpbb_sn_fms_users_group (user_id);
+CREATE INDEX phpbb_sn_fms_users_group_b ON phpbb_sn_fms_users_group (fms_gid);
+CREATE INDEX phpbb_sn_fms_users_group_c ON phpbb_sn_fms_users_group (fms_gid, owner_id);
+CREATE INDEX phpbb_sn_fms_users_group_d ON phpbb_sn_fms_users_group (owner_id, user_id);
+
+# Table: 'phpbb_sn_im'
+CREATE TABLE phpbb_sn_im (
+	im_id INTEGER PRIMARY KEY NOT NULL ,
+	uid_from INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	uid_to INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	message text(65535) NOT NULL DEFAULT '',
+	sent decimal(20,3) NOT NULL DEFAULT '0',
+	recd INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	bbcode_uid varchar(8) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_im_a ON phpbb_sn_im (uid_to, recd, sent);
+CREATE INDEX phpbb_sn_im_b ON phpbb_sn_im (uid_from, uid_to, sent);
+CREATE INDEX phpbb_sn_im_c ON phpbb_sn_im (sent);
+
+# Table: 'phpbb_sn_im_chatboxes'
+CREATE TABLE phpbb_sn_im_chatboxes (
+	uid_from INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	uid_to INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	username_to varchar(255) NOT NULL DEFAULT '',
+	starttime INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE UNIQUE INDEX phpbb_sn_im_chatboxes_a ON phpbb_sn_im_chatboxes (uid_from, uid_to);
+CREATE INDEX phpbb_sn_im_chatboxes_b ON phpbb_sn_im_chatboxes (uid_from, uid_to, starttime);
+
+# Table: 'phpbb_sn_menu'
+CREATE TABLE phpbb_sn_menu (
+	button_id INTEGER PRIMARY KEY NOT NULL ,
+	button_url text(65535) NOT NULL DEFAULT '',
+	button_name varchar(255) NOT NULL DEFAULT '',
+	button_external INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	button_display INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	button_only_registered INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	button_only_guest INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	left_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	right_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	parent_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_sn_menu_a ON phpbb_sn_menu (left_id);
+CREATE INDEX phpbb_sn_menu_b ON phpbb_sn_menu (right_id);
+CREATE INDEX phpbb_sn_menu_c ON phpbb_sn_menu (parent_id);
+CREATE INDEX phpbb_sn_menu_d ON phpbb_sn_menu (parent_id, left_id);
+
+# Table: 'phpbb_sn_notify'
+CREATE TABLE phpbb_sn_notify (
+	ntf_id INTEGER PRIMARY KEY NOT NULL ,
+	ntf_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_type INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_poster INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_read INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_change INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	ntf_data text(65535) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX phpbb_sn_notify_a ON phpbb_sn_notify (ntf_user, ntf_read, ntf_time);
+CREATE INDEX phpbb_sn_notify_b ON phpbb_sn_notify (ntf_read, ntf_time);
+CREATE INDEX phpbb_sn_notify_c ON phpbb_sn_notify (ntf_read, ntf_change);
+
+# Table: 'phpbb_sn_profile_visitors'
+CREATE TABLE phpbb_sn_profile_visitors (
+	profile_uid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	visitor_uid INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	visit_time INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_sn_profile_visitors_a ON phpbb_sn_profile_visitors (profile_uid, visit_time);
+CREATE INDEX phpbb_sn_profile_visitors_b ON phpbb_sn_profile_visitors (visitor_uid);
+CREATE INDEX phpbb_sn_profile_visitors_c ON phpbb_sn_profile_visitors (visit_time);
+
+# Table: 'phpbb_sn_reports'
+CREATE TABLE phpbb_sn_reports (
+	report_id INTEGER PRIMARY KEY NOT NULL ,
+	reason_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_text text(65535) NOT NULL DEFAULT '',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	reporter INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	report_closed tinyint(1) NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_sn_reports_a ON phpbb_sn_reports (report_closed, user_id);
+CREATE INDEX phpbb_sn_reports_b ON phpbb_sn_reports (reporter);
+
+# Table: 'phpbb_sn_reports_reasons'
+CREATE TABLE phpbb_sn_reports_reasons (
+	reason_id INTEGER PRIMARY KEY NOT NULL ,
+	reason_text text(65535) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_sn_smilies'
+CREATE TABLE phpbb_sn_smilies (
+	smiley_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	smiley_allowed tinyint(1) NOT NULL DEFAULT '0',
+	PRIMARY KEY (smiley_id)
+);
+
+
+# Table: 'phpbb_sn_status'
+CREATE TABLE phpbb_sn_status (
+	status_id INTEGER PRIMARY KEY NOT NULL ,
+	poster_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	status_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	status_text text(65535) NOT NULL DEFAULT '',
+	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	bbcode_uid varchar(8) NOT NULL DEFAULT '',
+	page_data text(65535) NOT NULL ,
+	wall_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_sn_status_a ON phpbb_sn_status (poster_id, status_time);
+CREATE INDEX phpbb_sn_status_b ON phpbb_sn_status (wall_id, status_time);
 
 # Table: 'phpbb_sn_users'
 CREATE TABLE phpbb_sn_users (
@@ -2295,237 +2532,6 @@ CREATE TABLE phpbb_sn_users (
 	profile_views INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	profile_last_change INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	PRIMARY KEY (user_id)
-);
-
-
-# Table: 'phpbb_sn_im'
-CREATE TABLE phpbb_sn_im (
-	uid_from INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	uid_to INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	message text(65535) NOT NULL DEFAULT '',
-	sent decimal(20,3) NOT NULL DEFAULT '0',
-	recd INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
-	bbcode_uid varchar(8) NOT NULL DEFAULT ''
-);
-
-CREATE INDEX phpbb_sn_im_a ON phpbb_sn_im (sent);
-
-# Table: 'phpbb_sn_im_chatboxes'
-CREATE TABLE phpbb_sn_im_chatboxes (
-	uid_from INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	uid_to INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	username_to varchar(255) NOT NULL DEFAULT '',
-	starttime INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE UNIQUE INDEX phpbb_sn_im_chatboxes_a ON phpbb_sn_im_chatboxes (uid_from, uid_to);
-CREATE INDEX phpbb_sn_im_chatboxes_b ON phpbb_sn_im_chatboxes (uid_from, uid_to, starttime);
-
-# Table: 'phpbb_sn_status'
-CREATE TABLE phpbb_sn_status (
-	status_id INTEGER PRIMARY KEY NOT NULL ,
-	poster_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	status_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	status_text text(65535) NOT NULL DEFAULT '',
-	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
-	bbcode_uid varchar(8) NOT NULL DEFAULT '',
-	page_data text(65535) NOT NULL ,
-	wall_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE INDEX phpbb_sn_status_b ON phpbb_sn_status (poster_id, status_time);
-
-# Table: 'phpbb_sn_entries'
-CREATE TABLE phpbb_sn_entries (
-	entry_id INTEGER PRIMARY KEY NOT NULL ,
-	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	entry_target INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	entry_type INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	entry_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	entry_additionals text(65535) NOT NULL DEFAULT ''
-);
-
-CREATE INDEX phpbb_sn_entries_a ON phpbb_sn_entries (user_id, entry_target, entry_type, entry_time);
-
-# Table: 'phpbb_sn_notify'
-CREATE TABLE phpbb_sn_notify (
-	ntf_id INTEGER PRIMARY KEY NOT NULL ,
-	ntf_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ntf_type INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ntf_user INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ntf_poster INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ntf_read INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ntf_change INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	ntf_data text(65535) NOT NULL DEFAULT ''
-);
-
-CREATE INDEX phpbb_sn_notify_a ON phpbb_sn_notify (ntf_read, ntf_user);
-CREATE INDEX phpbb_sn_notify_b ON phpbb_sn_notify (ntf_read, ntf_time);
-CREATE INDEX phpbb_sn_notify_c ON phpbb_sn_notify (ntf_read, ntf_change);
-
-# Table: 'phpbb_sn_reports'
-CREATE TABLE phpbb_sn_reports (
-	report_id INTEGER PRIMARY KEY NOT NULL ,
-	reason_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	report_text text(65535) NOT NULL DEFAULT '',
-	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	reporter INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	report_closed tinyint(1) NOT NULL DEFAULT '0'
-);
-
-
-# Table: 'phpbb_sn_reports_reasons'
-CREATE TABLE phpbb_sn_reports_reasons (
-	reason_id INTEGER PRIMARY KEY NOT NULL ,
-	reason_text text(65535) NOT NULL DEFAULT ''
-);
-
-
-# Table: 'phpbb_sn_menu'
-CREATE TABLE phpbb_sn_menu (
-	button_id INTEGER PRIMARY KEY NOT NULL ,
-	button_url text(65535) NOT NULL DEFAULT '',
-	button_name varchar(255) NOT NULL DEFAULT '',
-	button_external INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	button_display INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	button_only_registered INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	button_only_guest INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	left_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	right_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	parent_id INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE INDEX phpbb_sn_menu_a ON phpbb_sn_menu (left_id);
-CREATE INDEX phpbb_sn_menu_b ON phpbb_sn_menu (right_id);
-CREATE INDEX phpbb_sn_menu_c ON phpbb_sn_menu (parent_id);
-CREATE INDEX phpbb_sn_menu_d ON phpbb_sn_menu (parent_id);
-
-# Table: 'phpbb_sn_family'
-CREATE TABLE phpbb_sn_family (
-	id INTEGER PRIMARY KEY NOT NULL ,
-	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	relative_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	status_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	approved tinyint(1) NOT NULL DEFAULT '0',
-	anniversary varchar(10) NOT NULL DEFAULT '',
-	family tinyint(1) NOT NULL DEFAULT '0',
-	name varchar(255) NOT NULL DEFAULT ''
-);
-
-CREATE INDEX phpbb_sn_family_a ON phpbb_sn_family (user_id);
-CREATE INDEX phpbb_sn_family_b ON phpbb_sn_family (relative_user_id);
-CREATE INDEX phpbb_sn_family_c ON phpbb_sn_family (status_id);
-CREATE INDEX phpbb_sn_family_d ON phpbb_sn_family (approved);
-
-# Table: 'phpbb_sn_profile_visitors'
-CREATE TABLE phpbb_sn_profile_visitors (
-	profile_uid INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	visitor_uid INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	visit_time INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE INDEX phpbb_sn_profile_visitors_a ON phpbb_sn_profile_visitors (profile_uid);
-CREATE INDEX phpbb_sn_profile_visitors_b ON phpbb_sn_profile_visitors (visitor_uid);
-CREATE INDEX phpbb_sn_profile_visitors_c ON phpbb_sn_profile_visitors (visit_time);
-
-# Table: 'phpbb_sn_fms_groups'
-CREATE TABLE phpbb_sn_fms_groups (
-	fms_gid INTEGER PRIMARY KEY NOT NULL ,
-	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	fms_name varchar(255) NOT NULL DEFAULT '',
-	fms_clean varchar(255) NOT NULL DEFAULT '',
-	fms_collapse INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE UNIQUE INDEX phpbb_sn_fms_groups_a ON phpbb_sn_fms_groups (user_id, fms_name);
-CREATE INDEX phpbb_sn_fms_groups_b ON phpbb_sn_fms_groups (fms_gid, user_id);
-CREATE INDEX phpbb_sn_fms_groups_c ON phpbb_sn_fms_groups (user_id);
-CREATE INDEX phpbb_sn_fms_groups_d ON phpbb_sn_fms_groups (fms_gid, user_id, fms_clean);
-CREATE INDEX phpbb_sn_fms_groups_e ON phpbb_sn_fms_groups (fms_gid, user_id, fms_clean, fms_collapse);
-CREATE UNIQUE INDEX phpbb_sn_fms_groups_f ON phpbb_sn_fms_groups (user_id, fms_clean);
-
-# Table: 'phpbb_sn_fms_users_group'
-CREATE TABLE phpbb_sn_fms_users_group (
-	fms_gid INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	owner_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	PRIMARY KEY (fms_gid, user_id, owner_id)
-);
-
-CREATE INDEX phpbb_sn_fms_users_group_a ON phpbb_sn_fms_users_group (user_id);
-CREATE INDEX phpbb_sn_fms_users_group_b ON phpbb_sn_fms_users_group (fms_gid);
-CREATE INDEX phpbb_sn_fms_users_group_c ON phpbb_sn_fms_users_group (fms_gid, owner_id);
-
-# Table: 'phpbb_sn_comments_modules'
-CREATE TABLE phpbb_sn_comments_modules (
-	cmtmd_id INTEGER PRIMARY KEY NOT NULL ,
-	cmtmd_name varchar(255) NOT NULL DEFAULT ''
-);
-
-CREATE UNIQUE INDEX phpbb_sn_comments_modules_a ON phpbb_sn_comments_modules (cmtmd_name);
-
-# Table: 'phpbb_sn_comments'
-CREATE TABLE phpbb_sn_comments (
-	cmt_id INTEGER PRIMARY KEY NOT NULL ,
-	cmt_module INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	cmt_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	cmt_mid INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	cmt_poster INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	cmt_text text(65535) NOT NULL DEFAULT '',
-	bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
-	bbcode_uid varchar(8) NOT NULL DEFAULT ''
-);
-
-CREATE INDEX phpbb_sn_comments_a ON phpbb_sn_comments (cmt_module);
-CREATE INDEX phpbb_sn_comments_b ON phpbb_sn_comments (cmt_time);
-CREATE INDEX phpbb_sn_comments_c ON phpbb_sn_comments (cmt_module, cmt_mid);
-CREATE INDEX phpbb_sn_comments_d ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time);
-CREATE INDEX phpbb_sn_comments_e ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time, cmt_poster);
-
-# Table: 'phpbb_sn_emotes'
-CREATE TABLE phpbb_sn_emotes (
-	emote_id INTEGER PRIMARY KEY NOT NULL ,
-	emote_name varchar(255) NOT NULL DEFAULT '',
-	emote_image varchar(255) NOT NULL DEFAULT '',
-	emote_order INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE UNIQUE INDEX phpbb_sn_emotes_u ON phpbb_sn_emotes (emote_name);
-CREATE INDEX phpbb_sn_emotes_a ON phpbb_sn_emotes (emote_name, emote_order);
-CREATE INDEX phpbb_sn_emotes_b ON phpbb_sn_emotes (emote_order);
-
-# Table: 'phpbb_sn_addons_placeholder'
-CREATE TABLE phpbb_sn_addons_placeholder (
-	ph_id INTEGER PRIMARY KEY NOT NULL ,
-	ph_script varchar(64) NOT NULL DEFAULT '',
-	ph_block varchar(16) NOT NULL DEFAULT ''
-);
-
-CREATE UNIQUE INDEX phpbb_sn_addons_placeholder_u ON phpbb_sn_addons_placeholder (ph_script, ph_block);
-CREATE INDEX phpbb_sn_addons_placeholder_a ON phpbb_sn_addons_placeholder (ph_script);
-CREATE INDEX phpbb_sn_addons_placeholder_b ON phpbb_sn_addons_placeholder (ph_block);
-
-# Table: 'phpbb_sn_addons'
-CREATE TABLE phpbb_sn_addons (
-	addon_id INTEGER PRIMARY KEY NOT NULL ,
-	addon_placeholder INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	addon_name varchar(64) NOT NULL DEFAULT '',
-	addon_php varchar(32) NOT NULL DEFAULT '',
-	addon_function varchar(32) NOT NULL DEFAULT '',
-	addon_active INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	addon_order INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE UNIQUE INDEX phpbb_sn_addons_u ON phpbb_sn_addons (addon_placeholder, addon_name, addon_php, addon_function);
-CREATE INDEX phpbb_sn_addons_a ON phpbb_sn_addons (addon_name, addon_php, addon_active);
-CREATE INDEX phpbb_sn_addons_b ON phpbb_sn_addons (addon_order);
-
-# Table: 'phpbb_sn_smilies'
-CREATE TABLE phpbb_sn_smilies (
-	smiley_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	smiley_allowed tinyint(1) NOT NULL DEFAULT '0',
-	PRIMARY KEY (smiley_id)
 );
 
 

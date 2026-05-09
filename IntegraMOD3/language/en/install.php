@@ -189,13 +189,16 @@ $lang = array_merge($lang, array(
 	'INITIAL_CONFIG'			=> 'Basic configuration',
 	'INITIAL_CONFIG_EXPLAIN'	=> 'Now that install has determined your server can run phpBB you need to supply some specific information. If you do not know how to connect to your database please contact your hosting provider (in the first instance) or use the phpBB support forums. When entering data please ensure you check it thoroughly before continuing.',
 	'INSTALL_CONGRATS'			=> 'Congratulations!',
-	'INSTALL_CONGRATS_EXPLAIN'	=> 'You have successfully installed IntegraMOD %1$s.</p>
-		<h2>Youre almost there!</h2>
-		<p><strong>Please delete, move or rename the install directory now, before continuing to the last step, Installng Social Network.</strong>',
-    'INSTALL_SN'				=> 'Install Social Network',
-	'INSTALL_INTRO'				=> 'Welcome to your IntegraMOD Installation',
+	'INSTALL_CONGRATS_EXPLAIN'	=> '
+		You have successfully installed IntegraMOD %1$s. Please proceed by choosing one of the following options:</p>
+		<h2>Convert an existing board to IntegraMOD3</h2>
+		<p>The phpBB Unified Convertor Framework supports the conversion of phpBB 2.0.x and other board systems to IntegraMOD3. If you have an existing board that you wish to convert, please <a href="%2$s">proceed to the convertor</a>.</p>
+		<h2>Go live with IntegraMOD3!</h2>
+		<p><strong>Please delete, move or rename the install directory before using your board. While this directory exists, only the Administration Control Panel (ACP) will be accessible.</strong>',
+	'INSTALL_INTRO'				=> 'Welcome to Installation',
 
-	'INSTALL_INTRO_BODY'		=> 'With this option, it is possible to install IntegraMOD onto your server.</p><p>In order to 
+	'INSTALL_INTRO_BODY'		=> 'With this option, it is possible to install IntegraMOD onto your server.</p><p>In order to proceed, you will need your database settings. If you do not know your database settings, please contact your host and ask for them. You will not be able to continue without them. You need:</p>
+
 	<ul>
 		<li>The Database Type - the database you will be using.</li>
 		<li>The Database server hostname or DSN - the address of the database server.</li>
@@ -206,7 +209,7 @@ $lang = array_merge($lang, array(
 
 	<p><strong>Note:</strong> if you are installing using SQLite, you should enter the full path to your database file in the DSN field and leave the username and password fields blank. For security reasons, you should make sure that the database file is not stored in a location accessible from the web.</p>
 
-	<p>phpBB3 supports the following databases:</p>
+	<p>IntegraMOD supports the following databases:</p>
 	<ul>
 		<li>MySQL 3.23 or above (MySQLi supported)</li>
 		<li>PostgreSQL 7.3+</li>
@@ -285,7 +288,7 @@ $lang = array_merge($lang, array(
 	'NO_LOCATION'				=> 'Cannot determine location. If you know Imagemagick is installed, you may specify the location later within your administration control panel',
 	'NO_TABLES_FOUND'			=> 'No tables found.',
 
-	'OVERVIEW_BODY'				=> 'Welcome to IntegraMOD!<br /><br />IntegraMOD is built on phpBB. phpBB® is the most widely used open source bulletin board solution in the world. phpBB3 is the latest installment in a package line started in 2000. Like its predecessors, phpBB3 is feature-rich, user-friendly, and fully supported by the phpBB Team. phpBB3 greatly improves on what made phpBB2 popular, and adds commonly requested features that were not present in previous versions. We hope it exceeds your expectations.<br /><br />KISS Portal&copy; is the original phpBB3 portal system. Kiss Portal was the first mod written for phpBB3 (developed during phpBB3 alpha/beta stages)...<br />KISS Portal has been in continuous developed since 2005 and it is the only fully integrated phpBB3 portal available. KISS Portal is the largest mod written for phpBB3 so it will take a little time to become familiar with it. Don&#39;t be put off by its size, it is fairly easy to learn. for most people, all that&#39;s needed are a few admin settings and there&#39;s no need to touch it again.<br /><br />This installation system will guide you through installing phpBB3 / KISS Portal, updating to the latest version of phpBB3 from past releases, as well as converting to phpBB3 from a different discussion board system (including phpBB2). For more information, we encourage you to read <a href="../docs/INSTALL.html">the installation guide</a>.<br /><br />To read the phpBB3 license or learn about obtaining support and our stance on it, please select the respective options from the side menu. To continue, please select the appropriate tab above.',
+    'OVERVIEW_BODY' => 'Welcome to IntegraMOD3!<br /><br />IntegraMOD3 is a fully integrated phpBB3.0.x distribution built on phpBB3.0.15. It combines phpBB with a large collection of carefully integrated modifications, portal functionality, and community enhancements into a single unified package. phpBB® is one of the most widely used open source bulletin board solutions in the world, known for its stability, flexibility, and extensive feature set.<br /><br />IntegraMOD3 includes KISS Portal&copy;, the original phpBB3 portal system and one of the earliest major modifications developed during the phpBB3 alpha and beta stages. KISS Portal has been under continuous development since 2005 and remains one of the most complete and tightly integrated portal systems available for phpBB3. Despite its extensive capabilities, most features can be configured easily through the Administration Control Panel without requiring code changes.<br /><br />IntegraMOD3 also includes numerous pre-integrated features and enhancements designed to provide a complete community platform out of the box while maintaining compatibility with the phpBB3.0.x framework.<br /><br />This installation system will guide you through installing IntegraMOD3, updating from previous releases, or converting from another discussion board system (including phpBB2). For more information, please read <a href="../docs/INSTALL.html">the installation guide</a>.<br /><br />To read the phpBB3 license or learn about obtaining support, please select the respective options from the side menu. To continue, please select the appropriate tab above.',
 
 	'PCRE_UTF_SUPPORT'				=> 'PCRE UTF-8 support',
 	'PCRE_UTF_SUPPORT_EXPLAIN'		=> 'phpBB will <strong>not</strong> run if your PHP installation is not compiled with UTF-8 support in the PCRE extension.',
@@ -329,7 +332,7 @@ $lang = array_merge($lang, array(
 	'STAGE_ADVANCED_EXPLAIN'	=> 'The settings on this page are only necessary to set if you know that you require something different from the default. If you are unsure, just proceed to the next page, as these settings can be altered from the Administration Control Panel later.',
 	'STAGE_CONFIG_FILE'			=> 'Configuration file',
 	'STAGE_CREATE_TABLE'		=> 'Create database tables',
-	'STAGE_CREATE_TABLE_EXPLAIN'	=> 'The database tables used by phpBB 3.0 have been created and populated with some initial data. Proceed to the next screen to finish installing phpBB.',
+	'STAGE_CREATE_TABLE_EXPLAIN'	=> 'The database tables used by integraMOD3 have been created and populated with some initial data. Proceed to the next screen to finish installing phpBB.',
 	'STAGE_DATABASE'			=> 'Database settings',
 	'STAGE_SN_INSTALL'          => 'Install Social Network',
 	'STAGE_FINAL'				=> 'Final stage',
@@ -343,7 +346,7 @@ $lang = array_merge($lang, array(
 	'SUB_LICENSE'				=> 'License',
 	'SUB_SUPPORT'				=> 'Support',
 	'SUCCESSFUL_CONNECT'		=> 'Successful connection',
-	'SUPPORT_BODY'				=> 'Full support will be provided for the current stable release of phpBB3, free of charge. This includes:</p><ul><li>installation</li><li>configuration</li><li>technical questions</li><li>problems relating to potential bugs in the software</li><li>updating from Release Candidate (RC) versions to the latest stable version</li><li>converting from phpBB 2.0.x to phpBB3</li><li>converting from other discussion board software to phpBB3 (please see the <a href="https://www.phpbb.com/community/viewforum.php?f=65">Convertors Forum</a>)</li></ul><p>We encourage users still running beta versions of phpBB3 to replace their installation with a fresh copy of the latest version.</p><h2>MODs / Styles</h2><p>For issues relating to MODs, please post in the appropriate <a href="https://www.phpbb.com/community/viewforum.php?f=81">Modifications Forum</a>.<br />For issues relating to styles, templates and imagesets, please post in the appropriate <a href="https://www.phpbb.com/community/viewforum.php?f=80">Styles Forum</a>.<br /><br />If your question relates to a specific package, please post directly in the topic dedicated to the package.</p><h2>Obtaining Support</h2><p><a href="https://www.phpbb.com/community/viewtopic.php?f=14&amp;t=571070">The phpBB Welcome Package</a><br /><a href="https://www.phpbb.com/support/">Support Section</a><br /><a href="https://www.phpbb.com/support/documentation/3.0/quickstart/">Quick Start Guide</a><br /><br />To ensure you stay up to date with the latest news and releases, why not <a href="https://www.phpbb.com/support/">subscribe to our mailing list</a>?<br /><br />',
+	'SUPPORT_BODY'				=> 'Full support will be provided for the current stable release of IntegraMOD3, free of charge. This includes:</p><ul><li>installation</li><li>configuration</li><li>technical questions</li><li>problems relating to potential bugs in the software</li><li>updating from Release Candidate (RC) versions to the latest stable version</li><li>converting from phpBB 2.0.x to IntegraMOD3</li><li>converting from other discussion board software to IntegraMOD3 (please see the <a href="https://www.phpbb.com/community/viewforum.php?f=65">Convertors Forum</a>)</li></ul><p>We encourage users still running beta versions of IntegraMOD3 to replace their installation with a fresh copy of the latest version.</p><h2>MODs / Styles</h2><p>For issues relating to MODs, please post in the appropriate <a href="https://integramod.com/forum/viewforum.php?f=84">Modifications Forum</a>.<br />For issues relating to styles, templates and imagesets, please post in the appropriate <a href="https://www.phpbb.com/community/viewforum.php?f=80">Styles Forum</a>.<br /><br />If your question relates to a specific package, please post directly in the topic dedicated to the package.</p><h2>Obtaining Support</h2><p><a href="https://www.phpbb.com/community/viewtopic.php?f=14&amp;t=571070">The phpBB Welcome Package</a><br /><a href="https://www.phpbb.com/support/">Support Section</a><br /><a href="https://www.phpbb.com/support/documentation/3.0/quickstart/">Quick Start Guide</a><br /><br />To ensure you stay up to date with the latest news and releases, why not <a href="https://www.phpbb.com/support/">subscribe to our mailing list</a>?<br /><br />',
 	'SYNC_FORUMS'				=> 'Starting to synchronise forums',
 	'SYNC_POST_COUNT'			=> 'Synchronising post_counts',
 	'SYNC_POST_COUNT_ID'		=> 'Synchronising post_counts from <var>entry</var> %1$s to %2$s.',

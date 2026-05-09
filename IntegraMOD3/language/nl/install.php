@@ -99,7 +99,7 @@ $lang = array_merge($lang, array(
 	'CONV_ERROR_INCONSISTENT_GROUPS'	=> 'Inconsistentie in de groepentabel gevonden add_bots() - indien je ze manueel toevoegt, moet je dit voor alle speciale groepen doen.',
 	'CONV_ERROR_INSERT_BOT'				=> 'Kan de bot in de tabel users niet toevoegen.',
 	'CONV_ERROR_INSERT_BOTGROUP'		=> 'Kan de bot niet aan de bots tabel toevoegen.',
-	'CONV_ERROR_INSERT_USER_GROUP'		=> 'Kan de gebruiker niet aan de tabel user_groep toevoegen.' ,
+	'CONV_ERROR_INSERT_USER_GROUP'		=> 'Kan de gebruiker niet aan de tabel user_groep toevoegen.',
 	'CONV_ERROR_MESSAGE_PARSER'			=> 'Fout in de berichtverwerker',
 	'CONV_ERROR_NO_AVATAR_PATH'			=> 'Notitie voor de ontwerper: je moet $convertor[\'avatar_path\'] specificeren om %s te gebruiken.',
 	'CONV_ERROR_NO_FORUM_PATH'			=> 'Het relatieve pad naar het forum is niet gespecificeerd.',
@@ -331,6 +331,7 @@ $lang = array_merge($lang, array(
 	'STAGE_CREATE_TABLE'		=> 'Databasetabellen aanmaken',
 	'STAGE_CREATE_TABLE_EXPLAIN'=> 'De door phpBB 3.0 gebruikte database tabellen zijn aangemaakt. Ga door naar het volgende scherm om de phpBB installatie af te ronden.',
 	'STAGE_DATABASE'			=> 'Database instellingen',
+	'STAGE_SN_INSTALL'			=> 'Soziaal netwerk installeren',
 	'STAGE_FINAL'				=> 'Einde',
 	'STAGE_INTRO'				=> 'Introductie',
 	'STAGE_IN_PROGRESS'			=> 'Bezig met converteren',
@@ -368,6 +369,7 @@ $lang = array_merge($lang, array(
 	'WRITABLE'					=> 'Beschrijfbaar',
 ));
 
+
 // Updater
 $lang = array_merge($lang, array(
 	'ALL_FILES_UP_TO_DATE'		=> 'Alle bestanden zijn bijgewerkt naar de laatste phpBB-versie. Je kunt nu <a href="../ucp.php?mode=login">inloggen op je forum</a> en controleren of alles goed werkt. Vergeet niet om de install-map te verwijderen, verplaatsen of te hernoemen! Stuur ons bijgewerkte informatie over je server en forum configuraties van de <a href="../ucp.php?mode=login&amp;redirect=adm/index.php%3Fi=send_statistics%26mode=send_statistics">Stuur statistieken</a> module in jouw beheerderspaneel.',
@@ -387,8 +389,8 @@ $lang = array_merge($lang, array(
 	'COLLECTED_INFORMATION_EXPLAIN'	=> 'De onderstaande lijst laat informatie zien omtrent de bestanden die bijgewerkt moeten worden. Lees a.u.b. de informatie voor ieder statusblok om te zien wat ze betekenen en wat je moet doen om ze succesvol bij te werken.',
 	'COLLECTING_FILE_DIFFS'			=> 'Bezig met verzamelen bestandsverschillen',
 	'COMPLETE_LOGIN_TO_BOARD'		=> 'Je kunt nu <a href="../ucp.php?mode=login">inloggen op je forum</a> om te controleren of alles goed werkt. Vergeet niet de install-map te verwijderen, verplaatsen of te hernoemen!',
-	'CONTINUE_UPDATE_NOW'			=> 'Ga nu verder met het updateproces',		// Shown within the database update script at the end if called from the updater
-	'CONTINUE_UPDATE'				=> 'Hervat update nu',						// Shown after file upload to indicate the update process is not yet finished
+	'CONTINUE_UPDATE_NOW'			=> 'Ga nu verder met het updateproces',
+	'CONTINUE_UPDATE'				=> 'Hervat update nu',
 	'CURRENT_FILE'					=> 'Begin van conflict - Originele bestandscode voor bijwerken',
 	'CURRENT_VERSION'				=> 'Huidige versie',
 
@@ -417,7 +419,7 @@ $lang = array_merge($lang, array(
 
 	'FILE_ALREADY_UP_TO_DATE'		=> 'Bestand is al bijgewerkt.',
 	'FILE_DIFF_NOT_ALLOWED'			=> 'Bestand niet toegestaan voor diff.',
-	'FILE_USED'						=> 'Informatie gebruikt van',			// Single file
+	'FILE_USED'						=> 'Informatie gebruikt van',
 	'FILES_CONFLICT'				=> 'Probleem bestanden',
 	'FILES_CONFLICT_EXPLAIN'		=> 'De volgende bestanden zijn aangepast en vertegenwoordigen niet de originele bestanden van de oude versie. phpBB ziet dat deze bestanden problemen veroorzaken als er geprobeerd wordt om ze samen te voegen. Onderzoek de problemen en probeer ze handmatig te verhelpen of ga verder met het bijwerken door de voorkeurssamenvoegmethode te kiezen. Als je de problemen handmatig oplost, controleer de bestanden dan nog een keer nadat je ze aangepast hebt. Je kunt een keuze maken tussen de voorkeurssamenvoegmethode van elk bestand. De eerste zal resulteren in een bestand waar de lijnen, van het oude bestand, die problemen geven worden verwijderd, de andere methode zal resulteren in de verwijdering van de veranderingen in het nieuwe bestand.',
 	'FILES_MODIFIED'				=> 'Aangepaste bestanden',
@@ -472,7 +474,7 @@ $lang = array_merge($lang, array(
 	'NO_VISIBLE_CHANGES'			=> 'Geen zichtbare veranderingen',
 	'NOTICE'						=> 'Opmerking',
 	'NUM_CONFLICTS'					=> 'Aantal problemen',
-	'NUMBER_OF_FILES_COLLECTED'		=> 'Huidige verschillen van %1$d van de %2$d bestanden zijn gecontroleerd.<br />Wacht alstublieft tot alle bestanden zijn gecontroleerd.',
+	'NUMBER_OF_FILES_COLLECTED'		=> 'Huidige verschillen van %1$d van de %2%d bestanden zijn gecontroleerd.<br />Wacht alstublieft tot alle bestanden zijn gecontroleerd.',
 
 	'OLD_UPDATE_FILES'		=> 'Updatebestanden zijn te oud. De gevonden updatebestanden zijn voor het bijwerken van phpBB %1$s naar phpBB %2$s maar de laatste phpBB versie is %3$s.',
 
@@ -509,7 +511,7 @@ $lang = array_merge($lang, array(
 	'STATUS_UP_TO_DATE'			=> 'Reeds bijgewerkt bestand',
 
 	'TOGGLE_DISPLAY'			=> 'Toon/verberg bestandslijst',
-	'TRY_DOWNLOAD_METHOD'		=> 'Wellicht wil je de methode van het downloaden van gemodificeerde bestanden proberen.<br />Deze methode werkt altijd en is ook direct de aanbevolen manier om te updaten.', 
+	'TRY_DOWNLOAD_METHOD'		=> 'Wellicht wil je de methode van het downloaden van gemodificeerde bestanden proberen.<br />Deze methode werkt altijd en is ook direct de aanbevolen manier om te updaten.',
 	'TRY_DOWNLOAD_METHOD_BUTTON'=> 'Probeer deze methode nu.',
 
 	'UPDATE_COMPLETED'				=> 'Update klaar',
@@ -579,6 +581,7 @@ $lang = array_merge($lang, array(
 	'WRONG_INFO_FILE_FORMAT'	=> 'Foutief formaat bestandsinformatie',
 ));
 
+
 // Default database schema entries…
 $lang = array_merge($lang, array(
 	'CONFIG_BOARD_EMAIL_SIG'		=> 'Met vriendelijke groeten, De beheerder(s)',
@@ -603,7 +606,7 @@ $lang = array_merge($lang, array(
 	'SMILIES_CRYING'				=> 'Huilend of zeer droevig',
 	'SMILIES_EMARRASSED'			=> 'Beschaamd',
 	'SMILIES_EVIL'					=> 'Slecht of heel kwaad',
-	'SMILIES_EXCLAMATION'			=> 'Uitroepingsteken',
+	'SMILIES_EXCLAMATION'			=> 'Uitroekingsteken',
 	'SMILIES_GEEK'					=> 'Sul',
 	'SMILIES_IDEA'					=> 'Idee',
 	'SMILIES_LAUGHING'				=> 'Lachend',
@@ -622,6 +625,5 @@ $lang = array_merge($lang, array(
 	'SMILIES_VERY_HAPPY'			=> 'Zeer gelukkig',
 	'SMILIES_WINK'					=> 'Knipoog',
 
-	'TOPICS_TOPIC_TITLE'			=> 'Welkom bij phpBB3',
+	'TOPICS_TOPIC_TITLE'			=> 'Welkom bij IntegraMOD3',
 ));
-

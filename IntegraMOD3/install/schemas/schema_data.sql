@@ -1301,55 +1301,16 @@ INSERT INTO phpbb_user_group (group_id, user_id, user_pending, group_leader) VAL
 INSERT INTO phpbb_ranks (rank_title, rank_min, rank_special, rank_image) VALUES ('{L_RANKS_SITE_ADMIN_TITLE}', 0, 1, '');
 
 # -- Roles data
+
+# -- Roles data
 # Standard Admin (a_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 1, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'a_%' AND auth_option NOT IN (
-'a_switchperm', 
-'a_jabber', 
-'a_phpinfo', 
-'a_server', 
-'a_backup', 
-'a_styles', 
-'a_clearlogs', 
-'a_modules', 
-'a_language', 
-'a_email', 
-'a_bots', 
-'a_search', 
-'a_aauth', 
-'a_roles'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 1, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'a_%' AND auth_option NOT IN ('a_switchperm','a_jabber','a_phpinfo','a_server','a_backup','a_styles','a_clearlogs','a_modules','a_language','a_email','a_bots','a_search','a_aauth','a_roles');
 
 # Forum admin (a_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 2, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'a_%' AND auth_option IN (
-'a_', 
-'a_authgroups', 
-'a_authusers', 
-'a_fauth', 
-'a_forum', 
-'a_forumadd', 
-'a_forumdel', 
-'a_mauth', 
-'a_prune', 
-'a_uauth', 
-'a_viewauth', 
-'a_viewlogs'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 2, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'a_%' AND auth_option IN ('a_','a_authgroups','a_authusers','a_fauth','a_forum','a_forumadd','a_forumdel','a_mauth','a_prune','a_uauth','a_viewauth','a_viewlogs');
 
 # User and Groups Admin (a_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 3, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'a_%' AND auth_option IN (
-'a_', 
-'a_authgroups', 
-'a_authusers', 
-'a_ban', 
-'a_group', 
-'a_groupadd', 
-'a_groupdel', 
-'a_ranks', 
-'a_uauth', 
-'a_user', 
-'a_viewauth', 
-'a_viewlogs'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 3, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'a_%' AND auth_option IN ('a_','a_authgroups','a_authusers','a_ban','a_group','a_groupadd','a_groupdel','a_ranks','a_uauth','a_user','a_viewauth','a_viewlogs');
 
 # Full Admin (a_)
 INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 4, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'a_%';
@@ -1358,205 +1319,64 @@ INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 
 INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 5, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%';
 
 # Standard Features (u_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 6, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option NOT IN (
-'u_viewonline', 
-'u_chggrp', 
-'u_chgname', 
-'u_ignoreflood', 
-'u_pm_flash', 
-'u_pm_forward'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 6, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option NOT IN ('u_viewonline','u_chggrp','u_chgname','u_ignoreflood','u_pm_flash','u_pm_forward');
 
 # Limited Features (u_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 7, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option NOT IN (
-'u_attach', 
-'u_viewonline', 
-'u_chggrp', 
-'u_chgname', 
-'u_ignoreflood', 
-'u_pm_attach', 
-'u_pm_emailpm', 
-'u_pm_flash', 
-'u_savedrafts', 
-'u_search', 
-'u_sendemail', 
-'u_sendim', 
-'u_masspm', 
-'u_masspm_group'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 7, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option NOT IN ('u_attach','u_viewonline','u_chggrp','u_chgname','u_ignoreflood','u_pm_attach','u_pm_emailpm','u_pm_flash','u_savedrafts','u_search','u_sendemail','u_sendim','u_masspm','u_masspm_group');
 
 # No Private Messages (u_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 8, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option IN (
-'u_', 
-'u_chgavatar', 
-'u_chgcensors', 
-'u_chgemail', 
-'u_chgpasswd', 
-'u_download', 
-'u_hideonline', 
-'u_sig', 
-'u_viewprofile'
-);
-
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 8, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option IN (
-'u_readpm', 
-'u_sendpm', 
-'u_masspm', 
-'u_masspm_group'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 8, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option IN ('u_','u_chgavatar','u_chgcensors','u_chgemail','u_chgpasswd','u_download','u_hideonline','u_sig','u_viewprofile');
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 8, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option IN ('u_readpm','u_sendpm','u_masspm','u_masspm_group');
 
 # No Avatar (u_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 9, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option NOT IN (
-'u_attach', 
-'u_chgavatar', 
-'u_viewonline', 
-'u_chggrp', 
-'u_chgname', 
-'u_ignoreflood', 
-'u_pm_attach', 
-'u_pm_emailpm', 
-'u_pm_flash', 
-'u_savedrafts', 
-'u_search', 
-'u_sendemail', 
-'u_sendim', 
-'u_masspm', 
-'u_masspm_group'
-);
-
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 9, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option IN (
-'u_chgavatar'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 9, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option NOT IN ('u_attach','u_chgavatar','u_viewonline','u_chggrp','u_chgname','u_ignoreflood','u_pm_attach','u_pm_emailpm','u_pm_flash','u_savedrafts','u_search','u_sendemail','u_sendim','u_masspm','u_masspm_group');
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 9, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option IN ('u_chgavatar');
 
 # Full Moderator (m_)
 INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 10, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'm_%';
 
 # Standard Moderator (m_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 11, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'm_%' AND auth_option NOT IN (
-'m_ban', 
-'m_chgposter'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 11, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'm_%' AND auth_option NOT IN ('m_ban','m_chgposter');
 
 # Simple Moderator (m_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 12, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'm_%' AND auth_option IN (
-'m_', 
-'m_delete', 
-'m_edit', 
-'m_info', 
-'m_report'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 12, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'm_%' AND auth_option IN ('m_','m_delete','m_edit','m_info','m_report');
 
 # Queue Moderator (m_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 13, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'm_%' AND auth_option IN (
-'m_', 
-'m_approve', 
-'m_edit'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 13, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'm_%' AND auth_option IN ('m_','m_approve','m_edit');
 
 # Full Access (f_)
 INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 14, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%';
 
 # Standard Access (f_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 15, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN (
-'f_announce', 
-'f_flash', 
-'f_ignoreflood', 
-'f_poll', 
-'f_sticky', 
-'f_user_lock'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 15, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN ('f_announce','f_flash','f_ignoreflood','f_poll','f_sticky','f_user_lock');
 
 # No Access (f_)
 INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 16, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option = 'f_';
 
 # Read Only Access (f_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 17, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option IN (
-'f_', 
-'f_download', 
-'f_list', 
-'f_read', 
-'f_search', 
-'f_subscribe', 
-'f_print'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 17, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option IN ('f_','f_download','f_list','f_read','f_search','f_subscribe','f_print');
 
 # Limited Access (f_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 18, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN (
-'f_announce', 
-'f_attach', 
-'f_bump', 
-'f_delete', 
-'f_flash', 
-'f_icons', 
-'f_ignoreflood', 
-'f_poll', 
-'f_sticky', 
-'f_user_lock', 
-'f_votechg'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 18, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN ('f_announce','f_attach','f_bump','f_delete','f_flash','f_icons','f_ignoreflood','f_poll','f_sticky','f_user_lock','f_votechg');
 
 # Bot Access (f_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 19, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option IN (
-'f_', 
-'f_download', 
-'f_list', 
-'f_read', 
-'f_print'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 19, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option IN ('f_','f_download','f_list','f_read','f_print');
 
 # On Moderation Queue (f_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 20, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN (
-'f_announce', 
-'f_bump', 
-'f_delete', 
-'f_flash', 
-'f_icons', 
-'f_ignoreflood', 
-'f_poll', 
-'f_sticky', 
-'f_user_lock', 
-'f_votechg', 
-'f_noapprove'
-);
-
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 20, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option IN (
-'f_noapprove'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 20, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN ('f_announce','f_bump','f_delete','f_flash','f_icons','f_ignoreflood','f_poll','f_sticky','f_user_lock','f_votechg','f_noapprove');
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 20, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option IN ('f_noapprove');
 
 # Standard Access + Polls (f_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 21, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN (
-'f_announce', 
-'f_flash', 
-'f_ignoreflood', 
-'f_sticky', 
-'f_user_lock'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 21, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN ('f_announce','f_flash','f_ignoreflood','f_sticky','f_user_lock');
 
 # Limited Access + Polls (f_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 22, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN (
-'f_announce', 
-'f_attach', 
-'f_bump', 
-'f_delete', 
-'f_flash', 
-'f_icons', 
-'f_ignoreflood', 
-'f_sticky', 
-'f_user_lock', 
-'f_votechg'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 22, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option NOT IN ('f_announce','f_attach','f_bump','f_delete','f_flash','f_icons','f_ignoreflood','f_sticky','f_user_lock','f_votechg');
 
 # New Member (u_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 23, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option IN (
-'u_sendpm', 
-'u_masspm', 
-'u_masspm_group'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 23, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'u_%' AND auth_option IN ('u_sendpm','u_masspm','u_masspm_group');
 
 # New Member (f_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 24, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option IN (
-'f_noapprove'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 24, auth_option_id, 0 FROM phpbb_acl_options WHERE auth_option LIKE 'f_%' AND auth_option IN ('f_noapprove');
 
 # KB_ADMIN (kb_)
 INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 25, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%';
@@ -1565,51 +1385,20 @@ INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 
 INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 26, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%';
 
 # KB_USER (kb_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 27, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%' AND auth_option NOT IN ('
-kb_edit_all_article', 
-'kb_add_article_direct'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 27, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%' AND auth_option NOT IN ('kb_edit_all_article','kb_add_article_direct');
 
 # KB_SU_USER (kb_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 28, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%' AND auth_option NOT IN (
-'kb_edit_all_article'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 28, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%' AND auth_option NOT IN ('kb_edit_all_article');
 
 # KB_GUEST (kb_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 29, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%' AND auth_option NOT IN (
-'kb_edit_all_article', 
-'kb_add_article_direct', 
-'kb_add_article', 
-'kb_del_article', 
-'kb_edit_article', 
-'kb_attache_article', 
-'kb_rate_article', 
-'kb_report_article', 
-'kb_download'
-);
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 29, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%' AND auth_option NOT IN ('kb_edit_all_article','kb_add_article_direct','kb_add_article','kb_del_article','kb_edit_article','kb_attache_article','kb_rate_article','kb_report_article','kb_download');
 
-# KB_BOT kb_)
-INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 30, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%' AND auth_option NOT IN (
-'kb_edit_all_article', 
-'kb_add_article_direct', 
-'kb_add_article', 
-'kb_del_article', 
-'kb_edit_article', 
-'kb_attache_article', 
-'kb_rate_article', 
-'kb_report_article', 
-'kb_download', 
-'kb_print_article'
-);
-
+# KB_BOT (kb_)
+INSERT INTO phpbb_acl_roles_data (role_id, auth_option_id, auth_setting) SELECT 30, auth_option_id, 1 FROM phpbb_acl_options WHERE auth_option LIKE 'kb_%' AND auth_option NOT IN ('kb_edit_all_article','kb_add_article_direct','kb_add_article','kb_del_article','kb_edit_article','kb_attache_article','kb_rate_article','kb_report_article','kb_download','kb_print_article');
 # Permissions
 
 # GUESTS - u_download and u_search ability
-INSERT INTO phpbb_acl_groups (group_id, forum_id, auth_option_id, auth_role_id, auth_setting) SELECT 1, 0, auth_option_id, 0, 1 FROM phpbb_acl_options WHERE auth_option IN (
-'u_', 
-'u_download', 
-'u_search'
-);
+INSERT INTO phpbb_acl_groups (group_id, forum_id, auth_option_id, auth_role_id, auth_setting) SELECT 1, 0, auth_option_id, 0, 1 FROM phpbb_acl_options WHERE auth_option IN ('u_','u_download','u_search');
 
 # Admin user - full user features
 INSERT INTO phpbb_acl_users (user_id, forum_id, auth_option_id, auth_role_id, auth_setting) VALUES (2, 0, 0, 5, 0);

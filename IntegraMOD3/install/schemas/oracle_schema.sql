@@ -2540,7 +2540,7 @@ CREATE TABLE phpbb_kb_article (
 
 CREATE INDEX phpbb_kb_article_activ ON phpbb_kb_article (activ)
 /
- phpbb_kb_article_titel_fulltext ON phpbb_kb_article (titel)
+CREATE INDEX phpbb_kb_article_titel_fulltext ON phpbb_kb_article (titel)
 /
 
 CREATE SEQUENCE phpbb_kb_article_seq
@@ -4275,6 +4275,147 @@ END;
 
 
 /*
+	Table: 'phpbb_sn_addons'
+*/
+CREATE TABLE phpbb_sn_addons (
+	addon_id number(8) NOT NULL,
+	addon_placeholder number(8) DEFAULT '0' NOT NULL,
+	addon_name varchar2(64) DEFAULT '' ,
+	addon_php varchar2(32) DEFAULT '' ,
+	addon_function varchar2(32) DEFAULT '' ,
+	addon_active number(4) DEFAULT '0' NOT NULL,
+	addon_order number(8) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_sn_addons PRIMARY KEY (addon_id),
+	CONSTRAINT u_phpbb_u UNIQUE (addon_placeholder, addon_name, addon_php, addon_function)
+)
+/
+
+CREATE INDEX phpbb_sn_addons_a ON phpbb_sn_addons (addon_name, addon_php, addon_active)
+/
+CREATE INDEX phpbb_sn_addons_b ON phpbb_sn_addons (addon_order)
+/
+
+CREATE SEQUENCE phpbb_sn_addons_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_sn_addons
+BEFORE INSERT ON phpbb_sn_addons
+FOR EACH ROW WHEN (
+	new.addon_id IS NULL OR new.addon_id = 0
+)
+BEGIN
+	SELECT phpbb_sn_addons_seq.nextval
+	INTO :new.addon_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_sn_addons_placeholder'
+*/
+CREATE TABLE phpbb_sn_addons_placeholder (
+	ph_id number(8) NOT NULL,
+	ph_script varchar2(64) DEFAULT '' ,
+	ph_block varchar2(16) DEFAULT '' ,
+	CONSTRAINT pk_phpbb_sn_addons_placeholder PRIMARY KEY (ph_id),
+	CONSTRAINT u_phpbb_u UNIQUE (ph_script, ph_block)
+)
+/
+
+CREATE INDEX phpbb_sn_addons_placeholder_a ON phpbb_sn_addons_placeholder (ph_script)
+/
+CREATE INDEX phpbb_sn_addons_placeholder_b ON phpbb_sn_addons_placeholder (ph_block)
+/
+
+CREATE SEQUENCE phpbb_sn_addons_placeholder_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_sn_addons_placeholder
+BEFORE INSERT ON phpbb_sn_addons_placeholder
+FOR EACH ROW WHEN (
+	new.ph_id IS NULL OR new.ph_id = 0
+)
+BEGIN
+	SELECT phpbb_sn_addons_placeholder_seq.nextval
+	INTO :new.ph_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_sn_comments'
+*/
+CREATE TABLE phpbb_sn_comments (
+	cmt_id number(8) NOT NULL,
+	cmt_module number(8) DEFAULT '0' NOT NULL,
+	cmt_time number(11) DEFAULT '0' NOT NULL,
+	cmt_mid number(8) DEFAULT '0' NOT NULL,
+	cmt_poster number(8) DEFAULT '0' NOT NULL,
+	cmt_text clob DEFAULT '' ,
+	bbcode_bitfield varchar2(255) DEFAULT '' ,
+	bbcode_uid varchar2(8) DEFAULT '' ,
+	CONSTRAINT pk_phpbb_sn_comments PRIMARY KEY (cmt_id)
+)
+/
+
+CREATE INDEX phpbb_sn_comments_a ON phpbb_sn_comments (cmt_module)
+/
+CREATE INDEX phpbb_sn_comments_b ON phpbb_sn_comments (cmt_time)
+/
+CREATE INDEX phpbb_sn_comments_c ON phpbb_sn_comments (cmt_module, cmt_mid)
+/
+CREATE INDEX phpbb_sn_comments_d ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time)
+/
+CREATE INDEX phpbb_sn_comments_e ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time, cmt_poster)
+/
+
+CREATE SEQUENCE phpbb_sn_comments_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_sn_comments
+BEFORE INSERT ON phpbb_sn_comments
+FOR EACH ROW WHEN (
+	new.cmt_id IS NULL OR new.cmt_id = 0
+)
+BEGIN
+	SELECT phpbb_sn_comments_seq.nextval
+	INTO :new.cmt_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_sn_comments_modules'
+*/
+CREATE TABLE phpbb_sn_comments_modules (
+	cmtmd_id number(8) NOT NULL,
+	cmtmd_name varchar2(255) DEFAULT '' ,
+	CONSTRAINT pk_phpbb_sn_comments_modules PRIMARY KEY (cmtmd_id),
+	CONSTRAINT u_phpbb_a UNIQUE (cmtmd_name)
+)
+/
+
+
+CREATE SEQUENCE phpbb_sn_comments_modules_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_sn_comments_modules
+BEFORE INSERT ON phpbb_sn_comments_modules
+FOR EACH ROW WHEN (
+	new.cmtmd_id IS NULL OR new.cmtmd_id = 0
+)
+BEGIN
+	SELECT phpbb_sn_comments_modules_seq.nextval
+	INTO :new.cmtmd_id
+	FROM dual;
+END;
+/
+
+
+/*
 	Table: 'phpbb_sn_config'
 */
 CREATE TABLE phpbb_sn_config (
@@ -4289,108 +4430,34 @@ CREATE INDEX phpbb_sn_config_a ON phpbb_sn_config (is_dynamic)
 /
 
 /*
-	Table: 'phpbb_sn_users'
+	Table: 'phpbb_sn_emotes'
 */
-CREATE TABLE phpbb_sn_users (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	user_status clob DEFAULT '' ,
-	user_im_online number(1) DEFAULT '1' NOT NULL,
-	user_zebra_alert_friend number(1) DEFAULT '1' NOT NULL,
-	user_note clob DEFAULT '' ,
-	user_im_sound number(1) DEFAULT '1' NOT NULL,
-	user_im_soundname varchar2(255) DEFAULT 'IM_New-message-1.mp3' NOT NULL,
-	hometown varchar2(255) DEFAULT '' ,
-	sex number(1) DEFAULT '0' NOT NULL,
-	interested_in number(1) DEFAULT '0' NOT NULL,
-	languages clob DEFAULT '' ,
-	about_me clob DEFAULT '' ,
-	employer clob DEFAULT '' ,
-	university clob DEFAULT '' ,
-	high_school clob DEFAULT '' ,
-	religion clob DEFAULT '' ,
-	political_views clob DEFAULT '' ,
-	quotations clob DEFAULT '' ,
-	music clob DEFAULT '' ,
-	books clob DEFAULT '' ,
-	movies clob DEFAULT '' ,
-	games clob DEFAULT '' ,
-	foods clob DEFAULT '' ,
-	sports clob DEFAULT '' ,
-	sport_teams clob DEFAULT '' ,
-	activities clob DEFAULT '' ,
-	skype varchar2(32) DEFAULT '' ,
-	facebook varchar2(255) DEFAULT '' ,
-	twitter varchar2(255) DEFAULT '' ,
-	youtube varchar2(255) DEFAULT '' ,
-	profile_views number(11) DEFAULT '0' NOT NULL,
-	profile_last_change number(11) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_sn_users PRIMARY KEY (user_id)
+CREATE TABLE phpbb_sn_emotes (
+	emote_id number(8) NOT NULL,
+	emote_name varchar2(255) DEFAULT '' ,
+	emote_image varchar2(255) DEFAULT '' ,
+	emote_order number(8) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_sn_emotes PRIMARY KEY (emote_id),
+	CONSTRAINT u_phpbb_u UNIQUE (emote_name)
 )
 /
 
-
-/*
-	Table: 'phpbb_sn_im'
-*/
-CREATE TABLE phpbb_sn_im (
-	uid_from number(8) DEFAULT '0' NOT NULL,
-	uid_to number(8) DEFAULT '0' NOT NULL,
-	message clob DEFAULT '' ,
-	sent number(20, 3) DEFAULT '0' NOT NULL,
-	recd number(1) DEFAULT '0' NOT NULL,
-	bbcode_bitfield varchar2(255) DEFAULT '' ,
-	bbcode_uid varchar2(8) DEFAULT '' 
-)
+CREATE INDEX phpbb_sn_emotes_a ON phpbb_sn_emotes (emote_name, emote_order)
+/
+CREATE INDEX phpbb_sn_emotes_b ON phpbb_sn_emotes (emote_order)
 /
 
-CREATE INDEX phpbb_sn_im_a ON phpbb_sn_im (sent)
+CREATE SEQUENCE phpbb_sn_emotes_seq
 /
 
-/*
-	Table: 'phpbb_sn_im_chatboxes'
-*/
-CREATE TABLE phpbb_sn_im_chatboxes (
-	uid_from number(8) DEFAULT '0' NOT NULL,
-	uid_to number(8) DEFAULT '0' NOT NULL,
-	username_to varchar2(255) DEFAULT '' ,
-	starttime number(11) DEFAULT '0' NOT NULL,
-	CONSTRAINT u_phpbb_a UNIQUE (uid_from, uid_to)
-)
-/
-
-CREATE INDEX phpbb_sn_im_chatboxes_b ON phpbb_sn_im_chatboxes (uid_from, uid_to, starttime)
-/
-
-/*
-	Table: 'phpbb_sn_status'
-*/
-CREATE TABLE phpbb_sn_status (
-	status_id number(8) NOT NULL,
-	poster_id number(8) DEFAULT '0' NOT NULL,
-	status_time number(11) DEFAULT '0' NOT NULL,
-	status_text clob DEFAULT '' ,
-	bbcode_bitfield varchar2(255) DEFAULT '' ,
-	bbcode_uid varchar2(8) DEFAULT '' ,
-	page_data clob NOT NULL,
-	wall_id number(8) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_sn_status PRIMARY KEY (status_id)
-)
-/
-
-CREATE INDEX phpbb_sn_status_b ON phpbb_sn_status (poster_id, status_time)
-/
-
-CREATE SEQUENCE phpbb_sn_status_seq
-/
-
-CREATE OR REPLACE TRIGGER t_phpbb_sn_status
-BEFORE INSERT ON phpbb_sn_status
+CREATE OR REPLACE TRIGGER t_phpbb_sn_emotes
+BEFORE INSERT ON phpbb_sn_emotes
 FOR EACH ROW WHEN (
-	new.status_id IS NULL OR new.status_id = 0
+	new.emote_id IS NULL OR new.emote_id = 0
 )
 BEGIN
-	SELECT phpbb_sn_status_seq.nextval
-	INTO :new.status_id
+	SELECT phpbb_sn_emotes_seq.nextval
+	INTO :new.emote_id
 	FROM dual;
 END;
 /
@@ -4424,146 +4491,6 @@ FOR EACH ROW WHEN (
 BEGIN
 	SELECT phpbb_sn_entries_seq.nextval
 	INTO :new.entry_id
-	FROM dual;
-END;
-/
-
-
-/*
-	Table: 'phpbb_sn_notify'
-*/
-CREATE TABLE phpbb_sn_notify (
-	ntf_id number(11) NOT NULL,
-	ntf_time number(11) DEFAULT '0' NOT NULL,
-	ntf_type number(4) DEFAULT '0' NOT NULL,
-	ntf_user number(8) DEFAULT '0' NOT NULL,
-	ntf_poster number(8) DEFAULT '0' NOT NULL,
-	ntf_read number(4) DEFAULT '0' NOT NULL,
-	ntf_change number(11) DEFAULT '0' NOT NULL,
-	ntf_data clob DEFAULT '' ,
-	CONSTRAINT pk_phpbb_sn_notify PRIMARY KEY (ntf_id)
-)
-/
-
-CREATE INDEX phpbb_sn_notify_a ON phpbb_sn_notify (ntf_read, ntf_user)
-/
-CREATE INDEX phpbb_sn_notify_b ON phpbb_sn_notify (ntf_read, ntf_time)
-/
-CREATE INDEX phpbb_sn_notify_c ON phpbb_sn_notify (ntf_read, ntf_change)
-/
-
-CREATE SEQUENCE phpbb_sn_notify_seq
-/
-
-CREATE OR REPLACE TRIGGER t_phpbb_sn_notify
-BEFORE INSERT ON phpbb_sn_notify
-FOR EACH ROW WHEN (
-	new.ntf_id IS NULL OR new.ntf_id = 0
-)
-BEGIN
-	SELECT phpbb_sn_notify_seq.nextval
-	INTO :new.ntf_id
-	FROM dual;
-END;
-/
-
-
-/*
-	Table: 'phpbb_sn_reports'
-*/
-CREATE TABLE phpbb_sn_reports (
-	report_id number(8) NOT NULL,
-	reason_id number(4) DEFAULT '0' NOT NULL,
-	report_text clob DEFAULT '' ,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	reporter number(8) DEFAULT '0' NOT NULL,
-	report_closed number(1) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_sn_reports PRIMARY KEY (report_id)
-)
-/
-
-
-CREATE SEQUENCE phpbb_sn_reports_seq
-/
-
-CREATE OR REPLACE TRIGGER t_phpbb_sn_reports
-BEFORE INSERT ON phpbb_sn_reports
-FOR EACH ROW WHEN (
-	new.report_id IS NULL OR new.report_id = 0
-)
-BEGIN
-	SELECT phpbb_sn_reports_seq.nextval
-	INTO :new.report_id
-	FROM dual;
-END;
-/
-
-
-/*
-	Table: 'phpbb_sn_reports_reasons'
-*/
-CREATE TABLE phpbb_sn_reports_reasons (
-	reason_id number(4) NOT NULL,
-	reason_text clob DEFAULT '' ,
-	CONSTRAINT pk_phpbb_sn_reports_reasons PRIMARY KEY (reason_id)
-)
-/
-
-
-CREATE SEQUENCE phpbb_sn_reports_reasons_seq
-/
-
-CREATE OR REPLACE TRIGGER t_phpbb_sn_reports_reasons
-BEFORE INSERT ON phpbb_sn_reports_reasons
-FOR EACH ROW WHEN (
-	new.reason_id IS NULL OR new.reason_id = 0
-)
-BEGIN
-	SELECT phpbb_sn_reports_reasons_seq.nextval
-	INTO :new.reason_id
-	FROM dual;
-END;
-/
-
-
-/*
-	Table: 'phpbb_sn_menu'
-*/
-CREATE TABLE phpbb_sn_menu (
-	button_id number(8) NOT NULL,
-	button_url clob DEFAULT '' ,
-	button_name varchar2(255) DEFAULT '' ,
-	button_external number(1) DEFAULT '0' NOT NULL,
-	button_display number(1) DEFAULT '1' NOT NULL,
-	button_only_registered number(1) DEFAULT '0' NOT NULL,
-	button_only_guest number(1) DEFAULT '0' NOT NULL,
-	left_id number(8) DEFAULT '0' NOT NULL,
-	right_id number(8) DEFAULT '0' NOT NULL,
-	parent_id number(8) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_sn_menu PRIMARY KEY (button_id)
-)
-/
-
-CREATE INDEX phpbb_sn_menu_a ON phpbb_sn_menu (left_id)
-/
-CREATE INDEX phpbb_sn_menu_b ON phpbb_sn_menu (right_id)
-/
-CREATE INDEX phpbb_sn_menu_c ON phpbb_sn_menu (parent_id)
-/
-CREATE INDEX phpbb_sn_menu_d ON phpbb_sn_menu (parent_id)
-/
-
-CREATE SEQUENCE phpbb_sn_menu_seq
-/
-
-CREATE OR REPLACE TRIGGER t_phpbb_sn_menu
-BEFORE INSERT ON phpbb_sn_menu
-FOR EACH ROW WHEN (
-	new.button_id IS NULL OR new.button_id = 0
-)
-BEGIN
-	SELECT phpbb_sn_menu_seq.nextval
-	INTO :new.button_id
 	FROM dual;
 END;
 /
@@ -4611,23 +4538,6 @@ END;
 
 
 /*
-	Table: 'phpbb_sn_profile_visitors'
-*/
-CREATE TABLE phpbb_sn_profile_visitors (
-	profile_uid number(8) DEFAULT '0' NOT NULL,
-	visitor_uid number(8) DEFAULT '0' NOT NULL,
-	visit_time number(11) DEFAULT '0' NOT NULL
-)
-/
-
-CREATE INDEX phpbb_sn_profile_visitors_a ON phpbb_sn_profile_visitors (profile_uid)
-/
-CREATE INDEX phpbb_sn_profile_visitors_b ON phpbb_sn_profile_visitors (visitor_uid)
-/
-CREATE INDEX phpbb_sn_profile_visitors_c ON phpbb_sn_profile_visitors (visit_time)
-/
-
-/*
 	Table: 'phpbb_sn_fms_groups'
 */
 CREATE TABLE phpbb_sn_fms_groups (
@@ -4636,18 +4546,17 @@ CREATE TABLE phpbb_sn_fms_groups (
 	fms_name varchar2(255) DEFAULT '' ,
 	fms_clean varchar2(255) DEFAULT '' ,
 	fms_collapse number(1) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_sn_fms_groups PRIMARY KEY (fms_gid),
 	CONSTRAINT u_phpbb_a UNIQUE (user_id, fms_name),
-	CONSTRAINT u_phpbb_f UNIQUE (user_id, fms_clean)
+	CONSTRAINT u_phpbb_d UNIQUE (user_id, fms_clean)
 )
 /
 
-CREATE INDEX phpbb_sn_fms_groups_b ON phpbb_sn_fms_groups (fms_gid, user_id)
+CREATE INDEX phpbb_sn_fms_groups_b ON phpbb_sn_fms_groups (user_id)
 /
-CREATE INDEX phpbb_sn_fms_groups_c ON phpbb_sn_fms_groups (user_id)
+CREATE INDEX phpbb_sn_fms_groups_c ON phpbb_sn_fms_groups (fms_gid, user_id)
 /
-CREATE INDEX phpbb_sn_fms_groups_d ON phpbb_sn_fms_groups (fms_gid, user_id, fms_clean)
-/
-CREATE INDEX phpbb_sn_fms_groups_e ON phpbb_sn_fms_groups (fms_gid, user_id, fms_clean, fms_collapse)
+CREATE INDEX phpbb_sn_fms_groups_e ON phpbb_sn_fms_groups (user_id, fms_clean)
 /
 
 CREATE SEQUENCE phpbb_sn_fms_groups_seq
@@ -4683,177 +4592,219 @@ CREATE INDEX phpbb_sn_fms_users_group_b ON phpbb_sn_fms_users_group (fms_gid)
 /
 CREATE INDEX phpbb_sn_fms_users_group_c ON phpbb_sn_fms_users_group (fms_gid, owner_id)
 /
+CREATE INDEX phpbb_sn_fms_users_group_d ON phpbb_sn_fms_users_group (owner_id, user_id)
+/
 
 /*
-	Table: 'phpbb_sn_comments_modules'
+	Table: 'phpbb_sn_im'
 */
-CREATE TABLE phpbb_sn_comments_modules (
-	cmtmd_id number(8) NOT NULL,
-	cmtmd_name varchar2(255) DEFAULT '' ,
-	CONSTRAINT pk_phpbb_sn_comments_modules PRIMARY KEY (cmtmd_id, cmtmd_name),
-	CONSTRAINT u_phpbb_a UNIQUE (cmtmd_name)
-)
-/
-
-
-CREATE SEQUENCE phpbb_sn_comments_modules_seq
-/
-
-CREATE OR REPLACE TRIGGER t_phpbb_sn_comments_modules
-BEFORE INSERT ON phpbb_sn_comments_modules
-FOR EACH ROW WHEN (
-	new.cmtmd_id IS NULL OR new.cmtmd_id = 0
-)
-BEGIN
-	SELECT phpbb_sn_comments_modules_seq.nextval
-	INTO :new.cmtmd_id
-	FROM dual;
-END;
-/
-
-
-/*
-	Table: 'phpbb_sn_comments'
-*/
-CREATE TABLE phpbb_sn_comments (
-	cmt_id number(8) NOT NULL,
-	cmt_module number(8) DEFAULT '0' NOT NULL,
-	cmt_time number(11) DEFAULT '0' NOT NULL,
-	cmt_mid number(8) DEFAULT '0' NOT NULL,
-	cmt_poster number(8) DEFAULT '0' NOT NULL,
-	cmt_text clob DEFAULT '' ,
+CREATE TABLE phpbb_sn_im (
+	im_id number(8) NOT NULL,
+	uid_from number(8) DEFAULT '0' NOT NULL,
+	uid_to number(8) DEFAULT '0' NOT NULL,
+	message clob DEFAULT '' ,
+	sent number(20, 3) DEFAULT '0' NOT NULL,
+	recd number(1) DEFAULT '0' NOT NULL,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
-	CONSTRAINT pk_phpbb_sn_comments PRIMARY KEY (cmt_id, cmt_module, cmt_mid)
+	CONSTRAINT pk_phpbb_sn_im PRIMARY KEY (im_id)
 )
 /
 
-CREATE INDEX phpbb_sn_comments_a ON phpbb_sn_comments (cmt_module)
+CREATE INDEX phpbb_sn_im_a ON phpbb_sn_im (uid_to, recd, sent)
 /
-CREATE INDEX phpbb_sn_comments_b ON phpbb_sn_comments (cmt_time)
+CREATE INDEX phpbb_sn_im_b ON phpbb_sn_im (uid_from, uid_to, sent)
 /
-CREATE INDEX phpbb_sn_comments_c ON phpbb_sn_comments (cmt_module, cmt_mid)
-/
-CREATE INDEX phpbb_sn_comments_d ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time)
-/
-CREATE INDEX phpbb_sn_comments_e ON phpbb_sn_comments (cmt_module, cmt_mid, cmt_time, cmt_poster)
+CREATE INDEX phpbb_sn_im_c ON phpbb_sn_im (sent)
 /
 
-CREATE SEQUENCE phpbb_sn_comments_seq
+CREATE SEQUENCE phpbb_sn_im_seq
 /
 
-CREATE OR REPLACE TRIGGER t_phpbb_sn_comments
-BEFORE INSERT ON phpbb_sn_comments
+CREATE OR REPLACE TRIGGER t_phpbb_sn_im
+BEFORE INSERT ON phpbb_sn_im
 FOR EACH ROW WHEN (
-	new.cmt_id IS NULL OR new.cmt_id = 0
+	new.im_id IS NULL OR new.im_id = 0
 )
 BEGIN
-	SELECT phpbb_sn_comments_seq.nextval
-	INTO :new.cmt_id
+	SELECT phpbb_sn_im_seq.nextval
+	INTO :new.im_id
 	FROM dual;
 END;
 /
 
 
 /*
-	Table: 'phpbb_sn_emotes'
+	Table: 'phpbb_sn_im_chatboxes'
 */
-CREATE TABLE phpbb_sn_emotes (
-	emote_id number(8) NOT NULL,
-	emote_name varchar2(255) DEFAULT '' ,
-	emote_image varchar2(255) DEFAULT '' ,
-	emote_order number(8) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_sn_emotes PRIMARY KEY (emote_id),
-	CONSTRAINT u_phpbb_u UNIQUE (emote_name)
+CREATE TABLE phpbb_sn_im_chatboxes (
+	uid_from number(8) DEFAULT '0' NOT NULL,
+	uid_to number(8) DEFAULT '0' NOT NULL,
+	username_to varchar2(255) DEFAULT '' ,
+	starttime number(11) DEFAULT '0' NOT NULL,
+	CONSTRAINT u_phpbb_a UNIQUE (uid_from, uid_to)
 )
 /
 
-CREATE INDEX phpbb_sn_emotes_a ON phpbb_sn_emotes (emote_name, emote_order)
-/
-CREATE INDEX phpbb_sn_emotes_b ON phpbb_sn_emotes (emote_order)
+CREATE INDEX phpbb_sn_im_chatboxes_b ON phpbb_sn_im_chatboxes (uid_from, uid_to, starttime)
 /
 
-CREATE SEQUENCE phpbb_sn_emotes_seq
+/*
+	Table: 'phpbb_sn_menu'
+*/
+CREATE TABLE phpbb_sn_menu (
+	button_id number(8) NOT NULL,
+	button_url clob DEFAULT '' ,
+	button_name varchar2(255) DEFAULT '' ,
+	button_external number(1) DEFAULT '0' NOT NULL,
+	button_display number(1) DEFAULT '1' NOT NULL,
+	button_only_registered number(1) DEFAULT '0' NOT NULL,
+	button_only_guest number(1) DEFAULT '0' NOT NULL,
+	left_id number(8) DEFAULT '0' NOT NULL,
+	right_id number(8) DEFAULT '0' NOT NULL,
+	parent_id number(8) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_sn_menu PRIMARY KEY (button_id)
+)
 /
 
-CREATE OR REPLACE TRIGGER t_phpbb_sn_emotes
-BEFORE INSERT ON phpbb_sn_emotes
+CREATE INDEX phpbb_sn_menu_a ON phpbb_sn_menu (left_id)
+/
+CREATE INDEX phpbb_sn_menu_b ON phpbb_sn_menu (right_id)
+/
+CREATE INDEX phpbb_sn_menu_c ON phpbb_sn_menu (parent_id)
+/
+CREATE INDEX phpbb_sn_menu_d ON phpbb_sn_menu (parent_id, left_id)
+/
+
+CREATE SEQUENCE phpbb_sn_menu_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_sn_menu
+BEFORE INSERT ON phpbb_sn_menu
 FOR EACH ROW WHEN (
-	new.emote_id IS NULL OR new.emote_id = 0
+	new.button_id IS NULL OR new.button_id = 0
 )
 BEGIN
-	SELECT phpbb_sn_emotes_seq.nextval
-	INTO :new.emote_id
+	SELECT phpbb_sn_menu_seq.nextval
+	INTO :new.button_id
 	FROM dual;
 END;
 /
 
 
 /*
-	Table: 'phpbb_sn_addons_placeholder'
+	Table: 'phpbb_sn_notify'
 */
-CREATE TABLE phpbb_sn_addons_placeholder (
-	ph_id number(8) NOT NULL,
-	ph_script varchar2(64) DEFAULT '' ,
-	ph_block varchar2(16) DEFAULT '' ,
-	CONSTRAINT pk_phpbb_sn_addons_placeholder PRIMARY KEY (ph_id),
-	CONSTRAINT u_phpbb_u UNIQUE (ph_script, ph_block)
+CREATE TABLE phpbb_sn_notify (
+	ntf_id number(11) NOT NULL,
+	ntf_time number(11) DEFAULT '0' NOT NULL,
+	ntf_type number(4) DEFAULT '0' NOT NULL,
+	ntf_user number(8) DEFAULT '0' NOT NULL,
+	ntf_poster number(8) DEFAULT '0' NOT NULL,
+	ntf_read number(4) DEFAULT '0' NOT NULL,
+	ntf_change number(11) DEFAULT '0' NOT NULL,
+	ntf_data clob DEFAULT '' ,
+	CONSTRAINT pk_phpbb_sn_notify PRIMARY KEY (ntf_id)
 )
 /
 
-CREATE INDEX phpbb_sn_addons_placeholder_a ON phpbb_sn_addons_placeholder (ph_script)
+CREATE INDEX phpbb_sn_notify_a ON phpbb_sn_notify (ntf_user, ntf_read, ntf_time)
 /
-CREATE INDEX phpbb_sn_addons_placeholder_b ON phpbb_sn_addons_placeholder (ph_block)
+CREATE INDEX phpbb_sn_notify_b ON phpbb_sn_notify (ntf_read, ntf_time)
+/
+CREATE INDEX phpbb_sn_notify_c ON phpbb_sn_notify (ntf_read, ntf_change)
 /
 
-CREATE SEQUENCE phpbb_sn_addons_placeholder_seq
+CREATE SEQUENCE phpbb_sn_notify_seq
 /
 
-CREATE OR REPLACE TRIGGER t_phpbb_sn_addons_placeholder
-BEFORE INSERT ON phpbb_sn_addons_placeholder
+CREATE OR REPLACE TRIGGER t_phpbb_sn_notify
+BEFORE INSERT ON phpbb_sn_notify
 FOR EACH ROW WHEN (
-	new.ph_id IS NULL OR new.ph_id = 0
+	new.ntf_id IS NULL OR new.ntf_id = 0
 )
 BEGIN
-	SELECT phpbb_sn_addons_placeholder_seq.nextval
-	INTO :new.ph_id
+	SELECT phpbb_sn_notify_seq.nextval
+	INTO :new.ntf_id
 	FROM dual;
 END;
 /
 
 
 /*
-	Table: 'phpbb_sn_addons'
+	Table: 'phpbb_sn_profile_visitors'
 */
-CREATE TABLE phpbb_sn_addons (
-	addon_id number(8) NOT NULL,
-	addon_placeholder number(8) DEFAULT '0' NOT NULL,
-	addon_name varchar2(64) DEFAULT '' ,
-	addon_php varchar2(32) DEFAULT '' ,
-	addon_function varchar2(32) DEFAULT '' ,
-	addon_active number(4) DEFAULT '0' NOT NULL,
-	addon_order number(8) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_sn_addons PRIMARY KEY (addon_id),
-	CONSTRAINT u_phpbb_u UNIQUE (addon_placeholder, addon_name, addon_php, addon_function)
+CREATE TABLE phpbb_sn_profile_visitors (
+	profile_uid number(8) DEFAULT '0' NOT NULL,
+	visitor_uid number(8) DEFAULT '0' NOT NULL,
+	visit_time number(11) DEFAULT '0' NOT NULL
 )
 /
 
-CREATE INDEX phpbb_sn_addons_a ON phpbb_sn_addons (addon_name, addon_php, addon_active)
+CREATE INDEX phpbb_sn_profile_visitors_a ON phpbb_sn_profile_visitors (profile_uid, visit_time)
 /
-CREATE INDEX phpbb_sn_addons_b ON phpbb_sn_addons (addon_order)
+CREATE INDEX phpbb_sn_profile_visitors_b ON phpbb_sn_profile_visitors (visitor_uid)
+/
+CREATE INDEX phpbb_sn_profile_visitors_c ON phpbb_sn_profile_visitors (visit_time)
 /
 
-CREATE SEQUENCE phpbb_sn_addons_seq
+/*
+	Table: 'phpbb_sn_reports'
+*/
+CREATE TABLE phpbb_sn_reports (
+	report_id number(8) NOT NULL,
+	reason_id number(4) DEFAULT '0' NOT NULL,
+	report_text clob DEFAULT '' ,
+	user_id number(8) DEFAULT '0' NOT NULL,
+	reporter number(8) DEFAULT '0' NOT NULL,
+	report_closed number(1) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_sn_reports PRIMARY KEY (report_id)
+)
 /
 
-CREATE OR REPLACE TRIGGER t_phpbb_sn_addons
-BEFORE INSERT ON phpbb_sn_addons
+CREATE INDEX phpbb_sn_reports_a ON phpbb_sn_reports (report_closed, user_id)
+/
+CREATE INDEX phpbb_sn_reports_b ON phpbb_sn_reports (reporter)
+/
+
+CREATE SEQUENCE phpbb_sn_reports_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_sn_reports
+BEFORE INSERT ON phpbb_sn_reports
 FOR EACH ROW WHEN (
-	new.addon_id IS NULL OR new.addon_id = 0
+	new.report_id IS NULL OR new.report_id = 0
 )
 BEGIN
-	SELECT phpbb_sn_addons_seq.nextval
-	INTO :new.addon_id
+	SELECT phpbb_sn_reports_seq.nextval
+	INTO :new.report_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_sn_reports_reasons'
+*/
+CREATE TABLE phpbb_sn_reports_reasons (
+	reason_id number(4) NOT NULL,
+	reason_text clob DEFAULT '' ,
+	CONSTRAINT pk_phpbb_sn_reports_reasons PRIMARY KEY (reason_id)
+)
+/
+
+
+CREATE SEQUENCE phpbb_sn_reports_reasons_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_sn_reports_reasons
+BEFORE INSERT ON phpbb_sn_reports_reasons
+FOR EACH ROW WHEN (
+	new.reason_id IS NULL OR new.reason_id = 0
+)
+BEGIN
+	SELECT phpbb_sn_reports_reasons_seq.nextval
+	INTO :new.reason_id
 	FROM dual;
 END;
 /
@@ -4866,6 +4817,84 @@ CREATE TABLE phpbb_sn_smilies (
 	smiley_id number(8) DEFAULT '0' NOT NULL,
 	smiley_allowed number(1) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_sn_smilies PRIMARY KEY (smiley_id)
+)
+/
+
+
+/*
+	Table: 'phpbb_sn_status'
+*/
+CREATE TABLE phpbb_sn_status (
+	status_id number(8) NOT NULL,
+	poster_id number(8) DEFAULT '0' NOT NULL,
+	status_time number(11) DEFAULT '0' NOT NULL,
+	status_text clob DEFAULT '' ,
+	bbcode_bitfield varchar2(255) DEFAULT '' ,
+	bbcode_uid varchar2(8) DEFAULT '' ,
+	page_data clob NOT NULL,
+	wall_id number(8) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_sn_status PRIMARY KEY (status_id)
+)
+/
+
+CREATE INDEX phpbb_sn_status_a ON phpbb_sn_status (poster_id, status_time)
+/
+CREATE INDEX phpbb_sn_status_b ON phpbb_sn_status (wall_id, status_time)
+/
+
+CREATE SEQUENCE phpbb_sn_status_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_sn_status
+BEFORE INSERT ON phpbb_sn_status
+FOR EACH ROW WHEN (
+	new.status_id IS NULL OR new.status_id = 0
+)
+BEGIN
+	SELECT phpbb_sn_status_seq.nextval
+	INTO :new.status_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_sn_users'
+*/
+CREATE TABLE phpbb_sn_users (
+	user_id number(8) DEFAULT '0' NOT NULL,
+	user_status clob DEFAULT '' ,
+	user_im_online number(1) DEFAULT '1' NOT NULL,
+	user_zebra_alert_friend number(1) DEFAULT '1' NOT NULL,
+	user_note clob DEFAULT '' ,
+	user_im_sound number(1) DEFAULT '1' NOT NULL,
+	user_im_soundname varchar2(255) DEFAULT 'IM_New-message-1.mp3' NOT NULL,
+	hometown varchar2(255) DEFAULT '' ,
+	sex number(1) DEFAULT '0' NOT NULL,
+	interested_in number(1) DEFAULT '0' NOT NULL,
+	languages clob DEFAULT '' ,
+	about_me clob DEFAULT '' ,
+	employer clob DEFAULT '' ,
+	university clob DEFAULT '' ,
+	high_school clob DEFAULT '' ,
+	religion clob DEFAULT '' ,
+	political_views clob DEFAULT '' ,
+	quotations clob DEFAULT '' ,
+	music clob DEFAULT '' ,
+	books clob DEFAULT '' ,
+	movies clob DEFAULT '' ,
+	games clob DEFAULT '' ,
+	foods clob DEFAULT '' ,
+	sports clob DEFAULT '' ,
+	sport_teams clob DEFAULT '' ,
+	activities clob DEFAULT '' ,
+	skype varchar2(32) DEFAULT '' ,
+	facebook varchar2(255) DEFAULT '' ,
+	twitter varchar2(255) DEFAULT '' ,
+	youtube varchar2(255) DEFAULT '' ,
+	profile_views number(11) DEFAULT '0' NOT NULL,
+	profile_last_change number(11) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_sn_users PRIMARY KEY (user_id)
 )
 /
 

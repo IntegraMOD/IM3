@@ -2388,8 +2388,8 @@ function get_schema_struct()
 		'PRIMARY_KEY'	=> 'article_id',
 		'KEYS'			=> array(
 			'activ'	         => array('INDEX', 'activ'),
-			'titel_fulltext' => array('FULLTEXT', 'titel'),
-		),		
+			'titel_fulltext' => array('INDEX', 'titel'),
+		),	
 	);
 	
 	$schema_data['phpbb_kb_article_diff'] = array(
@@ -3380,6 +3380,70 @@ function get_schema_struct()
 		),
 	);
 
+	$schema_data['phpbb_sn_addons'] = array(			
+		'COLUMNS'		 => array(
+			'addon_id'			 => array('UINT:8', NULL, 'auto_increment'),
+			'addon_placeholder'	 => array('UINT:8', 0),
+			'addon_name'		 => array('VCHAR:64', ''),
+			'addon_php'			 => array('VCHAR:32', ''),
+			'addon_function'	 => array('VCHAR:32', ''),
+			'addon_active'		 => array('USINT', 0),
+			'addon_order'		 => array('UINT:8', 0)
+		),
+		'PRIMARY_KEY'	 => array('addon_id'),
+		'KEYS'			 => array(
+			'u'	 => array('UNIQUE', array('addon_placeholder', 'addon_name', 'addon_php', 'addon_function')),
+			'a'	 => array('INDEX', array('addon_name', 'addon_php', 'addon_active')),
+			'b'	 => array('INDEX', array('addon_order')),
+		),
+	);
+
+	$schema_data['phpbb_sn_addons_placeholder'] = array(			
+		'COLUMNS'		 => array(
+			'ph_id'		 => array('UINT:8', NULL, 'auto_increment'),
+			'ph_script'	 => array('VCHAR:64', ''),
+			'ph_block'	 => array('VCHAR:16', ''),
+		),
+		'PRIMARY_KEY'	 => array('ph_id'),
+		'KEYS'			 => array(
+			'u'	 => array('UNIQUE', array('ph_script', 'ph_block')),
+			'a'	 => array('INDEX', array('ph_script')),
+			'b'	 => array('INDEX', array('ph_block')),
+		),
+	);
+
+	$schema_data['phpbb_sn_comments'] = array(			
+		'COLUMNS'		 => array(
+			'cmt_id'			 => array('UINT', NULL, 'auto_increment'),
+			'cmt_module'		 => array('UINT', 0),
+			'cmt_time'			 => array('UINT:11', 0),
+			'cmt_mid'			 => array('UINT', 0),
+			'cmt_poster'		 => array('UINT', 0),
+			'cmt_text'			 => array('TEXT', ''),
+			'bbcode_bitfield'	 => array('VCHAR:255', ''),
+			'bbcode_uid'		 => array('VCHAR:8', ''),
+		),
+		'PRIMARY_KEY'	 => array('cmt_id'),
+		'KEYS'			 => array(
+			'a'	 => array('INDEX', array('cmt_module')),
+			'b'	 => array('INDEX', array('cmt_time')),
+			'c'	 => array('INDEX', array('cmt_module', 'cmt_mid')),
+			'd'	 => array('INDEX', array('cmt_module', 'cmt_mid', 'cmt_time')),
+			'e'	 => array('INDEX', array('cmt_module', 'cmt_mid', 'cmt_time', 'cmt_poster')),
+		),
+	);
+
+	$schema_data['phpbb_sn_comments_modules'] = array(
+		'COLUMNS'		 => array(
+			'cmtmd_id'	 => array('UINT', NULL, 'auto_increment'),
+			'cmtmd_name' => array('VCHAR:255', ''),
+		),
+		'PRIMARY_KEY'	 => array('cmtmd_id'),
+		'KEYS'			 => array(
+			'a'	 => array('UNIQUE', array('cmtmd_name')),
+		),
+	);
+
 	$schema_data['phpbb_sn_config'] = array(
 		'COLUMNS'		 => array(
 			'config_name'	 => array('VCHAR', ''),
@@ -3389,6 +3453,225 @@ function get_schema_struct()
 		'PRIMARY_KEY'	 => array('config_name'),
 		'KEYS'			 => array(
 			'a'	 => array('INDEX', array('is_dynamic')),
+		),
+	);
+
+	$schema_data['phpbb_sn_emotes'] = array(			
+		'COLUMNS'		 => array(
+			'emote_id'		 => array('UINT:8', NULL, 'auto_increment'),
+			'emote_name'	 => array('VCHAR:255', ''),
+			'emote_image'	 => array('VCHAR:255', ''),
+			'emote_order'	 => array('UINT:8', 0),
+		),
+		'PRIMARY_KEY'	 => array('emote_id'),
+		'KEYS'			 => array(
+			'u'	 => array('UNIQUE', array('emote_name')),
+			'a'	 => array('INDEX', array('emote_name', 'emote_order')),
+			'b'	 => array('INDEX', array('emote_order')),
+		)
+	);
+
+	$schema_data['phpbb_sn_entries'] = array(
+		'COLUMNS'		 => array(
+			'entry_id'			 => array('UINT', NULL, 'auto_increment'),
+			'user_id'			 => array('UINT', 0),
+			'entry_target'		 => array('UINT', 0),
+			'entry_type'		 => array('UINT:11', 0),
+			'entry_time'		 => array('UINT:11', 0),
+			'entry_additionals'	 => array('TEXT', ''),
+		),
+		'PRIMARY_KEY'	 => array('entry_id'),
+		'KEYS'			 => array(
+			'a'	 => array('INDEX', array('user_id', 'entry_target', 'entry_type', 'entry_time')),
+		),
+	);
+
+	$schema_data['phpbb_sn_family'] = array(			
+		'COLUMNS'		 => array(
+			'id'				 => array('UINT', NULL, 'auto_increment'),
+			'user_id'			 => array('UINT', '0'),
+			'relative_user_id'	 => array('UINT', '0'),
+			'status_id'			 => array('UINT', '0'),
+			'approved'			 => array('TINT:1', '0'),
+			'anniversary'		 => array('VCHAR:10', ''),
+			'family'			 => array('TINT:1', '0'),
+			'name'				 => array('VCHAR:255', ''),
+		),
+		'PRIMARY_KEY'	 => array('id'),
+		'KEYS'			 => array(
+			'a'	 => array('INDEX', 'user_id'),
+			'b'	 => array('INDEX', 'relative_user_id'),
+			'c'	 => array('INDEX', 'status_id'),
+			'd'	 => array('INDEX', 'approved'),
+		),
+	);
+
+	$schema_data['phpbb_sn_fms_groups'] = array(			
+		'COLUMNS'		 => array(
+			'fms_gid'		 => array('UINT', NULL, 'auto_increment'),
+			'user_id'		 => array('UINT', '0'),
+			'fms_name'		 => array('VCHAR:255', ''),
+			'fms_clean'		 => array('VCHAR:255', ''),
+			'fms_collapse'	 => array('BOOL', 0),
+		),
+		'PRIMARY_KEY'	 => array('fms_gid'),
+		'KEYS'			 => array(
+			'a'	 => array('UNIQUE', array('user_id', 'fms_name')),
+			'b'	 => array('INDEX', array('user_id')),
+			'c'	 => array('INDEX', array('fms_gid', 'user_id')),
+			'd'	 => array('UNIQUE', array('user_id', 'fms_clean')),
+			'e'	 => array('INDEX', array('user_id', 'fms_clean')),
+		),
+	);
+
+	$schema_data['phpbb_sn_fms_users_group'] = array(			
+		'COLUMNS'		 => array(
+			'fms_gid'	 => array('UINT', '0'),
+			'user_id'	 => array('UINT', '0'),
+			'owner_id'	 => array('UINT:11', 0),
+		),
+		'PRIMARY_KEY'	 => array('fms_gid', 'user_id', 'owner_id'),
+		'KEYS'			 => array(
+			'a'	 => array('INDEX', array('user_id')),
+			'b'	 => array('INDEX', array('fms_gid')),
+			'c'	 => array('INDEX', array('fms_gid', 'owner_id')),
+			'd'	 => array('INDEX', array('owner_id', 'user_id')),
+		),
+	);
+
+	$schema_data['phpbb_sn_im'] = array(
+		'COLUMNS'	 => array(
+			'im_id'				 => array('UINT', NULL, 'auto_increment'),
+			'uid_from'			 => array('UINT', 0),
+			'uid_to'			 => array('UINT', 0),
+			'message'			 => array('TEXT', ''),
+			'sent'				 => array('PDECIMAL:20', 0),
+			'recd'				 => array('BOOL', 0),
+			'bbcode_bitfield'	 => array('VCHAR:255', ''),
+			'bbcode_uid'		 => array('VCHAR:8', ''),
+		),
+		'PRIMARY_KEY' => array('im_id'),
+		'KEYS'		 => array(
+			'a'	 => array('INDEX', array('uid_to', 'recd', 'sent')),
+			'b'	 => array('INDEX', array('uid_from', 'uid_to', 'sent')),
+			'c'	 => array('INDEX', array('sent')),
+		),
+	);
+
+	$schema_data['phpbb_sn_im_chatboxes'] = array(			
+		'COLUMNS'	 => array(
+			'uid_from'		 => array('UINT', 0),
+			'uid_to'		 => array('UINT', 0),
+			'username_to'	 => array('VCHAR:255', ''),
+			'starttime'		 => array('UINT:11', 0),
+		),
+		'KEYS'		 => array(
+			'a'	 => array('UNIQUE', array('uid_from', 'uid_to')),
+			'b'	 => array('INDEX', array('uid_from', 'uid_to', 'starttime')),
+		),
+	);
+
+	$schema_data['phpbb_sn_menu'] = array(			
+		'COLUMNS'		 => array(
+			'button_id'				 => array('UINT', NULL, 'auto_increment'),
+			'button_url'			 => array('TEXT', ''),
+			'button_name'			 => array('VCHAR', ''),
+			'button_external'		 => array('BOOL', 0),
+			'button_display'		 => array('BOOL', 1),
+			'button_only_registered' => array('BOOL', 0),
+			'button_only_guest'		 => array('BOOL', 0),
+			'left_id'				 => array('UINT', 0),
+			'right_id'				 => array('UINT', 0),
+			'parent_id'				 => array('UINT', 0),
+		),
+		'PRIMARY_KEY'	 => array('button_id'),
+		'KEYS'			 => array(
+			'a'	 => array('INDEX', 'left_id'),
+			'b'	 => array('INDEX', 'right_id'),
+			'c'	 => array('INDEX', 'parent_id'),
+			'd'	 => array('INDEX', array('parent_id', 'left_id')),
+		),
+	);
+
+	$schema_data['phpbb_sn_notify'] = array(
+		'COLUMNS'		 => array(
+			'ntf_id'	 => array('UINT:11', NULL, 'auto_increment'),
+			'ntf_time'	 => array('UINT:11', 0),
+			'ntf_type'	 => array('USINT', 0),
+			'ntf_user'	 => array('UINT', 0),
+			'ntf_poster' => array('UINT', 0),
+			'ntf_read'	 => array('USINT', 0),
+			'ntf_change' => array('UINT:11', 0),
+			'ntf_data'	 => array('TEXT', ''),
+		),
+		'PRIMARY_KEY'	 => array('ntf_id'),
+		'KEYS'			 => array(
+			'a'	 => array('INDEX', array('ntf_user', 'ntf_read', 'ntf_time')),
+			'b'	 => array('INDEX', array('ntf_read', 'ntf_time')),
+			'c'	 => array('INDEX', array('ntf_read', 'ntf_change')),
+		),
+	);
+
+	$schema_data['phpbb_sn_profile_visitors'] = array(			
+		'COLUMNS'	 => array(
+			'profile_uid'	 => array('UINT', '0'),
+			'visitor_uid'	 => array('UINT', '0'),
+			'visit_time'	 => array('UINT:11', '0'),
+		),
+		'KEYS'		 => array(
+			'a'	 => array('INDEX', array('profile_uid', 'visit_time')),
+			'b'	 => array('INDEX', array('visitor_uid')),
+			'c'	 => array('INDEX', array('visit_time'))
+		),
+	);
+
+	$schema_data['phpbb_sn_reports'] = array(
+		'COLUMNS'		 => array(
+			'report_id'		 => array('UINT', NULL, 'auto_increment'),
+			'reason_id'		 => array('USINT', 0),
+			'report_text'	 => array('TEXT', ''),
+			'user_id'		 => array('UINT', 0),
+			'reporter'		 => array('UINT', 0),
+			'report_closed'	 => array('TINT:1', '0'),
+		),
+		'PRIMARY_KEY'	 => array('report_id'),
+		'KEYS'			 => array(
+			'a' => array('INDEX', array('report_closed', 'user_id')),
+			'b' => array('INDEX', array('reporter')),
+		),
+	);
+
+	$schema_data['phpbb_sn_reports_reasons'] = array(			
+		'COLUMNS'		 => array(
+			'reason_id'		 => array('USINT', NULL, 'auto_increment'),
+			'reason_text'	 => array('TEXT', ''),
+		),
+		'PRIMARY_KEY'	 => array('reason_id'),
+	);
+
+	$schema_data['phpbb_sn_smilies'] = array(			
+		'COLUMNS'		 => array(
+			'smiley_id'		 => array('UINT:8', 0),
+			'smiley_allowed' => array('TINT:1', 0),
+		),
+		'PRIMARY_KEY'	 => array('smiley_id'),
+	);
+
+	$schema_data['phpbb_sn_status'] = array(			
+		'COLUMNS'		 => array(
+			'status_id'			 => array('UINT', NULL, 'auto_increment'),
+			'poster_id'			 => array('UINT', 0),
+			'status_time'		 => array('UINT:11', 0),
+			'status_text'		 => array('TEXT', ''),
+			'bbcode_bitfield'	 => array('VCHAR:255', ''),
+			'bbcode_uid'		 => array('VCHAR:8', ''),
+			'page_data'			 => array('TEXT', NULL),
+			'wall_id'			 => array('UINT:8', 0),
+		),
+		'PRIMARY_KEY'	 => array('status_id'),
+		'KEYS'			 => array(
+			'a' => array('INDEX', array('poster_id', 'status_time')),
+			'b' => array('INDEX', array('wall_id', 'status_time')),
 		),
 	);
 
@@ -3429,279 +3712,7 @@ function get_schema_struct()
 		),
 		'PRIMARY_KEY'	 => array('user_id'),
 	);
-
-	$schema_data['phpbb_sn_im'] = array(
-		'COLUMNS'	 => array(
-			'uid_from'			 => array('UINT', 0),
-			'uid_to'			 => array('UINT', 0),
-			'message'			 => array('TEXT', ''),
-			'sent'				 => array('PDECIMAL:20', 0),
-			'recd'				 => array('BOOL', 0),
-			'bbcode_bitfield'	 => array('VCHAR:255', ''),
-			'bbcode_uid'		 => array('VCHAR:8', ''),
-		),
-		'KEYS'		 => array(
-			'a'	 => array('INDEX', array('sent')),
-		),
-	);
-			
-	$schema_data['phpbb_sn_im_chatboxes'] = array(			
-				'COLUMNS'	 => array(
-					'uid_from'		 => array('UINT', 0),
-					'uid_to'		 => array('UINT', 0),
-					'username_to'	 => array('VCHAR:255', ''),
-					'starttime'		 => array('UINT:11', 0),
-				),
-				'KEYS'		 => array(
-					'a'	 => array('UNIQUE', array('uid_from', 'uid_to')),
-					'b'	 => array('INDEX', array('uid_from', 'uid_to', 'starttime')),
-				),
-			);
-
-	$schema_data['phpbb_sn_status'] = array(			
-				'COLUMNS'		 => array(
-					'status_id'			 => array('UINT', NULL, 'auto_increment'),
-					'poster_id'			 => array('UINT', 0),
-					'status_time'		 => array('UINT:11', 0),
-					'status_text'		 => array('TEXT', ''),
-					'bbcode_bitfield'	 => array('VCHAR:255', ''),
-					'bbcode_uid'		 => array('VCHAR:8', ''),
-					'page_data'			 => array('TEXT', NULL),
-					'wall_id'			 => array('UINT:8', 0),
-				),
-				'PRIMARY_KEY'	 => array('status_id'),
-				'KEYS'			 => array(
-					'b' => array('INDEX', array('poster_id', 'status_time')), ),
-			);
-
-	$schema_data['phpbb_sn_entries'] = array(
-				'COLUMNS'		 => array(
-					'entry_id'			 => array('UINT', NULL, 'auto_increment'),
-					'user_id'			 => array('UINT', 0),
-					'entry_target'		 => array('UINT', 0),
-					'entry_type'		 => array('UINT:11', 0),
-					'entry_time'		 => array('UINT:11', 0),
-					'entry_additionals'	 => array('TEXT', ''),
-				),
-				'PRIMARY_KEY'	 => array('entry_id'),
-				'KEYS'			 => array(
-					'a'	 => array('INDEX', array('user_id', 'entry_target', 'entry_type', 'entry_time')),
-				),
-			);
-
-	$schema_data['phpbb_sn_notify'] = array(
-				'COLUMNS'		 => array(
-					'ntf_id'	 => array('UINT:11', NULL, 'auto_increment'),
-					'ntf_time'	 => array('UINT:11', 0),
-					'ntf_type'	 => array('USINT', 0),
-					'ntf_user'	 => array('UINT', 0),
-					'ntf_poster' => array('UINT', 0),
-					'ntf_read'	 => array('USINT', 0),
-					'ntf_change' => array('UINT:11', 0),
-					'ntf_data'	 => array('TEXT', ''),
-				),
-				'PRIMARY_KEY'	 => array('ntf_id'),
-				'KEYS'			 => array(
-					'a'	 => array('INDEX', array('ntf_read', 'ntf_user')),
-					'b'	 => array('INDEX', array('ntf_read', 'ntf_time')),
-					'c'	 => array('INDEX', array('ntf_read', 'ntf_change')),
-				),
-			);
-
-	$schema_data['phpbb_sn_reports'] = array(
-				'COLUMNS'		 => array(
-					'report_id'		 => array('UINT', NULL, 'auto_increment'),
-					'reason_id'		 => array('USINT', 0),
-					'report_text'	 => array('TEXT', ''),
-					'user_id'		 => array('UINT', 0),
-					'reporter'		 => array('UINT', 0),
-					'report_closed'	 => array('TINT:1', '0'),
-				),
-				'PRIMARY_KEY'	 => array('report_id'),
-			);
-			
-	$schema_data['phpbb_sn_reports_reasons'] = array(			
-				'COLUMNS'		 => array(
-					'reason_id'		 => array('USINT', NULL, 'auto_increment'),
-					'reason_text'	 => array('TEXT', ''),
-				),
-				'PRIMARY_KEY'	 => array('reason_id'),
-			);
-			
-	$schema_data['phpbb_sn_menu'] = array(			
-				'COLUMNS'		 => array(
-					'button_id'				 => array('UINT', NULL, 'auto_increment'),
-					'button_url'			 => array('TEXT', ''),
-					'button_name'			 => array('VCHAR', ''),
-					'button_external'		 => array('BOOL', 0),
-					'button_display'		 => array('BOOL', 1),
-					'button_only_registered' => array('BOOL', 0),
-					'button_only_guest'		 => array('BOOL', 0),
-					'left_id'				 => array('UINT', 0),
-					'right_id'				 => array('UINT', 0),
-					'parent_id'				 => array('UINT', 0),
-				),
-				'PRIMARY_KEY'	 => array('button_id'),
-				'KEYS'			 => array(
-					'a'	 => array('INDEX', 'left_id'),
-					'b'	 => array('INDEX', 'right_id'),
-					'c'	 => array('INDEX', 'parent_id'),
-					'd'	 => array('INDEX', 'parent_id', 'left_id'),
-				),
-			);
-
-	$schema_data['phpbb_sn_family'] = array(			
-				'COLUMNS'		 => array(
-					'id'				 => array('UINT', NULL, 'auto_increment'),
-					'user_id'			 => array('UINT', '0'),
-					'relative_user_id'	 => array('UINT', '0'),
-					'status_id'			 => array('UINT', '0'),
-					'approved'			 => array('TINT:1', '0'),
-					'anniversary'		 => array('VCHAR:10', ''),
-					'family'			 => array('TINT:1', '0'),
-					'name'				 => array('VCHAR:255', ''),
-				),
-				'PRIMARY_KEY'	 => array('id'),
-				'KEYS'			 => array(
-					'a'	 => array('INDEX', 'user_id'),
-					'b'	 => array('INDEX', 'relative_user_id'),
-					'c'	 => array('INDEX', 'status_id'),
-					'd'	 => array('INDEX', 'approved'),
-				),
-			);
-			
-	$schema_data['phpbb_sn_profile_visitors'] = array(			
-				'COLUMNS'	 => array(
-					'profile_uid'	 => array('UINT', '0'),
-					'visitor_uid'	 => array('UINT', '0'),
-					'visit_time'	 => array('UINT:11', '0'),
-				),
-				'KEYS'		 => array(
-					'a'	 => array('INDEX', 'profile_uid'),
-					'b'	 => array('INDEX', 'visitor_uid'),
-					'c'	 => array('INDEX', 'visit_time')
-				),
-			);
-			
-	$schema_data['phpbb_sn_fms_groups'] = array(			
-				'COLUMNS'		 => array(
-					'fms_gid'		 => array('UINT', NULL, 'auto_increment'),
-					'user_id'		 => array('UINT', '0'),
-					'fms_name'		 => array('VCHAR:255', ''),
-					'fms_clean'		 => array('VCHAR:255', ''),
-					'fms_collapse'	 => array('BOOL', 0),
-				),
-				'KEYS'			 => array(
-					'a'	 => array('UNIQUE', array('user_id', 'fms_name')),
-					'b'	 => array('INDEX', array('fms_gid', 'user_id')),
-					'c'	 => array('INDEX', array('user_id')),
-					'd'	 => array('INDEX', array('fms_gid', 'user_id', 'fms_clean')),
-					'e'	 => array('INDEX', array('fms_gid', 'user_id', 'fms_clean', 'fms_collapse')),
-					'f'	 => array('UNIQUE', array('user_id', 'fms_clean')),
-				),
-			);
-			
-	$schema_data['phpbb_sn_fms_users_group'] = array(			
-				'COLUMNS'		 => array(
-					'fms_gid'	 => array('UINT', '0'),
-					'user_id'	 => array('UINT', '0'),
-					'owner_id'	 => array('UINT:11', 0),
-				),
-				'PRIMARY_KEY'	 => array('fms_gid', 'user_id', 'owner_id'),
-				'KEYS'			 => array(
-					'a'	 => array('INDEX', array('user_id')),
-					'b'	 => array('INDEX', array('fms_gid')),
-					'c'	 => array('INDEX', array('fms_gid', 'owner_id')),
-				),
-			);
-
-	$schema_data['phpbb_sn_comments_modules'] = array(
-				'COLUMNS'		 => array(
-					'cmtmd_id'	 => array('UINT', NULL, 'auto_increment'),
-					'cmtmd_name' => array('VCHAR:255', ''),
-				),
-				'PRIMARY_KEY'	 => array('cmtmd_id', 'cmtmd_name'),
-				'KEYS'			 => array(
-					'a'	 => array('UNIQUE', array('cmtmd_name')),
-				),
-			);
-			
-	$schema_data['phpbb_sn_comments'] = array(			
-				'COLUMNS'		 => array(
-					'cmt_id'			 => array('UINT', NULL, 'auto_increment'),
-					'cmt_module'		 => array('UINT', 0),
-					'cmt_time'			 => array('UINT:11', 0),
-					'cmt_mid'			 => array('UINT', 0),
-					'cmt_poster'		 => array('UINT', 0),
-					'cmt_text'			 => array('TEXT', ''),
-					'bbcode_bitfield'	 => array('VCHAR:255', ''),
-					'bbcode_uid'		 => array('VCHAR:8', ''),
-				),
-				'PRIMARY_KEY'	 => array('cmt_id', 'cmt_module', 'cmt_mid'),
-				'KEYS'			 => array(
-					'a'	 => array('INDEX', array('cmt_module')),
-					'b'	 => array('INDEX', array('cmt_time')),
-					'c'	 => array('INDEX', array('cmt_module', 'cmt_mid')),
-					'd'	 => array('INDEX', array('cmt_module', 'cmt_mid', 'cmt_time')),
-					'e'	 => array('INDEX', array('cmt_module', 'cmt_mid', 'cmt_time', 'cmt_poster')),
-				),
-			);
-			
-	$schema_data['phpbb_sn_emotes'] = array(			
-				'COLUMNS'		 => array(
-					'emote_id'		 => array('UINT:8', NULL, 'auto_increment'),
-					'emote_name'	 => array('VCHAR:255', ''),
-					'emote_image'	 => array('VCHAR:255', ''),
-					'emote_order'	 => array('UINT:8', 0),
-				),
-				'PRIMARY_KEY'	 => array('emote_id'),
-				'KEYS'			 => array(
-					'u'	 => array('UNIQUE', array('emote_name')),
-					'a'	 => array('INDEX', array('emote_name', 'emote_order')),
-					'b'	 => array('INDEX', array('emote_order')),
-				)
-			);
-			
-	$schema_data['phpbb_sn_addons_placeholder'] = array(			
-				'COLUMNS'		 => array(
-					'ph_id'		 => array('UINT:8', NULL, 'auto_increment'),
-					'ph_script'	 => array('VCHAR:64', ''),
-					'ph_block'	 => array('VCHAR:16', ''),
-				),
-				'PRIMARY_KEY'	 => array('ph_id'),
-				'KEYS'			 => array(
-					'u'	 => array('UNIQUE', array('ph_script', 'ph_block')),
-					'a'	 => array('INDEX', array('ph_script')),
-					'b'	 => array('INDEX', array('ph_block')),
-				),
-			);
-			
-	$schema_data['phpbb_sn_addons'] = array(			
-				'COLUMNS'		 => array(
-					'addon_id'			 => array('UINT:8', NULL, 'auto_increment'),
-					'addon_placeholder'	 => array('UINT:8', 0),
-					'addon_name'		 => array('VCHAR:64', ''),
-					'addon_php'			 => array('VCHAR:32', ''),
-					'addon_function'	 => array('VCHAR:32', ''),
-					'addon_active'		 => array('USINT', 0),
-					'addon_order'		 => array('UINT:8', 0)
-				),
-				'PRIMARY_KEY'	 => array('addon_id'),
-				'KEYS'			 => array(
-					'u'	 => array('UNIQUE', array('addon_placeholder', 'addon_name', 'addon_php', 'addon_function')),
-					'a'	 => array('INDEX', array('addon_name', 'addon_php', 'addon_active')),
-					'b'	 => array('INDEX', array('addon_order')),
-				),
-			);
-			
-	$schema_data['phpbb_sn_smilies'] = array(			
-				'COLUMNS'		 => array(
-					'smiley_id'		 => array('UINT:8', 0),
-					'smiley_allowed' => array('TINT:1', 0),
-				),
-				'PRIMARY_KEY'	 => array('smiley_id'),
-			);
-
+	
 	$schema_data['phpbb_sortables_answers'] = array(
 		'COLUMNS'		=> array(
 			'answer_id'				=> array('UINT', Null, 'auto_increment'),

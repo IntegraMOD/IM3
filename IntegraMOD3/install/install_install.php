@@ -36,9 +36,9 @@ if (!empty($setmodules))
 		'module_type'		=> 'install',
 		'module_title'		=> 'INSTALL',
 		'module_filename'	=> substr(basename(__FILE__), 0, -strlen($phpEx)-1),
-		'module_order'		=> 11,
+		'module_order'		=> 10,
 		'module_subs'		=> '',
-		'module_stages'		=> array('INTRO', 'REQUIREMENTS', 'DATABASE', 'ADMINISTRATOR', 'CONFIG_FILE', 'ADVANCED', 'CREATE_TABLE', 'FINAL', 'SN_INSTALL'),
+		'module_stages'		=> array('INTRO', 'REQUIREMENTS', 'DATABASE', 'ADMINISTRATOR', 'CONFIG_FILE', 'ADVANCED', 'CREATE_TABLE', 'FINAL'),
 		'module_reqs'		=> ''
 	);
 }
@@ -107,6 +107,7 @@ class install_install extends module
 			case 'final':
 				$this->build_search_index($mode, $sub);
 				$this->add_modules($mode, $sub);
+				$this->install_socialnet($mode, $sub);
 				$this->add_language($mode, $sub);
 				$this->add_bots($mode, $sub);
 				$this->email_admin($mode, $sub);
@@ -116,10 +117,6 @@ class install_install extends module
 				@unlink($phpbb_root_path . 'cache/install_lock');
 
 			break;
-			
-			case 'sn_install':
-				$this->install_sn($mode, $sub);
-			break;	
 		}
 
 		$this->tpl_name = 'install_install';
@@ -1410,6 +1407,375 @@ class install_install extends module
 	}
 
 	/**
+	 * Install Social Network
+	 */
+	function install_socialnet($mode, $sub)
+	{
+		global $db, $lang, $phpbb_root_path, $phpEx, $auth, $cache, $config;
+
+		// Load Social Network constants
+		include_once($phpbb_root_path . 'socialnet/includes/constants.' . $phpEx);
+
+		// -------------------------------------------------
+		// CONFIG
+		// -------------------------------------------------
+
+		$sql = "DELETE FROM phpbb_config
+			WHERE config_name = 'version_socialNet'";
+		$db->sql_query($sql);
+
+		$sql = "INSERT INTO phpbb_config (config_name, config_value)
+			VALUES ('version_socialNet', '1.0.0')";
+		$db->sql_query($sql);
+		
+		// -------------------------------------------------
+		// MODULES
+		// -------------------------------------------------
+
+		include_once($phpbb_root_path . 'includes/acp/acp_modules.' . $phpEx);
+
+		$_module = new acp_modules();
+
+		// -------------------------------------------------
+		// ACP CATEGORY
+		// -------------------------------------------------
+
+		$_module->module_class = 'acp';
+
+		$module_data = array(
+			'module_basename'	=> '',
+			'module_enabled'	=> 1,
+			'module_display'	=> 1,
+			'parent_id'			=> 0,
+			'module_class'		=> 'acp',
+			'module_langname'	=> 'ACP_CAT_SOCIALNET',
+			'module_mode'		=> '',
+			'module_auth'		=> '',
+		);
+
+		$_module->update_module_data($module_data, true);
+
+		$acp_socialnet_id = (int) $module_data['module_id'];
+
+		// ACP_SN_MAIN
+
+		$module_data = array(
+			'module_basename'	=> 'socialnet',
+			'module_enabled'	=> 1,
+			'module_display'	=> 1,
+			'parent_id'			=> $acp_socialnet_id,
+			'module_class'		=> 'acp',
+			'module_langname'	=> 'ACP_SN_MAIN',
+			'module_mode'		=> 'main',
+			'module_auth'		=> 'acl_a_sn_settings',
+		);
+
+		$_module->update_module_data($module_data, true);
+
+		// ACP_SN_CONFIGURATION CATEGORY
+
+		$module_data = array(
+			'module_basename'	=> '',
+			'module_enabled'	=> 1,
+			'module_display'	=> 1,
+			'parent_id'			=> $acp_socialnet_id,
+			'module_class'		=> 'acp',
+			'module_langname'	=> 'ACP_SN_CONFIGURATION',
+			'module_mode'		=> '',
+			'module_auth'		=> '',
+		);
+
+		$_module->update_module_data($module_data, true);
+
+		$acp_sn_config_id = (int) $module_data['module_id'];
+
+		// ACP_SN_MODULES_CONFIGURATION CATEGORY
+
+		$module_data = array(
+			'module_basename'	=> '',
+			'module_enabled'	=> 1,
+			'module_display'	=> 1,
+			'parent_id'			=> $acp_socialnet_id,
+			'module_class'		=> 'acp',
+			'module_langname'	=> 'ACP_SN_MODULES_CONFIGURATION',
+			'module_mode'		=> '',
+			'module_auth'		=> '',
+		);
+
+		$_module->update_module_data($module_data, true);
+
+		$acp_sn_modules_id = (int) $module_data['module_id'];
+
+		// ACP CONFIG MODULES
+
+		$acp_modules = array(
+			array('ACP_SN_AVAILABLE_MODULES', 'sett_modules'),
+			array('ACP_SN_CONFIRMBOX_SETTINGS', 'sett_confirmBox'),
+			array('ACP_SN_BLOCKS_ENABLE', 'blocks_enable'),
+			array('ACP_SN_BLOCKS_CONFIGURATION', 'blocks_config'),
+			array('ACP_SN_ADDONS_HOOK_CONFIGURATION', 'addons'),
+		);
+
+		foreach ($acp_modules as $row)
+		{
+			$module_data = array(
+				'module_basename'	=> 'socialnet',
+				'module_enabled'	=> 1,
+				'module_display'	=> 1,
+				'parent_id'			=> $acp_sn_config_id,
+				'module_class'		=> 'acp',
+				'module_langname'	=> $row[0],
+				'module_mode'		=> $row[1],
+				'module_auth'		=> 'acl_a_sn_settings',
+			);
+
+			$_module->update_module_data($module_data, true);
+		}
+
+		// ACP MODULE CONFIGURATION MODULES
+
+		$acp_module_configs = array(
+			array('ACP_SN_IM_SETTINGS', 'module_im'),
+			array('ACP_SN_USERSTATUS_SETTINGS', 'module_userstatus'),
+			array('ACP_SN_APPROVAL_SETTINGS', 'module_approval'),
+			array('ACP_SN_ACTIVITYPAGE_SETTINGS', 'module_activitypage'),
+			array('ACP_SN_NOTIFY_SETTINGS', 'module_notify'),
+			array('ACP_SN_PROFILE_SETTINGS', 'module_profile'),
+		);
+
+		foreach ($acp_module_configs as $row)
+		{
+			$module_data = array(
+				'module_basename'	=> 'socialnet',
+				'module_enabled'	=> 1,
+				'module_display'	=> 1,
+				'parent_id'			=> $acp_sn_modules_id,
+				'module_class'		=> 'acp',
+				'module_langname'	=> $row[0],
+				'module_mode'		=> $row[1],
+				'module_auth'		=> 'acl_a_sn_settings',
+			);
+
+			$_module->update_module_data($module_data, true);
+		}
+
+		// -------------------------------------------------
+		// UCP CATEGORY
+		// -------------------------------------------------
+
+		$_module->module_class = 'ucp';
+
+		$module_data = array(
+			'module_basename'	=> '',
+			'module_enabled'	=> 1,
+			'module_display'	=> 1,
+			'parent_id'			=> 0,
+			'module_class'		=> 'ucp',
+			'module_langname'	=> 'UCP_SOCIALNET',
+			'module_mode'		=> '',
+			'module_auth'		=> '',
+		);
+
+		$_module->update_module_data($module_data, true);
+
+		$ucp_socialnet_id = (int) $module_data['module_id'];
+
+		$ucp_modules = array(
+			array('UCP_ZEBRA_FRIENDS', 'module_approval_friends'),
+			array('UCP_SN_IM', 'module_im'),
+			array('UCP_SN_IM_HISTORY', 'module_im_history'),
+			array('UCP_SN_APPROVAL_UFG', 'module_approval_ufg'),
+			array('UCP_SN_PROFILE', 'module_profile'),
+			array('UCP_SN_PROFILE_RELATIONS', 'module_profile_relations'),
+		);
+
+		foreach ($ucp_modules as $row)
+		{
+			$module_data = array(
+				'module_basename'	=> 'socialnet',
+				'module_enabled'	=> 1,
+				'module_display'	=> 1,
+				'parent_id'			=> $ucp_socialnet_id,
+				'module_class'		=> 'ucp',
+				'module_langname'	=> $row[0],
+				'module_mode'		=> $row[1],
+				'module_auth'		=> '',
+			);
+
+			$_module->update_module_data($module_data, true);
+		}
+
+		// UCP_PROFILE ATTACHMENTS
+
+		$ucp_profile_modules = array(
+			array('UCP_SN_PROFILE', 'module_profile'),
+			array('UCP_SN_PROFILE_RELATIONS', 'module_profile_relations'),
+		);
+
+		foreach ($ucp_profile_modules as $row)
+		{
+			$module_data = array(
+				'module_basename'	=> 'socialnet',
+				'module_enabled'	=> 1,
+				'module_display'	=> 1,
+				'parent_id'			=> 0,
+				'module_class'		=> 'ucp',
+				'module_langname'	=> $row[0],
+				'module_mode'		=> $row[1],
+				'module_auth'		=> '',
+			);
+
+			$_module->update_module_data($module_data, true);
+		}
+
+		// -------------------------------------------------
+		// MCP CATEGORY
+		// -------------------------------------------------
+
+		$_module->module_class = 'mcp';
+
+		$module_data = array(
+			'module_basename'	=> '',
+			'module_enabled'	=> 1,
+			'module_display'	=> 1,
+			'parent_id'			=> 0,
+			'module_class'		=> 'mcp',
+			'module_langname'	=> 'MCP_SOCIALNET',
+			'module_mode'		=> '',
+			'module_auth'		=> '',
+		);
+
+		$_module->update_module_data($module_data, true);
+
+		$mcp_socialnet_id = (int) $module_data['module_id'];
+
+		$module_data = array(
+			'module_basename'	=> 'socialnet',
+			'module_enabled'	=> 1,
+			'module_display'	=> 1,
+			'parent_id'			=> $mcp_socialnet_id,
+			'module_class'		=> 'mcp',
+			'module_langname'	=> 'MCP_SN_REPORTUSER',
+			'module_mode'		=> 'module_reportuser',
+			'module_auth'		=> 'acl_m_sn_close_reports',
+		);
+
+		$_module->update_module_data($module_data, true);
+		
+		// -------------------------------------------------
+		// PERMISSIONS
+		// -------------------------------------------------
+
+		include_once($phpbb_root_path . 'includes/acp/auth.' . $phpEx);
+
+		$auth_admin = new auth_admin();
+
+		$auth_admin->acl_add_option(array(
+			'global' => array(
+				'a_sn_settings',
+				'm_sn_close_reports',
+				'u_sn_im',
+				'u_sn_notify',
+				'u_sn_userstatus',
+			),
+		));
+
+
+		// -------------------------------------------------
+		// DEFAULT GROUP PERMISSIONS
+		// -------------------------------------------------
+
+		$group_names = array('REGISTERED', 'NEWLY_REGISTERED');
+
+		$sql = 'SELECT group_id
+			FROM ' . GROUPS_TABLE . '
+			WHERE ' . $db->sql_in_set('group_name', $group_names);
+
+		$result = $db->sql_query($sql);
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$group_id = (int) $row['group_id'];
+
+			$sql = 'INSERT INTO ' . ACL_GROUPS_TABLE . " (group_id, forum_id, auth_option_id, auth_role_id, auth_setting)
+				SELECT $group_id, 0, auth_option_id, 0, 1
+				FROM " . ACL_OPTIONS_TABLE . "
+				WHERE auth_option IN ('u_sn_userstatus', 'u_sn_notify', 'u_sn_im')";
+
+			$db->sql_return_on_error(true);
+			$db->sql_query($sql);
+			$db->sql_return_on_error(false);
+		}
+
+		$db->sql_freeresult($result);
+
+		// -------------------------------------------------
+		// SMILIES DEFAULTS
+		// -------------------------------------------------
+
+		$sql = 'SELECT smiley_id
+			FROM ' . SMILIES_TABLE;
+
+		$result = $db->sql_query($sql);
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$sql_ary = array(
+				'smiley_id'			=> (int) $row['smiley_id'],
+				'smiley_allowed'	=> 1,
+			);
+
+			$db->sql_return_on_error(true);
+
+			$sql = 'INSERT INTO ' . SN_SMILIES_TABLE . ' ' .
+				$db->sql_build_array('INSERT', $sql_ary);
+
+			$db->sql_query($sql);
+
+			$db->sql_return_on_error(false);
+		}
+
+		$db->sql_freeresult($result);
+
+		// -------------------------------------------------
+		// FMS PRIMARY GROUPS
+		// -------------------------------------------------
+
+		$sql = 'SELECT user_id
+			FROM ' . USERS_TABLE . '
+			WHERE user_type <> 2';
+
+		$result = $db->sql_query($sql);
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$sql_ary = array(
+				'fms_gid'			=> 0,
+				'user_id'			=> (int) $row['user_id'],
+				'fms_name'			=> '---',
+				'fms_clean'			=> '---',
+				'fms_collapse'		=> 0,
+			);
+
+			$db->sql_return_on_error(true);
+
+			$sql = 'INSERT INTO ' . SN_FMS_GROUPS_TABLE . ' ' .
+				$db->sql_build_array('INSERT', $sql_ary);
+
+			$db->sql_query($sql);
+
+			$db->sql_return_on_error(false);
+		}
+
+		$db->sql_freeresult($result);
+
+		// -------------------------------------------------
+		// CACHE
+		// -------------------------------------------------
+
+		$cache->purge();
+	}
+	/**
 	* Build the search index...
 	*/
 	function build_search_index($mode, $sub)
@@ -1924,30 +2290,6 @@ class install_install extends module
 	}
 
 	/**
-	 * Install Social Network
-	 */
-	function install_sn($mode, $sub)
-	{
-	    global $auth, $config, $db, $lang, $template, $user, $phpbb_root_path, $phpEx;
-	 
-	    $this->page_title = $lang['STAGE_SN_INSTALL'];
-	 
-	    include($phpbb_root_path . 'socialnet/install_sn.' . $phpEx);
-	 
-	    // Obtain any submitted data
-	    $data = $this->get_submitted_data();
-	 
-	    $url = $this->p_master->module_url . "?mode=$mode&amp;sub=install_sn";
-	 
-	    $template->assign_vars([
-	        'BODY'      => $lang['STAGE_SN_INSTALL'],
-	        'L_SUBMIT'  => $submit,
-	        'S_HIDDEN'  => $s_hidden_fields,
-	        'U_ACTION'  => $url,
-	    ]);
-	}
-
-	/**
 	* Sends an email to the board administrator with their password and some useful links
 	*/
 	function email_admin($mode, $sub)
@@ -2009,8 +2351,8 @@ class install_install extends module
 		$template->assign_vars(array(
 			'TITLE'		=> $lang['INSTALL_CONGRATS'],
 			'BODY'		=> sprintf($lang['INSTALL_CONGRATS_EXPLAIN'], $config['version'], append_sid($phpbb_root_path . 'install/index.' . $phpEx, 'mode=convert&amp;language=' . $data['language']), '../docs/README.html'),
-			'L_SUBMIT'	=> $lang['INSTALL_SN'],
-			'U_ACTION'  => append_sid($phpbb_root_path . 'socialnet/install_sn.' . $phpEx),
+			'L_SUBMIT'	=> $lang['INSTALL_LOGIN'],
+			'U_ACTION'	=> append_sid($phpbb_root_path . 'adm/index.' . $phpEx),
 		));
 	}
 
