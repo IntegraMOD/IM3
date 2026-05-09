@@ -78,15 +78,15 @@ class ppdm_main
 * @param int $multiplicand
 * @param int $dividend
 */
-function donation_stats_percent($type = '', $multiplicand, $dividend)
+function donation_stats_percent($multiplicand, $dividend, $type = '')
 {
 	global $template;
 
 	$donation_stats_percent = ($multiplicand * 100) / $dividend;
 
 	$template->assign_vars(array(
-		'DONATION_' . $type	=> round($donation_stats_percent, 2),
-		'S_' . $type 		=> !empty($type) ? true : false,
+		'DONATION_' . $type => round($donation_stats_percent, 2),
+		'S_' . $type        => !empty($type),
 	));
 }
 
