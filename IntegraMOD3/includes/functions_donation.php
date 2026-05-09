@@ -214,7 +214,7 @@ function donation_check_install($is_founder = false)
 * @param str $format = ''		Determine the output format. Can be 'acp', 'default_currency' or empty
 * @param str $lang_key = 'USD'	Retreive from language key file the language key nammed 'CURRENCY_DEFAULT'. If it doesn't exist, USD will be the default value.
 */
-function donation_item_list($default = 4, $type, $format = '', $lang_key = 'USD')
+function donation_item_list($type, $default = 4, $format = '', $lang_key = 'USD')
 {
 	global $db;
 

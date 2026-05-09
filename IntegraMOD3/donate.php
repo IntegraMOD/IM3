@@ -98,10 +98,9 @@ switch ($mode)
 		}
 
 		// Retrieve currency value
-		$list_currency = donation_item_list((int) $config['donation_default_currency'], 'currency', '', $user->lang['CURRENCY_DEFAULT']);
-		$donation_currency = donation_item_list((int) $config['donation_default_currency'], 'currency', 'default_currency', $user->lang['CURRENCY_DEFAULT']);
-
-		// Retrieve donation value for drop-down list
+        $list_currency = donation_item_list($config['donation_default_currency'], 'currency', '', $user->lang['CURRENCY_DEFAULT']);
+        $donation_currency = donation_item_list($config['donation_default_currency'], 'currency', 'default_currency', $user->lang['CURRENCY_DEFAULT']);
+        // Retrieve donation value for drop-down list
 		$list_donation_value = '';
 
 		if (!empty($config['donation_dropbox_enable']) && !empty($config['donation_dropbox_value']))

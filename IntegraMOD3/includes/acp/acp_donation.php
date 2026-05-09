@@ -176,8 +176,8 @@ class acp_donation
 						'legend1'						=> 'GENERAL_SETTINGS',
 						'donation_enable'				=> array('lang' => 'DONATION_ENABLE',				'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true,),
 						'donation_account_id'			=> array('lang' => 'DONATION_ACCOUNT_ID',			'validate' => 'string',	'type' => 'text:40:255', 'explain' => true,),
-						'donation_default_currency'		=> array('lang' => 'DONATION_DEFAULT_CURRENCY',		'validate' => 'int',	'type' => 'select', 'function' => 'donation_item_list', 'params' => array('{CONFIG_VALUE}', 'currency', 'acp',  $user->lang['CURRENCY_DEFAULT']), 'explain' => true,),
-						'donation_default_value'		=> array('lang' => 'DONATION_DEFAULT_VALUE',		'validate' => 'int:0',	'type' => 'text:10:50', 'explain' => true,),
+                        'donation_default_currency' => array('lang' => 'DONATION_DEFAULT_CURRENCY', 'validate' => 'string', 'type' => 'select', 'function' => 'donation_item_list', 'params' => array('{CONFIG_VALUE}', 'currency', 'acp', $user->lang['CURRENCY_DEFAULT']), 'explain' => true,),
+                        'donation_default_value'		=> array('lang' => 'DONATION_DEFAULT_VALUE',		'validate' => 'int:0',	'type' => 'text:10:50', 'explain' => true,),
 						'donation_dropbox_enable'		=> array('lang' => 'DONATION_DROPBOX_ENABLE',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true,),
 						'donation_dropbox_value'		=> array('lang' => 'DONATION_DROPBOX_VALUE',		'validate' => 'string',	'type' => 'text:40:255', 'explain' => true),
 
@@ -1073,4 +1073,3 @@ class acp_donation
 		return $info;
 	}
 }
-?>
