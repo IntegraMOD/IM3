@@ -1,0 +1,77 @@
+<span class="block_data">
+	<div style="text-align:center; font-size:10px; padding:2px;">
+
+		<form method="post" id="lang_select_form" action="{S_SELECT_ACTION}">
+			
+			<!-- hidden real select -->
+			<select id="lang_select" style="display:none;">
+				{LANG_SELECT}
+			</select>
+
+			<!-- custom dropdown -->
+			<div id="lang_dropdown" style="display:inline-block; text-align:left; cursor:pointer; border:1px solid #ccc; padding:3px; background:#fff;">
+				<div id="lang_selected"></div>
+				<div id="lang_list" style="display:none; position:absolute; background:#fff; border:1px solid #ccc; z-index:999;"></div>
+			</div>
+
+			<div style="padding-top: 4px; text-align:center;">
+				{L_PERMANENT}
+				<input type="checkbox" title="{L_MAKE_PERMANENT}" class="radio" id="lang_perm" name="y" value="1" />
+			</div>
+
+		</form>
+
+	</div>
+	<div style="padding:2px; text-align:center;">{L_TOTAL_LANGUAGES}: {LANG_COUNT}</div>
+</span>
+
+<script>
+(function() {
+	var select = document.getElementById('lang_select');
+	var selected = document.getElementById('lang_selected');
+	var list = document.getElementById('lang_list');
+
+	if (!select) return;
+
+	var root = "{ROOT_PATH}";
+	if (!root) root = "./";
+
+	for (var i = 0; i < select.options.length; i++) {
+		var opt = select.options[i];
+		var flag = opt.getAttribute('data-flag');
+
+		var item = document.createElement('div');
+		item.style.padding = '3px 6px';
+		item.style.whiteSpace = 'nowrap';
+
+		item.innerHTML =
+			'<img src="' + root + 'images/flags/' + flag + '" style="width:16px;height:11px;vertical-align:middle;margin-right:5px;"> ' +
+			opt.text;
+
+		item.onclick = (function(url) {
+			return function() {
+				var perm = document.getElementById('lang_perm');
+				var y = (perm && perm.checked) ? 1 : 0;
+				document.location.href = url + '&y=' + y;
+			};
+		})(opt.value);
+
+		list.appendChild(item);
+
+		if (opt.selected) {
+			selected.innerHTML = item.innerHTML;
+		}
+	}
+
+	selected.onclick = function() {
+		list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+	};
+
+	// close if clicking outside
+	document.addEventListener('click', function(e) {
+		if (!document.getElementById('lang_dropdown').contains(e.target)) {
+			list.style.display = 'none';
+		}
+	});
+})();
+</script>
