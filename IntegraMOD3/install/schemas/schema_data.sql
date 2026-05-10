@@ -673,7 +673,7 @@ INSERT INTO phpbb_config VALUES('points_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('points_name', 'Points', 0);
 INSERT INTO phpbb_config VALUES('portal_build', '311-020', 0);
 INSERT INTO phpbb_config VALUES('portal_enabled', '1', 0);
-INSERT INTO phpbb_config VALUES('portal_name', 'Portal', 0);
+INSERT INTO phpbb_config VALUES('portal_name', 'Home', 0);
 INSERT INTO phpbb_config VALUES('portal_name_de', 'Startseite', 0);
 INSERT INTO phpbb_config VALUES('portal_name_en', 'Home', 0);
 INSERT INTO phpbb_config VALUES('portal_name_es', 'Inicio', 0);

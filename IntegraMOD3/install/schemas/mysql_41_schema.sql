@@ -60,9 +60,9 @@ CREATE TABLE phpbb_acl_users (
 	auth_role_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	auth_setting tinyint(2) DEFAULT '0' NOT NULL,
 	is_kb tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (user_id, forum_id, auth_option_id),
 	KEY user_id (user_id),
-	KEY auth_option_id (auth_option_id),
-	KEY auth_role_id (auth_role_id)
+	KEY auth_option_id (auth_option_id)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
@@ -1611,7 +1611,10 @@ CREATE TABLE phpbb_likes (
 	like_date int(11) DEFAULT '0' NOT NULL,
 	like_state mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	like_read mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	PRIMARY KEY (like_id)
+	PRIMARY KEY (like_id),
+	UNIQUE KEY post_user (post_id, user_id),
+	KEY topic_id (topic_id),
+	KEY poster_id (poster_id)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
@@ -2024,12 +2027,10 @@ CREATE TABLE phpbb_posts (
 	points_post_received decimal(20,2) DEFAULT '0' NOT NULL,
 	PRIMARY KEY (post_id),
 	KEY forum_id (forum_id),
-	KEY topic_id (topic_id),
 	KEY poster_ip (poster_ip),
 	KEY poster_id (poster_id),
-	KEY post_approved (post_approved),
-	KEY post_username (post_username),
-	KEY tid_post_time (topic_id, post_time)
+	KEY tid_post_time (topic_id, post_time),
+	KEY post_visibility (forum_id, post_approved, post_time)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
@@ -2250,7 +2251,6 @@ CREATE TABLE phpbb_search_wordmatch (
 	word_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	title_match tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	UNIQUE unq_mtch (word_id, post_id, title_match),
-	KEY word_id (word_id),
 	KEY post_id (post_id)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
@@ -2825,10 +2825,8 @@ CREATE TABLE phpbb_topics (
 	event_non_attendees mediumtext NOT NULL,
 	topic_first_post_show tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (topic_id),
-	KEY forum_id (forum_id),
 	KEY forum_id_type (forum_id, topic_type),
 	KEY last_post_time (topic_last_post_time),
-	KEY topic_approved (topic_approved),
 	KEY forum_appr_last (forum_id, topic_approved, topic_last_post_id),
 	KEY fid_time_moved (forum_id, topic_last_post_time, topic_moved_id)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
@@ -3036,7 +3034,8 @@ CREATE TABLE phpbb_words (
 	word_id mediumint(8) UNSIGNED NOT NULL auto_increment,
 	word varchar(255) DEFAULT '' NOT NULL,
 	replacement varchar(255) DEFAULT '' NOT NULL,
-	PRIMARY KEY (word_id)
+	PRIMARY KEY (word_id),
+	UNIQUE KEY word (word)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
