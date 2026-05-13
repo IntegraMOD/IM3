@@ -56,17 +56,17 @@ class convert
 
 	var $fulltext_search;
 
-	// Batch size, can be adjusted by the conversion file
-	// For big boards a value of 6000 seems to be optimal
 	var $batch_size = 2000;
-	// Number of rows to be inserted at once (extended insert) if supported
-	// For installations having enough memory a value of 60 may be good.
 	var $num_wait_rows = 20;
 
-	// Mysqls internal recoding engine messing up with our (better) functions? We at least support more encodings than mysql so should use it in favor.
 	var $mysql_convert = false;
 
 	var $p_master;
+
+	function __construct(&$p_master)
+	{
+		$this->convert($p_master);
+	}
 
 	function convert(&$p_master)
 	{
@@ -83,6 +83,11 @@ class install_convert extends module
 	/**
 	* Variables used while converting, they are accessible from the global variable $convert
 	*/
+	function __construct(&$p_master)
+	{
+		$this->install_convert($p_master);
+	}
+
 	function install_convert(&$p_master)
 	{
 		$this->p_master = &$p_master;
