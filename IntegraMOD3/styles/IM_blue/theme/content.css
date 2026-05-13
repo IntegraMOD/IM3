@@ -42,6 +42,10 @@ ul.topiclist dd {
 	padding: 4px 0;
 }
 
+ul.topics dd.replies {
+	line-height: 1.8em;
+}
+
 ul.topiclist dfn {
 	position: absolute;
 	left: -999px;

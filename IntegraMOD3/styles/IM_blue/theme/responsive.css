@@ -36,6 +36,18 @@
     .forumbg ul.topiclist dd.views {
         display: none;
     }
+	.forumbg ul.topiclist li.header dl {               
+        margin-left: 2em;
+    }
+	.forumbg ul.topiclist li.header dl dd.lastpost{               
+        margin-left: 2em;
+    }
+	.forabg ul.topiclist li.header dl {               
+        margin-left: 1em;
+    }
+	.forabg ul.topiclist li.header dl dd.lastpost{               
+        margin-left: .8em;
+    }
 	.search-box-inner {
 	    width: 200px;
 	}
@@ -113,6 +125,21 @@
     ul.topiclist dt {               
         width: 60%;
     }
+	
+	li.header dl {               
+        margin-left: 2em;;
+    }
+	
+	li.header dl dd.lastpost{               
+        margin-left: 2em;;
+    }
+	
+	.forabg ul.topiclist li.header dl {               
+        margin-left: 1em;
+    }
+	.forabg ul.topiclist li.header dl dd.lastpost{               
+        margin-left: .8em;
+		
     #above-headerbar {
         height: auto;
         overflow: hidden;
