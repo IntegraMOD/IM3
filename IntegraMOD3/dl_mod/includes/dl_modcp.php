@@ -347,10 +347,9 @@ else
 				{
 					include($phpbb_root_path . 'includes/functions_upload.' . $phpEx);
 				}
-		
+
 				$fileupload = new fileupload();
-				$fileupload->fileupload('');
-		
+
 				$user->add_lang('posting');
 		
 				if ($config['dl_thumb_fsize'] && $index[$cat_id]['allow_thumbs'] && !$del_thumb)
