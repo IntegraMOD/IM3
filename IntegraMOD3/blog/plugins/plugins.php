@@ -134,7 +134,7 @@ class blog_plugins
 			$tpl_path = $phpbb_root_path . 'styles/' . $user->theme['template_path'] . '/template/';
 		}
 
-		// If the template file does not exist, we will have the system fall back and use the one in the prosilver folder
+		// If the template file does not exist, we will have the system fall back and use the one in the _portal_common folder
 		if (!file_exists($tpl_path . $template_file))
 		{
 			$template_path = '../../../styles/_portal_common/template/';
