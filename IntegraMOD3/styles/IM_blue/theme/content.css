@@ -36,6 +36,7 @@ ul.topiclist dt {
 ul.topiclist dt > span {
 	padding-left: 12px;
 }
+
 ul.topiclist dd {
 	display: block;
 	float: left;
@@ -60,18 +61,22 @@ ul.topiclist li.row dt a.subforum {
 	white-space: nowrap;
 	padding: 0 0 0 16px;
 }
+
 .topiclist .header dt {
 	font-size: 1.077em;
 	padding-top: 14px;
 }
+
 .topiclist .header dt a {
 	color: #ffffff !important;
 	padding-left: 12px;
 }
+
 .topiclist .header dd {
 	font-size: 0.923em;
 	line-height: 48px;
 }
+
 .forum-image {
 	float: left;
 	padding-top: 5px;

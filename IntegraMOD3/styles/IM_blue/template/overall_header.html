@@ -36,8 +36,8 @@
 <link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
 <link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" onload="this.media='all'" />
 <!-- ajaxlike -->
-<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
-<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/tipsy.css" rel="stylesheet" type="text/css" />
+<link href="{ROOT_PATH}styles/_portal_common/template/ajaxlike/css/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="{ROOT_PATH}styles/_portal_common/template/ajaxlike/css/tipsy.css" rel="stylesheet" type="text/css" />
 
 <link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
 <link href="{T_THEME_PATH}/light.css" rel="stylesheet" type="text/css" title="light" id="light" />
@@ -228,11 +228,16 @@ function notes() {
 	<a id="top" name="top" accesskey="t"></a>
 	<div id="page-header">
 	{ADS_1}
-        <div id="header"><a href="{U_INDEX}" title="{FORUM_LABEL}" id="logo">{SITE_LOGO_IMG}</a></div>
+        <div id="header" class="im-header">
+		  <a href="{U_INDEX}" title="{FORUM_LABEL}" id="logo" class="im-logo" aria-label="{FORUM_LABEL}">{SITE_LOGO_IMG}<span class="font-phpbb_logo" aria-hidden="true"></span></a>
+          <div class="im-branding">
+            <h1 class="im-site-title">{SITENAME}</h1>
+            <p class="im-site-desc">{SITE_DESCRIPTION}</p>
+            <p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
+          </div>
+        </div>
 		<!-- INCLUDE nav_menu.html -->
-		<h1>{SITENAME}</h1>
-		<p>{SITE_DESCRIPTION}</p>
-		<p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
+		<br />
 		<div id="breadcrumbs">
 			<span class="icon-home"><a href="{U_INDEX}" accesskey="h">{FORUM_LABEL}</a> <!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --> <!-- BEGIN dl_nav --> <strong>&#8249;</strong> <a href="{dl_nav.U_DOWNLOAD}">{dl_nav.L_DOWNLOAD}</a><!-- END dl_nav --></span>
 		</div>
