@@ -1512,7 +1512,7 @@ h6, h6:hover {
 		gap: 0rem;
 		padding: 0.75rem 1rem 1rem;
 		width: 100%;
-		min-height: 0;
+		min-height: 9.5rem;
 		box-sizing: border-box;
 		text-align: center;
 	}

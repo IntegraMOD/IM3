@@ -229,7 +229,14 @@ function notes() {
 	<a id="top" name="top" accesskey="t"></a>
 	<div id="page-header">
 	{ADS_1}
-        <div id="header"><a href="{U_INDEX}" title="{FORUM_LABEL}" id="logo">{SITE_LOGO_IMG}</a></div>
+        <div id="header" class="im-header">
+		  <a href="{U_INDEX}" title="{FORUM_LABEL}" id="logo" class="im-logo" aria-label="{FORUM_LABEL}">{SITE_LOGO_IMG}<span class="font-phpbb_logo" aria-hidden="true"></span></a>
+          <div class="im-branding">
+            <h1 class="im-site-title">{SITENAME}</h1>
+            <p class="im-site-desc">{SITE_DESCRIPTION}</p>
+            <p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
+          </div>
+        </div>
 		<!-- INCLUDE nav_menu.html -->
 		<br />
         

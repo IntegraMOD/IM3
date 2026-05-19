@@ -32,21 +32,9 @@
     }
     .forabg ul.topiclist dd.topics,
     .forabg ul.topiclist dd.posts,
-	.forumbg ul.topiclist dd.replies,
+	.forumbg ul.topiclist dd.posts,
     .forumbg ul.topiclist dd.views {
         display: none;
-    }
-	.forumbg ul.topiclist li.header dl {               
-        margin-left: 2em;
-    }
-	.forumbg ul.topiclist li.header dl dd.lastpost{               
-        margin-left: 2em;
-    }
-	.forabg ul.topiclist li.header dl {               
-        margin-left: 1em;
-    }
-	.forabg ul.topiclist li.header dl dd.lastpost{               
-        margin-left: .8em;
     }
 	.search-box-inner {
 	    width: 200px;
@@ -117,7 +105,7 @@
         width: 100%;
         margin-bottom: 12px;
     }
-    dd.topics, dd.posts,  dd.replies,
+    dd.topics, dd.posts,  dd.posts,
     .forumbg ul.topiclist li.header dd.views,
     .forumbg ul.topiclist li.row dd.views {
     	display: none !important;
@@ -125,18 +113,6 @@
     ul.topiclist dt {               
         width: 60%;
     }
-	li.header dl {               
-        margin-left: 2em;;
-    }
-	li.header dl dd.lastpost{               
-        margin-left: 2em;;
-    }
-	.forabg ul.topiclist li.header dl {               
-        margin-left: 1em;
-    }
-	.forabg ul.topiclist li.header dl dd.lastpost{               
-        margin-left: .8em;
-	}	
     #above-headerbar {
         height: auto;
         overflow: hidden;
