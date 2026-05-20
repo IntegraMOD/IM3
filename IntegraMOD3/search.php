@@ -909,7 +909,23 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 			}
 
 			$view_topic_url_params = "f=$u_forum_id&amp;t=$result_topic_id" . (($u_hilit) ? "&amp;hilit=$u_hilit" : '');
-			$view_topic_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", $view_topic_url_params);
+
+			$topic_unread = (!empty($topic_tracking_info[$result_topic_id]) && $topic_tracking_info[$result_topic_id] < $row['topic_last_post_time']);
+
+			if ($topic_unread)
+			{
+				$view_topic_url = append_sid(
+					"{$phpbb_root_path}viewtopic.$phpEx",
+					$view_topic_url_params . '&amp;view=unread'
+				) . '#unread';
+			}
+			else
+			{
+				$view_topic_url = append_sid(
+					"{$phpbb_root_path}viewtopic.$phpEx",
+					$view_topic_url_params . '&amp;p=' . $row['topic_last_post_id']
+				) . '#p' . $row['topic_last_post_id'];
+			}
 
 			$replies = ($auth->acl_get('m_approve', $forum_id)) ? $row['topic_replies_real'] : $row['topic_replies'];
 
