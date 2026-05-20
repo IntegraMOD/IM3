@@ -372,7 +372,7 @@ p.right {
 	border-radius: 7px;
 }
 
-.forum-moderators,.forum-subforums {
+.forum-moderators, .forum-subforums {
 	margin-top: 6px;
 	font-size: 0.846em;
 }
@@ -1404,6 +1404,7 @@ h6, h6:hover {
 
 .extra_container {
 	width: 100%;
+	display:flex;
 }
 
 .row_resp {
@@ -1450,7 +1451,7 @@ h6, h6:hover {
     }		
  }
  
- /* ==========================================================================
+/* ==========================================================================
    Header Layout
    ========================================================================== */
 

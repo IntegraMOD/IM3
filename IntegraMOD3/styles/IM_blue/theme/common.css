@@ -363,8 +363,7 @@ p.right {
 	margin-bottom: 12px;
 	clear: both;
 }
-.forum-moderators,
-.forum-subforums {
+.forum-moderators, .forum-subforums {
 	margin-top: 6px;
 	font-size: 0.846em;
 }
@@ -1248,7 +1247,7 @@ div.menu ul.menu li.menu-item.active > .submenu {
 
 
 
-@media only screen and (max-width: 800px) {
+@media only screen and (min-width: 360px) and (max-width: 800px) {
 	.sm-right-arrow, .sm-style {display: inline-block; position: relative; float: right !important;}
 	li.arrows, .style {display: none !important;}
     .menu .responsive-menu {width:70%}
@@ -1340,6 +1339,9 @@ h6, h6:hover {
 	margin: 1em;
 }	
 
+.space {
+	margin-right: 40px !important;
+}
 
  /* For mobile phones: */
  @media only screen and (max-width: 500px) {

@@ -879,4 +879,8 @@
     .login-link {
         display: inline;
     }
+	.im-select select, .im-select select a:active, .im-select2 select, .im-select2 select a:active {
+		width: 150px;
+		font-size: 1.1em;
+	}	
 }

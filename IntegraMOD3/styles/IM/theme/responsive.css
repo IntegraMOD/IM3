@@ -32,7 +32,7 @@
     }
     .forabg ul.topiclist dd.topics,
     .forabg ul.topiclist dd.posts,
-	.forumbg ul.topiclist dd.replies,
+	.forumbg ul.topiclist dd.posts,
     .forumbg ul.topiclist dd.views {
         display: none;
     }
@@ -105,7 +105,7 @@
         width: 100%;
         margin-bottom: 12px;
     }
-    dd.topics, dd.posts,  dd.replies,
+    dd.topics, dd.posts,  dd.views,
     .forumbg ul.topiclist li.header dd.views,
     .forumbg ul.topiclist li.row dd.views {
     	display: none !important;
