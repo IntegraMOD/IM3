@@ -22,6 +22,7 @@ if (!defined('IN_PHPBB'))
 */
 class auth
 {
+	var $role_cache = array();
 	var $acl = array();
 	var $cache = array();
 	var $acl_options = array();
