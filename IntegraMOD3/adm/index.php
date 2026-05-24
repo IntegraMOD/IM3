@@ -142,13 +142,14 @@ function adm_page_header($page_title)
 $errno = 0;
 $errstr = $news = '';
 
-if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
+if ($fsock = @fsockopen('ssl://integramod.com', 443, $errno, $errstr, 10))
 {
 	@fputs($fsock, "GET /version/im3_news.txt HTTP/1.1\r\n");
-	@fputs($fsock, "HOST:integramod.com\r\n");
+	@fputs($fsock, "Host: integramod.com\r\n");
 	@fputs($fsock, "Connection: close\r\n\r\n");
 
 	$get_info = false;
+
 	while (!@feof($fsock))
 	{
 		if ($get_info)
@@ -163,6 +164,7 @@ if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
 			}
 		}
 	}
+
 	@fclose($fsock);
 }
 else
@@ -187,13 +189,14 @@ else
 $errno = 0;
 $errstr = $lver = '';
 
-if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
+if ($fsock = @fsockopen('ssl://integramod.com', 443, $errno, $errstr, 10))
 {
 	@fputs($fsock, "GET /version/3.0.x.txt HTTP/1.1\r\n");
-	@fputs($fsock, "HOST:integramod.com\r\n");
+	@fputs($fsock, "Host: integramod.com\r\n");
 	@fputs($fsock, "Connection: close\r\n\r\n");
 
 	$get_info = false;
+
 	while (!@feof($fsock))
 	{
 		if ($get_info)
@@ -208,6 +211,7 @@ if ($fsock = @fsockopen('integramod.com', 80, $errno, $errstr))
 			}
 		}
 	}
+
 	@fclose($fsock);
 }
 else
