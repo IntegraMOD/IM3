@@ -6,7 +6,7 @@ Beyond standard forum discussions, IntegraMOD includes social networking tools, 
 Whether you're running a gaming community, fan site, support forum, or hobby group, IntegraMOD gives your members more ways to connect and participate.<br>
 🚀 What Makes IntegraMOD Stand Out<br>
 <pre>
-<b>Features</b>                     <b>What You Get</b>
+<b>Features</b>                        <b>What You Get</b>
 📱 Mobile-Friendly Interface   Responsive layouts designed to work smoothly across desktop, tablet, and mobile devices.
 🧑 Social Network System       Member profiles, friends lists, status updates, and social interaction tools built directly into the forum.
 🖼️ Photo Gallery               Dedicated image galleries with uploads, comments, and album support.
