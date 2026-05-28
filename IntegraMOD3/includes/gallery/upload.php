@@ -52,26 +52,25 @@ class phpbb_gallery_upload
     private array $file_names = array();
     private array $file_rotating = array();
 
-    /**
-    * Constructor
-    */
-    public function __construct($album_id, $num_files = 0)
-    {
-        global $user;
+	/**
+	* Constructor
+	*/
+	public function __construct($album_id, $num_files = 0)
+	{
+		global $user;
 
-        if (!class_exists('fileupload')) {
-            phpbb_gallery_url::_include('functions_upload', 'phpbb');
-        }
-        $this->upload = new fileupload();
-            if (!empty($script_namefileupload)) {		
-        $this->upload->fileupload('', self::get_allowed_types(), (4 * phpbb_gallery_config::get('max_filesize')));
-			}
-        $this->tools = new phpbb_gallery_image_file(phpbb_gallery_config::get('gdlib_version'));
+		if (!class_exists('fileupload')) {
+			phpbb_gallery_url::_include('functions_upload', 'phpbb');
+		}
 
-        $this->album_id = (int) $album_id;
-        $this->file_limit = (int) $num_files;
-        $this->username = $user->data['username'];
-    }
+
+
+		$this->tools = new phpbb_gallery_image_file(phpbb_gallery_config::get('gdlib_version'));
+		$this->upload = new fileupload('', self::get_allowed_types(), (4 * phpbb_gallery_config::get('max_filesize')));
+		$this->album_id = (int) $album_id;
+		$this->file_limit = (int) $num_files;
+		$this->username = $user->data['username'];
+	}
 
     /**
     * Upload a file and then call the function for reading the zip or preparing the image
