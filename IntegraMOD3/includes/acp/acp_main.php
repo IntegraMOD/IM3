@@ -402,7 +402,7 @@ class acp_main
 		{
 			$template->assign_vars(array(
 				'S_PHP_VERSION_OLD'	=> true,
-				'L_PHP_VERSION_OLD'	=> sprintf($user->lang['PHP_VERSION_OLD'], '<a href="https://www.phpbb.com/community/viewtopic.php?f=14&amp;t=2152375">', '</a>'),
+				'L_PHP_VERSION_OLD'	=> sprintf($user->lang['PHP_VERSION_OLD'], '<a href="https://www.integramod.com/forums/">', '</a>'),
 			));
 		}
 
@@ -512,7 +512,8 @@ class acp_main
 			'S_TOTAL_ORPHAN'	=> ($total_orphan === false) ? false : true,
 			'GZIP_COMPRESSION'	=> ($config['gzip_compress'] && @extension_loaded('zlib')) ? $user->lang['ON'] : $user->lang['OFF'],
 			'DATABASE_INFO'		=> $db->sql_server_info(),
-			'BOARD_VERSION'		=> isset($config['imod_version']) ? $config['imod_version'] : '',
+			'BOARD_VERSION'		=> isset($config['version']) ? $config['version'] : '',
+			'IM_VERSION'		=> isset($config['imod_version']) ? $config['imod_version'] : '',
 
 			'U_ACTION'			=> $this->u_action,
 			'U_ADMIN_LOG'		=> append_sid("{$phpbb_admin_path}index.$phpEx", 'i=logs&amp;mode=admin'),
