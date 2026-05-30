@@ -148,8 +148,28 @@
 				</dt>
 				<dd class="posts"><a href="{topicrow.U_WHO_POSTED}" onclick="window.open(this.href,'','statusbar=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,width=500,height=300'); return false;" title="{L_WHO_POSTED}">{topicrow.REPLIES}</a> <dfn>{L_REPLIES}</dfn></dd>
 				<dd class="views">{topicrow.VIEWS} <dfn>{L_VIEWS}</dfn></dd>
-				<dd class="lastpost"><span><dfn>{L_LAST_POST} </dfn>{L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}
-					<!-- IF not S_IS_BOT --><a href="{topicrow.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{topicrow.LAST_POST_TIME}</span>
+				<dd class="lastpost avatar-lastpost">
+					<div class="avatar-stack">
+						<!-- BEGIN participants -->
+						<a href="{topicrow.participants.U_PROFILE}"
+							class="avatar-stack-item"
+							title="{topicrow.participants.USERNAME}">
+							{topicrow.participants.AVATAR}
+						</a>
+						<!-- END participants -->
+
+						<!-- IF not S_IS_BOT -->
+						<a href="{topicrow.U_LAST_POST}" class="lastpost-link">
+							{LAST_POST_IMG}
+						</a>
+						<!-- ENDIF -->
+					</div>
+					<div class="lastpost-meta">
+						{L_POST_BY_AUTHOR}
+						{topicrow.LAST_POST_AUTHOR_FULL}
+						<br />
+						{topicrow.LAST_POST_TIME}
+					</div>
 				</dd>
 			</dl>
 		</li>

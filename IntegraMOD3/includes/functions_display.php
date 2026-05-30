@@ -76,11 +76,18 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 	$show_active = (isset($root_data['forum_flags']) && ($root_data['forum_flags'] & FORUM_FLAG_ACTIVE_TOPICS)) ? true : false;
 
 	$sql_array = array(
-		'SELECT'	=> 'f.*',
+		'SELECT'	=> 'f.*, u.user_avatar, u.user_avatar_type, u.user_avatar_width, u.user_avatar_height',
 		'FROM'		=> array(
 			FORUMS_TABLE		=> 'f'
 		),
-		'LEFT_JOIN'	=> array(),
+		
+		'LEFT_JOIN'	=> array(
+			array(
+				'FROM'	=> array(USERS_TABLE => 'u'),
+				'ON'	=> 'u.user_id = f.forum_last_poster_id'
+			),
+		),		
+		
 	);
 
 	if ($config['load_db_lastread'] && $user->data['is_registered'])
@@ -274,6 +281,9 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 	}
 	$db->sql_freeresult($result);
 
+	$forum_ids = array_keys($forum_rows);
+	$forum_participants = get_recent_posters('forum', $forum_ids, 5);
+	
 	// Handle marking posts
 	if ($mark_read == 'forums')
 	{
@@ -466,7 +476,7 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 			}
 		}
 
-	    	$collapse_this = in_array($row['forum_id'],$collapse_data);
+	    $collapse_this = in_array($row['forum_id'],$collapse_data);
 		$template->assign_block_vars('forumrow', array(
 			'S_COLLAPSE'			=> ($collapse_this) ? 'style="display:none"':'',
 			'COLLAPSE_SIGN'			=> ($collapse_this) ? '+':'-',
@@ -496,6 +506,8 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 			'LAST_POSTER'			=> get_username_string('username', $row['forum_last_poster_id'], $row['forum_last_poster_name'], $row['forum_last_poster_colour']),
 			'LAST_POSTER_COLOUR'	=> get_username_string('colour', $row['forum_last_poster_id'], $row['forum_last_poster_name'], $row['forum_last_poster_colour']),
 			'LAST_POSTER_FULL'		=> get_username_string('full', $row['forum_last_poster_id'], $row['forum_last_poster_name'], $row['forum_last_poster_colour']),
+            'LAST_POSTER_NAME'		=> $row['forum_last_poster_name'],
+			'LAST_POSTER_AVATAR'	=> get_user_avatar($row['user_avatar'], $row['user_avatar_type'], $row['user_avatar_width'], $row['user_avatar_height']),
 			'MODERATORS'			=> $moderators_list,
 			'SUBFORUMS'				=> $s_subforums_list,
 
@@ -516,6 +528,18 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 				'SUBFORUM_NAME'	=> $subforum['name'],
 				'S_UNREAD'		=> $subforum['unread'])
 			);
+		}
+
+		if (!empty($forum_participants[$row['forum_id']]))
+		{
+			foreach ($forum_participants[$row['forum_id']] as $poster)
+			{
+				$template->assign_block_vars('forumrow.recent_posters', array(
+					'U_PROFILE'	=> $poster['U_PROFILE'],
+					'AVATAR'	=> $poster['AVATAR'],
+					'USERNAME'	=> $poster['USERNAME'],
+				));
+			}
 		}
 
 		$last_catless = $catless;
@@ -705,6 +729,247 @@ function topic_generate_pagination($replies, $url)
 	}
 
 	return $pagination;
+}
+
+/*
+* Build cached recent poster list
+*/
+function build_recent_poster_cache($existing, $poster_id, $limit = 5)
+{
+	$list = @unserialize($existing);
+
+	if (!is_array($list))
+	{
+		$list = array();
+	}
+
+	$poster_id = (int) $poster_id;
+
+	if (!$poster_id || $poster_id == ANONYMOUS)
+	{
+		return serialize($list);
+	}
+
+	// Remove existing occurrence
+	$list = array_diff($list, array($poster_id));
+
+	// Add newest poster to front
+	array_unshift($list, $poster_id);
+
+	// Trim
+	$list = array_slice($list, 0, $limit);
+
+	return serialize(array_values($list));
+}
+
+/*
+* Rebuild recent poster cache from posts table
+*/
+function rebuild_recent_poster_cache($mode, $id, $limit = 5)
+{
+	global $db;
+
+	$id = (int) $id;
+
+	switch ($mode)
+	{
+		case 'topic':
+			$where = 'topic_id = ' . $id;
+		break;
+
+		case 'forum':
+			$where = 'forum_id = ' . $id;
+		break;
+
+		default:
+			return serialize(array());
+	}
+
+	$sql = 'SELECT poster_id, MAX(post_time) AS last_post_time
+		FROM ' . POSTS_TABLE . '
+		WHERE ' . $where . '
+			AND poster_id <> ' . ANONYMOUS . '
+		GROUP BY poster_id
+		ORDER BY last_post_time DESC';
+
+	$result = $db->sql_query_limit($sql, $limit);
+
+	$posters = array();
+
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$posters[] = (int) $row['poster_id'];
+	}
+
+	$db->sql_freeresult($result);
+
+	return serialize($posters);
+}
+
+/*
+* Rebuild all recent poster caches
+*/
+function rebuild_all_recent_poster_caches($limit = 5)
+{
+	global $db;
+
+	$sql = 'SELECT topic_id
+		FROM ' . TOPICS_TABLE;
+	$result = $db->sql_query($sql);
+
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$cache = rebuild_recent_poster_cache('topic', (int) $row['topic_id'], $limit);
+
+		$sql2 = 'UPDATE ' . TOPICS_TABLE . "
+			SET topic_recent_posters = '" . $db->sql_escape($cache) . "'
+			WHERE topic_id = " . (int) $row['topic_id'];
+		$db->sql_query($sql2);
+	}
+
+	$db->sql_freeresult($result);
+
+	$sql = 'SELECT forum_id
+		FROM ' . FORUMS_TABLE;
+	$result = $db->sql_query($sql);
+
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$cache = rebuild_recent_poster_cache('forum', (int) $row['forum_id'], $limit);
+
+		$sql2 = 'UPDATE ' . FORUMS_TABLE . "
+			SET forum_recent_posters = '" . $db->sql_escape($cache) . "'
+			WHERE forum_id = " . (int) $row['forum_id'];
+		$db->sql_query($sql2);
+	}
+
+	$db->sql_freeresult($result);
+}
+
+/*
+* Fetch cached recent posters for topics/forums
+*/
+function get_recent_posters($mode, $ids, $limit = 5)
+{
+	global $db, $phpbb_root_path, $phpEx;
+
+	$participants = array();
+
+	if (!sizeof($ids))
+	{
+		return $participants;
+	}
+
+	$ids = array_map('intval', $ids);
+
+	switch ($mode)
+	{
+		case 'topic':
+			$table = TOPICS_TABLE;
+			$id_field = 'topic_id';
+			$cache_field = 'topic_recent_posters';
+		break;
+
+		case 'forum':
+			$table = FORUMS_TABLE;
+			$id_field = 'forum_id';
+			$cache_field = 'forum_recent_posters';
+		break;
+
+		default:
+			return $participants;
+	}
+
+	$sql = "SELECT $id_field, $cache_field
+		FROM $table
+		WHERE " . $db->sql_in_set($id_field, $ids);
+
+	$result = $db->sql_query($sql);
+
+	$user_ids = array();
+	$cache_map = array();
+
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$parent_id = (int) $row[$id_field];
+
+		$list = @unserialize($row[$cache_field]);
+
+		if (!is_array($list))
+		{
+			$list = array();
+		}
+
+		$list = array_slice(array_unique(array_map('intval', $list)), 0, $limit);
+
+		$cache_map[$parent_id] = $list;
+
+		$user_ids = array_merge($user_ids, $list);
+	}
+
+	$db->sql_freeresult($result);
+
+	$user_ids = array_unique(array_filter($user_ids));
+
+	if (!sizeof($user_ids))
+	{
+		return $participants;
+	}
+
+	$sql = 'SELECT
+				user_id,
+				username,
+				user_colour,
+				user_avatar,
+				user_avatar_type,
+				user_avatar_width,
+				user_avatar_height
+			FROM ' . USERS_TABLE . '
+			WHERE ' . $db->sql_in_set('user_id', $user_ids);
+
+	$result = $db->sql_query($sql);
+
+	$users = array();
+
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$users[(int) $row['user_id']] = $row;
+	}
+
+	$db->sql_freeresult($result);
+
+	foreach ($cache_map as $parent_id => $poster_ids)
+	{
+		foreach ($poster_ids as $poster_id)
+		{
+			if (empty($users[$poster_id]))
+			{
+				continue;
+			}
+
+			$row = $users[$poster_id];
+
+			$participants[$parent_id][] = array(
+				'USER_ID'		=> (int) $row['user_id'],
+				'USERNAME'		=> $row['username'],
+				'USER_COLOUR'	=> $row['user_colour'],
+
+				'U_PROFILE' => append_sid(
+					"memberlist.$phpEx",
+					'mode=viewprofile&amp;u=' . (int) $row['user_id']
+				),
+
+				'AVATAR' => get_user_avatar(
+					$row['user_avatar'],
+					$row['user_avatar_type'],
+					$row['user_avatar_width'],
+					$row['user_avatar_height']
+				),
+			);
+		}
+	}
+
+	return $participants;
 }
 
 /**

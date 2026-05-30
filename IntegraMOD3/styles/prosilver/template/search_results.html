@@ -44,7 +44,7 @@
 					<dt>{L_TOPICS}</dt>
 					<dd class="posts">{L_REPLIES}</dd>
 					<dd class="views">{L_VIEWS}</dd>
-					<dd class="lastpost"><span>{L_LAST_POST}</span></dd>
+					<dd class="lastposthdr"><span>{L_LAST_POST}</span></dd>
 				</dl>
 			</li>
 		</ul>
@@ -64,9 +64,32 @@
 					</dt>
 					<dd class="posts">{searchresults.TOPIC_REPLIES}</dd>
 					<dd class="views">{searchresults.TOPIC_VIEWS}</dd>
-					<dd class="lastpost"><span>
-						{L_POST_BY_AUTHOR} {searchresults.LAST_POST_AUTHOR_FULL}
-						<!-- IF not S_IS_BOT --><a href="{searchresults.U_LAST_POST}">{LAST_POST_IMG}</a> <!-- ENDIF --><br />{searchresults.LAST_POST_TIME}<br /> </span>
+					<dd class="lastpost avatar-lastpost">
+						<div class="avatar-stack">
+							<!-- IF searchresults.LAST_POSTER_AVATAR -->
+							<a href="{searchresults.U_LAST_POST_AUTHOR}" class="avatar-stack-item avatar-stack-op" title="{searchresults.LAST_POST_AUTHOR}">
+								{searchresults.LAST_POSTER_AVATAR}
+							</a>
+							<!-- ENDIF -->
+							<!-- BEGIN participants -->
+							<a href="{searchresults.participants.U_PROFILE}"
+								class="avatar-stack-item"
+								title="{searchresults.participants.USERNAME}">
+								{searchresults.participants.AVATAR}
+							</a>
+							<!-- END participants -->
+						</div>
+						<div class="lastpost-meta">
+							{L_POST_BY_AUTHOR}
+							{searchresults.LAST_POST_AUTHOR_FULL}
+							<!-- IF not S_IS_BOT -->
+							<a href="{searchresults.U_LAST_POST}" class="lastpost-link">
+								{LAST_POST_IMG}
+							</a>
+							<!-- ENDIF -->
+							<br />
+							{searchresults.LAST_POST_TIME}
+						</div>
 					</dd>
 				</dl>
 			</li>

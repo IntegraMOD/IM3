@@ -759,3 +759,82 @@ ul.links li img{
         margin: 0px;
     }		
  }
+ 
+  /* ==========================================================================
+   Topic Avatar Stack
+   ========================================================================== */
+
+.avatar-lastpost {
+	padding-top: 6px;
+}
+
+.avatar-stack {
+	display: flex;
+	align-items: center;
+	min-height: 36px;
+	position: relative;
+	padding-left: 16px;
+}
+
+.avatar-stack-item {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 1px solid #3F3F3F;
+	background: #4B4B4B;
+	position: relative;
+	box-sizing: border-box;
+	z-index: 1;
+}
+
+.avatar-stack-item + .avatar-stack-item {
+	margin-left: -6px;
+}
+
+.avatar-stack-item img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+/* Overlap avatars after the first */
+.avatar-stack-item + .avatar-stack-item {
+	margin-left: -10px;
+}
+
+/* Ensure newer avatars sit above older ones */
+.avatar-stack-item:hover {
+	z-index: 10;
+}
+
+/* Last post icon spacing */
+.lastpost-link {
+	margin-left: 6px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* Meta text under avatars */
+.lastpost-meta {
+	margin-top: 4px;
+	font-size: 0.85em;
+	line-height: 1.3;
+	word-break: break-word;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+	.avatar-stack-item {
+		width: 26px;
+		height: 26px;
+	}
+
+	.lastpost-meta {
+		font-size: 0.8em;
+	}
+}

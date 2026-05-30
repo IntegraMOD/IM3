@@ -1452,7 +1452,8 @@ function delete_post($forum_id, $topic_id, $post_id, &$data)
 	$next_post_id = false;
 
 	include_once($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
-
+	include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+	
 	$db->sql_transaction('begin');
 
 	// we must make sure to update forums that contain the shadow'd topic
@@ -1488,8 +1489,17 @@ function delete_post($forum_id, $topic_id, $post_id, &$data)
 		trigger_error('ALREADY_DELETED');
 	}
 
-	$db->sql_transaction('commit');
+	$sql = 'UPDATE ' . TOPICS_TABLE . "
+		SET topic_recent_posters = '" . $db->sql_escape(rebuild_recent_poster_cache('topic', $topic_id)) . "'
+		WHERE topic_id = " . (int) $topic_id;
+	$db->sql_query($sql);
 
+	$sql = 'UPDATE ' . FORUMS_TABLE . "
+		SET forum_recent_posters = '" . $db->sql_escape(rebuild_recent_poster_cache('forum', $forum_id)) . "'
+		WHERE forum_id = " . (int) $forum_id;
+	$db->sql_query($sql);
+	
+	$db->sql_transaction('commit');
 
 	// Download MOD 6 - Drop Traffic on Topic/Post delete
 	include($phpbb_root_path . 'dl_mod/classes/class_dlmod.' . $phpEx);
@@ -1719,6 +1729,8 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 	global $ultimate_points, $points_config, $points_values;
 	// End Ultimate Points
 
+	include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+	
 	// We do not handle erasing posts here
 	if ($mode == 'delete')
 	{
@@ -1978,6 +1990,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
                 'event_attendees'           => isset($data['event_attendees']) ? $data['event_attendees'] : '',
                 'event_non_attendees'       => isset($data['event_non_attendees']) ? $data['event_non_attendees'] : '',
 //---END CALENDAR MOD---
+				'topic_recent_posters'		=> serialize(array((int) $poster_id)),
 			);
 
 			if (isset($poll['poll_options']) && !empty($poll['poll_options']))
@@ -2007,6 +2020,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 
 			if ($topic_type != POST_GLOBAL)
 			{
+				$sql_data[FORUMS_TABLE]['sql']['forum_recent_posters'] = build_recent_poster_cache($forum_data['forum_recent_posters'], $poster_id);
 				if ($post_approval)
 				{
 					$sql_data[FORUMS_TABLE]['stat'][] = 'forum_posts = forum_posts + 1';
@@ -2029,6 +2043,8 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 			{
 				$sql_data[FORUMS_TABLE]['stat'][] = 'forum_posts = forum_posts + 1';
 			}
+			$sql_data[TOPICS_TABLE]['sql']['topic_recent_posters'] = build_recent_poster_cache($row['topic_recent_posters'], $poster_id);
+			$sql_data[FORUMS_TABLE]['sql']['forum_recent_posters'] = build_recent_poster_cache($forum_data['forum_recent_posters'], $poster_id);
 		break;
 
 		case 'edit_topic':
@@ -2072,6 +2088,8 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
                 'event_attendees'           => isset($data['event_attendees']) ? $data['event_attendees'] : '',
                 'event_non_attendees'       => isset($data['event_non_attendees']) ? $data['event_non_attendees'] : '',
 //---END CALENDAR MOD---
+//              'topic_recent_posters'		=> build_recent_poster_cache($row['topic_recent_posters'], $poster_id),
+				'topic_recent_posters'      => build_recent_poster_cache((isset($topic_data['topic_recent_posters'])) ? $topic_data['topic_recent_posters'] : '', $poster_id),
 			);
 
 			// Correctly set back the topic replies and forum posts... only if the topic was approved before and now gets disapproved

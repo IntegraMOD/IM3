@@ -4806,12 +4806,31 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		//    could be caused by php.ini output_buffering. Anything
 		//    beyond that is manual, so the code wrapping phpBB in output buffering
 		//    can easily compress the output itself.
+		// 4) if zlib.output_compression or ob_gzhandler is already enabled
+		//    by PHP/server configuration
 		//
-		if (@extension_loaded('zlib') && !headers_sent() && ob_get_level() <= 1 && ob_get_length() == 0)
+
+		$zlib_enabled = false;
+
+		if (@extension_loaded('zlib'))
 		{
-			ob_start('ob_gzhandler');
+			$zlib_enabled = (
+				@ini_get('zlib.output_compression')
+				|| strtolower(@ini_get('output_handler')) === 'ob_gzhandler'
+			);
 		}
-	}
+
+		if (
+			@extension_loaded('zlib')
+			&& !$zlib_enabled
+			&& !headers_sent()
+			&& ob_get_level() <= 1
+			&& ob_get_length() == 0
+		)
+		{
+			@ob_start('ob_gzhandler');
+		}
+	}	
 
 	// Generate logged in/logged out status
 	if ($user->data['user_id'] != ANONYMOUS)
