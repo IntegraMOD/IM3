@@ -36,8 +36,8 @@
 <link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
 <link href="{T_THEME_PATH}/dark.css" rel="alternate stylesheet" type="text/css" title="dark" id="dark" data-bs-theme="dark" onload="this.media='all'" />
 <!-- ajaxlike -->
-<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
-<link href="{T_SUPER_TEMPLATE_PATH}/ajaxlike/css/tipsy.css" rel="stylesheet" type="text/css" />
+<link href="{ROOT_PATH}styles/_portal_common/template/ajaxlike/css/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="{ROOT_PATH}styles/_portal_common/template/ajaxlike/css/tipsy.css" rel="stylesheet" type="text/css" />
 
 <link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
 <link href="{T_THEME_PATH}/light.css" rel="stylesheet" type="text/css" title="light" id="light" />
@@ -442,8 +442,8 @@ function notes() {
 				    <a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x"><i class="fa-solid fa-power-off fa-lg"></i> {L_LOGIN_LOGOUT}</a>
 				    <!-- ENDIF -->	
 					<!-- IF S_DISPLAY_PM --> <a href="{U_PRIVATEMSGS}"><i class="fa-regular fa-message fa-lg"></i> {PRIVATE_MESSAGE_INFO}</a> &bull; <!-- ENDIF -->
-
-				    <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED --> 
+                    <a href="{U_SEARCH_NEW}">{L_NEW_POST}</a>
+				    <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED --> &bull;
 				    <span id="sn-ntf-notify"><a href="{U_VIEW_NOTIFY}" class="snbadge">{S_SN_USER_UNREAD_NOTIFY}</a></span><a href="{U_SN_ACTIVITYPAGE}"> {L_SN_AP_ACTIVITYPAGE}</a>
 				    <!-- ENDIF -->					
 					<!-- IF S_SHOW_MEETING and L_MEETING_LINK_N --> &bull; 
