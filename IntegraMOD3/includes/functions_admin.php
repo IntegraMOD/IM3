@@ -3383,17 +3383,43 @@ function obtain_latest_version_info($force_update = false, $warn_fail = false, $
 	{
 		$errstr = '';
 		$errno = 0;
+		$info = '';
 
-		$info = get_remote_file('version.phpbb.com', '/phpbb',
-				((defined('PHPBB_QA')) ? '30x_qa.txt' : '30x.txt'), $errstr, $errno);
+		if ($fsock = @fsockopen('ssl://integramod.com', 443, $errno, $errstr, 10))
+		{
+			@fputs($fsock, "GET /version/3.0.x.txt HTTP/1.1\r\n");
+			@fputs($fsock, "Host: integramod.com\r\n");
+			@fputs($fsock, "Connection: close\r\n\r\n");
+
+			$get_info = false;
+
+			while (!@feof($fsock))
+			{
+				if ($get_info)
+				{
+					$info .= @fread($fsock, 1024);
+				}
+				else
+				{
+					if (@fgets($fsock, 1024) == "\r\n")
+					{
+						$get_info = true;
+					}
+				}
+			}
+
+			@fclose($fsock);
+		}
 
 		if (empty($info))
 		{
 			$cache->destroy('versioncheck');
+
 			if ($warn_fail)
 			{
 				trigger_error($errstr, E_USER_WARNING);
 			}
+
 			return false;
 		}
 
