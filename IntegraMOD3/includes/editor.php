@@ -108,7 +108,15 @@ public function open_file($filename, $backup_path = '')
         return $user->lang['FILE_EMPTY'];
     }
  
-    $this->file_contents = $this->normalize(implode('', $this->file_contents));
+	$this->file_contents = explode("\n", $this->normalize(implode('', $this->file_contents)));
+
+	// emulate file() behavior
+	$lines = count($this->file_contents);
+
+	for ($i = 0; $i < $lines; ++$i)
+	{
+		$this->file_contents[$i] .= "\n";
+	}
  
     // Check for file contents in the database if this is a template file
     // this will overwrite the @file call if it exists in the DB.
@@ -144,9 +152,9 @@ public function open_file($filename, $backup_path = '')
     * Non existant files cannot be edited, and empty files will have no
     * finds
     */
-	if (!empty($this->file_contents)) {
-	    global $user;
-	    trigger_error(sprintf($user->lang['MOD_OPEN_FILE_FAIL'], "$phpbb_root_path$filename"), E_USER_WARNING);
+	if (empty($this->file_contents)) {
+		global $user;
+		trigger_error(sprintf($user->lang['MOD_OPEN_FILE_FAIL'], "$phpbb_root_path$filename"), E_USER_WARNING);
 	}
  
     $this->start_index = 0;
