@@ -64,12 +64,13 @@ class acm_memory
 		// grab the global cache
 		$this->vars = $this->_read('global');
 
-		if ($this->vars !== false)
+		if (!is_array($this->vars))
 		{
-			return true;
+			$this->vars = array();
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	/**
@@ -78,6 +79,7 @@ class acm_memory
 	function unload()
 	{
 		$this->save();
+
 		unset($this->vars);
 		unset($this->sql_rowset);
 		unset($this->sql_row_pointer);
@@ -163,13 +165,19 @@ class acm_memory
 
 		while (($entry = readdir($dir)) !== false)
 		{
-			if (strpos($entry, 'sql_') !== 0 && strpos($entry, 'data_') !== 0 && strpos($entry, 'ctpl_') !== 0 && strpos($entry, 'tpl_') !== 0)
+			if (
+				strpos($entry, 'sql_') !== 0 &&
+				strpos($entry, 'data_') !== 0 &&
+				strpos($entry, 'ctpl_') !== 0 &&
+				strpos($entry, 'tpl_') !== 0
+			)
 			{
 				continue;
 			}
 
 			$this->remove_file($this->cache_dir . $entry);
 		}
+
 		closedir($dir);
 
 		unset($this->vars);
@@ -182,7 +190,6 @@ class acm_memory
 
 		$this->is_modified = false;
 	}
-
 
 	/**
 	* Destroy cache data
@@ -201,7 +208,7 @@ class acm_memory
 				// gives us the md5s that we want
 				$temp = $this->_read('sql_' . $table_name);
 
-				if ($temp === false)
+				if (!is_array($temp))
 				{
 					continue;
 				}
@@ -249,12 +256,12 @@ class acm_memory
 		}
 		else
 		{
-			if (!sizeof($this->vars))
+			if (!is_array($this->vars) || !sizeof($this->vars))
 			{
 				$this->load();
 			}
 
-			return isset($this->vars[$var_name]);
+			return (is_array($this->vars) && isset($this->vars[$var_name]));
 		}
 	}
 
@@ -265,9 +272,12 @@ class acm_memory
 	{
 		// Remove extra spaces and tabs
 		$query = preg_replace('/[\n\r\s\t]+/', ' ', $query);
-		$query_id = sizeof($this->sql_rowset);
 
-		if (($result = $this->_read('sql_' . md5($query))) === false)
+		$query_id = (is_array($this->sql_rowset)) ? sizeof($this->sql_rowset) : 0;
+
+		$result = $this->_read('sql_' . md5($query));
+
+		if (!is_array($result))
 		{
 			return false;
 		}
@@ -290,20 +300,28 @@ class acm_memory
 		$hash = md5($query);
 
 		// determine which tables this query belongs to
-		// Some queries use backticks, namely the get_database_size() query
-		// don't check for conformity, the SQL would error and not reach here.
-		if (!preg_match_all('/(?:FROM \\(?(`?\\w+`?(?: \\w+)?(?:, ?`?\\w+`?(?: \\w+)?)*)\\)?)|(?:JOIN (`?\\w+`?(?: \\w+)?))/', $query, $regs, PREG_SET_ORDER))
+		if (
+			!preg_match_all(
+				'/(?:FROM \\(?(`?\\w+`?(?: \\w+)?(?:, ?`?\\w+`?(?: \\w+)?)*)\\)?)|(?:JOIN (`?\\w+`?(?: \\w+)?))/',
+				$query,
+				$regs,
+				PREG_SET_ORDER
+			)
+		)
 		{
-			// Bail out if the match fails.
 			return;
 		}
 
 		$tables = array();
+
 		foreach ($regs as $match)
 		{
 			if ($match[0][0] == 'F')
 			{
-				$tables = array_merge($tables, array_map('trim', explode(',', $match[1])));
+				$tables = array_merge(
+					$tables,
+					array_map('trim', explode(',', $match[1]))
+				);
 			}
 			else
 			{
@@ -314,7 +332,9 @@ class acm_memory
 		foreach ($tables as $table_name)
 		{
 			// Remove backticks
-			$table_name = ($table_name[0] == '`') ? substr($table_name, 1, -1) : $table_name;
+			$table_name = ($table_name[0] == '`')
+				? substr($table_name, 1, -1)
+				: $table_name;
 
 			if (($pos = strpos($table_name, ' ')) !== false)
 			{
@@ -323,7 +343,7 @@ class acm_memory
 
 			$temp = $this->_read('sql_' . $table_name);
 
-			if ($temp === false)
+			if (!is_array($temp))
 			{
 				$temp = array();
 			}
@@ -335,7 +355,8 @@ class acm_memory
 		}
 
 		// store them in the right place
-		$query_id = sizeof($this->sql_rowset);
+		$query_id = (is_array($this->sql_rowset)) ? sizeof($this->sql_rowset) : 0;
+
 		$this->sql_rowset[$query_id] = array();
 		$this->sql_row_pointer[$query_id] = 0;
 
@@ -343,15 +364,20 @@ class acm_memory
 		{
 			$this->sql_rowset[$query_id][] = $row;
 		}
+
 		$db->sql_freeresult($query_result);
 
-		$this->_write('sql_' . $hash, $this->sql_rowset[$query_id], $ttl);
+		$this->_write(
+			'sql_' . $hash,
+			$this->sql_rowset[$query_id],
+			$ttl
+		);
 
 		$query_result = $query_id;
 	}
 
 	/**
-	* Ceck if a given sql query exist in cache
+	* Check if a given sql query exists in cache
 	*/
 	function sql_exists($query_id)
 	{
@@ -363,7 +389,11 @@ class acm_memory
 	*/
 	function sql_fetchrow($query_id)
 	{
-		if ($this->sql_row_pointer[$query_id] < sizeof($this->sql_rowset[$query_id]))
+		if (
+			isset($this->sql_rowset[$query_id]) &&
+			is_array($this->sql_rowset[$query_id]) &&
+			$this->sql_row_pointer[$query_id] < sizeof($this->sql_rowset[$query_id])
+		)
 		{
 			return $this->sql_rowset[$query_id][$this->sql_row_pointer[$query_id]++];
 		}
@@ -372,34 +402,47 @@ class acm_memory
 	}
 
 	/**
-	* Fetch a field from the current row of a cached database result (database)
+	* Fetch a field from the current row of a cached database result
 	*/
 	function sql_fetchfield($query_id, $field)
 	{
-		if ($this->sql_row_pointer[$query_id] < sizeof($this->sql_rowset[$query_id]))
+		if (
+			isset($this->sql_rowset[$query_id]) &&
+			is_array($this->sql_rowset[$query_id]) &&
+			$this->sql_row_pointer[$query_id] < sizeof($this->sql_rowset[$query_id])
+		)
 		{
-			return (isset($this->sql_rowset[$query_id][$this->sql_row_pointer[$query_id]][$field])) ? $this->sql_rowset[$query_id][$this->sql_row_pointer[$query_id]++][$field] : false;
+			return (
+				isset($this->sql_rowset[$query_id][$this->sql_row_pointer[$query_id]][$field])
+			)
+				? $this->sql_rowset[$query_id][$this->sql_row_pointer[$query_id]++][$field]
+				: false;
 		}
 
 		return false;
 	}
 
 	/**
-	* Seek a specific row in an a cached database result (database)
+	* Seek a specific row in a cached database result
 	*/
 	function sql_rowseek($rownum, $query_id)
 	{
-		if ($rownum >= sizeof($this->sql_rowset[$query_id]))
+		if (
+			!isset($this->sql_rowset[$query_id]) ||
+			!is_array($this->sql_rowset[$query_id]) ||
+			$rownum >= sizeof($this->sql_rowset[$query_id])
+		)
 		{
 			return false;
 		}
 
 		$this->sql_row_pointer[$query_id] = $rownum;
+
 		return true;
 	}
 
 	/**
-	* Free memory used for a cached database result (database)
+	* Free memory used for a cached database result
 	*/
 	function sql_freeresult($query_id)
 	{
@@ -422,13 +465,16 @@ class acm_memory
 		if (!function_exists('phpbb_is_writable'))
 		{
 			global $phpbb_root_path, $phpEx;
+
 			include($phpbb_root_path . 'includes/functions.' . $phpEx);
 		}
 
 		if ($check && !phpbb_is_writable($this->cache_dir))
 		{
-			// E_USER_ERROR - not using language entry - intended.
-			trigger_error('Unable to remove files within ' . $this->cache_dir . '. Please check directory permissions.', E_USER_ERROR);
+			trigger_error(
+				'Unable to remove files within ' . $this->cache_dir . '. Please check directory permissions.',
+				E_USER_ERROR
+			);
 		}
 
 		return @unlink($filename);

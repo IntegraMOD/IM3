@@ -39,17 +39,17 @@ if (!defined('PHPBB_ACM_MEMCACHE_HOST'))
 
 if (!defined('PHPBB_ACM_MEMCACHE'))
 {
-	//can define multiple servers with host1/port1,host2/port2 format
+	// can define multiple servers with host1/port1,host2/port2 format
 	define('PHPBB_ACM_MEMCACHE', PHPBB_ACM_MEMCACHE_HOST . '/' . PHPBB_ACM_MEMCACHE_PORT);
 }
 
 /**
-* ACM for Memcached
+* ACM for Memcache/Memcached
 * @package acm
 */
 class acm extends acm_memory
 {
-	var $extension = 'memcache';
+	var $extension = '';
 
 	var $memcache;
 	var $flags = 0;
@@ -59,13 +59,44 @@ class acm extends acm_memory
 		// Call the parent constructor
 		parent::__construct();
 
-		$this->memcache = new Memcache;
-		foreach(explode(',', PHPBB_ACM_MEMCACHE) as $u)
+		if (class_exists('Memcache'))
 		{
-			$parts = explode('/', $u);
-			$this->memcache->addServer(trim($parts[0]), trim($parts[1]));
+			$this->extension = 'memcache';
+			$this->memcache = new Memcache;
+
+			foreach (explode(',', PHPBB_ACM_MEMCACHE) as $u)
+			{
+				$parts = explode('/', $u);
+
+				$this->memcache->addServer(
+					trim($parts[0]),
+					(int) trim($parts[1])
+				);
+			}
+
+			$this->flags = (PHPBB_ACM_MEMCACHE_COMPRESS) ? MEMCACHE_COMPRESSED : 0;
 		}
-		$this->flags = (PHPBB_ACM_MEMCACHE_COMPRESS) ? MEMCACHE_COMPRESSED : 0;
+		else if (class_exists('Memcached'))
+		{
+			$this->extension = 'memcached';
+			$this->memcache = new Memcached;
+
+			foreach (explode(',', PHPBB_ACM_MEMCACHE) as $u)
+			{
+				$parts = explode('/', $u);
+
+				$this->memcache->addServer(
+					trim($parts[0]),
+					(int) trim($parts[1])
+				);
+			}
+
+			$this->flags = 0;
+		}
+		else
+		{
+			trigger_error('Neither Memcache nor Memcached extension is available.');
+		}
 	}
 
 	/**
@@ -77,7 +108,10 @@ class acm extends acm_memory
 	{
 		parent::unload();
 
-		$this->memcache->close();
+		if ($this->extension === 'memcache')
+		{
+			$this->memcache->close();
+		}
 	}
 
 	/**
@@ -115,10 +149,18 @@ class acm extends acm_memory
 	*/
 	function _write($var, $data, $ttl = 2592000)
 	{
-		if (!$this->memcache->replace($this->key_prefix . $var, $data, $this->flags, $ttl))
+		$key = $this->key_prefix . $var;
+
+		if ($this->extension === 'memcached')
 		{
-			return $this->memcache->set($this->key_prefix . $var, $data, $this->flags, $ttl);
+			return $this->memcache->set($key, $data, $ttl);
 		}
+
+		if (!$this->memcache->replace($key, $data, $this->flags, $ttl))
+		{
+			return $this->memcache->set($key, $data, $this->flags, $ttl);
+		}
+
 		return true;
 	}
 
@@ -131,7 +173,6 @@ class acm extends acm_memory
 	*/
 	function _delete($var)
 	{
-		return $this->memcache->delete($this->key_prefix . $var);
+		return $this->memcache->delete($this->key_prefix . $var, 0);
 	}
 }
-
