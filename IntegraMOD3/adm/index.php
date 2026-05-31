@@ -139,35 +139,94 @@ function adm_page_header($page_title)
 	}
 
 ////// Begin Check for news from integramod
-$errno = 0;
-$errstr = $news = '';
 
-if ($fsock = @fsockopen('ssl://integramod.com', 443, $errno, $errstr, 10))
+if (!function_exists('im_get_remote_file'))
 {
-	@fputs($fsock, "GET /version/im3_news.txt HTTP/1.1\r\n");
-	@fputs($fsock, "Host: integramod.com\r\n");
-	@fputs($fsock, "Connection: close\r\n\r\n");
-
-	$get_info = false;
-
-	while (!@feof($fsock))
+	function im_get_remote_file($url, &$errstr)
 	{
-		if ($get_info)
+		$errstr = '';
+		$data = '';
+
+		// Prefer cURL
+		if (function_exists('curl_init'))
 		{
-			$news .= @fread($fsock, 1024);
-		}
-		else
-		{
-			if (@fgets($fsock, 1024) == "\r\n")
+			$ch = curl_init($url);
+
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+			curl_setopt($ch, CURLOPT_USERAGENT, 'IntegraMOD3 Version Checker');
+
+			$data = curl_exec($ch);
+
+			if ($data === false)
 			{
-				$get_info = true;
+				$errstr = curl_error($ch);
+				$data = '';
+			}
+
+			curl_close($ch);
+
+			if ($data !== '')
+			{
+				return $data;
 			}
 		}
-	}
 
-	@fclose($fsock);
+		// Fallback to fsockopen
+		$parts = @parse_url($url);
+
+		if (empty($parts['host']) || empty($parts['path']))
+		{
+			$errstr = 'Invalid URL';
+			return '';
+		}
+
+		$errno = 0;
+
+		$scheme = (!empty($parts['scheme']) && $parts['scheme'] === 'https') ? 'ssl://' : '';
+		$port = (!empty($parts['port'])) ? (int) $parts['port'] : (($scheme) ? 443 : 80);
+
+		$fsock = @fsockopen($scheme . $parts['host'], $port, $errno, $errstr, 10);
+
+		if (!$fsock)
+		{
+			return '';
+		}
+
+		@fputs($fsock, "GET " . $parts['path'] . " HTTP/1.1\r\n");
+		@fputs($fsock, "Host: " . $parts['host'] . "\r\n");
+		@fputs($fsock, "Accept-Encoding: identity\r\n");
+		@fputs($fsock, "Connection: close\r\n\r\n");
+
+		$get_info = false;
+
+		while (!@feof($fsock))
+		{
+			if ($get_info)
+			{
+				$data .= @fread($fsock, 1024);
+			}
+			else
+			{
+				if (@fgets($fsock, 1024) == "\r\n")
+				{
+					$get_info = true;
+				}
+			}
+		}
+
+		@fclose($fsock);
+
+		return $data;
+	}
 }
-else
+
+$errstr = '';
+$news = im_get_remote_file('https://integramod.com/version/im3_news.txt', $errstr);
+
+if ($news === '')
 {
 	if ($errstr)
 	{
@@ -186,35 +245,10 @@ else
 	}
 }
 
-$errno = 0;
-$errstr = $lver = '';
+$errstr = '';
+$lver = im_get_remote_file('https://integramod.com/version/3.0.x.txt', $errstr);
 
-if ($fsock = @fsockopen('ssl://integramod.com', 443, $errno, $errstr, 10))
-{
-	@fputs($fsock, "GET /version/3.0.x.txt HTTP/1.1\r\n");
-	@fputs($fsock, "Host: integramod.com\r\n");
-	@fputs($fsock, "Connection: close\r\n\r\n");
-
-	$get_info = false;
-
-	while (!@feof($fsock))
-	{
-		if ($get_info)
-		{
-			$lver .= @fread($fsock, 1024);
-		}
-		else
-		{
-			if (@fgets($fsock, 1024) == "\r\n")
-			{
-				$get_info = true;
-			}
-		}
-	}
-
-	@fclose($fsock);
-}
-else
+if ($lver === '')
 {
 	if ($errstr)
 	{
