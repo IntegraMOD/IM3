@@ -166,7 +166,10 @@ if (!function_exists('im_get_remote_file'))
 				$data = '';
 			}
 
-			curl_close($ch);
+			if (PHP_VERSION_ID < 80000)
+			{
+				curl_close($ch);
+			}
 
 			if ($data !== '')
 			{
