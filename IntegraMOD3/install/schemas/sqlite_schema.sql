@@ -59,7 +59,8 @@ CREATE TABLE phpbb_acl_users (
 	auth_option_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	auth_role_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	auth_setting tinyint(2) NOT NULL DEFAULT '0',
-	is_kb INTEGER UNSIGNED NOT NULL DEFAULT '0'
+	is_kb INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (user_id, forum_id, auth_option_id)
 );
 
 CREATE INDEX phpbb_acl_users_user_id ON phpbb_acl_users (user_id);
@@ -784,6 +785,26 @@ CREATE TABLE phpbb_dl_versions (
 );
 
 
+# Table: 'phpbb_donation_item'
+CREATE TABLE phpbb_donation_item (
+	item_id INTEGER PRIMARY KEY NOT NULL ,
+	item_type varchar(16) NOT NULL DEFAULT '',
+	item_name varchar(50) NOT NULL DEFAULT '',
+	item_iso_code varchar(10) NOT NULL DEFAULT '',
+	item_symbol varchar(10) NOT NULL DEFAULT '',
+	item_text mediumtext(16777215) NOT NULL DEFAULT '',
+	item_enable INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	left_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	right_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	item_text_bbcode_bitfield varchar(255) NOT NULL DEFAULT '',
+	item_text_bbcode_uid varchar(8) NOT NULL DEFAULT '',
+	item_text_bbcode_options INTEGER UNSIGNED NOT NULL DEFAULT '7'
+);
+
+CREATE INDEX phpbb_donation_item_item_type ON phpbb_donation_item (item_type);
+CREATE INDEX phpbb_donation_item_item_name ON phpbb_donation_item (item_name);
+CREATE INDEX phpbb_donation_item_item_iso_code ON phpbb_donation_item (item_iso_code);
+
 # Table: 'phpbb_downloads'
 CREATE TABLE phpbb_downloads (
 	id INTEGER PRIMARY KEY NOT NULL ,
@@ -964,7 +985,8 @@ CREATE TABLE phpbb_forums (
 	prune_freq INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	forum_perpost decimal(10,2) NOT NULL DEFAULT '5',
 	forum_peredit decimal(10,2) NOT NULL DEFAULT '0.05',
-	forum_pertopic decimal(10,2) NOT NULL DEFAULT '15'
+	forum_pertopic decimal(10,2) NOT NULL DEFAULT '15',
+	forum_recent_posters mediumtext(16777215) NULL 
 );
 
 CREATE INDEX phpbb_forums_left_right_id ON phpbb_forums (left_id, right_id);
@@ -2723,7 +2745,8 @@ CREATE TABLE phpbb_topics (
 	invite_attendees INTEGER UNSIGNED NULL DEFAULT '0',
 	event_attendees mediumtext(16777215) NULL DEFAULT '',
 	event_non_attendees mediumtext(16777215) NULL DEFAULT '',
-	topic_first_post_show INTEGER UNSIGNED NULL DEFAULT '0'
+	topic_first_post_show INTEGER UNSIGNED NULL DEFAULT '0',
+	topic_recent_posters mediumtext(16777215) NULL 
 );
 
 CREATE INDEX phpbb_topics_forum_id ON phpbb_topics (forum_id);

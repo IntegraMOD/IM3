@@ -113,14 +113,15 @@ CREATE TABLE [phpbb_acl_users] (
 	[auth_option_id] [int] DEFAULT (0) NOT NULL ,
 	[auth_role_id] [int] DEFAULT (0) NOT NULL ,
 	[auth_setting] [int] DEFAULT (0) NOT NULL ,
-	[is_kb] [int] DEFAULT (0) NOT NULL ,
-	[mssqlindex] [int] IDENTITY (1, 1) NOT NULL 
+	[is_kb] [int] DEFAULT (0) NOT NULL 
 )GO
 
 ALTER TABLE [phpbb_acl_users] WITH NOCHECK ADD 
 	CONSTRAINT [PK_phpbb_acl_users] PRIMARY KEY  CLUSTERED 
 	(
-		[mssqlindex]
+		[user_id],
+		[forum_id],
+		[auth_option_id]
 	)
 GO
 
@@ -1456,6 +1457,41 @@ GO
 
 
 /*
+	Table: 'phpbb_donation_item'
+*/
+CREATE TABLE [phpbb_donation_item] (
+	[item_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[item_type] [varchar] (16) DEFAULT ('') NOT NULL ,
+	[item_name] [varchar] (50) DEFAULT ('') NOT NULL ,
+	[item_iso_code] [varchar] (10) DEFAULT ('') NOT NULL ,
+	[item_symbol] [varchar] (10) DEFAULT ('') NOT NULL ,
+	[item_text] [text] DEFAULT ('') NOT NULL ,
+	[item_enable] [int] DEFAULT (1) NOT NULL ,
+	[left_id] [int] DEFAULT (0) NOT NULL ,
+	[right_id] [int] DEFAULT (0) NOT NULL ,
+	[item_text_bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[item_text_bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL ,
+	[item_text_bbcode_options] [int] DEFAULT (7) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_donation_item] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_donation_item] PRIMARY KEY  CLUSTERED 
+	(
+		[item_id]
+	)
+GO
+
+CREATE  INDEX [item_type] ON [phpbb_donation_item]([item_type])
+GO
+
+CREATE  INDEX [item_name] ON [phpbb_donation_item]([item_name])
+GO
+
+CREATE  INDEX [item_iso_code] ON [phpbb_donation_item]([item_iso_code])
+GO
+
+
+/*
 	Table: 'phpbb_downloads'
 */
 CREATE TABLE [phpbb_downloads] (
@@ -1686,7 +1722,8 @@ CREATE TABLE [phpbb_forums] (
 	[prune_freq] [int] DEFAULT (0) NOT NULL ,
 	[forum_perpost] [float] DEFAULT (5) NOT NULL ,
 	[forum_peredit] [float] DEFAULT (0.05) NOT NULL ,
-	[forum_pertopic] [float] DEFAULT (15) NOT NULL 
+	[forum_pertopic] [float] DEFAULT (15) NOT NULL ,
+	[forum_recent_posters] [text] NULL 
 )GO
 
 ALTER TABLE [phpbb_forums] WITH NOCHECK ADD 
@@ -4793,7 +4830,8 @@ CREATE TABLE [phpbb_topics] (
 	[invite_attendees] [int] DEFAULT (0) NULL ,
 	[event_attendees] [text] DEFAULT ('') NULL ,
 	[event_non_attendees] [text] DEFAULT ('') NULL ,
-	[topic_first_post_show] [int] DEFAULT (0) NULL 
+	[topic_first_post_show] [int] DEFAULT (0) NULL ,
+	[topic_recent_posters] [text] NULL 
 )GO
 
 ALTER TABLE [phpbb_topics] WITH NOCHECK ADD 

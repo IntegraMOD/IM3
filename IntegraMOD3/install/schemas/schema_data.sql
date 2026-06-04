@@ -470,7 +470,7 @@ INSERT INTO phpbb_config VALUES('img_max_thumb_width', '400', 0);
 INSERT INTO phpbb_config VALUES('img_max_width', '0', 0);
 INSERT INTO phpbb_config VALUES('img_min_thumb_filesize', '12000', 0);
 INSERT INTO phpbb_config VALUES('imod_enabled', '1', 0);
-INSERT INTO phpbb_config VALUES('imod_version', '3.0.17', 0);
+INSERT INTO phpbb_config VALUES('imod_version', '3.0.18', 0);
 INSERT INTO phpbb_config VALUES('ip_check', '3', 0);
 INSERT INTO phpbb_config VALUES('ip_login_limit_max', '50', 0);
 INSERT INTO phpbb_config VALUES('ip_login_limit_time', '21600', 0);
@@ -682,7 +682,7 @@ INSERT INTO phpbb_config VALUES('portal_name_nl', 'Startpagina', 0);
 INSERT INTO phpbb_config VALUES('portal_name_uk', 'Головна', 0);
 INSERT INTO phpbb_config VALUES('portal_version', '1.0.20im', 0);
 INSERT INTO phpbb_config VALUES('posts_per_page', '10', 0);
-INSERT INTO phpbb_config VALUES('premod_version', '0.1.0', 0);
+INSERT INTO phpbb_config VALUES('premod_version', '1.0.0', 0);
 INSERT INTO phpbb_config VALUES('preview_changes', '1', 0);
 INSERT INTO phpbb_config VALUES('print_pm', '1', 0);
 INSERT INTO phpbb_config VALUES('questionnaire_unique_id', 'dd334315345431d2', 0);
@@ -750,7 +750,7 @@ INSERT INTO phpbb_config VALUES('upload_path', 'files', 0);
 INSERT INTO phpbb_config VALUES('user_details_max_cols', '12', 0);
 INSERT INTO phpbb_config VALUES('user_details_opts', '', 1);
 INSERT INTO phpbb_config VALUES('user_details_save', '0', 0);
-INSERT INTO phpbb_config VALUES('version', '3.0.17', 0);
+INSERT INTO phpbb_config VALUES('version', '3.0.16', 0);
 INSERT INTO phpbb_config VALUES('warnings_expire_days', '90', 0);
 INSERT INTO phpbb_config VALUES('warnings_gc', '14400', 0);
 INSERT INTO phpbb_config VALUES('warnings_last_gc', '1707674862', 1);
@@ -1401,10 +1401,9 @@ INSERT INTO phpbb_styles_theme (theme_name, theme_copyright, theme_path, theme_s
 INSERT INTO phpbb_styles_theme (theme_name, theme_copyright, theme_path, theme_storedb, theme_data) VALUES ('IM blue', '&copy; IntegraTeam, 2007 - 2026', 'IM_blue', 1, '');
 
 # -- Forums
-INSERT INTO phpbb_forums (forum_name, forum_desc, left_id, right_id, parent_id, forum_type, forum_posts, forum_topics, forum_topics_real, forum_last_post_id, forum_last_poster_id, forum_last_poster_name, forum_last_poster_colour, forum_last_post_time, forum_link, forum_password, forum_image, forum_rules, forum_rules_link, forum_rules_uid, forum_desc_uid, prune_days, prune_viewed, forum_parents) VALUES ('{L_FORUMS_FIRST_CATEGORY}', '', 1, 4, 0, 0, 1, 1, 1, 1, 2, 'Admin', 'AA0000', 972086460, '', '', '', '', '', '', '', 0, 0, '');
+INSERT INTO phpbb_forums (forum_name, forum_desc, left_id, right_id, parent_id, forum_type, forum_posts, forum_topics, forum_topics_real, forum_last_post_id, forum_last_poster_id, forum_last_poster_name, forum_last_poster_colour, forum_last_post_time, forum_link, forum_password, forum_image, forum_rules, forum_rules_link, forum_rules_uid, forum_desc_uid, prune_days, prune_viewed, forum_parents, forum_recent_posters) VALUES ('{L_FORUMS_FIRST_CATEGORY}', '', 1, 4, 0, 0, 1, 1, 1, 1, 2, 'Admin', 'AA0000', 972086460, '', '', '', '', '', '', '', 0, 0, '', 'a:1:{i:0;i:2;}');
 
-INSERT INTO phpbb_forums (forum_name, forum_desc, left_id, right_id, parent_id, forum_type, forum_posts, forum_topics, forum_topics_real, forum_last_post_id, forum_last_poster_id, forum_last_poster_name, forum_last_poster_colour, forum_last_post_subject, forum_last_post_time, forum_link, forum_password, forum_image, forum_rules, forum_rules_link, forum_rules_uid, forum_desc_uid, prune_days, prune_viewed, forum_parents, forum_flags) VALUES ('{L_FORUMS_TEST_FORUM_TITLE}', '{L_FORUMS_TEST_FORUM_DESC}', 2, 3, 1, 1, 1, 1, 1, 1, 2, 'Admin', 'AA0000', '{L_TOPICS_TOPIC_TITLE}', 972086460, '', '', '', '', '', '', '', 0, 0, '', 48);
-
+INSERT INTO phpbb_forums (forum_name, forum_desc, left_id, right_id, parent_id, forum_type, forum_posts, forum_topics, forum_topics_real, forum_last_post_id, forum_last_poster_id, forum_last_poster_name, forum_last_poster_colour, forum_last_post_subject, forum_last_post_time, forum_link, forum_password, forum_image, forum_rules, forum_rules_link, forum_rules_uid, forum_desc_uid, prune_days, prune_viewed, forum_parents, forum_flags, forum_recent_posters) VALUES ('{L_FORUMS_TEST_FORUM_TITLE}', '{L_FORUMS_TEST_FORUM_DESC}', 2, 3, 1, 1, 1, 1, 1, 1, 2, 'Admin', 'AA0000', '{L_TOPICS_TOPIC_TITLE}', 972086460, '', '', '', '', '', '', '', 0, 0, '', 48, 'a:1:{i:0;i:2;}');
 # -- Users / Anonymous user
 INSERT INTO phpbb_users (user_type, group_id, username, username_clean, user_regdate, user_password, user_email, user_lang, user_style, user_rank, user_colour, user_posts, user_permissions, user_ip, user_birthday, user_lastpage, user_last_confirm_key, user_post_sortby_type, user_post_sortby_dir, user_topic_sortby_type, user_topic_sortby_dir, user_avatar, user_sig, user_sig_bbcode_uid, user_from, user_fb, user_ig, user_pt, user_twr, user_skp, user_tg, user_li, user_tt, user_dc, user_icq, user_aim, user_yim, user_msnm, user_jabber, user_website, user_occ, user_interests, user_actkey, user_newpasswd, user_allow_massemail) VALUES (2, 1, 'Anonymous', 'anonymous', 0, '', '', 'en', 2, 0, '', 0, '', '', '', '', '', 't', 'a', 't', 'd', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0);
 
@@ -1582,7 +1581,7 @@ INSERT INTO phpbb_acl_groups (group_id, forum_id, auth_option_id, auth_role_id, 
 
 
 # -- Demo Topic
-INSERT INTO phpbb_topics (topic_title, topic_poster, topic_time, topic_views, topic_replies, topic_replies_real, forum_id, topic_status, topic_type, topic_first_post_id, topic_first_poster_name, topic_first_poster_colour, topic_last_post_id, topic_last_poster_id, topic_last_poster_name, topic_last_poster_colour, topic_last_post_subject, topic_last_post_time, topic_last_view_time, poll_title, invite_attendees, event_attendees, event_non_attendees) VALUES ('{L_TOPICS_TOPIC_TITLE}', 2, 972086460, 0, 0, 0, 2, 0, 0, 1, 'Admin', 'AA0000', 1, 2, 'Admin', 'AA0000', '{L_TOPICS_TOPIC_TITLE}', 972086460, 972086460, '', 0, '', '');
+INSERT INTO phpbb_topics (topic_title, topic_poster, topic_time, topic_views, topic_replies, topic_replies_real, forum_id, topic_status, topic_type, topic_first_post_id, topic_first_poster_name, topic_first_poster_colour, topic_last_post_id, topic_last_poster_id, topic_last_poster_name, topic_last_poster_colour, topic_last_post_subject, topic_last_post_time, topic_last_view_time, poll_title, invite_attendees, event_attendees, event_non_attendees, topic_recent_posters) VALUES ('{L_TOPICS_TOPIC_TITLE}', 2, 972086460, 0, 0, 0, 2, 0, 0, 1, 'Admin', 'AA0000', 1, 2, 'Admin', 'AA0000', '{L_TOPICS_TOPIC_TITLE}', 972086460, 972086460, '', 0, '', '', 'a:1:{i:0;i:2;}');
 
 # -- Demo Post
 INSERT INTO phpbb_posts (topic_id, forum_id, poster_id, icon_id, post_time, post_username, poster_ip, post_subject, post_text, post_checksum, bbcode_uid) VALUES (1, 2, 2, 0, 972086460, '', '127.0.0.1', '{L_TOPICS_TOPIC_TITLE}', '{L_DEFAULT_INSTALL_POST}', '5dd683b17f641daf84c040bfefc58ce9', '');
@@ -2024,6 +2023,7 @@ INSERT INTO phpbb_bbcodes VALUES(65, 'dm', 'ABBC3_DMOTION_TIP', 0, '[dm]{URL}[/d
 INSERT INTO phpbb_bbcodes VALUES(66, 'gamespot', 'ABBC3_GAMESPOT_TIP', 0, '[gamespot]{URL}[/gamespot]', '<a src=\"{URL}\">{URL}</a>', '!\\[gamespot\\]http://www.gamespot.com/video/(.*?)/(.*?)\\[/gamespot\\]!is', '\'[gamespot:$uid]http://www.gamespot.com/video/${1}/${2}[/gamespot:$uid]\'', '!\\[gamespot:$uid\\]http://www.gamespot.com/video/(.*?)/(.*?)\\[/gamespot:$uid\\]!si', '$this->auto_embed_video(\'http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/one/proteus2.swf\', \'432\', \'355\', \'skin=http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/one/skins/gamespot.png&paramsURI=http%3A%2F%2Fwww.gamespot.com%2Fpages%2Fvideo_player%2Fxml.php%3Fid%3D${2}%26mode%3Dembedded%26width%3D{WIDTH}%26height%3D{HEIGHT}%2F\')', 0, 0, 1, 'gamespot.gif', 79, '0');
 INSERT INTO phpbb_bbcodes VALUES(67, 'ignvideo', 'ABBC3_IGNVIDEO_TIP', 0, '[ignvideo]{URL}[/ignvideo]', '<a src=\"{URL}\">{URL}</a>', '!\\[ignvideo\\](.*?)objects/(.*?)/(.*?)\\[/ignvideo\\]!is', '\'[ignvideo:$uid]${1}objects/${2}/${3}[/ignvideo:$uid]\'', '!\\[ignvideo:$uid\\](.*?)objects/(.*?)/(.*?)\\[/ignvideo:$uid\\]!si', '$this->auto_embed_video(\'http://videomedia.ign.com/ev/ev.swf?object_ID=${2}\', \'433\', \'360\')', 0, 0, 1, 'ign.gif', 80, '0');
 INSERT INTO phpbb_bbcodes VALUES(68, 'liveleak', 'ABBC3_LIVELEAK_TIP', 0, '[liveleak]{URL}[/liveleak]', '<a src=\"{URL}\">{URL}</a>', '!\\[liveleak\\]http://www.liveleak.com/view\\?i\\=(.*?)\\[/liveleak\\]!is', '\'[liveleak:$uid]http://www.liveleak.com/view?i=${1}[/liveleak:$uid]\'', '!\\[liveleak:$uid\\]http://www.liveleak.com/view\\?i\\=(.*?)\\[/liveleak:$uid\\]!si', '$this->auto_embed_video(\'http://www.liveleak.com/e/${1}\', \'450\', \'370\')', 0, 0, 1, 'liveleak.gif', 81, '0');
+INSERT INTO phpbb_config VALUES('guest_sessions_cache', '1', 0);
 INSERT INTO phpbb_bbcodes VALUES(69, 'division4', 'ABBC3_DIVISION', 1, '.', '.', '.', '.', '.', '.', 1, 1, 1, 'dots.gif', 66, '0');
 INSERT INTO phpbb_bbcodes VALUES(70, 'url=', 'ABBC3_ED2K_TIP', 0, '.', '.', '.', '.', '.', '.', 0, 0, 1, 'emule.gif', 61, '0');
 INSERT INTO phpbb_bbcodes VALUES(71, 'imgshack', 'ABBC3_IMGSHACK_MOVER', 1, '.', '.', '.', '.', '.', '.', 1, 1, 1, 'imgshack.gif', 59, '0');

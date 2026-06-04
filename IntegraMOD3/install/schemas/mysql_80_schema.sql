@@ -62,7 +62,8 @@ CREATE TABLE phpbb_acl_users (
 	is_kb tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (user_id, forum_id, auth_option_id),
 	KEY user_id (user_id),
-	KEY auth_option_id (auth_option_id)
+	KEY auth_option_id (auth_option_id),
+	KEY auth_role_id (auth_role_id)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 
@@ -810,6 +811,27 @@ CREATE TABLE phpbb_dl_versions (
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 
+# Table: 'phpbb_donation_item'
+CREATE TABLE phpbb_donation_item (
+	item_id int(8) UNSIGNED NOT NULL auto_increment,
+	item_type varchar(16) DEFAULT '' NOT NULL,
+	item_name varchar(50) DEFAULT '' NOT NULL,
+	item_iso_code varchar(10) DEFAULT '' NOT NULL,
+	item_symbol varchar(10) DEFAULT '' NOT NULL,
+	item_text mediumtext NOT NULL,
+	item_enable tinyint(1) UNSIGNED DEFAULT '1' NOT NULL,
+	left_id int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	right_id int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	item_text_bbcode_bitfield varchar(255) DEFAULT '' NOT NULL,
+	item_text_bbcode_uid varchar(8) DEFAULT '' NOT NULL,
+	item_text_bbcode_options mediumint(8) UNSIGNED DEFAULT '7' NOT NULL,
+	PRIMARY KEY (item_id),
+	KEY item_type (item_type),
+	KEY item_name (item_name),
+	KEY item_iso_code (item_iso_code)
+) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
+
+
 # Table: 'phpbb_downloads'
 CREATE TABLE phpbb_downloads (
 	id int(11) UNSIGNED NOT NULL auto_increment,
@@ -996,7 +1018,7 @@ CREATE TABLE phpbb_forums (
 	forum_perpost decimal(10,2) DEFAULT '5' NOT NULL,
 	forum_peredit decimal(10,2) DEFAULT '0.05' NOT NULL,
 	forum_pertopic decimal(10,2) DEFAULT '15' NOT NULL,
-	forum_recent_posters mediumtext NULL;
+	forum_recent_posters mediumtext NULL,
 	PRIMARY KEY (forum_id),
 	KEY left_right_id (left_id, right_id),
 	KEY forum_lastpost_id (forum_last_post_id)
@@ -1612,10 +1634,7 @@ CREATE TABLE phpbb_likes (
 	like_date int(11) DEFAULT '0' NOT NULL,
 	like_state mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	like_read mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
-	PRIMARY KEY (like_id),
-	UNIQUE KEY post_user (post_id, user_id),
-	KEY topic_id (topic_id),
-	KEY poster_id (poster_id)
+	PRIMARY KEY (like_id)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 
@@ -2027,10 +2046,12 @@ CREATE TABLE phpbb_posts (
 	points_post_received decimal(20,2) DEFAULT '0' NOT NULL,
 	PRIMARY KEY (post_id),
 	KEY forum_id (forum_id),
+	KEY topic_id (topic_id),
 	KEY poster_ip (poster_ip),
 	KEY poster_id (poster_id),
-	KEY tid_post_time (topic_id, post_time),
-	KEY post_visibility (forum_id, post_approved, post_time)
+	KEY post_approved (post_approved),
+	KEY post_username (post_username),
+	KEY tid_post_time (topic_id, post_time)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 
@@ -2251,6 +2272,7 @@ CREATE TABLE phpbb_search_wordmatch (
 	word_id mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	title_match tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	UNIQUE unq_mtch (word_id, post_id, title_match),
+	KEY word_id (word_id),
 	KEY post_id (post_id)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
@@ -2826,11 +2848,13 @@ CREATE TABLE phpbb_topics (
 	invite_attendees tinyint(1) UNSIGNED DEFAULT '0' NULL,
 	event_attendees mediumtext NULL,
 	event_non_attendees mediumtext NULL,
-	topic_first_post_show tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	topic_first_post_show tinyint(1) UNSIGNED DEFAULT '0' NULL,
 	topic_recent_posters mediumtext NULL,
 	PRIMARY KEY (topic_id),
+	KEY forum_id (forum_id),
 	KEY forum_id_type (forum_id, topic_type),
 	KEY last_post_time (topic_last_post_time),
+	KEY topic_approved (topic_approved),
 	KEY forum_appr_last (forum_id, topic_approved, topic_last_post_id),
 	KEY fid_time_moved (forum_id, topic_last_post_time, topic_moved_id)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
@@ -3047,8 +3071,7 @@ CREATE TABLE phpbb_words (
 	word_id mediumint(8) UNSIGNED NOT NULL auto_increment,
 	word varchar(255) DEFAULT '' NOT NULL,
 	replacement varchar(255) DEFAULT '' NOT NULL,
-	PRIMARY KEY (word_id),
-	UNIQUE KEY word (word)
+	PRIMARY KEY (word_id)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 

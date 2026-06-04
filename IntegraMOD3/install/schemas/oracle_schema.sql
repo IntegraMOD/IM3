@@ -151,7 +151,8 @@ CREATE TABLE phpbb_acl_users (
 	auth_option_id number(8) DEFAULT '0' NOT NULL,
 	auth_role_id number(8) DEFAULT '0' NOT NULL,
 	auth_setting number(2) DEFAULT '0' NOT NULL,
-	is_kb number(1) DEFAULT '0' NOT NULL
+	is_kb number(1) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_acl_users PRIMARY KEY (user_id, forum_id, auth_option_id)
 )
 /
 
@@ -1539,6 +1540,49 @@ END;
 
 
 /*
+	Table: 'phpbb_donation_item'
+*/
+CREATE TABLE phpbb_donation_item (
+	item_id number(8) NOT NULL,
+	item_type varchar2(16) DEFAULT '' ,
+	item_name varchar2(50) DEFAULT '' ,
+	item_iso_code varchar2(10) DEFAULT '' ,
+	item_symbol varchar2(10) DEFAULT '' ,
+	item_text clob DEFAULT '' ,
+	item_enable number(1) DEFAULT '1' NOT NULL,
+	left_id number(8) DEFAULT '0' NOT NULL,
+	right_id number(8) DEFAULT '0' NOT NULL,
+	item_text_bbcode_bitfield varchar2(255) DEFAULT '' ,
+	item_text_bbcode_uid varchar2(8) DEFAULT '' ,
+	item_text_bbcode_options number(8) DEFAULT '7' NOT NULL,
+	CONSTRAINT pk_phpbb_donation_item PRIMARY KEY (item_id)
+)
+/
+
+CREATE INDEX phpbb_donation_item_item_type ON phpbb_donation_item (item_type)
+/
+CREATE INDEX phpbb_donation_item_item_name ON phpbb_donation_item (item_name)
+/
+CREATE INDEX phpbb_donation_item_item_iso_code ON phpbb_donation_item (item_iso_code)
+/
+
+CREATE SEQUENCE phpbb_donation_item_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_donation_item
+BEFORE INSERT ON phpbb_donation_item
+FOR EACH ROW WHEN (
+	new.item_id IS NULL OR new.item_id = 0
+)
+BEGIN
+	SELECT phpbb_donation_item_seq.nextval
+	INTO :new.item_id
+	FROM dual;
+END;
+/
+
+
+/*
 	Table: 'phpbb_downloads'
 */
 CREATE TABLE phpbb_downloads (
@@ -1823,6 +1867,7 @@ CREATE TABLE phpbb_forums (
 	forum_perpost number(10, 2) DEFAULT '5' NOT NULL,
 	forum_peredit number(10, 2) DEFAULT '0.05' NOT NULL,
 	forum_pertopic number(10, 2) DEFAULT '15' NOT NULL,
+	forum_recent_posters clob NULL,
 	CONSTRAINT pk_phpbb_forums PRIMARY KEY (forum_id)
 )
 /
@@ -5293,6 +5338,7 @@ CREATE TABLE phpbb_topics (
 	event_attendees clob DEFAULT '' NULL,
 	event_non_attendees clob DEFAULT '' NULL,
 	topic_first_post_show number(1) DEFAULT '0' NULL,
+	topic_recent_posters clob NULL,
 	CONSTRAINT pk_phpbb_topics PRIMARY KEY (topic_id)
 )
 /

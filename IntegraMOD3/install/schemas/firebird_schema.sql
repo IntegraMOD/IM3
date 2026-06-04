@@ -88,6 +88,8 @@ CREATE TABLE phpbb_acl_users (
 	is_kb INTEGER DEFAULT 0 NOT NULL
 );;
 
+ALTER TABLE phpbb_acl_users ADD PRIMARY KEY (user_id, forum_id, auth_option_id);;
+
 CREATE INDEX phpbb_acl_users_user_id ON phpbb_acl_users(user_id);;
 CREATE INDEX phpbb_acl_users_auth_option_id ON phpbb_acl_users(auth_option_id);;
 CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users(auth_role_id);;
@@ -1162,6 +1164,39 @@ BEGIN
 END;;
 
 
+# Table: 'phpbb_donation_item'
+CREATE TABLE phpbb_donation_item (
+	item_id INTEGER NOT NULL,
+	item_type VARCHAR(16) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	item_name VARCHAR(50) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	item_iso_code VARCHAR(10) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	item_symbol VARCHAR(10) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	item_text BLOB SUB_TYPE TEXT CHARACTER SET UTF8 DEFAULT '' NOT NULL,
+	item_enable INTEGER DEFAULT 1 NOT NULL,
+	left_id INTEGER DEFAULT 0 NOT NULL,
+	right_id INTEGER DEFAULT 0 NOT NULL,
+	item_text_bbcode_bitfield VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	item_text_bbcode_uid VARCHAR(8) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	item_text_bbcode_options INTEGER DEFAULT 7 NOT NULL
+);;
+
+ALTER TABLE phpbb_donation_item ADD PRIMARY KEY (item_id);;
+
+CREATE INDEX phpbb_donation_item_item_type ON phpbb_donation_item(item_type);;
+CREATE INDEX phpbb_donation_item_item_name ON phpbb_donation_item(item_name);;
+CREATE INDEX phpbb_donation_item_item_iso_code ON phpbb_donation_item(item_iso_code);;
+
+CREATE GENERATOR phpbb_donation_item_gen;;
+SET GENERATOR phpbb_donation_item_gen TO 0;;
+
+CREATE TRIGGER t_phpbb_donation_item FOR phpbb_donation_item
+BEFORE INSERT
+AS
+BEGIN
+	NEW.item_id = GEN_ID(phpbb_donation_item_gen, 1);
+END;;
+
+
 # Table: 'phpbb_downloads'
 CREATE TABLE phpbb_downloads (
 	id INTEGER NOT NULL,
@@ -1407,7 +1442,8 @@ CREATE TABLE phpbb_forums (
 	prune_freq INTEGER DEFAULT 0 NOT NULL,
 	forum_perpost DOUBLE PRECISION DEFAULT 5 NOT NULL,
 	forum_peredit DOUBLE PRECISION DEFAULT 0.05 NOT NULL,
-	forum_pertopic DOUBLE PRECISION DEFAULT 15 NOT NULL
+	forum_pertopic DOUBLE PRECISION DEFAULT 15 NOT NULL,
+	forum_recent_posters BLOB SUB_TYPE TEXT CHARACTER SET UTF8 NULL
 );;
 
 ALTER TABLE phpbb_forums ADD PRIMARY KEY (forum_id);;
@@ -4129,7 +4165,8 @@ CREATE TABLE phpbb_topics (
 	invite_attendees INTEGER DEFAULT 0 NULL,
 	event_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8 DEFAULT '' NULL,
 	event_non_attendees BLOB SUB_TYPE TEXT CHARACTER SET UTF8 DEFAULT '' NULL,
-	topic_first_post_show INTEGER DEFAULT 0 NULL
+	topic_first_post_show INTEGER DEFAULT 0 NULL,
+	topic_recent_posters BLOB SUB_TYPE TEXT CHARACTER SET UTF8 NULL
 );;
 
 ALTER TABLE phpbb_topics ADD PRIMARY KEY (topic_id);;

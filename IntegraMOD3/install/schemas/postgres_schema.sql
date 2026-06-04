@@ -153,7 +153,8 @@ CREATE TABLE phpbb_acl_users (
 	auth_option_id INT4 DEFAULT '0' NOT NULL CHECK (auth_option_id >= 0),
 	auth_role_id INT4 DEFAULT '0' NOT NULL CHECK (auth_role_id >= 0),
 	auth_setting INT2 DEFAULT '0' NOT NULL,
-	is_kb INT2 DEFAULT '0' NOT NULL CHECK (is_kb >= 0)
+	is_kb INT2 DEFAULT '0' NOT NULL CHECK (is_kb >= 0),
+	PRIMARY KEY (user_id, forum_id, auth_option_id)
 );
 
 CREATE INDEX phpbb_acl_users_user_id ON phpbb_acl_users (user_id);
@@ -1063,6 +1064,31 @@ CREATE TABLE phpbb_dl_versions (
 
 
 /*
+	Table: 'phpbb_donation_item'
+*/
+CREATE SEQUENCE phpbb_donation_item_seq;
+
+CREATE TABLE phpbb_donation_item (
+	item_id INT4 DEFAULT nextval('phpbb_donation_item_seq'),
+	item_type varchar(16) DEFAULT '' NOT NULL,
+	item_name varchar(50) DEFAULT '' NOT NULL,
+	item_iso_code varchar(10) DEFAULT '' NOT NULL,
+	item_symbol varchar(10) DEFAULT '' NOT NULL,
+	item_text TEXT DEFAULT '' NOT NULL,
+	item_enable INT2 DEFAULT '1' NOT NULL CHECK (item_enable >= 0),
+	left_id INT4 DEFAULT '0' NOT NULL CHECK (left_id >= 0),
+	right_id INT4 DEFAULT '0' NOT NULL CHECK (right_id >= 0),
+	item_text_bbcode_bitfield varchar(255) DEFAULT '' NOT NULL,
+	item_text_bbcode_uid varchar(8) DEFAULT '' NOT NULL,
+	item_text_bbcode_options INT4 DEFAULT '7' NOT NULL CHECK (item_text_bbcode_options >= 0),
+	PRIMARY KEY (item_id)
+);
+
+CREATE INDEX phpbb_donation_item_item_type ON phpbb_donation_item (item_type);
+CREATE INDEX phpbb_donation_item_item_name ON phpbb_donation_item (item_name);
+CREATE INDEX phpbb_donation_item_item_iso_code ON phpbb_donation_item (item_iso_code);
+
+/*
 	Table: 'phpbb_downloads'
 */
 CREATE SEQUENCE phpbb_downloads_seq;
@@ -1272,6 +1298,7 @@ CREATE TABLE phpbb_forums (
 	forum_perpost decimal(10,2) DEFAULT '5' NOT NULL,
 	forum_peredit decimal(10,2) DEFAULT '0.05' NOT NULL,
 	forum_pertopic decimal(10,2) DEFAULT '15' NOT NULL,
+	forum_recent_posters TEXT NULL,
 	PRIMARY KEY (forum_id)
 );
 
@@ -3478,6 +3505,7 @@ CREATE TABLE phpbb_topics (
 	event_attendees TEXT DEFAULT '' NULL,
 	event_non_attendees TEXT DEFAULT '' NULL,
 	topic_first_post_show INT2 DEFAULT '0' NULL CHECK (topic_first_post_show >= 0),
+	topic_recent_posters TEXT NULL,
 	PRIMARY KEY (topic_id)
 );
 
