@@ -199,6 +199,7 @@ class acp_board
 						'allow_nocensors'		=> array('lang' => 'ALLOW_NO_CENSORS',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'allow_bookmarks'		=> array('lang' => 'ALLOW_BOOKMARKS',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'allow_birthdays'		=> array('lang' => 'ALLOW_BIRTHDAYS',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+                        'guest_sessions_cache'	=> array('lang' => 'GUEST_SESSIONS_CACHE',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 // User details mod
 						'legend33'				=> 'ACP_USER_DETAILS',
 						'user_details_max_cols'	=> array('lang' => 'MAX_ATTRIBUTE_COLS',	'validate' => 'int',	'type' => 'text:3:4', 'explain' => true),
@@ -1233,6 +1234,32 @@ class acp_board
 
 		$this->new_config = $config;
 		$cfg_array = (isset($_REQUEST['config'])) ? utf8_normalize_nfc(request_var('config', array('' => ''), true)) : $this->new_config;
+
+		if ($submit && $mode == 'settings')
+		{
+			if (isset($cfg_array['forum_name']) && utf8_strtolower(trim($cfg_array['forum_name'])) === 'forum')
+			{
+				foreach ($cfg_array as $key => $value)
+				{
+					if (strpos($key, 'forum_name_') === 0)
+					{
+						$cfg_array[$key] = '';
+					}
+				}
+			}
+
+			if (isset($cfg_array['portal_name']) && utf8_strtolower(trim($cfg_array['portal_name'])) === 'portal')
+			{
+				foreach ($cfg_array as $key => $value)
+				{
+					if (strpos($key, 'portal_name_') === 0)
+					{
+						$cfg_array[$key] = '';
+					}
+				}
+			}
+		}
+
 		$error = array();
 
 		// We validate the complete config if whished
@@ -1378,37 +1405,6 @@ class acp_board
 				else
 				{
 					trigger_error('NO_AUTH_PLUGIN', E_USER_ERROR);
-				}
-			}
-			if ($submit && $mode == 'settings')
-			{
-				$languages = array();
-
-				if ($dir = @opendir($phpbb_root_path . 'language'))
-				{
-					while (($lang_dir = readdir($dir)) !== false)
-					{
-						if ($lang_dir == '.' || $lang_dir == '..')
-						{
-							continue;
-						}
-
-						if (is_dir($phpbb_root_path . 'language/' . $lang_dir) && file_exists($phpbb_root_path . 'language/' . $lang_dir . '/common.' . $phpEx))
-						{
-							$languages[$lang_dir] = $lang_dir;
-						}
-					}
-
-					closedir($dir);
-				}
-
-				foreach ($languages as $lang_iso => $lang_name)
-				{
-					$portal_key = 'portal_name_' . $lang_iso;
-					$forum_key = 'forum_name_' . $lang_iso;
-
-					set_config($portal_key, request_var($portal_key, '', true));
-					set_config($forum_key, request_var($forum_key, '', true));
 				}
 			}
 		}

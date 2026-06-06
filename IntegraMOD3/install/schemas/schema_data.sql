@@ -427,12 +427,12 @@ INSERT INTO phpbb_config VALUES('form_token_lifetime', '7200', 0);
 INSERT INTO phpbb_config VALUES('form_token_mintime', '0', 0);
 INSERT INTO phpbb_config VALUES('form_token_sid_guests', '1', 0);
 INSERT INTO phpbb_config VALUES('forum_name', 'Forum', 0);
-INSERT INTO phpbb_config VALUES('forum_name_de', 'Forum', 0);
-INSERT INTO phpbb_config VALUES('forum_name_en', 'Forum', 0);
-INSERT INTO phpbb_config VALUES('forum_name_es', 'Foro', 0);
-INSERT INTO phpbb_config VALUES('forum_name_fr', 'Forum', 0);
-INSERT INTO phpbb_config VALUES('forum_name_nl', 'Forum', 0);
-INSERT INTO phpbb_config VALUES('forum_name_uk', 'Форум', 0);
+INSERT INTO phpbb_config VALUES('forum_name_de', '', 0);
+INSERT INTO phpbb_config VALUES('forum_name_en', '', 0);
+INSERT INTO phpbb_config VALUES('forum_name_es', '', 0);
+INSERT INTO phpbb_config VALUES('forum_name_fr', '', 0);
+INSERT INTO phpbb_config VALUES('forum_name_nl', '', 0);
+INSERT INTO phpbb_config VALUES('forum_name_uk', '', 0);
 INSERT INTO phpbb_config VALUES('forward_pm', '1', 0);
 INSERT INTO phpbb_config VALUES('forwarded_for_check', '0', 0);
 INSERT INTO phpbb_config VALUES('ftp_host', 'localhost', 0);
@@ -1139,6 +1139,34 @@ INSERT INTO phpbb_dl_banlist VALUES(1, 0, '', 'n/a', '', 0);
 # -- phpbb_dl_rem_traf
 INSERT INTO phpbb_dl_rem_traf VALUES('dl_remain_guest_traffic', '0');
 INSERT INTO phpbb_dl_rem_traf VALUES('dl_remain_traffic', '0');
+
+# -- phpbb_donation_items
+INSERT INTO `phpbb_donation_item` VALUES(1, 'donation_pages', 'donation_body', 'de', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(2, 'donation_pages', 'donation_success', 'de', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(3, 'donation_pages', 'donation_cancel', 'de', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(4, 'donation_pages', 'donation_body', 'en', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(5, 'donation_pages', 'donation_success', 'en', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(6, 'donation_pages', 'donation_cancel', 'en', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(7, 'donation_pages', 'donation_body', 'es', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(8, 'donation_pages', 'donation_success', 'es', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(9, 'donation_pages', 'donation_cancel', 'es', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(10, 'donation_pages', 'donation_body', 'fr', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(11, 'donation_pages', 'donation_success', 'fr', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(12, 'donation_pages', 'donation_cancel', 'fr', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(13, 'donation_pages', 'donation_body', 'nl', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(14, 'donation_pages', 'donation_success', 'nl', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(15, 'donation_pages', 'donation_cancel', 'nl', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(16, 'donation_pages', 'donation_body', 'uk', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(17, 'donation_pages', 'donation_success', 'uk', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(18, 'donation_pages', 'donation_cancel', 'uk', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(19, 'currency', 'U.S. Dollar', 'USD', '&#36;', '', 1, 1, 2, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(20, 'currency', 'Euro', 'EUR', '&#8364;', '', 1, 3, 4, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(21, 'currency', 'Pound Sterling', 'GBP', '&#163;', '', 1, 5, 6, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(22, 'currency', 'Yen', 'JPY', '&#165;', '', 1, 7, 8, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(23, 'currency', 'Australian Dollar', 'AUD', '&#36;', '', 1, 9, 10, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(24, 'currency', 'Canadian Dollar', 'CAD', '&#36;', '', 1, 11, 12, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(25, 'currency', 'Hong Kong Dollar', 'HKD', '&#36;', '', 1, 13, 14, '', '', 7);
+INSERT INTO `phpbb_donation_item` VALUES(26, 'currency', 'Ukrainian Hryvnia', 'UAH', '&#8372;', '', 1, 15, 16, '', '', 7);
 
 # -- phpbb_gallery_permissions
 INSERT INTO phpbb_gallery_permissions VALUES(1, 1, 0, 0, 2, -2);
