@@ -8,12 +8,10 @@
 *
 */
 
-/**
-*/
 if (!defined('IN_INSTALL'))
 {
-	// Someone has tried to access the file direct. This is not a good idea, so exit
-	exit;
+    // Someone has tried to access the file direct. This is not a good idea, so exit
+    exit;
 }
 
 ini_set("mbstring.http_input", "pass");
@@ -531,6 +529,25 @@ class install_install extends module
 			'S_HIDDEN'	=> $s_hidden_fields,
 			'U_ACTION'	=> $url,
 		));
+        // Add ACM selection on the administrator page so it can be written into config.php
+        // Obtain any submitted data to ensure we have the current selection
+        $data = $this->get_submitted_data();
+        $detected_options = acm_select($data['acm_type']);
+
+        // Place ACM selector under its own legend
+        $template->assign_block_vars('options', array(
+            'S_LEGEND'	=> true,
+            'LEGEND'	=> $lang['CACHE_STORE'],
+        ));
+
+        $template->assign_block_vars('options', array(
+            'KEY'			=> 'acm_type',
+            'TITLE'			=> $lang['CACHE_STORE'],
+            'S_EXPLAIN'		=> false,
+            'S_LEGEND'		=> false,
+            'TITLE_EXPLAIN'	=> '',
+            'CONTENT'		=> '<select id="acm_type" name="acm_type">' . $detected_options . '</select>',
+        ));
 	}
 
 	/**
@@ -893,7 +910,29 @@ class install_install extends module
 		@chmod($phpbb_root_path . 'cache/install_lock', 0777);
 
 		// Time to convert the data provided into a config file
-		$config_data = phpbb_create_config_file_data($data, $available_dbms[$data['dbms']]['DRIVER'], $load_extensions);
+        $config_data = phpbb_create_config_file_data($data, $available_dbms[$data['dbms']]['DRIVER'], $load_extensions);
+
+        // Ensure acm_type is written into config.php - default to file if not set
+        $acm_type = (isset($data['acm_type']) && $data['acm_type'] !== '') ? $data['acm_type'] : 'file';
+        $acm_line = "\$acm_type = '" . addslashes($acm_type) . "';";
+
+        // Remove any existing $acm_type assignment in the generated config data
+        $config_data = preg_replace('/\$acm_type\s*=\s*\'[^\']*\';\s*/', '', $config_data);
+
+        // Prefer inserting after $load_extensions assignment if present, otherwise insert before PHPBB_INSTALLED, else append
+        $load_pattern = '/(\$load_extensions\s*=\s*[^;]*;\s*)/';
+        if (preg_match($load_pattern, $config_data))
+        {
+            $config_data = preg_replace($load_pattern, '\\1' . $acm_line . "\n", $config_data, 1);
+        }
+        else if (preg_match("/(\\@define\('PHPBB_INSTALLED', true\);)/", $config_data))
+        {
+            $config_data = preg_replace("/(\\@define\('PHPBB_INSTALLED', true\);)/", $acm_line . "\n\\1", $config_data, 1);
+        }
+        else
+        {
+            $config_data .= "\n" . $acm_line . "\n";
+        }
 
 		// Attempt to write out the config file directly. If it works, this is the easiest way to do it ...
 		if ((file_exists($phpbb_root_path . 'config.' . $phpEx) && phpbb_is_writable($phpbb_root_path . 'config.' . $phpEx)) || phpbb_is_writable($phpbb_root_path))
@@ -1074,6 +1113,58 @@ class install_install extends module
 			$s_hidden_fields .= '<input type="hidden" name="' . $config_key . '" value="' . $data[$config_key] . '" />';
 		}
 
+
+        // Add ACM selection (cache backend). Place it in its own legend at the bottom
+        $detected_options = acm_select($data['acm_type']);
+        $data['acm_type'] = ($data['acm_type'] !== '') ? $data['acm_type'] : 'file';
+
+        // Start a new legend for Cache Type
+        $template->assign_block_vars('options', array(
+            'S_LEGEND'    => true,
+            'LEGEND'      => $lang['CACHE_STORE'],
+        ));
+
+        // Dropdown entry for selecting cache backend
+        $template->assign_block_vars('options', array(
+            'KEY'            => 'acm_type',
+            'TITLE'          => $lang['CACHE_STORE'],
+            'S_EXPLAIN'      => false,
+            'S_LEGEND'       => false,
+            'TITLE_EXPLAIN'  => $lang['CACHE_STORE_EXPLAIN'],
+            'CONTENT'        => '<select id="acm_type" name="acm_type">' . $detected_options . '</select>',
+        ));
+
+        // Explanations and availability for each backend, shown as option rows under the same legend
+        $backends = array(
+            'file' => array('avail' => true, 'explain_key' => 'CACHE_FILE_EXPLAIN'),
+            'memcache' => array('avail' => (extension_loaded('memcache') || class_exists('Memcache')), 'explain_key' => 'CACHE_MEMCACHE_EXPLAIN'),
+            'memcached' => array('avail' => (extension_loaded('memcached') || class_exists('Memcached')), 'explain_key' => 'CACHE_MEMCACHED_EXPLAIN'),
+            'redis' => array('avail' => (extension_loaded('redis') || class_exists('Redis')), 'explain_key' => 'CACHE_REDIS_EXPLAIN'),
+            'apc' => array('avail' => (extension_loaded('apc') || extension_loaded('apcu')), 'explain_key' => 'CACHE_APC_EXPLAIN'),
+            'wincache' => array('avail' => extension_loaded('wincache'), 'explain_key' => 'CACHE_WINCACHE_EXPLAIN'),
+            'xcache' => array('avail' => extension_loaded('xcache'), 'explain_key' => 'CACHE_XCACHE_EXPLAIN'),
+            'eaccelerator' => array('avail' => extension_loaded('eaccelerator'), 'explain_key' => 'CACHE_EACCELERATOR_EXPLAIN'),
+        );
+
+        foreach ($backends as $key => $info)
+        {
+            $label_key = 'CACHE_' . strtoupper($key);
+            $title = isset($lang[$label_key]) ? $lang[$label_key] : ucfirst($key);
+            $explain = isset($lang[$info['explain_key']]) ? $lang[$info['explain_key']] : '';
+            $status = $info['avail'] ? '<strong style="color:green">' . $lang['AVAILABLE'] . '</strong>' : '<strong style="color:red">' . $lang['UNAVAILABLE'] . '</strong>';
+
+            $template->assign_block_vars('options', array(
+                'KEY'           => 'acm_' . $key,
+                'TITLE'         => $title,
+                'S_EXPLAIN'     => true,
+                'S_LEGEND'      => false,
+                'TITLE_EXPLAIN' => $explain . '<br /><em>' . $status . '</em>',
+                'CONTENT'       => '',
+            ));
+        }
+
+
+
 		$submit = $lang['NEXT_STEP'];
 
 		$url = $this->p_master->module_url . "?mode=$mode&amp;sub=create_table";
@@ -1247,6 +1338,9 @@ class install_install extends module
 			'INSERT INTO ' . $data['table_prefix'] . "config (config_name, config_value)
 				VALUES ('board_startdate', '$current_time')",
 
+            'INSERT INTO ' . $data['table_prefix'] . "config (config_name, config_value)
+				VALUES ('donation_install_date', '$current_time')",
+
 			'INSERT INTO ' . $data['table_prefix'] . "config (config_name, config_value)
 				VALUES ('default_lang', '" . $db->sql_escape($data['default_lang']) . "')",
 
@@ -1326,9 +1420,6 @@ class install_install extends module
 				SET config_value = '" . md5(mt_rand()) . "'
 				WHERE config_name = 'avatar_salt'",
 
-//			'INSERT INTO ' . $data['table_prefix'] . "config (config_name, config_value)
-//				VALUES ('donation_install_date', '$current_time')",
-
 			'UPDATE ' . $data['table_prefix'] . "users
 				SET username = '" . $db->sql_escape($data['admin_name']) . "', user_password='" . $db->sql_escape(md5($data['admin_pass1'])) . "', user_ip = '" . $db->sql_escape($user_ip) . "', user_lang = '" . $db->sql_escape($data['default_lang']) . "', user_email='" . $db->sql_escape($data['board_email1']) . "', user_dateformat='" . $db->sql_escape($lang['default_dateformat']) . "', user_email_hash = " . $db->sql_escape(phpbb_email_hash($data['board_email1'])) . ", username_clean = '" . $db->sql_escape(utf8_clean_string($data['admin_name'])) . "'
 				WHERE username = 'Admin'",
@@ -1393,6 +1484,44 @@ class install_install extends module
 				$this->p_master->db_error($error['message'], $sql, __LINE__, __FILE__);
 			}
 		}
+        // Ensure acm_type selected during advanced settings is reflected in config.php if possible.
+        // We attempt a safe overwrite: write to a temp file then rename to avoid truncation issues.
+        $acm_type = (isset($data['acm_type']) && $data['acm_type'] !== '') ? $data['acm_type'] : 'file';
+        $config_file = $phpbb_root_path . 'config.' . $phpEx;
+        if (((file_exists($config_file) && phpbb_is_writable($config_file)) || phpbb_is_writable($phpbb_root_path)))
+        {
+            $config_data = @file_get_contents($config_file);
+            if ($config_data !== false)
+            {
+                // Remove any existing $acm_type assignment
+                $config_data = preg_replace('/\$acm_type\s*=\s*\'[^\']*\';\s*/', '', $config_data);
+
+                $acm_line = "\$acm_type = '" . addslashes($acm_type) . "';\n";
+
+                // Prefer inserting after $load_extensions if present, otherwise insert before PHPBB_INSTALLED, else append
+                $load_pattern = '/(\\$load_extensions\\s*=\\s*[^;]*;\\s*)/';
+                if (preg_match($load_pattern, $config_data))
+                {
+                    $config_data = preg_replace($load_pattern, '\\1' . $acm_line . "\n", $config_data, 1);
+                }
+                else if (preg_match("/(\\\\@define\\('PHPBB_INSTALLED', true\\);)/", $config_data))
+                {
+                    $config_data = preg_replace("/(\\\\@define\\('PHPBB_INSTALLED', true\\);)/", $acm_line . "\n\\1", $config_data, 1);
+                }
+                else
+                {
+                    $config_data .= "\n" . $acm_line . "\n";
+                }
+
+                $tmp = $config_file . '.tmp';
+                if (@file_put_contents($tmp, $config_data) !== false)
+                {
+                    @chmod($tmp, 0666);
+                    @rename($tmp, $config_file);
+                    phpbb_chmod($config_file, CHMOD_READ);
+                }
+            }
+        }
 
 		$submit = $lang['NEXT_STEP'];
 
@@ -2526,6 +2655,7 @@ class install_install extends module
 			'server_name'	=> request_var('server_name', ''),
 			'server_port'	=> request_var('server_port', ''),
 			'script_path'	=> request_var('script_path', ''),
+            'acm_type'	    => request_var('acm_type', ''),
 		);
 	}
 
