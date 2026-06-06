@@ -256,7 +256,7 @@ class acm_memory
 		}
 		else
 		{
-			if (!is_array($this->vars) || !sizeof($this->vars))
+			if (!is_array($this->vars) || !count($this->vars))
 			{
 				$this->load();
 			}
@@ -355,7 +355,7 @@ class acm_memory
 		}
 
 		// store them in the right place
-		$query_id = (is_array($this->sql_rowset)) ? sizeof($this->sql_rowset) : 0;
+		$query_id = (is_array($this->sql_rowset)) ? count($this->sql_rowset) : 0;
 
 		$this->sql_rowset[$query_id] = array();
 		$this->sql_row_pointer[$query_id] = 0;
@@ -392,7 +392,7 @@ class acm_memory
 		if (
 			isset($this->sql_rowset[$query_id]) &&
 			is_array($this->sql_rowset[$query_id]) &&
-			$this->sql_row_pointer[$query_id] < sizeof($this->sql_rowset[$query_id])
+			$this->sql_row_pointer[$query_id] < count($this->sql_rowset[$query_id])
 		)
 		{
 			return $this->sql_rowset[$query_id][$this->sql_row_pointer[$query_id]++];
@@ -409,7 +409,7 @@ class acm_memory
 		if (
 			isset($this->sql_rowset[$query_id]) &&
 			is_array($this->sql_rowset[$query_id]) &&
-			$this->sql_row_pointer[$query_id] < sizeof($this->sql_rowset[$query_id])
+			$this->sql_row_pointer[$query_id] < count($this->sql_rowset[$query_id])
 		)
 		{
 			return (
@@ -430,7 +430,7 @@ class acm_memory
 		if (
 			!isset($this->sql_rowset[$query_id]) ||
 			!is_array($this->sql_rowset[$query_id]) ||
-			$rownum >= sizeof($this->sql_rowset[$query_id])
+			$rownum >= count($this->sql_rowset[$query_id])
 		)
 		{
 			return false;

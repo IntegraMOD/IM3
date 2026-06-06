@@ -214,7 +214,7 @@ class acp_socialnet extends AddOnsHookSystem
             'B_ACP_SN_MAIN'	 => true
         ));
 
-        $socialnet->_version_checker(array('host' => 'update.phpbb3hacks.com', 'directory' => '/socialnet', 'filename' => 'sn_modules.xml'));
+        $socialnet->_version_checker(array('host' => 'integramod.com', 'directory' => '/version', 'filename' => 'sn_modules.xml'));
         $this->acpPanel_explain = $user->lang['ACP_SN_WELCOME_TEXT'];
     }
 

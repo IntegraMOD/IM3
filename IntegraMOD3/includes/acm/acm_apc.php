@@ -23,12 +23,24 @@ if (!class_exists('acm_memory'))
 }
 
 /**
-* ACM for APC
-* @package acm
-*/
+ * ACM for APC / APCu
+ * @package acm
+ * @note APC was removed in PHP 7.0; uses APCu (apcu) for PHP 7.0+ and APC (apc) for PHP 5.6-5.7
+ */
 class acm extends acm_memory
 {
-	var $extension = 'apc';
+	var $extension = 'apc'; // Will be reset to 'apcu' if running on PHP 7+
+
+	function __construct()
+	{
+		// PHP 7.0+ removed the APC extension; use APCu instead
+		if (defined('PHP_VERSION_ID') ? PHP_VERSION_ID >= 70000 : version_compare(PHP_VERSION, '7.0.0', '>='))
+		{
+			$this->extension = 'apcu';
+		}
+
+		parent::__construct();
+	}
 
 	/**
 	* Purge cache data
@@ -37,7 +49,15 @@ class acm extends acm_memory
 	*/
 	function purge()
 	{
-		apc_clear_cache('user');
+		// Both APC and APCu use apc_clear_cache() - APCu maintains backward compatibility
+		if (function_exists('apc_clear_cache'))
+		{
+			apc_clear_cache('user');
+		}
+		elseif (function_exists('apcu_clear_cache'))
+		{
+			apcu_clear_cache();
+		}
 
 		parent::purge();
 	}
