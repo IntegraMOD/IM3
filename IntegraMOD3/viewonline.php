@@ -97,38 +97,76 @@ $guest_counter = 0;
 // Get number of online guests (if we do not display them)
 if (!$show_guests)
 {
-	switch ($db->sql_layer)
-	{
-		case 'sqlite':
-			$sql = 'SELECT COUNT(session_ip) as num_guests
-				FROM (
-					SELECT DISTINCT session_ip
-						FROM ' . SESSIONS_TABLE . '
-						WHERE session_user_id = ' . ANONYMOUS . '
-							AND session_time >= ' . (time() - ($config['load_online_time'] * 60)) .
-				')';
-		break;
+    // Prefer in-memory cache guest sessions if enabled and helper exists
+    if (!empty($config['guest_sessions_cache']) && file_exists($phpbb_root_path . 'includes/guest_sessions.' . $phpEx))
+    {
+        include_once($phpbb_root_path . 'includes/guest_sessions.' . $phpEx);
+        $guest_counter = guest_sessions_count_distinct_ips();
+    }
+    else
+    {
+        switch ($db->sql_layer)
+        {
+            case 'sqlite':
+                $sql = 'SELECT COUNT(session_ip) as num_guests
+                    FROM (
+                        SELECT DISTINCT session_ip
+                            FROM ' . SESSIONS_TABLE . '
+                            WHERE session_user_id = ' . ANONYMOUS . '
+                                AND session_time >= ' . (time() - ($config['load_online_time'] * 60)) .
+                    ')';
+            break;
 
-		default:
-			$sql = 'SELECT COUNT(DISTINCT session_ip) as num_guests
-				FROM ' . SESSIONS_TABLE . '
-				WHERE session_user_id = ' . ANONYMOUS . '
-					AND session_time >= ' . (time() - ($config['load_online_time'] * 60));
-		break;
-	}
-	$result = $db->sql_query($sql);
-	$guest_counter = (int) $db->sql_fetchfield('num_guests');
-	$db->sql_freeresult($result);
+            default:
+                $sql = 'SELECT COUNT(DISTINCT session_ip) as num_guests
+                    FROM ' . SESSIONS_TABLE . '
+                    WHERE session_user_id = ' . ANONYMOUS . '
+                        AND session_time >= ' . (time() - ($config['load_online_time'] * 60));
+            break;
+        }
+        $result = $db->sql_query($sql);
+        $guest_counter = (int) $db->sql_fetchfield('num_guests');
+        $db->sql_freeresult($result);
+    }
 }
 
 // Get user list
+
+// Get user list from DB (registered users and optionally guests)
 $sql = 'SELECT u.user_id, u.username, u.username_clean, u.user_type, u.user_colour, s.session_id, s.session_time, s.session_page, s.session_ip, s.session_browser, s.session_viewonline, s.session_forum_id, s.session_album_id
-	FROM ' . USERS_TABLE . ' u, ' . SESSIONS_TABLE . ' s
-	WHERE u.user_id = s.session_user_id
-		AND s.session_time >= ' . (time() - ($config['load_online_time'] * 60)) .
-		((!$show_guests) ? ' AND s.session_user_id <> ' . ANONYMOUS : '') . '
-	ORDER BY ' . $order_by;
+    FROM ' . USERS_TABLE . ' u, ' . SESSIONS_TABLE . ' s
+    WHERE u.user_id = s.session_user_id
+        AND s.session_time >= ' . (time() - ($config['load_online_time'] * 60)) .
+        ((!$show_guests) ? ' AND s.session_user_id <> ' . ANONYMOUS : '') . '
+    ORDER BY ' . $order_by;
 $result = $db->sql_query($sql);
+
+// If showing guests and we use guest cache, merge guest entries into a synthetic list
+$guest_cache_rows = array();
+if ($show_guests && file_exists($phpbb_root_path . 'includes/guest_sessions.' . $phpEx))
+{
+    include_once($phpbb_root_path . 'includes/guest_sessions.' . $phpEx);
+    $glist = guest_sessions_get();
+    foreach ($glist as $g)
+    {
+        // convert to a row similar to DB sessions (user_id = ANONYMOUS)
+        $guest_cache_rows[] = array(
+            'user_id' => ANONYMOUS,
+            'username' => $user->lang['GUEST'],
+            'username_clean' => 'guest',
+            'user_type' => 0,
+            'user_colour' => '',
+            'session_id' => '',
+            'session_time' => $g['time'],
+            'session_page' => $g['page'],
+            'session_ip' => $g['ip'],
+            'session_browser' => $g['browser'],
+            'session_viewonline' => 1,
+            'session_forum_id' => 0,
+            'session_album_id' => 0,
+        );
+    }
+}
 
 $prev_id = $prev_ip = $user_list = array();
 $logged_visible_online = $logged_hidden_online = $counter = 0;
@@ -394,6 +432,75 @@ while ($row = $db->sql_fetchrow($result))
 }
 $db->sql_freeresult($result);
 unset($prev_id, $prev_ip);
+
+// If we loaded guest cache rows, process them too
+if (!empty($guest_cache_rows))
+{
+    foreach ($guest_cache_rows as $row)
+    {
+        // emulate same handling as DB rows: skip duplicates by IP
+        if ($row['user_id'] == ANONYMOUS && isset($prev_ip[$row['session_ip']]))
+        {
+            continue;
+        }
+
+        if ($row['user_id'] == ANONYMOUS)
+        {
+            $prev_ip[$row['session_ip']] = 1;
+            $guest_counter++;
+            $counter++;
+
+            if ($counter > $start + $config['topics_per_page'] || $counter <= $start)
+            {
+                continue;
+            }
+
+            $s_user_hidden = false;
+            $username_full = get_username_string('full', $row['user_id'], $user->lang['GUEST']);
+        }
+        else
+        {
+            // registered user from cache is unlikely; skip
+            continue;
+        }
+
+        preg_match('#^([a-z0-9/_-]+)#i', $row['session_page'], $on_page);
+        if (!sizeof($on_page))
+        {
+            $on_page[1] = '';
+        }
+
+        // Determine location (reuse switch below by duplicating necessary parts)
+        switch ($on_page[1])
+        {
+            case 'index':
+                $location = $user->lang['INDEX'];
+                $location_url = append_sid("{$phpbb_root_path}index.$phpEx");
+            break;
+            default:
+                $location = $user->lang['INDEX'];
+                $location_url = append_sid("{$phpbb_root_path}index.$phpEx");
+            break;
+        }
+
+        $template->assign_block_vars('user_row', array(
+            'USERNAME' => $row['username'],
+            'USERNAME_COLOUR' => $row['user_colour'],
+            'USERNAME_FULL' => $username_full,
+            'LASTUPDATE' => $user->format_date($row['session_time']),
+            'FORUM_LOCATION' => $location,
+            'USER_IP' => ($auth->acl_get('a_')) ? $row['session_ip'] : '',
+            'USER_BROWSER' => ($auth->acl_get('a_user')) ? $row['session_browser'] : '',
+            'U_USER_PROFILE' => '',
+            'U_USER_IP' => append_sid("{$phpbb_root_path}viewonline.$phpEx", 'mode=lookup' . '&amp;s=' . $row['session_id'] . "&amp;sg=$show_guests&amp;start=$start&amp;sk=$sort_key&amp;sd=$sort_dir"),
+            'U_WHOIS' => append_sid("{$phpbb_root_path}viewonline.$phpEx", 'mode=whois&amp;s=' . $row['session_id']),
+            'U_FORUM_LOCATION' => $location_url,
+            'S_USER_HIDDEN' => $s_user_hidden,
+            'S_GUEST' => true,
+            'S_USER_TYPE' => $row['user_type'],
+        ));
+    }
+}
 
 // Generate reg/hidden/guest online text
 $vars_online = array(

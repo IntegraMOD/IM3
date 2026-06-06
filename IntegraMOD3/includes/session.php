@@ -823,91 +823,114 @@ class session
 			$this->data['session_created'] = true;
 		}
 
-		$this->session_id = $this->data['session_id'] = md5(unique_id());
-
-		$sql_ary['session_id'] = (string) $this->session_id;
-		$sql_ary['session_page'] = (string) substr($this->page['page'], 0, 199);
-		$sql_ary['session_forum_id'] = $this->page['forum'];
-        $sql_ary['session_album_id'] = $this->page['album'];
-
-		$sql = 'INSERT INTO ' . SESSIONS_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary);
-		$db->sql_query($sql);
-
-		$db->sql_return_on_error(false);
-
-		// Regenerate autologin/persistent login key
-		if ($session_autologin)
+		// Skip session database creation for guest users to reduce CPU/database load
+		if ($this->data['user_id'] != ANONYMOUS)
 		{
-			$this->set_login_key();
-		}
+			$this->session_id = $this->data['session_id'] = md5(unique_id());
 
-		// refresh data
-		$SID = '?sid=' . $this->session_id;
-		$_SID = $this->session_id;
-		$this->data = array_merge($this->data, $sql_ary);
+			$sql_ary['session_id'] = (string) $this->session_id;
+			$sql_ary['session_page'] = (string) substr($this->page['page'], 0, 199);
+			$sql_ary['session_forum_id'] = $this->page['forum'];
+			$sql_ary['session_album_id'] = $this->page['album'];
 
-		if (!$bot)
-		{
-			$cookie_expire = $this->time_now + (($config['max_autologin_time']) ? 86400 * (int) $config['max_autologin_time'] : 31536000);
+			$sql = 'INSERT INTO ' . SESSIONS_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary);
+			$db->sql_query($sql);
 
-			$this->set_cookie('u', $this->cookie_data['u'], $cookie_expire);
-			$this->set_cookie('k', $this->cookie_data['k'], $cookie_expire);
-			$this->set_cookie('sid', $this->session_id, $cookie_expire);
+			$db->sql_return_on_error(false);
 
-			unset($cookie_expire);
+			// Regenerate autologin/persistent login key
+			if ($session_autologin)
+			{
+				$this->set_login_key();
+			}
+
+			// refresh data
+			$SID = '?sid=' . $this->session_id;
+			$_SID = $this->session_id;
+			$this->data = array_merge($this->data, $sql_ary);
+
+			if (!$bot)
+			{
+				$cookie_expire = $this->time_now + (($config['max_autologin_time']) ? 86400 * (int) $config['max_autologin_time'] : 31536000);
+
+				$this->set_cookie('u', $this->cookie_data['u'], $cookie_expire);
+				$this->set_cookie('k', $this->cookie_data['k'], $cookie_expire);
+				$this->set_cookie('sid', $this->session_id, $cookie_expire);
+
+				unset($cookie_expire);
 
 // Cap session scan window
 $session_scan_window = 3600;
 
 // Only check if MORE than one session exists (no COUNT)
 $sql = 'SELECT session_id
-        FROM ' . SESSIONS_TABLE . '
-        WHERE session_user_id = ' . (int) $this->data['user_id'] . '
-        AND session_time >= ' . (int) ($this->time_now - $session_scan_window) . '
-        LIMIT 2';
+		FROM ' . SESSIONS_TABLE . '
+		WHERE session_user_id = ' . (int) $this->data['user_id'] . '
+		AND session_time >= ' . (int) ($this->time_now - $session_scan_window) . '
+		LIMIT 2';
 
 $result = $db->sql_query($sql);
 
 $session_count = 0;
 while ($db->sql_fetchrow($result))
 {
-    $session_count++;
+	$session_count++;
 }
 $db->sql_freeresult($result);
 
 if ($session_count <= 1 || empty($this->data['user_form_salt']))
 {
-    $this->data['user_form_salt'] = unique_id();
+	$this->data['user_form_salt'] = unique_id();
 
-    $sql = 'UPDATE ' . USERS_TABLE . '
-        SET user_form_salt = \'' . $db->sql_escape($this->data['user_form_salt']) . '\'
-        WHERE user_id = ' . (int) $this->data['user_id'];
-    $db->sql_query($sql);
+	$sql = 'UPDATE ' . USERS_TABLE . '
+		SET user_form_salt = \'' . $db->sql_escape($this->data['user_form_salt']) . '\'
+		WHERE user_id = ' . (int) $this->data['user_id'];
+	$db->sql_query($sql);
 }
 
-			// Delay updating last visit to preserve unread posts
-			$update_threshold = 86400; // 24 hours (adjust as needed)
+				// Delay updating last visit to preserve unread posts
+				$update_threshold = 86400; // 24 hours (adjust as needed)
 
-			if (($this->time_now - (int) $this->data['session_last_visit']) > $update_threshold)
+				if (($this->time_now - (int) $this->data['session_last_visit']) > $update_threshold)
+				{
+					$sql = 'UPDATE ' . USERS_TABLE . '
+						SET user_lastvisit = ' . (int) $this->data['session_time'] . '
+						WHERE user_id = ' . (int) $this->data['user_id'];
+					$db->sql_query($sql);
+				}
+			}
+			else
 			{
+				$this->data['session_time'] = $this->data['session_last_visit'] = $this->time_now;
+
+				// Keep bot behavior unchanged (always update last visit)
 				$sql = 'UPDATE ' . USERS_TABLE . '
 					SET user_lastvisit = ' . (int) $this->data['session_time'] . '
 					WHERE user_id = ' . (int) $this->data['user_id'];
 				$db->sql_query($sql);
+
+				$SID = '?sid=';
+				$_SID = '';
 			}
 		}
 		else
 		{
-			$this->data['session_time'] = $this->data['session_last_visit'] = $this->time_now;
-
-			// Keep bot behavior unchanged (always update last visit)
-			$sql = 'UPDATE ' . USERS_TABLE . '
-				SET user_lastvisit = ' . (int) $this->data['session_time'] . '
-				WHERE user_id = ' . (int) $this->data['user_id'];
-			$db->sql_query($sql);
-
-			$SID = '?sid=';
-			$_SID = '';
+            // Guest user - skip database session creation; store lightweight session info in cache
+            $db->sql_return_on_error(false);
+            $SID = '?sid=';
+            $_SID = '';
+            // Use guest session cache helper if available
+            // Only use guest cache if enabled in config and helper exists
+            if (!empty($GLOBALS['config']['guest_sessions_cache']) && file_exists($phpbb_root_path . 'includes/guest_sessions.' . $phpEx))
+            {
+                include_once($phpbb_root_path . 'includes/guest_sessions.' . $phpEx);
+                guest_session_put(array(
+                    'ip' => $this->ip,
+                    'browser' => substr($this->browser, 0, 149),
+                    'page' => substr($this->page['page'], 0, 199),
+                    'time' => $this->time_now,
+                ));
+            }
 		}
 
 		return true;
