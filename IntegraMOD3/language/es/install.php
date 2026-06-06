@@ -9,18 +9,15 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  *
  */
-
 /**
  * DO NOT CHANGE
  */
 if (!defined('IN_PHPBB')) {
     exit;
 }
-
 if (empty($lang) || !is_array($lang)) {
     $lang = array();
 }
-
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -32,7 +29,6 @@ if (empty($lang) || !is_array($lang)) {
 // You do not need this where single placeholders are used, e.g. 'Message %d' is fine
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
-
 $lang = array_merge($lang, array(
     'ADMIN_CONFIG' => 'Configuración del administrador',
     'ADMIN_PASSWORD' => 'Contraseña del administrador',
@@ -45,16 +41,31 @@ $lang = array_merge($lang, array(
     'AUTHOR_NOTES' => 'Notas del autor<br />» %s',
     'AVAILABLE' => 'Disponible',
     'AVAILABLE_CONVERTORS' => 'Convertidores disponibles',
-
     'BEGIN_CONVERT' => 'Iniciar conversión',
     'BLANK_PREFIX_FOUND' => 'Un escaneo de sus tablas ha mostrado una instalación válida sin prefijo de tabla.',
     'BOARD_NOT_INSTALLED' => 'No se encontró instalación',
     'BOARD_NOT_INSTALLED_EXPLAIN' => 'El Framework de Convertidor Unificado de phpBB requiere una instalación por defecto de phpBB3 para funcionar, por favor <a href="%s">proceda instalando phpBB3 primero</a>.',
     'BACKUP_NOTICE' => 'Por favor haga una copia de seguridad de su foro antes de actualizar por si surgen problemas durante el proceso.',
-
     'CATEGORY' => 'Categoría',
     'CACHE_STORE' => 'Tipo de caché',
-    'CACHE_STORE_EXPLAIN' => 'La ubicación física donde se cachean los datos; se prefiere el sistema de archivos.',
+    'CACHE_STORE_EXPLAIN' => 'La ubicación física donde se almacenan los datos en caché. El caché basado en archivos es sencillo y fiable; memcache/memcached y redis ofrecen caché en memoria más rápido y compartido entre procesos/servidores.',
+    'CACHE_FILE' => 'Archivo (predeterminado)',
+    'CACHE_MEMCACHE' => 'Memcache (pecl)',
+    'CACHE_MEMCACHED' => 'Memcached (pecl)',
+    'CACHE_REDIS' => 'Redis',
+    'CACHE_APC' => 'APC',
+    'CACHE_WINCACHE' => 'WinCache',
+    'CACHE_XCACHE' => 'XCache',
+    'CACHE_EACCELERATOR' => 'eAccelerator',
+    'CACHE_MEMORY' => 'Memoria (solo proceso)',
+    'CACHE_NULL' => 'Sin caché',
+    'CACHE_FILE_EXPLAIN' => 'El caché en archivo almacena datos en disco bajo el directorio store/. Es sencillo y fiable pero más lento que sistemas en memoria.',
+    'CACHE_MEMCACHE_EXPLAIN' => 'Memcache (extensión PHP) proporciona caché en memoria distribuido rápido. Requiere la extensión memcache y un servidor memcached.',
+    'CACHE_MEMCACHED_EXPLAIN' => 'Memcached (extensión PHP) ofrece caché en memoria distribuido de alto rendimiento. Requiere la extensión memcached y servidor.',
+    'CACHE_REDIS_EXPLAIN' => 'Redis es un almacén de datos en memoria avanzado con persistencia. Requiere la extensión redis y un servidor Redis.',
+    'CACHE_APC_EXPLAIN' => 'APC/APCu proporciona caché en memoria compartida local dentro de procesos PHP. Adecuado para configuraciones de un solo servidor.',
+    'CACHE_WINCACHE_EXPLAIN' => 'WinCache es un caché de opcode y datos disponible en hosts Windows.',
+    'CACHE_MEMORY_EXPLAIN' => 'El caché en memoria almacena datos únicamente en proceso; rápido pero no compartido entre procesos o servidores.',
     'CAT_CONVERT' => 'Convertir',
     'CAT_INSTALL' => 'Instalar',
     'CAT_OVERVIEW' => 'Resumen',
@@ -86,7 +97,6 @@ $lang = array_merge($lang, array(
     'CONVERT_OPTIONS' => 'Opciones',
     'CONVERT_SETTINGS_VERIFIED' => 'La información introducida ha sido verificada. Para comenzar la conversión pulse el botón abajo.',
     'CONV_ERR_FATAL' => 'Error fatal de conversión',
-
     'CONV_ERROR_ATTACH_FTP_DIR' => 'El envío FTP de adjuntos está habilitado en el foro antiguo. Desactive la opción FTP y asegúrese de que se especifica un directorio de subida válido, luego copie todos los archivos adjuntos a este nuevo directorio accesible por la web. Una vez hecho, reinicie el convertidor.',
     'CONV_ERROR_CONFIG_EMPTY' => 'No hay información de configuración disponible para la conversión.',
     'CONV_ERROR_FORUM_ACCESS' => 'No se pueden obtener información de acceso al foro.',
@@ -114,10 +124,8 @@ $lang = array_merge($lang, array(
     'CONV_ERROR_WRONG_GROUP' => 'Grupo incorrecto “%1$s” definido en %2$s.',
     'CONV_OPTIONS_BODY' => 'Esta página recoge los datos necesarios para acceder al foro fuente. Introduzca los detalles de la base de datos de su antiguo foro; el convertidor no cambiará nada en la base de datos indicada a continuación. El foro fuente debe estar deshabilitado para permitir una conversión coherente.',
     'CONV_SAVED_MESSAGES' => 'Mensajes guardados',
-
     'COULD_NOT_COPY' => 'No se pudo copiar el archivo <strong>%1$s</strong> a <strong>%2$s</strong><br /><br />Compruebe que el directorio destino existe y es escribible por el servidor web.',
     'COULD_NOT_FIND_PATH' => 'No se pudo encontrar la ruta a su antiguo foro. Compruebe sus ajustes y vuelva a intentarlo.<br />» %s fue especificado como ruta fuente.',
-
     'DBMS' => 'Tipo de base de datos',
     'DB_CONFIG' => 'Configuración de la base de datos',
     'DB_CONNECTION' => 'Conexión a la base de datos',
@@ -158,18 +166,14 @@ $lang = array_merge($lang, array(
     'DL_CONFIG_EXPLAIN' => 'Puede descargar el config.php completo a su PC. Luego deberá subirlo manualmente, reemplazando cualquier config.php existente en la raíz de phpBB 3.0. Recuerde subirlo en formato ASCII. Cuando haya subido config.php haga clic en “Done” para pasar al siguiente paso.',
     'DL_DOWNLOAD' => 'Descargar',
     'DONE' => 'Hecho',
-
     'ENABLE_KEYS' => 'Rehabilitando claves. Esto puede tardar un rato.',
-
     'FILES_OPTIONAL' => 'Archivos y directorios opcionales',
     'FILES_OPTIONAL_EXPLAIN' => '<strong>Opcional</strong> - Estos archivos, directorios o permisos no son obligatorios. El instalador intentará crearlos si no existen o no son escribibles. Sin embargo, su presencia acelera la instalación.',
     'FILES_REQUIRED' => 'Archivos y directorios',
     'FILES_REQUIRED_EXPLAIN' => '<strong>Requerido</strong> - Para funcionar correctamente phpBB necesita acceso o permisos de escritura en ciertos archivos o directorios. Si ve “Not Found” debe crear el archivo/directorio. Si ve “Unwritable” debe cambiar los permisos para permitir escritura.',
     'FILLING_TABLE' => 'Llenando la tabla <strong>%s</strong>',
     'FILLING_TABLES' => 'Llenando tablas',
-
     'FIREBIRD_DBMS_UPDATE_REQUIRED' => 'phpBB ya no soporta Firebird/Interbase anterior a la versión 2.1. Actualice Firebird a al menos 2.1.0 antes de continuar.',
-
     'FINAL_STEP' => 'Paso final del proceso',
     'FORUM_ADDRESS' => 'Dirección del foro',
     'FORUM_ADDRESS_EXPLAIN' => 'Esta es la URL de su foro anterior, por ejemplo <samp>http://www.example.com/phpBB2/</samp>. Si se introduce una dirección aquí, cada instancia de esa dirección será reemplazada por la dirección de su nuevo foro en mensajes, mensajes privados y firmas.',
@@ -181,9 +185,7 @@ $lang = array_merge($lang, array(
     'FTP_PATH' => 'Ruta FTP',
     'FTP_PATH_EXPLAIN' => 'Esta es la ruta desde su directorio raíz hasta phpBB, por ejemplo <samp>htdocs/phpBB3/</samp>.',
     'FTP_UPLOAD' => 'Subir',
-
     'GPL' => 'Licencia Pública General',
-
     'INITIAL_CONFIG' => 'Configuración básica',
     'INITIAL_CONFIG_EXPLAIN' => 'Ahora que el instalador ha determinado que su servidor puede ejecutar phpBB debe proporcionar información específica. Si no sabe cómo conectarse a su base de datos contacte a su proveedor de hosting o use los foros de soporte de phpBB. Revise cuidadosamente los datos antes de continuar.',
     'INSTALL_CONGRATS' => '¡Felicidades!',
@@ -194,9 +196,7 @@ $lang = array_merge($lang, array(
 		<h2>¡Ponga IntegraMOD3 en producción!</h2>
 		<p><strong>Por favor elimine, mueva o renombre el directorio de instalación antes de usar su foro. Mientras exista este directorio, solo el Panel de Control de Administración (ACP) será accesible.</strong>',
     'INSTALL_INTRO' => 'Bienvenido a la instalación',
-
     'INSTALL_INTRO_BODY' => 'Con esta opción puede instalar IntegraMOD en su servidor.</p><p>Para continuar necesitará los ajustes de su base de datos. Si no los conoce pida a su host. No podrá continuar sin ellos. Necesitará:</p>
-
 	<ul>
 		<li>El tipo de base de datos - la base que va a usar.</li>
 		<li>El hostname o DSN del servidor de base de datos - la dirección del servidor.</li>
@@ -204,9 +204,7 @@ $lang = array_merge($lang, array(
 		<li>El nombre de la base de datos - el nombre en el servidor.</li>
 		<li>El usuario y la contraseña de la base de datos - credenciales para acceder a la base.</li>
 	</ul>
-
 	<p><strong>Nota:</strong> si instala usando SQLite, introduzca la ruta completa al archivo de base de datos en el campo DSN y deje usuario y contraseña en blanco. Por seguridad asegúrese de que el archivo no esté en una ubicación accesible desde la web.</p>
-
 	<p>IntegraMOD soporta las siguientes bases de datos:</p>
 	<ul>
 		<li>MySQL 3.23 o superior (MySQLi soportado)</li>
@@ -217,7 +215,6 @@ $lang = array_merge($lang, array(
 		<li>MS SQL Server 2005 o superior (nativo)</li>
 		<li>Oracle</li>
 	</ul>
-
 	<p>Sólo se mostrarán las bases soportadas por su servidor.',
     'INSTALL_INTRO_NEXT' => 'Para comenzar la instalación, presione el botón abajo.',
     'INSTALL_LOGIN' => 'Acceder',
@@ -257,9 +254,7 @@ $lang = array_merge($lang, array(
     'INST_ERR_USER_TOO_LONG' => 'El nombre de usuario introducido es demasiado largo. La longitud máxima es 20 caracteres.',
     'INST_ERR_USER_TOO_SHORT' => 'El nombre de usuario introducido es demasiado corto. La longitud mínima es 3 caracteres.',
     'INVALID_PRIMARY_KEY' => 'Clave primaria inválida : %s',
-
     'LONG_SCRIPT_EXECUTION' => 'Tenga en cuenta que esto puede tardar un rato... Por favor no detenga el script.',
-
     // mbstring
     'MBSTRING_CHECK' => 'Comprobación de la extensión <samp>mbstring</samp>',
     'MBSTRING_CHECK_EXPLAIN' => '<strong>Requerido</strong> - <samp>mbstring</samp> es una extensión PHP que proporciona funciones multibyte. Algunas funciones de mbstring no son compatibles con phpBB y deben desactivarse.',
@@ -271,12 +266,9 @@ $lang = array_merge($lang, array(
     'MBSTRING_HTTP_INPUT_EXPLAIN' => '<var>mbstring.http_input</var> debe estar establecido en <samp>pass</samp>.',
     'MBSTRING_HTTP_OUTPUT' => 'Conversión de caracteres de salida HTTP',
     'MBSTRING_HTTP_OUTPUT_EXPLAIN' => '<var>mbstring.http_output</var> debe estar establecido en <samp>pass</samp>.',
-
     'MAKE_FOLDER_WRITABLE' => 'Por favor asegúrese de que esta carpeta existe y es escribible por el servidor web y vuelva a intentarlo:<br />»<strong>%s</strong>.',
     'MAKE_FOLDERS_WRITABLE' => 'Por favor asegúrese de que estas carpetas existen y son escribibles por el servidor web y vuelva a intentarlo:<br />»<strong>%s</strong>.',
-
     'MYSQL_SCHEMA_UPDATE_REQUIRED' => 'El esquema MySQL de su base de datos para phpBB está obsoleto. phpBB detectó un esquema para MySQL 3.x/4.x, pero el servidor ejecuta MySQL %2$s.<br /><strong>Antes de continuar con la actualización, necesita actualizar el esquema.</strong><br /><br />Consulte el artículo de la base de conocimientos sobre actualización del esquema MySQL. Si encuentra problemas, use nuestros foros de soporte.',
-
     'NAMING_CONFLICT' => 'Conflicto de nombres: %s y %s son ambos alias<br /><br />%s',
     'NEXT_STEP' => 'Proceder al siguiente paso',
     'NOT_FOUND' => 'No se puede encontrar',
@@ -285,9 +277,7 @@ $lang = array_merge($lang, array(
     'NO_CONVERT_SPECIFIED' => 'No se especificó convertidor.',
     'NO_LOCATION' => 'No se puede determinar la ubicación. Si sabe que Imagemagick está instalado, puede especificar la ubicación luego desde el panel de administración',
     'NO_TABLES_FOUND' => 'No se encontraron tablas.',
-
     'OVERVIEW_BODY' => '¡Bienvenido a IntegraMOD3!<br /><br />IntegraMOD3 es una distribución phpBB3.0.x totalmente integrada basada en phpBB3.0.15. Combina phpBB con una gran colección de modificaciones integradas, funcionalidad de portal y mejoras comunitarias en un paquete unificado. phpBB® es una de las soluciones de foros open source más usadas del mundo, conocida por su estabilidad, flexibilidad y amplio conjunto de características.<br /><br />IntegraMOD3 incluye KISS Portal&copy;, el sistema de portal original de phpBB3 y una de las primeras modificaciones mayores desarrolladas durante las etapas alpha y beta de phpBB3. KISS Portal está en desarrollo continuo desde 2005 y sigue siendo uno de los sistemas de portal más completos y bien integrados disponibles para phpBB3. A pesar de sus capacidades, la mayoría de las funciones se pueden configurar fácilmente desde el Panel de Administración sin cambios de código.<br /><br />IntegraMOD3 también incluye numerosas funciones y mejoras preintegradas para ofrecer una plataforma comunitaria completa desde el primer momento manteniendo compatibilidad con el framework phpBB3.0.x.<br /><br />Este sistema de instalación le guiará para instalar IntegraMOD3, actualizar desde versiones anteriores o convertir desde otro sistema de foros (incluyendo phpBB2). Para más información lea <a href="../docs/INSTALL.html">la guía de instalación</a>.<br /><br />Para leer la licencia phpBB3 u obtener soporte, seleccione las opciones correspondientes del menú lateral. Para continuar, seleccione la pestaña apropiada arriba.',
-
     'PCRE_UTF_SUPPORT' => 'Soporte PCRE UTF-8',
     'PCRE_UTF_SUPPORT_EXPLAIN' => 'phpBB <strong>no</strong> funcionará si su instalación de PHP no está compilada con soporte UTF-8 en la extensión PCRE.',
     'PHP_GETIMAGESIZE_SUPPORT' => 'La función PHP getimagesize() está disponible',
@@ -309,14 +299,12 @@ $lang = array_merge($lang, array(
     'PREPROCESS_STEP' => 'Ejecutando funciones/consultas de preprocesado',
     'PRE_CONVERT_COMPLETE' => 'Todos los pasos previos a la conversión se han completado con éxito. Ahora puede comenzar el proceso de conversión real. Tenga en cuenta que puede necesitar realizar y ajustar varias cosas manualmente. Tras la conversión, verifique especialmente los permisos asignados, reconstruya el índice de búsqueda (no convertido) y asegúrese de que los archivos se copiaron correctamente, por ejemplo avatares y emoticonos.',
     'PROCESS_LAST' => 'Procesando últimas instrucciones',
-
     'REFRESH_PAGE' => 'Actualice la página para continuar la conversión',
     'REFRESH_PAGE_EXPLAIN' => 'Si se establece en sí, el convertidor refrescará la página para continuar la conversión tras terminar un paso. Si es su primera conversión para pruebas, sugerimos establecerlo en No.',
     'REQUIREMENTS_TITLE' => 'Compatibilidad de instalación',
     'REQUIREMENTS_EXPLAIN' => 'Antes de proceder con la instalación completa, IntegraMOD realizará pruebas en su configuración de servidor y archivos para asegurar que puede instalar y ejecutar IntegraMOD. Lea los resultados y no continúe hasta que todas las pruebas requeridas pasen. Si desea usar funciones que dependen de pruebas opcionales, asegúrese de que también pasan.',
     'RETRY_WRITE' => 'Reintentar escritura de config',
     'RETRY_WRITE_EXPLAIN' => 'Si desea puede cambiar los permisos de config.php para permitir que phpBB escriba en él. Tras hacerlo, pulse Reintentar para probar de nuevo. Recuerde restaurar los permisos después de la instalación.',
-
     'SCRIPT_PATH' => 'Ruta del script',
     'SCRIPT_PATH_EXPLAIN' => 'La ruta donde está phpBB relativa al nombre de dominio, p. ej. <samp>/phpBB3</samp>.',
     'SELECT_LANG' => 'Seleccionar idioma',
@@ -350,14 +338,12 @@ $lang = array_merge($lang, array(
     'SYNC_POST_COUNT_ID' => 'Sincronizando recuentos de mensajes desde <var>entry</var> %1$s a %2$s.',
     'SYNC_TOPICS' => 'Iniciando sincronización de temas',
     'SYNC_TOPIC_ID' => 'Sincronizando temas desde <var>topic_id</var> %1$s a %2$s.',
-
     'TABLES_MISSING' => 'No se pudieron encontrar estas tablas<br />» <strong>%s</strong>.',
     'TABLE_PREFIX' => 'Prefijo para tablas en la base de datos',
     'TABLE_PREFIX_EXPLAIN' => 'El prefijo debe comenzar con una letra y solo contener letras, números y guiones bajos.',
     'TABLE_PREFIX_SAME' => 'El prefijo de tablas debe ser el usado por el software del que está convirtiendo.<br />» El prefijo especificado fue %s.',
     'TESTS_PASSED' => 'Pruebas superadas',
     'TESTS_FAILED' => 'Pruebas falladas',
-
     'UNABLE_WRITE_LOCK' => 'No se puede escribir el archivo de bloqueo.',
     'UNAVAILABLE' => 'No disponible',
     'UNWRITABLE' => 'No escribible',
@@ -365,20 +351,16 @@ $lang = array_merge($lang, array(
     'UPDATE_TOPICS_POSTED_ERR' => 'Ocurrió un error al generar la información de temas publicados. Puede reintentar este paso en el ACP después de completar la conversión.',
     'VERIFY_OPTIONS' => 'Verificando opciones de conversión',
     'VERSION' => 'Versión',
-
     'WELCOME_INSTALL' => 'Bienvenido a la instalación de IntegraMOD',
     'WRITABLE' => 'Escribible',
 ));
-
 // Updater
 $lang = array_merge($lang, array(
     'ALL_FILES_UP_TO_DATE' => 'Todos los archivos están actualizados con la última versión de phpBB. Ahora debería <a href="../ucp.php?mode=login">iniciar sesión en su foro</a> y comprobar que todo funciona correctamente. No olvide borrar, renombrar o mover el directorio de instalación. Por favor envíe información actualizada sobre su servidor y configuración desde el módulo <a href="../ucp.php?mode=login&amp;redirect=adm/index.php%3Fi=send_statistics%26mode=send_statistics">Enviar estadísticas</a> en su ACP.',
     'ARCHIVE_FILE' => 'Archivo fuente dentro del archivo',
-
     'BACK' => 'Atrás',
     'BINARY_FILE' => 'Archivo binario',
     'BOT' => 'Spider/Robot',
-
     'CHANGE_CLEAN_NAMES' => 'El método usado para asegurar que un nombre de usuario no sea usado por múltiples usuarios ha cambiado. Hay usuarios con el mismo nombre según el nuevo método. Debe eliminar o renombrar estos usuarios para que cada nombre sea usado por un solo usuario antes de continuar.',
     'CHECK_FILES' => 'Comprobar archivos',
     'CHECK_FILES_AGAIN' => 'Comprobar archivos de nuevo',
@@ -393,7 +375,6 @@ $lang = array_merge($lang, array(
     'CONTINUE_UPDATE' => 'Continuar actualización ahora',
     'CURRENT_FILE' => 'Inicio del conflicto - Código original del archivo antes de la actualización',
     'CURRENT_VERSION' => 'Versión actual',
-
     'DATABASE_TYPE' => 'Tipo de base de datos',
     'DATABASE_UPDATE_INFO_OLD' => 'El archivo de actualización de base de datos dentro del directorio install está desactualizado. Asegúrese de haber subido la versión correcta.',
     'DELETE_USER_REMOVE' => 'Eliminar usuario y remover mensajes',
@@ -413,10 +394,8 @@ $lang = array_merge($lang, array(
     'DOWNLOAD_CONFLICTS_EXPLAIN' => 'Busque &lt;&lt;&lt; para detectar conflictos',
     'DOWNLOAD_UPDATE_METHOD' => 'Descargar archivo de archivos modificados',
     'DOWNLOAD_UPDATE_METHOD_EXPLAIN' => 'Una vez descargado debe descomprimir el archivo. Encontrará los archivos modificados que debe subir a la raíz de phpBB. Súbalos a las ubicaciones respectivas y después vuelva a comprobar los archivos con el botón inferior.',
-
     'ERROR' => 'Error',
     'EDIT_USERNAME' => 'Editar nombre de usuario',
-
     'FILE_ALREADY_UP_TO_DATE' => 'El archivo ya está actualizado.',
     'FILE_DIFF_NOT_ALLOWED' => 'Archivo no permitido para diff.',
     'FILE_USED' => 'Información usada desde',			// Single file
@@ -434,13 +413,10 @@ $lang = array_merge($lang, array(
     'FILES_UP_TO_DATE_EXPLAIN' => 'Los siguientes archivos ya están actualizados y no necesitan ser actualizados.',
     'FTP_SETTINGS' => 'Ajustes FTP',
     'FTP_UPDATE_METHOD' => 'Subida FTP',
-
     'INCOMPATIBLE_UPDATE_FILES' => 'Los archivos de actualización encontrados son incompatibles con su versión instalada. Su versión instalada es %1$s y el archivo de actualización es para actualizar phpBB %2$s a %3$s.',
     'INCOMPLETE_UPDATE_FILES' => 'Los archivos de actualización están incompletos.',
     'INLINE_UPDATE_SUCCESSFUL' => 'La actualización de la base de datos fue exitosa. Ahora debe continuar el proceso de actualización.',
-
     'KEEP_OLD_NAME' => 'Mantener nombre de usuario',
-
     'LATEST_VERSION' => 'Última versión',
     'LINE' => 'Línea',
     'LINE_ADDED' => 'Añadida',
@@ -448,11 +424,8 @@ $lang = array_merge($lang, array(
     'LINE_REMOVED' => 'Eliminada',
     'LINE_UNMODIFIED' => 'No modificada',
     'LOGIN_UPDATE_EXPLAIN' => 'Para actualizar su instalación necesita iniciar sesión primero.',
-
     'MAPPING_FILE_STRUCTURE' => 'Para facilitar la subida estas son las ubicaciones de archivos que mapean su instalación phpBB.',
-
     'MERGE_MODIFICATIONS_OPTION' => 'Fusionar modificaciones',
-
     'MERGE_NO_MERGE_NEW_OPTION' => 'No fusionar - usar archivo nuevo',
     'MERGE_NO_MERGE_MOD_OPTION' => 'No fusionar - usar archivo instalado actualmente',
     'MERGE_MOD_FILE_OPTION' => 'Fusionar modificaciones (elimina el código phpBB nuevo dentro del bloque conflictivo)',
@@ -460,7 +433,6 @@ $lang = array_merge($lang, array(
     'MERGE_SELECT_ERROR' => 'Los modos de fusión de archivos en conflicto no están correctamente seleccionados.',
     'MERGING_FILES' => 'Fusionando diferencias',
     'MERGING_FILES_EXPLAIN' => 'Recolectando actualmente los cambios finales de archivos.<br /><br />Por favor espere hasta que phpBB haya completado todas las operaciones en los archivos modificados.',
-
     'NEW_FILE' => 'Fin del conflicto',
     'NEW_USERNAME' => 'Nuevo nombre de usuario',
     'NO_AUTH_UPDATE' => 'No autorizado para actualizar',
@@ -475,18 +447,14 @@ $lang = array_merge($lang, array(
     'NOTICE' => 'Aviso',
     'NUM_CONFLICTS' => 'Número de conflictos',
     'NUMBER_OF_FILES_COLLECTED' => 'Actualmente se han comprobado diferencias de %1$d de %2$d archivos.<br />Por favor espere hasta que se comprueben todos los archivos.',
-
     'OLD_UPDATE_FILES' => 'Los archivos de actualización están desactualizados. Los archivos encontrados son para actualizar de phpBB %1$s a %2$s pero la última versión es %3$s.',
-
     'PACKAGE_UPDATES_TO' => 'El paquete actualiza a la versión',
     'PERFORM_DATABASE_UPDATE' => 'Realizar actualización de base de datos',
     'PERFORM_DATABASE_UPDATE_EXPLAIN' => 'Abajo encontrará un botón al script de actualización de base de datos. La actualización puede tardar, no detenga la ejecución. Después de la actualización siga las instrucciones para continuar el proceso.',
     'PREVIOUS_VERSION' => 'Versión previa',
     'PROGRESS' => 'Progreso',
-
     'RESULT' => 'Resultado',
     'RUN_DATABASE_SCRIPT' => 'Actualizar mi base de datos ahora',
-
     'SELECT_DIFF_MODE' => 'Seleccionar modo diff',
     'SELECT_DOWNLOAD_FORMAT' => 'Seleccionar formato de archivo para descargar',
     'SELECT_FTP_SETTINGS' => 'Seleccionar ajustes FTP',
@@ -509,11 +477,9 @@ $lang = array_merge($lang, array(
     'STATUS_NEW_CONFLICT' => 'Archivo nuevo en conflicto',
     'STATUS_NOT_MODIFIED' => 'Archivo no modificado',
     'STATUS_UP_TO_DATE' => 'Archivo ya actualizado',
-
     'TOGGLE_DISPLAY' => 'Ver/Ocultar lista de archivos',
     'TRY_DOWNLOAD_METHOD' => 'Puede intentar el método de descargar los archivos modificados.<br />Este método siempre funciona y es el recomendado.',
     'TRY_DOWNLOAD_METHOD_BUTTON' => 'Probar este método ahora',
-
     'UPDATE_COMPLETED' => 'Actualización completada',
     'UPDATE_DATABASE' => 'Actualizar base de datos',
     'UPDATE_DATABASE_EXPLAIN' => 'En el siguiente paso la base de datos será actualizada.',
@@ -523,23 +489,16 @@ $lang = array_merge($lang, array(
     'UPDATE_INSTALLATION' => 'Actualizar instalación phpBB',
     'UPDATE_INSTALLATION_EXPLAIN' => 'Con esta opción puede actualizar su instalación phpBB a la última versión.<br />Durante el proceso todos sus archivos serán verificados para integridad. Puede revisar todas las diferencias y archivos antes de la actualización.<br /><br />La actualización de archivos se puede hacer de dos maneras.</p><h2>Actualización manual</h2><p>Con esta actualización descargará su conjunto personalizado de archivos cambiados para asegurarse de no perder sus modificaciones. Tras descargar el paquete deberá subir manualmente los archivos a su ubicación correcta bajo la raíz de phpBB. Una vez hecho, podrá volver a la etapa de comprobación de archivos para verificar su ubicación.</p><h2>Actualización automática con FTP</h2><p>Este método es similar al primero pero sin necesidad de descargar y subir los archivos usted mismo. Esto se hará por usted. Para usar esta opción necesita conocer sus credenciales FTP. Una vez finalizado será redirigido a la comprobación de archivos para asegurarse de que todo se actualizó correctamente.<br /><br />',
     'UPDATE_INSTRUCTIONS' => '
-
 		<h1>Anuncio de la versión</h1>
-
 		<p>Por favor lea <a href="%1$s" title="%1$s"><strong>el anuncio de la última versión</strong></a> antes de continuar con la actualización; puede contener información útil y enlaces de descarga así como el registro de cambios.</p>
-
 		<br />
-
 		<h1>Cómo actualizar su instalación con el Automatic Update Package</h1>
-
 		<p>La forma recomendada de actualizar que se indica aquí es válida sólo para el paquete de actualización automática. También puede actualizar usando los métodos listados en INSTALL.html. Los pasos son:</p>
-
 		<ul style="margin-left: 20px; font-size: 1.1em;">
 			<li>Vaya a la página de descargas <a href="https://www.phpbb.com/downloads/" title="https://www.phpbb.com/downloads/">phpBB.com</a> y descargue el archivo "Automatic Update Package".<br /><br /></li>
 			<li>Descomprima el archivo.<br /><br /></li>
 			<li>Suba la carpeta install completa y descomprimida al directorio raíz de phpBB (donde está config.php).<br /><br /></li>
 		</ul>
-
 		<p>Una vez subido, su foro estará fuera de línea para usuarios normales debido al directorio install presente.<br /><br />
 		<strong><a href="%2$s" title="%2$s">Ahora inicie el proceso de actualización apuntando su navegador al directorio install</a>.</strong><br />
 		<br />
@@ -547,9 +506,7 @@ $lang = array_merge($lang, array(
 		</p>
 	',
     'UPDATE_INSTRUCTIONS_INCOMPLETE' => '
-
 		<h1>Actualización incompleta detectada</h1>
-
 		<p>phpBB detectó una actualización automática incompleta. Asegúrese de haber seguido cada paso de la herramienta de actualización automática. Abajo encontrará el enlace o vaya directamente a su directorio install.</p>
 	',
     'UPDATE_METHOD' => 'Método de actualización',
@@ -563,11 +520,9 @@ $lang = array_merge($lang, array(
     'UPDATED_VERSION' => 'Versión actualizada',
     'UPGRADE_INSTRUCTIONS' => 'Una nueva versión <strong>%1$s</strong> está disponible. Por favor lea <a href="%2$s" title="%2$s"><strong>el anuncio de la versión</strong></a> para conocer las novedades y cómo actualizar.',
     'UPLOAD_METHOD' => 'Método de subida',
-
     'UPDATE_DB_SUCCESS' => 'La actualización de la base de datos fue exitosa.',
     'USER_ACTIVE' => 'Usuario activo',
     'USER_INACTIVE' => 'Usuario inactivo',
-
     'VERSION_CHECK' => 'Comprobación de versión',
     'VERSION_CHECK_EXPLAIN' => 'Comprueba si su instalación phpBB está actualizada.',
     'VERSION_NOT_UP_TO_DATE' => 'Su instalación phpBB no está actualizada. Por favor continúe con el proceso de actualización.',
@@ -577,28 +532,22 @@ $lang = array_merge($lang, array(
     'VERSION_UP_TO_DATE_ACP' => 'Su instalación phpBB está actualizada. No hay actualizaciones disponibles en este momento.',
     'VIEWING_FILE_CONTENTS' => 'Viendo contenido del archivo',
     'VIEWING_FILE_DIFF' => 'Viendo diferencias de archivo',
-
     'WRONG_INFO_FILE_FORMAT' => 'Formato de archivo info incorrecto',
 ));
-
 // Default database schema entries...
 $lang = array_merge($lang, array(
     'CONFIG_BOARD_EMAIL_SIG' => 'Gracias, La Administración',
     'CONFIG_SITE_DESC' => 'Un texto corto para describir su foro',
     'CONFIG_SITENAME' => 'sudominio.com',
-
     'DEFAULT_INSTALL_POST' => 'Este es un mensaje de ejemplo en su instalación de IntegraMOD. Todo parece funcionar. Puede eliminar este mensaje si lo desea y continuar configurando su foro. Durante la instalación su primera categoría y su primer foro se asignan con un conjunto apropiado de permisos para los grupos predefinidos administradores, bots, moderadores globales, invitados, usuarios registrados y usuarios COPPA registrados. Si también elige eliminar su primera categoría y su primer foro, no olvide asignar permisos para todos estos grupos en todas las nuevas categorías y foros que cree. Se recomienda renombrar su primera categoría y su primer foro y copiar permisos desde éstos al crear nuevas categorías y foros. ¡Diviértase!',
-
     'FORUMS_FIRST_CATEGORY' => 'Su primera categoría',
     'FORUMS_TEST_FORUM_DESC' => 'Descripción de su primer foro.',
     'FORUMS_TEST_FORUM_TITLE' => 'Su primer foro',
-
     'RANKS_SITE_ADMIN_TITLE' => 'Administrador del sitio',
     'REPORT_WAREZ' => 'El mensaje contiene enlaces a software ilegal o pirateado.',
     'REPORT_SPAM' => 'El mensaje reportado tiene como único propósito publicitar un sitio web u otro producto.',
     'REPORT_OFF_TOPIC' => 'El mensaje reportado está fuera de tema.',
     'REPORT_OTHER' => 'El mensaje reportado no encaja en ninguna otra categoría, por favor use el campo de información adicional.',
-
     'SMILIES_ARROW' => 'Flecha',
     'SMILIES_CONFUSED' => 'Confundido',
     'SMILIES_COOL' => 'Cool',
@@ -623,6 +572,5 @@ $lang = array_merge($lang, array(
     'SMILIES_UBER_GEEK' => 'Súper Geek',
     'SMILIES_VERY_HAPPY' => 'Muy feliz',
     'SMILIES_WINK' => 'Guiño',
-
     'TOPICS_TOPIC_TITLE' => 'Bienvenido a IntegraMOD',
 ));

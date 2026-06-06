@@ -67,6 +67,8 @@ $lang = array_merge($lang, array(
 // Board Features
 $lang = array_merge($lang, array(
 	'ACP_BOARD_FEATURES_EXPLAIN'	=> 'Here you can enable/disable several board features.',
+    'GUEST_SESSIONS_CACHE'			=> 'Use guest sessions cache',
+    'GUEST_SESSIONS_CACHE_EXPLAIN'	=> 'Store anonymous guest sessions in the configured ACM backend instead of the database to reduce session table write load. Requires includes/guest_sessions.php and appropriate ACM backend configured.',
 
 	'ALLOW_ATTACHMENTS'			=> 'Allow attachments',
 	'ALLOW_BIRTHDAYS'			=> 'Allow birthdays',
