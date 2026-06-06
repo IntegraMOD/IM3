@@ -82,11 +82,14 @@ function donation_stats_percent($multiplicand, $dividend, $type = '')
 {
 	global $template;
 
-	$donation_stats_percent = ($multiplicand * 100) / $dividend;
+	$multiplicand = (float) $multiplicand;
+	$dividend = (float) $dividend;
+
+	$donation_stats_percent = ($dividend > 0) ? (($multiplicand * 100) / $dividend) : 0;
 
 	$template->assign_vars(array(
-		'DONATION_' . $type => round($donation_stats_percent, 2),
-		'S_' . $type        => !empty($type),
+		'DONATION_' . $type	=> round($donation_stats_percent, 2),
+		'S_' . $type		=> !empty($type),
 	));
 }
 

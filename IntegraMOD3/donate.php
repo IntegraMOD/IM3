@@ -98,9 +98,10 @@ switch ($mode)
 		}
 
 		// Retrieve currency value
-        $list_currency = donation_item_list($config['donation_default_currency'], 'currency', '', $user->lang['CURRENCY_DEFAULT']);
-        $donation_currency = donation_item_list($config['donation_default_currency'], 'currency', 'default_currency', $user->lang['CURRENCY_DEFAULT']);
-        // Retrieve donation value for drop-down list
+		$list_currency = donation_item_list('currency', $config['donation_default_currency'], '', $user->lang['CURRENCY_DEFAULT']);
+		$donation_currency = donation_item_list('currency', $config['donation_default_currency'], 'default_currency', $user->lang['CURRENCY_DEFAULT']);
+
+		// Retrieve donation value for drop-down list
 		$list_donation_value = '';
 
 		if (!empty($config['donation_dropbox_enable']) && !empty($config['donation_dropbox_value']))
@@ -110,6 +111,7 @@ switch ($mode)
 			foreach ($donation_arr_value as $value)
 			{
 				$int_value = (int) $value;
+
 				if (!empty($int_value) && ($int_value == $value))
 				{
 					$list_donation_value .= '<option value="' . $int_value . '">' . $int_value . '</option>';
@@ -147,12 +149,12 @@ switch ($mode)
 		// Donation percent
 		if (!empty($config['donation_goal_enable']) && (int) $config['donation_goal'] > 0)
 		{
-			donation_stats_percent('GOAL_NUMBER', (int) $config['donation_raised'], (int) $config['donation_goal']);
+			donation_stats_percent((int) $config['donation_raised'], (int) $config['donation_goal'], 'GOAL_NUMBER');
 		}
 
 		if (!empty($config['donation_used_enable']) && (int) $config['donation_raised'] > 0 && (int) $config['donation_used'] > 0)
 		{
-			donation_stats_percent('USED_NUMBER', (int) $config['donation_used'], (int) $config['donation_raised']);
+			donation_stats_percent((int) $config['donation_used'], (int) $config['donation_raised'], 'USED_NUMBER');
 		}
 
 		// Assign vars to template
