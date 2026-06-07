@@ -62,7 +62,8 @@ CREATE TABLE phpbb_acl_users (
 	is_kb tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (user_id, forum_id, auth_option_id),
 	KEY user_id (user_id),
-	KEY auth_option_id (auth_option_id)
+	KEY auth_option_id (auth_option_id),
+	KEY auth_role_id (auth_role_id)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
@@ -807,6 +808,27 @@ CREATE TABLE phpbb_dl_versions (
 	ver_change_user mediumint(8) UNSIGNED DEFAULT '0' NOT NULL,
 	ver_file_hash varchar(255) DEFAULT '' NOT NULL,
 	PRIMARY KEY (ver_id)
+) CHARACTER SET `utf8` COLLATE `utf8_bin`;
+
+
+# Table: 'phpbb_donation_item'
+CREATE TABLE phpbb_donation_item (
+	item_id int(8) UNSIGNED NOT NULL auto_increment,
+	item_type varchar(16) DEFAULT '' NOT NULL,
+	item_name varchar(50) DEFAULT '' NOT NULL,
+	item_iso_code varchar(10) DEFAULT '' NOT NULL,
+	item_symbol varchar(10) DEFAULT '' NOT NULL,
+	item_text mediumtext NOT NULL,
+	item_enable tinyint(1) UNSIGNED DEFAULT '1' NOT NULL,
+	left_id int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	right_id int(8) UNSIGNED DEFAULT '0' NOT NULL,
+	item_text_bbcode_bitfield varchar(255) DEFAULT '' NOT NULL,
+	item_text_bbcode_uid varchar(8) DEFAULT '' NOT NULL,
+	item_text_bbcode_options mediumint(8) UNSIGNED DEFAULT '7' NOT NULL,
+	PRIMARY KEY (item_id),
+	KEY item_type (item_type),
+	KEY item_name (item_name),
+	KEY item_iso_code (item_iso_code)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
@@ -2028,10 +2050,12 @@ CREATE TABLE phpbb_posts (
 	points_post_received decimal(20,2) DEFAULT '0' NOT NULL,
 	PRIMARY KEY (post_id),
 	KEY forum_id (forum_id),
+	KEY topic_id (topic_id),
 	KEY poster_ip (poster_ip),
 	KEY poster_id (poster_id),
-	KEY tid_post_time (topic_id, post_time),
-	KEY post_visibility (forum_id, post_approved, post_time)
+	KEY post_approved (post_approved),
+	KEY post_username (post_username),
+	KEY tid_post_time (topic_id, post_time)
 ) CHARACTER SET `utf8` COLLATE `utf8_bin`;
 
 
@@ -2818,14 +2842,14 @@ CREATE TABLE phpbb_topics (
 	poll_max_options tinyint(4) DEFAULT '1' NOT NULL,
 	poll_last_vote int(11) UNSIGNED DEFAULT '0' NOT NULL,
 	poll_vote_change tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	topic_calendar_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	topic_calendar_duration int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	event_repeat varchar(8) DEFAULT '' NOT NULL,
-	invite_attendees tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	event_attendees mediumtext NOT NULL,
-	event_non_attendees mediumtext NOT NULL,
-	topic_first_post_show tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	topic_recent_posters mediumtext NOT NULL,
+	topic_calendar_time int(11) DEFAULT '0' NULL,
+	topic_calendar_duration int(11) UNSIGNED DEFAULT '0' NULL,
+	event_repeat varchar(8) DEFAULT '' NULL,
+	invite_attendees tinyint(1) UNSIGNED DEFAULT '0' NULL,
+	event_attendees mediumtext NULL,
+	event_non_attendees mediumtext NULL,
+	topic_first_post_show tinyint(1) UNSIGNED DEFAULT '0' NULL,
+	topic_recent_posters mediumtext NULL,
 	PRIMARY KEY (topic_id),
 	KEY forum_id_type (forum_id, topic_type),
 	KEY last_post_time (topic_last_post_time),
