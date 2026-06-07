@@ -2020,7 +2020,6 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 
 			if ($topic_type != POST_GLOBAL)
 			{
-				$sql_data[FORUMS_TABLE]['sql']['forum_recent_posters'] = build_recent_poster_cache($forum_data['forum_recent_posters'], $poster_id);
 				if ($post_approval)
 				{
 					$sql_data[FORUMS_TABLE]['stat'][] = 'forum_posts = forum_posts + 1';
@@ -2043,8 +2042,6 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 			{
 				$sql_data[FORUMS_TABLE]['stat'][] = 'forum_posts = forum_posts + 1';
 			}
-			$sql_data[TOPICS_TABLE]['sql']['topic_recent_posters'] = build_recent_poster_cache($row['topic_recent_posters'], $poster_id);
-			$sql_data[FORUMS_TABLE]['sql']['forum_recent_posters'] = build_recent_poster_cache($forum_data['forum_recent_posters'], $poster_id);
 		break;
 
 		case 'edit_topic':
@@ -2208,6 +2205,20 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 		$sql = 'INSERT INTO ' . POSTS_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_data[POSTS_TABLE]['sql']);
 		$db->sql_query($sql);
 		$data['post_id'] = $db->sql_nextid();
+
+		$sql = 'UPDATE ' . TOPICS_TABLE . "
+			SET topic_recent_posters = '" . $db->sql_escape(rebuild_recent_poster_cache('topic', $data['topic_id'])) . "'
+			WHERE topic_id = " . (int) $data['topic_id'];
+		$db->sql_query($sql);
+
+		if ($topic_type != POST_GLOBAL)
+		{
+			$sql = 'UPDATE ' . FORUMS_TABLE . "
+				SET forum_recent_posters = '" . $db->sql_escape(rebuild_recent_poster_cache('forum', $data['forum_id'])) . "'
+				WHERE forum_id = " . (int) $data['forum_id'];
+			$db->sql_query($sql);
+		}
+		
 		// Start Ultimate Points
 		if ( $post_mode == 'reply' && $config['points_enable'] && $points_config['perpost_enable'] && $p_perpost > 0)
 		{
