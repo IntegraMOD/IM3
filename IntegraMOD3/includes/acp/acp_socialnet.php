@@ -1213,7 +1213,7 @@ class AddOnsHookSystem
         $dir = @opendir($template_dir);
         $available_template_dir = false;
         if (!$dir) {
-            $template_dir = "{$phpbb_root_path}styles/prosilver/template/{$template_short_dir}";
+            $template_dir = "{$phpbb_root_path}styles/_portal_common/template/{$template_short_dir}";
             $dir = opendir($template_dir);
             $available_template_dir = true;
         }
@@ -1231,8 +1231,8 @@ class AddOnsHookSystem
         $template->assign_vars(array(
             'SN_ADDON_TEMPLATE_FOLDER'				 => $template_dir,
             'SN_ADDON_TEMPLATE_SH_FOLDER'			 => $template_short_dir,
-            'B_SN_ADDON_TEPLATE_FOLDER_NOT_EXIST'	 => $available_template_dir,
-            'L_SN_ADDON_TEMPLATE_FOLDER_NOT_EXIST'	 => sprintf($user->lang['SN_ADDON_TEMPLATE_FOLDER_NOT_EXIST'], $user->theme['theme_name']),
+            'B_SN_ADDON_TEPLATE_FOLDER_NOT_EXIST'	 => $available_template_dir
+//           'L_SN_ADDON_TEMPLATE_FOLDER_NOT_EXIST'	 => sprintf($user->lang['SN_ADDON_TEMPLATE_FOLDER_NOT_EXIST'], $user->theme['theme_name']),
         ));
 
         return $templates;
