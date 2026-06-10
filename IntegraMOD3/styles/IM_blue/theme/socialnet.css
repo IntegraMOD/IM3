@@ -49,7 +49,6 @@
 
 .sn-page-blockHeader {
 	clear: both;
-	margin-top: 10px;
 }
 
 .sn-page-blockHeader ul.topiclist dt {
@@ -71,6 +70,11 @@
 	color: #222;
 	font-size: .8em;
 	text-decoration: none;
+}
+
+.sn-page-blockHeader dt {
+	position: relative;
+	top: -6px;
 }
 
 .sn-page-text {
