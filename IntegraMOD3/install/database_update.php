@@ -8,7 +8,7 @@
 *
 */
 
-define('UPDATES_TO_VERSION', '3.0.12');
+define('UPDATES_TO_VERSION', '3.0.18');
 
 // Enter any version to update from to test updates. The version within the db will not be updated.
 define('DEBUG_FROM_VERSION', false);
@@ -1011,7 +1011,7 @@ function database_update_info()
 		'3.0.12-RC2'	=> array(),
 		// No changes from 3.0.12-RC3 to 3.0.12
 		'3.0.12-RC3'	=> array(),
-
+		'3.0.15'	    => array(),
 		/** @todo DROP LOGIN_ATTEMPT_TABLE.attempt_id in 3.0.13-RC1 */
 	);
 }
@@ -2254,6 +2254,34 @@ function change_database_data(&$no_updates, $version)
 
 		// No changes from 3.0.12-RC3 to 3.0.12
 		case '3.0.12-RC3':
+		break;
+		
+		case '3.0.15':
+
+		case '3.0.17':
+		
+		case '3.0.18':
+
+			$schema_changes = array(
+				'add_columns' => array(
+					TOPICS_TABLE => array(
+						'topic_recent_posters' => array('MTEXT_UNI', ''),
+					),
+
+					FORUMS_TABLE => array(
+						'forum_recent_posters' => array('MTEXT_UNI', ''),
+					),
+				),
+			);
+
+			$db_tools->perform_schema_changes($schema_changes);
+
+			include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+
+			rebuild_all_recent_poster_caches();
+
+			$no_updates = false;
+
 		break;
 	}
 }

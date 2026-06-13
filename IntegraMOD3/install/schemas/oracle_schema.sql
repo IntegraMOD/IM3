@@ -47,10 +47,10 @@ CONNECT phpbb/phpbb_password;
 	Table: 'phpbb_acl_groups'
 */
 CREATE TABLE phpbb_acl_groups (
-	group_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	auth_option_id number(8) DEFAULT '0' NOT NULL,
-	auth_role_id number(8) DEFAULT '0' NOT NULL,
+	group_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	auth_option_id number(10) DEFAULT '0' NOT NULL,
+	auth_role_id number(10) DEFAULT '0' NOT NULL,
 	auth_setting number(2) DEFAULT '0' NOT NULL,
 	is_kb number(1) DEFAULT '0' NOT NULL
 )
@@ -67,7 +67,7 @@ CREATE INDEX phpbb_acl_groups_auth_role_id ON phpbb_acl_groups (auth_role_id)
 	Table: 'phpbb_acl_options'
 */
 CREATE TABLE phpbb_acl_options (
-	auth_option_id number(8) NOT NULL,
+	auth_option_id number(10) NOT NULL,
 	auth_option varchar2(50) DEFAULT '' ,
 	is_global number(1) DEFAULT '0' NOT NULL,
 	is_local number(1) DEFAULT '0' NOT NULL,
@@ -98,7 +98,7 @@ END;
 	Table: 'phpbb_acl_roles'
 */
 CREATE TABLE phpbb_acl_roles (
-	role_id number(8) NOT NULL,
+	role_id number(10) NOT NULL,
 	role_name varchar2(765) DEFAULT '' ,
 	role_description clob DEFAULT '' ,
 	role_type varchar2(10) DEFAULT '' ,
@@ -132,8 +132,8 @@ END;
 	Table: 'phpbb_acl_roles_data'
 */
 CREATE TABLE phpbb_acl_roles_data (
-	role_id number(8) DEFAULT '0' NOT NULL,
-	auth_option_id number(8) DEFAULT '0' NOT NULL,
+	role_id number(10) DEFAULT '0' NOT NULL,
+	auth_option_id number(10) DEFAULT '0' NOT NULL,
 	auth_setting number(2) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_acl_roles_data PRIMARY KEY (role_id, auth_option_id)
 )
@@ -146,10 +146,10 @@ CREATE INDEX phpbb_acl_roles_data_ath_op_id ON phpbb_acl_roles_data (auth_option
 	Table: 'phpbb_acl_users'
 */
 CREATE TABLE phpbb_acl_users (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	auth_option_id number(8) DEFAULT '0' NOT NULL,
-	auth_role_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	auth_option_id number(10) DEFAULT '0' NOT NULL,
+	auth_role_id number(10) DEFAULT '0' NOT NULL,
 	auth_setting number(2) DEFAULT '0' NOT NULL,
 	is_kb number(1) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_acl_users PRIMARY KEY (user_id, forum_id, auth_option_id)
@@ -167,7 +167,7 @@ CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users (auth_role_id)
 	Table: 'phpbb_ads'
 */
 CREATE TABLE phpbb_ads (
-	ad_id number(8) NOT NULL,
+	ad_id number(10) NOT NULL,
 	ad_name varchar2(255) DEFAULT '' ,
 	ad_code clob DEFAULT '' ,
 	ad_views number(20) DEFAULT '0' NOT NULL,
@@ -180,7 +180,7 @@ CREATE TABLE phpbb_ads (
 	ad_time_end number(11) DEFAULT '0' NOT NULL,
 	ad_view_limit number(20) DEFAULT '0' NOT NULL,
 	ad_click_limit number(20) DEFAULT '0' NOT NULL,
-	ad_owner number(8) DEFAULT '0' NOT NULL,
+	ad_owner number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_ads PRIMARY KEY (ad_id)
 )
 /
@@ -212,8 +212,8 @@ END;
 	Table: 'phpbb_ads_forums'
 */
 CREATE TABLE phpbb_ads_forums (
-	ad_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL
+	ad_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL
 )
 /
 
@@ -226,8 +226,8 @@ CREATE INDEX phpbb_ads_forums_forum_id ON phpbb_ads_forums (forum_id)
 	Table: 'phpbb_ads_groups'
 */
 CREATE TABLE phpbb_ads_groups (
-	ad_id number(8) DEFAULT '0' NOT NULL,
-	group_id number(8) DEFAULT '0' NOT NULL
+	ad_id number(10) DEFAULT '0' NOT NULL,
+	group_id number(10) DEFAULT '0' NOT NULL
 )
 /
 
@@ -240,8 +240,8 @@ CREATE INDEX phpbb_ads_groups_group_id ON phpbb_ads_groups (group_id)
 	Table: 'phpbb_ads_in_positions'
 */
 CREATE TABLE phpbb_ads_in_positions (
-	ad_id number(8) DEFAULT '0' NOT NULL,
-	position_id number(8) DEFAULT '0' NOT NULL,
+	ad_id number(10) DEFAULT '0' NOT NULL,
+	position_id number(10) DEFAULT '0' NOT NULL,
 	ad_priority number(1) DEFAULT '5' NOT NULL,
 	ad_enabled	 number(1) DEFAULT '1' NOT NULL,
 	all_forums	 number(1) DEFAULT '0' NOT NULL
@@ -261,7 +261,7 @@ CREATE INDEX phpbb_ads_in_positions_all_forums ON phpbb_ads_in_positions (all_fo
 	Table: 'phpbb_ads_positions'
 */
 CREATE TABLE phpbb_ads_positions (
-	position_id number(8) NOT NULL,
+	position_id number(10) NOT NULL,
 	lang_key clob DEFAULT '' ,
 	CONSTRAINT pk_phpbb_ads_positions PRIMARY KEY (position_id)
 )
@@ -288,15 +288,15 @@ END;
 	Table: 'phpbb_attachments'
 */
 CREATE TABLE phpbb_attachments (
-	attach_id number(8) NOT NULL,
-	post_msg_id number(8) DEFAULT '0' NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
+	attach_id number(10) NOT NULL,
+	post_msg_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
 	in_message number(1) DEFAULT '0' NOT NULL,
-	poster_id number(8) DEFAULT '0' NOT NULL,
+	poster_id number(10) DEFAULT '0' NOT NULL,
 	is_orphan number(1) DEFAULT '1' NOT NULL,
 	physical_filename varchar2(255) DEFAULT '' ,
 	real_filename varchar2(255) DEFAULT '' ,
-	download_count number(8) DEFAULT '0' NOT NULL,
+	download_count number(10) DEFAULT '0' NOT NULL,
 	attach_comment clob DEFAULT '' ,
 	extension varchar2(100) DEFAULT '' ,
 	mimetype varchar2(100) DEFAULT '' ,
@@ -338,8 +338,8 @@ END;
 	Table: 'phpbb_banlist'
 */
 CREATE TABLE phpbb_banlist (
-	ban_id number(8) NOT NULL,
-	ban_userid number(8) DEFAULT '0' NOT NULL,
+	ban_id number(10) NOT NULL,
+	ban_userid number(10) DEFAULT '0' NOT NULL,
 	ban_ip varchar2(40) DEFAULT '' ,
 	ban_email varchar2(300) DEFAULT '' ,
 	ban_start number(11) DEFAULT '0' NOT NULL,
@@ -409,8 +409,8 @@ CREATE INDEX phpbb_bbcodes_display_order ON phpbb_bbcodes (bbcode_order)
 	Table: 'phpbb_blogs'
 */
 CREATE TABLE phpbb_blogs (
-	blog_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	blog_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_ip varchar2(40) DEFAULT '' ,
 	blog_subject varchar2(765) DEFAULT '' ,
 	blog_text clob DEFAULT '' ,
@@ -425,21 +425,21 @@ CREATE TABLE phpbb_blogs (
 	bbcode_uid varchar2(8) DEFAULT '' ,
 	blog_edit_time number(11) DEFAULT '0' NOT NULL,
 	blog_edit_reason varchar2(765) DEFAULT '' ,
-	blog_edit_user number(8) DEFAULT '0' NOT NULL,
+	blog_edit_user number(10) DEFAULT '0' NOT NULL,
 	blog_edit_count number(4) DEFAULT '0' NOT NULL,
 	blog_edit_locked number(1) DEFAULT '0' NOT NULL,
-	blog_deleted number(8) DEFAULT '0' NOT NULL,
+	blog_deleted number(10) DEFAULT '0' NOT NULL,
 	blog_deleted_time number(11) DEFAULT '0' NOT NULL,
-	blog_read_count number(8) DEFAULT '1' NOT NULL,
-	blog_reply_count number(8) DEFAULT '0' NOT NULL,
-	blog_real_reply_count number(8) DEFAULT '0' NOT NULL,
+	blog_read_count number(10) DEFAULT '1' NOT NULL,
+	blog_reply_count number(10) DEFAULT '0' NOT NULL,
+	blog_real_reply_count number(10) DEFAULT '0' NOT NULL,
 	blog_attachment number(1) DEFAULT '0' NOT NULL,
 	perm_guest number(1) DEFAULT '1' NOT NULL,
 	perm_registered number(1) DEFAULT '2' NOT NULL,
 	perm_foe number(1) DEFAULT '0' NOT NULL,
 	perm_friend number(1) DEFAULT '2' NOT NULL,
 	rating number(6, 2) DEFAULT '0' NOT NULL,
-	num_ratings number(8) DEFAULT '0' NOT NULL,
+	num_ratings number(10) DEFAULT '0' NOT NULL,
 	poll_title varchar2(765) DEFAULT '' ,
 	poll_start number(11) DEFAULT '0' NOT NULL,
 	poll_length number(11) DEFAULT '0' NOT NULL,
@@ -489,14 +489,14 @@ END;
 	Table: 'phpbb_blogs_attachment'
 */
 CREATE TABLE phpbb_blogs_attachment (
-	attach_id number(8) NOT NULL,
-	blog_id number(8) DEFAULT '0' NOT NULL,
-	reply_id number(8) DEFAULT '0' NOT NULL,
-	poster_id number(8) DEFAULT '0' NOT NULL,
+	attach_id number(10) NOT NULL,
+	blog_id number(10) DEFAULT '0' NOT NULL,
+	reply_id number(10) DEFAULT '0' NOT NULL,
+	poster_id number(10) DEFAULT '0' NOT NULL,
 	is_orphan number(1) DEFAULT '1' NOT NULL,
 	physical_filename varchar2(255) DEFAULT '' ,
 	real_filename varchar2(255) DEFAULT '' ,
-	download_count number(8) DEFAULT '0' NOT NULL,
+	download_count number(10) DEFAULT '0' NOT NULL,
 	attach_comment clob DEFAULT '' ,
 	extension varchar2(100) DEFAULT '' ,
 	mimetype varchar2(100) DEFAULT '' ,
@@ -538,10 +538,10 @@ END;
 	Table: 'phpbb_blogs_categories'
 */
 CREATE TABLE phpbb_blogs_categories (
-	category_id number(8) NOT NULL,
-	parent_id number(8) DEFAULT '0' NOT NULL,
-	left_id number(8) DEFAULT '0' NOT NULL,
-	right_id number(8) DEFAULT '0' NOT NULL,
+	category_id number(10) NOT NULL,
+	parent_id number(10) DEFAULT '0' NOT NULL,
+	left_id number(10) DEFAULT '0' NOT NULL,
+	right_id number(10) DEFAULT '0' NOT NULL,
 	category_name varchar2(765) DEFAULT '' ,
 	category_description clob DEFAULT '' ,
 	category_description_bitfield varchar2(255) DEFAULT '' ,
@@ -551,7 +551,7 @@ CREATE TABLE phpbb_blogs_categories (
 	rules_bitfield varchar2(255) DEFAULT '' ,
 	rules_uid varchar2(8) DEFAULT '' ,
 	rules_options number(11) DEFAULT '7' NOT NULL,
-	blog_count number(8) DEFAULT '0' NOT NULL,
+	blog_count number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_blogs_categories PRIMARY KEY (category_id)
 )
 /
@@ -579,8 +579,8 @@ END;
 	Table: 'phpbb_blogs_in_categories'
 */
 CREATE TABLE phpbb_blogs_in_categories (
-	blog_id number(8) DEFAULT '0' NOT NULL,
-	category_id number(8) DEFAULT '0' NOT NULL,
+	blog_id number(10) DEFAULT '0' NOT NULL,
+	category_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_blogs_in_categories PRIMARY KEY (blog_id, category_id)
 )
 /
@@ -590,7 +590,7 @@ CREATE TABLE phpbb_blogs_in_categories (
 	Table: 'phpbb_blogs_plugins'
 */
 CREATE TABLE phpbb_blogs_plugins (
-	plugin_id number(8) NOT NULL,
+	plugin_id number(10) NOT NULL,
 	plugin_name varchar2(765) DEFAULT '' ,
 	plugin_enabled number(1) DEFAULT '0' NOT NULL,
 	plugin_version varchar2(300) DEFAULT '' ,
@@ -624,9 +624,9 @@ END;
 */
 CREATE TABLE phpbb_blogs_poll_options (
 	poll_option_id number(4) DEFAULT '0' NOT NULL,
-	blog_id number(8) DEFAULT '0' NOT NULL,
+	blog_id number(10) DEFAULT '0' NOT NULL,
 	poll_option_text clob DEFAULT '' ,
-	poll_option_total number(8) DEFAULT '0' NOT NULL
+	poll_option_total number(10) DEFAULT '0' NOT NULL
 )
 /
 
@@ -639,9 +639,9 @@ CREATE INDEX phpbb_blogs_poll_options_blog_id ON phpbb_blogs_poll_options (blog_
 	Table: 'phpbb_blogs_poll_votes'
 */
 CREATE TABLE phpbb_blogs_poll_votes (
-	blog_id number(8) DEFAULT '0' NOT NULL,
+	blog_id number(10) DEFAULT '0' NOT NULL,
 	poll_option_id number(4) DEFAULT '0' NOT NULL,
-	vote_user_id number(8) DEFAULT '0' NOT NULL,
+	vote_user_id number(10) DEFAULT '0' NOT NULL,
 	vote_user_ip varchar2(40) DEFAULT '' 
 )
 /
@@ -657,9 +657,9 @@ CREATE INDEX phpbb_blogs_poll_votes_vote_user_ip ON phpbb_blogs_poll_votes (vote
 	Table: 'phpbb_blogs_ratings'
 */
 CREATE TABLE phpbb_blogs_ratings (
-	blog_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	rating number(8) DEFAULT '0' NOT NULL,
+	blog_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	rating number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_blogs_ratings PRIMARY KEY (blog_id, user_id)
 )
 /
@@ -669,9 +669,9 @@ CREATE TABLE phpbb_blogs_ratings (
 	Table: 'phpbb_blogs_reply'
 */
 CREATE TABLE phpbb_blogs_reply (
-	reply_id number(8) NOT NULL,
-	blog_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	reply_id number(10) NOT NULL,
+	blog_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_ip varchar2(40) DEFAULT '' ,
 	reply_subject varchar2(765) DEFAULT '' ,
 	reply_text clob DEFAULT '' ,
@@ -686,10 +686,10 @@ CREATE TABLE phpbb_blogs_reply (
 	bbcode_uid varchar2(8) DEFAULT '' ,
 	reply_edit_time number(11) DEFAULT '0' NOT NULL,
 	reply_edit_reason varchar2(765) DEFAULT '' ,
-	reply_edit_user number(8) DEFAULT '0' NOT NULL,
-	reply_edit_count number(8) DEFAULT '0' NOT NULL,
+	reply_edit_user number(10) DEFAULT '0' NOT NULL,
+	reply_edit_count number(10) DEFAULT '0' NOT NULL,
 	reply_edit_locked number(1) DEFAULT '0' NOT NULL,
-	reply_deleted number(8) DEFAULT '0' NOT NULL,
+	reply_deleted number(10) DEFAULT '0' NOT NULL,
 	reply_deleted_time number(11) DEFAULT '0' NOT NULL,
 	reply_attachment number(1) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_blogs_reply PRIMARY KEY (reply_id)
@@ -727,10 +727,10 @@ END;
 	Table: 'phpbb_blogs_subscription'
 */
 CREATE TABLE phpbb_blogs_subscription (
-	sub_user_id number(8) DEFAULT '0' NOT NULL,
+	sub_user_id number(10) DEFAULT '0' NOT NULL,
 	sub_type number(11) DEFAULT '0' NOT NULL,
-	blog_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	blog_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_blogs_subscription PRIMARY KEY (sub_user_id, sub_type, blog_id, user_id)
 )
 /
@@ -740,7 +740,7 @@ CREATE TABLE phpbb_blogs_subscription (
 	Table: 'phpbb_blogs_users'
 */
 CREATE TABLE phpbb_blogs_users (
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	perm_guest number(1) DEFAULT '1' NOT NULL,
 	perm_registered number(1) DEFAULT '2' NOT NULL,
 	perm_foe number(1) DEFAULT '0' NOT NULL,
@@ -762,10 +762,10 @@ CREATE TABLE phpbb_blogs_users (
 	Table: 'phpbb_blog_search_wordlist'
 */
 CREATE TABLE phpbb_blog_search_wordlist (
-	word_id number(8) NOT NULL,
+	word_id number(10) NOT NULL,
 	word_text varchar2(765) DEFAULT '' ,
 	word_common number(1) DEFAULT '0' NOT NULL,
-	word_count number(8) DEFAULT '0' NOT NULL,
+	word_count number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_blog_search_wordlist PRIMARY KEY (word_id),
 	CONSTRAINT u_phpbb_word_text UNIQUE (word_text)
 )
@@ -794,8 +794,8 @@ END;
 	Table: 'phpbb_bookmarks'
 */
 CREATE TABLE phpbb_bookmarks (
-	topic_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_bookmarks PRIMARY KEY (topic_id, user_id)
 )
 /
@@ -805,10 +805,10 @@ CREATE TABLE phpbb_bookmarks (
 	Table: 'phpbb_bots'
 */
 CREATE TABLE phpbb_bots (
-	bot_id number(8) NOT NULL,
+	bot_id number(10) NOT NULL,
 	bot_active number(1) DEFAULT '1' NOT NULL,
 	bot_name varchar2(765) DEFAULT '' ,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	bot_agent varchar2(255) DEFAULT '' ,
 	bot_ip varchar2(255) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_bots PRIMARY KEY (bot_id)
@@ -838,8 +838,8 @@ END;
 	Table: 'phpbb_calendar'
 */
 CREATE TABLE phpbb_calendar (
-	event_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	event_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	event_name varchar2(255) DEFAULT '' ,
 	event_desc clob DEFAULT '' ,
 	event_groups varchar2(255) DEFAULT '' ,
@@ -851,8 +851,8 @@ CREATE TABLE phpbb_calendar (
 	enable_magic_url number(1) DEFAULT '1' NOT NULL,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
-	event_start number(8) DEFAULT '0' NULL,
-	event_end number(8) DEFAULT '0' NULL,
+	event_start number(10) DEFAULT '0' NULL,
+	event_end number(10) DEFAULT '0' NULL,
 	event_repeat varchar2(8) DEFAULT '' NULL,
 	invite_attendees number(1) DEFAULT '0' NULL,
 	event_attendees clob DEFAULT '' NULL,
@@ -884,8 +884,8 @@ END;
 CREATE TABLE phpbb_calendar_repeat_events (
 	id number(11) NOT NULL,
 	repeat_id varchar2(8) DEFAULT '' NULL,
-	event_start_time number(8) DEFAULT '0' NULL,
-	event_end_time number(8) DEFAULT '0' NULL,
+	event_start_time number(10) DEFAULT '0' NULL,
+	event_end_time number(10) DEFAULT '0' NULL,
 	CONSTRAINT pk_phpbb_calendar_repeat_events PRIMARY KEY (id)
 )
 /
@@ -911,7 +911,7 @@ END;
 	Table: 'phpbb_captcha_answers'
 */
 CREATE TABLE phpbb_captcha_answers (
-	question_id number(8) DEFAULT '0' NOT NULL,
+	question_id number(10) DEFAULT '0' NOT NULL,
 	answer_text varchar2(765) DEFAULT '' 
 )
 /
@@ -923,9 +923,9 @@ CREATE INDEX phpbb_captcha_answers_qid ON phpbb_captcha_answers (question_id)
 	Table: 'phpbb_captcha_questions'
 */
 CREATE TABLE phpbb_captcha_questions (
-	question_id number(8) NOT NULL,
+	question_id number(10) NOT NULL,
 	strict number(1) DEFAULT '0' NOT NULL,
-	lang_id number(8) DEFAULT '0' NOT NULL,
+	lang_id number(10) DEFAULT '0' NOT NULL,
 	lang_iso varchar2(30) DEFAULT '' ,
 	question_text clob DEFAULT '' ,
 	CONSTRAINT pk_phpbb_captcha_questions PRIMARY KEY (question_id)
@@ -955,7 +955,7 @@ END;
 	Table: 'phpbb_cash'
 */
 CREATE TABLE phpbb_cash (
-	cash_id number(8) NOT NULL,
+	cash_id number(10) NOT NULL,
 	cash_name varchar2(255) DEFAULT '' ,
 	cash_value number(11) DEFAULT '1' NOT NULL,
 	cash_trade number(1) DEFAULT '1' NOT NULL,
@@ -984,8 +984,8 @@ END;
 	Table: 'phpbb_cash_amt'
 */
 CREATE TABLE phpbb_cash_amt (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	cash_id number(8) DEFAULT '1' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	cash_id number(10) DEFAULT '1' NOT NULL,
 	cash_amt number(15) DEFAULT '0' NOT NULL
 )
 /
@@ -997,9 +997,9 @@ CREATE INDEX phpbb_cash_amt_cash_user ON phpbb_cash_amt (user_id, cash_id)
 	Table: 'phpbb_clicks'
 */
 CREATE TABLE phpbb_clicks (
-	id number(8) NOT NULL,
+	id number(10) NOT NULL,
 	url varchar2(255) DEFAULT '' ,
-	clicks number(8) DEFAULT '0' NOT NULL,
+	clicks number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_clicks PRIMARY KEY (id)
 )
 /
@@ -1046,7 +1046,7 @@ CREATE TABLE phpbb_confirm (
 	confirm_type number(3) DEFAULT '0' NOT NULL,
 	code varchar2(8) DEFAULT '' ,
 	seed number(10) DEFAULT '0' NOT NULL,
-	attempts number(8) DEFAULT '0' NOT NULL,
+	attempts number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_confirm PRIMARY KEY (session_id, confirm_id)
 )
 /
@@ -1062,8 +1062,8 @@ CREATE TABLE phpbb_contact_config (
 	contact_confirm_guests number(1) DEFAULT '1' NOT NULL,
 	contact_max_attempts number(3) DEFAULT '3' NOT NULL,
 	contact_method number(1) DEFAULT '0' NOT NULL,
-	contact_bot_user number(8) DEFAULT '2' NOT NULL,
-	contact_bot_forum number(8) DEFAULT '2' NOT NULL,
+	contact_bot_user number(10) DEFAULT '2' NOT NULL,
+	contact_bot_forum number(10) DEFAULT '2' NOT NULL,
 	contact_reasons clob DEFAULT '' ,
 	contact_founder_only number(1) DEFAULT '0' NOT NULL,
 	contact_bbcodes_allowed number(1) DEFAULT '0' NOT NULL,
@@ -1081,8 +1081,8 @@ CREATE TABLE phpbb_contact_config (
 	Table: 'phpbb_digests_subscribed_forums'
 */
 CREATE TABLE phpbb_digests_subscribed_forums (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_digests_subscribed_forums PRIMARY KEY (user_id, forum_id)
 )
 /
@@ -1092,7 +1092,7 @@ CREATE TABLE phpbb_digests_subscribed_forums (
 	Table: 'phpbb_disallow'
 */
 CREATE TABLE phpbb_disallow (
-	disallow_id number(8) NOT NULL,
+	disallow_id number(10) NOT NULL,
 	disallow_username varchar2(765) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_disallow PRIMARY KEY (disallow_id)
 )
@@ -1134,7 +1134,7 @@ CREATE TABLE phpbb_dl_auth (
 */
 CREATE TABLE phpbb_dl_banlist (
 	ban_id number(11) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_ip varchar2(40) DEFAULT '' ,
 	user_agent varchar2(50) DEFAULT '' ,
 	username varchar2(25) DEFAULT '' ,
@@ -1201,8 +1201,8 @@ CREATE TABLE phpbb_dl_bug_tracker (
 	report_text clob DEFAULT '' ,
 	report_file_ver varchar2(50) DEFAULT '' ,
 	report_date number(11) DEFAULT '0' NOT NULL,
-	report_author_id number(8) DEFAULT '0' NOT NULL,
-	report_assign_id number(8) DEFAULT '0' NOT NULL,
+	report_author_id number(10) DEFAULT '0' NOT NULL,
+	report_assign_id number(10) DEFAULT '0' NOT NULL,
 	report_assign_date number(11) DEFAULT '0' NOT NULL,
 	report_status number(1) DEFAULT '0' NOT NULL,
 	report_status_date number(11) DEFAULT '0' NOT NULL,
@@ -1251,7 +1251,7 @@ CREATE TABLE phpbb_dl_comments (
 	dl_id number(20) NOT NULL,
 	id number(11) DEFAULT '0' NOT NULL,
 	cat_id number(11) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	username varchar2(32) DEFAULT '' ,
 	comment_time number(11) DEFAULT '0' NOT NULL,
 	comment_edit_time number(11) DEFAULT '0' NOT NULL,
@@ -1297,7 +1297,7 @@ CREATE TABLE phpbb_dl_favorites (
 	fav_id number(11) NOT NULL,
 	fav_dl_id number(11) DEFAULT '0' NOT NULL,
 	fav_dl_cat number(11) DEFAULT '0' NOT NULL,
-	fav_user_id number(8) DEFAULT '0' NOT NULL,
+	fav_user_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_dl_favorites PRIMARY KEY (fav_id)
 )
 /
@@ -1385,7 +1385,7 @@ CREATE TABLE phpbb_dl_fields_lang (
 	Table: 'phpbb_dl_hotlink'
 */
 CREATE TABLE phpbb_dl_hotlink (
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	session_id varchar2(32) DEFAULT '' ,
 	hotlink_id varchar2(32) DEFAULT '' ,
 	code varchar2(10) DEFAULT '-' NOT NULL
@@ -1440,7 +1440,7 @@ CREATE TABLE phpbb_dl_lang (
 	Table: 'phpbb_dl_notraf'
 */
 CREATE TABLE phpbb_dl_notraf (
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	dl_id number(11) DEFAULT '0' NOT NULL
 )
 /
@@ -1451,7 +1451,7 @@ CREATE TABLE phpbb_dl_notraf (
 */
 CREATE TABLE phpbb_dl_ratings (
 	dl_id number(11) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	rate_point char(10) DEFAULT '' 
 )
 /
@@ -1475,7 +1475,7 @@ CREATE TABLE phpbb_dl_stats (
 	dl_id number(20) NOT NULL,
 	id number(11) DEFAULT '0' NOT NULL,
 	cat_id number(11) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	username varchar2(32) DEFAULT '' ,
 	traffic number(20) DEFAULT '0' NOT NULL,
 	direction number(1) DEFAULT '0' NOT NULL,
@@ -1515,8 +1515,8 @@ CREATE TABLE phpbb_dl_versions (
 	ver_version varchar2(32) DEFAULT '' ,
 	ver_change_time number(11) DEFAULT '0' NOT NULL,
 	ver_add_time number(11) DEFAULT '0' NOT NULL,
-	ver_add_user number(8) DEFAULT '0' NOT NULL,
-	ver_change_user number(8) DEFAULT '0' NOT NULL,
+	ver_add_user number(10) DEFAULT '0' NOT NULL,
+	ver_change_user number(10) DEFAULT '0' NOT NULL,
 	ver_file_hash varchar2(255) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_dl_versions PRIMARY KEY (ver_id)
 )
@@ -1554,7 +1554,7 @@ CREATE TABLE phpbb_donation_item (
 	right_id number(8) DEFAULT '0' NOT NULL,
 	item_text_bbcode_bitfield varchar2(255) DEFAULT '' ,
 	item_text_bbcode_uid varchar2(8) DEFAULT '' ,
-	item_text_bbcode_options number(8) DEFAULT '7' NOT NULL,
+	item_text_bbcode_options number(10) DEFAULT '7' NOT NULL,
 	CONSTRAINT pk_phpbb_donation_item PRIMARY KEY (item_id)
 )
 /
@@ -1614,10 +1614,10 @@ CREATE TABLE phpbb_downloads (
 	overall_klicks number(11) DEFAULT '0' NOT NULL,
 	approve number(1) DEFAULT '0' NOT NULL,
 	add_time number(11) DEFAULT '0' NOT NULL,
-	add_user number(8) DEFAULT '0' NOT NULL,
-	change_user number(8) DEFAULT '0' NOT NULL,
+	add_user number(10) DEFAULT '0' NOT NULL,
+	change_user number(10) DEFAULT '0' NOT NULL,
 	last_time number(11) DEFAULT '0' NOT NULL,
-	down_user number(8) DEFAULT '0' NOT NULL,
+	down_user number(10) DEFAULT '0' NOT NULL,
 	thumbnail varchar2(255) DEFAULT '' ,
 	broken number(1) DEFAULT '0' NOT NULL,
 	mod_desc_uid char(8) DEFAULT '' ,
@@ -1679,7 +1679,7 @@ CREATE TABLE phpbb_downloads_cat (
 	must_approve number(1) DEFAULT '0' NOT NULL,
 	allow_mod_desc number(1) DEFAULT '0' NOT NULL,
 	statistics number(1) DEFAULT '1' NOT NULL,
-	stats_prune number(8) DEFAULT '0' NOT NULL,
+	stats_prune number(10) DEFAULT '0' NOT NULL,
 	comments number(1) DEFAULT '1' NOT NULL,
 	cat_traffic number(20) DEFAULT '0' NOT NULL,
 	allow_thumbs number(1) DEFAULT '0' NOT NULL,
@@ -1725,10 +1725,10 @@ END;
 	Table: 'phpbb_drafts'
 */
 CREATE TABLE phpbb_drafts (
-	draft_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
+	draft_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
 	save_time number(11) DEFAULT '0' NOT NULL,
 	draft_subject varchar2(765) DEFAULT '' ,
 	draft_message clob DEFAULT '' ,
@@ -1759,8 +1759,8 @@ END;
 	Table: 'phpbb_extensions'
 */
 CREATE TABLE phpbb_extensions (
-	extension_id number(8) NOT NULL,
-	group_id number(8) DEFAULT '0' NOT NULL,
+	extension_id number(10) NOT NULL,
+	group_id number(10) DEFAULT '0' NOT NULL,
 	extension varchar2(100) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_extensions PRIMARY KEY (extension_id)
 )
@@ -1787,7 +1787,7 @@ END;
 	Table: 'phpbb_extension_groups'
 */
 CREATE TABLE phpbb_extension_groups (
-	group_id number(8) NOT NULL,
+	group_id number(10) NOT NULL,
 	group_name varchar2(765) DEFAULT '' ,
 	cat_id number(2) DEFAULT '0' NOT NULL,
 	allow_group number(1) DEFAULT '0' NOT NULL,
@@ -1822,10 +1822,10 @@ END;
 	Table: 'phpbb_forums'
 */
 CREATE TABLE phpbb_forums (
-	forum_id number(8) NOT NULL,
-	parent_id number(8) DEFAULT '0' NOT NULL,
-	left_id number(8) DEFAULT '0' NOT NULL,
-	right_id number(8) DEFAULT '0' NOT NULL,
+	forum_id number(10) NOT NULL,
+	parent_id number(10) DEFAULT '0' NOT NULL,
+	left_id number(10) DEFAULT '0' NOT NULL,
+	right_id number(10) DEFAULT '0' NOT NULL,
 	forum_parents clob DEFAULT '' ,
 	forum_name varchar2(765) DEFAULT '' ,
 	forum_desc clob DEFAULT '' ,
@@ -1834,7 +1834,7 @@ CREATE TABLE phpbb_forums (
 	forum_desc_uid varchar2(8) DEFAULT '' ,
 	forum_link varchar2(765) DEFAULT '' ,
 	forum_password varchar2(120) DEFAULT '' ,
-	forum_style number(8) DEFAULT '0' NOT NULL,
+	forum_style number(10) DEFAULT '0' NOT NULL,
 	forum_image varchar2(255) DEFAULT '' ,
 	forum_rules clob DEFAULT '' ,
 	forum_rules_link varchar2(765) DEFAULT '' ,
@@ -1844,11 +1844,11 @@ CREATE TABLE phpbb_forums (
 	forum_topics_per_page number(4) DEFAULT '0' NOT NULL,
 	forum_type number(4) DEFAULT '0' NOT NULL,
 	forum_status number(4) DEFAULT '0' NOT NULL,
-	forum_posts number(8) DEFAULT '0' NOT NULL,
-	forum_topics number(8) DEFAULT '0' NOT NULL,
-	forum_topics_real number(8) DEFAULT '0' NOT NULL,
-	forum_last_post_id number(8) DEFAULT '0' NOT NULL,
-	forum_last_poster_id number(8) DEFAULT '0' NOT NULL,
+	forum_posts number(10) DEFAULT '0' NOT NULL,
+	forum_topics number(10) DEFAULT '0' NOT NULL,
+	forum_topics_real number(10) DEFAULT '0' NOT NULL,
+	forum_last_post_id number(10) DEFAULT '0' NOT NULL,
+	forum_last_poster_id number(10) DEFAULT '0' NOT NULL,
 	forum_last_post_subject varchar2(765) DEFAULT '' ,
 	forum_last_post_time number(11) DEFAULT '0' NOT NULL,
 	forum_last_poster_name varchar2(765) DEFAULT '' ,
@@ -1862,9 +1862,9 @@ CREATE TABLE phpbb_forums (
 	enable_icons number(1) DEFAULT '1' NOT NULL,
 	enable_prune number(1) DEFAULT '0' NOT NULL,
 	prune_next number(11) DEFAULT '0' NOT NULL,
-	prune_days number(8) DEFAULT '0' NOT NULL,
-	prune_viewed number(8) DEFAULT '0' NOT NULL,
-	prune_freq number(8) DEFAULT '0' NOT NULL,
+	prune_days number(10) DEFAULT '0' NOT NULL,
+	prune_viewed number(10) DEFAULT '0' NOT NULL,
+	prune_freq number(10) DEFAULT '0' NOT NULL,
 	forum_perpost number(10, 2) DEFAULT '5' NOT NULL,
 	forum_peredit number(10, 2) DEFAULT '0.05' NOT NULL,
 	forum_pertopic number(10, 2) DEFAULT '15' NOT NULL,
@@ -1898,8 +1898,8 @@ END;
 	Table: 'phpbb_forums_access'
 */
 CREATE TABLE phpbb_forums_access (
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	session_id char(32) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_forums_access PRIMARY KEY (forum_id, user_id, session_id)
 )
@@ -1910,8 +1910,8 @@ CREATE TABLE phpbb_forums_access (
 	Table: 'phpbb_forums_track'
 */
 CREATE TABLE phpbb_forums_track (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
 	mark_time number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_forums_track PRIMARY KEY (user_id, forum_id)
 )
@@ -1922,8 +1922,8 @@ CREATE TABLE phpbb_forums_track (
 	Table: 'phpbb_forums_watch'
 */
 CREATE TABLE phpbb_forums_watch (
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	notify_status number(1) DEFAULT '0' NOT NULL
 )
 /
@@ -1939,29 +1939,29 @@ CREATE INDEX phpbb_forums_watch_notify_stat ON phpbb_forums_watch (notify_status
 	Table: 'phpbb_gallery_albums'
 */
 CREATE TABLE phpbb_gallery_albums (
-	album_id number(8) NOT NULL,
-	parent_id number(8) DEFAULT '0' NOT NULL,
-	left_id number(8) DEFAULT '1' NOT NULL,
-	right_id number(8) DEFAULT '2' NOT NULL,
+	album_id number(10) NOT NULL,
+	parent_id number(10) DEFAULT '0' NOT NULL,
+	left_id number(10) DEFAULT '1' NOT NULL,
+	right_id number(10) DEFAULT '2' NOT NULL,
 	album_parents clob DEFAULT '' ,
 	album_type number(3) DEFAULT '1' NOT NULL,
 	album_status number(1) DEFAULT '1' NOT NULL,
-	album_contest number(8) DEFAULT '0' NOT NULL,
+	album_contest number(10) DEFAULT '0' NOT NULL,
 	album_name varchar2(255) DEFAULT '' ,
 	album_desc clob DEFAULT '' ,
 	album_desc_options number(3) DEFAULT '7' NOT NULL,
 	album_desc_uid varchar2(8) DEFAULT '' ,
 	album_desc_bitfield varchar2(255) DEFAULT '' ,
-	album_user_id number(8) DEFAULT '0' NOT NULL,
-	album_images number(8) DEFAULT '0' NOT NULL,
-	album_images_real number(8) DEFAULT '0' NOT NULL,
-	album_last_image_id number(8) DEFAULT '0' NOT NULL,
+	album_user_id number(10) DEFAULT '0' NOT NULL,
+	album_images number(10) DEFAULT '0' NOT NULL,
+	album_images_real number(10) DEFAULT '0' NOT NULL,
+	album_last_image_id number(10) DEFAULT '0' NOT NULL,
 	album_image varchar2(255) DEFAULT '' ,
 	album_last_image_time number(11) DEFAULT '0' NOT NULL,
 	album_last_image_name varchar2(255) DEFAULT '' ,
 	album_last_username varchar2(255) DEFAULT '' ,
 	album_last_user_colour varchar2(6) DEFAULT '' ,
-	album_last_user_id number(8) DEFAULT '0' NOT NULL,
+	album_last_user_id number(10) DEFAULT '0' NOT NULL,
 	album_watermark number(1) DEFAULT '1' NOT NULL,
 	album_sort_key varchar2(8) DEFAULT '' ,
 	album_sort_dir varchar2(8) DEFAULT '' ,
@@ -1995,8 +1995,8 @@ END;
 	Table: 'phpbb_gallery_albums_track'
 */
 CREATE TABLE phpbb_gallery_albums_track (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	album_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	album_id number(10) DEFAULT '0' NOT NULL,
 	mark_time number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_albums_track PRIMARY KEY (user_id, album_id)
 )
@@ -2007,9 +2007,9 @@ CREATE TABLE phpbb_gallery_albums_track (
 	Table: 'phpbb_gallery_comments'
 */
 CREATE TABLE phpbb_gallery_comments (
-	comment_id number(8) NOT NULL,
-	comment_image_id number(8) NOT NULL,
-	comment_user_id number(8) DEFAULT '0' NOT NULL,
+	comment_id number(10) NOT NULL,
+	comment_image_id number(10) NOT NULL,
+	comment_user_id number(10) DEFAULT '0' NOT NULL,
 	comment_username varchar2(255) DEFAULT '' ,
 	comment_user_colour varchar2(6) DEFAULT '' ,
 	comment_user_ip varchar2(40) DEFAULT '' ,
@@ -2020,7 +2020,7 @@ CREATE TABLE phpbb_gallery_comments (
 	comment_bitfield varchar2(255) DEFAULT '' ,
 	comment_edit_time number(11) DEFAULT '0' NOT NULL,
 	comment_edit_count number(4) DEFAULT '0' NOT NULL,
-	comment_edit_user_id number(8) DEFAULT '0' NOT NULL,
+	comment_edit_user_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_comments PRIMARY KEY (comment_id)
 )
 /
@@ -2065,15 +2065,15 @@ CREATE TABLE phpbb_gallery_config (
 	Table: 'phpbb_gallery_contests'
 */
 CREATE TABLE phpbb_gallery_contests (
-	contest_id number(8) NOT NULL,
-	contest_album_id number(8) DEFAULT '0' NOT NULL,
+	contest_id number(10) NOT NULL,
+	contest_album_id number(10) DEFAULT '0' NOT NULL,
 	contest_start number(11) DEFAULT '0' NOT NULL,
 	contest_rating number(11) DEFAULT '0' NOT NULL,
 	contest_end number(11) DEFAULT '0' NOT NULL,
 	contest_marked number(1) DEFAULT '0' NOT NULL,
-	contest_first number(8) DEFAULT '0' NOT NULL,
-	contest_second number(8) DEFAULT '0' NOT NULL,
-	contest_third number(8) DEFAULT '0' NOT NULL,
+	contest_first number(10) DEFAULT '0' NOT NULL,
+	contest_second number(10) DEFAULT '0' NOT NULL,
+	contest_third number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_contests PRIMARY KEY (contest_id)
 )
 /
@@ -2099,13 +2099,13 @@ END;
 	Table: 'phpbb_gallery_copyts_albums'
 */
 CREATE TABLE phpbb_gallery_copyts_albums (
-	album_id number(8) NOT NULL,
-	parent_id number(8) DEFAULT '0' NOT NULL,
-	left_id number(8) DEFAULT '1' NOT NULL,
-	right_id number(8) DEFAULT '2' NOT NULL,
+	album_id number(10) NOT NULL,
+	parent_id number(10) DEFAULT '0' NOT NULL,
+	left_id number(10) DEFAULT '1' NOT NULL,
+	right_id number(10) DEFAULT '2' NOT NULL,
 	album_name varchar2(255) DEFAULT '' ,
 	album_desc clob DEFAULT '' ,
-	album_user_id number(8) DEFAULT '0' NOT NULL,
+	album_user_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_copyts_albums PRIMARY KEY (album_id)
 )
 /
@@ -2131,8 +2131,8 @@ END;
 	Table: 'phpbb_gallery_copyts_users'
 */
 CREATE TABLE phpbb_gallery_copyts_users (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	personal_album_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	personal_album_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_copyts_users PRIMARY KEY (user_id)
 )
 /
@@ -2142,9 +2142,9 @@ CREATE TABLE phpbb_gallery_copyts_users (
 	Table: 'phpbb_gallery_favorites'
 */
 CREATE TABLE phpbb_gallery_favorites (
-	favorite_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	image_id number(8) DEFAULT '0' NOT NULL,
+	favorite_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	image_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_favorites PRIMARY KEY (favorite_id)
 )
 /
@@ -2174,20 +2174,20 @@ END;
 	Table: 'phpbb_gallery_images'
 */
 CREATE TABLE phpbb_gallery_images (
-	image_id number(8) NOT NULL,
+	image_id number(10) NOT NULL,
 	image_filename varchar2(255) DEFAULT '' ,
 	image_name varchar2(255) DEFAULT '' ,
 	image_name_clean varchar2(255) DEFAULT '' ,
 	image_desc clob DEFAULT '' ,
 	image_desc_uid varchar2(8) DEFAULT '' ,
 	image_desc_bitfield varchar2(255) DEFAULT '' ,
-	image_user_id number(8) DEFAULT '0' NOT NULL,
+	image_user_id number(10) DEFAULT '0' NOT NULL,
 	image_username varchar2(255) DEFAULT '' ,
 	image_username_clean varchar2(255) DEFAULT '' ,
 	image_user_colour varchar2(6) DEFAULT '' ,
 	image_user_ip varchar2(40) DEFAULT '' ,
 	image_time number(11) DEFAULT '0' NOT NULL,
-	image_album_id number(8) DEFAULT '0' NOT NULL,
+	image_album_id number(10) DEFAULT '0' NOT NULL,
 	image_view_count number(11) DEFAULT '0' NOT NULL,
 	image_status number(3) DEFAULT '0' NOT NULL,
 	image_contest number(1) DEFAULT '0' NOT NULL,
@@ -2196,14 +2196,14 @@ CREATE TABLE phpbb_gallery_images (
 	image_filemissing number(3) DEFAULT '0' NOT NULL,
 	image_has_exif number(3) DEFAULT '2' NOT NULL,
 	image_exif_data clob DEFAULT '' ,
-	image_rates number(8) DEFAULT '0' NOT NULL,
-	image_rate_points number(8) DEFAULT '0' NOT NULL,
-	image_rate_avg number(8) DEFAULT '0' NOT NULL,
-	image_comments number(8) DEFAULT '0' NOT NULL,
-	image_last_comment number(8) DEFAULT '0' NOT NULL,
+	image_rates number(10) DEFAULT '0' NOT NULL,
+	image_rate_points number(10) DEFAULT '0' NOT NULL,
+	image_rate_avg number(10) DEFAULT '0' NOT NULL,
+	image_comments number(10) DEFAULT '0' NOT NULL,
+	image_last_comment number(10) DEFAULT '0' NOT NULL,
 	image_allow_comments number(1) DEFAULT '1' NOT NULL,
-	image_favorited number(8) DEFAULT '0' NOT NULL,
-	image_reported number(8) DEFAULT '0' NOT NULL,
+	image_favorited number(10) DEFAULT '0' NOT NULL,
+	image_reported number(10) DEFAULT '0' NOT NULL,
 	filesize_upload number(20) DEFAULT '0' NOT NULL,
 	filesize_medium number(20) DEFAULT '0' NOT NULL,
 	filesize_cache number(20) DEFAULT '0' NOT NULL,
@@ -2238,10 +2238,10 @@ END;
 	Table: 'phpbb_gallery_modscache'
 */
 CREATE TABLE phpbb_gallery_modscache (
-	album_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	album_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	username varchar2(255) DEFAULT '' ,
-	group_id number(8) DEFAULT '0' NOT NULL,
+	group_id number(10) DEFAULT '0' NOT NULL,
 	group_name varchar2(255) DEFAULT '' ,
 	display_on_index number(1) DEFAULT '1' NOT NULL
 )
@@ -2256,11 +2256,11 @@ CREATE INDEX phpbb_gallery_modscache_aid ON phpbb_gallery_modscache (album_id)
 	Table: 'phpbb_gallery_permissions'
 */
 CREATE TABLE phpbb_gallery_permissions (
-	perm_id number(8) NOT NULL,
-	perm_role_id number(8) DEFAULT '0' NOT NULL,
-	perm_album_id number(8) DEFAULT '0' NOT NULL,
-	perm_user_id number(8) DEFAULT '0' NOT NULL,
-	perm_group_id number(8) DEFAULT '0' NOT NULL,
+	perm_id number(10) NOT NULL,
+	perm_role_id number(10) DEFAULT '0' NOT NULL,
+	perm_album_id number(10) DEFAULT '0' NOT NULL,
+	perm_user_id number(10) DEFAULT '0' NOT NULL,
+	perm_group_id number(10) DEFAULT '0' NOT NULL,
 	perm_system number(3) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_permissions PRIMARY KEY (perm_id)
 )
@@ -2287,8 +2287,8 @@ END;
 	Table: 'phpbb_gallery_rates'
 */
 CREATE TABLE phpbb_gallery_rates (
-	rate_image_id number(8) DEFAULT '0' NOT NULL,
-	rate_user_id number(8) DEFAULT '0' NOT NULL,
+	rate_image_id number(10) DEFAULT '0' NOT NULL,
+	rate_user_id number(10) DEFAULT '0' NOT NULL,
 	rate_user_ip varchar2(40) DEFAULT '' ,
 	rate_point number(3) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_rates PRIMARY KEY (rate_image_id, rate_user_id)
@@ -2300,11 +2300,11 @@ CREATE TABLE phpbb_gallery_rates (
 	Table: 'phpbb_gallery_reports'
 */
 CREATE TABLE phpbb_gallery_reports (
-	report_id number(8) NOT NULL,
-	report_album_id number(8) DEFAULT '0' NOT NULL,
-	report_image_id number(8) DEFAULT '0' NOT NULL,
-	reporter_id number(8) DEFAULT '0' NOT NULL,
-	report_manager number(8) DEFAULT '0' NOT NULL,
+	report_id number(10) NOT NULL,
+	report_album_id number(10) DEFAULT '0' NOT NULL,
+	report_image_id number(10) DEFAULT '0' NOT NULL,
+	reporter_id number(10) DEFAULT '0' NOT NULL,
+	report_manager number(10) DEFAULT '0' NOT NULL,
 	report_note clob DEFAULT '' ,
 	report_time number(11) DEFAULT '0' NOT NULL,
 	report_status number(3) DEFAULT '0' NOT NULL,
@@ -2333,7 +2333,7 @@ END;
 	Table: 'phpbb_gallery_roles'
 */
 CREATE TABLE phpbb_gallery_roles (
-	role_id number(8) NOT NULL,
+	role_id number(10) NOT NULL,
 	a_list number(3) DEFAULT '0' NOT NULL,
 	i_view number(3) DEFAULT '0' NOT NULL,
 	i_watermark number(3) DEFAULT '0' NOT NULL,
@@ -2344,7 +2344,7 @@ CREATE TABLE phpbb_gallery_roles (
 	i_approve number(3) DEFAULT '0' NOT NULL,
 	i_lock number(3) DEFAULT '0' NOT NULL,
 	i_report number(3) DEFAULT '0' NOT NULL,
-	i_count number(8) DEFAULT '0' NOT NULL,
+	i_count number(10) DEFAULT '0' NOT NULL,
 	i_unlimited number(3) DEFAULT '0' NOT NULL,
 	c_read number(3) DEFAULT '0' NOT NULL,
 	c_post number(3) DEFAULT '0' NOT NULL,
@@ -2356,7 +2356,7 @@ CREATE TABLE phpbb_gallery_roles (
 	m_move number(3) DEFAULT '0' NOT NULL,
 	m_report number(3) DEFAULT '0' NOT NULL,
 	m_status number(3) DEFAULT '0' NOT NULL,
-	a_count number(8) DEFAULT '0' NOT NULL,
+	a_count number(10) DEFAULT '0' NOT NULL,
 	a_unlimited number(3) DEFAULT '0' NOT NULL,
 	a_restrict number(3) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_roles PRIMARY KEY (role_id)
@@ -2384,12 +2384,12 @@ END;
 	Table: 'phpbb_gallery_users'
 */
 CREATE TABLE phpbb_gallery_users (
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	watch_own number(3) DEFAULT '0' NOT NULL,
 	watch_favo number(3) DEFAULT '0' NOT NULL,
 	watch_com number(3) DEFAULT '0' NOT NULL,
-	user_images number(8) DEFAULT '0' NOT NULL,
-	personal_album_id number(8) DEFAULT '0' NOT NULL,
+	user_images number(10) DEFAULT '0' NOT NULL,
+	personal_album_id number(10) DEFAULT '0' NOT NULL,
 	user_lastmark number(11) DEFAULT '0' NOT NULL,
 	user_last_update number(11) DEFAULT '0' NOT NULL,
 	user_viewexif number(1) DEFAULT '0' NOT NULL,
@@ -2408,10 +2408,10 @@ CREATE INDEX phpbb_gallery_users_pega ON phpbb_gallery_users (personal_album_id)
 	Table: 'phpbb_gallery_watch'
 */
 CREATE TABLE phpbb_gallery_watch (
-	watch_id number(8) NOT NULL,
-	album_id number(8) DEFAULT '0' NOT NULL,
-	image_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	watch_id number(10) NOT NULL,
+	album_id number(10) DEFAULT '0' NOT NULL,
+	image_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_gallery_watch PRIMARY KEY (watch_id)
 )
 /
@@ -2443,7 +2443,7 @@ END;
 	Table: 'phpbb_groups'
 */
 CREATE TABLE phpbb_groups (
-	group_id number(8) NOT NULL,
+	group_id number(10) NOT NULL,
 	group_type number(4) DEFAULT '1' NOT NULL,
 	group_founder_manage number(1) DEFAULT '0' NOT NULL,
 	group_skip_auth number(1) DEFAULT '0' NOT NULL,
@@ -2457,12 +2457,12 @@ CREATE TABLE phpbb_groups (
 	group_avatar_type number(2) DEFAULT '0' NOT NULL,
 	group_avatar_width number(4) DEFAULT '0' NOT NULL,
 	group_avatar_height number(4) DEFAULT '0' NOT NULL,
-	group_rank number(8) DEFAULT '0' NOT NULL,
+	group_rank number(10) DEFAULT '0' NOT NULL,
 	group_colour varchar2(6) DEFAULT '' ,
-	group_sig_chars number(8) DEFAULT '0' NOT NULL,
+	group_sig_chars number(10) DEFAULT '0' NOT NULL,
 	group_receive_pm number(1) DEFAULT '0' NOT NULL,
-	group_message_limit number(8) DEFAULT '0' NOT NULL,
-	group_max_recipients number(8) DEFAULT '0' NOT NULL,
+	group_message_limit number(10) DEFAULT '0' NOT NULL,
+	group_max_recipients number(10) DEFAULT '0' NOT NULL,
 	group_legend number(1) DEFAULT '1' NOT NULL,
 	group_dl_auto_traffic number(20) DEFAULT '0' NOT NULL,
 	group_meeting_create number(1) DEFAULT '0' NOT NULL,
@@ -2495,11 +2495,11 @@ END;
 	Table: 'phpbb_icons'
 */
 CREATE TABLE phpbb_icons (
-	icons_id number(8) NOT NULL,
+	icons_id number(10) NOT NULL,
 	icons_url varchar2(255) DEFAULT '' ,
 	icons_width number(4) DEFAULT '0' NOT NULL,
 	icons_height number(4) DEFAULT '0' NOT NULL,
-	icons_order number(8) DEFAULT '0' NOT NULL,
+	icons_order number(10) DEFAULT '0' NOT NULL,
 	display_on_posting number(1) DEFAULT '1' NOT NULL,
 	icons_group number(1) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_icons PRIMARY KEY (icons_id)
@@ -2558,14 +2558,14 @@ END;
 */
 CREATE TABLE phpbb_kb_article (
 	article_id number(11) NOT NULL,
-	cat_id number(8) DEFAULT '0' NOT NULL,
-	type_id number(8) DEFAULT '0' NOT NULL,
+	cat_id number(10) DEFAULT '0' NOT NULL,
+	type_id number(10) DEFAULT '0' NOT NULL,
 	hits number(11) DEFAULT '0' NOT NULL,
 	titel varchar2(255) DEFAULT '' ,
 	description clob DEFAULT '' ,
 	article clob DEFAULT '' ,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	last_edit_user number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	last_edit_user number(10) DEFAULT '0' NOT NULL,
 	activ number(1) DEFAULT '0' NOT NULL,
 	bbcode_uid varchar2(8) DEFAULT '' ,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
@@ -2576,10 +2576,10 @@ CREATE TABLE phpbb_kb_article (
 	post_time number(11) DEFAULT '0' NOT NULL,
 	page_uri varchar2(255) DEFAULT '' ,
 	last_change number(11) DEFAULT '0' NOT NULL,
-	post_id number(8) DEFAULT '0' NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
 	has_attachment number(1) DEFAULT '0' NOT NULL,
-	reported_id number(8) DEFAULT '0' NOT NULL,
-	rating number(8) DEFAULT '0' NOT NULL,
+	reported_id number(10) DEFAULT '0' NOT NULL,
+	rating number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_kb_article PRIMARY KEY (article_id)
 )
 /
@@ -2609,13 +2609,13 @@ END;
 	Table: 'phpbb_kb_article_diff'
 */
 CREATE TABLE phpbb_kb_article_diff (
-	diff_id number(8) NOT NULL,
-	article_id number(8) DEFAULT '0' NOT NULL,
+	diff_id number(10) NOT NULL,
+	article_id number(10) DEFAULT '0' NOT NULL,
 	article clob DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
 	time number(11) DEFAULT '0' NOT NULL,
 	edit_reason varchar2(255) DEFAULT '' ,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_kb_article_diff PRIMARY KEY (article_id)
 )
 /
@@ -2643,9 +2643,9 @@ END;
 	Table: 'phpbb_kb_article_track'
 */
 CREATE TABLE phpbb_kb_article_track (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	article_id number(8) DEFAULT '0' NOT NULL,
-	cat_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	article_id number(10) DEFAULT '0' NOT NULL,
+	cat_id number(10) DEFAULT '0' NOT NULL,
 	mark_time number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_kb_article_track PRIMARY KEY (article_id)
 )
@@ -2658,14 +2658,14 @@ CREATE INDEX phpbb_kb_article_track_user_id ON phpbb_kb_article_track (user_id)
 	Table: 'phpbb_kb_categorie'
 */
 CREATE TABLE phpbb_kb_categorie (
-	cat_id number(8) NOT NULL,
-	right_id number(8) DEFAULT '0' NOT NULL,
-	left_id number(8) DEFAULT '0' NOT NULL,
-	parent_id number(8) DEFAULT '0' NOT NULL,
+	cat_id number(10) NOT NULL,
+	right_id number(10) DEFAULT '0' NOT NULL,
+	left_id number(10) DEFAULT '0' NOT NULL,
+	parent_id number(10) DEFAULT '0' NOT NULL,
 	cat_mode number(1) DEFAULT '0' NOT NULL,
 	cat_parents varchar2(255) DEFAULT '' ,
 	show_edits number(1) DEFAULT '0' NOT NULL,
-	post_forum number(8) DEFAULT '0' NOT NULL,
+	post_forum number(10) DEFAULT '0' NOT NULL,
 	cat_title varchar2(255) DEFAULT '' ,
 	description varchar2(255) DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
@@ -2673,12 +2673,12 @@ CREATE TABLE phpbb_kb_categorie (
 	bbcode_options number(4) DEFAULT '0' NOT NULL,
 	image varchar2(255) DEFAULT '' ,
 	display_on_index number(1) DEFAULT '0' NOT NULL,
-	cat_articles number(8) DEFAULT '0' NOT NULL,
+	cat_articles number(10) DEFAULT '0' NOT NULL,
 	last_article_url varchar2(255) DEFAULT '' ,
 	last_article_time number(11) DEFAULT '0' NOT NULL,
-	last_article_id number(8) DEFAULT '0' NOT NULL,
+	last_article_id number(10) DEFAULT '0' NOT NULL,
 	last_article_poster_name varchar2(255) DEFAULT '' ,
-	last_article_poster_id number(8) DEFAULT '0' NOT NULL,
+	last_article_poster_id number(10) DEFAULT '0' NOT NULL,
 	last_article_poster_colour varchar2(8) DEFAULT '' ,
 	last_article_title varchar2(255) DEFAULT '' ,
 	ads clob DEFAULT '' ,
@@ -2707,10 +2707,10 @@ END;
 	Table: 'phpbb_kb_changelog'
 */
 CREATE TABLE phpbb_kb_changelog (
-	log_id number(8) NOT NULL,
-	article_id number(8) DEFAULT '0' NOT NULL,
+	log_id number(10) NOT NULL,
+	article_id number(10) DEFAULT '0' NOT NULL,
 	time number(11) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	reason clob DEFAULT '' ,
 	CONSTRAINT pk_phpbb_kb_changelog PRIMARY KEY (log_id)
 )
@@ -2749,9 +2749,9 @@ CREATE TABLE phpbb_kb_config (
 	Table: 'phpbb_kb_rating'
 */
 CREATE TABLE phpbb_kb_rating (
-	article_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	points number(8) DEFAULT '0' NOT NULL,
+	article_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	points number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_kb_rating PRIMARY KEY (article_id)
 )
 /
@@ -2761,10 +2761,10 @@ CREATE TABLE phpbb_kb_rating (
 	Table: 'phpbb_kb_reports'
 */
 CREATE TABLE phpbb_kb_reports (
-	report_id number(8) NOT NULL,
+	report_id number(10) NOT NULL,
 	reason_id number(4) DEFAULT '0' NOT NULL,
-	article_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	article_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_notify number(1) DEFAULT '0' NOT NULL,
 	report_closed number(1) DEFAULT '0' NOT NULL,
 	report_time number(11) DEFAULT '0' NOT NULL,
@@ -2794,7 +2794,7 @@ END;
 	Table: 'phpbb_kb_types'
 */
 CREATE TABLE phpbb_kb_types (
-	type_id number(8) NOT NULL,
+	type_id number(10) NOT NULL,
 	name varchar2(255) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_kb_types PRIMARY KEY (type_id)
 )
@@ -2821,8 +2821,8 @@ END;
 	Table: 'phpbb_k_blocks'
 */
 CREATE TABLE phpbb_k_blocks (
-	id number(8) NOT NULL,
-	ndx number(8) DEFAULT '0' NOT NULL,
+	id number(10) NOT NULL,
+	ndx number(10) DEFAULT '0' NOT NULL,
 	title varchar2(50) DEFAULT '' ,
 	position char(1) DEFAULT 'L' NOT NULL,
 	type char(1) DEFAULT 'H' NOT NULL,
@@ -2833,14 +2833,14 @@ CREATE TABLE phpbb_k_blocks (
 	view_all number(1) DEFAULT '1' NOT NULL,
 	view_groups varchar2(100) DEFAULT '' ,
 	view_pages varchar2(100) DEFAULT '' ,
-	`groups` number(8) DEFAULT '0' NOT NULL,
+	`groups` number(10) DEFAULT '0' NOT NULL,
 	scroll number(1) DEFAULT '0' NOT NULL,
 	block_height number(4) DEFAULT '0' NOT NULL,
 	has_vars number(1) DEFAULT '0' NOT NULL,
 	is_static number(1) DEFAULT '0' NOT NULL,
 	minimod_based number(1) DEFAULT '0' NOT NULL,
-	mod_block_id number(8) DEFAULT '0' NOT NULL,
-	block_cache_time number(8) DEFAULT '600' NOT NULL,
+	mod_block_id number(10) DEFAULT '0' NOT NULL,
+	block_cache_time number(10) DEFAULT '600' NOT NULL,
 	CONSTRAINT pk_phpbb_k_blocks PRIMARY KEY (id)
 )
 /
@@ -2868,7 +2868,7 @@ END;
 	Table: 'phpbb_k_blocks_config'
 */
 CREATE TABLE phpbb_k_blocks_config (
-	id number(8) NOT NULL,
+	id number(10) NOT NULL,
 	use_external_files number(1) DEFAULT '0' NOT NULL,
 	update_files number(1) DEFAULT '0' NOT NULL,
 	layout_default number(1) DEFAULT '2' NOT NULL,
@@ -2912,8 +2912,8 @@ CREATE INDEX phpbb_k_config_vars_is_dynamic ON phpbb_k_config_vars (is_dynamic)
 	Table: 'phpbb_k_menus'
 */
 CREATE TABLE phpbb_k_menus (
-	m_id number(8) NOT NULL,
-	ndx number(8) DEFAULT '0' NOT NULL,
+	m_id number(10) NOT NULL,
+	ndx number(10) DEFAULT '0' NOT NULL,
 	menu_type number(4) DEFAULT '0' NOT NULL,
 	name varchar2(50) DEFAULT '' ,
 	link_to varchar2(255) DEFAULT '' ,
@@ -2950,7 +2950,7 @@ END;
 	Table: 'phpbb_k_pages'
 */
 CREATE TABLE phpbb_k_pages (
-	page_id number(8) NOT NULL,
+	page_id number(10) NOT NULL,
 	page_name varchar2(300) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_k_pages PRIMARY KEY (page_id)
 )
@@ -2977,7 +2977,7 @@ END;
 	Table: 'phpbb_k_resources'
 */
 CREATE TABLE phpbb_k_resources (
-	id number(8) NOT NULL,
+	id number(10) NOT NULL,
 	word varchar2(30) DEFAULT '' ,
 	type char(1) DEFAULT 'V' NOT NULL,
 	CONSTRAINT pk_phpbb_k_resources PRIMARY KEY (id)
@@ -3039,13 +3039,13 @@ END;
 */
 CREATE TABLE phpbb_likes (
 	like_id number(11) NOT NULL,
-	post_id number(8) DEFAULT '0' NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
-	poster_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	poster_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	like_date number(11) DEFAULT '0' NOT NULL,
-	like_state number(8) DEFAULT '0' NOT NULL,
-	like_read number(8) DEFAULT '0' NOT NULL,
+	like_state number(10) DEFAULT '0' NOT NULL,
+	like_read number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_likes PRIMARY KEY (like_id)
 )
 /
@@ -3071,18 +3071,18 @@ END;
 	Table: 'phpbb_log'
 */
 CREATE TABLE phpbb_log (
-	log_id number(8) NOT NULL,
+	log_id number(10) NOT NULL,
 	log_type number(4) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
-	reportee_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	reportee_id number(10) DEFAULT '0' NOT NULL,
 	log_ip varchar2(40) DEFAULT '' ,
 	log_time number(11) DEFAULT '0' NOT NULL,
 	log_operation clob DEFAULT '' ,
 	log_data clob DEFAULT '' ,
-	album_id number(8) DEFAULT '0' NOT NULL,
-	image_id number(8) DEFAULT '0' NOT NULL,
+	album_id number(10) DEFAULT '0' NOT NULL,
+	image_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_log PRIMARY KEY (log_id)
 )
 /
@@ -3122,7 +3122,7 @@ CREATE TABLE phpbb_login_attempts (
 	attempt_browser varchar2(150) DEFAULT '' ,
 	attempt_forwarded_for varchar2(255) DEFAULT '' ,
 	attempt_time number(11) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	username varchar2(765) DEFAULT '0' NOT NULL,
 	username_clean varchar2(255) DEFAULT '0' NOT NULL
 )
@@ -3141,16 +3141,16 @@ CREATE INDEX phpbb_login_attempts_user_id ON phpbb_login_attempts (user_id)
 	Table: 'phpbb_mchat'
 */
 CREATE TABLE phpbb_mchat (
-	message_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	message_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_ip varchar2(40) DEFAULT '' ,
 	message clob DEFAULT '' ,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
 	bbcode_options number(1) DEFAULT '7' NOT NULL,
 	message_time number(11) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	post_id number(8) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_mchat PRIMARY KEY (message_id)
 )
 /
@@ -3189,7 +3189,7 @@ CREATE TABLE phpbb_mchat_config (
 	Table: 'phpbb_mchat_sessions'
 */
 CREATE TABLE phpbb_mchat_sessions (
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_lastupdate number(11) DEFAULT '0' NOT NULL,
 	user_ip varchar2(40) DEFAULT '' 
 )
@@ -3200,8 +3200,8 @@ CREATE TABLE phpbb_mchat_sessions (
 	Table: 'phpbb_meeting_comment'
 */
 CREATE TABLE phpbb_meeting_comment (
-	comment_id number(8) NOT NULL,
-	meeting_id number(8) DEFAULT '0' NOT NULL,
+	comment_id number(10) NOT NULL,
+	meeting_id number(10) DEFAULT '0' NOT NULL,
 	user_id number(8) DEFAULT '0' NOT NULL,
 	meeting_comment clob DEFAULT '' ,
 	meeting_edit_time number(11) DEFAULT '0' NOT NULL,
@@ -3234,7 +3234,7 @@ END;
 	Table: 'phpbb_meeting_data'
 */
 CREATE TABLE phpbb_meeting_data (
-	meeting_id number(8) DEFAULT '0' NOT NULL,
+	meeting_id number(10) DEFAULT '0' NOT NULL,
 	meeting_time number(11) DEFAULT '0' NOT NULL,
 	meeting_until number(11) DEFAULT '0' NOT NULL,
 	meeting_location varchar2(255) DEFAULT '' ,
@@ -3275,7 +3275,7 @@ CREATE TABLE phpbb_meeting_guestnames (
 	Table: 'phpbb_meeting_user'
 */
 CREATE TABLE phpbb_meeting_user (
-	meeting_id number(8) DEFAULT '0' NOT NULL,
+	meeting_id number(10) DEFAULT '0' NOT NULL,
 	user_id number(8) DEFAULT '0' NOT NULL,
 	meeting_sure number(4) DEFAULT '0' NOT NULL,
 	meeting_guests number(8) DEFAULT '0' NOT NULL
@@ -3287,7 +3287,7 @@ CREATE TABLE phpbb_meeting_user (
 	Table: 'phpbb_meeting_usergroup'
 */
 CREATE TABLE phpbb_meeting_usergroup (
-	meeting_id number(8) DEFAULT '0' NOT NULL,
+	meeting_id number(10) DEFAULT '0' NOT NULL,
 	meeting_group number(8) DEFAULT '0' NOT NULL
 )
 /
@@ -3297,10 +3297,10 @@ CREATE TABLE phpbb_meeting_usergroup (
 	Table: 'phpbb_moderator_cache'
 */
 CREATE TABLE phpbb_moderator_cache (
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	username varchar2(765) DEFAULT '' ,
-	group_id number(8) DEFAULT '0' NOT NULL,
+	group_id number(10) DEFAULT '0' NOT NULL,
 	group_name varchar2(765) DEFAULT '' ,
 	display_on_index number(1) DEFAULT '1' NOT NULL
 )
@@ -3315,7 +3315,7 @@ CREATE INDEX phpbb_moderator_cache_forum_id ON phpbb_moderator_cache (forum_id)
 	Table: 'phpbb_mods'
 */
 CREATE TABLE phpbb_mods (
-	mod_id number(8) NOT NULL,
+	mod_id number(10) NOT NULL,
 	mod_active number(1) DEFAULT '0' NOT NULL,
 	mod_time number(11) DEFAULT '0' NOT NULL,
 	mod_dependencies clob DEFAULT '' ,
@@ -3394,14 +3394,14 @@ END;
 	Table: 'phpbb_modules'
 */
 CREATE TABLE phpbb_modules (
-	module_id number(8) NOT NULL,
+	module_id number(10) NOT NULL,
 	module_enabled number(1) DEFAULT '1' NOT NULL,
 	module_display number(1) DEFAULT '1' NOT NULL,
 	module_basename varchar2(255) DEFAULT '' ,
 	module_class varchar2(10) DEFAULT '' ,
-	parent_id number(8) DEFAULT '0' NOT NULL,
-	left_id number(8) DEFAULT '0' NOT NULL,
-	right_id number(8) DEFAULT '0' NOT NULL,
+	parent_id number(10) DEFAULT '0' NOT NULL,
+	left_id number(10) DEFAULT '0' NOT NULL,
+	right_id number(10) DEFAULT '0' NOT NULL,
 	module_langname varchar2(255) DEFAULT '' ,
 	module_mode varchar2(255) DEFAULT '' ,
 	module_auth varchar2(255) DEFAULT '' ,
@@ -3468,7 +3468,7 @@ CREATE TABLE phpbb_pages (
 	page_order number(11) DEFAULT '0' NOT NULL,
 	page_display number(1) DEFAULT '0' NOT NULL,
 	page_display_guests number(1) DEFAULT '0' NOT NULL,
-	page_author number(8) DEFAULT '0' NOT NULL,
+	page_author number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_pages PRIMARY KEY (page_id)
 )
 /
@@ -3556,7 +3556,7 @@ END;
 */
 CREATE TABLE phpbb_points_lottery_history (
 	id number(11) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_name varchar2(255) DEFAULT '' ,
 	time number(11) DEFAULT '0' NOT NULL,
 	amount number(20, 2) DEFAULT '0' NOT NULL,
@@ -3631,9 +3631,9 @@ CREATE TABLE phpbb_points_values (
 	lottery_prev_winner varchar2(255) DEFAULT '' ,
 	lottery_prev_winner_id number(10) DEFAULT '0' NOT NULL,
 	lottery_ticket_cost number(10, 2) DEFAULT '0' NOT NULL,
-	lottery_winners_total number(8) DEFAULT '0' NOT NULL,
+	lottery_winners_total number(10) DEFAULT '0' NOT NULL,
 	number_show_per_page number(10) DEFAULT '0' NOT NULL,
-	number_show_top_points number(8) DEFAULT '0' NOT NULL,
+	number_show_top_points number(10) DEFAULT '0' NOT NULL,
 	points_dl_cost_per_attach number(10, 2) DEFAULT '0' NOT NULL,
 	points_per_attach number(10, 2) DEFAULT '0' NOT NULL,
 	points_per_attach_file number(10, 2) DEFAULT '0' NOT NULL,
@@ -3664,9 +3664,9 @@ CREATE TABLE phpbb_points_values (
 */
 CREATE TABLE phpbb_poll_options (
 	poll_option_id number(4) DEFAULT '0' NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
 	poll_option_text clob DEFAULT '' ,
-	poll_option_total number(8) DEFAULT '0' NOT NULL
+	poll_option_total number(10) DEFAULT '0' NOT NULL
 )
 /
 
@@ -3679,9 +3679,9 @@ CREATE INDEX phpbb_poll_options_topic_id ON phpbb_poll_options (topic_id)
 	Table: 'phpbb_poll_votes'
 */
 CREATE TABLE phpbb_poll_votes (
-	topic_id number(8) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
 	poll_option_id number(4) DEFAULT '0' NOT NULL,
-	vote_user_id number(8) DEFAULT '0' NOT NULL,
+	vote_user_id number(10) DEFAULT '0' NOT NULL,
 	vote_user_ip varchar2(40) DEFAULT '' 
 )
 /
@@ -3697,11 +3697,11 @@ CREATE INDEX phpbb_poll_votes_vote_user_ip ON phpbb_poll_votes (vote_user_ip)
 	Table: 'phpbb_posts'
 */
 CREATE TABLE phpbb_posts (
-	post_id number(8) NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	poster_id number(8) DEFAULT '0' NOT NULL,
-	icon_id number(8) DEFAULT '0' NOT NULL,
+	post_id number(10) NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	poster_id number(10) DEFAULT '0' NOT NULL,
+	icon_id number(10) DEFAULT '0' NOT NULL,
 	poster_ip varchar2(40) DEFAULT '' ,
 	post_time number(11) DEFAULT '0' NOT NULL,
 	post_approved number(1) DEFAULT '1' NOT NULL,
@@ -3720,7 +3720,7 @@ CREATE TABLE phpbb_posts (
 	post_postcount number(1) DEFAULT '1' NOT NULL,
 	post_edit_time number(11) DEFAULT '0' NOT NULL,
 	post_edit_reason varchar2(765) DEFAULT '' ,
-	post_edit_user number(8) DEFAULT '0' NOT NULL,
+	post_edit_user number(10) DEFAULT '0' NOT NULL,
 	post_edit_count number(4) DEFAULT '0' NOT NULL,
 	post_edit_locked number(1) DEFAULT '0' NOT NULL,
 	points_received number(20, 2) DEFAULT '0' NOT NULL,
@@ -3767,10 +3767,10 @@ END;
 	Table: 'phpbb_privmsgs'
 */
 CREATE TABLE phpbb_privmsgs (
-	msg_id number(8) NOT NULL,
-	root_level number(8) DEFAULT '0' NOT NULL,
-	author_id number(8) DEFAULT '0' NOT NULL,
-	icon_id number(8) DEFAULT '0' NOT NULL,
+	msg_id number(10) NOT NULL,
+	root_level number(10) DEFAULT '0' NOT NULL,
+	author_id number(10) DEFAULT '0' NOT NULL,
+	icon_id number(10) DEFAULT '0' NOT NULL,
 	author_ip varchar2(40) DEFAULT '' ,
 	message_time number(11) DEFAULT '0' NOT NULL,
 	enable_bbcode number(1) DEFAULT '1' NOT NULL,
@@ -3780,7 +3780,7 @@ CREATE TABLE phpbb_privmsgs (
 	message_subject varchar2(765) DEFAULT '' ,
 	message_text clob DEFAULT '' ,
 	message_edit_reason varchar2(765) DEFAULT '' ,
-	message_edit_user number(8) DEFAULT '0' NOT NULL,
+	message_edit_user number(10) DEFAULT '0' NOT NULL,
 	message_attachment number(1) DEFAULT '0' NOT NULL,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
@@ -3822,10 +3822,10 @@ END;
 	Table: 'phpbb_privmsgs_folder'
 */
 CREATE TABLE phpbb_privmsgs_folder (
-	folder_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	folder_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	folder_name varchar2(765) DEFAULT '' ,
-	pm_count number(8) DEFAULT '0' NOT NULL,
+	pm_count number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_privmsgs_folder PRIMARY KEY (folder_id)
 )
 /
@@ -3853,14 +3853,14 @@ END;
 	Table: 'phpbb_privmsgs_rules'
 */
 CREATE TABLE phpbb_privmsgs_rules (
-	rule_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	rule_check number(8) DEFAULT '0' NOT NULL,
-	rule_connection number(8) DEFAULT '0' NOT NULL,
+	rule_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	rule_check number(10) DEFAULT '0' NOT NULL,
+	rule_connection number(10) DEFAULT '0' NOT NULL,
 	rule_string varchar2(765) DEFAULT '' ,
-	rule_user_id number(8) DEFAULT '0' NOT NULL,
-	rule_group_id number(8) DEFAULT '0' NOT NULL,
-	rule_action number(8) DEFAULT '0' NOT NULL,
+	rule_user_id number(10) DEFAULT '0' NOT NULL,
+	rule_group_id number(10) DEFAULT '0' NOT NULL,
+	rule_action number(10) DEFAULT '0' NOT NULL,
 	rule_folder_id number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_privmsgs_rules PRIMARY KEY (rule_id)
 )
@@ -3889,9 +3889,9 @@ END;
 	Table: 'phpbb_privmsgs_to'
 */
 CREATE TABLE phpbb_privmsgs_to (
-	msg_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	author_id number(8) DEFAULT '0' NOT NULL,
+	msg_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	author_id number(10) DEFAULT '0' NOT NULL,
 	pm_deleted number(1) DEFAULT '0' NOT NULL,
 	pm_new number(1) DEFAULT '1' NOT NULL,
 	pm_unread number(1) DEFAULT '1' NOT NULL,
@@ -3913,7 +3913,7 @@ CREATE INDEX phpbb_privmsgs_to_usr_flder_id ON phpbb_privmsgs_to (user_id, folde
 	Table: 'phpbb_profile_fields'
 */
 CREATE TABLE phpbb_profile_fields (
-	field_id number(8) NOT NULL,
+	field_id number(10) NOT NULL,
 	field_name varchar2(765) DEFAULT '' ,
 	field_type number(4) DEFAULT '0' NOT NULL,
 	field_ident varchar2(20) DEFAULT '' ,
@@ -3931,7 +3931,7 @@ CREATE TABLE phpbb_profile_fields (
 	field_hide number(1) DEFAULT '0' NOT NULL,
 	field_no_view number(1) DEFAULT '0' NOT NULL,
 	field_active number(1) DEFAULT '0' NOT NULL,
-	field_order number(8) DEFAULT '0' NOT NULL,
+	field_order number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_profile_fields PRIMARY KEY (field_id)
 )
 /
@@ -3961,7 +3961,7 @@ END;
 	Table: 'phpbb_profile_fields_data'
 */
 CREATE TABLE phpbb_profile_fields_data (
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	pf_fcol clob DEFAULT '' ,
 	pf_reg_reason clob DEFAULT '' ,
 	CONSTRAINT pk_phpbb_profile_fields_data PRIMARY KEY (user_id)
@@ -3973,12 +3973,12 @@ CREATE TABLE phpbb_profile_fields_data (
 	Table: 'phpbb_profile_fields_lang'
 */
 CREATE TABLE phpbb_profile_fields_lang (
-	field_id number(8) DEFAULT '0' NOT NULL,
-	lang_id number(8) DEFAULT '0' NOT NULL,
-	option_id number(8) DEFAULT '0' NOT NULL,
+	field_id number(10) DEFAULT '0' NOT NULL,
+	lang_id number(10) DEFAULT '0' NOT NULL,
+	option_id number(10) DEFAULT '0' NOT NULL,
 	field_type number(4) DEFAULT '0' NOT NULL,
 	lang_value varchar2(765) DEFAULT '' ,
-	group_id number(8) DEFAULT '0' NOT NULL,
+	group_id number(10) DEFAULT '0' NOT NULL,
 	group_name varchar2(765) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_profile_fields_lang PRIMARY KEY (field_id, lang_id, option_id)
 )
@@ -3989,8 +3989,8 @@ CREATE TABLE phpbb_profile_fields_lang (
 	Table: 'phpbb_profile_lang'
 */
 CREATE TABLE phpbb_profile_lang (
-	field_id number(8) DEFAULT '0' NOT NULL,
-	lang_id number(8) DEFAULT '0' NOT NULL,
+	field_id number(10) DEFAULT '0' NOT NULL,
+	lang_id number(10) DEFAULT '0' NOT NULL,
 	lang_name varchar2(765) DEFAULT '' ,
 	lang_explain clob DEFAULT '' ,
 	lang_default_value varchar2(765) DEFAULT '' ,
@@ -4006,8 +4006,8 @@ CREATE TABLE phpbb_qa_confirm (
 	session_id char(32) DEFAULT '' ,
 	confirm_id char(32) DEFAULT '' ,
 	lang_iso varchar2(30) DEFAULT '' ,
-	question_id number(8) DEFAULT '0' NOT NULL,
-	attempts number(8) DEFAULT '0' NOT NULL,
+	question_id number(10) DEFAULT '0' NOT NULL,
+	attempts number(10) DEFAULT '0' NOT NULL,
 	confirm_type number(4) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_qa_confirm PRIMARY KEY (confirm_id)
 )
@@ -4022,9 +4022,9 @@ CREATE INDEX phpbb_qa_confirm_lookup ON phpbb_qa_confirm (confirm_id)
 	Table: 'phpbb_ranks'
 */
 CREATE TABLE phpbb_ranks (
-	rank_id number(8) NOT NULL,
+	rank_id number(10) NOT NULL,
 	rank_title varchar2(765) DEFAULT '' ,
-	rank_min number(8) DEFAULT '0' NOT NULL,
+	rank_min number(10) DEFAULT '0' NOT NULL,
 	rank_special number(1) DEFAULT '0' NOT NULL,
 	rank_image varchar2(255) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_ranks PRIMARY KEY (rank_id)
@@ -4052,11 +4052,11 @@ END;
 	Table: 'phpbb_reports'
 */
 CREATE TABLE phpbb_reports (
-	report_id number(8) NOT NULL,
+	report_id number(10) NOT NULL,
 	reason_id number(4) DEFAULT '0' NOT NULL,
-	post_id number(8) DEFAULT '0' NOT NULL,
-	pm_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
+	pm_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_notify number(1) DEFAULT '0' NOT NULL,
 	report_closed number(1) DEFAULT '0' NOT NULL,
 	report_time number(11) DEFAULT '0' NOT NULL,
@@ -4132,10 +4132,10 @@ CREATE TABLE phpbb_search_results (
 	Table: 'phpbb_search_wordlist'
 */
 CREATE TABLE phpbb_search_wordlist (
-	word_id number(8) NOT NULL,
+	word_id number(10) NOT NULL,
 	word_text varchar2(765) DEFAULT '' ,
 	word_common number(1) DEFAULT '0' NOT NULL,
-	word_count number(8) DEFAULT '0' NOT NULL,
+	word_count number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_search_wordlist PRIMARY KEY (word_id),
 	CONSTRAINT u_phpbb_wrd_txt UNIQUE (word_text)
 )
@@ -4164,8 +4164,8 @@ END;
 	Table: 'phpbb_search_wordmatch'
 */
 CREATE TABLE phpbb_search_wordmatch (
-	post_id number(8) DEFAULT '0' NOT NULL,
-	word_id number(8) DEFAULT '0' NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
+	word_id number(10) DEFAULT '0' NOT NULL,
 	title_match number(1) DEFAULT '0' NOT NULL,
 	CONSTRAINT u_phpbb_unq_mtch UNIQUE (word_id, post_id, title_match)
 )
@@ -4181,8 +4181,8 @@ CREATE INDEX phpbb_search_wordmatch_post_id ON phpbb_search_wordmatch (post_id)
 */
 CREATE TABLE phpbb_sessions (
 	session_id char(32) DEFAULT '' ,
-	session_user_id number(8) DEFAULT '0' NOT NULL,
-	session_forum_id number(8) DEFAULT '0' NOT NULL,
+	session_user_id number(10) DEFAULT '0' NOT NULL,
+	session_forum_id number(10) DEFAULT '0' NOT NULL,
 	session_last_visit number(11) DEFAULT '0' NOT NULL,
 	session_start number(11) DEFAULT '0' NOT NULL,
 	session_time number(11) DEFAULT '0' NOT NULL,
@@ -4193,7 +4193,7 @@ CREATE TABLE phpbb_sessions (
 	session_viewonline number(1) DEFAULT '1' NOT NULL,
 	session_autologin number(1) DEFAULT '0' NOT NULL,
 	session_admin number(1) DEFAULT '0' NOT NULL,
-	session_album_id number(8) DEFAULT '0' NOT NULL,
+	session_album_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_sessions PRIMARY KEY (session_id)
 )
 /
@@ -4212,7 +4212,7 @@ CREATE INDEX phpbb_sessions_session_aid ON phpbb_sessions (session_album_id)
 */
 CREATE TABLE phpbb_sessions_keys (
 	key_id char(32) DEFAULT '' ,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	last_ip varchar2(40) DEFAULT '' ,
 	last_login number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_sessions_keys PRIMARY KEY (key_id, user_id)
@@ -4226,8 +4226,8 @@ CREATE INDEX phpbb_sessions_keys_last_login ON phpbb_sessions_keys (last_login)
 	Table: 'phpbb_shoutbox'
 */
 CREATE TABLE phpbb_shoutbox (
-	shout_id number(8) NOT NULL,
-	shout_user_id number(8) DEFAULT '0' NOT NULL,
+	shout_id number(10) NOT NULL,
+	shout_user_id number(10) DEFAULT '0' NOT NULL,
 	shout_time number(11) DEFAULT '0' NOT NULL,
 	shout_ip varchar2(40) DEFAULT '' ,
 	shout_text clob DEFAULT '' ,
@@ -4259,7 +4259,7 @@ END;
 	Table: 'phpbb_sitelist'
 */
 CREATE TABLE phpbb_sitelist (
-	site_id number(8) NOT NULL,
+	site_id number(10) NOT NULL,
 	site_ip varchar2(40) DEFAULT '' ,
 	site_hostname varchar2(255) DEFAULT '' ,
 	ip_exclude number(1) DEFAULT '0' NOT NULL,
@@ -4288,13 +4288,13 @@ END;
 	Table: 'phpbb_smilies'
 */
 CREATE TABLE phpbb_smilies (
-	smiley_id number(8) NOT NULL,
+	smiley_id number(10) NOT NULL,
 	code varchar2(150) DEFAULT '' ,
 	emotion varchar2(150) DEFAULT '' ,
 	smiley_url varchar2(50) DEFAULT '' ,
 	smiley_width number(4) DEFAULT '0' NOT NULL,
 	smiley_height number(4) DEFAULT '0' NOT NULL,
-	smiley_order number(8) DEFAULT '0' NOT NULL,
+	smiley_order number(10) DEFAULT '0' NOT NULL,
 	display_on_posting number(1) DEFAULT '1' NOT NULL,
 	smiley_group number(1) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_smilies PRIMARY KEY (smiley_id)
@@ -4394,11 +4394,11 @@ END;
 	Table: 'phpbb_sn_comments'
 */
 CREATE TABLE phpbb_sn_comments (
-	cmt_id number(8) NOT NULL,
-	cmt_module number(8) DEFAULT '0' NOT NULL,
+	cmt_id number(10) NOT NULL,
+	cmt_module number(10) DEFAULT '0' NOT NULL,
 	cmt_time number(11) DEFAULT '0' NOT NULL,
-	cmt_mid number(8) DEFAULT '0' NOT NULL,
-	cmt_poster number(8) DEFAULT '0' NOT NULL,
+	cmt_mid number(10) DEFAULT '0' NOT NULL,
+	cmt_poster number(10) DEFAULT '0' NOT NULL,
 	cmt_text clob DEFAULT '' ,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
 	bbcode_uid varchar2(8) DEFAULT '' ,
@@ -4437,7 +4437,7 @@ END;
 	Table: 'phpbb_sn_comments_modules'
 */
 CREATE TABLE phpbb_sn_comments_modules (
-	cmtmd_id number(8) NOT NULL,
+	cmtmd_id number(10) NOT NULL,
 	cmtmd_name varchar2(255) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_sn_comments_modules PRIMARY KEY (cmtmd_id),
 	CONSTRAINT u_phpbb_a UNIQUE (cmtmd_name)
@@ -4513,9 +4513,9 @@ END;
 	Table: 'phpbb_sn_entries'
 */
 CREATE TABLE phpbb_sn_entries (
-	entry_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	entry_target number(8) DEFAULT '0' NOT NULL,
+	entry_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	entry_target number(10) DEFAULT '0' NOT NULL,
 	entry_type number(11) DEFAULT '0' NOT NULL,
 	entry_time number(11) DEFAULT '0' NOT NULL,
 	entry_additionals clob DEFAULT '' ,
@@ -4546,10 +4546,10 @@ END;
 	Table: 'phpbb_sn_family'
 */
 CREATE TABLE phpbb_sn_family (
-	id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	relative_user_id number(8) DEFAULT '0' NOT NULL,
-	status_id number(8) DEFAULT '0' NOT NULL,
+	id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	relative_user_id number(10) DEFAULT '0' NOT NULL,
+	status_id number(10) DEFAULT '0' NOT NULL,
 	approved number(1) DEFAULT '0' NOT NULL,
 	anniversary varchar2(10) DEFAULT '' ,
 	family number(1) DEFAULT '0' NOT NULL,
@@ -4587,8 +4587,8 @@ END;
 	Table: 'phpbb_sn_fms_groups'
 */
 CREATE TABLE phpbb_sn_fms_groups (
-	fms_gid number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	fms_gid number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	fms_name varchar2(255) DEFAULT '' ,
 	fms_clean varchar2(255) DEFAULT '' ,
 	fms_collapse number(1) DEFAULT '0' NOT NULL,
@@ -4625,8 +4625,8 @@ END;
 	Table: 'phpbb_sn_fms_users_group'
 */
 CREATE TABLE phpbb_sn_fms_users_group (
-	fms_gid number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	fms_gid number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	owner_id number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_sn_fms_users_group PRIMARY KEY (fms_gid, user_id, owner_id)
 )
@@ -4645,9 +4645,9 @@ CREATE INDEX phpbb_sn_fms_users_group_d ON phpbb_sn_fms_users_group (owner_id, u
 	Table: 'phpbb_sn_im'
 */
 CREATE TABLE phpbb_sn_im (
-	im_id number(8) NOT NULL,
-	uid_from number(8) DEFAULT '0' NOT NULL,
-	uid_to number(8) DEFAULT '0' NOT NULL,
+	im_id number(10) NOT NULL,
+	uid_from number(10) DEFAULT '0' NOT NULL,
+	uid_to number(10) DEFAULT '0' NOT NULL,
 	message clob DEFAULT '' ,
 	sent number(20, 3) DEFAULT '0' NOT NULL,
 	recd number(1) DEFAULT '0' NOT NULL,
@@ -4684,8 +4684,8 @@ END;
 	Table: 'phpbb_sn_im_chatboxes'
 */
 CREATE TABLE phpbb_sn_im_chatboxes (
-	uid_from number(8) DEFAULT '0' NOT NULL,
-	uid_to number(8) DEFAULT '0' NOT NULL,
+	uid_from number(10) DEFAULT '0' NOT NULL,
+	uid_to number(10) DEFAULT '0' NOT NULL,
 	username_to varchar2(255) DEFAULT '' ,
 	starttime number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT u_phpbb_a UNIQUE (uid_from, uid_to)
@@ -4699,16 +4699,16 @@ CREATE INDEX phpbb_sn_im_chatboxes_b ON phpbb_sn_im_chatboxes (uid_from, uid_to,
 	Table: 'phpbb_sn_menu'
 */
 CREATE TABLE phpbb_sn_menu (
-	button_id number(8) NOT NULL,
+	button_id number(10) NOT NULL,
 	button_url clob DEFAULT '' ,
 	button_name varchar2(255) DEFAULT '' ,
 	button_external number(1) DEFAULT '0' NOT NULL,
 	button_display number(1) DEFAULT '1' NOT NULL,
 	button_only_registered number(1) DEFAULT '0' NOT NULL,
 	button_only_guest number(1) DEFAULT '0' NOT NULL,
-	left_id number(8) DEFAULT '0' NOT NULL,
-	right_id number(8) DEFAULT '0' NOT NULL,
-	parent_id number(8) DEFAULT '0' NOT NULL,
+	left_id number(10) DEFAULT '0' NOT NULL,
+	right_id number(10) DEFAULT '0' NOT NULL,
+	parent_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_sn_menu PRIMARY KEY (button_id)
 )
 /
@@ -4745,8 +4745,8 @@ CREATE TABLE phpbb_sn_notify (
 	ntf_id number(11) NOT NULL,
 	ntf_time number(11) DEFAULT '0' NOT NULL,
 	ntf_type number(4) DEFAULT '0' NOT NULL,
-	ntf_user number(8) DEFAULT '0' NOT NULL,
-	ntf_poster number(8) DEFAULT '0' NOT NULL,
+	ntf_user number(10) DEFAULT '0' NOT NULL,
+	ntf_poster number(10) DEFAULT '0' NOT NULL,
 	ntf_read number(4) DEFAULT '0' NOT NULL,
 	ntf_change number(11) DEFAULT '0' NOT NULL,
 	ntf_data clob DEFAULT '' ,
@@ -4781,8 +4781,8 @@ END;
 	Table: 'phpbb_sn_profile_visitors'
 */
 CREATE TABLE phpbb_sn_profile_visitors (
-	profile_uid number(8) DEFAULT '0' NOT NULL,
-	visitor_uid number(8) DEFAULT '0' NOT NULL,
+	profile_uid number(10) DEFAULT '0' NOT NULL,
+	visitor_uid number(10) DEFAULT '0' NOT NULL,
 	visit_time number(11) DEFAULT '0' NOT NULL
 )
 /
@@ -4798,11 +4798,11 @@ CREATE INDEX phpbb_sn_profile_visitors_c ON phpbb_sn_profile_visitors (visit_tim
 	Table: 'phpbb_sn_reports'
 */
 CREATE TABLE phpbb_sn_reports (
-	report_id number(8) NOT NULL,
+	report_id number(10) NOT NULL,
 	reason_id number(4) DEFAULT '0' NOT NULL,
 	report_text clob DEFAULT '' ,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	reporter number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	reporter number(10) DEFAULT '0' NOT NULL,
 	report_closed number(1) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_sn_reports PRIMARY KEY (report_id)
 )
@@ -4871,8 +4871,8 @@ CREATE TABLE phpbb_sn_smilies (
 	Table: 'phpbb_sn_status'
 */
 CREATE TABLE phpbb_sn_status (
-	status_id number(8) NOT NULL,
-	poster_id number(8) DEFAULT '0' NOT NULL,
+	status_id number(10) NOT NULL,
+	poster_id number(10) DEFAULT '0' NOT NULL,
 	status_time number(11) DEFAULT '0' NOT NULL,
 	status_text clob DEFAULT '' ,
 	bbcode_bitfield varchar2(255) DEFAULT '' ,
@@ -4908,7 +4908,7 @@ END;
 	Table: 'phpbb_sn_users'
 */
 CREATE TABLE phpbb_sn_users (
-	user_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	user_status clob DEFAULT '' ,
 	user_im_online number(1) DEFAULT '1' NOT NULL,
 	user_zebra_alert_friend number(1) DEFAULT '1' NOT NULL,
@@ -4949,8 +4949,8 @@ CREATE TABLE phpbb_sn_users (
 	Table: 'phpbb_sortables_answers'
 */
 CREATE TABLE phpbb_sortables_answers (
-	answer_id number(8) NOT NULL,
-	question_id number(8) DEFAULT '0' NOT NULL,
+	answer_id number(10) NOT NULL,
+	question_id number(10) DEFAULT '0' NOT NULL,
 	answer_sort number(1) DEFAULT '0' NOT NULL,
 	answer_text varchar2(765) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_sortables_answers PRIMARY KEY (answer_id)
@@ -4985,8 +4985,8 @@ CREATE TABLE phpbb_sortables_confirm (
 	session_id char(32) DEFAULT '' ,
 	confirm_id char(32) DEFAULT '' ,
 	lang_iso varchar2(30) DEFAULT '' ,
-	question_id number(8) DEFAULT '0' NOT NULL,
-	attempts number(8) DEFAULT '0' NOT NULL,
+	question_id number(10) DEFAULT '0' NOT NULL,
+	attempts number(10) DEFAULT '0' NOT NULL,
 	confirm_type number(4) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_sortables_confirm PRIMARY KEY (confirm_id)
 )
@@ -5001,9 +5001,9 @@ CREATE INDEX phpbb_sortables_confirm_lookup ON phpbb_sortables_confirm (confirm_
 	Table: 'phpbb_sortables_questions'
 */
 CREATE TABLE phpbb_sortables_questions (
-	question_id number(8) NOT NULL,
+	question_id number(10) NOT NULL,
 	sort number(1) DEFAULT '0' NOT NULL,
-	lang_id number(8) DEFAULT '0' NOT NULL,
+	lang_id number(10) DEFAULT '0' NOT NULL,
 	lang_iso varchar2(30) DEFAULT '' ,
 	question_text clob DEFAULT '' ,
 	name_left varchar2(765) DEFAULT '0' NOT NULL,
@@ -5035,12 +5035,12 @@ END;
 	Table: 'phpbb_spam_log'
 */
 CREATE TABLE phpbb_spam_log (
-	log_id number(8) NOT NULL,
+	log_id number(10) NOT NULL,
 	log_type number(4) DEFAULT '1' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
-	reportee_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	reportee_id number(10) DEFAULT '0' NOT NULL,
 	log_ip varchar2(40) DEFAULT '' ,
 	log_time number(11) DEFAULT '0' NOT NULL,
 	log_operation clob DEFAULT '' ,
@@ -5080,7 +5080,7 @@ END;
 	Table: 'phpbb_spam_words'
 */
 CREATE TABLE phpbb_spam_words (
-	word_id number(8) NOT NULL,
+	word_id number(10) NOT NULL,
 	word_text varchar2(765) DEFAULT '' ,
 	word_regex number(1) DEFAULT '0' NOT NULL,
 	word_regex_auto number(1) DEFAULT '0' NOT NULL,
@@ -5111,13 +5111,13 @@ END;
 	Table: 'phpbb_styles'
 */
 CREATE TABLE phpbb_styles (
-	style_id number(8) NOT NULL,
+	style_id number(10) NOT NULL,
 	style_name varchar2(765) DEFAULT '' ,
 	style_copyright varchar2(765) DEFAULT '' ,
 	style_active number(1) DEFAULT '1' NOT NULL,
-	template_id number(8) DEFAULT '0' NOT NULL,
-	theme_id number(8) DEFAULT '0' NOT NULL,
-	imageset_id number(8) DEFAULT '0' NOT NULL,
+	template_id number(10) DEFAULT '0' NOT NULL,
+	theme_id number(10) DEFAULT '0' NOT NULL,
+	imageset_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_styles PRIMARY KEY (style_id),
 	CONSTRAINT u_phpbb_style_name UNIQUE (style_name)
 )
@@ -5150,7 +5150,7 @@ END;
 	Table: 'phpbb_styles_template'
 */
 CREATE TABLE phpbb_styles_template (
-	template_id number(8) NOT NULL,
+	template_id number(10) NOT NULL,
 	template_name varchar2(765) DEFAULT '' ,
 	template_copyright varchar2(765) DEFAULT '' ,
 	template_path varchar2(100) DEFAULT '' ,
@@ -5184,7 +5184,7 @@ END;
 	Table: 'phpbb_styles_template_data'
 */
 CREATE TABLE phpbb_styles_template_data (
-	template_id number(8) DEFAULT '0' NOT NULL,
+	template_id number(10) DEFAULT '0' NOT NULL,
 	template_filename varchar2(100) DEFAULT '' ,
 	template_included clob DEFAULT '' ,
 	template_mtime number(11) DEFAULT '0' NOT NULL,
@@ -5201,7 +5201,7 @@ CREATE INDEX phpbb_styles_template_data_tfn ON phpbb_styles_template_data (templ
 	Table: 'phpbb_styles_theme'
 */
 CREATE TABLE phpbb_styles_theme (
-	theme_id number(8) NOT NULL,
+	theme_id number(10) NOT NULL,
 	theme_name varchar2(765) DEFAULT '' ,
 	theme_copyright varchar2(765) DEFAULT '' ,
 	theme_path varchar2(100) DEFAULT '' ,
@@ -5234,7 +5234,7 @@ END;
 	Table: 'phpbb_styles_imageset'
 */
 CREATE TABLE phpbb_styles_imageset (
-	imageset_id number(8) NOT NULL,
+	imageset_id number(10) NOT NULL,
 	imageset_name varchar2(765) DEFAULT '' ,
 	imageset_copyright varchar2(765) DEFAULT '' ,
 	imageset_path varchar2(100) DEFAULT '' ,
@@ -5264,13 +5264,13 @@ END;
 	Table: 'phpbb_styles_imageset_data'
 */
 CREATE TABLE phpbb_styles_imageset_data (
-	image_id number(8) NOT NULL,
+	image_id number(10) NOT NULL,
 	image_name varchar2(200) DEFAULT '' ,
 	image_filename varchar2(200) DEFAULT '' ,
 	image_lang varchar2(30) DEFAULT '' ,
 	image_height number(4) DEFAULT '0' NOT NULL,
 	image_width number(4) DEFAULT '0' NOT NULL,
-	imageset_id number(8) DEFAULT '0' NOT NULL,
+	imageset_id number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_styles_imageset_data PRIMARY KEY (image_id)
 )
 /
@@ -5298,34 +5298,34 @@ END;
 	Table: 'phpbb_topics'
 */
 CREATE TABLE phpbb_topics (
-	topic_id number(8) NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
-	icon_id number(8) DEFAULT '0' NOT NULL,
+	topic_id number(10) NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	icon_id number(10) DEFAULT '0' NOT NULL,
 	topic_attachment number(1) DEFAULT '0' NOT NULL,
 	topic_approved number(1) DEFAULT '1' NOT NULL,
 	topic_reported number(1) DEFAULT '0' NOT NULL,
 	topic_title varchar2(765) DEFAULT '' ,
-	topic_poster number(8) DEFAULT '0' NOT NULL,
+	topic_poster number(10) DEFAULT '0' NOT NULL,
 	topic_time number(11) DEFAULT '0' NOT NULL,
 	topic_time_limit number(11) DEFAULT '0' NOT NULL,
-	topic_views number(8) DEFAULT '0' NOT NULL,
-	topic_replies number(8) DEFAULT '0' NOT NULL,
-	topic_replies_real number(8) DEFAULT '0' NOT NULL,
+	topic_views number(10) DEFAULT '0' NOT NULL,
+	topic_replies number(10) DEFAULT '0' NOT NULL,
+	topic_replies_real number(10) DEFAULT '0' NOT NULL,
 	topic_status number(3) DEFAULT '0' NOT NULL,
 	topic_type number(3) DEFAULT '0' NOT NULL,
-	topic_first_post_id number(8) DEFAULT '0' NOT NULL,
+	topic_first_post_id number(10) DEFAULT '0' NOT NULL,
 	topic_first_poster_name varchar2(765) DEFAULT '' ,
 	topic_first_poster_colour varchar2(6) DEFAULT '' ,
-	topic_last_post_id number(8) DEFAULT '0' NOT NULL,
-	topic_last_poster_id number(8) DEFAULT '0' NOT NULL,
+	topic_last_post_id number(10) DEFAULT '0' NOT NULL,
+	topic_last_poster_id number(10) DEFAULT '0' NOT NULL,
 	topic_last_poster_name varchar2(765) DEFAULT '' ,
 	topic_last_poster_colour varchar2(6) DEFAULT '' ,
 	topic_last_post_subject varchar2(765) DEFAULT '' ,
 	topic_last_post_time number(11) DEFAULT '0' NOT NULL,
 	topic_last_view_time number(11) DEFAULT '0' NOT NULL,
-	topic_moved_id number(8) DEFAULT '0' NOT NULL,
+	topic_moved_id number(10) DEFAULT '0' NOT NULL,
 	topic_bumped number(1) DEFAULT '0' NOT NULL,
-	topic_bumper number(8) DEFAULT '0' NOT NULL,
+	topic_bumper number(10) DEFAULT '0' NOT NULL,
 	poll_title varchar2(765) DEFAULT '' ,
 	poll_start number(11) DEFAULT '0' NOT NULL,
 	poll_length number(11) DEFAULT '0' NOT NULL,
@@ -5377,9 +5377,9 @@ END;
 	Table: 'phpbb_topics_track'
 */
 CREATE TABLE phpbb_topics_track (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
-	forum_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
 	mark_time number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_topics_track PRIMARY KEY (user_id, topic_id)
 )
@@ -5394,8 +5394,8 @@ CREATE INDEX phpbb_topics_track_forum_id ON phpbb_topics_track (forum_id)
 	Table: 'phpbb_topics_posted'
 */
 CREATE TABLE phpbb_topics_posted (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	topic_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
 	topic_posted number(1) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_topics_posted PRIMARY KEY (user_id, topic_id)
 )
@@ -5406,8 +5406,8 @@ CREATE TABLE phpbb_topics_posted (
 	Table: 'phpbb_topics_watch'
 */
 CREATE TABLE phpbb_topics_watch (
-	topic_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	notify_status number(1) DEFAULT '0' NOT NULL
 )
 /
@@ -5423,8 +5423,8 @@ CREATE INDEX phpbb_topics_watch_notify_stat ON phpbb_topics_watch (notify_status
 	Table: 'phpbb_user_group'
 */
 CREATE TABLE phpbb_user_group (
-	group_id number(8) DEFAULT '0' NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
+	group_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
 	group_leader number(1) DEFAULT '0' NOT NULL,
 	user_pending number(1) DEFAULT '1' NOT NULL
 )
@@ -5441,19 +5441,19 @@ CREATE INDEX phpbb_user_group_group_leader ON phpbb_user_group (group_leader)
 	Table: 'phpbb_users'
 */
 CREATE TABLE phpbb_users (
-	user_id number(8) NOT NULL,
+	user_id number(10) NOT NULL,
 	user_type number(2) DEFAULT '0' NOT NULL,
-	group_id number(8) DEFAULT '3' NOT NULL,
+	group_id number(10) DEFAULT '3' NOT NULL,
 	username varchar2(255) DEFAULT '' ,
 	username_clean varchar2(255) DEFAULT '' ,
 	user_regdate number(11) DEFAULT '0' NOT NULL,
 	user_password varchar2(120) DEFAULT '' ,
 	user_email varchar2(300) DEFAULT '' ,
 	user_lang varchar2(30) DEFAULT '' ,
-	user_style number(8) DEFAULT '0' NOT NULL,
-	user_rank number(8) DEFAULT '0' NOT NULL,
+	user_style number(10) DEFAULT '0' NOT NULL,
+	user_rank number(10) DEFAULT '0' NOT NULL,
 	user_colour varchar2(6) DEFAULT '' ,
-	user_posts number(8) DEFAULT '0' NOT NULL,
+	user_posts number(10) DEFAULT '0' NOT NULL,
 	user_permissions clob DEFAULT '' ,
 	user_ip varchar2(40) DEFAULT '' ,
 	user_birthday varchar2(10) DEFAULT '' ,
@@ -5487,7 +5487,7 @@ CREATE TABLE phpbb_users (
 	user_actkey varchar2(32) DEFAULT '' ,
 	user_newpasswd varchar2(120) DEFAULT '' ,
 	user_allow_massemail number(1) DEFAULT '1' NOT NULL,
-	user_perm_from number(8) DEFAULT '0' NOT NULL,
+	user_perm_from number(10) DEFAULT '0' NOT NULL,
 	user_passchg number(11) DEFAULT '0' NOT NULL,
 	user_pass_convert number(1) DEFAULT '0' NOT NULL,
 	user_email_hash number(20) DEFAULT '0' NOT NULL,
@@ -5560,8 +5560,8 @@ CREATE TABLE phpbb_users (
 	user_digest_filter_type varchar2(3) DEFAULT 'ALL' NOT NULL,
 	user_digest_format varchar2(4) DEFAULT 'HTML' NOT NULL,
 	user_digest_max_display_words number(4) DEFAULT '0' NOT NULL,
-	user_digest_max_posts number(8) DEFAULT '0' NOT NULL,
-	user_digest_min_words number(8) DEFAULT '0' NOT NULL,
+	user_digest_max_posts number(10) DEFAULT '0' NOT NULL,
+	user_digest_min_words number(10) DEFAULT '0' NOT NULL,
 	user_digest_pm_mark_read number(4) DEFAULT '0' NOT NULL,
 	user_digest_remove_foes number(4) DEFAULT '0' NOT NULL,
 	user_digest_reset_lastvisit number(4) DEFAULT '1' NOT NULL,
@@ -5581,7 +5581,7 @@ CREATE TABLE phpbb_users (
 	user_points number(20, 2) DEFAULT '0' NOT NULL,
 	user_lastrefresh number(11) DEFAULT '0' NOT NULL,
 	show_likes number(3) DEFAULT '1' NOT NULL,
-	blog_count number(8) DEFAULT '0' NOT NULL,
+	blog_count number(10) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_users PRIMARY KEY (user_id),
 	CONSTRAINT u_phpbb_username_clean UNIQUE (username_clean)
 )
@@ -5614,10 +5614,10 @@ END;
 	Table: 'phpbb_warnings'
 */
 CREATE TABLE phpbb_warnings (
-	warning_id number(8) NOT NULL,
-	user_id number(8) DEFAULT '0' NOT NULL,
-	post_id number(8) DEFAULT '0' NOT NULL,
-	log_id number(8) DEFAULT '0' NOT NULL,
+	warning_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
+	log_id number(10) DEFAULT '0' NOT NULL,
 	warning_time number(11) DEFAULT '0' NOT NULL,
 	CONSTRAINT pk_phpbb_warnings PRIMARY KEY (warning_id)
 )
@@ -5644,7 +5644,7 @@ END;
 	Table: 'phpbb_words'
 */
 CREATE TABLE phpbb_words (
-	word_id number(8) NOT NULL,
+	word_id number(10) NOT NULL,
 	word varchar2(765) DEFAULT '' ,
 	replacement varchar2(765) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_words PRIMARY KEY (word_id)
@@ -5672,8 +5672,8 @@ END;
 	Table: 'phpbb_zebra'
 */
 CREATE TABLE phpbb_zebra (
-	user_id number(8) DEFAULT '0' NOT NULL,
-	zebra_id number(8) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	zebra_id number(10) DEFAULT '0' NOT NULL,
 	friend number(1) DEFAULT '0' NOT NULL,
 	foe number(1) DEFAULT '0' NOT NULL,
 	approval number(1) DEFAULT '0' NOT NULL,

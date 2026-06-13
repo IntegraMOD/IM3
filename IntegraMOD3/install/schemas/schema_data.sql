@@ -455,6 +455,7 @@ INSERT INTO phpbb_config VALUES('groups_on_reg_version', '1.0.1', 0);
 INSERT INTO phpbb_config VALUES('groups_require', '0', 0);
 INSERT INTO phpbb_config VALUES('groups_to_cpf_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('groups_to_cpf_no_pending', '0', 0);
+INSERT INTO phpbb_config VALUES('guest_sessions_cache', '1', 0);
 INSERT INTO phpbb_config VALUES('gzip_compress', '0', 0);
 INSERT INTO phpbb_config VALUES('hot_threshold', '25', 0);
 INSERT INTO phpbb_config VALUES('icons_path', 'images/icons', 0);
@@ -2051,7 +2052,6 @@ INSERT INTO phpbb_bbcodes VALUES(65, 'dm', 'ABBC3_DMOTION_TIP', 0, '[dm]{URL}[/d
 INSERT INTO phpbb_bbcodes VALUES(66, 'gamespot', 'ABBC3_GAMESPOT_TIP', 0, '[gamespot]{URL}[/gamespot]', '<a src=\"{URL}\">{URL}</a>', '!\\[gamespot\\]http://www.gamespot.com/video/(.*?)/(.*?)\\[/gamespot\\]!is', '\'[gamespot:$uid]http://www.gamespot.com/video/${1}/${2}[/gamespot:$uid]\'', '!\\[gamespot:$uid\\]http://www.gamespot.com/video/(.*?)/(.*?)\\[/gamespot:$uid\\]!si', '$this->auto_embed_video(\'http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/one/proteus2.swf\', \'432\', \'355\', \'skin=http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/one/skins/gamespot.png&paramsURI=http%3A%2F%2Fwww.gamespot.com%2Fpages%2Fvideo_player%2Fxml.php%3Fid%3D${2}%26mode%3Dembedded%26width%3D{WIDTH}%26height%3D{HEIGHT}%2F\')', 0, 0, 1, 'gamespot.gif', 79, '0');
 INSERT INTO phpbb_bbcodes VALUES(67, 'ignvideo', 'ABBC3_IGNVIDEO_TIP', 0, '[ignvideo]{URL}[/ignvideo]', '<a src=\"{URL}\">{URL}</a>', '!\\[ignvideo\\](.*?)objects/(.*?)/(.*?)\\[/ignvideo\\]!is', '\'[ignvideo:$uid]${1}objects/${2}/${3}[/ignvideo:$uid]\'', '!\\[ignvideo:$uid\\](.*?)objects/(.*?)/(.*?)\\[/ignvideo:$uid\\]!si', '$this->auto_embed_video(\'http://videomedia.ign.com/ev/ev.swf?object_ID=${2}\', \'433\', \'360\')', 0, 0, 1, 'ign.gif', 80, '0');
 INSERT INTO phpbb_bbcodes VALUES(68, 'liveleak', 'ABBC3_LIVELEAK_TIP', 0, '[liveleak]{URL}[/liveleak]', '<a src=\"{URL}\">{URL}</a>', '!\\[liveleak\\]http://www.liveleak.com/view\\?i\\=(.*?)\\[/liveleak\\]!is', '\'[liveleak:$uid]http://www.liveleak.com/view?i=${1}[/liveleak:$uid]\'', '!\\[liveleak:$uid\\]http://www.liveleak.com/view\\?i\\=(.*?)\\[/liveleak:$uid\\]!si', '$this->auto_embed_video(\'http://www.liveleak.com/e/${1}\', \'450\', \'370\')', 0, 0, 1, 'liveleak.gif', 81, '0');
-INSERT INTO phpbb_config VALUES('guest_sessions_cache', '1', 0);
 INSERT INTO phpbb_bbcodes VALUES(69, 'division4', 'ABBC3_DIVISION', 1, '.', '.', '.', '.', '.', '.', 1, 1, 1, 'dots.gif', 66, '0');
 INSERT INTO phpbb_bbcodes VALUES(70, 'url=', 'ABBC3_ED2K_TIP', 0, '.', '.', '.', '.', '.', '.', 0, 0, 1, 'emule.gif', 61, '0');
 INSERT INTO phpbb_bbcodes VALUES(71, 'imgshack', 'ABBC3_IMGSHACK_MOVER', 1, '.', '.', '.', '.', '.', '.', 1, 1, 1, 'imgshack.gif', 59, '0');

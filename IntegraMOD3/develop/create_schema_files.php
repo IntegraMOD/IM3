@@ -22,8 +22,38 @@ $schema_data = get_schema_struct();
 $dbms_type_map = array(
 	'mysql_80'	=> array(
 		'INT:'		=> 'int(%d)',
+		'BINT'		=> 'bigint',
+		'UINT'		=> 'int UNSIGNED',
+		'UINT:'		=> 'int(%d) UNSIGNED',
+		'TINT:'		=> 'tinyint(%d)',
+		'USINT'		=> 'smallint UNSIGNED',
+		'BOOL'		=> 'tinyint UNSIGNED',
+		'VCHAR'		=> 'varchar(255)',
+		'VCHAR:'	=> 'varchar(%d)',
+		'CHAR:'		=> 'char(%d)',
+		'XSTEXT'	=> 'text',
+		'XSTEXT_UNI'=> 'varchar(100)',
+		'STEXT'		=> 'text',
+		'STEXT_UNI'	=> 'varchar(255)',
+		'TEXT'		=> 'text',
+		'TEXT_UNI'	=> 'text',
+		'MTEXT'		=> 'mediumtext',
+		'MTEXT_UNI'	=> 'mediumtext',
+		'TIMESTAMP'	=> 'int UNSIGNED',
+		'DECIMAL'	=> 'decimal(5,2)',
+		'DECIMAL:'	=> 'decimal(%d,2)',
+		'PDECIMAL'	=> 'decimal(6,3)',
+		'PDECIMAL:'	=> 'decimal(%d,3)',
+		'VCHAR_UNI'	=> 'varchar(255)',
+		'VCHAR_UNI:'=> 'varchar(%d)',
+		'VCHAR_CI'	=> 'varchar(255)',
+		'VARBINARY'	=> 'varbinary(255)',
+	),
+
+	'mysql_41'	=> array(
+		'INT:'		=> 'int(%d)',
 		'BINT'		=> 'bigint(20)',
-		'UINT'		=> 'mediumint(8) UNSIGNED',
+		'UINT'		=> 'int(10) UNSIGNED',
 		'UINT:'		=> 'int(%d) UNSIGNED',
 		'TINT:'		=> 'tinyint(%d)',
 		'USINT'		=> 'smallint(4) UNSIGNED',
@@ -49,40 +79,10 @@ $dbms_type_map = array(
 		'VCHAR_CI'	=> 'varchar(255)',
 		'VARBINARY'	=> 'varbinary(255)',
 	),
-
-	'mysql_40'	=> array(
-		'INT:'		=> 'int(%d)',
-		'BINT'		=> 'bigint(20)',
-		'UINT'		=> 'mediumint(8) UNSIGNED',
-		'UINT:'		=> 'int(%d) UNSIGNED',
-		'TINT:'		=> 'tinyint(%d)',
-		'USINT'		=> 'smallint(4) UNSIGNED',
-		'BOOL'		=> 'tinyint(1) UNSIGNED',
-		'VCHAR'		=> 'varbinary(255)',
-		'VCHAR:'	=> 'varbinary(%d)',
-		'CHAR:'		=> 'binary(%d)',
-		'XSTEXT'	=> 'blob',
-		'XSTEXT_UNI'=> 'blob',
-		'STEXT'		=> 'blob',
-		'STEXT_UNI'	=> 'blob',
-		'TEXT'		=> 'blob',
-		'TEXT_UNI'	=> 'blob',
-		'MTEXT'		=> 'mediumblob',
-		'MTEXT_UNI'	=> 'mediumblob',
-		'TIMESTAMP'	=> 'int(11) UNSIGNED',
-		'DECIMAL'	=> 'decimal(5,2)',
-		'DECIMAL:'	=> 'decimal(%d,2)',
-		'PDECIMAL'	=> 'decimal(6,3)',
-		'PDECIMAL:'	=> 'decimal(%d,3)',
-		'VCHAR_UNI'	=> 'blob',
-		'VCHAR_UNI:'=> array('varbinary(%d)', 'limit' => array('mult', 3, 255, 'blob')),
-		'VCHAR_CI'	=> 'blob',
-		'VARBINARY'	=> 'varbinary(255)',
-	),
-
+	
 	'firebird'	=> array(
 		'INT:'		=> 'INTEGER',
-		'BINT'		=> 'DOUBLE PRECISION',
+		'BINT'		=> 'BIGINT',
 		'UINT'		=> 'INTEGER',
 		'UINT:'		=> 'INTEGER',
 		'TINT:'		=> 'INTEGER',
@@ -112,7 +112,7 @@ $dbms_type_map = array(
 
 	'mssql'		=> array(
 		'INT:'		=> '[int]',
-		'BINT'		=> '[float]',
+		'BINT'		=> '[bigint]',
 		'UINT'		=> '[int]',
 		'UINT:'		=> '[int]',
 		'TINT:'		=> '[int]',
@@ -124,26 +124,26 @@ $dbms_type_map = array(
 		'XSTEXT'	=> '[varchar] (1000)',
 		'STEXT'		=> '[varchar] (3000)',
 		'TEXT'		=> '[varchar] (8000)',
-		'MTEXT'		=> '[text]',
+		'MTEXT'		=> '[varchar] (max)',
 		'XSTEXT_UNI'=> '[varchar] (100)',
 		'STEXT_UNI'	=> '[varchar] (255)',
-		'TEXT_UNI'	=> '[varchar] (4000)',
-		'MTEXT_UNI'	=> '[text]',
+		'TEXT_UNI'	=> '[nvarchar] (4000)',
+		'MTEXT_UNI'	=> '[nvarchar] (max)',
 		'TIMESTAMP'	=> '[int]',
 		'DECIMAL'	=> '[float]',
 		'DECIMAL:'	=> '[float]',
 		'PDECIMAL'	=> '[float]',
 		'PDECIMAL:'	=> '[float]',
-		'VCHAR_UNI'	=> '[varchar] (255)',
-		'VCHAR_UNI:'=> '[varchar] (%d)',
-		'VCHAR_CI'	=> '[varchar] (255)',
-		'VARBINARY'	=> '[varchar] (255)',
+		'VCHAR_UNI'	=> '[nvarchar] (255)',
+		'VCHAR_UNI:'=> '[nvarchar] (%d)',
+		'VCHAR_CI'	=> '[nvarchar] (255)',
+		'VARBINARY'	=> '[varbinary] (255)',
 	),
 
 	'oracle'	=> array(
 		'INT:'		=> 'number(%d)',
 		'BINT'		=> 'number(20)',
-		'UINT'		=> 'number(8)',
+		'UINT'		=> 'number(10)',
 		'UINT:'		=> 'number(%d)',
 		'TINT:'		=> 'number(%d)',
 		'USINT'		=> 'number(4)',
@@ -173,11 +173,11 @@ $dbms_type_map = array(
 	'sqlite'	=> array(
 		'INT:'		=> 'int(%d)',
 		'BINT'		=> 'bigint(20)',
-		'UINT'		=> 'INTEGER UNSIGNED', //'mediumint(8) UNSIGNED',
-		'UINT:'		=> 'INTEGER UNSIGNED', // 'int(%d) UNSIGNED',
+		'UINT'		=> 'INTEGER UNSIGNED',
+		'UINT:'		=> 'INTEGER UNSIGNED',
 		'TINT:'		=> 'tinyint(%d)',
-		'USINT'		=> 'INTEGER UNSIGNED', //'mediumint(4) UNSIGNED',
-		'BOOL'		=> 'INTEGER UNSIGNED', //'tinyint(1) UNSIGNED',
+		'USINT'		=> 'INTEGER UNSIGNED',
+		'BOOL'		=> 'INTEGER UNSIGNED',
 		'VCHAR'		=> 'varchar(255)',
 		'VCHAR:'	=> 'varchar(%d)',
 		'CHAR:'		=> 'char(%d)',
@@ -189,7 +189,7 @@ $dbms_type_map = array(
 		'STEXT_UNI'	=> 'text(65535)',
 		'TEXT_UNI'	=> 'text(65535)',
 		'MTEXT_UNI'	=> 'mediumtext(16777215)',
-		'TIMESTAMP'	=> 'INTEGER UNSIGNED', //'int(11) UNSIGNED',
+		'TIMESTAMP'	=> 'INTEGER UNSIGNED',
 		'DECIMAL'	=> 'decimal(5,2)',
 		'DECIMAL:'	=> 'decimal(%d,2)',
 		'PDECIMAL'	=> 'decimal(6,3)',
@@ -233,7 +233,7 @@ $dbms_type_map = array(
 
 // A list of types being unsigned for better reference in some db's
 $unsigned_types = array('UINT', 'UINT:', 'USINT', 'BOOL', 'TIMESTAMP');
-$supported_dbms = array('firebird', 'mssql', 'mysql_40', 'mysql_80', 'oracle', 'postgres', 'sqlite');
+$supported_dbms = array('firebird', 'mssql', 'mysql_41', 'mysql_80', 'oracle', 'postgres', 'sqlite');
 
 foreach ($supported_dbms as $dbms)
 {
@@ -257,7 +257,7 @@ foreach ($supported_dbms as $dbms)
 	// Write Header
 	switch ($dbms)
 	{
-		case 'mysql_40':
+		case 'mysql_41':
 		case 'mysql_80':
 		case 'firebird':
 		case 'sqlite':
@@ -308,7 +308,7 @@ foreach ($supported_dbms as $dbms)
 		// Write comment about table
 		switch ($dbms)
 		{
-			case 'mysql_40':
+			case 'mysql_41':
 			case 'mysql_80':
 			case 'firebird':
 			case 'sqlite':
@@ -328,7 +328,7 @@ foreach ($supported_dbms as $dbms)
 
 		switch ($dbms)
 		{
-			case 'mysql_40':
+			case 'mysql_41':
 			case 'mysql_80':
 			case 'firebird':
 			case 'oracle':
@@ -418,7 +418,31 @@ foreach ($supported_dbms as $dbms)
 
 			switch ($dbms)
 			{
-				case 'mysql_40':
+				case 'mysql_41':
+					$line .= "\t{$column_name} {$column_type} ";
+
+					// For hexadecimal values do not use single quotes
+					if (!is_null($column_data[1]) && substr($column_type, -4) !== 'text' && substr($column_type, -4) !== 'blob')
+					{
+						$line .= (strpos($column_data[1], '0x') === 0) ? "DEFAULT {$column_data[1]} " : "DEFAULT '{$column_data[1]}' ";
+					}
+					$line .= 'NOT NULL';
+
+					if (isset($column_data[2]))
+					{
+						if ($column_data[2] == 'auto_increment')
+						{
+							$line .= ' auto_increment';
+						}
+						else if ($column_data[2] == 'true_sort')
+						{
+							$line .= ' COLLATE utf8_unicode_ci';
+						}
+					}
+
+					$line .= ",\n";
+				break;
+
 				case 'mysql_80':
 					$line .= "\t{$column_name} {$column_type} ";
 
@@ -427,14 +451,7 @@ foreach ($supported_dbms as $dbms)
 					{
 						$line .= (strpos($column_data[1], '0x') === 0) ? "DEFAULT {$column_data[1]} " : "DEFAULT '{$column_data[1]}' ";
 					}
-					if (isset($column_data[2]) && $column_data[2] === 'null')
-					{
-						$line .= 'NULL';
-					}
-					else
-					{
-						$line .= 'NOT NULL';
-					}
+					$line .= 'NOT NULL';
 
 					if (isset($column_data[2]))
 					{
@@ -442,9 +459,9 @@ foreach ($supported_dbms as $dbms)
 						{
 							$line .= ' auto_increment';
 						}
-						else if ($dbms === 'mysql_80' && $column_data[2] == 'true_sort')
+						else if ($column_data[2] == 'true_sort')
 						{
-							$line .= ' COLLATE utf8mb4_general_ci';
+							$line .= ' COLLATE utf8mb4_unicode_ci';
 						}
 					}
 
@@ -625,7 +642,7 @@ foreach ($supported_dbms as $dbms)
 
 			switch ($dbms)
 			{
-				case 'mysql_40':
+				case 'mysql_41':
 				case 'mysql_80':
 				case 'postgres':
 					$line .= "\tPRIMARY KEY (" . implode(', ', $table_data['PRIMARY_KEY']) . "),\n";
@@ -712,7 +729,7 @@ foreach ($supported_dbms as $dbms)
 
 				switch ($dbms)
 				{
-					case 'mysql_40':
+					case 'mysql_41':
 					case 'mysql_80':
 						$line .= ($key_data[0] == 'INDEX') ? "\tKEY" : '';
 						$line .= ($key_data[0] == 'UNIQUE') ? "\tUNIQUE" : '';
@@ -777,7 +794,7 @@ foreach ($supported_dbms as $dbms)
 
 		switch ($dbms)
 		{
-			case 'mysql_40':
+			case 'mysql_41':
 				// Remove last line delimiter...
 				$line = substr($line, 0, -2);
 				$line .= "\n);\n\n";
@@ -964,6 +981,7 @@ function get_schema_struct()
 			'auth_setting'		=> array('TINT:2', 0),
 			'is_kb'				=> array('BOOL', 0),			
 		),
+		'PRIMARY_KEY'	=> array('user_id', 'forum_id', 'auth_option_id'),
 		'KEYS'			=> array(
 			'user_id'			=> array('INDEX', 'user_id'),
 			'auth_option_id'	=> array('INDEX', 'auth_option_id'),
@@ -1776,7 +1794,30 @@ function get_schema_struct()
 		),
 		'PRIMARY_KEY'	=> 'ver_id',
 	);
-	
+
+	$schema_data['phpbb_donation_item'] = array(
+		'COLUMNS'	=> array(
+			'item_id'						=> array('UINT:8', null, 'auto_increment'),
+			'item_type'						=> array('VCHAR:16', ''),
+			'item_name'						=> array('VCHAR:50', ''),
+			'item_iso_code'					=> array('VCHAR:10', ''),
+			'item_symbol'					=> array('VCHAR:10', ''),
+			'item_text'						=> array('MTEXT_UNI', ''),
+			'item_enable'					=> array('BOOL', 1),
+			'left_id'						=> array('UINT:8', 0),
+			'right_id'						=> array('UINT:8', 0),
+			'item_text_bbcode_bitfield'		=> array('VCHAR:255', ''),
+			'item_text_bbcode_uid'			=> array('VCHAR:8', ''),
+			'item_text_bbcode_options'		=> array('UINT', 7),
+		),
+		'PRIMARY_KEY'	=> 'item_id',
+		'KEYS'	=> array(
+			'item_type'			=> array('INDEX', 'item_type'),
+			'item_name'			=> array('INDEX', 'item_name'),
+			'item_iso_code'		=> array('INDEX', 'item_iso_code'),
+		),
+	);
+
 	$schema_data['phpbb_downloads'] = array(
 		'COLUMNS'		=> array(
 			'id'					=> array('UINT:11', NULL, 'auto_increment'),
@@ -1955,6 +1996,7 @@ function get_schema_struct()
 			'forum_last_poster_colour'=> array('VCHAR:6', ''),
 			'forum_flags'			=> array('TINT:4', 32),
 			'forum_options'			=> array('UINT:20', 0),
+			'forum_share_enable'	=> array('BOOL', 1),
 			'display_subforum_list'	=> array('BOOL', 1),
 			'display_on_index'		=> array('BOOL', 1),
 			'enable_indexing'		=> array('BOOL', 1),
@@ -1967,6 +2009,7 @@ function get_schema_struct()
 			'forum_perpost'			=> array('DECIMAL:10', 5.00),
 			'forum_peredit'			=> array('DECIMAL:10', 0.05),
 			'forum_pertopic'		=> array('DECIMAL:10', 15.00),
+            'forum_recent_posters'  => array('MTEXT_UNI', null, 'null'),
 		),
 		'PRIMARY_KEY'	=> 'forum_id',
 		'KEYS'			=> array(
@@ -3926,13 +3969,14 @@ function get_schema_struct()
 			'poll_max_options'			=> array('TINT:4', 1),
 			'poll_last_vote'			=> array('TIMESTAMP', 0),
 			'poll_vote_change'			=> array('BOOL', 0),
-			'topic_calendar_time'       => array('UINT', 0, 'null'),
+			'topic_calendar_time'       => array('INT:11', 0, 'null'),
 			'topic_calendar_duration'   => array('UINT:11', 0, 'null'),
 			'event_repeat'              => array('VCHAR:8', '', 'null'),
 			'invite_attendees'          => array('BOOL', 0, 'null'),
 			'event_attendees'           => array('MTEXT_UNI', '', 'null'),
 			'event_non_attendees'       => array('MTEXT_UNI', '', 'null'),
 			'topic_first_post_show'     => array('BOOL', 0, 'null'),
+			'topic_recent_posters'      => array('MTEXT_UNI', null, 'null'),
 		),
 		'PRIMARY_KEY'	=> 'topic_id',
 		'KEYS'			=> array(
