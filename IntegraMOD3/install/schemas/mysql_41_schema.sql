@@ -1019,7 +1019,7 @@ CREATE TABLE phpbb_forums (
 	forum_perpost decimal(10,2) DEFAULT '5' NOT NULL,
 	forum_peredit decimal(10,2) DEFAULT '0.05' NOT NULL,
 	forum_pertopic decimal(10,2) DEFAULT '15' NOT NULL,
-	forum_recent_posters mediumtext NOT NULL,
+	forum_recent_posters varchar(255) DEFAULT '' NOT NULL,
 	PRIMARY KEY (forum_id),
 	KEY left_right_id (left_id, right_id),
 	KEY forum_lastpost_id (forum_last_post_id)
@@ -2850,7 +2850,7 @@ CREATE TABLE phpbb_topics (
 	event_attendees mediumtext NOT NULL,
 	event_non_attendees mediumtext NOT NULL,
 	topic_first_post_show tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	topic_recent_posters mediumtext NOT NULL,
+	topic_recent_posters varchar(255) DEFAULT '' NOT NULL,
 	PRIMARY KEY (topic_id),
 	KEY forum_id (forum_id),
 	KEY forum_id_type (forum_id, topic_type),

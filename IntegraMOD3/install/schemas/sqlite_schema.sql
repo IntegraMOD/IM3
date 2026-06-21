@@ -987,7 +987,7 @@ CREATE TABLE phpbb_forums (
 	forum_perpost decimal(10,2) NOT NULL DEFAULT '5',
 	forum_peredit decimal(10,2) NOT NULL DEFAULT '0.05',
 	forum_pertopic decimal(10,2) NOT NULL DEFAULT '15',
-	forum_recent_posters mediumtext(16777215) NULL 
+	forum_recent_posters varchar(255) NOT NULL DEFAULT ''
 );
 
 CREATE INDEX phpbb_forums_left_right_id ON phpbb_forums (left_id, right_id);
@@ -2747,7 +2747,7 @@ CREATE TABLE phpbb_topics (
 	event_attendees mediumtext(16777215) NULL DEFAULT '',
 	event_non_attendees mediumtext(16777215) NULL DEFAULT '',
 	topic_first_post_show INTEGER UNSIGNED NULL DEFAULT '0',
-	topic_recent_posters mediumtext(16777215) NULL 
+	topic_recent_posters varchar(255) NOT NULL DEFAULT ''
 );
 
 CREATE INDEX phpbb_topics_forum_id ON phpbb_topics (forum_id);

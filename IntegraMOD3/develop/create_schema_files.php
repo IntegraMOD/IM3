@@ -2009,7 +2009,7 @@ function get_schema_struct()
 			'forum_perpost'			=> array('DECIMAL:10', 5.00),
 			'forum_peredit'			=> array('DECIMAL:10', 0.05),
 			'forum_pertopic'		=> array('DECIMAL:10', 15.00),
-            'forum_recent_posters'  => array('MTEXT_UNI', null, 'null'),
+            'forum_recent_posters'  => array('VCHAR_UNI', ''),
 		),
 		'PRIMARY_KEY'	=> 'forum_id',
 		'KEYS'			=> array(
@@ -3976,7 +3976,7 @@ function get_schema_struct()
 			'event_attendees'           => array('MTEXT_UNI', '', 'null'),
 			'event_non_attendees'       => array('MTEXT_UNI', '', 'null'),
 			'topic_first_post_show'     => array('BOOL', 0, 'null'),
-			'topic_recent_posters'      => array('MTEXT_UNI', null, 'null'),
+			'topic_recent_posters'      => array('VCHAR_UNI', ''),
 		),
 		'PRIMARY_KEY'	=> 'topic_id',
 		'KEYS'			=> array(

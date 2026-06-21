@@ -1868,7 +1868,7 @@ CREATE TABLE phpbb_forums (
 	forum_perpost number(10, 2) DEFAULT '5' NOT NULL,
 	forum_peredit number(10, 2) DEFAULT '0.05' NOT NULL,
 	forum_pertopic number(10, 2) DEFAULT '15' NOT NULL,
-	forum_recent_posters clob NULL,
+	forum_recent_posters varchar2(765) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_forums PRIMARY KEY (forum_id)
 )
 /
@@ -5339,7 +5339,7 @@ CREATE TABLE phpbb_topics (
 	event_attendees clob DEFAULT '' NULL,
 	event_non_attendees clob DEFAULT '' NULL,
 	topic_first_post_show number(1) DEFAULT '0' NULL,
-	topic_recent_posters clob NULL,
+	topic_recent_posters varchar2(765) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_topics PRIMARY KEY (topic_id)
 )
 /

@@ -1724,7 +1724,7 @@ CREATE TABLE [phpbb_forums] (
 	[forum_perpost] [float] DEFAULT (5) NOT NULL ,
 	[forum_peredit] [float] DEFAULT (0.05) NOT NULL ,
 	[forum_pertopic] [float] DEFAULT (15) NOT NULL ,
-	[forum_recent_posters] [nvarchar] (max) NULL 
+	[forum_recent_posters] [nvarchar] (255) DEFAULT ('') NOT NULL 
 )GO
 
 ALTER TABLE [phpbb_forums] WITH NOCHECK ADD 
@@ -4832,7 +4832,7 @@ CREATE TABLE [phpbb_topics] (
 	[event_attendees] [nvarchar] (max) DEFAULT ('') NULL ,
 	[event_non_attendees] [nvarchar] (max) DEFAULT ('') NULL ,
 	[topic_first_post_show] [int] DEFAULT (0) NULL ,
-	[topic_recent_posters] [nvarchar] (max) NULL 
+	[topic_recent_posters] [nvarchar] (255) DEFAULT ('') NOT NULL 
 )GO
 
 ALTER TABLE [phpbb_topics] WITH NOCHECK ADD 

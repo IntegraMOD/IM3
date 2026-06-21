@@ -1299,7 +1299,7 @@ CREATE TABLE phpbb_forums (
 	forum_perpost decimal(10,2) DEFAULT '5' NOT NULL,
 	forum_peredit decimal(10,2) DEFAULT '0.05' NOT NULL,
 	forum_pertopic decimal(10,2) DEFAULT '15' NOT NULL,
-	forum_recent_posters TEXT NULL,
+	forum_recent_posters varchar(255) DEFAULT '' NOT NULL,
 	PRIMARY KEY (forum_id)
 );
 
@@ -3506,7 +3506,7 @@ CREATE TABLE phpbb_topics (
 	event_attendees TEXT DEFAULT '' NULL,
 	event_non_attendees TEXT DEFAULT '' NULL,
 	topic_first_post_show INT2 DEFAULT '0' NULL CHECK (topic_first_post_show >= 0),
-	topic_recent_posters TEXT NULL,
+	topic_recent_posters varchar(255) DEFAULT '' NOT NULL,
 	PRIMARY KEY (topic_id)
 );
 
