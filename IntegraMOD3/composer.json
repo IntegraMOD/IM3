@@ -1,9 +1,0 @@
-{
-	"require-dev": {
-		"fabpot/goutte": "3.2.*",
-		"phpunit/dbunit": "4.0.*",
-		"phpunit/phpunit": "9.5.*",
-		"phing/phing": "2.16.*",
-		"phpDocumentor/phpDocumentor": "3.*"
-	}
-}
