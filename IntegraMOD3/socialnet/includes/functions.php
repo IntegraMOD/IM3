@@ -2253,44 +2253,6 @@ public function __construct()
 	}
 	}
 	 
-	if (!function_exists('json_decode')) {
-	/**
-	 * json_encode function for PHP lower than 5.2.0
-	 *
-	 * @access public
-	 *
-	 * @author walidator.info 2009
-	 *
-	 * @param string $json input string to be decoded
-	 * @return mixed
-	 */
-	function json_decode($json)
-	{
-	$comment = false;
-	$out = '$x=';
-	 
-	for ($i = 0; $i < strlen($json); $i++) {
-	if (!$comment) {
-	if ($json[$i] == '{') {
-	$out .= ' array(';
-	} elseif ($json[$i] == '}') {
-	$out .= ')';
-	} elseif ($json[$i] == ':') {
-	$out .= '=>';
-	} else {
-	$out .= $json[$i];
-	}
-	} else {
-	$out .= $json[$i];
-	}
-	if ($json[$i] == '"') {
-	$comment = !$comment;
-	}
-	}
-	eval($out . ';');
-	return $x;
-	}
-	}
 	 
 	if (!function_exists('array_walk_recursive')) {
 	/**

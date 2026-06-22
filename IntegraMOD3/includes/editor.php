@@ -470,7 +470,7 @@ public function inline_find($find, $inline_find, $start_offset = false, $end_off
             if (preg_match('#'.$inline_find.'#is', $this->file_contents[$i], $find_contents)) {
                 // now we can do some math
                 // $find_contents[1] is the original number, $action[2] is the operator
-                $new_number = eval('return '.((int) $find_contents[1]).$action[2].((int) $action[3]).';');
+                $new_number = ($action[2] == '-') ? ((int) $find_contents[1] - (int) $action[3]) : ((int) $find_contents[1] + (int) $action[3]);
  
                 // now we replace
                 $new_contents = str_replace($find_contents[1], $new_number, $find_contents[0]);

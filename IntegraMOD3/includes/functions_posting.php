@@ -694,6 +694,11 @@ function create_thumbnail($source, $destination, $mimetype)
 
 		@passthru(escapeshellcmd($config['img_imagick']) . 'convert' . ((defined('PHP_OS') && preg_match('#^win#i', PHP_OS)) ? '.exe' : '') . ' -quality 85 -geometry ' . $new_width . 'x' . $new_height . ' "' . str_replace('\\', '/', $source) . '" "' . str_replace('\\', '/', $destination) . '"');
 
+		if (!file_exists($destination))
+		{
+			@passthru(escapeshellcmd($config['img_imagick']) . 'magick' . ((defined('PHP_OS') && preg_match('#^win#i', PHP_OS)) ? '.exe' : '') . ' "' . str_replace('\\', '/', $source) . '" -quality 85 -geometry ' . $new_width . 'x' . $new_height . ' "' . str_replace('\\', '/', $destination) . '"');
+		}
+
 		if (file_exists($destination))
 		{
 			$used_imagick = true;
