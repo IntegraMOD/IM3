@@ -600,15 +600,22 @@ class acm
 			fclose($handle);
 
 			// unserialize if we got some data
-			$data = ($data !== false) ? @unserialize($data) : $data;
-
-			if ($data === false)
+			if ($data !== false)
 			{
-				$this->remove_file($file);
-				return false;
+				$tmp = unserialize($data);
+
+				// unserialize() returns false on failure AND for serialized false ("b:0;")
+				if ($tmp === false && $data !== 'b:0;')
+				{
+					$this->remove_file($file);
+					return false;
+				}
+
+				$data = $tmp;
 			}
 
 			return $data;
+
 		}
 	}
 
