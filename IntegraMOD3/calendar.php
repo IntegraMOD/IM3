@@ -21,11 +21,14 @@ include($phpbb_root_path . 'common.'.$phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 
+$template->assign_var('S_IN_CALENDAR', true);
+
 // Start session management
 $user->session_begin();
 $auth->acl($user->data);
 // Note the '1' forces the calendar to be loaded with prosilver - This can be removed when we have templates for subsilver
 $user->setup(array('posting', 'mods/calendar'));
+
 // Note this file is included after user->setup(), to ensure that some globals in functions_calendar.php can
 // find the $user->lang array
 include($phpbb_root_path . 'includes/functions_calendar.' . $phpEx);
