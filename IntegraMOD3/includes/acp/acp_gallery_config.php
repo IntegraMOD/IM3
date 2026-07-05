@@ -176,7 +176,7 @@ class acp_gallery_config
 				$template->assign_block_vars('options', array(
 					'S_LEGEND'		=> true,
 					'LEGEND'		=> isset($user->lang[$vars]) ? $user->lang[$vars] : $vars,
-				);
+				));
 
 				continue;
 			}
