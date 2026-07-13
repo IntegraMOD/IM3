@@ -21,10 +21,11 @@
 	  </ul>	
     </li>
 	<!-- ENDIF -->
-    <li><a class="dropdown-arrow <!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_MEETING or S_IN_BLOG --> activetab<!-- ENDIF -->" href="#">
+    <li><a class="dropdown-arrow <!-- IF S_IN_FAQ or S_IN_CALENDAR or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_MEETING or S_IN_BLOG --> activetab<!-- ENDIF -->" href="#">
 		<!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY -->{L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->			
 		<!-- IF S_IN_FAQ -->{L_FAQ}<!-- ENDIF -->
 		<!-- IF S_IN_KNOWLEDGE_BASE -->{L_KNOWLEDGE_BASE}<!-- ENDIF -->
+		<!-- IF S_IN_CALENDAR -->{L_CALENDAR}<!-- ENDIF -->
 		<!-- IF S_DISPLAY_MEMBERLIST and S_IN_MEMBERLIST -->{L_MEMBERLIST}<!-- ENDIF -->
 		<!-- IF S_SHOW_DL_LINK and S_IN_DL -->{L_DOWNLOADS}<!-- ENDIF -->
 		<!-- IF S_HACKLIST_ON and S_IN_HACKLIST -->{L_HACKLIST}<!-- ENDIF -->
@@ -33,7 +34,7 @@
 		<!-- IF S_CONTACT_ENABLED and S_IN_CONTACT -->{L_CONTACT_BOARD_ADMIN_SHORT}<!-- ENDIF -->
 		<!-- IF S_IN_BLOG -->{L_BLOG}<!-- ENDIF -->
 		<!-- IF S_IN_MEETING -->{L_MEETINGS}<!-- ENDIF -->
-		<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_MEETING and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
+		<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_CALENDAR and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_MEETING and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
       </a>
       <ul class="sub-menus">
  		<!-- IF S_SHOW_ACTIVITY -->
@@ -46,6 +47,9 @@
 		<li><a href="{U_KB}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</a></li>
 		<!-- ENDIF -->
 	  <!-- IF not S_IS_BOT -->
+ 		<!-- IF S_SHOW_CAL -->
+		<li><a href="{U_CALENDAR}"><i class="fa-solid fa-calendar"></i> {L_CALENDAR}</a></li>
+		<!-- ENDIF -->
 		<!-- IF S_DISPLAY_MEMBERLIST and S_SHOW_MEM -->
 		<li><a href="{U_MEMBERLIST}"><i class="fa-solid fa-user-group"></i> {L_MEMBERLIST}</a></li>
 		<!-- ENDIF -->	  
@@ -89,7 +93,7 @@
 	
 	
 	<!-- IF S_USER_LOGGED_IN and not S_IS_BOT -->
-    <li><a class="dropdown-arrow username uname" href="http:#">&nbsp;{S_USERNAME}&nbsp;</a>
+    <li><a class="dropdown-arrow username uname" href="#">&nbsp;{S_USERNAME}&nbsp;</a>
       <ul class="sub-menus">
 		<li><a href="{U_PROFILE}"><i class="fa-solid fa-user-gear"></i> {L_PROFILE}</a></li>
 		<li><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><i class="fa-solid fa-address-card"></i> {L_READ_PROFILE}</a></li>
