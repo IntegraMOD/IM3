@@ -61,7 +61,16 @@ class phpbb_gallery
 		$user->setup($lang_sets);
 
 		phpbb_gallery_url::_include('functions_phpbb', 'phpbb', 'includes/gallery/');
-		phpbb_gallery_plugins::init(phpbb_gallery_url::path());
+        // Ensure plugins class is available
+        global $phpbb_root_path, $phpEx;
+        if (!class_exists('phpbb_gallery_plugins'))
+        {
+            @include_once($phpbb_root_path . 'includes/gallery/plugins.' . $phpEx);
+        }
+        if (class_exists('phpbb_gallery_plugins'))
+        {
+            phpbb_gallery_plugins::init(phpbb_gallery_url::path());
+        }
 
 		// Little precaution.
 		$user->data['user_id'] = (int) $user->data['user_id'];
@@ -140,8 +149,17 @@ class phpbb_gallery
 	{
 		global $db, $user;
 
-		phpbb_gallery_url::_include('functions_phpbb', 'phpbb', 'includes/gallery/');
-		phpbb_gallery_plugins::init(phpbb_gallery_url::path());
+        phpbb_gallery_url::_include('functions_phpbb', 'phpbb', 'includes/gallery/');
+        // Ensure plugins class is available
+        global $phpbb_root_path, $phpEx;
+        if (!class_exists('phpbb_gallery_plugins'))
+        {
+            @include_once($phpbb_root_path . 'includes/gallery/plugins.' . $phpEx);
+        }
+        if (class_exists('phpbb_gallery_plugins'))
+        {
+            phpbb_gallery_plugins::init(phpbb_gallery_url::path());
+        }
 
 		// Little precaution.
 		$user->data['user_id'] = (int) $user->data['user_id'];

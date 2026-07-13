@@ -250,7 +250,15 @@ class phpbb_gallery_integration
 		global $phpbb_root_path, $phpEx, $template, $user;
 
 		$user->add_lang('mods/info_acp_gallery');
-		phpbb_gallery_plugins::init(phpbb_gallery_url::path('gallery'));
+        // Ensure plugins class is available
+        if (!class_exists('phpbb_gallery_plugins'))
+        {
+            @include_once($phpbb_root_path . 'includes/gallery/plugins.' . $phpEx);
+        }
+        if (class_exists('phpbb_gallery_plugins'))
+        {
+            phpbb_gallery_plugins::init(phpbb_gallery_url::path('gallery'));
+        }
 		$template->assign_var('U_GALLERY_MOD', phpbb_gallery_url::append_sid('index'));
 	}
 

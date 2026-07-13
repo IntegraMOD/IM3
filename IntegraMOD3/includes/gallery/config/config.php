@@ -26,7 +26,17 @@ class phpbb_gallery_config
 			self::load();
 		}
 
-		return self::$config[$key];
+        if (isset(self::$config[$key]))
+        {
+            return self::$config[$key];
+        }
+        // Fallback to default if available
+        if (isset(self::$default_config[$key]))
+        {
+            return self::$default_config[$key];
+        }
+
+        return null;
 	}
 
 	static public function get_array()
