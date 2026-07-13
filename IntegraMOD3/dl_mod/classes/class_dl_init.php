@@ -57,15 +57,15 @@ class dl_init extends dl_mod
 		* define the current user
 		*/
 		$user_id = ($user->data['user_perm_from']) ? $user->data['user_perm_from'] : $user->data['user_id'];
-		$user_regdate = $user->data['user_regdate'];
-		$user_dl_update_time = $user->data['user_dl_update_time'];
-		$user_traffic = $user->data['user_traffic'];
-		$user_logged_in = $user->data['is_registered'];
-		$user_posts = $user->data['user_posts'];
-		$user_client = $user->data['session_browser'];
-		$username = $user->data['username'];
-		$user_ip = $user->data['session_ip'];
-		$user_admin = ($auth->acl_get('a_') && $user->data['is_registered'] && !$user->data['user_perm_from']) ? true : false;
+		$user_regdate = (isset($user->data['user_regdate'])) ? $user->data['user_regdate'] : 0;
+		$user_dl_update_time = (isset($user->data['user_dl_update_time'])) ? $user->data['user_dl_update_time'] : 0;
+		$user_traffic = (isset($user->data['user_traffic'])) ? $user->data['user_traffic'] : 0;
+		$user_logged_in = !empty($user->data['is_registered']);
+		$user_posts = (isset($user->data['user_posts'])) ? $user->data['user_posts'] : 0;
+		$user_client = (isset($user->data['session_browser'])) ? $user->data['session_browser'] : '';
+		$username = (isset($user->data['username'])) ? $user->data['username'] : '';
+		$user_ip = (isset($user->data['session_ip'])) ? $user->data['session_ip'] : '';
+		$user_admin = ($auth->acl_get('a_') && !empty($user->data['is_registered']) && empty($user->data['user_perm_from'])) ? true : false;
 
 		// Check the founder status and traffic settings for this
 		define('FOUNDER_TRAFFICS_OFF', ($config['dl_traffics_founder'] && $user->data['user_type'] == USER_FOUNDER) ? true : false);
