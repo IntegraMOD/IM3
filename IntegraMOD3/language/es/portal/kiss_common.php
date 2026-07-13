@@ -54,16 +54,27 @@ $lang = array_merge($lang, array(
 	'AUTOPLAY_OFF'			=> 'de reproducción automática está desactivada...',
 	'AUTOPLAY_ON'			=> 'de reproducción automática está en...',
 
-	'BASIC_RULES'			=> "Aun cuando los administradores y moderadores de este foro tratarán de eliminar o editar cualquier material desagradable tan pronto como puedan, resulta imposible revisar todos los mensajes. Por lo tanto Usted acepta que todos los mensajes publicados en estos foros expresan las opiniones y opiniones de sus autores y no de los administradores, moderadores o el webmaster (excepto en mensajes publicados por ellos mismos) y por lo tanto no serán consideradas responsables.<br /><br />
-	Usted acepta no publicar ningún material abusivo, obsceno, vulgar, de odio, amenazante, orientado sexualmente, o ningún otro que pueda violar cualquier ley aplicable. Hacer eso provocará que sea inmediata y permanentemente prohibido (y su proveedor de servicio). La dirección IP de todos los mensajes es guardada para ayudar a cumplir estas normas. Usted está de acuerdo con que el webmaster, administrador y moderadores de este Foro tienen el derecho de remover, editar, mover o cerrar cualquier tema en cualquier momento si lo consideran necesario. Como usuario Usted acepta que toda la información que ingrese sea almacenada en una base de datos. Dado que esta información no será compartida con ninguna tercera parte sin su consentimiento, el webmaster, administrador y moderadores no pueden ser considerados responsables por cualquier intento de hacking que conlleve a que los datos sean comprometidos.<br /><br />
-	Este sistema de foros utiliza cookies para almacenar información en su computadora local. Estos cookies no contienen la información que Usted ha ingresado, solamente se utilizan para mejorar la visualización. La dirección de correo electrónico se usa para confirmar sus detalles de registro y contraseña o detalles de nuevas contraseñas si olvida la actual. Su dirección de correo electrónico también se puede utilizar para enviar notificaciones de cambios posteriores en caso de necesitar notificación.<br /><br />
-	<strong>Los avisos de copyright en los pies de página:</strong><br />
-	Si KISS Portal Engine, phpBB o se retira a los autores del estilo de autor, no se le dará apoyo...<br />
-	Si ha quitado estos avisos de copyright intencional o accidentalmente, por favor reintegrarlos antes de pedir ayuda...<br />
-	Si usted tiene el permiso para un copyright autores, por favor indicarlo en su solicitud de soporte...<br />
-	Hemos pasar muchos años en el desarrollo de este software, lo menos que puedes hacer es respetar los derechos de autor...<br /><br />
-	Si tiene permiso para eliminar o modificar la forma de derechos de autor phpBB, el autor o el estilo porter estilo, por favor, indique esto en cualquier solicitud de soporte<br /><br />
-	Las reglas pueden cambiar de vez en cuando. Por favor, vuelva a menudo. Administración",
+	'BASIC_RULES' 			=> "<h2>Nuestra comunidad está moderada, pero los moderadores no pueden revisar cada publicación de inmediato.<br>
+                                Todo el contenido refleja las opiniones de sus autores individuales, no las del equipo del foro ni de los propietarios.<br>
+
+                                Al participar, aceptas no publicar contenido abusivo, obsceno, vulgar, difamatorio, lleno de odio, amenazante,
+                                acosador o sexualmente explícito, ni ningún material que viole las leyes aplicables. Las infracciones pueden
+                                resultar en advertencias, suspensión temporal o eliminación permanente de la comunidad. Las direcciones IP de
+                                las publicaciones se registran para ayudar a hacer cumplir estas normas.<br><br>
+
+                                Reconoces que el equipo del foro puede editar, mover o eliminar contenido, o cerrar discusiones cuando sea
+                                necesario para mantener un entorno seguro y constructivo. La información que proporciones durante el registro
+                                o la actualización de tu perfil puede almacenarse en nuestra base de datos. Aunque no compartimos tu información
+                                personal sin tu consentimiento, ningún sistema en línea es completamente inmune a brechas de seguridad.<br><br>
+
+                                Este foro utiliza cookies para mejorar tu experiencia de navegación. Las cookies no contienen información personal
+                                que hayas proporcionado; simplemente ayudan a mantener datos de sesión y preferencias. Tu dirección de correo
+                                electrónico se utiliza para la verificación de la cuenta, la recuperación de contraseña y las notificaciones
+                                opcionales sobre actividad en los temas que sigas.<br><br>
+
+                                Las directrices de la comunidad pueden actualizarse periódicamente. Por favor, revísalas con regularidad para
+                                mantenerte informado.</h2>",
+
 
 	'BASIC_RULES_HEADER'	=> 'reglas del sitio.',
 	'BBCODE_ST_HELP'		=> 'Tachado: [strike]texto[/strike]', // More BBCodes

@@ -63,16 +63,26 @@ $lang = array_merge($lang, array(
 	'AUTOPLAY_OFF'			=> 'Lecture automatique désactivée...',
 	'AUTOPLAY_ON'			=> 'Lecture automatique activée...',
 
-	'BASIC_RULES'			=> "Bien que les administrateurs et modérateurs de ce forum s’efforcent de supprimer ou de modifier aussi rapidement que possible tout contenu généralement répréhensible, il est impossible de vérifier chaque message. Vous reconnaissez donc que tous les messages publiés sur ces forums expriment les opinions et points de vue de leur auteur et non ceux des administrateurs, modérateurs ou du webmaster (sauf pour les messages publiés par ces personnes) et qu’ils ne pourront donc pas être tenus responsables.<br /><br />
-	Vous acceptez de ne pas publier de contenu abusif, obscène, vulgaire, diffamatoire, haineux, menaçant, à caractère sexuel ou tout autre contenu pouvant enfreindre les lois applicables. Le non-respect de cette règle peut entraîner votre bannissement immédiat et permanent (ainsi que l’information de votre fournisseur de services). L’adresse IP de tous les messages est enregistrée afin d’aider à faire respecter ces conditions. Vous acceptez que le webmaster, l’administrateur et les modérateurs de ce forum aient le droit de supprimer, modifier, déplacer ou fermer tout sujet à tout moment s’ils le jugent nécessaire. En tant qu’utilisateur, vous acceptez que toutes les informations saisies ci-dessus soient stockées dans une base de données. Bien que ces informations ne soient divulguées à aucun tiers sans votre consentement, le webmaster, l’administrateur et les modérateurs ne pourront être tenus responsables de toute tentative de piratage pouvant compromettre ces données.<br /><br />
-	Ce forum utilise des cookies pour stocker des informations sur votre ordinateur local. Ces cookies ne contiennent aucune des informations saisies ci-dessus ; ils servent uniquement à améliorer votre confort de navigation. L’adresse e-mail est utilisée pour confirmer les détails de votre inscription et votre mot de passe, ou pour vous envoyer un nouveau mot de passe si vous oubliez l’actuel. Votre adresse e-mail peut également être utilisée pour envoyer des notifications de mise à jour des messages si vous le souhaitez.<br /><br />
-	<strong>Mentions de copyright dans les pieds de page :</strong><br />
-	Si le copyright de Kiss Portal Engine, phpBB ou des auteurs du style est supprimé, aucune assistance ne sera fournie...<br />
-	Si vous avez supprimé ces mentions de copyright intentionnellement ou accidentellement, veuillez les rétablir avant de demander de l’aide...<br />
-	Si vous avez l’autorisation concernant le copyright d’un auteur, veuillez l’indiquer dans votre demande d’assistance...<br />
-	Nous avons passé de nombreuses années à développer ce logiciel, le minimum que vous puissiez faire est de respecter le copyright...<br /><br />
-	Si vous avez l’autorisation de supprimer ou modifier le copyright de phpBB, de l’auteur du style ou du porteur du style, veuillez l’indiquer dans toute demande d’assistance<br /><br />
-	Les règles peuvent changer de temps à autre. Veuillez les consulter régulièrement. L’administration",
+	'BASIC_RULES' 			=> "<h2>Notre communauté est modérée, mais les modérateurs ne peuvent pas examiner chaque publication immédiatement.<br>
+                                Tous les contenus reflètent les opinions de leurs auteurs individuels, et non celles de l’équipe du forum ou des propriétaires.<br>
+
+                                En participant, vous acceptez de ne pas publier de contenu abusif, obscène, vulgaire, diffamatoire, haineux,
+                                menaçant, harcelant ou sexuellement explicite, ni aucun contenu qui enfreint les lois en vigueur. Les violations
+                                peuvent entraîner des avertissements, une suspension temporaire ou une exclusion permanente de la communauté.
+                                Les adresses IP des publications sont enregistrées afin de faciliter l’application de ces règles.<br><br>
+
+                                Vous reconnaissez que l’équipe du forum peut modifier, déplacer ou supprimer du contenu, ou fermer des discussions
+                                lorsque cela est nécessaire pour maintenir un environnement sûr et constructif. Les informations que vous fournissez
+                                lors de l’inscription ou de la mise à jour de votre profil peuvent être stockées dans notre base de données. Bien que
+                                nous ne partagions pas vos données personnelles sans votre consentement, aucun système en ligne n’est totalement à l’abri
+                                des failles de sécurité.<br><br>
+
+                                Ce forum utilise des cookies pour améliorer votre expérience de navigation. Les cookies ne contiennent aucune
+                                information personnelle que vous avez fournie ; ils servent uniquement à conserver les données de session et vos
+                                préférences. Votre adresse e‑mail est utilisée pour la vérification du compte, la récupération du mot de passe et
+                                les notifications facultatives concernant l’activité dans les sujets que vous suivez.<br><br>
+
+                                Les règles de la communauté peuvent être mises à jour périodiquement. Veuillez les consulter régulièrement afin de rester informé.</h2>",
 
 	'BASIC_RULES_HEADER'	=> 'Règles du site.',
 	'BBCODE_ST_HELP'		=> 'Texte barré : [strike]texte[/strike]', // More BBCodes

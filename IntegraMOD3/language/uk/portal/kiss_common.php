@@ -63,16 +63,25 @@ $lang = array_merge($lang, array(
 	'AUTOPLAY_OFF'			=> 'Autoplay is off...',
 	'AUTOPLAY_ON'			=> 'Autoplay is on...',
 
-	'BASIC_RULES'			=> "While the administrators and moderators of this forum will attempt to remove or edit any generally objectionable material as quickly as possible, it is impossible to review every message. Therefore you acknowledge that all posts made to these forums express the views and opinions of the author and not the administrators, moderators or webmaster (except for posts by these people) and hence will not be held liable.<br /><br />
-	You agree not to post any abusive, obscene, vulgar, slanderous, hateful, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being immediately and permanently banned (and your service provider being informed). The IP address of all posts is recorded to aid in enforcing these conditions. You agree that the webmaster, administrator and moderators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent, the webmaster, administrator and moderators cannot be held responsible for any hacking attempt that may lead to the data being compromised.<br /><br />
-	This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used for confirming your registration details and password or details of new passwords should you forget your current one. Your email address may also be used to send notification of post updates should you require notification.<br /><br />
-	<strong>Copyright notices in footers:</strong><br />
-	If Kiss Portal Engine, phpBB or the Style Authors copyright is removed, support will not be given...<br />
-	If you have removed these copyright notices intentionally or accidentally, please reinstate them before asking for support...<br />
-	If you have permission to an authors copyright, please indicate this in your support request...<br />
-	We have spend many years developing this software, the least you can do is respect the copyright...<br /><br />
-	If you have permission to remove or amend copyright form phpBB, the style author or style porter, please indicated this in any support request<br /><br />
-	The Rules may change from time to time. Please check back often. Administration",
+	'BASIC_RULES' 			=> "<h2>Наша спільнота модерується, але модератори не можуть переглядати кожне повідомлення негайно.<br>
+                                Увесь контент відображає погляди окремих авторів, а не команди форуму чи власників.<br>
+
+                                Беручи участь, ви погоджуєтеся не публікувати образливий, непристойний, вульгарний, наклепницький, 
+                                ненависницький, загрозливий, такий, що переслідує інших, або сексуально відвертий контент, а також будь‑які матеріали, 
+                                що порушують чинне законодавство. Порушення можуть призвести до попереджень, тимчасового блокування або 
+                                постійного видалення з спільноти. IP‑адреси публікацій записуються для забезпечення дотримання цих правил.<br><br>
+
+                                Ви визнаєте, що команда форуму може редагувати, переміщувати або видаляти контент, а також закривати обговорення, 
+                                коли це необхідно для підтримання безпечного та конструктивного середовища. Інформація, яку ви надаєте під час 
+                                реєстрації або оновлення профілю, може зберігатися в нашій базі даних. Хоча ми не передаємо ваші персональні дані 
+                                без вашої згоди, жодна онлайн‑система не є повністю захищеною від порушень безпеки.<br><br>
+
+                                Цей форум використовує cookies для покращення вашого досвіду перегляду. Cookies не містять персональної інформації, 
+                                яку ви надали; вони лише допомагають зберігати дані сесії та ваші налаштування. Ваша електронна адреса використовується 
+                                для підтвердження облікового запису, відновлення пароля та необов’язкових сповіщень про активність у темах, які ви відстежуєте.<br><br>
+
+                                Правила спільноти можуть періодично оновлюватися. Будь ласка, переглядайте їх регулярно, щоб залишатися в курсі.</h2>",
+
 
 	'BASIC_RULES_HEADER'	=> 'Site rules.',
 	'BBCODE_ST_HELP'		=> 'Strike through: [strike]text[/strike]', // More BBCodes
