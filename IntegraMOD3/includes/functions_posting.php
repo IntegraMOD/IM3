@@ -685,19 +685,24 @@ function create_thumbnail($source, $destination, $mimetype)
 	$used_imagick = false;
 
 	// Only use imagemagick if defined and the passthru function not disabled
-	if ($config['img_imagick'] && function_exists('passthru'))
+	$exe = $config['img_imagick'] .
+		((defined('PHP_OS') && preg_match('#^win#i', PHP_OS)) ? 'convert.exe' : 'convert');
+
+	if (!file_exists($exe))
 	{
-		if (substr($config['img_imagick'], -1) !== '/')
-		{
-			$config['img_imagick'] .= '/';
-		}
+		$exe = $config['img_imagick'] .
+			((defined('PHP_OS') && preg_match('#^win#i', PHP_OS)) ? 'magick.exe' : 'magick');
+	}
 
-		@passthru(escapeshellcmd($config['img_imagick']) . 'convert' . ((defined('PHP_OS') && preg_match('#^win#i', PHP_OS)) ? '.exe' : '') . ' -quality 85 -geometry ' . $new_width . 'x' . $new_height . ' "' . str_replace('\\', '/', $source) . '" "' . str_replace('\\', '/', $destination) . '"');
+	if (file_exists($exe))
+	{
+		$cmd = escapeshellarg($exe)
+			. ' -quality 85'
+			. ' -geometry ' . (int) $new_width . 'x' . (int) $new_height
+			. ' ' . escapeshellarg(str_replace('\\', '/', $source))
+			. ' ' . escapeshellarg(str_replace('\\', '/', $destination));
 
-		if (!file_exists($destination))
-		{
-			@passthru(escapeshellcmd($config['img_imagick']) . 'magick' . ((defined('PHP_OS') && preg_match('#^win#i', PHP_OS)) ? '.exe' : '') . ' "' . str_replace('\\', '/', $source) . '" -quality 85 -geometry ' . $new_width . 'x' . $new_height . ' "' . str_replace('\\', '/', $destination) . '"');
-		}
+		@passthru($cmd);
 
 		if (file_exists($destination))
 		{
