@@ -17,6 +17,52 @@ if (!defined('IN_PHPBB'))
 }
 
 /**
+ * Generate the drop down of available ACM (cache) options
+ */
+function acm_select($default = '')
+{
+    global $lang;
+
+    // Detect PHP version for compatibility checks
+    $php_version_id = (defined('PHP_VERSION_ID')) ? PHP_VERSION_ID : (int)(phpversion());
+
+    // Master list of possible ACM backends with a detection callback
+    $candidates = array(
+        'file' => array('label' => (isset($lang['CACHE_FILE']) ? $lang['CACHE_FILE'] : 'File'), 'available' => true),
+        'memcache' => array('label' => (isset($lang['CACHE_MEMCACHE']) ? $lang['CACHE_MEMCACHE'] : 'Memcache'), 'available' => (extension_loaded('memcache') || class_exists('Memcache'))),
+        'memcached' => array('label' => (isset($lang['CACHE_MEMCACHED']) ? $lang['CACHE_MEMCACHED'] : 'Memcached'), 'available' => (extension_loaded('memcached') || class_exists('Memcached'))),
+        'redis' => array('label' => (isset($lang['CACHE_REDIS']) ? $lang['CACHE_REDIS'] : 'Redis'), 'available' => (extension_loaded('redis') || class_exists('Redis'))),
+        'apc' => array(
+            'label' => (isset($lang['CACHE_APC']) ? $lang['CACHE_APC'] : 'APC/APCu'),
+            'available' => (
+                // PHP 5.6: Use APC
+                ($php_version_id < 70000 && extension_loaded('apc')) ||
+                // PHP 7.0+: Use APCu (APC was removed in PHP 7.0)
+                ($php_version_id >= 70000 && extension_loaded('apcu'))
+            )
+        ),
+        'wincache' => array('label' => (isset($lang['CACHE_WINCACHE']) ? $lang['CACHE_WINCACHE'] : 'WinCache'), 'available' => extension_loaded('wincache')),
+        'memory' => array('label' => (isset($lang['CACHE_MEMORY']) ? $lang['CACHE_MEMORY'] : 'Memory'), 'available' => true),
+        // 'null' intentionally omitted from selectable options
+    );
+
+    $s_options = '';
+    foreach ($candidates as $key => $meta)
+    {
+        // Only include backends that are available on this server
+        if (!$meta['available'])
+        {
+            continue;
+        }
+
+        $selected = ($key == $default) ? ' selected="selected"' : '';
+        $s_options .= '<option value="' . $key . '"' . $selected . '>' . $meta['label'] . '</option>';
+    }
+
+    return $s_options;
+}
+
+/**
 * Determine if we are able to load a specified PHP module and do so if possible
 */
 function can_load_dll($dll)
