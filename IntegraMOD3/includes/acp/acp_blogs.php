@@ -1108,7 +1108,7 @@ class acp_blogs
 					'VALUE_1'		=> $statistic['value_1'],
 					'STATISTIC_2'	=> isset($statistic['statistic_2']) ? $statistic['statistic_2'] : '',
 					'VALUE_2'		=> isset($statistic['value_2']) ? $statistic['value_2'] : '',
-				);
+				));
 			}
 		}
 		unset($search);
