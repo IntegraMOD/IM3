@@ -59,9 +59,12 @@ class umil_frontend extends umil
 	{
 		global $phpbb_root_path, $phpEx, $template, $user;
 
+		$this->title = $title;
+
 		// we must call the main constructor
 		$this->umil(false, $db);
 		$this->auto_display_results = $auto_display_results;
+		$this->force_display_results = $force_display_results;
 
 		$user->add_lang('install');
 
