@@ -228,6 +228,7 @@ class acp_board
 						'show_notes'			=> array('lang' => 'SHOW_NOTES',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'show_meeting'			=> array('lang' => 'SHOW_MEETING',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'show_contact'			=> array('lang' => 'SHOW_CONTACT',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+						'show_rules'			=> array('lang' => 'SHOW_RULES',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 
 						'legend4'					=> 'ACP_SUBMIT_CHANGES',
 					)

@@ -5392,7 +5392,9 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'ACTIVITY_IMG'         			=> $user->img('icon_activity', 'Activity'),
 		'SHOW_BLOG'        	 		    => ($user->data['user_id'] != ANONYMOUS && !$auth->acl_get('u_blog')) ? false : true,	
 		'BLOG_IMG'         			    => $user->img('icon_blog', 'Blog'),
-		
+		'SHOW_RULES'         			=> ($user->data['user_id'] != ANONYMOUS && !$auth->acl_get('u_rules')) ? false : true,
+		'RULES_IMG'         			=> $user->img('icon_rules', 'RULES'),
+
 		'S_SHOW_KB'       				=> ($auth->acl_get('u_kb') && isset($config['show_kb']) && $config['show_kb']) ? true : false,
 		'S_SHOW_CAL'       				=> ($auth->acl_get('u_cal') && isset($config['show_cal']) && $config['show_cal']) ? true : false,
 		'S_SHOW_GALL'       			=> ($auth->acl_get('u_gall') && isset($config['show_gall']) && $config['show_gall']) ? true : false,
@@ -5405,6 +5407,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'S_SHOW_CONTACT'       			=> ($auth->acl_get('u_contact') && isset($config['show_contact']) && $config['show_contact']) ? true : false,
 		'S_SHOW_ACTIVITY'       		=> ($auth->acl_get('u_activity') && isset($config['show_activity']) && $config['show_activity']) ? true : false,
 		'S_SHOW_BLOG'       			=> ($auth->acl_get('u_blog') && isset($config['show_blog']) && $config['show_blog']) ? true : false,
+		'S_SHOW_RULES'       			=> ($auth->acl_get('u_rules') && isset($config['show_rules']) && $config['show_rules']) ? true : false,
 
 
 		'SID'				=> $SID,
@@ -5445,6 +5448,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'U_CONTACT'				=> append_sid("{$phpbb_root_path}contact.$phpEx"),
 		'U_KB'					=> append_sid("{$phpbb_root_path}" . KB_FOLDER . '/'),
         'U_CALENDAR'            => append_sid("{$phpbb_root_path}calendar.$phpEx", 'mode=main'),
+		'U_RULES'				=> append_sid("{$phpbb_root_path}basic_rules.$phpEx"),
 		'U_SEARCH_SELF'			=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=egosearch'),
 		'U_SEARCH_NEW'			=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=newposts'),
 		'U_SEARCH_UNANSWERED'	=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=unanswered'),

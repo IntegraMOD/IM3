@@ -286,8 +286,11 @@ function notes() {
 									</a>
 								</li>
 							<!-- ENDIF -->
-							<!-- IF not S_IS_BOT and S_DISPLAY_MEMBERLIST or U_TEAM -->
+							<!-- IF not S_IS_BOT and S_DISPLAY_MEMBERLIST or U_TEAM or S_SHOW_RULES-->
 								<li class="separator"></li>
+							    <!-- IF S_SHOW_RULES -->
+							    <li><a href="{U_RULES}" title="{L_FORUM_RULES_LINK}"><i class="fa-solid fa-circle-question fa-lg"></i> {L_FORUM_RULES}</a></li>
+							    <!-- ENDIF -->
 								<!-- IF S_SHOW_MEM and S_DISPLAY_MEMBERLIST -->
 									<li>
 										<a href="{U_MEMBERLIST}" role="menuitem">
@@ -314,6 +317,7 @@ function notes() {
 							<!-- IF S_SHOW_CAL -->
 							<li><a href="{U_CALENDAR}" title="{L_CALENDAR}"><i class="fa-regular fa-calendar-days fa-lg"></i> {L_LANG_CALENDAR}</a></li>
 							<!-- ENDIF -->
+                        <!-- IF not S_IS_BOT -->
 							<!-- IF S_SHOW_CHT and S_MCHAT_ENABLE and U_MCHAT -->
 							<li><a href="{U_MCHAT}#mChat" title="{L_CHAT_EXPLAIN}"><i class="fa-solid fa-comment fa-lg"></i> {L_CHAT}</a></li>
 							<!-- ENDIF -->			
@@ -322,7 +326,8 @@ function notes() {
 							<!-- ENDIF --> 	
 							<!-- IF S_SHOW_DLS and S_SHOW_DL_LINK-->
 							<li><a href="{U_DL_NAVS}" title="{L_DOWNLOADS}"><i class="fa-solid fa-file-arrow-down fa-lg"></i> {L_DOWNLOADS}</a></li>
-							<!-- ENDIF -->			
+							<!-- ENDIF -->
+						<!-- ENDIF -->
 							<!-- IF S_SHOW_GALL -->
 							<li><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image fa-lg"></i> {L_GALLERY}</a></li>
 							<!-- ENDIF -->				

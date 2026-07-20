@@ -945,8 +945,6 @@ $lang = array_merge($lang, array(
 	'EDIT' 							=> 'edit',
 	'ENABLE_IMOD'					=> 'Enable IntegraMod',
 	'FAST_REPLY'					=> 'quick<h6>reply</h6>',
-	'IFS' 							=> 'downloads',
-	'IFS_EXPLAIN' 					=> 'IntegraFileShare',
 	'INTEGRA_NEWS'					=> 'News',
 	'INTEGRA_TITLE'					=> '<a href="http://www.integramod.com">News from IntegraMOD</a>',
 	'INTEGRA_WELCOME'				=> 'Welcome to IntegraMOD3',

@@ -15,27 +15,37 @@
 		<div class="dropdown-arrow"></div>
 	</div>
 	<!-- ENDIF -->
-	<div class="im-select <!-- IF S_IN_FAQ or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_BLOG or S_IN_MEETING -->im-select2<!-- ENDIF -->">
+	<div class="im-select <!-- IF S_IN_FAQ or S_IN_CALENDAR or S_IN_RULES or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_BLOG or S_IN_MEETING -->im-select2<!-- ENDIF -->">
 		<select name="imlinks" onchange="location = this.value;">
 			<option>
 <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY --><i class="fa-regular fa-clipboard"></i> {L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->			
 <!-- IF S_IN_FAQ --><i class="fa-solid fa-circle-question"></i> {L_FAQ}<!-- ENDIF -->
 <!-- IF S_IN_KNOWLEDGE_BASE --><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}<!-- ENDIF -->
+<!-- IF S_SHOW_CAL --><i class="fa-solid fa-calendar"></i> {L_CALENDAR}<!-- ENDIF -->
 <!-- IF S_DISPLAY_MEMBERLIST and S_IN_MEMBERLIST --><i class="fa-solid fa-user-group"></i> {L_MEMBERLIST}<!-- ENDIF -->
 <!-- IF S_SHOW_DL_LINK and S_IN_DL --><i class="fa-solid fa-file-arrow-down"></i> {L_DOWNLOADS}<!-- ENDIF -->
 <!-- IF S_HACKLIST_ON and S_IN_HACKLIST --><i class="fa-solid fa-list-ul"></i> {L_HACKLIST}<!-- ENDIF -->
+<!-- IF S_SHOW_RULES and S_IN_RULES --><i class="fa-solid fa-shield-halved"></i> {L_FORUM_RULES}<!-- ENDIF -->
 <!-- IF S_SHOW_GALL and S_IN_GALLERY --><i class="fa-regular fa-image"></i> {L_GALLERY}<!-- ENDIF -->
 <!-- IF S_MCHAT_ENABLE and U_MCHAT and S_SHOW_CHT and S_IN_MCHAT --><i class="fa-solid fa-message"></i> {L_CHAT}<!-- ENDIF -->
 <!-- IF S_CONTACT_ENABLED and S_IN_CONTACT --><i class="fa-solid fa-message"></i> {L_CONTACT_BOARD_ADMIN_SHORT}<!-- ENDIF -->
 <!-- IF S_IN_MEETING --><i class="fa-solid fa-people-arrows"></i> {L_MEETINGS}<!-- ENDIF -->
 <!-- IF S_IN_BLOG --><i class="fa-solid fa-book-open-reader fa-lg"></i> {L_BLOG}<!-- ENDIF -->
 
-<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_BLOG  and not S_IN_MEETING -->{L_LINKS}<!-- ENDIF -->
+<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_CALENDAR and not S_IN_RULES and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_BLOG  and not S_IN_MEETING -->{L_LINKS}<!-- ENDIF -->
 			</option>
             <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and not S_IS_BOT -->			
 			<option value="{U_SN_ACTIVITYPAGE}"><i class="fa-regular fa-clipboard"></i> {L_SN_AP_ACTIVITYPAGE}</option>
 			<!-- ENDIF -->
+		  <!-- IF not S_IS_BOT -->
+ 		    <!-- IF S_SHOW_CAL -->
+		    <option value="{U_CALENDAR}"><i class="fa-solid fa-calendar"></i> {L_CALENDAR}</option>
+		    <!-- ENDIF -->
+          <!-- ENDIF -->
 			<option value="{U_FAQ}"><i class="fa-solid fa-circle-question"></i> {L_FAQ}</option>
+		    <!-- IF S_SHOW_RULES -->
+            <option value="{U_RULES}"><i class="fa-solid fa-shield-halved"></i> {L_FORUM_RULES}</option>
+		    <!-- ENDIF -->
 			<option value="{U_KB}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</option>
 		  <!-- IF not S_IS_BOT -->
 			<!-- IF S_DISPLAY_MEMBERLIST -->

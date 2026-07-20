@@ -21,7 +21,7 @@
 	  </ul>	
     </li>
 	<!-- ENDIF -->
-    <li><a class="dropdown-arrow <!-- IF S_IN_FAQ or S_IN_CALENDAR or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_MEETING or S_IN_BLOG --> activetab<!-- ENDIF -->" href="#">
+    <li><a class="dropdown-arrow <!-- IF S_IN_FAQ or S_IN_CALENDAR or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_MEETING or S_IN_BLOG  or S_IN_RULES --> activetab<!-- ENDIF -->" href="#">
 		<!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY -->{L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->			
 		<!-- IF S_IN_FAQ -->{L_FAQ}<!-- ENDIF -->
 		<!-- IF S_IN_KNOWLEDGE_BASE -->{L_KNOWLEDGE_BASE}<!-- ENDIF -->
@@ -33,51 +33,59 @@
 		<!-- IF S_MCHAT_ENABLE and U_MCHAT and S_SHOW_CHT and S_IN_MCHAT -->{L_CHAT}<!-- ENDIF -->
 		<!-- IF S_CONTACT_ENABLED and S_IN_CONTACT -->{L_CONTACT_BOARD_ADMIN_SHORT}<!-- ENDIF -->
 		<!-- IF S_IN_BLOG -->{L_BLOG}<!-- ENDIF -->
+		<!-- IF S_IN_RULES -->{L_FORUM_RULES}<!-- ENDIF -->
 		<!-- IF S_IN_MEETING -->{L_MEETINGS}<!-- ENDIF -->
-		<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_CALENDAR and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_MEETING and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
+		<!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_CALENDAR and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_RULES and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_MEETING and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
       </a>
       <ul class="sub-menus">
  		<!-- IF S_SHOW_ACTIVITY -->
         <li><a href="{U_SN_ACTIVITYPAGE}"><i class="fa-solid fa-clipboard"></i> {L_SN_AP_ACTIVITYPAGE}</a></li>
 		<!-- ENDIF -->
- 		<!-- IF S_SHOW_FAQ -->
-		<li><a href="{U_FAQ}"><i class="fa-solid fa-circle-question"></i> {L_FAQ}</a></li>
-		<!-- ENDIF -->
- 		<!-- IF S_SHOW_KB -->
-		<li><a href="{U_KB}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</a></li>
-		<!-- ENDIF -->
+		<!-- IF S_SHOW_BLOG --><!-- BEGIN blog_links -->
+		<li><a href="{blog_links.URL}"><i class="fa-solid fa-book-open-reader"></i> {blog_links.TEXT}</a></li>
+		<!-- END blog_links --><!-- ENDIF -->
 	  <!-- IF not S_IS_BOT -->
  		<!-- IF S_SHOW_CAL -->
 		<li><a href="{U_CALENDAR}"><i class="fa-solid fa-calendar"></i> {L_CALENDAR}</a></li>
 		<!-- ENDIF -->
-		<!-- IF S_DISPLAY_MEMBERLIST and S_SHOW_MEM -->
-		<li><a href="{U_MEMBERLIST}"><i class="fa-solid fa-user-group"></i> {L_MEMBERLIST}</a></li>
-		<!-- ENDIF -->	  
-		<!-- IF S_SHOW_DL_LINK and S_SHOW_DLS -->
-		<li><a href="{U_DL_NAVS}"><i class="fa-solid fa-file-arrow-down"></i> {L_DOWNLOADS}</a></li>
-		<!-- ENDIF -->
-		<!-- IF S_HACKLIST_ON -->
-		<li><a href="{U_HACKLIST}" title="{L_HACKLIST}"><i class="fa-solid fa-list-ul"></i> {L_HACKLIST}</a></li>
-		<!-- ENDIF -->
-		<!-- IF S_BUGTRACKER_ON -->
-		<li><a href="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}"><i class="fa-solid fa-bug"></i> {L_BUG_TRACKER}</a></li>
-		<!-- ENDIF -->
-		<!-- IF S_SHOW_GALL -->
-		<li><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image"></i> {L_GALLERY}</a></li>
-		<!-- ENDIF -->
 		<!-- IF S_SHOW_CHT and S_MCHAT_ENABLE and U_MCHAT -->
 		<li><a href="{U_MCHAT}" title="{L_MCHAT_TITLE}"><i class="fa-solid fa-comment"></i> {L_CHAT}</a></li>
-		<!-- ENDIF -->
-		<!-- IF S_USER_LOGGED_IN and S_SHOW_MEETING -->
-        <li><a href="{U_MEETING_LINK_N}" title="{L_MEETING}"><i class="fa-solid fa-people-arrows"></i> {L_MEETINGS}</a></li>
 		<!-- ENDIF -->
 		<!-- IF S_CONTACT_ENABLED and S_SHOW_CONTACT -->
         <li><a href="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><i class="fa-solid fa-message"></i> {L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
 		<!-- ENDIF -->
-		<!-- IF S_SHOW_BLOG --><!-- BEGIN blog_links -->
-		<li><a href="{blog_links.URL}"><i class="fa-solid fa-book-open-reader"></i> {blog_links.TEXT}</a></li>
-		<!-- END blog_links --><!-- ENDIF -->
+		<!-- IF S_SHOW_DL_LINK and S_SHOW_DLS -->
+		<li><a href="{U_DL_NAVS}"><i class="fa-solid fa-file-arrow-down"></i> {L_DOWNLOADS}</a></li>
+		<!-- ENDIF -->
+		<!-- IF S_BUGTRACKER_ON -->
+		<li><a href="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}"><i class="fa-solid fa-bug"></i> {L_BUG_TRACKER}</a></li>
+		<!-- ENDIF -->
+	  <!-- ENDIF -->
+ 		<!-- IF S_SHOW_FAQ -->
+		<li><a href="{U_FAQ}"><i class="fa-solid fa-circle-question"></i> {L_FAQ}</a></li>
+		<!-- ENDIF -->
+		<!-- IF S_SHOW_RULES -->
+        <li><a href="{U_RULES}"><i class="fa-solid fa-shield-halved"></i> {L_FORUM_RULES}</a></li>
+		<!-- ENDIF -->
+	  <!-- IF not S_IS_BOT -->
+		<!-- IF S_SHOW_GALL -->
+		<li><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><i class="fa-regular fa-image"></i> {L_GALLERY}</a></li>
+		<!-- ENDIF -->		
       <!-- ENDIF -->
+ 		<!-- IF S_SHOW_KB -->
+		<li><a href="{U_KB}"><i class="fa-solid fa-circle-info"></i> {L_KNOWLEDGE_BASE}</a></li>
+		<!-- ENDIF -->
+	  <!-- IF not S_IS_BOT -->
+		<!-- IF S_USER_LOGGED_IN and S_SHOW_MEETING -->
+        <li><a href="{U_MEETING_LINK_N}" title="{L_MEETING}"><i class="fa-solid fa-people-arrows"></i> {L_MEETINGS}</a></li>
+		<!-- ENDIF -->
+		<!-- IF S_DISPLAY_MEMBERLIST and S_SHOW_MEM -->
+		<li><a href="{U_MEMBERLIST}"><i class="fa-solid fa-user-group"></i> {L_MEMBERLIST}</a></li>
+		<!-- ENDIF -->	
+      <!-- ENDIF -->
+		<!-- IF S_HACKLIST_ON -->
+		<li><a href="{U_HACKLIST}" title="{L_HACKLIST}"><i class="fa-solid fa-list-ul"></i> {L_HACKLIST}</a></li>
+		<!-- ENDIF -->
       </ul>
     </li>
 	<!-- IF not S_IS_BOT -->
