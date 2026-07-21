@@ -1,0 +1,1 @@
+No syntax errors detected in IntegraMOD3/language/es/common.php
