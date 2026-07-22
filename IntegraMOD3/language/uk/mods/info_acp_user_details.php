@@ -125,7 +125,11 @@ $lang = array_merge($lang, array(
 	'USER_AVATAR'					=> 'Аватар',
 	'USER_AVATAR_EXPLAIN'			=> 'Відображення аватара користувача.',
 	'USER_AVATAR_TYPE'				=> 'Тип аватара',
-	'USER_AVATAR_TYPE_EXPLAIN'		=>
+	'USER_AVATAR_TYPE_EXPLAIN'		=> 'Тип аватара користувача.',
+	'USER_SIG'						=> 'Підпис',
+	'USER_SIG_EXPLAIN'				=> 'Показувати підпис користувача.',
+	'USER_FROM'						=> 'Звідки',
+	'USER_FROM_EXPLAIN'				=> 'Звідки користувач?',
 	
 	'USER_FB'						=> 'Facebook',
 	'USER_FB_EXPLAIN'				=> 'Контакт або посилання на профіль Facebook користувача.',
@@ -146,7 +150,6 @@ $lang = array_merge($lang, array(
 	'USER_DC'						=> 'Discord',
 	'USER_DC_EXPLAIN'				=> 'Тег Discord користувача (наприклад, користувач#1234).',
 	
-	'USER_FROM_EXPLAIN'				=> 'Звідки користувач?',
 	'USER_ICQ'						=> 'ICQ',
 	'USER_ICQ_EXPLAIN'				=> 'Адреса ICQ користувача.',
 	'USER_AIM'						=> 'AIM',

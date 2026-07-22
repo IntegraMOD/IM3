@@ -301,4 +301,18 @@ $lang = array_merge($lang, array(
 	'acl_u_ajaxlike_mod'	=>	array('lang' => 'Can like posts', 'cat' => 'misc'),
 	'acl_f_ajaxlike_mod'	=>	array('lang' => 'Can like posts in forum', 'cat' => 'misc'),
 	'acl_a_ajaxlike_mod'	=>	array('lang' => 'Can manage likes', 'cat' => 'misc'),
+
+	// Missing variables
+	'acl_u_activity'		=> array('lang' => 'Kan Activiteit-pagina link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_blog'			=> array('lang' => 'Kan Blog links zien in navigatie', 'cat' => 'misc'),
+	'acl_u_kb'				=> array('lang' => 'Kan Kennisbank link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_cal'				=> array('lang' => 'Kan Onderwerp Kalender link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_gall'			=> array('lang' => 'Kan Galerij link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_cht'				=> array('lang' => 'Kan Chat link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_dls'				=> array('lang' => 'Kan Downloads link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_faq'				=> array('lang' => 'Kan FAQ link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_mem'				=> array('lang' => 'Kan Ledenlijst link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_notes'			=> array('lang' => 'Kan Notities link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_contact'			=> array('lang' => 'Kan Contact link zien in navigatie', 'cat' => 'misc'),
+	'acl_u_rules'			=> array('lang' => 'Kan Reglement link zien in navigatie', 'cat' => 'misc'),
 ));

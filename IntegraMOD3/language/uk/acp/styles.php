@@ -442,5 +442,14 @@ $lang = array_merge($lang, array(
 	'UNINSTALLED_THEME'		=> 'Невстановлені теми',
 	'UNSET'					=> 'Не визначено',
 
+	// Missing variables
+	'IMG_ICON_DOWNLOAD'						=> 'Завантажити',
+	'IMG_ICON_AJAX_CHECKING'				=> 'Перевірка AJAX',
+	'IMG_ICON_AJAX_TRUE'					=> 'AJAX істина',
+	'IMG_ICON_AJAX_FALSE'					=> 'AJAX хибність',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_1'		=> 'Стійкість пароля AJAX - Дуже слабкий',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_2'		=> 'Стійкість пароля AJAX - Слабкий',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_3'		=> 'Стійкість пароля AJAX - Прийнятний',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_4'		=> 'Стійкість пароля AJAX - Сильний',
 ));
 

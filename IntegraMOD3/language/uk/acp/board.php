@@ -337,10 +337,10 @@ $lang = array_merge($lang, array(
 	'COOKIE_NAME_EXPLAIN'			=> 'This can be anything you want, make it original. Whenever the cookie settings are changed, the cookie name should be changed.',
 	'COOKIE_NOTICE'					=> 'Cookie notice',
 	'COOKIE_NOTICE_EXPLAIN'			=> 'Display a cookie notice to visitors. This may be required by law depending on your board content and jurisdiction.',
-	'COOKIE_PATH'	                => 'Шлях cookie',
-	'COOKIE_PATH_EXPLAIN'			=> 'This will usually be the same as your script path or simply a forward slash to make the cookie accessible across the entire domain.',
-	'COOKIE_SECURE'	                => 'Безпека cookie',					=> 'Cookie path',
-	'COOKIE_SECURE_EXPLAIN'	        => 'Якщо ваш сервер працює через SSL-з\'єднання увімкніть цю функцію, в іншому випадку залиште вимкнутою. Якщо дана опція буде увімкнутою, і ваш сервер не працює через SSL, будуть виникати помилки сервера під час переадресувань.',
+    'COOKIE_PATH'					=> 'Шлях cookie',
+    'COOKIE_PATH_EXPLAIN'			=> 'Зазвичай це збігається зі шляхом до вашого скрипту або є просто прямим слешем, щоб зробити файли cookie доступними для всього домену.',
+    'COOKIE_SECURE'					=> 'Безпечні cookie',
+    'COOKIE_SECURE_EXPLAIN'			=> 'Якщо ваш сервер працює через SSL, увімкніть цей параметр, інакше залиште вимкненим. Увімкнення цієї опції без використання SSL призведе до помилок сервера під час переадресації.',
 	'COOKIE_SAMESITE'				=> 'Cookie SameSite',
 	'COOKIE_SAMESITE_EXPLAIN'		=> 'Controls when cookies are sent with cross-site requests. <br><strong>None</strong> allows cookies to be sent with all requests<br> (requires Secure flag). <br><strong>Lax</strong> allows cookies with top-level navigation but not with embedded content. <br><strong>Strict</strong> prevents cookies from being sent with any cross-site requests.',
 	'COOKIE_SAMESITE_NONE'			=> 'None (allows all cross-site requests)',
@@ -739,4 +739,10 @@ $lang = array_merge($lang, array(
 // Notes settings by OXPUS
 $lang = array_merge($lang, array(
     'ACP_NOTES_SETTINGS'        => 'Макс. кількість нотаток на користувача',
+
+    // Missing variables
+    'GUEST_SESSIONS_CACHE'			=> 'Використовувати кеш сесій гостей',
+    'GUEST_SESSIONS_CACHE_EXPLAIN'	=> 'Зберігати анонімні сесії гостей у налаштованому бекенді ACM замість бази даних для зменшення навантаження на запис у таблицю сесій. Вимагає includes/guest_sessions.php та відповідного налаштованого бекенду ACM.',
+    'COOKIE_CONSENT_TITLE'			=> 'Згода на використання файлів cookie',
+    'COOKIE_CONSENT_MESSAGE'		=> 'Повідомлення про згоду на використання файлів cookie',
 ));

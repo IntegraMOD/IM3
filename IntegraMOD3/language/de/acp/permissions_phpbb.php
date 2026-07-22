@@ -306,4 +306,18 @@ $lang = array_merge($lang, array(
 	'acl_u_ajaxlike_mod'	=>	array('lang' => 'Can like posts', 'cat' => 'misc'),
 	'acl_f_ajaxlike_mod'	=>	array('lang' => 'Can like posts in forum', 'cat' => 'misc'),
 	'acl_a_ajaxlike_mod'	=>	array('lang' => 'Can manage likes', 'cat' => 'misc'),
+
+	// Missing variables
+	'acl_u_activity'		=> array('lang' => 'Kann Aktivitätsseiten-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_blog'			=> array('lang' => 'Kann Blog-Links in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_kb'				=> array('lang' => 'Kann Knowledge Base-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_cal'				=> array('lang' => 'Kann Themen-Kalender-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_gall'			=> array('lang' => 'Kann Galerie-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_cht'				=> array('lang' => 'Kann Chat-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_dls'				=> array('lang' => 'Kann Downloads-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_faq'				=> array('lang' => 'Kann FAQ-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_mem'				=> array('lang' => 'Kann Mitgliederliste-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_notes'			=> array('lang' => 'Kann Notizen-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_contact'			=> array('lang' => 'Kann Kontakt-Link in der Navigation sehen', 'cat' => 'misc'),
+	'acl_u_rules'			=> array('lang' => 'Kann Regeln-Link in der Navigation sehen', 'cat' => 'misc'),
 ));

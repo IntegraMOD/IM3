@@ -160,6 +160,9 @@ $lang = array_merge($lang, array(
 	'USER_SIG_UPDATED'			=> 'Firma del usuario actualizada correctamente.',
 	'USER_TOOLS'				=> 'Herramientas básicas',
 	'USER_WARNING_LOG_DELETED'		=> 'No hay información disponible. Es posible que la entrada en el log haya sido borrada.',
+
+	// Missing variables
+	'CANNOT_REMOVE_FOUNDER'		=> 'No está autorizado para eliminar cuentas fundadoras.',
 ));
 
 ?>

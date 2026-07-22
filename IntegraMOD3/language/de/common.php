@@ -1039,4 +1039,13 @@ $lang = array_merge($lang, array(
 	'COOKIE_CONSENT_ALLOW'			=> 'Cookies erlauben',
 	'COOKIE_CONSENT_CUSTOMIZE'		=> 'Anpassen',
 	'COOKIE_CONSENT_SAVE_PREFERENCES' => 'Einstellungen speichern',
+
+	// Missing variables
+	'DIGESTS'					=> 'Digests',
+	'FIRST_POST_SHOW'			=> 'Auf jeder Seite oben anzeigen',
+	'KB_SHORT'					=> 'KB',
+	'MY_WEBSITE'				=> 'Website %s',
+	'KNOWLEDGE_BASE'			=> 'Knowledge Base',
+	'STYLE_LIGHT'				=> 'Heller Stil',
+	'STYLE_DARK'				=> 'Dunkler Stil',
 ));

@@ -286,6 +286,20 @@ $lang = array_merge($lang, array(
 
 	'WRONG_PERMISSION_TYPE'				=> 'Falsche Berechtigungs-Art ausgewählt.',
 	'WRONG_PERMISSION_SETTING_FORMAT'	=> 'Die Berechtigungs-Einstellungen sind in einem falschen Format, phpBB kann sie nicht verarbeiten.',
+
+	// Missing variables
+	'ROLE_KB_ADMIN'					=> 'KB Admin',
+	'ROLE_KB_MODERATOR'				=> 'KB Moderator',
+	'ROLE_KB_USER'					=> 'KB Benutzer',
+	'ROLE_KB_SU_USER'				=> 'KB Super-Benutzer',
+	'ROLE_KB_GUEST'					=> 'KB Gast',
+	'ROLE_KB_BOT'					=> 'KB Bot',
+	'ROLE_DESCRIPTION_KB_ADMIN'		=> 'Hat Zugriff auf alle Knowledge Base Moderator-Werkzeuge in dieser Kategorie.',
+	'ROLE_DESCRIPTION_KB_MODERATOR'	=> 'Hat Zugriff auf alle Knowledge Base Moderator-Werkzeuge in dieser Kategorie.',
+	'ROLE_DESCRIPTION_KB_USER'		=> 'Kann Knowledge Base Artikel in diese Kategorie einstellen. Artikeleinreichung erfordert die Freigabe des Moderators. Kann eigene Knowledge Base Artikel moderieren.',
+	'ROLE_DESCRIPTION_KB_SU_USER'	=> 'Kann Knowledge Base Artikel in diese Kategorie einstellen. Kann Artikel ohne Freigabe des Moderators veröffentlichen. Kann eigene Knowledge Base Artikel moderieren.',
+	'ROLE_DESCRIPTION_KB_GUEST'		=> 'Kann Artikel in dieser Kategorie ansehen.',
+	'ROLE_DESCRIPTION_KB_BOT'		=> 'Kann Artikel in dieser Kategorie ansehen.',
 ));
 
 ?>

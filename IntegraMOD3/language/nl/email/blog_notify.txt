@@ -1,0 +1,10 @@
+Subject: {SUBJECT}
+
+Hallo {TO_USERNAME},
+
+Dit is een automatisch verzonden bericht van de User Blog mod die je ervan op de hoogte stelt dat een nieuwe {TYPE} genaamd {NAME} is geplaatst door {BY_USERNAME}.  Je kunt de blog hier bekijken:
+{U_VIEW}
+
+Als je deze berichten niet meer wilt ontvangen, klik dan op de volgende link om je uit te schrijven:
+
+{U_UNSUBSCRIBE}

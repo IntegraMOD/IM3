@@ -1,0 +1,10 @@
+Subject: {SUBJECT}
+
+Hallo {TO_USERNAME},
+
+Dies ist eine automatisch versendete Nachricht von der User Blog Mod, die dich darüber informiert, dass ein neuer {TYPE} namens {NAME} von {BY_USERNAME} gepostet wurde. Du kannst den Blog hier ansehen:
+{U_VIEW}
+
+Wenn du diese Benachrichtigungen nicht mehr erhalten möchtest, klicke auf den folgenden Link, um dich abzumelden:
+
+{U_UNSUBSCRIBE}

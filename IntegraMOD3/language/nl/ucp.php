@@ -585,4 +585,15 @@ $lang = array_merge($lang, array(
 	'PS_GOOD'			=> 'Good',
 	'PS_STRONG'			=> 'Strong',
 	'PS_VERY_STRONG'	=> 'Very Strong',
+
+	// Missing variables
+	'FIELD_MULTI_TOO_LOW'				=> 'Je hebt onvoldoende opties geselecteerd in het veld „%1$s“. Er moeten %2$d opties worden geselecteerd.',
+	'FIELD_MULTI_TOO_MANY'				=> 'Je hebt te veel opties geselecteerd in het veld „%1$s“. Maximaal %2$d opties mogen worden geselecteerd.',
+	'UCP_DIGESTS'						=> 'Samenvattingen',
+	'UCP_DIGESTS_ADDITIONAL_CRITERIA'	=> 'Aanvullende Criteria',
+	'UCP_DIGESTS_BASICS'				=> 'Basisinformatie',
+	'UCP_DIGESTS_FORUMS_SELECTION'		=> 'Forumselectie',
+	'UCP_DIGESTS_POST_FILTERS'			=> 'Berichtfilters',
+	'VIEW_SHOUT_INDEX'					=> 'Toon shoutbox op indexpagina',
+	'VIEW_CAL_INDEX'					=> 'Toon mini-kalender op indexpagina',
 ));

@@ -444,6 +444,15 @@ $lang = array_merge($lang, array(
 	'UNINSTALLED_THEME'		=> 'Niet geïnstalleerde thema’s',
 	'UNSET'					=> 'Niet aangegeven',
 
+	// Missing variables
+	'IMG_ICON_DOWNLOAD'						=> 'Download',
+	'IMG_ICON_AJAX_CHECKING'				=> 'AJAX controleren',
+	'IMG_ICON_AJAX_TRUE'					=> 'AJAX waar',
+	'IMG_ICON_AJAX_FALSE'					=> 'AJAX onwaar',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_1'		=> 'AJAX wachtwoordsterkte - Zeer zwak',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_2'		=> 'AJAX wachtwoordsterkte - Zwak',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_3'		=> 'AJAX wachtwoordsterkte - Acceptabel',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_4'		=> 'AJAX wachtwoordsterkte - Sterk',
 ));
 
 ?>

@@ -325,4 +325,18 @@ $lang = array_merge($lang, array(
 	'acl_u_ajaxlike_mod'	=>	array('lang' => 'Can like posts', 'cat' => 'misc'),
 	'acl_f_ajaxlike_mod'	=>	array('lang' => 'Can like posts in forum', 'cat' => 'misc'),
 	'acl_a_ajaxlike_mod'	=>	array('lang' => 'Can manage likes', 'cat' => 'misc'),
+
+	// Missing variables
+	'acl_u_activity'		=> array('lang' => 'Puede ver el enlace de la página de Actividad en la navegación', 'cat' => 'misc'),
+	'acl_u_blog'			=> array('lang' => 'Puede ver los enlaces del Blog en la navegación', 'cat' => 'misc'),
+	'acl_u_kb'				=> array('lang' => 'Puede ver el enlace de la Base de Conocimientos en la navegación', 'cat' => 'misc'),
+	'acl_u_cal'				=> array('lang' => 'Puede ver el enlace de Calendario de Temas en la navegación', 'cat' => 'misc'),
+	'acl_u_gall'			=> array('lang' => 'Puede ver el enlace de Galería en la navegación', 'cat' => 'misc'),
+	'acl_u_cht'				=> array('lang' => 'Puede ver el enlace del Chat en la navegación', 'cat' => 'misc'),
+	'acl_u_dls'				=> array('lang' => 'Puede ver el enlace de Descargas en la navegación', 'cat' => 'misc'),
+	'acl_u_faq'				=> array('lang' => 'Puede ver el enlace de Preguntas Frecuentes (FAQ) en la navegación', 'cat' => 'misc'),
+	'acl_u_mem'				=> array('lang' => 'Puede ver el enlace de la Lista de Miembros en la navegación', 'cat' => 'misc'),
+	'acl_u_notes'			=> array('lang' => 'Puede ver el enlace de Notas en la navegación', 'cat' => 'misc'),
+	'acl_u_contact'			=> array('lang' => 'Puede ver el enlace de Contacto en la navegación', 'cat' => 'misc'),
+	'acl_u_rules'			=> array('lang' => 'Puede ver el enlace de las Reglas en la navegación', 'cat' => 'misc'),
 ));

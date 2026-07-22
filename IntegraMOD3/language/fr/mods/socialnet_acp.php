@@ -330,6 +330,9 @@ $lang = array_merge($lang, array(
 	'LOG_CONFIG_SN_AP'										 => $lang_log_main . 'Paramètres du module de la page principale modifiés',
 	'LOG_CONFIG_SN_NTF'										 => $lang_log_main . 'Paramètres du module de notifications modifiés',
 	'LOG_CONFIG_SN_UP'										 => $lang_log_main . 'Paramètres du module profil modifiés',
+
+	// Missing variables
+	'SN_NO_USER_STATUS_TO DELETE'							 => 'Aucun statut trouvé',
 ));
 
 

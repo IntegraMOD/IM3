@@ -464,7 +464,16 @@ $lang = array_merge($lang, array(
 	'UNINSTALLED_TEMPLATE'		=> 'Plantillas desinstaladas',
 	'UNINSTALLED_THEME'		=> 'Temas desinstalados',
 	'UNSET'				=> 'Indefinido',
-	
+
+	// Missing variables
+	'IMG_ICON_DOWNLOAD'						=> 'Descargar',
+	'IMG_ICON_AJAX_CHECKING'				=> 'Comprobando AJAX',
+	'IMG_ICON_AJAX_TRUE'					=> 'AJAX verdadero',
+	'IMG_ICON_AJAX_FALSE'					=> 'AJAX falso',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_1'		=> 'Fuerza de la contraseña AJAX - Muy débil',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_2'		=> 'Fuerza de la contraseña AJAX - Débil',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_3'		=> 'Fuerza de la contraseña AJAX - Aceptable',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_4'		=> 'Fuerza de la contraseña AJAX - Fuerte',
 ));
 
 ?>

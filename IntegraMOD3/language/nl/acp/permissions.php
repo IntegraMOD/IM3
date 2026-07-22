@@ -284,6 +284,20 @@ $lang = array_merge($lang, array(
 
 	'WRONG_PERMISSION_TYPE'				=> 'Verkeerd permissietype geselecteerd.',
 	'WRONG_PERMISSION_SETTING_FORMAT'	=> 'De permissie-instellingen zijn in een verkeerd formaat, waardoor phpBB ze niet correct kan verwerken.',
+
+	// Missing variables
+	'ROLE_KB_ADMIN'					=> 'KB Admin',
+	'ROLE_KB_MODERATOR'				=> 'KB Moderator',
+	'ROLE_KB_USER'					=> 'KB Gebruiker',
+	'ROLE_KB_SU_USER'				=> 'KB Supergebruiker',
+	'ROLE_KB_GUEST'					=> 'KB Gast',
+	'ROLE_KB_BOT'					=> 'KB Bot',
+	'ROLE_DESCRIPTION_KB_ADMIN'		=> 'Heeft toegang tot alle Kennisbank Moderator gereedschappen in deze categorie.',
+	'ROLE_DESCRIPTION_KB_MODERATOR'	=> 'Heeft toegang tot alle Kennisbank Moderator gereedschappen in deze categorie.',
+	'ROLE_DESCRIPTION_KB_USER'		=> 'Kan Kennisbank artikelen insturen in deze categorie. Artikel inzending vereist goedkeuring van de moderator. Kan eigen Kennisbank artikelen modereren.',
+	'ROLE_DESCRIPTION_KB_SU_USER'	=> 'Kan Kennisbank artikelen insturen in deze categorie. Kan artikelen insturen zonder goedkeuring van de moderator. Kan eigen Kennisbank artikelen modereren.',
+	'ROLE_DESCRIPTION_KB_GUEST'		=> 'Kan artikelen bekijken in deze categorie.',
+	'ROLE_DESCRIPTION_KB_BOT'		=> 'Kan artikelen bekijken in deze categorie.',
 ));
 
 ?>

@@ -581,6 +581,17 @@ $lang = array_merge($lang, array(
 $lang = array_merge($lang, array(
   'BROWSER_OUTDATED_TITLE'	 => 'Your browser is outdated',
 	'BROWSER_OUTDATED'	 => 'Some of the features will not work on your browser. We highly recommend you to update it.',
+
+	// Missing variables
+	'SN_UP_USER_FB'		=> 'Facebook',
+	'SN_UP_USER_IG'		=> 'Instagram',
+	'SN_UP_USER_PT'		=> 'Pinterest',
+	'SN_UP_USER_TWR'	=> 'Twitter',
+	'SN_UP_USER_SKP'	=> 'Skype',
+	'SN_UP_USER_TG'		=> 'Telegram',
+	'SN_UP_USER_LI'		=> 'LinkedIn',
+	'SN_UP_USER_TT'		=> 'TikTok',
+	'SN_UP_USER_DC'		=> 'Discord',
 ));
 
 ?>

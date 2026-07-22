@@ -61,6 +61,31 @@ $lang = array_merge($lang, array(
 	'acl_a_config_kb'			=> array('lang' => 'Can edit configuration', 'cat' => 'kb'),
 	'acl_a_categorie_kb'		=> array('lang' => 'Can edit categories', 'cat' => 'kb'),
 	'acl_a_types_kb'			=> array('lang' => 'Can edit types', 'cat' => 'kb'),
+
+	// Missing variables
+	'permission_cat' => array(
+		'kb'	=> 'Base de Conocimientos',
+		'read'	=> 'Leer',
+		'write'	=> 'Escribir',
+	),
+	'permission_type' => array(
+		'kb_'	=> 'Base de Conocimientos',
+	),
+
+	'acl_kb_print_article'		=> array('lang' => 'Puede imprimir artículos', 'cat' => 'read'),
+	'acl_kb_view_article'		=> array('lang' => 'Puede ver artículos en esta categoría', 'cat' => 'read'),
+	'acl_kb_download'			=> array('lang' => 'Puede descargar archivos adjuntos', 'cat' => 'read'),
+	'acl_kb_report_article'		=> array('lang' => 'Puede reportar artículo', 'cat' => 'read'),
+	'acl_kb_rate_article'		=> array('lang' => 'Puede valorar artículo', 'cat' => 'read'),
+	'acl_kb_attache_article'	=> array('lang' => 'Puede subir archivos adjuntos', 'cat' => 'write'),
+	'acl_kb_edit_article'		=> array('lang' => 'Puede editar artículos propios', 'cat' => 'write'),
+	'acl_kb_del_article'		=> array('lang' => 'Puede borrar artículos propios', 'cat' => 'write'),
+	'acl_kb_add_article'		=> array('lang' => 'Puede añadir artículos', 'cat' => 'write'),
+	'acl_kb_add_article_direct'	=> array('lang' => 'Puede añadir artículos sin validación', 'cat' => 'write'),
+	'acl_kb_edit_all_article'	=> array('lang' => 'Puede editar todos los artículos', 'cat' => 'write'),
+	'acl_m_delete_diff_kb'		=> array('lang' => 'Puede borrar versiones viejas de un artículo', 'cat' => 'kb'),
+	'acl_m_restore_kb'			=> array('lang' => 'Puede restaurar versiones viejas de un artículo', 'cat' => 'kb'),
+	'acl_a_permissions_kb'		=> array('lang' => 'Puede editar permisos de categoría', 'cat' => 'kb'),
 ));
 
 ?>

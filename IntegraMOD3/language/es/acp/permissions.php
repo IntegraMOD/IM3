@@ -305,6 +305,20 @@ $lang = array_merge($lang, array(
 
 	'WRONG_PERMISSION_TYPE'		=> 'Tipo de permiso incorrecto.',
 	'WRONG_PERMISSION_SETTING_FORMAT'	=> 'La configuración de los permisos está en un formato incorrecto, phpBB no puede procesarlos correctamente.',
+
+	// Missing variables
+	'ROLE_KB_ADMIN'					=> 'Admin KB',
+	'ROLE_KB_MODERATOR'				=> 'Moderador KB',
+	'ROLE_KB_USER'					=> 'Usuario KB',
+	'ROLE_KB_SU_USER'				=> 'Super Usuario KB',
+	'ROLE_KB_GUEST'					=> 'Invitado KB',
+	'ROLE_KB_BOT'					=> 'Bot KB',
+	'ROLE_DESCRIPTION_KB_ADMIN'		=> 'Tiene acceso a todas las herramientas del Moderador de la Base de Conocimientos en esta categoría.',
+	'ROLE_DESCRIPTION_KB_MODERATOR'	=> 'Tiene acceso a todas las herramientas del Moderador de la Base de Conocimientos en esta categoría.',
+	'ROLE_DESCRIPTION_KB_USER'		=> 'Puede enviar artículos a la Base de Conocimientos en esta categoría. Requiere la aprobación de un moderador. Puede moderar sus propios artículos en la Base de Conocimientos.',
+	'ROLE_DESCRIPTION_KB_SU_USER'	=> 'Puede enviar artículos a la Base de Conocimientos en esta categoría. Puede publicar artículos sin la aprobación de un moderador. Puede moderar sus propios artículos.',
+	'ROLE_DESCRIPTION_KB_GUEST'		=> 'Puede ver todos los artículos de esta categoría.',
+	'ROLE_DESCRIPTION_KB_BOT'		=> 'Puede ver todos los artículos de esta categoría.',
 ));
 
 ?>

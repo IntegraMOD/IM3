@@ -43,6 +43,9 @@ $lang = array_merge($lang, array(
 	'MCP_KB_ACTIVATE'		=> 'Activate article',
 	'MCP_KB_REPORTS'		=> 'Reported articles',
 	'MCP_KB_MAIN'			=> 'Overview',
+
+	// Missing variables
+	'MCP_KB'				=> 'Base de Conocimientos',
 ));
 
 ?>

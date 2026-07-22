@@ -434,6 +434,24 @@ $lang = array_merge($lang, array(
 	'UNINSTALLED_THEME'		=> 'Thèmes désinstallés',
 	'UNSET'					=> 'Non défini',
 
+	// Missing variables
+	'IMG_ICON_CONTACT_FB'					=> 'Facebook',
+	'IMG_ICON_CONTACT_IG'					=> 'Instagram',
+	'IMG_ICON_CONTACT_PT'					=> 'Pinterest',
+	'IMG_ICON_CONTACT_TWR'					=> 'Twitter',
+	'IMG_ICON_CONTACT_SKP'					=> 'Skype',
+	'IMG_ICON_CONTACT_TG'					=> 'Telegram',
+	'IMG_ICON_CONTACT_LI'					=> 'LinkedIn',
+	'IMG_ICON_CONTACT_TT'					=> 'TikTok',
+	'IMG_ICON_CONTACT_DC'					=> 'Discord',
+	'IMG_ICON_DOWNLOAD'						=> 'Télécharger',
+	'IMG_ICON_AJAX_CHECKING'				=> 'Vérification AJAX',
+	'IMG_ICON_AJAX_TRUE'					=> 'AJAX vrai',
+	'IMG_ICON_AJAX_FALSE'					=> 'AJAX faux',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_1'		=> 'Force du mot de passe AJAX - Très faible',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_2'		=> 'Force du mot de passe AJAX - Faible',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_3'		=> 'Force du mot de passe AJAX - Acceptable',
+	'IMG_ICON_AJAX_PASSWORD_STRENGTH_4'		=> 'Force du mot de passe AJAX - Forte',
 ));
 
 ?>

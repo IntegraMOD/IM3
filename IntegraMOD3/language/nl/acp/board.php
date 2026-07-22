@@ -755,4 +755,10 @@ $lang = array_merge($lang, array(
 // Notes settings by OXPUS
 $lang = array_merge($lang, array(
     'ACP_NOTES_SETTINGS'        => 'Max. aantal notities per gebruiker',
+
+    // Missing variables
+    'GUEST_SESSIONS_CACHE'			=> 'Gebruik gastensessies cache',
+    'GUEST_SESSIONS_CACHE_EXPLAIN'	=> 'Sla anonieme gastensessies op in de geconfigureerde ACM backend in plaats van de database om de belasting van de sessietabel te verminderen. Vereist includes/guest_sessions.php en de juiste geconfigureerde ACM backend.',
+    'COOKIE_CONSENT_TITLE'			=> 'Cookie Toestemming Titel',
+    'COOKIE_CONSENT_MESSAGE'		=> 'Cookie Toestemming Bericht',
 ));

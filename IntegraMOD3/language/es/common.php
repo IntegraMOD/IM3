@@ -1045,4 +1045,17 @@ $lang = array_merge($lang, array(
 	'COOKIE_CONSENT_ALLOW'			=> 'Allow cookies',
 	'COOKIE_CONSENT_CUSTOMIZE'		=> 'Customize',
 	'COOKIE_CONSENT_SAVE_PREFERENCES' => 'Save preferences',
+
+	// Missing variables
+	'DIGESTS'					=> 'Resúmenes',
+	'FIRST_POST_SHOW'			=> 'Mostrar en la parte superior de cada página',
+	'KB_SHORT'					=> 'KB',
+	'MY_WEBSITE'				=> 'Sitio web %s',
+	'KNOWLEDGE_BASE'			=> 'Base de Conocimientos',
+	'STYLE_LIGHT'				=> 'Estilo Claro',
+	'STYLE_DARK'				=> 'Estilo Oscuro',
+	'AVATAR_REMOTE_UPLOAD_TIMEOUT'	=> 'El avatar especificado no se pudo cargar porque se agotó el tiempo de espera de la solicitud.',
+	'MODULE_NOT_ACCESS'			=> 'Módulo no accesible',
+	'MODULE_NOT_FIND'			=> 'No se puede encontrar el módulo %s',
+	'MODULE_FILE_INCORRECT_CLASS'	=> 'El archivo del módulo %s no contiene la clase correcta [%s]',
 ));

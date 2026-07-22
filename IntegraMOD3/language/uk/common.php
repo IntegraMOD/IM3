@@ -1004,4 +1004,13 @@ $lang = array_merge($lang, array(
 	'COOKIE_CONSENT_ALLOW'			=> 'Allow cookies',
 	'COOKIE_CONSENT_CUSTOMIZE'		=> 'Customize',
 	'COOKIE_CONSENT_SAVE_PREFERENCES' => 'Save preferences',
+
+	// Missing variables
+	'DIGESTS'					=> 'Дайджести',
+	'FIRST_POST_SHOW'			=> 'Показувати вгорі кожної сторінки',
+	'KB_SHORT'					=> 'КБ',
+	'MY_WEBSITE'				=> 'Вебсайт %s',
+	'KNOWLEDGE_BASE'			=> 'База Знань',
+	'STYLE_LIGHT'				=> 'Світлий Стиль',
+	'STYLE_DARK'				=> 'Темний Стиль',
 ));

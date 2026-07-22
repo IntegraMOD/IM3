@@ -555,4 +555,15 @@ $lang = array_merge($lang, array(
 	'PS_GOOD'			=> 'Good',
 	'PS_STRONG'			=> 'Strong',
 	'PS_VERY_STRONG'	=> 'Very Strong',
+
+	// Missing variables
+	'FIELD_MULTI_TOO_LOW'				=> 'Ви вибрали недостатньо опцій у полі „%1$s“. Потрібно вибрати %2$d опцій.',
+	'FIELD_MULTI_TOO_MANY'				=> 'Ви вибрали забагато опцій у полі „%1$s“. Максимальна дозволена кількість — %2$d.',
+	'UCP_DIGESTS'						=> 'Дайджести',
+	'UCP_DIGESTS_ADDITIONAL_CRITERIA'	=> 'Додаткові Критерії',
+	'UCP_DIGESTS_BASICS'				=> 'Основи',
+	'UCP_DIGESTS_FORUMS_SELECTION'		=> 'Вибір Форумів',
+	'UCP_DIGESTS_POST_FILTERS'			=> 'Фільтри Повідомлень',
+	'VIEW_SHOUT_INDEX'					=> 'Показувати чат на головній сторінці',
+	'VIEW_CAL_INDEX'					=> 'Показувати міні-календар на головній сторінці',
 ));

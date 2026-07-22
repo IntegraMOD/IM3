@@ -608,4 +608,15 @@ $lang = array_merge($lang, array(
 	'PS_GOOD'			=> 'Good',
 	'PS_STRONG'			=> 'Strong',
 	'PS_VERY_STRONG'	=> 'Very Strong',
+
+	// Missing variables
+	'FIELD_MULTI_TOO_LOW'				=> 'No ha seleccionado suficientes opciones en el campo „%1$s“. Debe seleccionar al menos %2$d opciones.',
+	'FIELD_MULTI_TOO_MANY'				=> 'Ha seleccionado demasiadas opciones en el campo „%1$s“. El máximo permitido es %2$d opciones.',
+	'UCP_DIGESTS'						=> 'Resúmenes',
+	'UCP_DIGESTS_ADDITIONAL_CRITERIA'	=> 'Criterios Adicionales',
+	'UCP_DIGESTS_BASICS'				=> 'Básicos',
+	'UCP_DIGESTS_FORUMS_SELECTION'		=> 'Selección de Foros',
+	'UCP_DIGESTS_POST_FILTERS'			=> 'Filtros de Mensajes',
+	'VIEW_SHOUT_INDEX'					=> 'Mostrar shoutbox en la página de inicio',
+	'VIEW_CAL_INDEX'					=> 'Mostrar minicalendario en la página de inicio',
 ));

@@ -258,5 +258,9 @@ $lang = array_merge($lang, array(
 	'TEAMPAGE_DISP_ALL'     => 'Show users in all groups where they are a member.',
 	'TEAMPAGE_DISP_DEFAULT' => 'Show users in their default group only.',
 	'TEAMPAGE_MEMBERSHIPS'  => 'Group membership display options',
+
+	// Missing variables
+	'ACP_K_VARS_AND_RESOURCES'	=> 'Ajustes del Portal',
+	'ACP_K_PAGES_LAND'			=> 'Página de Destino',
 ));
 ?>

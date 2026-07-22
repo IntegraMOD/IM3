@@ -457,5 +457,8 @@ $lang = array_merge($lang, array(
 	'K_TEAMS_EXPLAIN'       => '(ID of teams in comma separated list).',
 	'K_BLOCK_TEAMS'         => 'Select teams to display in block',
 	'K_BLOCK_TEAMS_EXPLAIN' => 'This dropdown is reusable, each selection will update the list.<br />Selecting <strong>none</strong> will reset the list.',
-	'THE_TEAM_SETTINGS_2'   => 'Limit to members'
+	'THE_TEAM_SETTINGS_2'   => 'Limit to members',
+
+	// Missing variables
+	'SELECT_LANG'			=> 'Обрати мову',
 ));

@@ -201,4 +201,7 @@ $lang = array_merge($lang, array(
 	'AL_POSTS_TEXT'			=> 'posts',
 	'AL_POST_TEXT'			=> 'post',
 	// ajaxlike
+
+	// Missing variables
+	'USERS_PER_PAGE'			=> 'Usuarios por página',
 ));

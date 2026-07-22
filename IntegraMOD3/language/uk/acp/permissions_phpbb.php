@@ -301,4 +301,18 @@ $lang = array_merge($lang, array(
 	'acl_u_ajaxlike_mod'	=>	array('lang' => 'Can like posts', 'cat' => 'misc'),
 	'acl_f_ajaxlike_mod'	=>	array('lang' => 'Can like posts in forum', 'cat' => 'misc'),
 	'acl_a_ajaxlike_mod'	=>	array('lang' => 'Can manage likes', 'cat' => 'misc'),
+
+	// Missing variables
+	'acl_u_activity'		=> array('lang' => 'Може бачити посилання на сторінку Активності в навігації', 'cat' => 'misc'),
+	'acl_u_blog'			=> array('lang' => 'Може бачити посилання на Блоги в навігації', 'cat' => 'misc'),
+	'acl_u_kb'				=> array('lang' => 'Може бачити посилання на Базу Знань в навігації', 'cat' => 'misc'),
+	'acl_u_cal'				=> array('lang' => 'Може бачити посилання на Календар Тем в навігації', 'cat' => 'misc'),
+	'acl_u_gall'			=> array('lang' => 'Може бачити посилання на Галерею в навігації', 'cat' => 'misc'),
+	'acl_u_cht'				=> array('lang' => 'Може бачити посилання на Чат в навігації', 'cat' => 'misc'),
+	'acl_u_dls'				=> array('lang' => 'Може бачити посилання на Завантаження в навігації', 'cat' => 'misc'),
+	'acl_u_faq'				=> array('lang' => 'Може бачити посилання на FAQ (Часті запитання) в навігації', 'cat' => 'misc'),
+	'acl_u_mem'				=> array('lang' => 'Може бачити посилання на Список Користувачів в навігації', 'cat' => 'misc'),
+	'acl_u_notes'			=> array('lang' => 'Може бачити посилання на Нотатки в навігації', 'cat' => 'misc'),
+	'acl_u_contact'			=> array('lang' => 'Може бачити посилання на Контакти в навігації', 'cat' => 'misc'),
+	'acl_u_rules'			=> array('lang' => 'Може бачити посилання на Правила в навігації', 'cat' => 'misc'),
 ));

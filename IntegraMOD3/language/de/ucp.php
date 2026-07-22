@@ -625,4 +625,15 @@ $lang = array_merge($lang, array(
 	'PS_GOOD'			=> 'Good',
 	'PS_STRONG'			=> 'Strong',
 	'PS_VERY_STRONG'	=> 'Very Strong',
+
+	// Missing variables
+	'FIELD_MULTI_TOO_LOW'				=> 'Du hast nicht genug Optionen in dem Feld „%1$s“ ausgewählt. Es müssen mindestens %2$d Optionen ausgewählt werden.',
+	'FIELD_MULTI_TOO_MANY'				=> 'Du hast zu viele Optionen in dem Feld „%1$s“ ausgewählt. Es dürfen maximal %2$d Optionen ausgewählt werden.',
+	'UCP_DIGESTS'						=> 'Digests',
+	'UCP_DIGESTS_ADDITIONAL_CRITERIA'	=> 'Zusätzliche Kriterien',
+	'UCP_DIGESTS_BASICS'				=> 'Grundlagen',
+	'UCP_DIGESTS_FORUMS_SELECTION'		=> 'Forenauswahl',
+	'UCP_DIGESTS_POST_FILTERS'			=> 'Beitragsfilter',
+	'VIEW_SHOUT_INDEX'					=> 'Shoutbox auf der Index-Seite anzeigen',
+	'VIEW_CAL_INDEX'					=> 'Mini-Kalender auf der Index-Seite anzeigen',
 ));

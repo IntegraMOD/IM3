@@ -217,6 +217,21 @@ $lang = array_merge($lang, array(
 	'ADS_DESC'				=> 'Here you can insert code for your Advertising.',
 	'URI_IN_USE'			=> 'The URL is already in use',
 	'USER_CHANGED'			=> 'The user has been changed',
+
+	// Missing variables
+	'VIEW_KB_TOPIC'						=> 'Ver tema en el foro',
+	'EDIT_REASON'						=> 'Razón para editar este artículo',
+	'ACL_TYPE_KB_'						=> '', // blank per phpBB convention for prefix map if intended that way, or could be 'Base de Conocimientos'
+	'ACP_KB_ROLES'						=> 'Roles de Base de Conocimientos',
+	'ACP_KB_ROLES_EXPLAIN'				=> '',
+	'KB_CATEGORIE_PERMISSIONS'			=> 'Permisos de categoría de Base de Conocimientos',
+	'KB_CATEGORIE_PERMISSIONS_DESC'		=> 'Aquí puedes modificar qué usuarios y grupos pueden acceder a cuál categoría.',
+	'LOOK_UP_CATEGORIE'					=> 'Seleccione una categoría',
+	'LOOK_UP_FORUMS_EXPLAIN'			=> 'Usted puede seleccionar más de una categoría',
+	'ACL_TYPE_LOCAL_KB_'				=> 'Permisos de Base de Conocimientos',
+	'PERMISSION_TYPE'					=> 'Permisos de Base de Conocimientos',
+	'ALL_CATEGORIES'					=> 'Todas las categorías',
+	'SELECT_CATEGORIE_SUBFORUM_EXPLAIN'	=> 'La Categoría que seleccione aquí incluirá todas las subcategorías en la selección.',
 ));
 
 ?>
