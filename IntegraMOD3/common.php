@@ -30,6 +30,23 @@ error_reporting  (E_ALL);
 * Only defines functions if missing.
 */
 
+if (!function_exists('each')) {
+	function each(&$arr) {
+		$key = key($arr);
+		if ($key === null) {
+			return false;
+		}
+		$val = current($arr);
+		next($arr);
+		return array(
+			1 => $val,
+			'value' => $val,
+			0 => $key,
+			'key' => $key
+		);
+	}
+}
+
 if (!function_exists('str_contains'))
 {
     function str_contains($haystack, $needle)
@@ -192,7 +209,7 @@ require($phpbb_root_path . 'includes/utf/utf_tools.' . $phpEx);
 require($phpbb_root_path . 'includes/points/functions_points.' . $phpEx);
 // End Ultimate Points
 // Set PHP error handler to ours
-set_error_handler(defined('PHPBB_MSG_HANDLER') ? PHPBB_MSG_HANDLER : 'msg_handler');
+if(!function_exists('create_function')){function create_function($args,$code){return eval('return function('.$args.'){'.$code.'};');}} set_error_handler(defined('PHPBB_MSG_HANDLER') ? PHPBB_MSG_HANDLER : 'msg_handler');
 
 // Instantiate some basic classes
 $user		= new user();
