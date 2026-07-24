@@ -21,8 +21,6 @@ include($phpbb_root_path . 'common.'.$phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 
-$template->assign_var('S_IN_CALENDAR', true);
-
 // Start session management
 $user->session_begin();
 $auth->acl($user->data);
@@ -468,33 +466,33 @@ switch($mode)
 		// This is always required
 		$template->assign_vars(array(
 			'NUM_GROUPS'				=> sizeof($user_groups),
-			'S_SMILIES_ALLOWED'		=> $smilies_status,
-			'S_BBCODE_ALLOWED'		=> $bbcode_status,
-			'S_LINKS_ALLOWED'		 => $url_status,
+			'S_SMILIES_ALLOWED'			=> $smilies_status,
+			'S_BBCODE_ALLOWED'			=> $bbcode_status,
+			'S_LINKS_ALLOWED'		 	=> $url_status,
 			'SMILIES_STATUS'			=> ($smilies_status) ? $user->lang['SMILIES_ARE_ON'] : $user->lang['SMILIES_ARE_OFF'],
-			'BBCODE_STATUS'			=> ($bbcode_status) ? sprintf($user->lang['BBCODE_IS_ON'], '<a href="' . append_sid("{$phpbb_root_path}faq.$phpEx", 'mode=bbcode') . '">', '</a>') : sprintf($user->lang['BBCODE_IS_OFF'], '<a href="' . append_sid("{$phpbb_root_path}faq.$phpEx", 'mode=bbcode') . '">', '</a>'),
+			'BBCODE_STATUS'				=> ($bbcode_status) ? sprintf($user->lang['BBCODE_IS_ON'], '<a href="' . append_sid("{$phpbb_root_path}faq.$phpEx", 'mode=bbcode') . '">', '</a>') : sprintf($user->lang['BBCODE_IS_OFF'], '<a href="' . append_sid("{$phpbb_root_path}faq.$phpEx", 'mode=bbcode') . '">', '</a>'),
 			'URL_STATUS'				=> ($url_status) ? $user->lang['URL_IS_ON'] : $user->lang['URL_IS_OFF'],
-			'U_FIND_USERNAME'		 => append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=searchuser&amp;form=postform&amp;field=username_list&amp;select_single=$select_single"),
-			'S_PUBLIC_CHECKED'		=> 'true',
-			'EVENT_VIEW_BY_PUBLIC'	=> EVENT_VIEW_BY_PUBLIC,
-			'EVENT_VIEW_BY_PRIVATE'	=> EVENT_VIEW_BY_PRIVATE,
-			'EVENT_VIEW_BY_GROUPS'	=> EVENT_VIEW_BY_GROUPS,
+			'U_FIND_USERNAME'			=> append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=searchuser&amp;form=postform&amp;field=username_list&amp;select_single=$select_single"),
+			'S_PUBLIC_CHECKED'			=> 'true',
+			'EVENT_VIEW_BY_PUBLIC'		=> EVENT_VIEW_BY_PUBLIC,
+			'EVENT_VIEW_BY_PRIVATE'		=> EVENT_VIEW_BY_PRIVATE,
+			'EVENT_VIEW_BY_GROUPS'		=> EVENT_VIEW_BY_GROUPS,
 			'L_UPCOMING_EVENTS_DAYS'	=> sprintf($user->lang['UPCOMING_EVENTS_DAYS'], $config['calendar_max_events_list_days']),
-			'EVENTS_LIST_MAX_DAYS'	=> $config['calendar_max_events_list_days'],
+			'EVENTS_LIST_MAX_DAYS'		=> $config['calendar_max_events_list_days'],
 			'L_UPCOMING_BIRTHDAYS_DAYS' => sprintf($user->lang['UPCOMING_BIRTHDAYS_DAYS'], $config['calendar_max_bdays_list_days']),
-			'BDAYS_LIST_MAX_DAYS'	 => $config['calendar_max_bdays_list_days'],
-			'S_OVERRIDE_USER'		 => $config['calendar_override_user'],
+			'BDAYS_LIST_MAX_DAYS'	 	=> $config['calendar_max_bdays_list_days'],
+			'S_OVERRIDE_USER'			=> $config['calendar_override_user'],
 			'U_ADD_EDIT_TAB'			=> $user->lang['CALENDAR_ADD_EVENT'],
-			'U_ICAL_LINK'			 => append_sid($phpbb_root_path . 'sgpical.' . $phpEx),
+			'U_ICAL_LINK'			 	=> append_sid($phpbb_root_path . 'sgpical.' . $phpEx),
 			'U_CSV_LINK'				=> append_sid($phpbb_root_path . 'csv.' . $phpEx),
-			'U_SUBSCRIBE_PRIV_CAL'	=> 'feed.php',
+			'U_SUBSCRIBE_PRIV_CAL'		=> 'feed.php',
 			'U_SUBSCRIBE_PUBLIC_CAL'	=> 'feed.php',
-			'U_PUBLISH_RSS_CAL'		=> $can_publish_rss ? 'feed.php' : null,
-			'S_POST_ACTION'			=> append_sid("{$phpbb_root_path}calendar.$phpEx", "mode=new"),
+			'U_PUBLISH_RSS_CAL'			=> $can_publish_rss ? 'feed.php' : null,
+			'S_POST_ACTION'				=> append_sid("{$phpbb_root_path}calendar.$phpEx", "mode=new"),
 			'ACTIVE_TAB'				=> $mode == 'edit' ? 'event-panel' : 'calendar-panel',
 			'S_SGP_AJAX'				=> true,
+			'S_IN_CALENDAR'				=> true,
 		));
-
 		/********* END Stuff which applies to all conditions **********/
 
 		/************* BEGIN Mode specific stuff **********************/
