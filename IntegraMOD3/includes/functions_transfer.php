@@ -34,7 +34,15 @@ class transfer
 	var $dir_perms;
 
 	/**
-	* Constructor - init some basic values
+	* PHP 5/7/8 constructor
+	*/
+	function __construct()
+	{
+		$this->transfer();
+	}
+
+	/**
+	* PHP 4 constructor
 	*/
 	function transfer()
 	{
@@ -46,7 +54,6 @@ class transfer
 		// We use the store directory as temporary path to circumvent open basedir restrictions
 		$this->tmp_path = $phpbb_root_path . 'store/';
 	}
-
 	/**
 	* Write file to location
 	*/

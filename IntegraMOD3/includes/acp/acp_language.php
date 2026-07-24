@@ -501,7 +501,8 @@ class acp_language
 
 				include_once($phpbb_root_path . 'includes/functions_transfer.' . $phpEx);
 
-				$methods = transfer::methods();
+				$transfer = new transfer();
+				$methods = $transfer->methods();
 
 				foreach ($methods as $method)
 				{

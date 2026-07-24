@@ -240,13 +240,19 @@ if (!function_exists('correct_truncate_length'))
 }
 
 
-/**
- * Written by Rowan Lewis
- * $search(string), the string to be searched for
- * $replace(string), the string to replace $search
- * $subject(string), the string to be searched in
- */
+function word_replace_callback($matches)
+{
+    global $word_replace_search, $word_replace_replace;
+
+    return ($matches[0] === $word_replace_search) ? $word_replace_replace : $matches[0];
+}
+
 function word_replace($search, $replace, $subject)
 {
-	return preg_replace('/[a-zA-Z]+/e', '\'\0\' == \'' . $search . '\' ? \'' . $replace . '\': \'\0\';', (string) $subject);
+    global $word_replace_search, $word_replace_replace;
+
+    $word_replace_search = $search;
+    $word_replace_replace = $replace;
+
+    return preg_replace_callback('/[a-zA-Z]+/', 'word_replace_callback', (string) $subject);
 }

@@ -154,8 +154,8 @@ else
 	{
 		$split_search = array();
 		$sql_search_terms = '';
-		$split_search = split(' ', $search_keywords);
-	
+		$split_search = explode(' ', $search_keywords);
+
 		foreach($split_search as $search_word)
 		{
 			$search_word = utf8_encode($search_word);
