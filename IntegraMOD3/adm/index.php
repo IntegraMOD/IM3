@@ -142,141 +142,89 @@ function adm_page_header($page_title)
 
 if (!function_exists('im_get_remote_file'))
 {
-	function im_get_remote_file($url, &$errstr)
+	function im_get_remote_file($url, $cache_key)
 	{
-		$errstr = '';
+		global $cache;
+
+		// 1. Try to get it from the phpBB cache first so we don't lag the ACP on every click
+		$data = $cache->get($cache_key);
+		if ($data !== false && is_string($data))
+		{
+			return $data;
+		}
+
 		$data = '';
 
-		// Prefer cURL
+		// 2. Fetch using modern cURL (No fsockopen!)
 		if (function_exists('curl_init'))
 		{
-			$ch = curl_init($url);
-
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-			curl_setopt($ch, CURLOPT_USERAGENT, 'IntegraMOD3 Version Checker');
-
-			$data = curl_exec($ch);
-
-			if ($data === false)
+			$ch = @curl_init($url);
+			if ($ch)
 			{
-				$errstr = curl_error($ch);
-				$data = '';
-			}
-
-			if (PHP_VERSION_ID < 80000)
-			{
-				curl_close($ch);
-			}
-
-			if ($data !== '')
-			{
-				return $data;
-			}
-		}
-
-		// Fallback to fsockopen
-		$parts = @parse_url($url);
-
-		if (empty($parts['host']) || empty($parts['path']))
-		{
-			$errstr = 'Invalid URL';
-			return '';
-		}
-
-		$errno = 0;
-
-		$scheme = (!empty($parts['scheme']) && $parts['scheme'] === 'https') ? 'ssl://' : '';
-		$port = (!empty($parts['port'])) ? (int) $parts['port'] : (($scheme) ? 443 : 80);
-
-		$fsock = @fsockopen($scheme . $parts['host'], $port, $errno, $errstr, 10);
-
-		if (!$fsock)
-		{
-			return '';
-		}
-
-		@fputs($fsock, "GET " . $parts['path'] . " HTTP/1.1\r\n");
-		@fputs($fsock, "Host: " . $parts['host'] . "\r\n");
-		@fputs($fsock, "Accept-Encoding: identity\r\n");
-		@fputs($fsock, "Connection: close\r\n\r\n");
-
-		$get_info = false;
-
-		while (!@feof($fsock))
-		{
-			if ($get_info)
-			{
-				$data .= @fread($fsock, 1024);
-			}
-			else
-			{
-				if (@fgets($fsock, 1024) == "\r\n")
+				@curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				@curl_setopt($ch, CURLOPT_TIMEOUT, 3); // Fast 3-second timeout so ACP never hangs
+				@curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				@curl_setopt($ch, CURLOPT_USERAGENT, 'IntegraMOD3 Version Checker');
+				
+				$response = @curl_exec($ch);
+				if ($response !== false)
 				{
-					$get_info = true;
+					$data = (string) $response;
 				}
+				@curl_close($ch);
+			}
+		}
+		// 3. Safe fallback if cURL is disabled on their host
+		elseif (ini_get('allow_url_fopen'))
+		{
+			$ctx = stream_context_create(array(
+				'http' => array('timeout' => 3),
+				'ssl'  => array('verify_peer' => false, 'verify_peer_name' => false)
+			));
+			$response = @file_get_contents($url, false, $ctx);
+			if ($response !== false)
+			{
+				$data = (string) $response;
 			}
 		}
 
-		@fclose($fsock);
+		$data = trim($data);
+
+		// 4. Save to cache for 24 hours (86400 seconds) if successful
+		if ($data !== '')
+		{
+			$cache->put($cache_key, $data, 86400);
+		}
 
 		return $data;
 	}
 }
 
-$errstr = '';
-$news = im_get_remote_file('https://integramod.com/version/im3_news.txt', $errstr);
+// Fetch the data utilizing the cache keys
+$news = im_get_remote_file('https://integramod.com/version/im3_news.txt', 'im3_news_cache');
+$lver = im_get_remote_file('https://integramod.com/version/3.0.x.txt', 'im3_version_cache');
 
+// Graceful fallbacks if the user's server is offline or unreachable
 if ($news === '')
 {
-	if ($errstr)
-	{
-		if (!empty($user->lang['CONNECT_SOCKET_ERROR']))
-		{
-			$news = '<p style="color:red">' . sprintf($user->lang['CONNECT_SOCKET_ERROR'], $errstr) . '</p>';
-		}
-		else
-		{
-			$news = '<p style="color:red">Socket error: ' . htmlspecialchars($errstr) . '</p>';
-		}
-	}
-	else
-	{
-		$news = '<p>' . (!empty($user->lang['SOCKET_FUNCTIONS_DISABLED']) ? $user->lang['SOCKET_FUNCTIONS_DISABLED'] : 'Socket functions are disabled.') . '</p>';
-	}
+	$news = '<p>IntegraMOD News is currently unavailable.</p>';
 }
-
-$errstr = '';
-$lver = im_get_remote_file('https://integramod.com/version/3.0.x.txt', $errstr);
 
 if ($lver === '')
 {
-	if ($errstr)
-	{
-		if (!empty($user->lang['CONNECT_SOCKET_ERROR']))
-		{
-			$lver = '<p style="color:red">' . sprintf($user->lang['CONNECT_SOCKET_ERROR'], $errstr) . '</p>';
-		}
-		else
-		{
-			$lver = '<p style="color:red">Socket error: ' . htmlspecialchars($errstr) . '</p>';
-		}
-	}
-	else
-	{
-		$lver = '<p>' . (!empty($user->lang['SOCKET_FUNCTIONS_DISABLED']) ? $user->lang['SOCKET_FUNCTIONS_DISABLED'] : 'Socket functions are disabled.') . '</p>';
-	}
+	$lver = 'Unavailable';
 }
 
+// Assign current version (falls back to phpBB version if IM3 specific version isn't in config)
+$cver = isset($config['im_version']) ? (string) $config['im_version'] : (isset($config['version']) ? (string) $config['version'] : '3.0.0');
+
 $template->assign_vars(array(
-	'INTEGRA_NEWS'        => (!empty($news) ? $news : null),
-	'LATEST_IM_VERSION'   => (!empty($lver) ? $lver : null),
-	'CURRENT_IM_VERSION'  => (!empty($cver) ? $cver : null),
+	'INTEGRA_NEWS'       => $news,
+	'LATEST_IM_VERSION'  => $lver,
+	'CURRENT_IM_VERSION' => $cver,
 ));
 
-// IMOD VERSION
+////// End Check for news from integramod
 
 global $db, $user;
 $pos = 0;

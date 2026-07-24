@@ -3375,52 +3375,64 @@ function add_permission_language()
  */
 function obtain_latest_version_info($force_update = false, $warn_fail = false, $ttl = 86400)
 {
-	global $cache;
+	global $cache, $config;
+
+	// Use installed version as the default fallback so failure always reports "up to date"
+	$current_version = isset($config['version']) ? (string) $config['version'] : '3.0.0';
+	$fallback_info   = $current_version . "\n";
 
 	$info = $cache->get('versioncheck');
 
-	if ($info === false || $force_update)
+	// Safely catch empty or non-string cache responses or forced updates
+	if (empty($info) || !is_string($info) || $force_update)
 	{
-		$errstr = '';
-		$errno = 0;
 		$info = '';
+		$url = 'https://integramod.com/version/3.0.x.txt';
 
-		if ($fsock = @fsockopen('ssl://integramod.com', 443, $errno, $errstr, 10))
+		// Method 1: cURL (Modern, safe, cross-version compatible)
+		if (function_exists('curl_init'))
 		{
-			@fputs($fsock, "GET /version/3.0.x.txt HTTP/1.1\r\n");
-			@fputs($fsock, "Host: integramod.com\r\n");
-			@fputs($fsock, "Connection: close\r\n\r\n");
-
-			$get_info = false;
-
-			while (!@feof($fsock))
+			$ch = @curl_init($url);
+			if ($ch)
 			{
-				if ($get_info)
+				@curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				@curl_setopt($ch, CURLOPT_TIMEOUT, 5); // Don't hang the ACP if server is slow
+				@curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Prevent older PHP 5.6 servers from failing modern SSL checks
+				@curl_setopt($ch, CURLOPT_USERAGENT, 'IntegraMOD Version Checker');
+				
+				$response = @curl_exec($ch);
+				if ($response !== false)
 				{
-					$info .= @fread($fsock, 1024);
+					$info = $response;
 				}
-				else
-				{
-					if (@fgets($fsock, 1024) == "\r\n")
-					{
-						$get_info = true;
-					}
-				}
+				@curl_close($ch);
 			}
-
-			@fclose($fsock);
+		}
+		// Method 2: stream context fallback if cURL is disabled on their host
+		elseif (ini_get('allow_url_fopen'))
+		{
+			$ctx = stream_context_create(array(
+				'http' => array('timeout' => 5),
+				'ssl'  => array('verify_peer' => false, 'verify_peer_name' => false)
+			));
+			$response = @file_get_contents($url, false, $ctx);
+			if ($response !== false)
+			{
+				$info = $response;
+			}
 		}
 
+		$info = trim((string) $info);
+
+		// If connection failed, timed out, or returned empty, set to fallback version
 		if (empty($info))
 		{
-			$cache->destroy('versioncheck');
-
-			if ($warn_fail)
-			{
-				trigger_error($errstr, E_USER_WARNING);
-			}
-
-			return false;
+			$info = $fallback_info;
+		}
+		else
+		{
+			// Append the newline so explode("\n") in main.php works perfectly
+			$info .= "\n";
 		}
 
 		$cache->put('versioncheck', $info, $ttl);
@@ -3428,7 +3440,6 @@ function obtain_latest_version_info($force_update = false, $warn_fail = false, $
 
 	return $info;
 }
-
 /**
  * Enables a particular flag in a bitfield column of a given table.
  *

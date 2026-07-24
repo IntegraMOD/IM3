@@ -395,28 +395,36 @@ class acp_main
 			}
 		}
 
-		// Version check
+        // Version check
 		$user->add_lang('install');
 
 		if ($auth->acl_get('a_server') && version_compare(PHP_VERSION, '7.0.0', '<'))
 		{
+			$lang_old_version = isset($user->lang['PHP_VERSION_OLD']) ? $user->lang['PHP_VERSION_OLD'] : '';
+			
 			$template->assign_vars(array(
 				'S_PHP_VERSION_OLD'	=> true,
-				'L_PHP_VERSION_OLD'	=> sprintf($user->lang['PHP_VERSION_OLD'], '<a href="https://www.integramod.com/forums/">', '</a>'),
+				'L_PHP_VERSION_OLD'	=> sprintf((string) $lang_old_version, '<a href="https://www.integramod.com/forums/">', '</a>'),
 			));
 		}
 
-		$latest_version_info = false;
-		if (($latest_version_info = obtain_latest_version_info(request_var('versioncheck_force', false))) === false)
+		$latest_version_info = obtain_latest_version_info(request_var('versioncheck_force', false));
+		
+		// In PHP 8+, string functions fatal if passed null/bool.
+		// Checking !is_string() covers all bases from 5.6 to 8.5 safely.
+		if (empty($latest_version_info) || !is_string($latest_version_info))
 		{
 			$template->assign_var('S_VERSIONCHECK_FAIL', true);
 		}
 		else
 		{
 			$latest_version_info = explode("\n", $latest_version_info);
+			
+			$latest_version = isset($latest_version_info[0]) ? trim((string) $latest_version_info[0]) : '0.0.0';
+			$current_version = isset($config['version']) ? (string) $config['version'] : '0.0.0';
 
 			$template->assign_vars(array(
-				'S_VERSION_UP_TO_DATE'	=> phpbb_version_compare(trim($latest_version_info[0]), $config['version'], '<='),
+				'S_VERSION_UP_TO_DATE'	=> phpbb_version_compare($latest_version, $current_version, '<='),
 			));
 		}
 
