@@ -186,4 +186,4 @@ $lang = array_merge($lang, array(
 'DIGEST_TOC'=> 'Tabla de contenidos',
 'DIGEST_TOC_EXPLAIN'=> 'Si el sitio es activo, tal vez quiera incluir una tabla de contenidos. En resúmenes HTML contiene enlaces para saltar directamente a un mensaje especí­fico.',
 'DIGEST_UNKNOWN'=> 'Desconocido',));
-?>
+
