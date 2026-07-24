@@ -243,7 +243,9 @@ class blog_attachment
 					);
 
 					$this->attachment_data = array_merge(array(0 => $new_entry), $this->attachment_data);
-					$message_parser->message = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "'[attachment='.(\\1 + 1).']\\2[/attachment]'", (string) $message_parser->message);
+					$message_parser->message = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', function($matches) {
+						return '[attachment='.($matches[1] + 1).']'.$matches[2].'[/attachment]';
+					}, (string) $message_parser->message);
 
 					$this->filename_data['filecomment'] = '';
 
@@ -323,8 +325,12 @@ class blog_attachment
 					}
 
 					unset($this->attachment_data[$index]);
-					$text = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "(\\1 == \$index) ? '' : ((\\1 > \$index) ? '[attachment=' . (\\1 - 1) . ']\\2[/attachment]' : '\\0')", (string) $text);
-					$message_parser->message = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "(\\1 == \$index) ? '' : ((\\1 > \$index) ? '[attachment=' . (\\1 - 1) . ']\\2[/attachment]' : '\\0')", (string) $message_parser->message);
+					$text = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', function($matches) use ($index) {
+						return ($matches[1] == $index) ? '' : (($matches[1] > $index) ? '[attachment=' . ($matches[1] - 1) . ']'.$matches[2].'[/attachment]' : $matches[0]);
+					}, (string) $text);
+					$message_parser->message = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', function($matches) use ($index) {
+						return ($matches[1] == $index) ? '' : (($matches[1] > $index) ? '[attachment=' . ($matches[1] - 1) . ']'.$matches[2].'[/attachment]' : $matches[0]);
+					}, (string) $message_parser->message);
 
 					// Reindex Array
 					$this->attachment_data = array_values($this->attachment_data);
@@ -362,8 +368,12 @@ class blog_attachment
 						);
 
 						$this->attachment_data = array_merge(array(0 => $new_entry), $this->attachment_data);
-						$text = preg_replace('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#e', "'[attachment='.(\\1 + 1).']\\2[/attachment]'", (string) $text);
-						$message_parser->message = preg_replace('#\[attachment=([0-9]+):' . $message_parser->bbcode_uid . '\](.*?)\[\/attachment:' . $message_parser->bbcode_uid . '\]#e', "'[attachment='.(\\1 + 1).':{$message_parser->bbcode_uid}]\\2[/attachment:{$message_parser->bbcode_uid}]'", (string) $message_parser->message);
+						$text = preg_replace_callback('#\[attachment=([0-9]+)\](.*?)\[\/attachment\]#', function($matches) {
+							return '[attachment='.($matches[1] + 1).']'.$matches[2].'[/attachment]';
+						}, (string) $text);
+						$message_parser->message = preg_replace_callback('#\[attachment=([0-9]+):' . $message_parser->bbcode_uid . '\](.*?)\[\/attachment:' . $message_parser->bbcode_uid . '\]#', function($matches) use ($message_parser) {
+							return '[attachment='.($matches[1] + 1).':'.$message_parser->bbcode_uid.']'.$matches[2].'[/attachment:'.$message_parser->bbcode_uid.']';
+						}, (string) $message_parser->message);
 						$this->filename_data['filecomment'] = '';
 					}
 				}

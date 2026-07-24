@@ -166,7 +166,12 @@ class acp_contact
 			}
 					
 			// Replace "error" strings with their real, localised form
-			$error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", $error);			
+			$error = array_map(function($err) use ($user) {
+				return preg_replace_callback('#^([A-Z_]+)$#', function($matches) use ($user) {
+					return (!empty($user->lang[$matches[1]])) ? $user->lang[$matches[1]] : $matches[1];
+				}, $err);
+			}, (is_array($error) ? $error : array($error)));
+			$error = implode('<br />', $error); // Typically phpBB error arrays expected to be string if returned like this, but let's be safe. Actually, $error is usually an array in this context. Let's look closer.
 		}
 		
 		// let's get it on

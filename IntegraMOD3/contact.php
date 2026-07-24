@@ -370,7 +370,9 @@ if ($submit || $preview || $refresh)
 	// END Anti Bot Mod by CoC addon
 	
 	// Replace "error" strings with their real, localised form
-	$error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", $error);
+	$error = preg_replace_callback('#^([A-Z_]+)$#', function($matches) use ($user) {
+		return (!empty($user->lang[$matches[1]])) ? $user->lang[$matches[1]] : $matches[1];
+	}, $error);
 
 	// here we go
 	if ($submit && !sizeof($error))

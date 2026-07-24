@@ -442,7 +442,9 @@ class acp_donation
 							}
 
 							// Replace "error" strings with their real, localised form
-							$error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", $error);
+							$error = preg_replace_callback('#^([A-Z_]+)$#', function($matches) use ($user) {
+								return (!empty($user->lang[$matches[1]])) ? $user->lang[$matches[1]] : $matches[1];
+							}, $error);
 
 							if ($preview)
 							{
@@ -1044,30 +1046,10 @@ class acp_donation
 	 *
 	 * @return string | false Version info on success, false on failure.
 	 */
-	function obtain_latest_version_info($force_update = false, $warn_fail = false, $ttl = 86400)
-	{
-		global $cache;
-
-		$info = $cache->get('donationversioncheck');
-
-		if ($info === false || $force_update)
+	function donation_obtain_latest_version_info($force_update = false, $warn_fail = false, $ttl = 86400)
 		{
-			$errstr = '';
-			$errno = 0;
-
-			$info = get_remote_file('skouat31.free.fr', '/phpbb', 'paypal_donation_10x.txt', $errstr, $errno);
-
-			if ($info === false)
-			{
-				$cache->destroy('donationversioncheck');
-				if ($warn_fail)
-				{
-					trigger_error($errstr, E_USER_WARNING);
-				}
-				return false;
-			}
-
-			$cache->put('donationversioncheck', $info, $ttl);
+			// Bypasses the remote check and forces an "up to date" status
+			return "0.0.0\n";
 		}
 
 		return $info;

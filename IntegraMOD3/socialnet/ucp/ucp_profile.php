@@ -514,7 +514,9 @@ class ucp_profile
                         $db->sql_freeresult($result);
 
                         if (sizeof($error)) {
-                            $error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", (string) $error);
+                            $error = preg_replace_callback('#^([A-Z_]+)$#', function($matches) use ($user) {
+                                return (!empty($user->lang[$matches[1]])) ? $user->lang[$matches[1]] : $matches[1];
+                            }, (string) $error);
                         }
 
                         $template->assign_vars(array(
