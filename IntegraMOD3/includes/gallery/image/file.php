@@ -60,7 +60,7 @@ class phpbb_gallery_image_file
 	/**
 	* Constructor - init some basic stuff
 	*/
-	public function __constructor($gd_version = 0)
+	public function __construct($gd_version = 0)
 	{
 		if ($gd_version)
 		{
