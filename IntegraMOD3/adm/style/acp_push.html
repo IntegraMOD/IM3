@@ -1,0 +1,145 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h1>{L_ACP_PUSH_NOTIFICATIONS}</h1>
+
+<p>{L_ACP_PUSH_EXPLAIN}</p>
+
+<form id="acp_push" method="post" action="{U_ACTION}">
+
+<!-- IF S_SETTINGS -->
+<fieldset>
+    <legend>{L_ACP_PUSH_SETTINGS}</legend>
+    <dl>
+        <dt><label for="onesignal_app_id">{L_ONESIGNAL_APP_ID}:</label><br /><span>{L_ONESIGNAL_APP_ID_EXPLAIN}</span></dt>
+        <dd><input type="text" id="onesignal_app_id" name="onesignal_app_id" value="{ONESIGNAL_APP_ID}" size="40" maxlength="255" /></dd>
+    </dl>
+    <dl>
+        <dt><label for="onesignal_rest_key">{L_ONESIGNAL_REST_KEY}:</label><br /><span>{L_ONESIGNAL_REST_KEY_EXPLAIN}</span></dt>
+        <dd><input type="text" id="onesignal_rest_key" name="onesignal_rest_key" value="{ONESIGNAL_REST_KEY}" size="40" maxlength="255" /></dd>
+    </dl>
+</fieldset>
+
+<fieldset>
+    <legend>{L_ACP_PUSH_SMS_SETTINGS}</legend>
+    <dl>
+        <dt><label for="sms_gateway">{L_SMS_GATEWAY}:</label></dt>
+        <dd>
+            <select id="sms_gateway" name="sms_gateway">
+                <option value="onesignal" <!-- IF SMS_GATEWAY == 'onesignal' -->selected="selected"<!-- ENDIF -->>OneSignal</option>
+                <option value="twilio" <!-- IF SMS_GATEWAY == 'twilio' -->selected="selected"<!-- ENDIF -->>Twilio</option>
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt><label for="twilio_sid">Twilio SID:</label></dt>
+        <dd><input type="text" id="twilio_sid" name="twilio_sid" value="{TWILIO_SID}" size="40" maxlength="255" /></dd>
+    </dl>
+    <dl>
+        <dt><label for="twilio_token">Twilio Token:</label></dt>
+        <dd><input type="text" id="twilio_token" name="twilio_token" value="{TWILIO_TOKEN}" size="40" maxlength="255" /></dd>
+    </dl>
+    <dl>
+        <dt><label for="twilio_from_number">Twilio From Number:</label></dt>
+        <dd><input type="text" id="twilio_from_number" name="twilio_from_number" value="{TWILIO_FROM_NUMBER}" size="40" maxlength="255" /></dd>
+    </dl>
+</fieldset>
+
+<fieldset>
+    <legend>{L_ACP_PUSH_GLOBAL_TOGGLES}</legend>
+    <table class="table1" cellspacing="1">
+        <thead>
+            <tr>
+                <th class="name">{L_EVENT}</th>
+                <th class="info" style="text-align: center;">{L_WEB_PUSH}</th>
+                <th class="info" style="text-align: center;">{L_SMS_PUSH}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row1">
+                <td>{L_PUSH_ALLOW_FRIEND_REQ}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_friend_req" value="1" <!-- IF PUSH_ALLOW_WEB_FRIEND_REQ -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_friend_req" value="1" <!-- IF PUSH_ALLOW_SMS_FRIEND_REQ -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row2">
+                <td>{L_PUSH_ALLOW_FRIEND_ACC}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_friend_acc" value="1" <!-- IF PUSH_ALLOW_WEB_FRIEND_ACC -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_friend_acc" value="1" <!-- IF PUSH_ALLOW_SMS_FRIEND_ACC -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row1">
+                <td>{L_PUSH_ALLOW_PM}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_pm" value="1" <!-- IF PUSH_ALLOW_WEB_PM -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_pm" value="1" <!-- IF PUSH_ALLOW_SMS_PM -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row2">
+                <td>{L_PUSH_ALLOW_LIKE}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_like" value="1" <!-- IF PUSH_ALLOW_WEB_LIKE -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_like" value="1" <!-- IF PUSH_ALLOW_SMS_LIKE -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row1">
+                <td>{L_PUSH_ALLOW_ACTIVITY}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_activity" value="1" <!-- IF PUSH_ALLOW_WEB_ACTIVITY -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_activity" value="1" <!-- IF PUSH_ALLOW_SMS_ACTIVITY -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row2">
+                <td>{L_PUSH_ALLOW_SUB_POST}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_sub_post" value="1" <!-- IF PUSH_ALLOW_WEB_SUB_POST -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_sub_post" value="1" <!-- IF PUSH_ALLOW_SMS_SUB_POST -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row1">
+                <td>{L_PUSH_ALLOW_SUB_TOPIC}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_sub_topic" value="1" <!-- IF PUSH_ALLOW_WEB_SUB_TOPIC -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_sub_topic" value="1" <!-- IF PUSH_ALLOW_SMS_SUB_TOPIC -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row2">
+                <td>{L_PUSH_ALLOW_NEWS}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_news" value="1" <!-- IF PUSH_ALLOW_WEB_NEWS -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_news" value="1" <!-- IF PUSH_ALLOW_SMS_NEWS -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row1">
+                <td>{L_PUSH_ALLOW_ANNOUNCE}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_announce" value="1" <!-- IF PUSH_ALLOW_WEB_ANNOUNCE -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_announce" value="1" <!-- IF PUSH_ALLOW_SMS_ANNOUNCE -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>
+<!-- ENDIF -->
+
+<!-- IF S_SEND -->
+<fieldset>
+    <legend>{L_ACP_PUSH_SEND_BROADCAST}</legend>
+    <dl>
+        <dt><label for="event_type">{L_PUSH_EVENT_TYPE}:</label><br /><span>{L_PUSH_EVENT_TYPE_EXPLAIN}</span></dt>
+        <dd>
+            <select id="event_type" name="event_type">
+                <option value="news">{L_PUSH_EVENT_NEWS}</option>
+                <option value="announce">{L_PUSH_EVENT_ANNOUNCE}</option>
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt><label for="notification_title">{L_NOTIFICATION_TITLE}:</label></dt>
+        <dd><input type="text" id="notification_title" name="notification_title" value="" size="40" maxlength="255" /></dd>
+    </dl>
+    <dl>
+        <dt><label for="notification_message">{L_NOTIFICATION_MESSAGE}:</label></dt>
+        <dd><textarea id="notification_message" name="notification_message" rows="5" cols="60"></textarea></dd>
+    </dl>
+    <dl>
+        <dt><label for="notification_url">{L_NOTIFICATION_URL}:</label><br /><span>{L_NOTIFICATION_URL_EXPLAIN}</span></dt>
+        <dd><input type="text" id="notification_url" name="notification_url" value="" size="40" maxlength="255" /></dd>
+    </dl>
+</fieldset>
+<!-- ENDIF -->
+
+<fieldset class="submit-buttons">
+    <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+    <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+    {S_FORM_TOKEN}
+</fieldset>
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->

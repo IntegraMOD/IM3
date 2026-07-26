@@ -650,5 +650,9 @@ function phpbb_create_config_file_data($data, $dbms, $load_extensions, $debug = 
 		$config_data .= "@define('DEBUG_TEST', true);\n";
 	}
 
+	$sms_key = bin2hex(openssl_random_pseudo_bytes(16));
+	$config_data .= "\n//-for security, never share this key with anyone //\n";
+	$config_data .= "@define('IM3_SMS_KEY', '" . $sms_key . "');\n";
+
 	return $config_data;
 }

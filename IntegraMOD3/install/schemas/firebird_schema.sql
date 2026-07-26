@@ -4378,7 +4378,26 @@ CREATE TABLE phpbb_users (
 	user_points DOUBLE PRECISION DEFAULT 0 NOT NULL,
 	user_lastrefresh INTEGER DEFAULT 0 NOT NULL,
 	show_likes INTEGER DEFAULT 1 NOT NULL,
-	blog_count INTEGER DEFAULT 0 NOT NULL
+	blog_count INTEGER DEFAULT 0 NOT NULL,
+	user_mobile VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	user_push_web_friend_req INTEGER DEFAULT 1 NOT NULL,
+	user_push_web_friend_acc INTEGER DEFAULT 1 NOT NULL,
+	user_push_web_pm INTEGER DEFAULT 1 NOT NULL,
+	user_push_web_like INTEGER DEFAULT 1 NOT NULL,
+	user_push_web_activity INTEGER DEFAULT 1 NOT NULL,
+	user_push_web_sub_post INTEGER DEFAULT 1 NOT NULL,
+	user_push_web_sub_topic INTEGER DEFAULT 1 NOT NULL,
+	user_push_web_news INTEGER DEFAULT 1 NOT NULL,
+	user_push_web_announce INTEGER DEFAULT 1 NOT NULL,
+	user_push_sms_friend_req INTEGER DEFAULT 0 NOT NULL,
+	user_push_sms_friend_acc INTEGER DEFAULT 0 NOT NULL,
+	user_push_sms_pm INTEGER DEFAULT 0 NOT NULL,
+	user_push_sms_like INTEGER DEFAULT 0 NOT NULL,
+	user_push_sms_activity INTEGER DEFAULT 0 NOT NULL,
+	user_push_sms_sub_post INTEGER DEFAULT 0 NOT NULL,
+	user_push_sms_sub_topic INTEGER DEFAULT 0 NOT NULL,
+	user_push_sms_news INTEGER DEFAULT 0 NOT NULL,
+	user_push_sms_announce INTEGER DEFAULT 0 NOT NULL
 );;
 
 ALTER TABLE phpbb_users ADD PRIMARY KEY (user_id);;

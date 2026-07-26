@@ -5103,7 +5103,26 @@ CREATE TABLE [phpbb_users] (
 	[user_points] [float] DEFAULT (0) NOT NULL ,
 	[user_lastrefresh] [int] DEFAULT (0) NOT NULL ,
 	[show_likes] [int] DEFAULT (1) NOT NULL ,
-	[blog_count] [int] DEFAULT (0) NOT NULL 
+	[blog_count] [int] DEFAULT (0) NOT NULL ,
+	[user_mobile] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_push_web_friend_req] [int] DEFAULT (1) NOT NULL ,
+	[user_push_web_friend_acc] [int] DEFAULT (1) NOT NULL ,
+	[user_push_web_pm] [int] DEFAULT (1) NOT NULL ,
+	[user_push_web_like] [int] DEFAULT (1) NOT NULL ,
+	[user_push_web_activity] [int] DEFAULT (1) NOT NULL ,
+	[user_push_web_sub_post] [int] DEFAULT (1) NOT NULL ,
+	[user_push_web_sub_topic] [int] DEFAULT (1) NOT NULL ,
+	[user_push_web_news] [int] DEFAULT (1) NOT NULL ,
+	[user_push_web_announce] [int] DEFAULT (1) NOT NULL ,
+	[user_push_sms_friend_req] [int] DEFAULT (0) NOT NULL ,
+	[user_push_sms_friend_acc] [int] DEFAULT (0) NOT NULL ,
+	[user_push_sms_pm] [int] DEFAULT (0) NOT NULL ,
+	[user_push_sms_like] [int] DEFAULT (0) NOT NULL ,
+	[user_push_sms_activity] [int] DEFAULT (0) NOT NULL ,
+	[user_push_sms_sub_post] [int] DEFAULT (0) NOT NULL ,
+	[user_push_sms_sub_topic] [int] DEFAULT (0) NOT NULL ,
+	[user_push_sms_news] [int] DEFAULT (0) NOT NULL ,
+	[user_push_sms_announce] [int] DEFAULT (0) NOT NULL 
 )GO
 
 ALTER TABLE [phpbb_users] WITH NOCHECK ADD 

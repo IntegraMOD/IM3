@@ -5488,6 +5488,11 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'S_DISPLAY_ONLINE_LIST'	=> ($l_online_time) ? 1 : 0,
 		'S_DISPLAY_SEARCH'		=> (!$config['load_search']) ? 0 : (isset($auth) ? ($auth->acl_get('u_search') && $auth->acl_getf_global('f_search')) : 1),
 		'S_DISPLAY_PM'			=> ($config['allow_privmsg'] && !empty($user->data['is_registered']) && ($auth->acl_get('u_readpm') || $auth->acl_get('u_sendpm'))) ? true : false,
+
+		// OneSignal Push Notifications
+		'ONESIGNAL_ENABLED'		=> (isset($config['onesignal_app_id']) && !empty($config['onesignal_app_id'])) ? true : false,
+		'ONESIGNAL_APP_ID'		=> (isset($config['onesignal_app_id'])) ? $config['onesignal_app_id'] : '',
+		'USER_ID'				=> (int) $user->data['user_id'],
 		'S_DISPLAY_MEMBERLIST'	=> (isset($auth)) ? $auth->acl_get('u_viewprofile') : 0,
 // todo
 //		'S_MOD_DISPLAY'			=> ($config['mod_show'] == 0 && $user->data['is_registered'] && !$user->data['is_bot']) ? true : ( $config['mod_show'] == 1 && $auth->acl_get('a_',' m_') ) ? true : ( $config['mod_show'] == 2 && $auth->acl_get('a_') ) ? true : false,

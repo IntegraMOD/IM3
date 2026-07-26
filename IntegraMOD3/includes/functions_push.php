@@ -1,16 +1,16 @@
 <?php
 /**
- * PushNotificationHandler
+ * OneSignal Push Notification Integration
  *
- * This class handles the integration of push notifications into phpBB 3.0.15  using Firebase Cloud Messaging (FCM) HTTP v1 API.
- * This class allows sending push notifications to users based on specific events within the IntegraMOD forum.
+ * This file handles push notification delivery via OneSignal API for IntegraMOD 3.0.16 (phpBB 3.0.15).
+ * Compatible with PHP 5.6 through 8.5.
  *
  * @package IM_PushNotifications
- * @version 1.0
+ * @version 2.0
  * @author HelterSkelter
  * @license GNU General Public License v2
  */
- 
+
 /**
 * @ignore
 */
@@ -19,336 +19,397 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-class PushNotification
+/**
+ * Encrypt a mobile number for storage.
+ * Prefers libsodium (PHP 7.2+ core, avoids broken OpenSSL builds), falls back to OpenSSL.
+ *
+ * @param string $plain Plain phone number
+ * @return string Base64 packed payload, or '' on failure
+ */
+function im3_encrypt_mobile($plain)
 {
-/**
- * @var string $fcm_url The Firebase Cloud Messaging endpoint for sending notifications.
- */
-private $fcm_url = 'https://fcm.googleapis.com/fcm/send';
- 
-/**
- * @var string $server_key The server key provided by Firebase for authentication.
- */
-private $server_key;
- 
-/**
- * Constructor for the PushNotification class.
- *
- * Initializes the server key for FCM authentication.
- *
- * @param string $server_key Your Firebase server key.
- *
- * @throws Exception If the server key is not provided.
- *
- * @example
- * $push = new PushNotification('YOUR_FCM_SERVER_KEY');
- */
-public function __construct($server_key)
-{
-    // Validate that the server key is provided.
-    if (empty($server_key)) 
+	if ($plain === '')
 	{
-        throw new Exception('FCM Server key must be provided.');
-    }
- 
-// Assign the server key to the class property.
-    $this->server_key = $server_key;
-}
- 
-/**
- * Registers a user's device with FCM by saving the device token to the database.
- *
- * @param int    $user_id      The unique identifier of the phpBB user.
- * @param string $device_token The FCM device token for sending notifications.
- *
- * @return bool Returns true on successful registration, false otherwise.
- *
- * @throws Exception If there is an error during the database operation.
- *
- * @example
- * $push->register_device(1, 'fcm_device_token_here');
- */
-public function register_device($user_id, $device_token)
-{
-    // Ensure user ID is a positive integer.
-    if (!is_int($user_id) || $user_id <= 0) 
+		return '';
+	}
+
+	if (function_exists('sodium_crypto_secretbox'))
 	{
-        throw new Exception('Invalid user ID provided.');
-    }
- 
-    // Ensure device token is a non-empty string.
-    if (empty($device_token) || !is_string($device_token)) 
+		$key = substr(hash('sha256', IM3_SMS_KEY, true), 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
+		$nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+		$cipher = sodium_crypto_secretbox($plain, $nonce, $key);
+		return base64_encode(json_encode(array(
+			'alg'   => 'sodium',
+			'iv'    => base64_encode($nonce),
+			'value' => base64_encode($cipher),
+		)));
+	}
+
+	if (function_exists('openssl_encrypt'))
 	{
-        throw new Exception('Invalid device token provided.');
-    }
- 
-    // Access the global phpBB database and user objects.
-    global $db, $user;
- 
-    // Prepare SQL to insert or update the device token for the user.
-    $sql = 'REPLACE INTO ' . USERS_TABLE . ' (user_id, user_fcm_token)
-            VALUES (' . intval($user_id) . ', "' . $db->sql_escape($device_token) . '")';
- 
-    // Execute the SQL query.
-    $result = $db->sql_query($sql);
- 
-    // Check if the query was successful.
-    if ($result) 
-	{
-        // Return true indicating successful registration.
-        return true;
-    } 
-	else 
-	{
-        // Throw an exception if the query failed.
-        throw new Exception('Failed to register device token.');
-    }
-}
- 
-/**
- * Sends a push notification to a specific user or a group of users.
- *
- * @param array  $user_ids   An array of phpBB user IDs to receive the notification.
- * @param string $title  The title of the notification.
- * @param string $body   The body message of the notification.
- * @param array  $data   (Optional) Additional data to send with the notification.
- *
- * @return bool Returns true if the notification was sent successfully, false otherwise.
- *
- * @throws Exception If there is an error in sending the notification.
- *
- * @example
- * $push->send_notification(array(1,2,3), 'New Message', 'You have received a new message.');
- * $push->send_notification(array(1), 'Welcome', 'Thank you for registering!', array('key' => 'value'));
- */
-public function send_notification($user_ids, $title, $body, $data = array())
-{
-    // Validate that user_ids is a non-empty array.
-    if (!is_array($user_ids) || empty($user_ids)) 
-	{
-        throw new Exception('User IDs must be provided as a non-empty array.');
-    }
- 
-    // Validate that title is a non-empty string.
-    if (empty($title) || !is_string($title)) 
-	{
-        throw new Exception('Notification title must be a non-empty string.');
-    }
- 
-    // Validate that body is a non-empty string.
-    if (empty($body) || !is_string($body)) 
-	{
-        throw new Exception('Notification body must be a non-empty string.');
-    }
- 
-    // Access the global phpBB database object.
-    global $db;
- 
-    // Initialize an array to hold device tokens.
-    $device_tokens = array();
- 
-    // Iterate through each user ID to retrieve their device tokens.
-    foreach ($user_ids as $user_id) 
-	{
-        // Ensure the user ID is an integer.
-        $user_id = intval($user_id);
- 
-        // Prepare SQL to select the device token of the user.
-        $sql = 'SELECT user_fcm_token FROM ' . USERS_TABLE . ' WHERE user_id = ' . $user_id;
-        $result = $db->sql_query($sql);
-        $row = $db->sql_fetchrow($result);
-        $db->sql_freeresult($result);
- 
-        // If a device token exists, add it to the device_tokens array.
-        if (!empty($row['user_fcm_token'])) 
+		$key = substr(hash('sha256', IM3_SMS_KEY, true), 0, 32);
+		$iv = function_exists('random_bytes') ? random_bytes(16) : openssl_random_pseudo_bytes(16);
+		$cipher = openssl_encrypt($plain, 'aes-256-cbc', $key, 0, $iv);
+		if ($cipher !== false)
 		{
-            $device_tokens[] = $row['user_fcm_token'];
-        }
-    }
- 
-    // If no device tokens are found, throw an exception.
-    if (empty($device_tokens)) 
-	{
-        throw new Exception('No device tokens found for the specified users.');
-    }
- 
-    // Prepare the notification payload.
-    $payload = array(
-        'registration_ids' => $device_tokens, // Targets multiple devices.
-        'notification' => array(
-            'title' => $title, // Notification title.
-            'body'  => $body   // Notification body.
-        )
-    );
- 
-    // If additional data is provided, include it in the payload.
-    if (!empty($data)) 
-	{
-        $payload['data'] = $data;
-    }
- 
-    // Encode the payload as JSON.
-    $json_payload = json_encode($payload);
- 
-    // Initialize cURL session.
-    $ch = curl_init();
- 
-    // Set cURL options for the POST request to FCM.
-    curl_setopt($ch, CURLOPT_URL, $this->fcm_url); // FCM endpoint.
-    curl_setopt($ch, CURLOPT_POST, true); // Use POST method.
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Authorization: key=' . $this->server_key, // FCM server key.
-        'Content-Type: application/json' // Content type.
-    ));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return response as string.
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Disable SSL certificate verification.
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_payload); // Attach JSON payload.
- 
-    // Execute the cURL request and capture the response.
-    $response = curl_exec($ch);
- 
-    // Check for cURL errors.
-    if ($response === FALSE) 
-	{
-        $error = curl_error($ch);
-        curl_close($ch); // Close cURL session.
-        throw new Exception('cURL error while sending notification: ' . $error);
-    }
- 
-    // Get HTTP response code.
-    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
- 
-    // Close the cURL session.
-    curl_close($ch);
- 
-    // Decode the response JSON.
-    $response_data = json_decode($response, true);
- 
-    // Check if the response contains 'success' key and it's greater than zero.
-    if (isset($response_data['success']) && $response_data['success'] > 0) 
-	{
-        // Return true indicating successful notification send.
-        return true;
-    } 
-	else 
-	{
-        // Extract error message from response.
-        $error_message = isset($response_data['results'][0]['error']) ? $response_data['results'][0]['error'] : 'Unknown error';
-        throw new Exception('Failed to send notification. HTTP Status Code: ' . $http_code . '. Error: ' . $error_message);
-    }
-}
- 
-    /**
-     * Unregisters a user's device by removing the device token from the database.
-     *
-     * @param int $user_id The unique identifier of the phpBB user.
-     *
-     * @return bool Returns true on successful unregistration, false otherwise.
-     *
-     * @throws Exception If there is an error during the database operation.
-     *
-     * @example
-     * $push->unregister_device(1);
-     */
-	public function unregister_device($user_id)
-	{
-		// Ensure user ID is a positive integer.
-		if (!is_int($user_id) || $user_id <= 0) 
-		{
-			throw new Exception('Invalid user ID provided.');
+			return base64_encode(json_encode(array(
+				'alg'   => 'openssl',
+				'iv'    => base64_encode($iv),
+				'value' => $cipher,
+			)));
 		}
-	 
-		// Access the global phpBB database object.
-		global $db;
-	 
-		// Prepare SQL to remove the device token for the user.
-		$sql = 'UPDATE ' . USERS_TABLE . ' SET user_fcm_token = NULL WHERE user_id = ' . intval($user_id);
-	 
-		// Execute the SQL query.
+	}
+
+	return '';
+}
+
+/**
+ * Decrypt a stored mobile number payload.
+ *
+ * @param string $stored Base64 packed payload from the database
+ * @param bool   $raw    If true, return the raw stored value (keeps the +CC.NUMBER separator).
+ *                       If false (default), return a normalized E.164 number for sending.
+ * @return string|false Plain phone number or false on failure
+ */
+function im3_decrypt_mobile($stored, $raw = false)
+{
+	if (empty($stored))
+	{
+		return false;
+	}
+
+	$pack = @json_decode(base64_decode($stored), true);
+	if (!is_array($pack) || !isset($pack['iv']) || !isset($pack['value']))
+	{
+		return false;
+	}
+
+	$alg = isset($pack['alg']) ? $pack['alg'] : 'openssl';
+	$plain = false;
+
+	if ($alg === 'sodium' && function_exists('sodium_crypto_secretbox_open'))
+	{
+		$key = substr(hash('sha256', IM3_SMS_KEY, true), 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
+		$plain = @sodium_crypto_secretbox_open(base64_decode($pack['value']), base64_decode($pack['iv']), $key);
+	}
+	else if (function_exists('openssl_decrypt'))
+	{
+		$key = substr(hash('sha256', IM3_SMS_KEY, true), 0, 32);
+		$plain = openssl_decrypt($pack['value'], 'aes-256-cbc', $key, 0, base64_decode($pack['iv']));
+	}
+
+	if ($plain === false)
+	{
+		return false;
+	}
+
+	// Normalize +CC.NUMBER to E.164 for gateway use unless raw requested
+	return $raw ? $plain : str_replace('.', '', $plain);
+}
+
+/**
+ * Trigger a push notification to a single user
+ *
+ * @param int    $target_user_id The phpBB user_id to receive the notification
+ * @param string $event_type     Event type (friend_req, friend_acc, pm, like, activity, sub_post, sub_topic)
+ * @param string $title          Notification title
+ * @param string $message        Notification body message
+ * @param string $url            URL to open when notification is clicked (optional)
+ *
+ * @return bool Returns true on success, false on failure
+ */
+function trigger_user_push($target_user_id, $event_type, $title, $message, $url = '')
+{
+	global $db, $config;
+
+	// Query user preferences and mobile info
+	$sql = 'SELECT user_push_web_' . $db->sql_escape($event_type) . ', 
+				   user_push_sms_' . $db->sql_escape($event_type) . ', 
+				   user_mobile
+			FROM ' . USERS_TABLE . ' 
+			WHERE user_id = ' . (int) $target_user_id;
+	$result = $db->sql_query($sql);
+	$row = $db->sql_fetchrow($result);
+	$db->sql_freeresult($result);
+
+	if (empty($row))
+	{
+		return false;
+	}
+
+	$web_sent = false;
+	$sms_sent = false;
+
+	// WEB PUSH logic
+	if (!empty($config['onesignal_app_id']) && !empty($config['onesignal_rest_key']))
+	{
+		$web_config_key = 'push_allow_web_' . $event_type;
+		if (isset($config[$web_config_key]) && $config[$web_config_key])
+		{
+			if (!empty($row['user_push_web_' . $event_type]))
+			{
+				$payload = array(
+					'app_id' => $config['onesignal_app_id'],
+					'include_external_user_ids' => array((string) $target_user_id),
+					'headings' => array('en' => $title),
+					'contents' => array('en' => $message),
+				);
+
+				if (!empty($url))
+				{
+					$payload['url'] = $url;
+				}
+
+				if (onesignal_send_request($payload, $config['onesignal_rest_key']))
+				{
+					$web_sent = true;
+				}
+			}
+		}
+	}
+
+	// SMS PUSH logic
+	$sms_config_key = 'push_allow_sms_' . $event_type;
+	if (isset($config[$sms_config_key]) && $config[$sms_config_key])
+	{
+		if (!empty($row['user_push_sms_' . $event_type]) && !empty($row['user_mobile']))
+		{
+			// Decrypt mobile number
+			$decrypted_mobile = im3_decrypt_mobile($row['user_mobile']);
+
+			if ($decrypted_mobile)
+			{
+				$sms_text = $title . ": " . $message;
+				if (!empty($url)) {
+					$sms_text .= " " . $url;
+				}
+
+				$gateway = isset($config['sms_gateway']) ? $config['sms_gateway'] : 'onesignal';
+
+				if ($gateway === 'twilio' && !empty($config['twilio_sid']) && !empty($config['twilio_token']) && !empty($config['twilio_from_number']))
+				{
+					if (send_twilio_sms($config['twilio_sid'], $config['twilio_token'], $config['twilio_from_number'], $decrypted_mobile, $sms_text))
+					{
+						$sms_sent = true;
+					}
+				}
+				elseif ($gateway === 'onesignal' && !empty($config['onesignal_app_id']) && !empty($config['onesignal_rest_key']))
+				{
+					if (send_onesignal_sms($config['onesignal_app_id'], $config['onesignal_rest_key'], $decrypted_mobile, $sms_text))
+					{
+						$sms_sent = true;
+					}
+				}
+			}
+		}
+	}
+
+	return ($web_sent || $sms_sent);
+}
+
+/**
+ * Trigger a mass push notification to multiple users (for news/announcements)
+ *
+ * @param string $event_type Event type (news, announce)
+ * @param string $title      Notification title
+ * @param string $message    Notification body message
+ * @param string $url        URL to open when notification is clicked (optional)
+ *
+ * @return bool Returns true on success, false on failure
+ */
+function trigger_mass_push($event_type, $title, $message, $url = '')
+{
+	global $db, $config;
+
+	$success = true;
+
+	// WEB PUSH LOGIC
+	$web_config_key = 'push_allow_web_' . $event_type;
+	if (isset($config[$web_config_key]) && $config[$web_config_key])
+	{
+		if (!empty($config['onesignal_app_id']) && !empty($config['onesignal_rest_key']))
+		{
+			$sql = 'SELECT user_id 
+					FROM ' . USERS_TABLE . ' 
+					WHERE user_push_web_' . $db->sql_escape($event_type) . ' = 1';
+			$result = $db->sql_query($sql);
+
+			$user_ids = array();
+			while ($row = $db->sql_fetchrow($result))
+			{
+				$user_ids[] = (string) $row['user_id'];
+			}
+			$db->sql_freeresult($result);
+
+			if (!empty($user_ids))
+			{
+				$chunks = array_chunk($user_ids, 2000);
+				foreach ($chunks as $chunk)
+				{
+					$payload = array(
+						'app_id' => $config['onesignal_app_id'],
+						'include_external_user_ids' => $chunk,
+						'headings' => array('en' => $title),
+						'contents' => array('en' => $message),
+					);
+
+					if (!empty($url))
+					{
+						$payload['url'] = $url;
+					}
+
+					if (!onesignal_send_request($payload, $config['onesignal_rest_key']))
+					{
+						$success = false;
+					}
+				}
+			}
+		}
+	}
+
+	// SMS PUSH LOGIC
+	$sms_config_key = 'push_allow_sms_' . $event_type;
+	if (isset($config[$sms_config_key]) && $config[$sms_config_key])
+	{
+		$gateway = isset($config['sms_gateway']) ? $config['sms_gateway'] : 'onesignal';
+
+		$sql = 'SELECT user_mobile 
+				FROM ' . USERS_TABLE . ' 
+				WHERE user_push_sms_' . $db->sql_escape($event_type) . ' = 1 
+				  AND user_mobile <> \'\'';
 		$result = $db->sql_query($sql);
-	 
-		// Check if the query was successful.
-		if ($result) {
-			// Return true indicating successful unregistration.
-			return true;
-		} else {
-			// Throw an exception if the query failed.
-			throw new Exception('Failed to unregister device token.');
+
+		$mobile_numbers = array();
+		while ($row = $db->sql_fetchrow($result))
+		{
+			// Decrypt mobile number
+			$decrypted_mobile = im3_decrypt_mobile($row['user_mobile']);
+			if ($decrypted_mobile) {
+				$mobile_numbers[] = $decrypted_mobile;
+			}
 		}
-    }
+		$db->sql_freeresult($result);
+
+		if (!empty($mobile_numbers))
+		{
+			$sms_text = $title . ": " . $message;
+			if (!empty($url)) {
+				$sms_text .= " " . $url;
+			}
+
+			if ($gateway === 'twilio' && !empty($config['twilio_sid']) && !empty($config['twilio_token']) && !empty($config['twilio_from_number']))
+			{
+				foreach ($mobile_numbers as $m)
+				{
+					if (!send_twilio_sms($config['twilio_sid'], $config['twilio_token'], $config['twilio_from_number'], $m, $sms_text))
+					{
+						$success = false;
+					}
+				}
+			}
+			elseif ($gateway === 'onesignal' && !empty($config['onesignal_app_id']) && !empty($config['onesignal_rest_key']))
+			{
+				// Send as chunk or via individual depending on payload layout, for safety individually
+				foreach ($mobile_numbers as $m)
+				{
+					if (!send_onesignal_sms($config['onesignal_app_id'], $config['onesignal_rest_key'], $m, $sms_text))
+					{
+						$success = false;
+					}
+				}
+			}
+		}
+	}
+
+	return $success;
 }
- 
+
 /**
- * Example Usage of the PushNotification class.
- *
- * The following examples demonstrate how to use the PushNotification class to register devices,
- * send notifications, and unregister devices within phpBB 3.0.14.
+ * Send an SMS via Twilio using native cURL
  */
- 
-// Ensure this script is being run within the phpBB environment.
-if (!defined('IN_PHPBB')) 
+function send_twilio_sms($sid, $token, $from, $to, $message)
 {
-    exit;
+    $url = 'https://api.twilio.com/2010-04-01/Accounts/' . $sid . '/Messages.json';
+    $data = array(
+        'From' => $from,
+        'To' => $to,
+        'Body' => $message,
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_USERPWD, $sid . ':' . $token);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Legacy server support
+
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    return ($http_code >= 200 && $http_code < 300);
 }
- 
-try 
-{
-	// Initialize the PushNotification class with your FCM server key.
-	// Replace 'YOUR_FCM_SERVER_KEY' with your actual Firebase server key.
-	$push = new PushNotification('YOUR_FCM_SERVER_KEY');
-	 
-	/**
-	 * Example 1: Registering a device for a user.
-	 *
-	 * Registers the device token 'abc123fcmtoken' for user with ID 1.
-	 */
-	$user_id = 1; // The phpBB user ID.
-	$device_token = 'abc123fcmtoken'; // The FCM device token.
-	$registration_success = $push->register_device($user_id, $device_token);
-	 
-	if ($registration_success) {
-		echo "Device registered successfully for user ID {$user_id}.\n";
-	}
-	 
-	/**
-	 * Example 2: Sending a notification to multiple users.
-	 *
-	 * Sends a notification with the title 'New Announcement' and body 'We have updated our forum rules.'
-	 * to users with IDs 1, 2, and 3.
-	 */
-	$target_user_ids = array(1, 2, 3); // Array of phpBB user IDs.
-	$notification_title = 'New Announcement'; // Notification title.
-	$notification_body = 'We have updated our forum rules.'; // Notification body.
-	$additional_data = array('rule_version' => '2.0'); // Additional data payload.
-	 
-	$send_success = $push->send_notification($target_user_ids, $notification_title, $notification_body, $additional_data);
-	 
-	if ($send_success) {
-		echo "Notification sent successfully to users: " . implode(', ', $target_user_ids) . ".\n";
-	}
-	 
-	/**
-	 * Example 3: Unregistering a device for a user.
-	 *
-	 * Unregisters the device token for user with ID 1.
-	 */
-	$unregister_user_id = 1; // The phpBB user ID to unregister.
-	$unregister_success = $push->unregister_device($unregister_user_id);
-	 
-	if ($unregister_success) 
-	{
-		echo "Device unregistered successfully for user ID {$unregister_user_id}.\n";
-	}
-	 
-} 
-catch (Exception $e) 
-{
+
 /**
- * Error Handling
- *
- * Catches and displays any exceptions thrown during the push notification operations.
+ * Send an SMS via OneSignal using native cURL
  */
-    echo 'Error: ' . $e->getMessage();
+function send_onesignal_sms($app_id, $rest_key, $to, $message)
+{
+    $payload = array(
+        'app_id' => $app_id,
+        'contents' => array('en' => $message),
+        'name' => 'Internal SMS',
+        'sms_from' => '', // Configured in OneSignal Dashboard
+        'include_phone_numbers' => array($to),
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://onesignal.com/api/v1/notifications');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charset=utf-8',
+        'Authorization: Basic ' . $rest_key
+    ));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Legacy server support
+
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    return ($http_code >= 200 && $http_code < 300);
 }
- 
-?>
+
+/**
+ * Internal helper function to send cURL request to OneSignal API
+ *
+ * @param array  $payload  JSON payload to send
+ * @param string $rest_key OneSignal REST API Key
+ *
+ * @return bool Returns true on successful API call, false on failure
+ */
+function onesignal_send_request($payload, $rest_key)
+{
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://onesignal.com/api/v1/notifications');
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		'Content-Type: application/json; charset=utf-8',
+		'Authorization: Basic ' . $rest_key
+	));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HEADER, false);
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // For legacy PHP 5.6 compatibility
+
+	$response = curl_exec($ch);
+	$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	curl_close($ch);
+
+	// OneSignal returns 200 on success
+	return ($http_code == 200);
+}
+

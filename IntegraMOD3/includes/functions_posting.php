@@ -3016,6 +3016,14 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 		// "guest-username" is supplied or ommit the username if it is not.
 		$username = ($username !== '' || !$user->data['is_registered']) ? $username : $user->data['username'];
 		user_notification($mode, $subject, $data['topic_title'], $data['forum_name'], $data['forum_id'], $data['topic_id'], $data['post_id'], $username);
+
+		// OneSignal Push Notification Hook for News and Announcements
+		if (function_exists('trigger_mass_push') && $mode == 'post' && ($topic_type == POST_ANNOUNCE || $topic_type == POST_NEWS || $topic_type == POST_NEWS_GLOBAL))
+		{
+			$post_url = generate_board_url() . "/viewtopic.$phpEx?t=" . $data['topic_id'];
+			$event_type = ($topic_type == POST_ANNOUNCE) ? 'announce' : 'news';
+			trigger_mass_push($event_type, $subject, strip_tags($data['message']), $post_url);
+		}
 	}
 
 	$params = $add_anchor = '';

@@ -2943,7 +2943,26 @@ CREATE TABLE phpbb_users (
 	user_points decimal(20,2) NOT NULL DEFAULT '0',
 	user_lastrefresh int(11) NOT NULL DEFAULT '0',
 	show_likes tinyint(3) NOT NULL DEFAULT '1',
-	blog_count INTEGER UNSIGNED NOT NULL DEFAULT '0'
+	blog_count INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_mobile varchar(255) NOT NULL DEFAULT '',
+	user_push_web_friend_req INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_web_friend_acc INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_web_pm INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_web_like INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_web_activity INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_web_sub_post INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_web_sub_topic INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_web_news INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_web_announce INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	user_push_sms_friend_req INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_push_sms_friend_acc INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_push_sms_pm INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_push_sms_like INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_push_sms_activity INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_push_sms_sub_post INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_push_sms_sub_topic INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_push_sms_news INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_push_sms_announce INTEGER UNSIGNED NOT NULL DEFAULT '0'
 );
 
 CREATE INDEX phpbb_users_user_birthday ON phpbb_users (user_birthday);

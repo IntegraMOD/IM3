@@ -393,7 +393,6 @@ INSERT INTO phpbb_config VALUES('donation_dropbox_value', '1,2,3,4,5,10,20,25,50
 INSERT INTO phpbb_config VALUES('donation_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('donation_goal', '1000000', 0);
 INSERT INTO phpbb_config VALUES('donation_goal_enable', '1', 0);
-INSERT INTO phpbb_config VALUES('donation_install_date', '', 0);
 INSERT INTO phpbb_config VALUES('donation_mod_version', '1.0.4', 0);
 INSERT INTO phpbb_config VALUES('donation_raised', '1', 0);
 INSERT INTO phpbb_config VALUES('donation_raised_enable', '1', 0);
@@ -731,6 +730,7 @@ INSERT INTO phpbb_config VALUES('show_kb', '1', 0);
 INSERT INTO phpbb_config VALUES('show_meeting', '1', 0);
 INSERT INTO phpbb_config VALUES('show_mem', '1', 0);
 INSERT INTO phpbb_config VALUES('show_notes', '1', 0);
+INSERT INTO phpbb_config VALUES('show_rules', '1', 0);
 INSERT INTO phpbb_config VALUES('site_copyright_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('site_desc', '{L_CONFIG_SITE_DESC}', 0);
 INSERT INTO phpbb_config VALUES('sitename', '{L_CONFIG_SITENAME}', 0);
@@ -779,6 +779,38 @@ INSERT INTO phpbb_config VALUES('user_blog_max_attachments', '3', 0);
 INSERT INTO phpbb_config VALUES('num_blogs', 1, true);
 INSERT INTO phpbb_config VALUES('num_blog_replies', 0, true);
 INSERT INTO phpbb_config VALUES('user_blog_quick_reply', '1', 0);
+-- OneSignal API Credentials
+INSERT INTO phpbb_config VALUES('onesignal_app_id', '', 0);
+INSERT INTO phpbb_config VALUES('onesignal_rest_key', '', 0);
+
+-- SMS Gateway Settings
+INSERT INTO phpbb_config VALUES('sms_gateway', 'onesignal', 0);
+INSERT INTO phpbb_config VALUES('twilio_sid', '', 0);
+INSERT INTO phpbb_config VALUES('twilio_token', '', 0);
+INSERT INTO phpbb_config VALUES('twilio_from_number', '', 0);
+
+-- Global Web Push toggles (per event)
+INSERT INTO phpbb_config VALUES('push_allow_web_friend_req', '1', 0);
+INSERT INTO phpbb_config VALUES('push_allow_web_friend_acc', '1', 0);
+INSERT INTO phpbb_config VALUES('push_allow_web_pm', '1', 0);
+INSERT INTO phpbb_config VALUES('push_allow_web_like', '1', 0);
+INSERT INTO phpbb_config VALUES('push_allow_web_activity', '1', 0);
+INSERT INTO phpbb_config VALUES('push_allow_web_sub_post', '1', 0);
+INSERT INTO phpbb_config VALUES('push_allow_web_sub_topic', '1', 0);
+INSERT INTO phpbb_config VALUES('push_allow_web_news', '1', 0);
+INSERT INTO phpbb_config VALUES('push_allow_web_announce', '1', 0);
+
+-- Global SMS Push toggles (per event, default off until SMS service is configured)
+INSERT INTO phpbb_config VALUES('push_allow_sms_friend_req', '0', 0);
+INSERT INTO phpbb_config VALUES('push_allow_sms_friend_acc', '0', 0);
+INSERT INTO phpbb_config VALUES('push_allow_sms_pm', '0', 0);
+INSERT INTO phpbb_config VALUES('push_allow_sms_like', '0', 0);
+INSERT INTO phpbb_config VALUES('push_allow_sms_activity', '0', 0);
+INSERT INTO phpbb_config VALUES('push_allow_sms_sub_post', '0', 0);
+INSERT INTO phpbb_config VALUES('push_allow_sms_sub_topic', '0', 0);
+INSERT INTO phpbb_config VALUES('push_allow_sms_news', '0', 0);
+INSERT INTO phpbb_config VALUES('push_allow_sms_announce', '0', 0);
+
 # -- Forum related auth options
 
 REPLACE INTO phpbb_acl_options (auth_option, is_global, is_local, founder_only) VALUES('f_', 0, 1, 0);
@@ -1013,6 +1045,7 @@ INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_cht', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_dls', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_faq', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_mem', 1);
+INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_rules', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_meeting', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_contact', 1);
 INSERT INTO phpbb_acl_options (auth_option, is_global) VALUES ('u_mchat_use', 1);

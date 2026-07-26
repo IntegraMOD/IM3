@@ -1853,6 +1853,13 @@ function pm_notification($mode, $author, $recipients, $subject, $message, $msg_i
 				'lang'		=> $row['user_lang']
 			);
 		}
+
+		// OneSignal Push Notification Hook
+		if (function_exists('trigger_user_push'))
+		{
+			$pm_url = generate_board_url() . "/ucp.$phpEx?i=pm&mode=view&p=$msg_id";
+			trigger_user_push($row['user_id'], 'pm', $author . ' sent you a message', $subject, $pm_url);
+		}
 	}
 	$db->sql_freeresult($result);
 
