@@ -16,6 +16,7 @@ Whether you're running a gaming community, fan site, support forum, or hobby gro
 📬 Email Digests               Automatic summaries keep members informed about recent activity and discussions.
 📅 Topic Calendar              Attach events and schedules to forum topics for better community organization.
 🏠 Portal System               Custom homepage blocks for news, announcements, recent posts, and featured content.
+🔔 Push Notifications          Keep members engaged with real-time alerts sent straight to their devices for multiple events.
 💬 MChat & Shoutbox            Real-time chat features for quick conversations and live interaction.
 💸 PayPal Donation Support     Built-in donation tools to help support your community and hosting costs.
 🔧 Additional Enhancements     Includes profile improvements, moderation tools, customization options, and many other integrated features.
