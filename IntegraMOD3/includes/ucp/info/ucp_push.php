@@ -43,6 +43,3 @@ class ucp_push_info
     {
     }
 }
-
-?>
-
