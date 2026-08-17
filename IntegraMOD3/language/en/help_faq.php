@@ -1,33 +1,17 @@
 <?php
 /**
 *
-* help_faq [English]
+* en/help_faq
 *
-* @package language
-* @version $Id$
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* Built with the FAQ Manager addon by EXreaction
+* http://www.lithiumstudios.org/phpBB3/viewtopic.php?f=31&t=464
 *
 */
 
-/**
-*/
 if (!defined('IN_PHPBB'))
 {
 	exit;
 }
-
-// DEVELOPERS PLEASE NOTE
-//
-// All language files should use UTF-8 as their encoding and the files must not contain a BOM.
-//
-// Placeholders can now contain order information, e.g. instead of
-// 'Page %s of %s' you can (and should) write 'Page %1$s of %2$s', this allows
-// translators to re-order the output of data while ensuring it remains correct
-//
-// You do not need this where single placeholders are used, e.g. 'Message %d' is fine
-// equally where a string contains only two placeholders which are used to wrap text
-// in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $help = array(
 	array(
@@ -64,15 +48,15 @@ $help = array(
 	),
 	array(
 		0 => 'What is COPPA?',
-		1 => 'COPPA, or the Child Online Privacy and Protection Act of 1998, is a law in the United States requiring websites which can potentially collect information from minors under the age of 13 to have written parental consent or some other method of legal guardian acknowledgment, allowing the collection of personally identifiable information from a minor under the age of 13. If you are unsure if this applies to you as someone trying to register or to the website you are trying to register on, contact legal counsel for assistance. Please note that the phpBB Group cannot provide legal advice and is not a point of contact for legal concerns of any kind, except as outlined below.',
+		1 => 'COPPA, or the Child Online Privacy and Protection Act of 1998, is a law in the United States requiring websites which can potentially collect information from minors under the age of 13 to have written parental consent or some other method of legal guardian acknowledgment, allowing the collection of personally identifiable information from a minor under the age of 13. If you are unsure if this applies to you as someone trying to register or to the website you are trying to register on, contact legal counsel for assistance. Please note that the phpBB Group cannot provide legal advice and is not a point of contact for legal concerns of any kind, except as outlined below.'
 	),
 	array(
 		0 => 'Why can’t I register?',
-		1 => 'It is possible the website owner has banned your IP address or disallowed the username you are attempting to register. The website owner could have also disabled registration to prevent new visitors from signing up. Contact a board administrator for assistance.',
+		1 => 'It is possible the website owner has banned your IP address or disallowed the username you are attempting to register. The website owner could have also disabled registration to prevent new visitors from signing up. Contact a board administrator for assistance.'
 	),
 	array(
 		0 => 'What does the “Delete all board cookies” do?',
-		1 => '“Delete all board cookies” deletes the cookies created by phpBB which keep you authenticated and logged into the board. It also provides functions such as read tracking if they have been enabled by the board owner. If you are having login or logout problems, deleting board cookies may help.',
+		1 => '“Delete all board cookies” deletes the cookies created by phpBB which keep you authenticated and logged into the board. It also provides functions such as read tracking if they have been enabled by the board owner. If you are having login or logout problems, deleting board cookies may help.'
 	),
 	array(
 		0 => '--',
@@ -168,7 +152,7 @@ $help = array(
 	),
 	array(
 		0 => 'What is BBCode?',
-		1 => 'BBCode is a special implementation of HTML, offering great formatting control on particular objects in a post. The use of BBCode is granted by the administrator, but it can also be disabled on a per post basis from the posting form. BBCode itself is similar in style to HTML, but tags are enclosed in square brackets [ and ] rather than &lt; and &gt;. For more information on BBCode see the guide which can be accessed from the posting page.'
+		1 => 'BBCode is a special implementation of HTML, offering great formatting control on particular objects in a post. The use of BBCode is granted by the administrator, but it can also be disabled on a per post basis from the posting form. BBCode itself is similar in style to HTML, but tags are enclosed in square brackets [ and ] rather than < and >. For more information on BBCode see the guide which can be accessed from the posting page.'
 	),
 	array(
 		0 => 'Can I use HTML?',
@@ -202,7 +186,6 @@ $help = array(
 		0 => 'What are topic icons?',
 		1 => 'Topic icons are author chosen images associated with posts to indicate their content. The ability to use topic icons depends on the permissions set by the board administrator.'
 	),
-	// This block will switch the FAQ-Questions to the second template column
 	array(
 		0 => '--',
 		1 => '--'
@@ -229,7 +212,7 @@ $help = array(
 	),
 	array(
 		0 => 'How do I become a usergroup leader?',
-		1 => 'A usergroup leader is usually assigned when usergroups are initially created by a board administrator. If you are interested in creating a usergroup, your first point of contact should be an administrator; try sending a private message.',
+		1 => 'A usergroup leader is usually assigned when usergroups are initially created by a board administrator. If you are interested in creating a usergroup, your first point of contact should be an administrator; try sending a private message.'
 	),
 	array(
 		0 => 'Why do some usergroups appear in a different colour?',
@@ -323,7 +306,6 @@ $help = array(
 		0 => 'How do I find all my attachments?',
 		1 => 'To find your list of attachments that you have uploaded, go to your User Control Panel and follow the links to the attachments section.'
 	),
-
 	array(
 		0 => '--',
 		1 => 'Downloads'
@@ -365,7 +347,7 @@ $help = array(
 		1 => 'After the first login the user will get a timestamp. Each first day of a month the user will enter the downloads the traffic will be refreshed. Ask your administrator how much you will get.'
 	),
 	array(
-		0 => 'I wants to download still one more file, but I have not any traffic left?',
+		0 => 'I want to download another file, but I have no traffic left?',
 		1 => 'In this cases ask the administrator. Only he can decide to increase the user traffic before the account will get automaticaly new traffic the next month.'
 	),
 	array(
@@ -374,11 +356,11 @@ $help = array(
 	),
 	array(
 		0 => '--',
-		1 => 'phpBB 3 Issues'
+		1 => 'IntegraMOD Issues'
 	),
 	array(
 		0 => 'Who wrote this bulletin board?',
-		1 => 'This software (in its unmodified form) is produced, released and is copyright <a href="https://www.phpbb.com/">phpBB Group</a>. It is made available under the GNU General Public License and may be freely distributed. See the link for more details.'
+		1 => 'This software is powered by <a href="https://integramod.com/forum/portal.php" target="_blank" rel="noopener noreferrer">IntegraMOD</a>. While the core architecture (phpBB 3.0.x) was originally written in 2007—with official support dropping on December 31, 2017, and the project being officially abandoned in 2026— the IntegraMOD Team has maintained and heavily rebuilt a substantial portion of it. This ongoing development keeps the platform fast, highly secure, and exceptionally reliable today. The original underlying software (in its unmodified form) was copyrighted by the phpBB Group and is made available under the GNU General Public License.'
 	),
 	array(
 		0 => 'Why isn’t X feature available?',
@@ -387,5 +369,7 @@ $help = array(
 	array(
 		0 => 'Who do I contact about abusive and/or legal matters related to this board?',
 		1 => 'Any of the administrators listed on the “The team” page should be an appropriate point of contact for your complaints. If this still gets no response then you should contact the owner of the domain (do a <a href="http://www.google.com/search?q=whois">whois lookup</a>) or, if this is running on a free service (e.g. Yahoo!, free.fr, f2s.com, etc.), the management or abuse department of that service. Please note that the phpBB Group has <strong>absolutely no jurisdiction</strong> and cannot in any way be held liable over how, where or by whom this board is used. Do not contact the phpBB Group in relation to any legal (cease and desist, liable, defamatory comment, etc.) matter <strong>not directly related</strong> to the phpBB.com website or the discrete software of phpBB itself. If you do e-mail phpBB Group <strong>about any third party</strong> use of this software then you should expect a terse response or no response at all.'
-	)
+	),
 );
+
+?>

@@ -328,13 +328,13 @@ $help = array(
 		0 => '¿Cómo encuentro todos mis archivos adjuntos?',
 		1 => 'Para encontrar la lista de sus archivos adjuntos, debe entrar en el Panel de Control de Usuario y hacer clic en la opción "Organizar adjuntos".'
 	),
-	array(
+    array(
 		0 => '--',
-		1 => 'Acerca de phpBB3'
+		1 => 'Problemas de IntegraMOD'
 	),
-	array(
-		0 => '¿Quién programó este foro?',
-		1 => 'Esta aplicación (en su forma original) es desarrollada, publicada y contiene derechos de autor pertenecientes a <a href="https://www.phpbb.com/">phpBB Group</a>. Está hecho bajo la GNU (Licencia Pública General) y es de libre distribución. Visite el enlace para más detalles.'
+    array(
+		0 => '¿Quién escribió este foro?',
+		1 => 'Este software está impulsado por <a href="https://integramod.com/forum/portal.php" target="_blank" rel="noopener noreferrer">IntegraMOD</a>. Aunque la arquitectura central (phpBB 3.0.x) se escribió originalmente en 2007 —finalizando el soporte oficial el 31 de diciembre de 2017 y siendo el proyecto abandonado oficialmente en 2026— el Equipo de IntegraMOD ha mantenido y reconstruido en gran medida una parte sustancial del mismo. Este desarrollo continuo mantiene la plataforma rápida, altamente segura y excepcionalmente confiable en la actualidad. El software base original (en su forma sin modificar) estaba protegido por derechos de autor del phpBB Group y se distribuye bajo la Licencia Pública General de GNU.'
 	),
 	array(
 		0 => '¿Por qué este foro no tiene tal cosa?',

@@ -328,11 +328,11 @@ $help = array(
 	),
 	array(
 		0 => '--',
-		1 => 'phpBB3 betreffende Fragen'
+		1 => 'IntegraMOD-Probleme'
 	),
 	array(
-		0 => 'Wer hat diese Forensoftware entwickelt?',
-		1 => 'Diese Software (in ihrer unmodifizierten Fassung) wurde von der <a href="https://www.phpbb.com/">phpBB Group</a> entwickelt und veröffentlicht. Sie ist urheberrechtlich geschützt. Sie wurde unter der GNU General Public License veröffentlicht und kann frei vertrieben werden. Weitere Details findest du auf der Seite der phpBB Group. Eine deutschsprachige Anlaufstelle ist unter <a href="https://www.phpbb.de/">phpBB.de</a> zu finden.'
+		0 => 'Wer hat dieses Board geschrieben?',
+		1 => 'Diese Software wird durch <a href="https://integramod.com/forum/portal.php" target="_blank" rel="noopener noreferrer">IntegraMOD</a> bereitgestellt. Während die Kernarchitektur (phpBB 3.0.x) ursprünglich im Jahr 2007 geschrieben wurde – wobei die offizielle Unterstützung am 31. Dezember 2017 endete und das Projekt 2026 offiziell eingestellt wurde –, hat das IntegraMOD-Team einen beträchtlichen Teil davon gewartet und umfassend neu aufgebaut. Diese kontinuierliche Weiterentwicklung sorgt dafür, dass die Plattform heute schnell, hochsicher und äußerst zuverlässig bleibt. Die ursprüngliche Basis-Software (in ihrer unmodifizierten Form) war urheberrechtlich durch die phpBB Group geschützt und wird unter der GNU General Public License zur Verfügung gestellt.'
 	),
 	array(
 		0 => 'Warum ist Funktion x oder y nicht enthalten?',

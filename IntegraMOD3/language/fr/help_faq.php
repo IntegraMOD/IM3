@@ -372,13 +372,13 @@ $help = array(
 		0 => 'Comment puis-je évaluer les téléchargements ?',
 		1 => 'Derrière chaque téléchargement dans une catégorie ou dans la vue détaillée, vous trouverez une section d’évaluation.<br />En cliquant sur « Évaluer », un utilisateur enregistré peut noter le téléchargement de 1 point (très mauvais) à 10 points (très bon). Vous ne pouvez évaluer un téléchargement qu’une seule fois.'
 	),
-	array(
+    array(
 		0 => '--',
-		1 => 'Problèmes liés à phpBB 3'
+		1 => 'Problèmes IntegraMOD'
 	),
-	array(
+    array(
 		0 => 'Qui a écrit ce forum ?',
-		1 => 'Ce logiciel (dans sa forme non modifiée) est produit, publié et est protégé par copyright par <a href="https://www.phpbb.com/">le groupe phpBB</a>. Il est mis à disposition sous la licence GNU General Public License et peut être librement distribué. Consultez le lien pour plus de détails.'
+		1 => 'Ce logiciel est propulsé par <a href="https://integramod.com/forum/portal.php" target="_blank" rel="noopener noreferrer">IntegraMOD</a>. Bien que l\'architecture de base (phpBB 3.0.x) ait été initialement écrite en 2007 — le support officiel ayant pris fin le 31 décembre 2017 et le projet ayant été officiellement abandonné en 2026 — l\'équipe IntegraMOD en a maintenu et largement reconstruit une part substantielle. Ce développement continu permet à la plateforme de rester rapide, hautement sécurisée et exceptionnellement fiable aujourd\'hui. Le logiciel sous-jacent original (dans sa forme non modifiée) était protégé par les droits d\'auteur du phpBB Group et est mis à disposition sous la Licence Publique Générale GNU.'
 	),
 	array(
 		0 => 'Pourquoi la fonctionnalité X n’est-elle pas disponible ?',

@@ -325,11 +325,11 @@ $help = array(
 	),
 	array(
 		0 => '--',
-		1 => 'phpBB 3 vragen'
+		1 => 'IntegraMOD Problemen'
 	),
 	array(
 		0 => 'Wie heeft dit forum geschreven?',
-		1 => 'Deze software (in zijn originele vorm) is geschreven, vrijgegeven en met een copyright beschermd door de <a href="https://www.phpbb.com">phpBB groep</a>. De applicatie is beschikbaar onder de GNU General Public License en mag vrij verspreid worden, raadpleeg de link voor verdere informatie.'
+		1 => 'Deze software wordt aangedreven door <a href="https://integramod.com/forum/portal.php" target="_blank" rel="noopener noreferrer">IntegraMOD</a>. Hoewel de kernarchitectuur (phpBB 3.0.x) oorspronkelijk in 2007 werd geschreven — waarbij de officiële ondersteuning op 31 december 2017 werd beëindigd en het project in 2026 officieel werd opgegeven — heeft het IntegraMOD-team een aanzienlijk deel ervan onderhouden en ingrijpend herbouwd. Deze voortdurende ontwikkeling houdt het platform vandaag de dag snel, uiterst veilig en uitzonderlijk betrouwbaar. De oorspronkelijke onderliggende software (in de ongewijzigde vorm) was auteursrechtelijk beschermd door de phpBB Group en wordt beschikbaar gesteld onder de GNU General Public License.'
 	),
 	array(
 		0 => 'Waarom is de optie X niet beschikbaar?',
