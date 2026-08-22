@@ -3260,6 +3260,8 @@ CREATE TABLE phpbb_sn_users (
 	youtube varchar(255) DEFAULT '' NOT NULL,
 	profile_views INT4 DEFAULT '0' NOT NULL CHECK (profile_views >= 0),
 	profile_last_change INT4 DEFAULT '0' NOT NULL CHECK (profile_last_change >= 0),
+	sn_privacy_level INT4 DEFAULT '0' NOT NULL CHECK (sn_privacy_level >= 0),
+	sn_allow_friend_requests INT4 DEFAULT '1' NOT NULL CHECK (sn_allow_friend_requests >= 0),
 	PRIMARY KEY (user_id)
 );
 
