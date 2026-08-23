@@ -36,7 +36,7 @@ if ($config['dl_prevent_hotlink'])
 	{
 		if (!$user->data['is_registered'])
 		{
-			$sql_where = " AND session_id = '" . $db->sql_escape($user->data['session_id']) . "' ";
+			$sql_where = " AND session_id = '" . $db->sql_escape($user->session_id) . "' ";
 		}
 
 		$sql = 'SELECT COUNT(hotlink_id) AS total FROM ' . DL_HOTLINK_TABLE . '
@@ -173,7 +173,7 @@ if ($captcha_active)
 {
 	if (!$user->data['is_registered'])
 	{
-		$sql_where = " AND session_id = '" . $db->sql_escape($user->data['session_id']) . "' ";
+		$sql_where = " AND session_id = '" . $db->sql_escape($user->session_id) . "' ";
 	}
 
 	$sql = 'SELECT code FROM ' . DL_HOTLINK_TABLE . '

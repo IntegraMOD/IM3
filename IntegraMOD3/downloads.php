@@ -411,15 +411,15 @@ if ($view != 'load' && $view != 'broken')
 		$result = $db->sql_query($sql);
 
 		$guest_sids = array();
-		$guest_sids[0] = 0;
+		$guest_sids[0] = '';
 
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$guest_sids[] = $row['session_id'];
+			$guest_sids[] = (string) $row['session_id'];
 		}
 		$db->sql_freeresult($result);
 
-		$sql_where = ' OR ' . $db->sql_in_set('session_id', array_map('intval', $guest_sids), true);
+		$sql_where = ' OR ' . $db->sql_in_set('session_id', $guest_sids, true);
 	}
 
 	$sql = 'DELETE FROM ' . DL_HOTLINK_TABLE . '
@@ -957,11 +957,11 @@ if (in_array($view, $view_check, true))
 
 if (!in_array($view, $view_check, true) || !isset($template->filename['body']))
 {
-    trigger_error('DL_NO_PERMISSION');
+	trigger_error('DL_NO_PERMISSION');
 }
 
 $template->assign_vars(array(
-	'U_HELP_POPUP' => "{$phpbb_root_path}dl_help.$phpEx?sid=" . $user->data['session_id'] . "&help_key=",
+	'U_HELP_POPUP' => "{$phpbb_root_path}dl_help.$phpEx?sid=" . $user->session_id . "&help_key=",
 ));
 
 /*
