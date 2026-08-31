@@ -131,16 +131,18 @@ function switch_menu()
 			main.style.width = '93%';
 			menu_state = 'hidden';
 			menu.style.display = 'none';
-			toggle.style.width = '20px';
+			toggle.style.width = '18px';
 			handle.style.backgroundImage = 'url(images/toggle.gif)';
 			handle.style.backgroundRepeat = 'no-repeat';
 
 			<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
 				handle.style.backgroundPosition = '0% 50%';
-				toggle.style.left = '96%';
+				toggle.style.left = 'auto';
+				toggle.style.right = '0';
 			<!-- ELSE -->
 				handle.style.backgroundPosition = '100% 50%';
 				toggle.style.left = '0';
+				toggle.style.right = 'auto';
 			<!-- ENDIF -->
 		break;
 
@@ -149,16 +151,18 @@ function switch_menu()
 			main.style.width = '76%';
 			menu_state = 'shown';
 			menu.style.display = 'block';
-			toggle.style.width = '5%';
+			toggle.style.width = '18px';
 			handle.style.backgroundImage = 'url(images/toggle.gif)';
 			handle.style.backgroundRepeat = 'no-repeat';
 
 			<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
 				handle.style.backgroundPosition = '100% 50%';
-				toggle.style.left = '75%';
+				toggle.style.left = 'auto';
+				toggle.style.right = '200px';
 			<!-- ELSE -->
 				handle.style.backgroundPosition = '0% 50%';
-				toggle.style.left = '15%';
+				toggle.style.left = '200px';
+				toggle.style.right = 'auto';
 			<!-- ENDIF -->
 		break;
 	}
