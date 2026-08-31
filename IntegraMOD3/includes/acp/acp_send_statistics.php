@@ -47,10 +47,13 @@ class acp_send_statistics
 
 		$collector = new phpbb_questionnaire_data_collector($install_id);
 
-		// Add data provider
-		$collector->add_data_provider(new phpbb_questionnaire_php_data_provider());
-		$collector->add_data_provider(new phpbb_questionnaire_system_data_provider());
-		$collector->add_data_provider(new phpbb_questionnaire_phpbb_data_provider($config));
+		// Add data provider (assign first — PHP 7.4+ forbids passing expressions by reference)
+		$php_provider = new phpbb_questionnaire_php_data_provider();
+		$system_provider = new phpbb_questionnaire_system_data_provider();
+		$phpbb_provider = new phpbb_questionnaire_phpbb_data_provider($config);
+		$collector->add_data_provider($php_provider);
+		$collector->add_data_provider($system_provider);
+		$collector->add_data_provider($phpbb_provider);
 
 		$template->assign_vars(array(
 			'U_COLLECT_STATS'	=> $collect_url,
