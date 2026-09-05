@@ -120,19 +120,19 @@ if (sizeof($index) > 0)
 
 		if ($mini_icon[$cat_id]['new'] && !$mini_icon[$cat_id]['edit'])
 		{
-			$mini_cat_icon = $user->img('dl_new');
+			$mini_cat_icon = dl_status::icon('dl_new');
 		}
 		else if (!$mini_icon[$cat_id]['new'] && $mini_icon[$cat_id]['edit'])
 		{
-			$mini_cat_icon = $user->img('dl_edit');
+			$mini_cat_icon = dl_status::icon('dl_edit');
 		}
 		else if ($mini_icon[$cat_id]['new'] && $mini_icon[$cat_id]['edit'])
 		{
-			$mini_cat_icon = $user->img('dl_new_edit');
+			$mini_cat_icon = dl_status::icon('dl_new_edit');
 		}
 		else
 		{
-			$mini_cat_icon = $user->img('dl_default');
+			$mini_cat_icon = dl_status::icon('dl_default');
 		}
 
 		$temp_config_pages = $config['posts_per_page'];
@@ -196,19 +196,19 @@ if (sizeof($index) > 0)
 
 				if ($mini_icon[$sub_id]['new'] && !$mini_icon[$sub_id]['edit'])
 				{
-					$mini_cat_icon = $user->img('dl_new');
+					$mini_cat_icon = dl_status::icon('dl_new');
 				}
 				else if (!$mini_icon[$sub_id]['new'] && $mini_icon[$sub_id]['edit'])
 				{
-					$mini_cat_icon = $user->img('dl_edit');
+					$mini_cat_icon = dl_status::icon('dl_edit');
 				}
 				else if ($mini_icon[$sub_id]['new'] && $mini_icon[$sub_id]['edit'])
 				{
-					$mini_cat_icon = $user->img('dl_new_edit');
+					$mini_cat_icon = dl_status::icon('dl_new_edit');
 				}
 				else
 				{
-					$mini_cat_icon = $user->img('dl_default');
+					$mini_cat_icon = dl_status::icon('dl_default');
 				}
 
 				if (isset($cat_sublevel['description'][$j]) && $cat_sublevel['description'][$j] != '')

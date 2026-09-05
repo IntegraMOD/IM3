@@ -35,12 +35,23 @@ class dl_status extends dl_mod
 	*/
 	public static function icon($name, $alt = '')
 	{
-		global $user;
+		global $user, $phpbb_root_path;
 
-		$img = $user->img($name, $alt);
-		if ($img !== '')
+		$filename = isset($user->img_array[$name]['image_filename']) ? $user->img_array[$name]['image_filename'] : '';
+		if ($filename !== '')
 		{
-			return $img;
+			$lang = !empty($user->img_array[$name]['image_lang']) ? $user->img_array[$name]['image_lang'] . '/' : '';
+			$imageset = isset($user->theme['imageset_path']) ? $user->theme['imageset_path'] : '';
+			$path = $phpbb_root_path . 'styles/' . $imageset . '/imageset/' . $lang . $filename;
+
+			if ($imageset !== '' && is_file($path))
+			{
+				$img = $user->img($name, $alt);
+				if ($img !== '')
+				{
+					return $img;
+				}
+			}
 		}
 
 		if ($alt !== '' && !empty($user->lang[$alt]))

@@ -41,21 +41,21 @@
     </div>
     <div class="ucp-card-body dl-legend">
         <!-- IF S_DL_TRAFFIC_OFF -->
-            <div class="dl-legend-item">{IMG_RED}<span>{L_DL_RED_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_GREEN}<span>{L_DL_GREEN_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_GREY}<span>{L_DL_GREY_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_WHITE}<span>{L_DL_WHITE_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_NEW_DL}<span>{L_DL_NEW}</span></div>
-            <div class="dl-legend-item">{IMG_EDIT_DL}<span>{L_DL_EDIT}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-red" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_RED_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-green" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_GREEN_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-grey" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_GREY_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-white" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_WHITE_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-new" aria-hidden="true" focusable="false"><use href="#icon-dl-marker"></use></svg><span>{L_DL_NEW}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-edit" aria-hidden="true" focusable="false"><use href="#icon-dl-marker"></use></svg><span>{L_DL_EDIT}</span></div>
         <!-- ELSE -->
-            <div class="dl-legend-item">{IMG_BLUE}<span>{L_DL_BLUE_EXPLAIN_FOOT}</span></div>
-            <div class="dl-legend-item">{IMG_RED}<span>{L_DL_RED_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_GREY}<span>{L_DL_GREY_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_WHITE}<span>{L_DL_WHITE_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_YELLOW}<span>{L_DL_YELLOW_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_GREEN}<span>{L_DL_GREEN_EXPLAIN}</span></div>
-            <div class="dl-legend-item">{IMG_NEW_DL}<span>{L_DL_NEW}</span></div>
-            <div class="dl-legend-item">{IMG_EDIT_DL}<span>{L_DL_EDIT}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-blue" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_BLUE_EXPLAIN_FOOT}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-red" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_RED_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-grey" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_GREY_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-white" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_WHITE_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-yellow" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_YELLOW_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-green" aria-hidden="true" focusable="false"><use href="#icon-dl-status"></use></svg><span>{L_DL_GREEN_EXPLAIN}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-new" aria-hidden="true" focusable="false"><use href="#icon-dl-marker"></use></svg><span>{L_DL_NEW}</span></div>
+            <div class="dl-legend-item"><svg class="css-icon dl-legend-icon dl-legend-icon-edit" aria-hidden="true" focusable="false"><use href="#icon-dl-marker"></use></svg><span>{L_DL_EDIT}</span></div>
         <!-- ENDIF -->
     </div>
 </section>
@@ -63,18 +63,15 @@
 
 <section class="ucp-card">
     <div class="ucp-card-body dl-footer-meta">
-        <!-- IF L_CAN_DOWNLOAD_AGAIN -->{L_CAN_DOWNLOAD_AGAIN}<br /><!-- ENDIF -->
-        <!-- BEGIN userdata -->{userdata.ACCOUNT_TRAFFIC}<br /><!-- END userdata -->
-        <!-- BEGIN remain_traffic -->{remain_traffic.REMAIN_TRAFFIC}<br /><!-- END remain_traffic -->
-        <!-- BEGIN no_remain_traffic --><strong>{no_remain_traffic.NO_OVERALL_TRAFFIC}</strong><br /><!-- END no_remain_traffic -->
-        <!-- BEGIN remain_guest_traffic -->{remain_guest_traffic.REMAIN_GUEST_TRAFFIC}<br /><!-- END remain_guest_traffic -->
-        <!-- BEGIN no_remain_guest_traffic --><strong>{no_remain_guest_traffic.NO_OVERALL_GUEST_TRAFFIC}</strong><br /><!-- END no_remain_guest_traffic -->
-        <!-- IF not S_HIDE_FOOTER_DATA and S_SERARATE_STATS --><br /><!-- ENDIF -->
-        <!-- BEGIN total_stat -->{total_stat.TOTAL_STAT}<!-- END total_stat -->
-        <!-- IF not S_HIDE_FOOTER_DATA --><br /><!-- ENDIF -->
-        <strong>{DL_MOD_RELEASE}</strong>
-        <!-- IF S_DL_TRANSLATION --> &bull; {L_DL_TRANSLATION}<!-- ENDIF -->
-        <!-- IF U_DL_RSS_FEED --> &bull; <a href="{U_DL_RSS_FEED}">{L_DL_ACP_CONF_RSS}</a><!-- ENDIF -->
+        <!-- IF L_CAN_DOWNLOAD_AGAIN --><p>{L_CAN_DOWNLOAD_AGAIN}</p><!-- ENDIF -->
+        <!-- BEGIN userdata --><p>{userdata.ACCOUNT_TRAFFIC}</p><!-- END userdata -->
+        <!-- BEGIN remain_traffic --><p>{remain_traffic.REMAIN_TRAFFIC}</p><!-- END remain_traffic -->
+        <!-- BEGIN no_remain_traffic --><p><strong>{no_remain_traffic.NO_OVERALL_TRAFFIC}</strong></p><!-- END no_remain_traffic -->
+        <!-- BEGIN remain_guest_traffic --><p>{remain_guest_traffic.REMAIN_GUEST_TRAFFIC}</p><!-- END remain_guest_traffic -->
+        <!-- BEGIN no_remain_guest_traffic --><p><strong>{no_remain_guest_traffic.NO_OVERALL_GUEST_TRAFFIC}</strong></p><!-- END no_remain_guest_traffic -->
+        <!-- BEGIN total_stat --><p>{total_stat.TOTAL_STAT}</p><!-- END total_stat -->
+        <p class="dl-footer-copy">{DL_MOD_RELEASE}</p>
+        <!-- IF U_DL_RSS_FEED --><p class="dl-footer-copy"><a href="{U_DL_RSS_FEED}">{L_DL_ACP_CONF_RSS}</a></p><!-- ENDIF -->
     </div>
 </section>
 

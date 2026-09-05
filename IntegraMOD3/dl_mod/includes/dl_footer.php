@@ -123,14 +123,14 @@ if (sizeof($index) || $cat)
 
 		'DL_MOD_RELEASE'		=> sprintf($user->lang['DL_MOD_VERSION_PUBLIC']),
 
-		'IMG_NEW_DL'			=> $user->img('dl_file_new', $user->lang['DL_NEW']),
-		'IMG_EDIT_DL'			=> $user->img('dl_file_edit', $user->lang['DL_EDIT']),
-		'IMG_BLUE'				=> $user->img('dl_blue', $user->lang['DL_BLUE_EXPLAIN_FOOT']),
-		'IMG_GREEN'				=> $user->img('dl_green', $user->lang['DL_GREEN_EXPLAIN']),
-		'IMG_WHITE'				=> $user->img('dl_white', $user->lang['DL_WHITE_EXPLAIN']),
-		'IMG_GREY'				=> $user->img('dl_grey', $user->lang['DL_GREY_EXPLAIN']),
-		'IMG_RED'				=> $user->img('dl_red', sprintf($user->lang['DL_RED_EXPLAIN_ALT'], $config['dl_posts'])),
-		'IMG_YELLOW'			=> $user->img('dl_yellow', $user->lang['DL_YELLOW_EXPLAIN']),
+		'IMG_NEW_DL'			=> dl_status::icon('dl_file_new', $user->lang['DL_NEW']),
+		'IMG_EDIT_DL'			=> dl_status::icon('dl_file_edit', $user->lang['DL_EDIT']),
+		'IMG_BLUE'				=> dl_status::icon('dl_blue', $user->lang['DL_BLUE_EXPLAIN_FOOT']),
+		'IMG_GREEN'				=> dl_status::icon('dl_green', $user->lang['DL_GREEN_EXPLAIN']),
+		'IMG_WHITE'				=> dl_status::icon('dl_white', $user->lang['DL_WHITE_EXPLAIN']),
+		'IMG_GREY'				=> dl_status::icon('dl_grey', $user->lang['DL_GREY_EXPLAIN']),
+		'IMG_RED'				=> dl_status::icon('dl_red', sprintf($user->lang['DL_RED_EXPLAIN_ALT'], $config['dl_posts'])),
+		'IMG_YELLOW'			=> dl_status::icon('dl_yellow', $user->lang['DL_YELLOW_EXPLAIN']),
 
 		'S_DL_JUMPBOX'			=> $dl_jumpbox,
 		'S_DL_TRANSLATION'		=> (isset($user->lang['DL_TRANSLATION'])) ? true : false,

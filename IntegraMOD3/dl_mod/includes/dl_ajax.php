@@ -100,7 +100,7 @@ for ($i = 0; $i < $config['dl_rate_points']; $i++)
 {
 	$j = $i + 1;
 
-	$rating_img .= ($j <= $new_rating ) ? $user->img('dl_rate_yes') : $user->img('dl_rate_no');
+	$rating_img .= ($j <= $new_rating ) ? dl_status::icon('dl_rate_yes') : dl_status::icon('dl_rate_no');
 }
 
 // Send it back to client for further processing
