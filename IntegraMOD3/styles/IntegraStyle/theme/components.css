@@ -484,6 +484,7 @@ ul.linklist { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap:
 .right-arrow { margin-left: initial; }
 
 /* Align right-side dropdowns to anchor on the right and open leftward */
+.nav-style .sub-menu,
 .nav-user .sub-menu { left: auto; right: 0; }
 
 /* Header Header Search Layout */
