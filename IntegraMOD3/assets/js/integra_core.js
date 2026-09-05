@@ -590,6 +590,89 @@ const initializeOneSignal = () => {
     loadScriptOnce('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js').catch(() => {});
 };
 
+const initializeSortablesCaptcha = () => {
+    const root = document.getElementById('sortables-captcha');
+    if (!root || root.getAttribute('data-ready') === '1') {
+        return;
+    }
+    if (typeof jQuery === 'undefined' || !jQuery.fn || typeof jQuery.fn.sortable !== 'function') {
+        return;
+    }
+
+    const start = () => {
+        if (root.getAttribute('data-ready') === '1') {
+            return;
+        }
+
+        const $ = jQuery;
+        const createSortableData = (listItems, column) => {
+            const data = document.getElementById(column);
+            if (!data) {
+                return;
+            }
+            while (data.firstChild) {
+                data.removeChild(data.firstChild);
+            }
+            listItems.each(function() {
+                const answer = String(this.id || '').replace(/^answer_/, '');
+                if (!answer) {
+                    return;
+                }
+                const inputbox = document.createElement('input');
+                inputbox.type = 'hidden';
+                inputbox.name = column + '[]';
+                inputbox.value = answer;
+                data.appendChild(inputbox);
+            });
+        };
+
+        const syncColumns = () => {
+            createSortableData($('#sortable1').children('li'), 'sortables_options_left');
+            createSortableData($('#sortable2').children('li'), 'sortables_options_right');
+        };
+
+        root.classList.add('sortables-captcha-ready');
+
+        const enableJs = document.getElementById('enable_js');
+        if (enableJs) {
+            enableJs.removeAttribute('hidden');
+            enableJs.classList.add('sortables-captcha-ready');
+            enableJs.style.display = '';
+        }
+
+        const $lists = $('#sortable1, #sortable2');
+        if (!$lists.length) {
+            return;
+        }
+
+        $lists.sortable({
+            connectWith: '.connectedSortable',
+            items: 'li',
+            forcePlaceholderSize: true,
+            placeholder: 'sortables-captcha-placeholder',
+            update: syncColumns
+        });
+
+        if (typeof $lists.disableSelection === 'function') {
+            $lists.disableSelection();
+        }
+
+        $lists.on('sortreceive sortupdate', syncColumns);
+        syncColumns();
+        root.setAttribute('data-ready', '1');
+    };
+
+    const punchSrc = root.getAttribute('data-touch-punch');
+    if (punchSrc) {
+        loadScriptOnce(punchSrc).then(start).catch(start);
+        return;
+    }
+
+    start();
+};
+
+document.addEventListener('DOMContentLoaded', initializeSortablesCaptcha);
+
 window.addEventListener('load', () => {
     checkCookieConsent();
     initializeOneSignal();
@@ -629,45 +712,7 @@ window.addEventListener('load', () => {
         }
     }
 
-    // Sortables CAPTCHA (replaces prosilver's inline jQuery UI sortable script)
-    if (document.getElementById('sortables-captcha') && typeof jQuery !== 'undefined') {
-        const $ = jQuery;
-
-        const createSortableData = (listItems, column) => {
-            const data = document.getElementById(column);
-            if (!data) {
-                return;
-            }
-            while (data.firstChild) {
-                data.removeChild(data.firstChild);
-            }
-            listItems.each(function() {
-                const answer = this.id.replace(/^answer_/, '');
-                const inputbox = document.createElement('input');
-                inputbox.type = 'hidden';
-                inputbox.name = column + '[]';
-                inputbox.value = answer;
-                data.appendChild(inputbox);
-            });
-        };
-
-        const enableJs = document.getElementById('enable_js');
-        if (enableJs) {
-            enableJs.style.display = 'block';
-        }
-
-        $('#sortable1, #sortable2').sortable({
-            connectWith: '.connectedSortable',
-            items: 'li',
-            forcePlaceholderSize: true,
-            placeholder: 'bg3'
-        }).disableSelection();
-
-        $('#sortable1, #sortable2').on('sortreceive', function() {
-            createSortableData($('#sortable1').children(), 'sortables_options_left');
-            createSortableData($('#sortable2').children(), 'sortables_options_right');
-        });
-    }
+    initializeSortablesCaptcha();
 
     document.querySelectorAll('[data-rmstream-init]').forEach(el => {
         const attachId = el.getAttribute('data-rmstream-init');
