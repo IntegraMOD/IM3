@@ -49,29 +49,38 @@
 	<!-- ENDIF -->
 
 	<div class="ucp-card">
-		<div class="ucp-card-body">
 	<!-- IF .messagerow -->
-		<div class="ucp-form-grid pmlist">
+		<div class="ucp-card-body ucp-list-table<!-- IF S_UNREAD --> ucp-list-table-unread<!-- ENDIF -->">
+			<div class="ucp-list-head">
+				<div class="ucp-list-main">{L_MESSAGE}</div>
+				<div class="ucp-list-author"><!-- IF S_SHOW_RECIPIENTS -->{L_TO}<!-- ELSE -->{L_AUTHOR}<!-- ENDIF --></div>
+				<div class="ucp-list-time">{L_SENT_AT}</div>
+				<!-- IF S_UNREAD --><div class="ucp-list-folder">{L_FOLDER}</div><!-- ENDIF -->
+				<div class="ucp-list-mark">{L_MARK}</div>
+			</div>
 		<!-- BEGIN messagerow -->
-			<div class="ucp-form-row<!-- IF messagerow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF messagerow.PM_CLASS --> {messagerow.PM_CLASS}<!-- ENDIF -->">
-				<p class="ucp-form-label">
+			<article class="ucp-list-row<!-- IF messagerow.PM_CLASS --> {messagerow.PM_CLASS}<!-- ENDIF -->">
+				<div class="ucp-list-main">
 					<!-- IF messagerow.S_PM_DELETED -->
 						<a href="{messagerow.U_REMOVE_PM}" class="topictitle">{L_DELETE_MESSAGE}</a>
+						<p class="error">{L_MESSAGE_REMOVED_FROM_OUTBOX}</p>
 					<!-- ELSE -->
 						<a href="{messagerow.U_VIEW_PM}" class="topictitle">{messagerow.SUBJECT}</a>
 					<!-- ENDIF -->
-					<!-- IF messagerow.S_PM_REPORTED --><a href="{messagerow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}"><svg class="css-icon css-icon-flag" aria-hidden="true" focusable="false"><use href="#icon-flag"></use></svg></a><!-- ENDIF --> <!-- IF messagerow.ATTACH_ICON_IMG --><span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span><!-- ENDIF -->
-				</p>
-				<!-- IF messagerow.S_PM_DELETED --><p class="error">{L_MESSAGE_REMOVED_FROM_OUTBOX}</p><!-- ENDIF -->
-				<!-- IF messagerow.S_AUTHOR_DELETED --><p class="ucp-form-help">{L_PM_FROM_REMOVED_AUTHOR}</p><!-- ENDIF -->
-				<p class="ucp-form-help"><!-- IF S_SHOW_RECIPIENTS -->{L_MESSAGE_TO} {messagerow.RECIPIENTS}<!-- ELSE -->{L_MESSAGE_BY_AUTHOR} {messagerow.MESSAGE_AUTHOR_FULL} &raquo; {messagerow.SENT_TIME}<!-- ENDIF --></p>
-				<!-- IF S_SHOW_RECIPIENTS --><p>{L_SENT_AT}: {messagerow.SENT_TIME}</p><!-- ENDIF -->
-				<!-- IF S_UNREAD --><p><!-- IF messagerow.FOLDER --><a href="{messagerow.U_FOLDER}">{messagerow.FOLDER}</a><!-- ELSE -->{L_UNKNOWN_FOLDER}<!-- ENDIF --></p><!-- ENDIF -->
-				<label><input type="checkbox" name="marked_msg_id[]" value="{messagerow.MESSAGE_ID}" /> {L_MARK}</label>
-			</div>
+					<!-- IF messagerow.S_AUTHOR_DELETED --><p class="ucp-form-help">{L_PM_FROM_REMOVED_AUTHOR}</p><!-- ENDIF -->
+					<!-- IF messagerow.S_PM_REPORTED --><a href="{messagerow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}"><svg class="css-icon css-icon-flag" aria-hidden="true" focusable="false"><use href="#icon-flag"></use></svg></a><!-- ENDIF -->
+					<!-- IF messagerow.ATTACH_ICON_IMG --><span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span><!-- ENDIF -->
+				</div>
+				<div class="ucp-list-author"><!-- IF S_SHOW_RECIPIENTS -->{messagerow.RECIPIENTS}<!-- ELSE -->{messagerow.MESSAGE_AUTHOR_FULL}<!-- ENDIF --></div>
+				<div class="ucp-list-time">{messagerow.SENT_TIME}</div>
+				<!-- IF S_UNREAD --><div class="ucp-list-folder"><!-- IF messagerow.FOLDER --><a href="{messagerow.U_FOLDER}">{messagerow.FOLDER}</a><!-- ELSE -->{L_UNKNOWN_FOLDER}<!-- ENDIF --></div><!-- ENDIF -->
+				<div class="ucp-list-mark"><input type="checkbox" name="marked_msg_id[]" value="{messagerow.MESSAGE_ID}" title="{L_MARK}" /></div>
+			</article>
 		<!-- END messagerow -->
 		</div>
+		<div class="ucp-card-body">
 	<!-- ELSE -->
+		<div class="ucp-card-body">
 		<p><strong>
 			<!-- IF S_COMPOSE_PM_VIEW and S_NO_AUTH_SEND_MESSAGE -->
 				<!-- IF S_USER_NEW -->{L_USER_NEW_PERMISSION_DISALLOWED}<!-- ELSE -->{L_NO_AUTH_SEND_MESSAGE}<!-- ENDIF -->
