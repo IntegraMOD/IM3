@@ -48,7 +48,7 @@ function ajaxlike_post_content($post_id,$topic_id,$forum_id)
 		'LIKE_FROM'				=> $user->data['user_id'],
 		'LIKE_CALLBACK'			=> append_sid("{$phpbb_root_path}viewtopic.$phpEx"),
 		'LIKE_ACCESS'			=> (($auth->acl_get('u_ajaxlike_mod')) && ($auth->acl_get('f_ajaxlike_mod', $forum_id)) && ($user->data['user_id'] != ANONYMOUS) ? 1 : 0),
-		'LAST_LIKE_URL'			=> ($total_likes > 1 ? '#' : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=".$like_list)),
+		'LAST_LIKE_URL'			=> ($total_likes > 1 ? append_sid("{$phpbb_root_path}viewtopic.$phpEx", "t=$topic_id&amp;p=$post_id&amp;ajaxlike_action=fulllist&amp;ajaxlike_data=") : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=".$like_list)),
 		)
 	);
 	
@@ -215,7 +215,7 @@ function get_fulllist($post_id)
 function ajaxlike_like_post($post_id)
 {
 
-	global $db, $user;
+	global $db, $user, $phpbb_root_path, $phpEx;
 	
 	$sql = 'SELECT like_id 
 		FROM ' . LIKES_TABLE . '
@@ -248,6 +248,12 @@ function ajaxlike_like_post($post_id)
 				)
 			);
 			$db->sql_query($sql);
+
+			if (function_exists('trigger_user_push'))
+			{
+				$like_url = generate_board_url() . "/viewtopic.$phpEx?p=" . (int) $post_id . '#p' . (int) $post_id;
+				trigger_user_push((int) $row['poster_id'], 'like', $user->data['username'] . ' liked your post', $user->data['username'] . ' liked your post', $like_url);
+			}
 		}
 	
 		return ajaxlike_post_content($post_id,$row['topic_id'],$row['forum_id']);

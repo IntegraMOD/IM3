@@ -8,7 +8,7 @@
 *
 */
 
-define('UPDATES_TO_VERSION', '3.0.18');
+define('UPDATES_TO_VERSION', '3.0.15');
 
 // Enter any version to update from to test updates. The version within the db will not be updated.
 define('DEBUG_FROM_VERSION', false);
@@ -142,7 +142,7 @@ $result = $db->sql_query($sql);
 $row = $db->sql_fetchrow($result);
 $db->sql_freeresult($result);
 
-$language = basename(request_var('language', ''));
+$language = basename((string) request_var('language', ''));
 
 if (!$language)
 {
@@ -345,7 +345,7 @@ flush();
 // We try to also include versions 'in-between'...
 $no_updates = true;
 $versions = array_keys($database_update_info);
-for ($i = 0; $i < sizeof($versions); $i++)
+for ($i = 0; $i < count($versions); $i++)
 {
 	$version = $versions[$i];
 	$schema_changes = $database_update_info[$version];
@@ -358,7 +358,7 @@ for ($i = 0; $i < sizeof($versions); $i++)
 		continue;
 	}
 
-	if (!sizeof($schema_changes))
+	if (empty($schema_changes))
 	{
 		continue;
 	}
@@ -398,7 +398,7 @@ $no_updates = true;
 $versions = array_keys($database_update_info);
 
 // some code magic
-for ($i = 0; $i < sizeof($versions); $i++)
+for ($i = 0; $i < count($versions); $i++)
 {
 	$version = $versions[$i];
 	$next_version = (isset($versions[$i + 1])) ? $versions[$i + 1] : $updates_to_version;
@@ -594,7 +594,7 @@ function _write_result($no_updates, $errored, $error_ary)
 		{
 			echo ' <strong>' . $lang['SOME_QUERIES_FAILED'] . '</strong> <ul>';
 
-			for ($i = 0; $i < sizeof($error_ary['sql']); $i++)
+			for ($i = 0; $i < count($error_ary['sql']); $i++)
 			{
 				echo '<li>' . $lang['ERROR'] . ' :: <strong>' . htmlspecialchars($error_ary['error_code'][$i]['message']) . '</strong><br />';
 				echo $lang['SQL'] . ' :: <strong>' . htmlspecialchars($error_ary['sql'][$i]) . '</strong><br /><br /></li>';
@@ -638,7 +638,7 @@ function _add_modules($modules_to_install)
 		}
 		$db->sql_freeresult($result);
 
-		if (!sizeof($categories))
+		if (empty($categories))
 		{
 			continue;
 		}
@@ -949,7 +949,7 @@ function database_update_info()
 						// this column was removed from the database updater
 						// after 3.0.9-RC3 was released. It might still exist
 						// in 3.0.9-RCX installations and has to be dropped in
-						// 3.0.13 after the db_tools class is capable of properly
+						// 3.0.15 after the db_tools class is capable of properly
 						// removing a primary key.
 						// 'attempt_id'			=> array('UINT', NULL, 'auto_increment'),
 						'attempt_ip'			=> array('VCHAR:40', ''),
@@ -1011,8 +1011,36 @@ function database_update_info()
 		'3.0.12-RC2'	=> array(),
 		// No changes from 3.0.12-RC3 to 3.0.12
 		'3.0.12-RC3'	=> array(),
-		'3.0.15'	    => array(),
-		/** @todo DROP LOGIN_ATTEMPT_TABLE.attempt_id in 3.0.13-RC1 */
+		// No changes from 3.0.12 to 3.0.13-RC1
+		'3.0.12'		=> array(),
+		// No changes from 3.0.13-RC1 to 3.0.13
+		'3.0.13-RC1'	=> array(),
+		// No changes from 3.0.13 to 3.0.13-PL1
+		'3.0.13'		=> array(),
+		// No changes from 3.0.13-PL1 to 3.0.14-RC1
+		'3.0.13-PL1'	=> array(),
+		// Standardize 3.0.14
+		'3.0.14-RC1'	=> array(),
+		'3.0.14'		=> array(),
+		// Pure phpBB 3.0.15 Schema Additions
+		'3.0.15'	=> array(
+			'add_columns'	=> array(
+				USERS_TABLE		=> array(
+					'user_fb'	=> array('VCHAR_UNI:255', ''),
+					'user_ig'	=> array('VCHAR_UNI:255', ''),
+					'user_pt'	=> array('VCHAR_UNI:255', ''),
+					'user_twr'	=> array('VCHAR_UNI:255', ''),
+					'user_skp'	=> array('VCHAR_UNI:255', ''),
+					'user_tg'	=> array('VCHAR_UNI:255', ''),
+					'user_li'	=> array('VCHAR_UNI:255', ''),
+					'user_tt'	=> array('VCHAR_UNI:255', ''),
+					'user_dc'	=> array('VCHAR_UNI:255', ''),
+				),
+			),
+			'drop_columns'	=> array(
+				LOGIN_ATTEMPT_TABLE	=> array('attempt_id'),
+			),
+		),
 	);
 }
 
@@ -1121,7 +1149,7 @@ function change_database_data(&$no_updates, $version)
 					}
 					$db->sql_freeresult($result);
 
-					if (sizeof($sql_ary))
+					if (!empty($sql_ary))
 					{
 						$db->sql_multi_insert($table, $sql_ary);
 					}
@@ -1717,7 +1745,7 @@ function change_database_data(&$no_updates, $version)
 			{
 				// Snapshot of the phpbb_email_hash() function
 				// We cannot call it directly because the auto updater updates the DB first. :/
-				$user_email_hash = sprintf('%u', crc32(strtolower($row['user_email']))) . strlen($row['user_email']);
+				$user_email_hash = sprintf('%u', crc32(strtolower((string) $row['user_email']))) . strlen((string) $row['user_email']);
 
 				if ($user_email_hash != $row['user_email_hash'])
 				{
@@ -1871,7 +1899,6 @@ function change_database_data(&$no_updates, $version)
 					'user_timezone'			=> 0,
 					'user_dateformat'		=> $config['default_dateformat'],
 					'user_allow_massemail'	=> 0,
-					'user_points'			=> 0,					
 				);
 
 				$user_id = user_add($user_row);
@@ -1929,7 +1956,7 @@ function change_database_data(&$no_updates, $version)
 					$db->sql_query($sql);
 				}
 			}
-			while (sizeof($topic_ids) == $batch_size);
+			while (count($topic_ids) == $batch_size);
 
 			// Sync the forums we have deleted shadow topics from.
 			sync('forum', 'forum_id', $sync_forum_ids, true, true);
@@ -2116,7 +2143,7 @@ function change_database_data(&$no_updates, $version)
 					_sql($sql, $errored, $error_ary);
 				}
 			}
-			while (sizeof($delete_pms) == $batch_size);
+			while (count($delete_pms) == $batch_size);
 
 			$no_updates = false;
 		break;
@@ -2255,35 +2282,65 @@ function change_database_data(&$no_updates, $version)
 		// No changes from 3.0.12-RC3 to 3.0.12
 		case '3.0.12-RC3':
 		break;
-		
+
+		// No changes from 3.0.12 to 3.0.13-RC1
+		case '3.0.12':
+		break;
+
+		// No changes from 3.0.13-RC1 to 3.0.13
+		case '3.0.13-RC1':
+		break;
+
+		// No changes from 3.0.13 to 3.0.13-PL1
+		case '3.0.13':
+		break;
+
+		// No changes from 3.0.13-PL1 to 3.0.14-RC1
+		case '3.0.13-PL1':
+		break;
+        
+		case '3.0.14-RC1':
+		break;
+
+		case '3.0.14':
+		break;
+
 		case '3.0.15':
+			// 1. Drop old GD Captcha configs
+			$sql = 'DELETE FROM ' . CONFIG_TABLE . "
+				WHERE " . $db->sql_in_set('config_name', array(
+					'captcha_gd',
+					'captcha_gd_foreground_noise',
+					'captcha_gd_x_grid',
+					'captcha_gd_y_grid',
+					'captcha_gd_wave',
+					'captcha_gd_3d_noise',
+					'captcha_gd_fonts'
+				));
+			_sql($sql, $errored, $error_ary);
 
-		case '3.0.17':
-		
-		case '3.0.18':
-
-			$schema_changes = array(
-				'add_columns' => array(
-					TOPICS_TABLE => array(
-						'topic_recent_posters' => array('MTEXT_UNI', ''),
-					),
-
-					FORUMS_TABLE => array(
-						'forum_recent_posters' => array('MTEXT_UNI', ''),
-					),
-				),
-			);
-
-			$db_tools->perform_schema_changes($schema_changes);
-
-			include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-
-			rebuild_all_recent_poster_caches();
+			// 2. Add / Update modern configs
+			set_config('captcha_plugin', 'phpbb_captcha_qa');
+			set_config('cookie_samesite', 'Strict');
+			set_config('cookie_partitioned', '1');
+			set_config('cookie_secure_admin', '1');
+			set_config('cookie_consent_enabled', '1');
+			set_config('cookie_consent_text', 'This website uses cookies to improve your experience.');
+			set_config('cookie_consent_confirm', 'Accept Cookies');
+			set_config('cookie_consent_decline', 'Decline Cookies');
+			set_config('cookie_consent_enable', '1');
+			set_config('cookie_consent_title', 'Cookie Notice');
+			set_config('cookie_consent_message', 'This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our use of cookies.');
+			set_config('cookie_consent_accept_text', 'Accept All Cookies');
+			set_config('cookie_consent_decline_text', 'Decline All Cookies');
+			set_config('cookie_consent_position', '1');
+			set_config('jab_allow_self_signed', '1');
+			set_config('jab_verify_peer', '0');
+			set_config('jab_verify_peer_name', '0');
+			set_config('recaptcha_v2_pubkey', '1');
+			set_config('recaptcha_v2_privkey', '1');
 
 			$no_updates = false;
-
 		break;
 	}
 }
-
-?>

@@ -526,21 +526,36 @@ include_once($socialnet_root_path . 'includes/functions.' . $phpEx);
     public function get_user_data($part, $user_id)
     {
         global $db;
- 
+        // Ensure numeric user id to avoid SQL syntax errors
+        $user_id = (int) $user_id;
+
+        if ($user_id <= 0) {
+            // Return safe defaults when no valid user id provided
+            if ($part == '') {
+                return array('user_id' => 0, 'username' => '', 'sex' => 0);
+            }
+
+            return '';
+        }
+
         $sql = "SELECT u.user_id, u.username, su.sex
         FROM " . USERS_TABLE . " AS u, " . SN_USERS_TABLE . " AS su
         WHERE su.user_id = u.user_id
-        AND {$user_id} = u.user_id";
+        AND u.user_id = " . $user_id;
         $rs = $db->sql_query($sql);
         $friend = $db->sql_fetchrow($rs);
         $db->sql_freeresult($rs);
- 
+
+        if (!$friend) {
+            $friend = array('user_id' => 0, 'username' => '', 'sex' => 0);
+        }
+
         if ($part == '') {
             return $friend;
-        } else {
-            return $friend[$part];
         }
- 
+
+        return isset($friend[$part]) ? $friend[$part] : '';
+
     }
  
     /**
@@ -743,8 +758,66 @@ include_once($socialnet_root_path . 'includes/functions.' . $phpEx);
  
         $sql = "INSERT INTO " . SN_ENTRIES_TABLE . $db->sql_build_array('INSERT', $sql_arr);
         $db->sql_query($sql);
+
+        // OneSignal push notification for new activity-feed entries
+        if (function_exists('trigger_user_push')) {
+            $this->_push_activity_entry($user_id, $target, $type);
+        }
     }
- 
+
+    /**
+     * Dispatch OneSignal 'activity' push notifications for a recorded activity entry.
+     *
+     * Status, family and relationship entries are broadcast to the author's friends.
+     * Emote entries are delivered only to the user receiving the emote.
+     *
+     * @access private
+     * @param integer $author_id The user who created the entry
+     * @param integer $target    The entry target (emote recipient for emote entries)
+     * @param integer $type      The SN_TYPE_* entry type
+     * @return void
+     */
+    private function _push_activity_entry($author_id, $target, $type)
+    {
+        global $db, $phpEx;
+
+        $broadcast_types = array(SN_TYPE_NEW_STATUS, SN_TYPE_NEW_FAMILY, SN_TYPE_NEW_RELATIONSHIP);
+
+        if ($type != SN_TYPE_EMOTE && !in_array($type, $broadcast_types)) {
+            return;
+        }
+
+        // Resolve the author's username for the notification text
+        $sql = 'SELECT username
+                FROM ' . USERS_TABLE . '
+                WHERE user_id = ' . (int) $author_id;
+        $rs = $db->sql_query($sql);
+        $author_name = (string) $db->sql_fetchfield('username');
+        $db->sql_freeresult($rs);
+
+        if ($author_name === '') {
+            return;
+        }
+
+        $push_url = generate_board_url() . '/socialnet/activitypage.' . $phpEx;
+
+        if ($type == SN_TYPE_EMOTE) {
+            trigger_user_push((int) $target, 'activity', $author_name, $author_name . ' sent you an emote', $push_url);
+            return;
+        }
+
+        // Broadcast to the author's friends
+        $sql = 'SELECT zebra_id
+                FROM ' . ZEBRA_TABLE . '
+                WHERE user_id = ' . (int) $author_id . '
+                    AND friend = 1';
+        $rs = $db->sql_query($sql);
+        while ($row = $db->sql_fetchrow($rs)) {
+            trigger_user_push((int) $row['zebra_id'], 'activity', $author_name, $author_name . ' posted a new activity update', $push_url);
+        }
+        $db->sql_freeresult($rs);
+    }
+
     /**
      * snFunctions::delete_entry
      *

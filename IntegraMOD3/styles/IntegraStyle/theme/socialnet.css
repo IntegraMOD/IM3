@@ -1,0 +1,1748 @@
+/* =========================================================
+   IntegraStyle — SocialNet Activity Page Layout
+   Three-column: left sidebar | content | right sidebar
+   ========================================================= */
+
+/* ---- My Profile block (no hero/card) ---- */
+.sn-ap-profileMy {
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--surface-border);
+    padding-bottom: 10px;
+}
+
+.sn-ap-profileMy-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 6px;
+}
+
+.sn-ap-avatar {
+    flex-shrink: 0;
+}
+
+.sn-ap-avatar img,
+.sn-ap-avatar a img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: block;
+    border: 2px solid var(--surface-border);
+    object-fit: cover;
+}
+
+.sn-ap-profileMy-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.sn-ap-profileMy-info .sn-userName {
+    font-weight: bold;
+    font-size: 0.95em;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sn-ap-profileMy-info .sn-userName a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.sn-ap-profileMy-info .sn-userName a:hover {
+    color: var(--color-primary);
+}
+
+.sn-ap-profileEdit {
+    font-size: 0.8em;
+    padding: 3px 8px;
+    background: var(--btn-bg, var(--bg-ad-panel));
+    border: 1px solid var(--surface-border);
+    border-radius: 3px;
+    color: var(--text-primary);
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.sn-ap-profileEdit:hover {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+    border-color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* ---- Navigation menu ---- */
+.sn-menu {
+    margin: 0 0 10px;
+}
+
+.sn-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sn-menu-item {
+    border-bottom: 1px solid var(--surface-border);
+}
+
+.sn-menu-item:first-child {
+    border-top: 1px solid var(--surface-border);
+}
+
+.sn-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    text-decoration: none;
+    color: var(--text-primary);
+    border-radius: 0;
+    transition: background 0.15s;
+}
+
+.sn-menu-link:hover {
+    background: var(--bg-ad-panel);
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.sn-menu-link .css-icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+}
+
+.sn-menu-item.sn-menu-active .sn-menu-link {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+}
+
+.sn-menu-item.sn-menu-active .sn-menu-link .css-icon {
+    color: var(--on-primary-text);
+}
+
+.sn-menu-item.sn-menu-active .sn-menu-link:hover {
+    filter: brightness(0.92);
+}
+
+#sn-ap {
+    display: grid;
+    grid-template-columns: 230px 1fr 255px;
+    grid-template-areas: "left content right";
+    gap: 0 16px;
+    align-items: start;
+    margin-top: 8px;
+}
+
+#sn-page-columnLeft {
+    grid-area: left;
+}
+
+#sn-page-content {
+    grid-area: content;
+    border-left: 1px solid var(--surface-border);
+    border-right: 1px solid var(--surface-border);
+    min-height: 550px;
+    padding: 0 10px 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#sn-page-columnRight {
+    grid-area: right;
+}
+
+/* Action actions/buttons */
+.sn-action-block .sn-actions a, .sn-action-block .sn-actions div, .sn-action-block .sn-actions span,
+.sn-action-blockHidden .sn-actions a, .sn-action-blockHidden .sn-actions div, .sn-action-blockHidden .sn-actions span {
+    background: transparent none no-repeat 0 0;
+    cursor: pointer;
+    display: inline-block;
+    height: 15px;
+    opacity: 1;
+    width: 15px;
+}
+.sn-action-block .sn-actions .sn-action-close, .sn-action-block .sn-actions .sn-action-delete,
+.sn-action-blockHidden .sn-actions .sn-action-close, .sn-action-blockHidden .sn-actions .sn-action-delete {
+    background-image: none;
+}
+.sn-action-block .sn-actions .sn-action-close::before, .sn-action-block .sn-actions .sn-action-delete::before,
+.sn-action-blockHidden .sn-actions .sn-action-close::before, .sn-action-blockHidden .sn-actions .sn-action-delete::before {
+    content: "✖";
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: block;
+    line-height: 15px;
+    text-align: center;
+}
+.sn-action-block .sn-actions .sn-action-close:hover::before, .sn-action-block .sn-actions .sn-action-delete:hover::before,
+.sn-action-blockHidden .sn-actions .sn-action-close:hover::before, .sn-action-blockHidden .sn-actions .sn-action-delete:hover::before {
+    color: var(--color-danger, #d32f2f);
+}
+.sn-action-block .sn-actions .sn-action-delete-red, .sn-action-blockHidden .sn-actions .sn-action-delete-red {
+    background-image: none;
+}
+.sn-action-block .sn-actions .sn-action-delete-red::before, .sn-action-blockHidden .sn-actions .sn-action-delete-red::before {
+    content: "✖";
+    font-size: 14px;
+    color: var(--color-danger, #d32f2f);
+    display: block;
+    line-height: 15px;
+    text-align: center;
+}
+.sn-action-block .sn-actions .sn-action-ok, .sn-action-blockHidden .sn-actions .sn-action-ok {
+    background-image: none;
+}
+.sn-action-block .sn-actions .sn-action-ok::before, .sn-action-blockHidden .sn-actions .sn-action-ok::before {
+    content: "✔";
+    font-size: 14px;
+    color: var(--color-success, #388e3c);
+    display: block;
+    line-height: 15px;
+    text-align: center;
+}
+.sn-action-block .ui-accordion-header .sn-actions, .sn-action-blockHidden .ui-accordion-header .sn-actions {
+    top: 3px;
+}
+.sn-action-blockHidden:hover .sn-actions {
+    display: block;
+    visibility: visible;
+}
+.sn-hiddenDefault, .sn-action-blockHidden .sn-actions {
+    display: none;
+    visibility: hidden;
+}
+.ltr .sn-actions { float: right; padding-left: 3px; }
+.rtl .sn-actions { float: left; padding-right: 3px; }
+.sn-action-block, .sn-action-blockHidden { position: relative; }
+.sn-action-block:hover .sn-actions div, .sn-action-block:hover .sn-actions span,
+.sn-action-blockHidden:hover .sn-actions div, .sn-action-blockHidden:hover .sn-actions span { opacity: 0.5; }
+.sn-action-block:hover .sn-actions div:hover, .sn-action-block:hover .sn-actions span:hover,
+.sn-action-blockHidden:hover .sn-actions div:hover, .sn-action-blockHidden:hover .sn-actions span:hover { opacity: 1; filter: alpha(opacity=100); }
+
+/* override legacy floats on columns only — do NOT target posterAvatar here */
+#sn-page-columnLeft,
+#sn-page-columnRight {
+    float: none !important;
+    padding: 0 !important;
+    width: auto !important;
+}
+
+.ltr .sn-page-content-noRightBorder {
+    border-right: none;
+}
+
+.rtl .sn-page-content-noRightBorder {
+    border-left: none;
+}
+
+/* Tablet: left + content side by side, right drops below */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    #sn-ap {
+        grid-template-columns: 230px 1fr;
+        grid-template-areas:
+            "left content"
+            "right right";
+    }
+
+    #sn-page-content {
+        border-right: none;
+    }
+
+    #sn-page-columnRight {
+        margin-top: 10px;
+    }
+}
+
+/* Mobile: single column, content first */
+@media screen and (max-width: 768px) {
+    #sn-ap {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-width: 0;
+    }
+
+    #sn-page-content {
+        order: 1;
+        border-left: none;
+        border-right: none;
+        padding: 0 0 10px;
+        min-height: 0;
+    }
+
+    #sn-page-columnLeft {
+        order: 2;
+    }
+
+    #sn-page-columnRight {
+        order: 3;
+    }
+}
+
+
+
+/* ---- Activity feed entry layout ---- */
+.sn-ap-textBlock {
+    border-top: 1px solid var(--surface-border);
+    padding: 6px 4px;
+}
+
+.sn-ap-textBlock a.topictitle {
+    display: block;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sn-ap-textBlock .sn-us-statusBlock {
+    border-top: none;
+    padding: 0;
+}
+
+/* innerContent: indent to make room for the floated entry icon */
+.sn-page-innerContent {
+    padding: 10px 0;
+}
+
+.ltr .sn-page-innerContent {
+    padding-left: 64px;
+}
+
+.rtl .sn-page-innerContent {
+    padding-right: 64px;
+}
+
+/* Entry type icon — floats into the left indent */
+.sn-ap-entryIcon {
+    display: inline-block;
+    width: 54px;
+    background: transparent none no-repeat 55% 50%;
+}
+
+.ltr .sn-ap-entryIcon {
+    float: left;
+    margin-left: -60px;
+}
+
+.rtl .sn-ap-entryIcon {
+    float: right;
+    margin-right: -60px;
+}
+
+/* Entry icon images now served from imageset */
+.sn-ap-textBlock-addUser .sn-ap-entryIcon {
+    background-image: url("{T_IMAGESET_PATH}/socialnet/icon_fms_add_user.png");
+}
+
+.sn-ap-textBlock-newFamily .sn-ap-entryIcon {
+    background-image: url("{T_IMAGESET_PATH}/socialnet/icon_up_new_family.png");
+}
+
+.sn-ap-textBlock-profileChanged .sn-ap-entryIcon {
+    background-image: url("{T_IMAGESET_PATH}/socialnet/icon_up_changed.png");
+}
+
+.sn-ap-textBlock-newRelationship .sn-ap-entryIcon {
+    background-image: url("{T_IMAGESET_PATH}/socialnet/icon_up_new_relationship.png");
+}
+
+.sn-ap-textBlock-sendEmote .sn-ap-entryIcon {
+    background-image: url("{T_IMAGESET_PATH}/socialnet/icon_up_send_emote.png");
+}
+
+/* Poster avatar — floats left of status post content */
+.ltr .sn-posterAvatar {
+    float: left;
+    padding-right: 10px;
+}
+
+.rtl .sn-posterAvatar {
+    float: right;
+    padding-left: 10px;
+}
+
+.sn-user-avatar,
+.sn-posterAvatar,
+.sn-posterAvatar a {
+    display: inline-block;
+}
+
+/* Status box fills space next to the floated avatar */
+.sn-us-statusBox {
+    display: block;
+    overflow: hidden;
+}
+
+.sn-us-statusText {
+    min-height: 50px;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+/* Username / display name bold */
+.snUsername,
+.sn-userName {
+    font-weight: bold;
+}
+
+/* Timestamp */
+.sn-statusTime {
+    color: var(--text-secondary);
+    padding: 5px 0;
+    font-size: 0.85em;
+}
+
+/* Comments block background */
+.sn-commentsBlock {
+    background-color: var(--bg-ad-panel);
+}
+
+.sn-commentBlock,
+.sn-shareComment {
+    border-top: 1px solid var(--surface-border);
+    border-bottom: 1px solid var(--bg-main);
+    padding: 5px;
+}
+
+/* Comment avatar floats left; comment text indented to clear it */
+.sn-us-posterAvatar {
+    display: inline-block;
+}
+
+.ltr .sn-us-posterAvatar {
+    float: left;
+    padding-right: 6px;
+}
+
+.rtl .sn-us-posterAvatar {
+    float: right;
+    padding-left: 6px;
+}
+
+.ltr .sn-us-commentBox,
+.ltr .sn-commentBox {
+    padding-left: 40px;
+}
+
+.rtl .sn-us-commentBox,
+.rtl .sn-commentBox {
+    padding-right: 40px;
+}
+
+/* Comment input textarea — full width */
+.sn-inputComment {
+    border: 1px solid var(--surface-border);
+    height: 20px;
+    line-height: 1.4;
+    max-height: 120px;
+    outline: none;
+    padding: 2px 6px;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: inherit;
+    transition: border-color 0.15s;
+}
+
+.sn-inputComment:focus {
+    border-color: var(--color-primary);
+}
+
+/* Comments loader spinner (same pattern as status loader) */
+.sn-us-commentsLoader {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--surface-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.sn-us-commentsLoader:not([style*="display:none"]):not([style*="display: none"]) {
+    animation: sn-spin 0.7s linear infinite;
+}
+
+/* Hidden action buttons — shown on hover by JS */
+.sn-hiddenDefault,
+.sn-action-blockHidden .sn-actions {
+    display: none;
+    visibility: hidden;
+}
+
+.sn-action-blockHidden .sn-actions a,
+.sn-action-blockHidden .sn-actions div,
+.sn-action-blockHidden .sn-actions span {
+    display: inline-block;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    opacity: 1;
+}
+
+/* ---- Load more / back to top / status loader ----
+.sn-ap-loadNewsOver {
+    text-align: right;
+    margin-bottom: 4px;
+}
+
+.sn-ap-loadNews,
+.sn-back-top,
+.sn-ap-getMore {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.sn-ap-loadNews:hover,
+.sn-back-top:hover,
+.sn-ap-getMore:hover {
+    text-decoration: underline;
+    color: var(--color-primary);
+}
+
+.sn-ap-loadNews .css-icon,
+.sn-back-top .css-icon,
+.sn-ap-getMore .css-icon {
+    width: 0.85em;
+    height: 0.85em;
+    flex-shrink: 0;
+}
+
+.sn-more {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* CSS spinner — replaces broken sn_loader_small.gif; shown/hidden by SocialNet JS */
+.sn-ap-statusLoader {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--surface-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* CSS spinner — replaces sn_loader_large.gif in userstatus fetch block */
+.sn-us-fetchLoader {
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--surface-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+}
+
+/* fetchBlock default visibility — JS shows/hides these */
+.sn-us-fetchBlock .loader {
+    display: none;
+    padding: 4px 0;
+    text-align: center;
+}
+
+.sn-us-fetchPreview,
+.sn-us-thumbs {
+    display: none;
+}
+
+.sn-us-fetchImages {
+    display: none;
+}
+
+/* Only spin when actually visible — JS controls display */
+.sn-ap-statusLoader:not([style*="display:none"]):not([style*="display: none"]),
+.sn-us-fetchLoader:not([style*="display:none"]):not([style*="display: none"]) {
+    animation: sn-spin 0.7s linear infinite;
+}
+
+@keyframes sn-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Prev/Next image nav buttons in userstatus fetch */
+.sn-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: var(--bg-ad-panel);
+    border: 1px solid var(--surface-border);
+    border-radius: 3px;
+    color: var(--text-primary);
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.sn-icon-btn:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--on-primary-text);
+}
+
+.sn-icon-btn .css-icon {
+    width: 0.8em;
+    height: 0.8em;
+    pointer-events: none;
+}
+
+/* ---- Share status box ---- */
+.sn-us-membShareStatus {
+    margin: 0 auto 5px;
+}
+
+.sn-us-share textarea {
+    border: 1px solid var(--surface-border);
+    height: 36px;
+    min-height: 36px;
+    line-height: 1.4;
+    max-height: 120px;
+    outline: none;
+    padding: 6px 8px;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: inherit;
+    transition: border-color 0.15s;
+}
+
+.sn-us-share textarea:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+/* Hidden by default — JS shows on focusin/keyup/input */
+.sn-us-wallButton,
+.sn-us-wallButton.ui-button,
+.sn-us-fetchButton,
+.sn-us-buttonCommentOver,
+.sn-us-fetchVideoInfo,
+.sn-us-fetchVideoProvider {
+    display: none;
+}
+
+/* ---- jQuery UI buttons — override all default blue/grey theming ---- */
+.ui-button,
+a.ui-button,
+.ui-button.ui-state-default,
+.ui-button.ui-state-hover,
+.ui-state-default .ui-button,
+.sn-us-share .ui-button,
+.sn-us-shareComment .ui-button,
+.sn-page-blockHeader.forabg .ui-button,
+.sn-shareComment .ui-button,
+.sn-us-buttonCommentOver .ui-button,
+.sn-us-fetchButton,
+.sn-us-wallButton,
+.sn-us-wallButton.ui-button,
+.sn-us-fetchVideoInfo,
+.sn-us-fetchVideoProvider {
+    background: var(--btn-bg, var(--bg-ad-panel)) !important;
+    background-image: none !important;
+    color: var(--btn-text, var(--text-primary)) !important;
+    border: 1px solid var(--surface-border) !important;
+    border-radius: 3px !important;
+    padding: 5px 10px !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+.ui-button:hover,
+a.ui-button:hover,
+.ui-button.ui-state-hover,
+.sn-us-share .ui-button:hover,
+.sn-us-shareComment .ui-button:hover,
+.sn-page-blockHeader.forabg .ui-button:hover,
+.sn-us-buttonCommentOver .ui-button:hover,
+.sn-us-fetchButton:hover,
+.sn-us-wallButton:hover,
+.sn-us-fetchVideoInfo:hover,
+.sn-us-fetchVideoProvider:hover {
+    background: var(--color-primary) !important;
+    color: var(--on-primary-text) !important;
+    border-color: var(--color-primary) !important;
+    text-decoration: none !important;
+}
+
+/* Keep share/fetch buttons sized to their content so jQuery UI's
+   block button styling can't stretch them into a full-width row
+   (which also made the whole row highlight on hover). Only constrain
+   width/float here so the JS-driven show/hide (display) still works. */
+.sn-us-share .sn-us-wallButton,
+.sn-us-share .sn-us-wallButton.ui-button,
+.sn-us-share .sn-us-fetchButton,
+.sn-us-shareComment .sn-us-buttonCommentOver .ui-button {
+    width: auto !important;
+    min-width: 0 !important;
+    margin-top: 6px;
+    float: none;
+}
+
+/* The comment button wrapper is a plain container, not a button.
+   Strip any inherited button chrome so only the inner input renders
+   as a button (fixes button-inside-a-full-width-button + row hover). */
+.sn-us-buttonCommentOver {
+    background: none !important;
+    border: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    cursor: default !important;
+}
+
+.ui-button.ui-state-active,
+.ui-button.ui-state-focus {
+    background: var(--color-primary) !important;
+    color: var(--on-primary-text) !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: none !important;
+    outline: 2px solid var(--color-primary) !important;
+    outline-offset: 1px !important;
+}
+
+/* suppress jQuery UI gradient/corner classes */
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    background: var(--btn-bg, var(--bg-ad-panel)) !important;
+    background-image: none !important;
+    border: 1px solid var(--surface-border) !important;
+    color: var(--text-primary) !important;
+}
+
+/* ---- User Profile page layout ---- */
+.sn-up-page {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    grid-template-areas: "left content";
+    gap: 0 16px;
+    align-items: start;
+    margin-top: 8px;
+}
+
+.sn-up-page > #sn-page-column-left,
+.sn-up-page > .sn-page-columnLeft {
+    grid-area: left;
+    float: none !important;
+    width: auto !important;
+    padding: 0 !important;
+}
+
+.sn-up-page > #sn-page-content {
+    grid-area: content;
+    border-left: 1px solid var(--surface-border);
+    min-height: 400px;
+    padding: 0 10px 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-right: none;
+}
+
+/* Username heading */
+.sn-up-userName {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 0 8px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sn-up-online-icon {
+    width: 0.75em;
+    height: 0.75em;
+    color: #4caf50;
+    flex-shrink: 0;
+}
+
+/* Action buttons row (add friend, PM, emotes, etc.) */
+.sn-up-buttons {
+    margin-bottom: 10px;
+    border: 0;
+    background: none;
+    padding: 0;
+}
+
+.sn-up-buttons .sn-up-menu,
+ul.sn-up-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: flex-end;
+    gap: 4px;
+    width: auto;
+    border: 0;
+    background: none;
+}
+
+.sn-up-buttons .sn-up-menu > .ui-menu-item,
+ul.sn-up-menu > .ui-menu-item {
+    position: relative;
+    display: block;
+    width: auto;
+    margin: 0;
+    float: none;
+}
+
+.sn-up-menu .ui-menu-item > a,
+.sn-up-menu .ui-menu-item > .ui-state-default {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background: var(--btn-bg, var(--bg-ad-panel));
+    border: 1px solid var(--surface-border);
+    border-radius: 3px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.9em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+
+.sn-up-menu .ui-menu-item > a:hover,
+.sn-up-menu .ui-menu-item > .ui-state-default:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--on-primary-text);
+    text-decoration: none;
+}
+
+.sn-up-menu .ui-menu-item .css-icon {
+    width: 0.85em;
+    height: 0.85em;
+    flex-shrink: 0;
+}
+
+/* Submenu (emotes dropdown, groups dropdown) */
+.sn-up-submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background: var(--bg-main);
+    border: 1px solid var(--surface-border);
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    list-style: none;
+    margin: 2px 0 0;
+    padding: 4px 0;
+    min-width: 140px;
+}
+
+.sn-up-submenu .ui-menu-item a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.sn-up-submenu .ui-menu-item a:hover {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+}
+
+/* Profile tabs */
+.sn-up-profileTabs {
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Tab nav bar */
+.sn-up-profileTabs .ui-tabs-nav {
+    border-bottom: 2px solid var(--color-primary) !important;
+    background: var(--bg-main) !important;
+    padding: 0 !important;
+}
+
+/* Individual tab items */
+.sn-up-profileTabs .ui-tabs-nav .ui-state-default {
+    background: var(--bg-ad-panel) !important;
+    border: 1px solid var(--surface-border) !important;
+    border-bottom: none !important;
+    margin-right: 2px;
+    top: 1px;
+}
+
+/* Tab anchor links */
+.sn-up-profileTabs .ui-tabs-nav a,
+.sn-up-profileTabs .ui-tabs-nav .ui-tabs-anchor {
+    font-size: 1em;
+    color: var(--text-primary) !important;
+    padding: .5em .9em;
+}
+
+/* Hover state */
+.sn-up-profileTabs .ui-tabs-nav .ui-state-default:hover {
+    background: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+}
+
+.sn-up-profileTabs .ui-tabs-nav .ui-state-default:hover a,
+.sn-up-profileTabs .ui-tabs-nav .ui-state-default:hover .ui-tabs-anchor {
+    color: var(--on-primary-text) !important;
+}
+
+/* Active tab */
+.sn-up-profileTabs .ui-tabs-nav .ui-tabs-active,
+.sn-up-profileTabs .ui-tabs-nav .ui-state-active {
+    background: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    border-bottom: 2px solid var(--color-primary) !important;
+}
+
+.sn-up-profileTabs .ui-tabs-nav .ui-tabs-active a,
+.sn-up-profileTabs .ui-tabs-nav .ui-tabs-active .ui-tabs-anchor,
+.sn-up-profileTabs .ui-tabs-nav .ui-state-active a,
+.sn-up-profileTabs .ui-tabs-nav .ui-state-active .ui-tabs-anchor {
+    color: var(--on-primary-text) !important;
+    font-weight: 600;
+}
+
+.sn-up-profileTabs .ui-tabs-panel {
+    padding: 1em 0;
+}
+
+.sn-up-profileTabs-body {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sn-up-profileTabs-panel {
+    min-height: 1px;
+}
+
+.sn-up-profileTabs dl.details {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 0.35rem;
+    align-items: baseline;
+    margin: 0;
+}
+
+.sn-up-profileTabs dl.details dt,
+.sn-up-profileTabs dl.details dd {
+    margin: 0;
+    min-width: 0;
+}
+
+.sn-up-profileTabs dl.details dt {
+    font-weight: 600;
+}
+
+.sn-up-profileTabs dl.details dd {
+    overflow-wrap: anywhere;
+}
+
+.sn-up-statsRows {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.sn-up-statsRow {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 0.75rem;
+    align-items: baseline;
+}
+
+.sn-up-statsLabel {
+    font-weight: 600;
+}
+
+.sn-up-statsValue {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Hide inactive tab panels. IntegraStyle ships no jQuery UI stylesheet,
+   so the framework's default panel-hiding CSS is absent. Cover both the
+   legacy 1.8 hide class and the 1.9+ aria-hidden mechanism so inactive
+   panels (e.g. the default Wall/activity content) don't stack beneath
+   the selected tab's content. */
+.ui-tabs-hide,
+.sn-up-profileTabs .ui-tabs-panel[aria-hidden="true"],
+.sn-up-profileTabs .ui-tabs-panel.ui-tabs-hide,
+.sn-up-profileTabs-panel[aria-hidden="true"],
+.sn-up-profileTabs-panel.ui-tabs-hide {
+    display: none !important;
+}
+
+/* Responsive: stack on mobile */
+@media screen and (max-width: 768px) {
+    .sn-up-page {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sn-up-page > #sn-page-content {
+        border-left: none;
+        min-height: 0;
+        padding: 0 0 10px;
+    }
+
+    .sn-up-profileTabs dl.details {
+        grid-template-columns: 1fr;
+        row-gap: 0.15rem;
+    }
+
+    .sn-up-statsRow {
+        grid-template-columns: 1fr;
+        row-gap: 0.15rem;
+    }
+}
+
+/* ---- Shared widget chrome ----
+.ui-widget {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.ui-widget-content {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    border: 1px solid var(--surface-border);
+}
+
+.ui-widget-header {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+    border: 1px solid var(--color-primary);
+    font-weight: bold;
+}
+
+.ui-widget-header a,
+.ui-widget-header a:visited {
+    color: var(--on-primary-text);
+}
+
+/* ---- Tabs ---- */
+.ui-tabs {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.ui-tabs .ui-tabs-nav {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--color-primary);
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 0;
+}
+
+.ui-tabs .ui-tabs-nav li {
+    background: var(--bg-ad-panel);
+    border: 1px solid var(--surface-border);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    margin: 0;
+    list-style: none;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 8px 14px;
+    display: block;
+    font-weight: 600;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected,
+.ui-tabs .ui-tabs-nav li.ui-state-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
+.ui-tabs .ui-tabs-nav li.ui-state-active a {
+    color: var(--on-primary-text);
+}
+
+.ui-tabs .ui-tabs-panel {
+    background: var(--bg-main);
+    border: 1px solid var(--surface-border);
+    border-top: none;
+    padding: 15px;
+    color: var(--text-primary);
+}
+
+/* ---- Autocomplete ---- */
+.ui-autocomplete {
+    background: var(--bg-main);
+    border: 1px solid var(--surface-border);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-height: 220px;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    z-index: 9999;
+}
+
+.ui-autocomplete .ui-menu-item a,
+.ui-autocomplete .ui-menu-item-wrapper {
+    display: block;
+    padding: 7px 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ui-autocomplete .ui-state-focus,
+.ui-autocomplete .ui-state-active,
+.ui-autocomplete .ui-menu-item a.ui-state-focus,
+.ui-autocomplete .ui-menu-item-wrapper.ui-state-active {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+    border: none;
+    border-radius: 0;
+}
+
+/* ---- Datepicker ---- */
+.ui-datepicker {
+    background: var(--bg-main);
+    border: 1px solid var(--surface-border);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    z-index: 9999 !important;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    background: transparent;
+    border: none;
+    color: var(--on-primary-text);
+    cursor: pointer;
+    position: static;
+    top: auto;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    color: var(--on-primary-text);
+    font-weight: bold;
+    text-align: center;
+    flex: 1;
+}
+
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    border: 1px solid var(--surface-border);
+    border-radius: 3px;
+    padding: 2px 4px;
+}
+
+.ui-datepicker table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ui-datepicker th {
+    color: var(--text-secondary);
+    font-size: 0.8em;
+    padding: 4px;
+    text-align: center;
+}
+
+.ui-datepicker td {
+    padding: 2px;
+}
+
+.ui-datepicker td a,
+.ui-datepicker td span {
+    display: block;
+    text-align: center;
+    padding: 4px 6px;
+    border-radius: 3px;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.ui-datepicker td a:hover {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+}
+
+.ui-datepicker td.ui-datepicker-today a {
+    background: var(--bg-ad-panel);
+    font-weight: bold;
+}
+
+.ui-datepicker td.ui-datepicker-current-day a {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+}
+
+/* ---- Accordion ---- */
+.ui-accordion .ui-accordion-header {
+    background: var(--bg-ad-panel);
+    border: 1px solid var(--surface-border);
+    border-radius: 4px;
+    color: var(--text-primary);
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active,
+.ui-accordion .ui-accordion-header.ui-accordion-header-active {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+    border-color: var(--color-primary);
+    border-radius: 4px 4px 0 0;
+}
+
+.ui-accordion .ui-accordion-content {
+    background: var(--bg-main);
+    border: 1px solid var(--surface-border);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 12px;
+    color: var(--text-primary);
+}
+
+/* ---- Slider ---- */
+.ui-slider {
+    background: var(--bg-ad-panel);
+    border: 1px solid var(--surface-border);
+    border-radius: 4px;
+    height: 6px;
+    position: relative;
+}
+
+.ui-slider .ui-slider-range {
+    background: var(--color-primary);
+    border-radius: 4px;
+    height: 100%;
+    position: absolute;
+}
+
+.ui-slider .ui-slider-handle {
+    background: var(--color-primary);
+    border: 2px solid var(--on-primary-text);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    top: -6px;
+    cursor: pointer;
+    position: absolute;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ui-slider .ui-slider-handle:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ---- State helpers ---- */
+.ui-state-disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.ui-icon {
+    display: inline-block;
+}
+
+/* ---- Overlay ---- */
+.ui-widget-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* ---- SocialNet Instant Messenger dock ---- */
+/* m.im.js strips the inline style="position:absolute;top:-9999px;left:-9999px;display:none;"
+   from #sn-im on init (see socialnet/js/m.im.js), relying entirely on CSS to show and
+   position the dock afterwards. Without these rules the messenger never becomes visible. */
+#phpbb.sn-im-page {
+    margin-bottom: 24px;
+}
+
+.sn-im-chatGroup {
+    height: 14px;
+}
+
+.sn-im-dockWrapper {
+    position: fixed;
+    bottom: 0;
+    height: 24px;
+    z-index: 999;
+}
+
+.ltr .sn-im-group {
+    float: right;
+}
+
+.rtl .sn-im-group {
+    float: left;
+}
+
+.ltr .sn-im-dockWrapper {
+    right: 20px;
+    border-right: 1px solid var(--surface-border);
+}
+
+.rtl .sn-im-dockWrapper {
+    left: 20px;
+    border-left: 1px solid var(--surface-border);
+}
+
+.sn-im-chatBoxes .sn-im-button {
+    width: 140px;
+}
+
+.sn-im-group {
+    position: relative;
+}
+
+.ltr .sn-im-chatBoxes .sn-im-group {
+    margin-right: 4px;
+}
+
+.rtl .sn-im-chatBoxes .sn-im-group {
+    margin-left: 4px;
+}
+
+.sn-im-button {
+    background: var(--bg-main);
+    border-top: 1px solid var(--surface-border);
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    min-height: 24px;
+    padding: 0 5px;
+    width: 180px;
+    color: var(--text-primary);
+}
+
+.sn-im-button .label,
+.sn-im-button.sn-im-nav {
+    display: block;
+    line-height: 24px;
+}
+
+.sn-im-chatBoxes .sn-im-button .label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sn-im-button .sn-actions {
+    margin-top: 4px;
+}
+
+.sn-im-button.sn-im-opener:not(.sn-im-online) {
+    background: var(--surface-content, var(--bg-main));
+}
+
+.ltr .sn-im-button {
+    border-left: 1px solid var(--surface-border);
+    padding-right: 5px;
+}
+
+.rtl .sn-im-button {
+    border-right: 1px solid var(--surface-border);
+    padding-left: 5px;
+}
+
+.ltr .sn-im-chatBoxes .sn-im-button {
+    padding-left: 0;
+    padding-right: 15px;
+}
+
+.rtl .sn-im-chatBoxes .sn-im-button {
+    padding-left: 15px;
+    padding-right: 0;
+}
+
+.sn-im-status {
+    background: transparent none no-repeat 50% 50%;
+    line-height: 24px;
+    margin-top: 4px;
+    padding: 8px;
+}
+
+.ltr .sn-im-status {
+    float: left;
+}
+
+.rtl .sn-im-status {
+    float: right;
+}
+
+.sn-im-status.sn-im-online {
+    background-image: url("{T_IMAGESET_PATH}/socialnet/im_user_online.png");
+}
+
+.sn-im-status.sn-im-away {
+    background-image: url("{T_IMAGESET_PATH}/socialnet/im_user_away.png");
+}
+
+.sn-im-status.sn-im-offline {
+    background-image: url("{T_IMAGESET_PATH}/socialnet/im_user_offline.png");
+}
+
+.sn-im-unRead {
+    background-color: var(--color-danger, red);
+    border-radius: 4px;
+    color: #fff;
+    display: block;
+    line-height: 10px;
+    padding: 2px 3px;
+    position: absolute;
+    top: -7px;
+    visibility: visible;
+    z-index: 290;
+}
+
+.sn-im-unRead.sn-hiddenDefault {
+    visibility: visible;
+}
+
+.ltr .sn-im-unRead {
+    right: 20px;
+}
+
+.rtl .sn-im-unRead {
+    left: 20px;
+}
+
+.sn-im-msgUnread .sn-im-title {
+    background-color: var(--color-danger, #BC2A4D);
+}
+
+.sn-im-msgUnread .sn-im-button {
+    background-color: var(--surface-hover, #ECD5D8);
+}
+
+.sn-im-online.sn-im-button .label {
+    background: transparent none no-repeat 0 50%;
+    display: inline-block;
+}
+
+.ltr .sn-im-online.sn-im-button .label {
+    padding-left: 25px;
+}
+
+.rtl .sn-im-online.sn-im-button .label {
+    background-position: 100% 50%;
+    float: right;
+    padding-right: 25px;
+}
+
+.rtl .sn-im-online.sn-im-button .count {
+    float: right;
+    height: 24px;
+    line-height: 24px;
+    padding-right: 5px;
+}
+
+.sn-im-online.sn-im-block {
+    width: 190px;
+}
+
+.sn-im-online .sn-im-buttons {
+    background: var(--surface-hover);
+    height: 18px;
+    line-height: 18px;
+}
+
+.sn-im-onlineList {
+    min-height: 26px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sn-im-chatSub {
+    overflow: hidden;
+    width: 100%;
+}
+
+.sn-im-opener {
+    background: var(--bg-main);
+}
+
+.sn-im-block {
+    background: var(--bg-main);
+    border: 1px solid var(--surface-border);
+    bottom: 24px;
+    position: absolute;
+    width: 260px;
+    z-index: 990;
+    color: var(--text-primary);
+}
+
+.ltr .sn-im-block {
+    right: 0;
+}
+
+.rtl .sn-im-block {
+    left: 0;
+}
+
+.sn-im-block.ui-corner-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.sn-im-title {
+    background: var(--color-primary);
+    color: var(--on-primary-text, #fff);
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 24px;
+    padding: 0;
+}
+
+.sn-im-title.sn-im-buttons .sn-userName {
+    display: inline-block;
+    line-height: 24px;
+    padding: 0 2px 0 0;
+    width: 190px;
+}
+
+.sn-im-online .sn-im-title {
+    padding: 0 5px;
+}
+
+.sn-im-buttons {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 3px 1px;
+}
+
+.sn-im-buttons .ui-icon {
+    cursor: pointer;
+    height: 18px;
+    margin: 3px 1px;
+}
+
+.sn-im-sound.ui-icon {
+    background: transparent url("{T_IMAGESET_PATH}/socialnet/im_button_sound.png") no-repeat 0 0;
+    height: 11px;
+    margin: 3px;
+    width: 16px;
+    flex-shrink: 0;
+}
+
+.sn-im-sound.ui-icon.ui-icon-volume-on {
+    background-position: 0 0;
+}
+
+.sn-im-sound.ui-icon.ui-icon-volume-off {
+    background-position: 0 100%;
+}
+
+/* Prosilver float layout for the online-list buttons row */
+.ltr .sn-im-buttons .ui-icon {
+    float: right;
+}
+
+.rtl .sn-im-buttons .ui-icon {
+    float: left;
+}
+
+.ltr .sn-im-sound.ui-icon {
+    float: left;
+}
+
+.rtl .sn-im-sound.ui-icon {
+    float: right;
+}
+
+.ltr .sn-im-loginlogout {
+    float: right;
+}
+
+.rtl .sn-im-loginlogout {
+    float: left;
+}
+
+.ltr .sn-im-loginlogout label,
+.ltr .sn-im-loginlogout span {
+    float: left;
+}
+
+.rtl .sn-im-loginlogout label,
+.rtl .sn-im-loginlogout span {
+    float: right;
+}
+
+.sn-im-loginlogout {
+    margin: 2px 0 0;
+    width: auto;
+}
+
+.sn-im-loginlogout .sn-im-login {
+    background-position: 0 -30px;
+}
+
+.sn-im-loginlogout label {
+    background-color: transparent;
+    background-image: url("{T_IMAGESET_PATH}/socialnet/im_button_login.png");
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    height: 15px;
+    line-height: normal;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.sn-im-loginlogout span {
+    background-color: transparent;
+    background-image: url("{T_IMAGESET_PATH}/socialnet/im_button_login.png");
+    background-repeat: repeat-x;
+    display: inline-block;
+    font-size: 8px;
+    font-weight: bold;
+    height: 15px;
+    line-height: 15px;
+    text-indent: 2px;
+    white-space: nowrap;
+}
+
+.sn-im-loginlogout .sn-im-login span {
+    background-position: 0 0;
+    margin: 0 0 0 4px;
+    padding: 0 6px 0 0;
+}
+
+.sn-im-loginlogout .sn-im-logout {
+    background-position: 100% -60px;
+}
+
+.sn-im-loginlogout .sn-im-logout span {
+    background-position: 100% 0;
+    margin: 0 4px 0 0;
+    padding: 0 2px 0 4px;
+}
+
+.sn-im-loginlogout .sn-im-selected.sn-im-login {
+    background-position: 0 -45px;
+}
+
+.sn-im-loginlogout .sn-im-selected.sn-im-logout {
+    background-position: 100% -75px;
+}
+
+.sn-im-loginlogout .sn-im-selected.sn-im-logout span {
+    background-position: 100% -15px;
+}
+
+.sn-im-loginlogout .sn-im-selected.sn-im-login span {
+    background-position: 0 -15px;
+}
+
+.sn-im-userLine {
+    background: transparent none no-repeat 98% 50%;
+    line-height: 22px;
+    padding: 2px 4px;
+}
+
+.sn-im-userLine.sn-im-canchat:hover {
+    background-color: var(--surface-hover);
+}
+
+.ltr .sn-im-userLine {
+    clear: left;
+}
+
+.ltr .sn-im-userLine .sn-user-avatar {
+    float: left;
+    margin: 1px 4px 1px 0;
+}
+
+/* Force chatbox avatar constraints and keep username sitting inline to the right */
+.sn-im-userLine .sn-user-avatar,
+.sn-im-msgs .sn-im-msgAvatar {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.sn-im-userLine .sn-user-avatar img,
+.sn-im-msgs .sn-im-msgAvatar img {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 4px;
+    display: inline-block !important;
+}
+
+.sn-im-userLine .sn-userName,
+.sn-im-msgs .sn-userName {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.9em;
+}
+
+.sn-im-userLine .rtl * {
+    clear: right;
+}
+
+.sn-im-userLine .rtl * .sn-user-avatar {
+    float: right;
+    margin: 1px 0 1px 4px;
+}
+
+.sn-im-nav {
+    font-size: 1.25em;
+    font-weight: bold;
+    width: auto;
+}

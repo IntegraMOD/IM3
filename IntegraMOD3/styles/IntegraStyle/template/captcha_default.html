@@ -1,0 +1,24 @@
+<!-- IF S_TYPE == 1 -->
+<div class="ucp-card">
+	<div class="ucp-card-body">
+	<h3>{L_CONFIRMATION}</h3>
+	<p>{L_CONFIRM_EXPLAIN}</p>
+	<div class="ucp-form-grid">
+<!-- ENDIF -->
+
+	<div class="ucp-form-row">
+		<label class="ucp-form-label" for="confirm_code">{L_CONFIRM_CODE}:</label>
+		<p class="ucp-form-help">{L_CONFIRM_CODE_EXPLAIN}</p>
+		<img src="{CONFIRM_IMAGE_LINK}" alt="{L_CONFIRM_CODE}" />
+		<div class="ucp-form-inline">
+			<input type="text" name="confirm_code" id="confirm_code" size="8" maxlength="8" tabindex="{$CAPTCHA_TAB_INDEX}" class="inputbox narrow ucp-form-input" title="{L_CONFIRM_CODE}" />
+			<!-- IF S_CONFIRM_REFRESH --><input type="submit" name="refresh_vc" id="refresh_vc" class="button2" value="{L_VC_REFRESH}" /><!-- ENDIF -->
+			<input type="hidden" name="confirm_id" id="confirm_id" value="{CONFIRM_ID}" />
+		</div>
+	</div>
+
+<!-- IF S_TYPE == 1 -->
+	</div>
+	</div>
+</div>
+<!-- ENDIF -->

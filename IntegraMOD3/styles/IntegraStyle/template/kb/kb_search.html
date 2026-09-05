@@ -1,0 +1,28 @@
+<!-- INCLUDE overall_header.html -->
+<p class="{S_CONTENT_FLOW_END}<!-- IF S_USER_LOGGED_IN --> rightside<!-- ENDIF -->"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ELSE -->{CURRENT_TIME}<!-- ENDIF --></p>
+<!-- IF U_MCP --><p>{CURRENT_TIME} <br />[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ELSEIF S_USER_LOGGED_IN --><p>{CURRENT_TIME}</p><!-- ENDIF -->
+
+<div class="kb-layout">
+	<h2>{SEARCH_TITLE}</h2>
+	<p><a class="{S_CONTENT_FLOW_BEGIN}" href="{U_ACTION}" title="{L_SEARCH_ADV}">{L_RETURN_TO_SEARCH_ADV}</a></p>
+	<!-- IF RESULT_MESSAGE --><h2>{RESULT_MESSAGE}</h2><!-- ENDIF -->
+	<!-- IF PAGINATION -->
+	<div class="topic-actions">
+		<div class="pagination">{PAGE_NUMBER} <span>{PAGINATION}</span></div>
+	</div>
+	<!-- ENDIF -->
+	<!-- BEGIN result -->
+	<article class="ucp-card kb-search-result<!-- IF result.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+		<div class="ucp-card-body">
+			<p><strong><a href="{result.U_ARTICLE}">{result.TITLE}</a></strong></p>
+			<p>{result.DESCRIPTION}</p>
+			<p>{L_FOUND_IN}: <a href="{result.U_CATEGORIE}">{result.CAT}</a></p>
+		</div>
+	</article>
+	<!-- END result -->
+	<div class="topic-actions">
+		<div class="pagination">{PAGE_NUMBER} <span>{PAGINATION}</span></div>
+	</div>
+	<p><a class="{S_CONTENT_FLOW_BEGIN}" href="{U_ACTION}" title="{L_SEARCH_ADV}">{L_RETURN_TO_SEARCH_ADV}</a></p>
+</div>
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,34 @@
+<!-- IF STARGATE -->
+    <div class="blocks_hide_show_gap portal-column-toggles">
+		<!-- IF S_SHOW_LEFT_BLOCKS -->
+            <span class="portal-column-toggle" id="left_blocks_col_hide" style="display: none;">
+				<a href="javascript:void(0)" class="portal-toggle-link" data-portal-toggle="left" data-portal-toggle-show="left_blocks_col_show" data-portal-toggle-hide="left_blocks_col_hide" title="Show Blocks"><svg class="css-icon left_blocks_col_show" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></a>
+			</span>
+			<span class="portal-column-toggle" id="left_blocks_col_show">
+				<a href="javascript:void(0)" class="portal-toggle-link" data-portal-toggle="left" data-portal-toggle-show="left_blocks_col_hide" data-portal-toggle-hide="left_blocks_col_show" title="Hide Blocks"><svg class="css-icon left_blocks_col_show" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg></a>
+			</span>
+		<!-- ENDIF -->
+		<!-- IF S_SHOW_RIGHT_BLOCKS -->
+			<span class="portal-column-toggle portal-column-toggle-right" id="right_blocks_col_hide" style="display: none;">
+				<a href="javascript:void(0)" class="portal-toggle-link" data-portal-toggle="right" data-portal-toggle-show="right_blocks_col_show" data-portal-toggle-hide="right_blocks_col_hide" title="Show Blocks"><svg class="css-icon right_blocks_col_show" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg></a>
+			</span>
+			<span class="portal-column-toggle portal-column-toggle-right" id="right_blocks_col_show">
+				<a href="javascript:void(0)" class="portal-toggle-link" data-portal-toggle="right" data-portal-toggle-show="right_blocks_col_hide" data-portal-toggle-hide="right_blocks_col_show" title="Hide Blocks"><svg class="css-icon right_blocks_col_show" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></a>
+			</span>
+		<!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
+
+<div id="p_header_" class="portal-header-region"><!-- PUT HEADER BLOCKS HERE --></div>
+<div id="p_container_" class="portal-container">
+    <div id="p_row_" class="portal-row">
+		<!-- IF S_SHOW_LEFT_BLOCKS -->
+        <div class="l_block_vert_gap rtlzzzz portal-column portal-column-left" id="left" data-portal-column="left" data-portal-cookie="left_blocks_col_hide">
+			<!-- INCLUDE portal_layout_left.html -->
+		</div>
+		
+		<!-- ENDIF -->
+		<div id="center">
+
+
+

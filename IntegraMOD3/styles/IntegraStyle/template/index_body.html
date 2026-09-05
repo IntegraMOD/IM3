@@ -1,0 +1,111 @@
+<!-- INCLUDE overall_header.html -->
+
+<p class="{S_CONTENT_FLOW_END}<!-- IF S_USER_LOGGED_IN --> rightside<!-- ENDIF -->"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ELSE -->{CURRENT_TIME}<!-- ENDIF --></p>
+<!-- IF U_MCP --><p>{CURRENT_TIME} <br />[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ELSEIF S_USER_LOGGED_IN --><p>{CURRENT_TIME}</p><!-- ENDIF -->
+
+<!-- IF S_DISPLAY_SEARCH or (S_USER_LOGGED_IN and not S_IS_BOT) -->
+<ul class="linklist">
+	<!-- IF S_DISPLAY_SEARCH -->
+        <li><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a><!-- IF S_USER_LOGGED_IN --> &bull; <a href="{U_SEARCH_UNREAD}">{L_UNREAD_POSTS}</a> &bull; <a href="{U_SEARCH_NEW}">{L_NEW_POSTS}</a><!-- ENDIF --> &bull; <a href="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</a></li>
+	<!-- ENDIF -->
+	<!-- IF not S_IS_BOT and U_MARK_FORUMS --><li class="rightside"><a href="{U_MARK_FORUMS}" accesskey="m">{L_MARK_FORUMS_READ}</a></li><!-- ENDIF -->
+</ul>
+<!-- ENDIF -->
+
+<!-- IF STARGATE -->
+	<!-- INCLUDE portal_center.html -->
+<!-- ENDIF -->
+
+<!-- IF S_MCHAT_ENABLE and S_MCHAT_ON_INDEX and S_MCHAT_LOCATION --><!-- INCLUDE mchat_body.html --><!-- ENDIF -->
+
+<!-- INCLUDE forumlist_body.html -->
+
+<!-- INCLUDE index_extras.html -->
+
+<!-- IF not S_USER_LOGGED_IN and not S_IS_BOT -->
+	<section class="stat-block quick-login-block">
+		<form method="post" action="{S_LOGIN_ACTION}">
+			<h3><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a><!-- IF S_REGISTER_ENABLED -->&nbsp; &bull; &nbsp;<a href="{U_REGISTER}">{L_REGISTER}</a><!-- ENDIF --></h3>
+			<fieldset class="quick-login-grid">
+				<div class="login-field">
+					<label for="username">{L_USERNAME}:</label>
+					<input type="text" name="username" id="username" class="inputbox" title="{L_USERNAME}" placeholder="{L_USERNAME}" />
+				</div>
+				<div class="login-field">
+					<label for="password">{L_PASSWORD}:</label>
+					<input type="password" name="password" id="password" class="inputbox" title="{L_PASSWORD}" placeholder="{L_PASSWORD}" />
+				</div>
+				<!-- IF S_AUTOLOGIN_ENABLED -->
+				<div class="login-options">
+					<label for="autologin"><input type="checkbox" name="autologin" id="autologin" /> {L_LOG_ME_IN}</label>
+				</div>
+				<!-- ENDIF -->
+				<div class="login-actions">
+					<button type="submit" name="login" class="button2">{L_LOGIN}</button>
+					{S_LOGIN_REDIRECT}
+				</div>
+			</fieldset>
+		</form>
+	</section>
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_ONLINE_LIST -->
+    <section class="forum-category panel online-list index-stat-panel">
+        <div class="forum-header">
+            <div class="forum-title"><!-- IF U_VIEWONLINE --><a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a><!-- ELSE -->{L_WHO_IS_ONLINE}<!-- ENDIF --></div>
+        </div>
+        <div class="bg2 index-stat-body">
+            <p>{TOTAL_USERS_ONLINE} ({L_ONLINE_EXPLAIN})<br />{RECORD_USERS}<br /> <br />{LOGGED_IN_USER_LIST}<br /><br />{USERS_OF_THE_DAY_LIST}<br /><a href="./uod.php">{L_USERS_OF_THE_DAY_TITLE}</a><br />
+            <!-- IF LEGEND --><br /><em>{L_LEGEND}: {LEGEND}</em><!-- ENDIF --></p>
+        </div>
+	</section>
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_BIRTHDAY_LIST and BIRTHDAY_LIST -->
+	<section class="stat-block birthday-list">
+		<h3>{L_BIRTHDAYS}</h3>
+		<p><!-- IF BIRTHDAY_LIST -->{L_CONGRATULATIONS}: <strong>{BIRTHDAY_LIST}</strong><!-- ELSE -->{L_NO_BIRTHDAYS}<!-- ENDIF --></p>
+	</section>
+<!-- ENDIF -->
+
+<!-- IF DONATION_STATS_INDEX_ENABLE and (DONATION_RAISED_ENABLE or DONATION_GOAL_ENABLE or DONATION_USED_ENABLE) -->
+	<!-- INCLUDE donate/donate_stats.html -->
+<!-- ENDIF -->
+
+<!-- IF NEWEST_USER -->
+    <section class="forum-category panel statistics index-stat-panel">
+        <div class="forum-header">
+            <div class="forum-title">{L_STATISTICS}</div>
+        </div>
+        <div class="bg2 index-stat-body">
+            <p>{TOTAL_POSTS} &bull; {TOTAL_TOPICS}<!-- IF TOTAL_IMAGES --> &bull; {TOTAL_IMAGES}<!-- ENDIF --> &bull; {TOTAL_USERS} &bull; {NEWEST_USER}</p>
+        </div>
+	</section>
+<!-- ENDIF -->
+
+<!-- Start Ultimate Points -->
+<!-- IF S_DISPLAY_POINTS_STATS -->
+    <section class="forum-category panel points-stats index-stat-panel">
+        <div class="forum-header">
+            <div class="forum-title">{L_POINTS_STATISTICS}</div>
+        </div>
+        <div class="bg2 index-stat-body">
+            <p>{TOTAL_POINTS_USER} &bull; {TOTAL_BANK_USER} &bull; {TOTAL_BANK_POINTS} <!-- IF S_DISPLAY_LOTTERY--> &bull; {LOTTERY_TIME} <!-- ENDIF --></p>
+        </div>
+	</section>
+
+<!-- IF S_DISPLAY_INDEX -->
+    <section class="forum-category panel rich-users index-stat-panel">
+        <div class="forum-header">
+            <div class="forum-title">{L_POINTS_MOST_RICH_USERS}</div>
+        </div>
+        <div class="bg2 index-stat-body">
+            <p><!-- BEGIN rich_user --><!-- IF not rich_user.S_FIRST_ROW --> &bull; <!-- ENDIF -->{rich_user.USERNAME} ({rich_user.SUM_POINTS} {rich_user.SUM_POINTS_NAME})<!-- END rich_user --></p>
+        </div>
+	</section>
+<!-- ENDIF -->
+<!-- ENDIF -->
+<!-- End Ultimate Points -->
+
+<!-- INCLUDE mchat_stats.html -->
+<!-- INCLUDE overall_footer.html -->

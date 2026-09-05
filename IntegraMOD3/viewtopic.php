@@ -1797,7 +1797,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 		'NO_OWN_POST'			=> ($poster_id != $user->data['user_id']),
 		'LIKES'					=> ($ajaxlike_enable ? get_user_likes($row['user_id']) : 0),
 		'LIKED'					=> ($ajaxlike_enable ? get_user_liked($row['user_id']) : 0),
-		'LAST_LIKE_URL'			=> (($ajaxlike_enable ? ($likes_data[0][$row['post_id']] ?? 0) : 0) > 1 ? "#" : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . urlencode((string) build_like_list($likes_data[2][$row['post_id']] ?? false)))),
+		'LAST_LIKE_URL'			=> (($ajaxlike_enable ? ($likes_data[0][$row['post_id']] ?? 0) : 0) > 1 ? append_sid("{$phpbb_root_path}viewtopic.$phpEx", "t=$topic_id&amp;p=" . $row['post_id'] . "&amp;ajaxlike_action=fulllist&amp;ajaxlike_data=") : append_sid("{$phpbb_root_path}memberlist.$phpEx", "mode=viewprofile&amp;un=" . urlencode((string) build_like_list($likes_data[2][$row['post_id']] ?? false)))),
 		// ajaxlike
 		'POST_AUTHOR_FULL'		=> ($poster_id != ANONYMOUS) ? $user_cache[$poster_id]['author_full'] : get_username_string('full', $poster_id, $row['username'], $row['user_colour'], $row['post_username']),
 		'POST_AUTHOR_COLOUR'	=> ($poster_id != ANONYMOUS) ? $user_cache[$poster_id]['author_colour'] : get_username_string('colour', $poster_id, $row['username'], $row['user_colour'], $row['post_username']),

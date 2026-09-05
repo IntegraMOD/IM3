@@ -1,0 +1,45 @@
+<div class="block_data">
+<!-- BEGIN imageblock -->
+<section class="portal-gallery-grid portal-gallery-grid-side">
+	<!-- BEGIN imagerow -->
+    <div class="portal-gallery-row">
+		<!-- BEGIN image -->
+        <article class="portal-gallery-card" style="width: {S_COL_WIDTH};">
+            <div class="portal-gallery-thumb" style="height: {S_THUMBNAIL_SIZE}px;">
+                <span class="genmed">{imageblock.imagerow.image.UC_THUMBNAIL}</span>
+            </div>
+            <div class="gensmall portal-gallery-meta">
+                <!-- IF imageblock.imagerow.image.CONTEST_RANK --><p>{L_CONTEST_RESULT}: <strong>{imageblock.imagerow.image.CONTEST_RANK}</strong></p><!-- ENDIF -->
+                <!-- IF (imageblock.imagerow.image.S_LOCKED or imageblock.imagerow.image.S_UNAPPROVED) and imageblock.imagerow.image.U_STATUS --><p><a class="reported-images-number" href="{imageblock.imagerow.image.U_STATUS}"><strong>{imageblock.imagerow.image.L_STATUS}</strong></a></p><!-- ENDIF -->
+                <!-- IF imageblock.imagerow.image.S_REPORTED and imageblock.imagerow.image.U_REPORT --><p><a class="reported-images-number" href="{imageblock.imagerow.image.U_REPORT}"><strong>{L_READ_REPORT}</strong></a></p><!-- ENDIF -->
+                <!-- IF imageblock.imagerow.image.UC_IMAGE_NAME --><p>{L_IMAGE_NAME}: {imageblock.imagerow.image.UC_IMAGE_NAME}</p><!-- ENDIF -->
+                <!-- IF imageblock.imagerow.image.U_ALBUM --><p>{L_ALBUM_NAME}: <a href="{imageblock.imagerow.image.U_ALBUM}" title="{imageblock.imagerow.image.ALBUM_NAME_FULL}"><strong>{imageblock.imagerow.image.ALBUM_NAME}</strong></a></p><!-- ENDIF -->
+                <!-- IF imageblock.imagerow.image.U_REPORT or imageblock.imagerow.image.U_STATUS or imageblock.imagerow.image.U_MOVE or  imageblock.imagerow.image.U_EDIT or imageblock.imagerow.image.U_DELETE -->
+                <details class="portal-gallery-moderation">
+                    <summary>{L_MODERATE}</summary>
+                    <!-- IF imageblock.imagerow.image.U_REPORT --><p>&#187; <a href="{imageblock.imagerow.image.U_REPORT}" class="reported-images-number">{L_READ_REPORT}</a></p><!-- ENDIF -->
+                    <!-- IF imageblock.imagerow.image.U_STATUS --><p>&#187; <a href="{imageblock.imagerow.image.U_STATUS}">{imageblock.imagerow.image.L_STATUS}</a></p><!-- ENDIF -->
+                    <!-- IF imageblock.imagerow.image.U_MOVE --><p>&#187; <a href="{imageblock.imagerow.image.U_MOVE}">{L_MOVE}</a></p><!-- ENDIF -->
+                    <!-- IF imageblock.imagerow.image.U_EDIT --><p>&#187; <a href="{imageblock.imagerow.image.U_EDIT}">{L_EDIT_IMAGE}</a></p><!-- ENDIF -->
+                    <!-- IF imageblock.imagerow.image.U_DELETE --><p>&#187; <a href="{imageblock.imagerow.image.U_DELETE}">{L_DELETE_IMAGE}</a></p><!-- ENDIF -->
+                </details>
+                <!-- ENDIF -->
+            </div>
+            <hr />
+        </article>
+		<!-- END image -->
+        <!-- BEGIN no_image -->
+        <div class="portal-gallery-card portal-gallery-card-empty" style="width: {S_COL_WIDTH};">
+            <div class="portal-gallery-thumb" style="height: {S_THUMBNAIL_SIZE}px;"></div>
+        </div>
+		<!-- END no_image -->
+    </div>
+	<!-- END imagerow -->
+	<!-- IF S_IN_ALBUM or (S_SELECT_SORT_KEY and SEARCH_IN_RESULTS) -->
+    <div class="portal-gallery-sort">
+        <form action="{S_ALBUM_ACTION}" method="post"><span class="gensmall">{L_SORT_BY}</span> {S_SELECT_SORT_KEY} {S_SELECT_SORT_DIR}&nbsp;<input class="btnlite" type="submit" name="sort" value="{L_GO}" /></form>
+    </div>
+	<!-- ENDIF -->
+</section>
+<!-- END imageblock -->
+</div>

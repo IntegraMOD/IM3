@@ -1,0 +1,69 @@
+<!-- INCLUDE ucp_header.html -->
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE} data-ajax-checks-file="{AJAX_CHECKS_FILE}" data-ajax-checking-img="{AJAX_CHECKING_IMG}" data-ajax-checking-username="{L_AJAX_CHECKING_USERNAME}" data-ajax-checking-password="{L_AJAX_CHECKING_PASSWORD}" data-ajax-checking-email="{L_AJAX_CHECKING_EMAIL}">
+
+<h2>{L_TITLE}</h2>
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<!-- IF S_FORCE_PASSWORD -->
+			<p class="error">{L_FORCE_PASSWORD_EXPLAIN}</p>
+		<!-- ENDIF -->
+		<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+		<div class="ucp-form-grid">
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" <!-- IF S_CHANGE_USERNAME -->for="username"<!-- ENDIF -->>{L_USERNAME}</label>
+				<p class="ucp-form-help">{L_USERNAME_EXPLAIN}</p>
+				<!-- IF S_CHANGE_USERNAME --><input type="text" name="username" id="username" value="{USERNAME}" class="inputbox ucp-form-input" title="{L_USERNAME}" data-action="ajax-check" data-check-mode="usernamecheck" data-check-name1="username" data-check-value1-source="self" data-check-name2="ignore" data-check-value2="ignore" /><span id="usernamecheck"></span><!-- ELSE --><strong>{USERNAME}</strong><!-- ENDIF -->
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="email">{L_EMAIL_ADDRESS}</label>
+				<!-- IF S_CHANGE_EMAIL --><input type="text" name="email" id="email" maxlength="100" value="{EMAIL}" class="inputbox ucp-form-input" title="{L_EMAIL_ADDRESS}" data-action="ajax-check" data-check-mode="emailcheck" data-check-name1="email1" data-check-value1-source="self" data-check-name2="email2" data-check-value2-source="#email_confirm" /><span id="emailcheck"></span><!-- ELSE --><strong>{EMAIL}</strong><!-- ENDIF -->
+			</div>
+			<!-- IF S_CHANGE_EMAIL -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="email_confirm">{L_CONFIRM_EMAIL}</label>
+					<p class="ucp-form-help">{L_CONFIRM_EMAIL_EXPLAIN}</p>
+					<input type="text" name="email_confirm" id="email_confirm" maxlength="100" value="{CONFIRM_EMAIL}" class="inputbox ucp-form-input" title="{L_CONFIRM_EMAIL}" data-action="ajax-check" data-check-mode="emailcheck" data-check-name1="email1" data-check-value1-source="#email" data-check-name2="email2" data-check-value2-source="self" />
+				</div>
+			<!-- ENDIF -->
+			<!-- IF S_CHANGE_PASSWORD -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="new_password">{L_NEW_PASSWORD}</label>
+					<p class="ucp-form-help">{L_CHANGE_PASSWORD_EXPLAIN}</p>
+					<input type="password" name="new_password" id="new_password" maxlength="255" value="{NEW_PASSWORD}" class="inputbox ucp-form-input" title="{L_CHANGE_PASSWORD}" data-action="ajax-check" data-check-mode="passwordcheck" data-check-name1="password1" data-check-value1-source="self" data-check-name2="password2" data-check-value2-source="#password_confirm" /><span id="passwordcheck"></span>
+				</div>
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="password_confirm">{L_CONFIRM_PASSWORD}</label>
+					<p class="ucp-form-help">{L_CONFIRM_PASSWORD_EXPLAIN}</p>
+					<input type="password" name="password_confirm" id="password_confirm" maxlength="255" value="{PASSWORD_CONFIRM}" class="inputbox ucp-form-input" title="{L_CONFIRM_PASSWORD}" data-action="ajax-check" data-check-mode="passwordcheck" data-check-name1="password1" data-check-value1-source="#new_password" data-check-name2="password2" data-check-value2-source="self" />
+				</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+</div>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-form-grid">
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="cur_password">{L_CURRENT_PASSWORD}</label>
+				<p class="ucp-form-help"><!-- IF S_CHANGE_PASSWORD -->{L_CURRENT_CHANGE_PASSWORD_EXPLAIN}<!-- ELSE -->{L_CURRENT_PASSWORD_EXPLAIN}<!-- ENDIF --></p>
+				<input type="password" name="cur_password" id="cur_password" maxlength="255" value="{CUR_PASSWORD}" class="inputbox ucp-form-input" title="{L_CURRENT_PASSWORD}" />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-actions">
+			{S_HIDDEN_FIELDS}
+			<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+			<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+</div>
+</form>
+
+<!-- INCLUDE ucp_footer.html -->
+

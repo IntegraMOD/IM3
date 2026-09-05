@@ -1,0 +1,112 @@
+<!-- INCLUDE overall_header.html -->
+
+<section class="blog-upgrade">
+    <nav class="blog-upgrade-nav" aria-label="{L_MENU}">
+        <!-- BEGIN l_block1 -->
+            <a href="{l_block1.U_TITLE}"<!-- IF l_block1.S_SELECTED --> class="is-active"<!-- ENDIF -->>{l_block1.L_TITLE}</a>
+        <!-- END l_block1 -->
+    </nav>
+    <div class="blog-main">
+
+<!-- IF STAGE == 0 -->
+    <p class="error">{L_BACKUP_NOTICE}</p>
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_AVAILABLE_CONVERTORS}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="blog-upgrade-list">
+                <div class="blog-upgrade-row blog-upgrade-head">
+                    <div>{L_SOFTWARE}</div>
+                    <div>{L_VERSION}</div>
+                    <div>{L_AUTHOR}</div>
+                    <div>{L_OPTIONS}</div>
+                </div>
+                <!-- IF .convertors -->
+                    <!-- BEGIN convertors -->
+                    <div class="blog-upgrade-row">
+                        <div>{convertors.SOFTWARE}</div>
+                        <div>{convertors.VERSION}</div>
+                        <div>{convertors.AUTHOR}</div>
+                        <div><a href="{convertors.U_CONVERT}">{L_CONVERT}</a></div>
+                    </div>
+                    <!-- END convertors -->
+                <!-- ELSE -->
+                    <div class="blog-upgrade-row">
+                        <div>{L_NO_CONVERTORS}</div>
+                        <div>-</div>
+                        <div>-</div>
+                        <div>-</div>
+                    </div>
+                <!-- ENDIF -->
+            </div>
+        </div>
+    </section>
+<!-- ENDIF -->
+<!-- IF STAGE == 1 -->
+    <form id="blog_upgrade" method="post" action="{U_ACTION}">
+    <!-- BEGIN options -->
+        <!-- IF options.S_LEGEND -->
+            <!-- IF not options.S_FIRST_ROW -->
+                </fieldset>
+            </div>
+        </section>
+            <!-- ENDIF -->
+            <section class="ucp-card">
+                <div class="ucp-card-header">
+                    <h3 class="ucp-card-title">{options.LEGEND}</h3>
+                </div>
+                <div class="ucp-card-body">
+                <fieldset class="ucp-form-grid">
+        <!-- ELSE -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="{options.KEY}">{options.TITLE}:</label>
+                <!-- IF options.S_EXPLAIN --><p class="ucp-form-help">{options.TITLE_EXPLAIN}</p><!-- ENDIF -->
+                <div class="ucp-form-content">{options.CONTENT}</div>
+            </div>
+        <!-- ENDIF -->
+    <!-- END options -->
+                <div class="ucp-actions">
+                    <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+                    <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+                </div>
+                </fieldset>
+                </div>
+            </section>
+    {S_FORM_TOKEN}
+    </form>
+<!-- ENDIF -->
+<!-- IF STAGE != 0 and STAGE != 1 -->
+    <!-- IF ERROR -->
+        <section class="ucp-card blog-upgrade-error">
+            <div class="ucp-card-header">
+                <h3 class="ucp-card-title">{L_ERROR}</h3>
+            </div>
+            <div class="ucp-card-body">
+                <p class="error">{ERROR}</p>
+                <a href="{U_BACK}">{L_RETURN_LAST_STEP}</a>
+            </div>
+        </section>
+    <!-- ELSE -->
+        <section class="ucp-card blog-upgrade-success">
+            <div class="ucp-card-header">
+                <h3 class="ucp-card-title">{L_SUCCESS}</h3>
+            </div>
+            <div class="ucp-card-body">
+                <p>{MESSAGE}</p>
+                <!-- IF STAGE != 7 -->
+                    <!-- IF S_NEXT_PART -->
+                        <a href="{U_ACTION}">{L_NEXT_PART}</a>
+                    <!-- ELSE -->
+                        <a href="{U_ACTION}">{L_NEXT_STEP}</a>
+                    <!-- ENDIF -->
+                <!-- ENDIF -->
+            </div>
+        </section>
+    <!-- ENDIF -->
+<!-- ENDIF -->
+
+    </div>
+</section>
+
+<!-- INCLUDE overall_footer.html -->

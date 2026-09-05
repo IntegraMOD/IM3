@@ -1,0 +1,25 @@
+<!-- INCLUDE simple_header.html -->
+
+<div class="meeting-layout">
+	<h3>{MEETING_TITLE}</h3>
+	<p>{MEETING_TIME} &bull; {USERNAME}</p>
+	<section class="ucp-card">
+		<div class="ucp-card-body">
+			<header class="forum-header mcp-list-header">
+				<div class="forum-title">{L_MEETING_PRENAMES}</div>
+				<div class="forum-stats-header">{L_MEETING_NAMES}</div>
+			</header>
+			<div class="forum-list">
+			<!-- BEGIN guest_name_row -->
+				<article class="forum-row mcp-list-row bg<!-- IF guest_name_row.S_ROW_COUNT is even -->1<!-- ELSE -->2<!-- ENDIF -->">
+					<div class="forum-details">{guest_name_row.GUEST_PRENAME}</div>
+					<div class="forum-stats-grid"><div>{guest_name_row.GUEST_NAME}</div></div>
+				</article>
+			<!-- END guest_name_row -->
+			</div>
+		</div>
+	</section>
+	<p class="ucp-actions"><button type="button" class="button2" data-action="close-window">{L_CLOSE_WINDOW}</button></p>
+</div>
+
+<!-- INCLUDE simple_footer.html -->

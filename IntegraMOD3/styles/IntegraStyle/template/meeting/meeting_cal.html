@@ -1,0 +1,46 @@
+<form action="{S_FORM_ACTION}" method="post" id="filter_meetings">
+	<section class="ucp-card meeting-cal-nav">
+		<div class="ucp-card-body meeting-cal-nav-grid">
+			<a href="{U_LAST_YEAR}" class="meeting-cal-arrow" title="{L_UPDATE}">&laquo;</a>
+			<a href="{U_LAST_MONTH}" class="meeting-cal-arrow">&lsaquo;</a>
+			<div class="meeting-cal-current">{S_CAL_MONTH} {S_CAL_YEAR} <input type="submit" value="{L_UPDATE}" class="button2" /></div>
+			<a href="{U_NEXT_MONTH}" class="meeting-cal-arrow">&rsaquo;</a>
+			<a href="{U_NEXT_YEAR}" class="meeting-cal-arrow">&raquo;</a>
+		</div>
+	</section>
+</form>
+
+<section class="ucp-card meeting-calendar">
+	<div class="ucp-card-body">
+		<div class="meeting-cal-grid">
+			<!-- BEGIN cal_title -->
+			<div class="meeting-cal-head">{cal_title.MEETING_DAY_TITLE}</div>
+			<!-- END cal_title -->
+			<!-- BEGIN cal_weeks -->
+				<!-- BEGIN cal_day_title -->
+				<div class="meeting-cal-cell bg{cal_weeks.cal_day_title.C_CAL_DAY_TITLE}">
+					<strong>{cal_weeks.cal_day_title.CAL_DAY_TITLE}</strong>
+					<!-- BEGIN cal_day -->
+					<!-- IF cal_weeks.cal_day_title.cal_day.U_CAL_DAY -->
+					<a href="{cal_weeks.cal_day_title.cal_day.U_CAL_DAY}" class="meeting-cal-event<!-- IF cal_weeks.cal_day_title.cal_day.C_CAL_DAY == 't' --> is-time<!-- ELSE --> is-until<!-- ENDIF -->">{cal_weeks.cal_day_title.cal_day.CAL_DAY}</a>
+					<!-- ENDIF -->
+					<!-- IF cal_weeks.cal_day_title.cal_day.S_CAL_DAY -->
+					<span class="meeting-cal-plain">{cal_weeks.cal_day_title.cal_day.CAL_DAY}</span>
+					<!-- ENDIF -->
+					<!-- END cal_day -->
+				</div>
+				<!-- END cal_day_title -->
+			<!-- END cal_weeks -->
+		</div>
+	</div>
+</section>
+
+<section class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_LEGEND}:</h3>
+	</div>
+	<div class="ucp-card-body meeting-cal-legend">
+		<span class="meeting-cal-event is-time">{L_MEETING_TIME}</span>
+		<span class="meeting-cal-event is-until">{L_MEETING_UNTIL}</span>
+	</div>
+</section>

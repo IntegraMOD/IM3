@@ -1,0 +1,86 @@
+<!-- INCLUDE ucp_header.html -->
+
+<h2>{L_TITLE}</h2>
+
+<form id="ucp" method="post" action="{U_ACTION}">
+
+  <div class="ucp-card">
+    <div class="ucp-card-body">
+        <div class="ucp-form-grid sn-up-ucpProfile">
+        <!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_SN_UP_PRIVACY_LEVEL}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_SN_ALLOW_PRIVACY_CHANGE -->
+                <label><input type="radio" name="privacy_level" value="2"<!-- IF SN_PRIVACY_LEVEL == 2 --> checked="checked"<!-- ENDIF --> /> {L_SN_UP_PRIVACY_PRIVATE}</label>
+                <label><input type="radio" name="privacy_level" value="1"<!-- IF SN_PRIVACY_LEVEL == 1 --> checked="checked"<!-- ENDIF --> /> {L_SN_UP_PRIVACY_FRIENDS}</label>
+                <label><input type="radio" name="privacy_level" value="0"<!-- IF SN_PRIVACY_LEVEL == 0 --> checked="checked"<!-- ENDIF --> /> {L_SN_UP_PRIVACY_DEFAULT}</label>
+                <!-- ELSE -->
+                <label><input type="radio" name="privacy_level" value="2"<!-- IF SN_PRIVACY_LEVEL == 2 --> checked="checked"<!-- ENDIF --> disabled="disabled" /> {L_SN_UP_PRIVACY_PRIVATE}</label>
+                <label><input type="radio" name="privacy_level" value="1"<!-- IF SN_PRIVACY_LEVEL == 1 --> checked="checked"<!-- ENDIF --> disabled="disabled" /> {L_SN_UP_PRIVACY_FRIENDS}</label>
+                <label><input type="radio" name="privacy_level" value="0"<!-- IF SN_PRIVACY_LEVEL == 0 --> checked="checked"<!-- ENDIF --> disabled="disabled" /> {L_SN_UP_PRIVACY_DEFAULT}</label>
+                <!-- ENDIF -->
+            </div>
+            <!-- IF not S_SN_ALLOW_PRIVACY_CHANGE --><p class="ucp-form-help">{L_SN_UP_PRIVACY_LOCKED}</p><!-- ENDIF -->
+        </div>
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_SN_UP_ALLOW_FRIEND_REQUESTS}:</p>
+            <div class="ucp-form-inline">
+                <label><input type="radio" name="allow_friend_requests" value="1"<!-- IF SN_ALLOW_FRIEND_REQUESTS == 1 --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                <label><input type="radio" name="allow_friend_requests" value="0"<!-- IF SN_ALLOW_FRIEND_REQUESTS == 0 --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+            </div>
+        </div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="hometown">{L_SN_UP_HOMETOWN}:</label><input type="text" name="hometown" id="hometown" value="{HOMETOWN}" maxlength="255" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row">
+            <label class="ucp-form-label" for="sex">{L_SN_UP_SEX}:</label>
+            <select name="sex" id="sex" class="ucp-form-select">
+              <option value="0"<!-- IF SEX == '0' --> selected="selected"<!-- ENDIF -->></option>
+              <option value="1"<!-- IF SEX == '1' --> selected="selected"<!-- ENDIF -->>{L_SN_UP_MALE}</option>
+              <option value="2"<!-- IF SEX == '2' --> selected="selected"<!-- ENDIF -->>{L_SN_UP_FEMALE}</option>
+            </select>
+        </div>
+        <div class="ucp-form-row">
+            <label class="ucp-form-label" for="interested_in">{L_SN_UP_INTERESTED_IN}:</label>
+            <select name="interested_in" id="interested_in" class="ucp-form-select">
+              <option value="0"<!-- IF INTERESTED_IN == '0' --> selected="selected"<!-- ENDIF -->></option>
+              <option value="1"<!-- IF INTERESTED_IN == '1' --> selected="selected"<!-- ENDIF -->>{L_SN_UP_MALES}</option>
+              <option value="2"<!-- IF INTERESTED_IN == '2' --> selected="selected"<!-- ENDIF -->>{L_SN_UP_FEMALES}</option>
+              <option value="3"<!-- IF INTERESTED_IN == '3' --> selected="selected"<!-- ENDIF -->>{L_SN_UP_BOTH}</option>
+            </select>
+        </div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="languages">{L_SN_UP_LANGUAGES}:</label><input type="text" name="languages" id="languages" value="{LANGUAGES}" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="employer">{L_SN_UP_EMPLOYER}:</label><input type="text" name="employer" id="employer" value="{EMPLOYER}" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="university">{L_SN_UP_UNIVERSITY}:</label><input type="text" name="university" id="university" value="{UNIVERSITY}" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="high_school">{L_SN_UP_HIGH_SCHOOL}:</label><input type="text" name="high_school" id="high_school" value="{HIGH_SCHOOL}" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="religion">{L_SN_UP_RELIGION}:</label><input type="text" name="religion" id="religion" value="{RELIGION}" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="political_views">{L_SN_UP_POLITICAL_VIEWS}:</label><input type="text" name="political_views" id="political_views" value="{POLITICAL_VIEWS}" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="skype">{L_SN_UP_SKYPE}:</label><input type="text" name="skype" id="skype" value="{SKYPE}" maxlength="32" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="facebook">{L_SN_UP_FACEBOOK}:</label><input type="text" name="facebook" id="facebook" value="{FACEBOOK}" maxlength="255" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="twitter">{L_SN_UP_TWITTER}:</label><input type="text" name="twitter" id="twitter" value="{TWITTER}" maxlength="255" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="youtube">{L_SN_UP_YOUTUBE}:</label><input type="text" name="youtube" id="youtube" value="{YOUTUBE}" maxlength="255" class="inputbox ucp-form-input" /></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="about_me">{L_SN_UP_ABOUT_ME}:</label><textarea name="about_me" id="about_me" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{ABOUT_ME}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="quotations">{L_SN_UP_QUOTATIONS}:</label><textarea name="quotations" id="quotations" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{QUOTATIONS}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="music">{L_SN_UP_MUSIC}:</label><textarea name="music" id="music" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{MUSIC}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="books">{L_SN_UP_BOOKS}:</label><textarea name="books" id="books" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{BOOKS}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="movies">{L_SN_UP_MOVIES}:</label><textarea name="movies" id="movies" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{MOVIES}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="games">{L_SN_UP_GAMES}:</label><textarea name="games" id="games" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{GAMES}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="foods">{L_SN_UP_FOODS}:</label><textarea name="foods" id="foods" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{FOODS}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="sports">{L_SN_UP_SPORTS}:</label><textarea name="sports" id="sports" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{SPORTS}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="sport_teams">{L_SN_UP_SPORT_TEAMS}:</label><textarea name="sport_teams" id="sport_teams" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{SPORT_TEAMS}</textarea></div>
+        <div class="ucp-form-row"><label class="ucp-form-label" for="activities">{L_SN_UP_ACTIVITIES}:</label><textarea name="activities" id="activities" class="inputbox ucp-form-textarea" rows="2" maxlength="1024">{ACTIVITIES}</textarea></div>
+        </div>
+    </div>
+  </div>
+
+  <div class="ucp-card">
+    <div class="ucp-card-body">
+        <div class="ucp-actions">
+            <input type="reset" value="{L_RESET}" name="reset" class="button2" />
+            <input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+            {S_FORM_TOKEN}
+        </div>
+    </div>
+  </div>
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

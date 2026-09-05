@@ -193,6 +193,8 @@ $versions = array(
 			array(SN_CONFIG_TABLE, array('config_name' => 'sn_cb_draggable', 'config_value' => '0', 'is_dynamic' => 0)),
 			array(SN_CONFIG_TABLE, array('config_name' => 'sn_cb_modal', 'config_value' => '1', 'is_dynamic' => 0)),
 			array(SN_CONFIG_TABLE, array('config_name' => 'sn_cb_width', 'config_value' => '400', 'is_dynamic' => 0)),
+			array(SN_CONFIG_TABLE, array('config_name' => 'sn_default_privacy_level', 'config_value' => '1', 'is_dynamic' => 0)),
+			array(SN_CONFIG_TABLE, array('config_name' => 'sn_allow_privacy_change', 'config_value' => '1', 'is_dynamic' => 0)),
 		),
 
 		'permission_add'	 => array(

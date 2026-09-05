@@ -1,0 +1,23 @@
+<div class="row_resp">
+	<div class="column_cal">
+		<section class="forum-category panel">
+			<div class="forum-header">
+				<div class="forum-title">
+					<a href="{U_CALENDAR}">{L_LANG_CALENDAR}</a>
+				</div>
+			</div>
+			<div class="bg2" style="padding: 5px; margin: 0px auto;">
+				<!-- INCLUDE blocks/block_calendar.html -->
+			</div>
+		</section>
+	</div>
+	<!-- IF S_MCHAT_ENABLE and S_MCHAT_ON_INDEX and not S_MCHAT_LOCATION -->
+	<div class="column_chat">
+        <section class="forum-category panel index-chat-panel">
+            <div class="bg2 index-chat-body">
+                <!-- INCLUDE mchat_body.html -->
+            </div>
+        </section>
+	</div>
+	<!-- ENDIF -->
+</div>

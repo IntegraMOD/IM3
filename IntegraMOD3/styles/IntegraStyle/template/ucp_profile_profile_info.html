@@ -1,0 +1,65 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+<h2>{L_TITLE}</h2>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<p>{L_PROFILE_INFO_NOTICE}</p>
+		<div class="ucp-form-grid">
+			<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+			<div class="ucp-form-row"><label class="ucp-form-label" for="fb">{L_UCP_FB}:</label><input type="text" name="fb" id="fb" maxlength="255" value="{FB}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="ig">{L_UCP_IG}:</label><input type="text" name="ig" id="ig" maxlength="255" value="{IG}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="pt">{L_UCP_PT}:</label><input type="text" name="pt" id="pt" maxlength="255" value="{PT}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="twr">{L_UCP_TWR}:</label><input type="text" name="twr" id="twr" maxlength="255" value="{TWR}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="skp">{L_UCP_SKP}:</label><input type="text" name="skp" id="skp" maxlength="255" value="{SKP}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="tg">{L_UCP_TG}:</label><input type="text" name="tg" id="tg" maxlength="255" value="{TG}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="li">{L_UCP_LI}:</label><input type="text" name="li" id="li" maxlength="255" value="{LI}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="tt">{L_UCP_TT}:</label><input type="text" name="tt" id="tt" maxlength="255" value="{TT}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="dc">{L_UCP_DC}:</label><input type="text" name="dc" id="dc" maxlength="255" value="{DC}" placeholder="{UCP_DC_TAG}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="icq">{L_UCP_ICQ}:</label><input type="text" name="icq" id="icq" maxlength="15" value="{ICQ}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="aim">{L_UCP_AIM}:</label><input type="text" name="aim" id="aim" maxlength="255" value="{AIM}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="msn">{L_UCP_MSNM}:</label><input type="text" name="msn" id="msn" maxlength="255" value="{MSN}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="yim">{L_UCP_YIM}:</label><input type="text" name="yim" id="yim" maxlength="255" value="{YIM}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="jabber">{L_UCP_JABBER}:</label><input type="text" name="jabber" id="jabber" maxlength="255" value="{JABBER}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="website">{L_WEBSITE}:</label><input type="text" name="website" id="website" maxlength="255" value="{WEBSITE}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="location">{L_LOCATION}:</label><input type="text" name="location" id="location" maxlength="255" value="{LOCATION}" class="inputbox ucp-form-input" /></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="occupation">{L_OCCUPATION}:</label><textarea name="occupation" id="occupation" class="inputbox ucp-form-textarea" rows="3" cols="30">{OCCUPATION}</textarea></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="interests">{L_INTERESTS}:</label><textarea name="interests" id="interests" class="inputbox ucp-form-textarea" rows="3" cols="30">{INTERESTS}</textarea></div>
+			<!-- IF S_BIRTHDAYS_ENABLED -->
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_BIRTHDAY}:</p>
+				<p class="ucp-form-help">{L_BIRTHDAY_EXPLAIN}</p>
+				<div class="ucp-form-inline">
+					<label for="bday_day">{L_DAY}: <select name="bday_day" id="bday_day" class="ucp-form-select">{S_BIRTHDAY_DAY_OPTIONS}</select></label>
+					<label for="bday_month">{L_MONTH}: <select name="bday_month" id="bday_month" class="ucp-form-select">{S_BIRTHDAY_MONTH_OPTIONS}</select></label>
+					<label for="bday_year">{L_YEAR}: <select name="bday_year" id="bday_year" class="ucp-form-select">{S_BIRTHDAY_YEAR_OPTIONS}</select></label>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- BEGIN profile_fields -->
+			<div class="ucp-form-row">
+				<label class="ucp-form-label"<!-- IF profile_fields.FIELD_ID --> for="{profile_fields.FIELD_ID}"<!-- ENDIF -->>{profile_fields.LANG_NAME}:<!-- IF profile_fields.S_REQUIRED --> *<!-- ENDIF --></label>
+				<!-- IF profile_fields.LANG_EXPLAIN --><p class="ucp-form-help">{profile_fields.LANG_EXPLAIN}</p><!-- ENDIF -->
+				<!-- IF profile_fields.ERROR --><p class="error">{profile_fields.ERROR}</p><!-- ENDIF -->
+				{profile_fields.FIELD}
+			</div>
+			<!-- END profile_fields -->
+		</div>
+	</div>
+</div>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-actions">
+			{S_HIDDEN_FIELDS}
+			<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+			<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+</div>
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

@@ -1,0 +1,135 @@
+<nav class="site-nav">
+  <ul class="navlist">
+    <li class="nav-item genarrow arrows"><a href="#bottom" title="{L_BOTTOM}"><svg class="css-icon css-icon-arrow-down" aria-hidden="true" focusable="false"><use href="#icon-arrow-down"></use></svg></a></li>
+
+    <!-- IF STARGATE -->
+    <li class="nav-item <!-- IF S_IS_PORTAL -->is-active<!-- ENDIF -->"><a href="{U_PORTAL}" title="{PORTAL_LABEL}">{PORTAL_LABEL}</a></li>
+    <!-- ENDIF -->
+
+    <li class="nav-item <!-- IF S_IS_INDEX -->is-active<!-- ENDIF -->"><a href="{U_INDEX}" title="{FORUM_LABEL}">{FORUM_LABEL}</a></li>
+
+    <!-- IF S_DISPLAY_SEARCH -->
+    <li class="nav-item has-dropdown">
+      <a class="dropdown-toggle" aria-expanded="false" href="javascript:void(0)">{L_SEARCH} <svg class="css-icon css-icon-caret-down" aria-hidden="true" focusable="false"><use href="#icon-caret-down"></use></svg></a>
+      <ul class="sub-menu">
+        <li><a href="{U_SEARCH}">{L_SEARCH_ADV}</a></li>
+        <li><a href="{U_SEARCH_NEW}">{L_SEARCH_NEW}</a></li>
+        <li><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a></li>
+        <li><a href="{U_SEARCH_UNREAD}">{L_SEARCH_UNREAD}</a></li>
+        <li><a href="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</a></li>
+        <li><a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a></li>
+      </ul> 
+    </li>
+    <!-- ENDIF -->
+
+    <li class="nav-item has-dropdown <!-- IF S_IN_FAQ or S_IN_CALENDAR or S_IN_KNOWLEDGE_BASE or S_IN_MEMBERLIST or S_IN_DL or S_IN_HACKLIST or S_IN_GALLERY or S_IN_MCHAT or S_IN_CONTACT or S_IN_ACTIVITY or S_IN_MEETING or S_IN_BLOG or S_IN_RULES -->is-active<!-- ENDIF -->">
+      <a class="dropdown-toggle" aria-expanded="false" href="javascript:void(0)">
+        <!-- IF SN_MODULE_ACTIVITYPAGE_ENABLED and S_IN_ACTIVITY -->{L_SN_AP_ACTIVITYPAGE}<!-- ENDIF -->      
+        <!-- IF S_IN_FAQ -->{L_FAQ}<!-- ENDIF -->
+        <!-- IF S_IN_KNOWLEDGE_BASE -->{L_KNOWLEDGE_BASE}<!-- ENDIF -->
+        <!-- IF S_IN_CALENDAR -->{L_CALENDAR}<!-- ENDIF -->
+        <!-- IF S_DISPLAY_MEMBERLIST and S_IN_MEMBERLIST -->{L_MEMBERLIST}<!-- ENDIF -->
+        <!-- IF S_SHOW_DL_LINK and S_IN_DL -->{L_DOWNLOADS}<!-- ENDIF -->
+        <!-- IF S_HACKLIST_ON and S_IN_HACKLIST -->{L_HACKLIST}<!-- ENDIF -->
+        <!-- IF S_SHOW_GALL and S_IN_GALLERY -->{L_GALLERY}<!-- ENDIF -->
+        <!-- IF S_MCHAT_ENABLE and U_MCHAT and S_SHOW_CHT and S_IN_MCHAT -->{L_CHAT}<!-- ENDIF -->
+        <!-- IF S_CONTACT_ENABLED and S_IN_CONTACT -->{L_CONTACT_BOARD_ADMIN_SHORT}<!-- ENDIF -->
+        <!-- IF S_IN_BLOG -->{L_BLOG}<!-- ENDIF -->
+        <!-- IF S_IN_RULES -->{L_FORUM_RULES}<!-- ENDIF -->
+        <!-- IF S_IN_MEETING -->{L_MEETINGS}<!-- ENDIF -->
+        <!-- IF not S_IN_ACTIVITY and not S_IN_FAQ and not S_IN_CALENDAR and not S_IN_KNOWLEDGE_BASE and not S_IN_MEMBERLIST and not S_IN_RULES and not S_IN_DL and not S_IN_HACKLIST and not S_IN_GALLERY and not S_IN_MCHAT and not S_IN_CONTACT and not S_IN_MEETING and not S_IN_BLOG -->{L_LINKS}<!-- ENDIF -->
+        <svg class="css-icon css-icon-caret-down" aria-hidden="true" focusable="false"><use href="#icon-caret-down"></use></svg>
+      </a>
+      <ul class="sub-menu">
+        <!-- IF S_SHOW_ACTIVITY -->
+        <li><a href="{U_SN_ACTIVITYPAGE}"><svg class="css-icon css-icon-clipboard" aria-hidden="true" focusable="false"><use href="#icon-clipboard"></use></svg> {L_SN_AP_ACTIVITYPAGE}</a></li>
+        <!-- ENDIF -->
+        <!-- IF S_SHOW_BLOG --><!-- BEGIN blog_links -->
+        <li><a href="{blog_links.URL}"><svg class="css-icon css-icon-book" aria-hidden="true" focusable="false"><use href="#icon-book"></use></svg> {blog_links.TEXT}</a></li>
+        <!-- END blog_links --><!-- ENDIF -->
+        <!-- IF not S_IS_BOT -->
+          <!-- IF S_SHOW_CAL -->
+          <li><a href="{U_CALENDAR}"><svg class="css-icon css-icon-calendar" aria-hidden="true" focusable="false"><use href="#icon-calendar"></use></svg> {L_CALENDAR}</a></li>
+          <!-- ENDIF -->
+          <!-- IF S_SHOW_CHT and S_MCHAT_ENABLE and U_MCHAT -->
+          <li><a href="{U_MCHAT}" title="{L_MCHAT_TITLE}"><svg class="css-icon css-icon-comment" aria-hidden="true" focusable="false"><use href="#icon-comment"></use></svg> {L_CHAT}</a></li>
+          <!-- ENDIF -->
+          <!-- IF S_CONTACT_ENABLED and S_SHOW_CONTACT -->
+          <li><a href="{U_CONTACT}" title="{L_CONTACT_BOARD_ADMIN}"><svg class="css-icon css-icon-message" aria-hidden="true" focusable="false"><use href="#icon-message"></use></svg> {L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
+          <!-- ENDIF -->
+          <!-- IF S_SHOW_DL_LINK and S_SHOW_DLS -->
+          <li><a href="{U_DL_NAVS}"><svg class="css-icon css-icon-download" aria-hidden="true" focusable="false"><use href="#icon-download"></use></svg> {L_DOWNLOADS}</a></li>
+          <!-- ENDIF -->
+          <!-- IF S_BUGTRACKER_ON -->
+          <li><a href="{U_BUG_TRACKER}" title="{L_BUG_TRACKER}"><svg class="css-icon css-icon-bug" aria-hidden="true" focusable="false"><use href="#icon-bug"></use></svg> {L_BUG_TRACKER}</a></li>
+          <!-- ENDIF -->
+        <!-- ENDIF -->
+        <!-- IF S_SHOW_FAQ -->
+        <li><a href="{U_FAQ}"><svg class="css-icon css-icon-help" aria-hidden="true" focusable="false"><use href="#icon-help"></use></svg> {L_FAQ}</a></li>
+        <!-- ENDIF -->
+        <!-- IF S_SHOW_RULES -->
+        <li><a href="{U_RULES}"><svg class="css-icon css-icon-shield" aria-hidden="true" focusable="false"><use href="#icon-shield"></use></svg> {L_FORUM_RULES}</a></li>
+        <!-- ENDIF -->
+        <!-- IF not S_IS_BOT -->
+          <!-- IF S_SHOW_GALL -->
+          <li><a href="{U_GALLERY_MOD}" title="{L_GALLERY_EXPLAIN}"><svg class="css-icon css-icon-image" aria-hidden="true" focusable="false"><use href="#icon-image"></use></svg> {L_GALLERY}</a></li>
+          <!-- ENDIF -->    
+        <!-- ENDIF -->
+        <!-- IF S_SHOW_KB -->
+        <li><a href="{U_KB}"><svg class="css-icon css-icon-info" aria-hidden="true" focusable="false"><use href="#icon-info"></use></svg> {L_KNOWLEDGE_BASE}</a></li>
+        <!-- ENDIF -->
+        <!-- IF not S_IS_BOT -->
+          <!-- IF S_USER_LOGGED_IN and S_SHOW_MEETING -->
+          <li><a href="{U_MEETING_LINK_N}" title="{L_MEETING}"><svg class="css-icon css-icon-meeting" aria-hidden="true" focusable="false"><use href="#icon-meeting"></use></svg> {L_MEETINGS}</a></li>
+          <!-- ENDIF -->
+          <!-- IF S_DISPLAY_MEMBERLIST and S_SHOW_MEM -->
+          <li><a href="{U_MEMBERLIST}"><svg class="css-icon css-icon-users" aria-hidden="true" focusable="false"><use href="#icon-users"></use></svg> {L_MEMBERLIST}</a></li>
+          <!-- ENDIF -->  
+        <!-- ENDIF -->
+        <!-- IF S_HACKLIST_ON -->
+        <li><a href="{U_HACKLIST}" title="{L_HACKLIST}"><svg class="css-icon css-icon-list" aria-hidden="true" focusable="false"><use href="#icon-list"></use></svg> {L_HACKLIST}</a></li>
+        <!-- ENDIF -->
+      </ul>
+    </li>
+
+    <!-- IF not S_IS_BOT -->
+      <!-- IF not S_USER_LOGGED_IN -->
+      <li class="nav-item"><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a></li>
+      <!-- IF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+      <li class="nav-item"><a href="{U_REGISTER}">{L_REGISTER}</a></li>
+      <!-- ENDIF -->
+      <!-- ENDIF -->
+    <!-- ENDIF -->
+
+    <li class="nav-item has-dropdown nav-style">
+      <a class="dropdown-toggle" aria-expanded="false" href="javascript:void(0)" title="{L_STYLE_LIGHT}"><svg class="css-icon css-icon-palette" aria-hidden="true" focusable="false"><use href="#icon-palette"></use></svg></a>
+      <ul class="sub-menu style-sub-menu">
+        <li><a href="javascript:void(0)" class="theme-choice" data-style-color="blue" data-theme-mode="light" title="{L_STYLE_LIGHT}"><span class="theme-swatch theme-swatch-blue-light"><span class="theme-swatch-center"></span></span></a></li>
+        <li><a href="javascript:void(0)" class="theme-choice" data-style-color="blue" data-theme-mode="dark" title="{L_STYLE_DARK}"><span class="theme-swatch theme-swatch-blue-dark"><span class="theme-swatch-center"></span></span></a></li>
+        <li><a href="javascript:void(0)" class="theme-choice" data-style-color="orange" data-theme-mode="light" title="{L_STYLE_LIGHT}"><span class="theme-swatch theme-swatch-orange-light"><span class="theme-swatch-center"></span></span></a></li>
+        <li><a href="javascript:void(0)" class="theme-choice" data-style-color="orange" data-theme-mode="dark" title="{L_STYLE_DARK}"><span class="theme-swatch theme-swatch-orange-dark"><span class="theme-swatch-center"></span></span></a></li>
+      </ul>
+    </li>
+
+    <!-- IF S_USER_LOGGED_IN and not S_IS_BOT -->
+    <li class="nav-item has-dropdown nav-user">
+      <a class="dropdown-toggle username uname" aria-expanded="false" href="javascript:void(0)">{S_USERNAME} <svg class="css-icon css-icon-caret-down" aria-hidden="true" focusable="false"><use href="#icon-caret-down"></use></svg></a>
+      <ul class="sub-menu">
+        <li><a href="{U_PROFILE}"><svg class="css-icon css-icon-user-gear" aria-hidden="true" focusable="false"><use href="#icon-user-gear"></use></svg> {L_PROFILE}</a></li>
+        <li><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><svg class="css-icon css-icon-id-card" aria-hidden="true" focusable="false"><use href="#icon-id-card"></use></svg> {L_READ_PROFILE}</a></li>
+        <!-- IF S_DISPLAY_SEARCH -->
+        <li><a href="{U_SEARCH_SELF}"><svg class="css-icon css-icon-search" aria-hidden="true" focusable="false"><use href="#icon-search"></use></svg> {L_SEARCH_SELF}</a></li>
+        <!-- ENDIF -->
+        <li><a href="{U_PERS_NOTES}"><svg class="css-icon css-icon-edit" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg> {L_PERS_NOTES}</a></li>
+        <!-- IF U_RESTORE_PERMISSIONS -->
+        <li><a href="{U_RESTORE_PERMISSIONS}"><svg class="css-icon css-icon-restore" aria-hidden="true" focusable="false"><use href="#icon-restore"></use></svg> {L_RESTORE_PERMISSIONS}</a></li>
+        <!-- ENDIF -->
+        <li><a href="{U_ACP}"><svg class="css-icon css-icon-gear" aria-hidden="true" focusable="false"><use href="#icon-gear"></use></svg> {L_ACP}</a></li>
+        <li><a href="{U_LOGIN_LOGOUT}"><svg class="css-icon css-icon-power" aria-hidden="true" focusable="false"><use href="#icon-power"></use></svg> {L_LOGIN_LOGOUT}</a></li>    
+      </ul>
+    </li>
+    <!-- ENDIF -->
+
+    <li class="nav-item genarrow arrows right-arrow"><a href="#bottom" title="{L_BOTTOM}"><svg class="css-icon css-icon-arrow-down" aria-hidden="true" focusable="false"><use href="#icon-arrow-down"></use></svg></a></li>
+  </ul>
+</nav>

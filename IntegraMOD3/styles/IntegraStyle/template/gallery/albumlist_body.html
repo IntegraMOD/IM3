@@ -1,0 +1,54 @@
+<!-- BEGIN albumrow -->
+	<!-- IF (albumrow.S_IS_CAT and not albumrow.S_FIRST_ROW) or albumrow.S_NO_CAT -->
+			</div>
+		</section>
+	<!-- ENDIF -->
+
+	<!-- IF albumrow.S_IS_CAT or albumrow.S_FIRST_ROW or albumrow.S_NO_CAT -->
+		<section class="forum-category">
+			<div class="forum-header forum-list-header gallery-album-header">
+				<div class="forum-title"><!-- IF albumrow.S_IS_CAT --><a href="{albumrow.U_VIEWALBUM}">{albumrow.ALBUM_NAME}</a><!-- ELSE -->{L_ALBUM}<!-- ENDIF --></div>
+				<div class="forum-stats-header posts">{L_IMAGES}</div>
+				<div class="forum-stats-header last-post">{L_LAST_IMAGE}</div>
+			</div>
+			<div class="forum-list">
+	<!-- ENDIF -->
+
+	<!-- IF not albumrow.S_IS_CAT -->
+				<div class="forum-row">
+					<div class="forum-icon read" title="{albumrow.ALBUM_FOLDER_IMG_ALT}">
+						<!-- IF albumrow.ALBUM_IMAGE --><span class="forum-image"><img src="{T_IMAGES_PATH}{albumrow.ALBUM_IMAGE}" alt="{albumrow.ALBUM_NAME}" /></span><!-- ELSE --><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-image"></use></svg><!-- ENDIF -->
+					</div>
+					<div class="forum-details">
+						<a href="{albumrow.U_VIEWALBUM}" class="forumtitle"<!-- IF S_PERSONAL_GALLERY and albumrow.ALBUM_COLOUR --> style="color: {albumrow.ALBUM_COLOUR};"<!-- ENDIF -->>{albumrow.ALBUM_NAME}</a>
+						<!-- IF albumrow.ALBUM_DESC --><div class="forum-desc">{albumrow.ALBUM_DESC}</div><!-- ENDIF -->
+						<!-- IF albumrow.MODERATORS --><div class="forum-mods"><strong>{albumrow.L_MODERATOR_STR}:</strong> {albumrow.MODERATORS}</div><!-- ENDIF -->
+						<!-- IF albumrow.SUBALBUMS and albumrow.S_LIST_SUBALBUMS --><div class="forum-subforums"><strong>{albumrow.L_SUBALBUM_STR}</strong> {albumrow.SUBALBUMS}</div><!-- ENDIF -->
+					</div>
+					<div class="forum-stats-grid">
+						<div class="stat-posts">{albumrow.IMAGES}<!-- IF albumrow.UNAPPROVED_IMAGES --> + <span class="reported-images-number">{albumrow.UNAPPROVED_IMAGES}</span><!-- ENDIF --> <dfn>{L_IMAGES}</dfn></div>
+						<div class="stat-lastpost">
+							<!-- IF albumrow.LAST_IMAGE_TIME -->
+								<!-- IF albumrow.UC_FAKE_THUMBNAIL --><span class="gallery-last-thumb">{albumrow.UC_FAKE_THUMBNAIL}</span><!-- ENDIF -->
+								<div class="lastpost-meta">
+									<dfn>{L_LAST_IMAGE}</dfn> {albumrow.UC_IMAGE_NAME}<br />
+									{L_POST_BY_AUTHOR} {albumrow.LAST_USER_FULL} {albumrow.UC_LASTIMAGE_ICON}<br />
+									{albumrow.LAST_IMAGE_TIME}
+								</div>
+							<!-- ELSE -->
+								{L_NO_IMAGES}
+							<!-- ENDIF -->
+						</div>
+					</div>
+				</div>
+	<!-- ENDIF -->
+
+	<!-- IF albumrow.S_LAST_ROW -->
+			</div>
+		</section>
+	<!-- ENDIF -->
+<!-- BEGINELSE -->
+	<section class="forum-category panel">
+		<div class="no-forums"><strong>{L_NO_ALBUMS}</strong></div>
+	</section>
+<!-- END albumrow -->

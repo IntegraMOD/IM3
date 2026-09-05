@@ -1,0 +1,204 @@
+<!-- INCLUDE overall_header.html -->
+
+<form id="postform" method="post" action="{S_POST_ACTION}" {S_FORM_ENCTYPE} data-apply-onkeypress="1"<!-- IF not S_EDIT and S_SEO_URI --> data-kb-seo="1"<!-- ENDIF -->>
+<!-- IF S_DISPLAY_PREVIEW --><!-- INCLUDE posting_preview.html --><!-- ENDIF -->
+
+<section class="ucp-card posting-card" id="postingbox">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_POST_A}</h3>
+	</div>
+	<div class="ucp-card-body">
+		<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+		<div class="kb-posting-grid">
+			<fieldset class="fields1 ucp-form-grid">
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="title">{L_ARTICLE_TITLE}:</label>
+					<input type="text" name="title" id="title" size="45" maxlength="64" tabindex="1" value="{TITLE}" class="inputbox autowidth ucp-form-input"<!-- IF not S_EDIT and S_SEO_URI --> data-kb-seo-source="1"<!-- ENDIF --> />
+				</div>
+				<!-- IF S_SEO_URI -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="page_uri">{L_FIENAME}:</label>
+					<div class="ucp-form-inline">
+						<input type="text" name="page_uri" id="page_uri" size="45" maxlength="64" tabindex="2" value="{PAGE_URI}" class="inputbox autowidth ucp-form-input" />
+						<span>.html</span>
+					</div>
+				</div>
+				<!-- ENDIF -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="description">{L_ARTICLE_DESCRIPTION}:</label>
+					<textarea cols="40" rows="4" id="description" tabindex="3" name="description" class="inputbox autowidth ucp-form-textarea">{DESCRIPTION}</textarea>
+				</div>
+			</fieldset>
+			<fieldset class="fields1 ucp-form-grid">
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="cat_id">{L_CATEGORIE}:</label>
+					<select size="1" tabindex="4" id="cat_id" name="cat_id" class="ucp-form-select">{CAT_LIST}</select>
+				</div>
+				<!-- IF S_ARTICLE_TYPES -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="type_id">{L_TYPE}:</label>
+					<select size="1" tabindex="5" id="type_id" name="type_id" class="ucp-form-select">{TYPE_LIST}</select>
+				</div>
+				<!-- ELSE -->
+				<input type="hidden" name="type_id" value="{TYPE_ID}" />
+				<!-- ENDIF -->
+				<!-- IF S_EDIT_MODE -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="post_id">{L_POST_ID}:</label>
+					<input type="text" name="post_id" id="post_id" size="4" maxlength="64" tabindex="6" value="{POST_ID}" class="inputbox autowidth ucp-form-input" />
+				</div>
+				<!-- ENDIF -->
+				<!-- IF S_ACTIVATE_ARTICLE -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="activ">{L_AKTIVATE}:</label>
+					<input type="checkbox" name="activ" id="activ" tabindex="7" value="1" {ACTIV} />
+				</div>
+				<!-- ENDIF -->
+			</fieldset>
+		</div>
+		<fieldset class="fields1 posting-editor">
+			<!-- INCLUDE posting_buttons.html -->
+			<div id="smiley-box">
+				<!-- IF .smiley -->
+					<strong>{L_SMILIES}</strong><br />
+					<!-- BEGIN smiley -->
+						<a href="javascript:void(0)" data-action="insert-smiley" data-smiley-code="{smiley.A_SMILEY_CODE}"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+					<!-- END smiley -->
+				<!-- ENDIF -->
+				<!-- IF U_MORE_SMILIES -->
+					<br /><a href="{U_MORE_SMILIES}" data-action="popup" data-popup-width="300" data-popup-height="350" data-popup-target="_phpbbsmilies">{L_MORE_SMILIES}</a>
+				<!-- ENDIF -->
+				<hr />
+				{BBCODE_STATUS}<br />
+				{L_IMAGES_ARE_ON}<br />
+				{L_FLASH_IS_ON}<br />
+				{L_URL_IS_ON}<br />
+				{L_SMILIES_ARE_ON}
+			</div>
+			<div id="message-box">
+				<textarea name="message" id="message" rows="20" cols="76" tabindex="8" class="inputbox" data-store-caret="1">{MESSAGE}</textarea>
+			</div>
+		</fieldset>
+	</div>
+</section>
+
+<!-- IF S_HAS_ATTACHMENTS -->
+<section class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_POSTED_ATTACHMENTS}</h3>
+	</div>
+	<div class="ucp-card-body">
+		<fieldset class="fields2 ucp-form-grid">
+		<!-- BEGIN attach_row -->
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="comment_list[{attach_row.ASSOC_INDEX}]">{L_FILE_COMMENT}:</label>
+				<textarea name="comment_list[{attach_row.ASSOC_INDEX}]" id="comment_list[{attach_row.ASSOC_INDEX}]" rows="1" cols="35" class="inputbox">{attach_row.FILE_COMMENT}</textarea>
+				<p><a href="{attach_row.U_VIEW_ATTACHMENT}" class="{S_CONTENT_FLOW_END}">{attach_row.FILENAME}</a></p>
+				<div class="ucp-actions">
+					<!-- IF S_INLINE_ATTACHMENT_OPTIONS --><input type="button" value="{L_PLACE_INLINE}" class="button2" data-action="attach-inline" data-attach-index="{attach_row.ASSOC_INDEX}" data-attach-name="{attach_row.A_FILENAME}" /><!-- ENDIF -->
+					<input type="submit" name="delete_file[{attach_row.ASSOC_INDEX}]" value="{L_DELETE_FILE}" class="button2" />
+				</div>
+			</div>
+			{attach_row.S_HIDDEN}
+		<!-- END attach_row -->
+		</fieldset>
+	</div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_EDIT -->
+<section class="ucp-card">
+	<div class="ucp-card-body">
+		<label class="ucp-form-label" for="edit_reason">{L_EDIT_REASON}</label>
+		<input type="text" name="edit_reason" id="edit_reason" value="{EDIT_REASON}" size="80" tabindex="9" class="inputbox autowidth ucp-form-input" />
+	</div>
+</section>
+<!-- ENDIF -->
+
+<div class="ucp-actions posting-actions">
+	{S_HIDDEN_FIELDS}
+	{S_FORM_TOKEN}
+	<input type="submit" tabindex="10" name="preview" value="{L_PREVIEW}" class="button1" data-action="post-preview" />
+	<input type="submit" accesskey="s" tabindex="11" name="post" value="{L_SUBMIT}" class="button1" />
+</div>
+
+<nav id="tabs" class="posting-tabs" aria-label="{L_OPTIONS}">
+	<ul>
+		<li id="options-panel-tab" class="activetab"><a href="#options-panel" data-action="subpanel" data-panel="options-panel"><span>{L_OPTIONS}</span></a></li>
+		<!-- IF S_SHOW_ATTACH_BOX --><li id="attach-panel-tab"><a href="#attach-panel" data-action="subpanel" data-panel="attach-panel"><span>{L_ADD_ATTACHMENT}</span></a></li><!-- ENDIF -->
+		<!-- IF S_ACTIV_DIFF and .diff_row --><li id="poll-panel-tab"><a href="#poll-panel" data-action="subpanel" data-panel="poll-panel"><span>{L_OLD_VERSIONS}</span></a></li><!-- ENDIF -->
+	</ul>
+</nav>
+
+<section class="ucp-card posting-options" id="options-panel">
+	<div class="ucp-card-body">
+		<fieldset class="fields1 ucp-form-grid">
+			<div><label for="disable_bbcode"><input type="checkbox" name="disable_bbcode" id="disable_bbcode"{S_BBCODE_CHECKED} /> {L_DISABLE_BBCODE}</label></div>
+			<div><label for="disable_smilies"><input type="checkbox" name="disable_smilies" id="disable_smilies"{S_SMILIES_CHECKED} /> {L_DISABLE_SMILIES}</label></div>
+			<div><label for="disable_magic_url"><input type="checkbox" name="disable_magic_url" id="disable_magic_url"{S_MAGIC_URL_CHECKED} /> {L_DISABLE_MAGIC_URL}</label></div>
+		</fieldset>
+	</div>
+</section>
+
+<!-- IF S_SHOW_ATTACH_BOX -->
+<section class="ucp-card" id="attach-panel" hidden>
+	<div class="ucp-card-body">
+		<p>{L_ADD_ATTACHMENT_EXPLAIN}</p>
+		<fieldset class="fields2 ucp-form-grid">
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="fileupload">{L_FILENAME}:</label>
+				<input type="file" name="fileupload" id="fileupload" maxlength="{FILESIZE}" value="" class="inputbox autowidth" />
+				<input type="submit" name="add_file" value="{L_ADD_FILE}" class="button2" />
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="filecomment">{L_FILE_COMMENT}:</label>
+				<textarea name="filecomment" id="filecomment" rows="1" cols="40" class="inputbox autowidth">{FILE_COMMENT}</textarea>
+			</div>
+		</fieldset>
+	</div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF .diff_row and S_ACTIV_DIFF-->
+<section class="ucp-card" id="poll-panel" hidden>
+	<div class="ucp-card-body">
+		<header class="forum-header mcp-list-header">
+			<div class="forum-title">{L_TIME}</div>
+			<div class="forum-stats-header">{L_USER}</div>
+			<div class="forum-stats-header">{L_EDIT_REASON}</div>
+			<!-- IF S_DELETE_DIFF or S_RESTORE_ARTICLE --><div class="forum-stats-header">{L_ACTION}</div><!-- ENDIF -->
+		</header>
+		<!-- BEGIN diff_row -->
+		<article class="forum-row mcp-list-row bg1">
+			<div class="forum-details"><strong><a href="{diff_row.U_DIFF}">{L_CHANGED_AT} {diff_row.TIME}</a></strong></div>
+			<div class="forum-stats-grid mcp-list-stats">
+				<div>{diff_row.USER}</div>
+				<div>{diff_row.EDIT_REASON}</div>
+				<!-- IF S_DELETE_DIFF or S_RESTORE_ARTICLE -->
+				<div>
+					<!-- IF S_DELETE_DIFF --><a href="{diff_row.U_DELETE}">{L_DELETE}</a><!-- ENDIF -->
+					<!-- IF S_RESTORE_ARTICLE --> <a href="{diff_row.U_RESTORE}">{L_RESTORE}</a><!-- ENDIF -->
+				</div>
+				<!-- ENDIF -->
+			</div>
+		</article>
+		<!-- END diff_row -->
+	</div>
+</section>
+<!-- ENDIF -->
+</form>
+<!-- IF DIFF_MESSAGE and S_ACTIV_DIFF -->
+<section class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{DIFFERENCE}</h3>
+	</div>
+	<div class="ucp-card-body">
+		<a id="diff" name="diff"></a>
+		<div class="diff_codepanel">{DIFF_MESSAGE}</div>
+	</div>
+</section>
+<!-- ENDIF -->
+<!-- INCLUDE overall_footer.html -->
+
+
+

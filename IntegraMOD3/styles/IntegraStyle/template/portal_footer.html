@@ -1,0 +1,37 @@
+<!-- IF STARGATE -->
+
+	</div><!-- close center -->
+
+		<!-- IF S_SHOW_RIGHT_BLOCKS -->
+        <div class="r_block_vert_gap rtl portal-column portal-column-right" id="right" data-portal-column="right" data-portal-cookie="right_blocks_col_hide">
+			<!-- INCLUDE portal_layout_right.html -->
+		</div>
+		<!-- ENDIF -->
+
+	</div><!-- close p_row_ -->
+</div><!-- close p_container_ -->
+
+
+	<!-- Comment:
+	We do not process the block move/arrange unless user select this option...
+	This prevents js reports and ensures the scroll work correctly... Added: 09 March 2008 Mike.
+	-->
+    <!-- IF S_IS_PORTAL and S_ARRANGE -->
+    <div id="portal-arrange-state" data-cookie-name="{COOKIE_NAME}" data-arrange-enabled="true"></div>
+		<!-- DO NOT DELETE THIS CODE -->
+        <div class="portal-debug-state">
+			<pre id="leftdebug"></pre>
+			<pre id="centerdebug"></pre>
+			<pre id="rightdebug"></pre>
+		</div>
+	<!-- ENDIF -->
+
+	<!-- IF S_IS_PORTAL and not S_ARRANGE -->
+    <div id="portal-cache-state" data-cookie-name="{COOKIE_NAME}" data-cache-value="300"></div>
+	<!-- ENDIF -->
+
+	<!-- IF S_CLEAR_CACHE -->
+    <div id="portal-clear-cache-state" data-cookie-name="{COOKIE_NAME}"></div>
+	<!-- ENDIF -->
+
+<!-- ENDIF -->

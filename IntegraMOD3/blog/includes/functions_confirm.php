@@ -85,7 +85,7 @@ function blog_confirm($title, $explain, $display_vars, $submit_type = 'submit/re
 			$template->assign_block_vars('options', array(
 				'S_LEGEND'		=> true,
 				'LEGEND'		=> (isset($user->lang[$vars]) ? $user->lang[$vars] : $vars),
-			);
+			));
 
 			continue;
 		}

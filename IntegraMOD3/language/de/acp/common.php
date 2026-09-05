@@ -59,6 +59,9 @@ $lang = array_merge($lang, array(
 	'ACP_BOARD_FEATURES'		=> 'Board-Funktionalitäten',
 	'ACP_BOARD_MANAGEMENT'		=> 'Board-Verwaltung',
 	'ACP_BOARD_SETTINGS'		=> 'Board-Einstellungen',
+	'ACP_PUSH_NOTIFICATIONS'	=> 'Push-Benachrichtigungen',
+	'ACP_PUSH_SETTINGS'		    => 'Push-Benachrichtigungseinstellungen',
+	'ACP_PUSH_SEND'				=> 'Push-Benachrichtigung senden',
 	'ACP_BOTS'					=> 'Spiders/Robots',
 
 	'ACP_CAPTCHA'				=> 'CAPTCHA',

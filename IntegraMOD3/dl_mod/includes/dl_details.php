@@ -627,11 +627,11 @@ if (($file_load || $user_can_alltimes_load) && !$user->data['is_bot'])
 	{
 		if ($config['dl_prevent_hotlink'])
 		{
-			$hotlink_id = md5($user->data['user_id'] . time() . $df_id . $user->data['session_id']);
+			$hotlink_id = md5($user->data['user_id'] . time() . $df_id . $user->session_id);
 
 			$sql = 'INSERT INTO ' . DL_HOTLINK_TABLE . ' ' . $db->sql_build_array('INSERT', array(
 				'user_id'		=> $user->data['user_id'],
-				'session_id'	=> $user->data['session_id'],
+				'session_id'	=> $user->session_id,
 				'hotlink_id'	=> $hotlink_id));
 			$db->sql_query($sql);
 		}
@@ -766,7 +766,7 @@ if (($file_load || $user_can_alltimes_load) && !$user->data['is_bot'])
 			{
 				$sql = 'INSERT INTO ' . DL_HOTLINK_TABLE . ' ' . $db->sql_build_array('INSERT', array(
 					'user_id'		=> $user->data['user_id'],
-					'session_id'	=> $user->data['session_id'],
+					'session_id'	=> $user->session_id,
 					'hotlink_id'	=> 'dlvc',
 					'code'			=> $code));
 				$db->sql_query($sql);

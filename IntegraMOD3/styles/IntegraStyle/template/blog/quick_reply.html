@@ -1,0 +1,16 @@
+<section id="quick_reply" class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_POST_A_NEW_REPLY}</h3>
+	</div>
+	<div class="ucp-card-body">
+		<form action="{U_QUICK_REPLY}" method="post" id="postform" class="ucp-form-grid">
+			<textarea name="message" id="message" rows="6" cols="100" class="inputbox ucp-form-textarea"></textarea>
+			<input type="hidden" name="subject" value="Re: <!-- BEGIN blogrow(0,0) -->{blogrow.TITLE}<!-- END blogrow -->" />
+			<div class="ucp-actions">
+				<input type="submit" name="preview" tabindex="6" value="{L_PREVIEW}" class="button1" data-action="post-preview" />
+				<input type="submit" name="post" tabindex="5" value="{L_SUBMIT}" class="button1" accesskey="s" />
+				{S_FORM_TOKEN}
+			</div>
+		</form>
+	</div>
+</section>

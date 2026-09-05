@@ -1,0 +1,49 @@
+<!-- INCLUDE gallery/imageblock_body.html -->
+
+<!-- IF .commentrow -->
+	<h4><!-- IF not COLLAPSE_COMMENTS --><!-- IF U_G_SEARCH_COMMENTED --><a href="{U_G_SEARCH_COMMENTED}">{L_RECENT_COMMENTS}</a><!-- ELSE -->{L_RECENT_COMMENTS}<!-- ENDIF --><!-- ELSE --><a href="{U_G_SEARCH_COMMENTED}" data-action="toggle-display" data-toggle-id="recent-comments">{L_RECENT_COMMENTS}</a><!-- ENDIF --></h4>
+	<div id="recent-comments"<!-- IF COLLAPSE_COMMENTS --> hidden="hidden"<!-- ENDIF -->>
+	<!-- BEGIN commentrow -->
+	<article id="comment_{commentrow.COMMENT_ID}" class="viewtopic-post-inner">
+		<section class="post-profile">
+			<p>{L_COMMENT_ON}: {commentrow.UC_IMAGE_NAME}</p>
+			{commentrow.UC_THUMBNAIL}
+			<p>{L_UPLOADED_BY_USER} {commentrow.IMAGE_AUTHOR}</p>
+			<p>{commentrow.IMAGE_TIME}</p>
+		</section>
+		<section class="ucp-card">
+			<div class="ucp-card-body">
+				<!-- IF commentrow.U_DELETE or commentrow.U_EDIT or commentrow.U_INFO or commentrow.U_QUOTE -->
+				<p class="dl-toolbar">
+					<!-- IF commentrow.U_EDIT --><a href="{commentrow.U_EDIT}" title="{L_EDIT_COMMENT}">{L_EDIT_COMMENT}</a><!-- ENDIF -->
+					<!-- IF commentrow.U_DELETE --><a href="{commentrow.U_DELETE}" title="{L_DELETE_COMMENT}">{L_DELETE_COMMENT}</a><!-- ENDIF -->
+					<!-- IF commentrow.U_INFO --><a href="{commentrow.U_INFO}" title="{L_IP}" data-action="popup" data-popup-width="750" data-popup-height="500">{L_IP}</a><!-- ENDIF -->
+					<!-- IF commentrow.U_QUOTE --><a href="{commentrow.U_QUOTE}" title="{L_QUOTE_COMMENT}">{L_QUOTE_COMMENT}</a><!-- ENDIF -->
+				</p>
+				<!-- ENDIF -->
+				<p class="author"><a href="{commentrow.U_COMMENT}">{L_POST_BY_AUTHOR}</a> <strong>{commentrow.POST_AUTHOR_FULL}</strong> &raquo; {commentrow.TIME}</p>
+				<div class="content">{commentrow.TEXT}</div>
+			</div>
+		</section>
+	</article>
+	<!-- END commentrow -->
+	</div>
+<!-- ENDIF -->
+
+<!-- IF (.recent or .random or .contest or .commentrow) and not S_IN_GALLERY -->
+<!--
+	I request you retain the full copyright notice below including the link to www.flying-bits.org.
+	This not only gives respect to the large amount of time given freely by the developer
+	but also helps build interest, traffic and use of phpBB Gallery. If you (honestly) cannot retain
+	the full copyright I ask you at least leave in place the "Powered by phpBB Gallery" line, with
+	"phpBB Gallery" linked to www.flying-bits.org. If you refuse to include even this then support on my
+	forums may be affected.
+
+	phpBB Gallery, nickvergessen : 2009
+//-->
+<div class="copyright">
+	Powered by <a href="http://www.flying-bits.org/">phpBB Gallery</a> &copy; 2007, 2009 <a href="http://www.flying-bits.org/">nickvergessen</a>
+	<!-- IF GALLERY_TRANSLATION_INFO --><br />{GALLERY_TRANSLATION_INFO}<!-- ENDIF -->
+</div>
+<br />
+<!-- ENDIF -->

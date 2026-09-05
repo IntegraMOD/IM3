@@ -132,11 +132,28 @@ class sn_core_entry extends sn_core_entry_gets
             $sql_where[] = "sn_e.entry_time " . ($older ? '<' : '>') . " {$last_time}";
         }
         $sql_where[] = $db->sql_in_set('sn_e.entry_type', $this->types);
+        $sql_where[] = 'sn_foes.zebra_id IS NULL';
+        $sql_where[] = 'sn_foes_owner.zebra_id IS NULL';
+        $sql_where[] = '(COALESCE(sn_u.sn_privacy_level, 0) = 0 OR (COALESCE(sn_u.sn_privacy_level, 0) = 1 AND ' . $db->sql_in_set('sn_e.user_id', $this->friends, false, true) . '))';
 
         $sql_ary = array(
-            'SELECT'   => '*',
+            'SELECT'   => 'sn_e.*',
             'FROM'     => array(
                 SN_ENTRIES_TABLE => 'sn_e'
+            ),
+            'LEFT_JOIN' => array(
+                array(
+                    'FROM' => array(SN_USERS_TABLE => 'sn_u'),
+                    'ON'   => 'sn_u.user_id = sn_e.user_id',
+                ),
+                array(
+                    'FROM' => array(ZEBRA_TABLE => 'sn_foes'),
+                    'ON'   => 'sn_foes.user_id = ' . (int) $user->data['user_id'] . ' AND sn_foes.zebra_id = sn_e.user_id AND sn_foes.foe = 1',
+                ),
+                array(
+                    'FROM' => array(ZEBRA_TABLE => 'sn_foes_owner'),
+                    'ON'   => 'sn_foes_owner.user_id = sn_e.user_id AND sn_foes_owner.zebra_id = ' . (int) $user->data['user_id'] . ' AND sn_foes_owner.foe = 1',
+                ),
             ),
             'WHERE'    => implode(' AND ', $sql_where),
             'ORDER_BY' => 'sn_e.entry_time DESC'
@@ -335,27 +352,33 @@ class sn_core_entry_gets
 
         if (!isset($this->friends_entry[$entry_uid])) {
             $sql = "SELECT user_id, username, user_colour
-					FROM " . USERS_TABLE . "
-					WHERE user_id = " . $entry_uid;
+                    FROM " . USERS_TABLE . "
+                    WHERE user_id = " . (int) $entry_uid;
             $u1_result = $db->sql_query($sql);
             $this->friends_entry[$entry_uid] = $db->sql_fetchrow($u1_result);
+            if (!$this->friends_entry[$entry_uid]) {
+                $this->friends_entry[$entry_uid] = array('user_id' => 0, 'username' => '', 'user_colour' => '');
+            }
             $db->sql_freeresult($u1_result);
         }
 
         if (!isset($this->friends_entry[$entry_target])) {
             $sql = "SELECT user_id, username, user_colour
-					FROM " . USERS_TABLE . "
-					WHERE user_id = " . $entry_target;
+                    FROM " . USERS_TABLE . "
+                    WHERE user_id = " . (int) $entry_target;
             $u2_result = $db->sql_query($sql);
             $this->friends_entry[$entry_target] = $db->sql_fetchrow($u2_result);
+            if (!$this->friends_entry[$entry_target]) {
+                $this->friends_entry[$entry_target] = array('user_id' => 0, 'username' => '', 'user_colour' => '');
+            }
             $db->sql_freeresult($u2_result);
         }
 
         return array(
             'USER1_USERNAME'  => $this->friends_entry[$entry_uid]['username'],
             'USER2_USERNAME'  => $this->friends_entry[$entry_target]['username'],
-            'U_USER1_PROFILE' => $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $this->friends_entry[$entry_uid]['user_id'], $this->friends_entry[$entry_uid]['username'], $this->friends_entry[$entry_uid]['user_colour']),
-            'U_USER2_PROFILE' => $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $this->friends_entry[$entry_target]['user_id'], $this->friends_entry[$entry_target]['username'], $this->friends_entry[$entry_target]['user_colour']),
+            'U_USER1_PROFILE' => ($this->friends_entry[$entry_uid]['user_id'] ? $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $this->friends_entry[$entry_uid]['user_id'], $this->friends_entry[$entry_uid]['username'], $this->friends_entry[$entry_uid]['user_colour']) : ''),
+            'U_USER2_PROFILE' => ($this->friends_entry[$entry_target]['user_id'] ? $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $this->friends_entry[$entry_target]['user_id'], $this->friends_entry[$entry_target]['username'], $this->friends_entry[$entry_target]['user_colour']) : ''),
         );
     }
 
@@ -367,10 +390,13 @@ class sn_core_entry_gets
         global $db, $template, $user;
 
         $sql = "SELECT user_id, username, user_colour
-		        FROM " . USERS_TABLE . "
-				WHERE user_id = " . $entry_uid;
+                FROM " . USERS_TABLE . "
+                WHERE user_id = " . (int) $entry_uid;
         $result = $db->sql_query($sql);
         $entry_user = $db->sql_fetchrow($result);
+        if (!$entry_user) {
+            $entry_user = array('user_id' => 0, 'username' => '', 'user_colour' => '');
+        }
         $db->sql_freeresult($result);
 
         $entry_add = '';
@@ -411,11 +437,11 @@ class sn_core_entry_gets
         }
 
         return array(
-            'USERNAME'                => $entry_user['username'],
-            'U_PROFILE'               => $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $entry_user['user_id'], $entry_user['username'], $entry_user['user_colour']),
+            'USERNAME'                => $entry_user['user_id'] ? $entry_user['username'] : '',
+            'U_PROFILE'               => ($entry_user['user_id'] ? $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $entry_user['user_id'], $entry_user['username'], $entry_user['user_colour']) : ''),
             'PROFILE_FIELDS'          => $entry_add,
-            'L_SN_AP_CHANGED_PROFILE' => $user->lang[$this->p_master->gender_lang('SN_AP_CHANGED_PROFILE', $entry_user['user_id'])],
-            'L_SN_UP_CHANGED_AVATAR'  => $user->lang[$this->p_master->gender_lang('SN_UP_CHANGED_AVATAR', $entry_user['user_id'])],
+            'L_SN_AP_CHANGED_PROFILE' => ($entry_user['user_id'] ? $user->lang[$this->p_master->gender_lang('SN_AP_CHANGED_PROFILE', $entry_user['user_id'])] : ''),
+            'L_SN_UP_CHANGED_AVATAR'  => ($entry_user['user_id'] ? $user->lang[$this->p_master->gender_lang('SN_UP_CHANGED_AVATAR', $entry_user['user_id'])] : ''),
         );
     }
 
@@ -427,10 +453,13 @@ class sn_core_entry_gets
         global $db, $template, $phpbb_root_path, $phpEx, $socialnet, $user;
 
         $sql = "SELECT user_id, username, user_colour
-		FROM " . USERS_TABLE . "
-		WHERE user_id = " . $entry_uid;
+        FROM " . USERS_TABLE . "
+        WHERE user_id = " . (int) $entry_uid;
         $result = $db->sql_query($sql);
         $entry_user = $db->sql_fetchrow($result);
+        if (!$entry_user) {
+            $entry_user = array('user_id' => 0, 'username' => '', 'user_colour' => '');
+        }
         $db->sql_freeresult($result);
 
         $partner_id = $family_id = 0;
@@ -444,10 +473,13 @@ class sn_core_entry_gets
                     $family_id = $entry_addArray['family'];
 
                     $sql = "SELECT username, user_colour
-					FROM " . USERS_TABLE . "
-					WHERE user_id = " . $family_id;
+                    FROM " . USERS_TABLE . "
+                    WHERE user_id = " . (int) $family_id;
                     $result = $db->sql_query($sql);
                     $family = $db->sql_fetchrow($result);
+                    if (!$family) {
+                        $family = array('username' => '', 'user_colour' => '');
+                    }
                     $db->sql_freeresult($result);
                 } else {
                     $family_name = $entry_addArray['family'];
@@ -464,10 +496,13 @@ class sn_core_entry_gets
                         $partner_id = $entry_addArray['relationship'];
 
                         $sql = "SELECT username, user_colour
-						FROM " . USERS_TABLE . "
-						WHERE user_id = " . $partner_id;
+                        FROM " . USERS_TABLE . "
+                        WHERE user_id = " . (int) $partner_id;
                         $result = $db->sql_query($sql);
                         $partner = $db->sql_fetchrow($result);
+                        if (!$partner) {
+                            $partner = array('username' => '', 'user_colour' => '');
+                        }
                         $db->sql_freeresult($result);
                     } else {
                         $partner_name = $entry_addArray['relationship'];
@@ -494,11 +529,11 @@ class sn_core_entry_gets
 
         return array(
             'STATUS'                          => ($entry_status && $entry_type == SN_TYPE_NEW_RELATIONSHIP) ? $entry_status : '',
-            'USERNAME'                        => $entry_user['username'],
-            'U_PROFILE'                       => $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $entry_user['user_id'], $entry_user['username'], $entry_user['user_colour']),
+            'USERNAME'                        => $entry_user['user_id'] ? $entry_user['username'] : '',
+            'U_PROFILE'                       => ($entry_user['user_id'] ? $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $entry_user['user_id'], $entry_user['username'], $entry_user['user_colour']) : ''),
             'U_PARTNER_PROFILE'               => $rel_msg,
             'L_SN_AP_ADDED_NEW_FAMILY_MEMBER' => $family_msg,
-            'L_SN_AP_CHANGED_RELATIONSHIP'    => $user->lang[$this->p_master->gender_lang('SN_AP_CHANGED_RELATIONSHIP', $entry_user['user_id'])],
+            'L_SN_AP_CHANGED_RELATIONSHIP'    => ($entry_user['user_id'] ? $user->lang[$this->p_master->gender_lang('SN_AP_CHANGED_RELATIONSHIP', $entry_user['user_id'])] : ''),
         );
     }
 
@@ -510,17 +545,23 @@ class sn_core_entry_gets
         global $db, $template, $phpbb_root_path, $phpEx;
 
         $sql = "SELECT user_id, username, user_colour
-				FROM " . USERS_TABLE . "
-				WHERE user_id = " . $entry_uid;
+                FROM " . USERS_TABLE . "
+                WHERE user_id = " . (int) $entry_uid;
         $result = $db->sql_query($sql);
         $entry_user = $db->sql_fetchrow($result);
+        if (!$entry_user) {
+            $entry_user = array('user_id' => 0, 'username' => '', 'user_colour' => '');
+        }
         $db->sql_freeresult($result);
 
         $u2_sql = "SELECT user_id, username, user_colour
-				FROM " . USERS_TABLE . "
-				WHERE user_id = " . $entry_target;
+                FROM " . USERS_TABLE . "
+                WHERE user_id = " . (int) $entry_target;
         $u2_result = $db->sql_query($u2_sql);
         $user2 = $db->sql_fetchrow($u2_result);
+        if (!$user2) {
+            $user2 = array('user_id' => 0, 'username' => '', 'user_colour' => '');
+        }
         $db->sql_freeresult($u2_result);
 
         $entry_addArray = unserialize($entry_additionals);
@@ -531,6 +572,9 @@ class sn_core_entry_gets
 				WHERE emote_id = " . $emote_id;
         $result = $db->sql_query($sql);
         $emote = $db->sql_fetchrow($result);
+        if (!$emote) {
+            $emote = array('emote_name' => '', 'emote_image' => '');
+        }
         $db->sql_freeresult($result);
 
         $template->assign_vars(array(
@@ -538,8 +582,8 @@ class sn_core_entry_gets
             ));
 
         return array(
-            'U_USER1_PROFILE' => $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $entry_user['user_id'], $entry_user['username'], $entry_user['user_colour']),
-            'U_USER2_PROFILE' => $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $user2['user_id'], $user2['username'], $user2['user_colour']),
+            'U_USER1_PROFILE' => ($entry_user['user_id'] ? $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $entry_user['user_id'], $entry_user['username'], $entry_user['user_colour']) : ''),
+            'U_USER2_PROFILE' => ($user2['user_id'] ? $this->p_master->get_username_string($this->p_master->config['ap_colour_username'], 'full', $user2['user_id'], $user2['username'], $user2['user_colour']) : ''),
             'EMOTE_NAME'      => $emote['emote_name'],
             'EMOTE_IMAGE'     => ($emote['emote_image'] != '') ? $emote['emote_image'] : '',
         );

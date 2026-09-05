@@ -144,5 +144,3 @@ class ucp_push
         }
     }
 }
-
-?>

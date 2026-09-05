@@ -104,7 +104,7 @@ if (!class_exists('socialnet_im')) {
                 // OLD COOKIE SYSTEM
                 //$c_onlinelistName = $config['cookie_name'] . '_sn_im_online';
                 //$c_onlinelist = request_var($c_onlinelistName, 'true', false, true);
-                $c_onlinelist = $this->p_master->getCookie('sn_im_online', 'true');
+                $c_onlinelist = $this->p_master->getCookie('sn_im_online', 'false');
 
                 $template_assign_vars = array_merge($template_assign_vars, array(
                     'SN_IM_MODE'			 => 'startIM',

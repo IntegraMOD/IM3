@@ -79,7 +79,7 @@ $lang = array_merge($lang, array(
 	'SN_US_CHOOSE_THUMB'					 => 'images',
 	'SN_CB_FETCH_ERROR'						 => 'An error was encountered when fetching the web page',
 
-	'SN_AP_ACTIVITYPAGE'					 => 'What\'s new?',
+	'SN_AP_ACTIVITYPAGE'					 => 'My Network',
 	'SN_AP_AND'								 => 'and',
 	'SN_AP_ARE_FRIENDS'						 => 'are now friends',
 	'SN_AP_ADD_AS_FRIEND'					 => 'Add as a Friend',
@@ -142,6 +142,13 @@ $lang = array_merge($lang, array(
 	'SN_UP_HOMETOWN'						 => 'Hometown',
 	'SN_UP_SEX'								 => 'Sex',
 	'SN_UP_INTERESTED_IN'					 => 'Interested in',
+	'SN_UP_PRIVACY_LEVEL'					 => 'Privacy level',
+	'SN_UP_PRIVACY_PRIVATE'					 => 'Private (Admins only)',
+	'SN_UP_PRIVACY_FRIENDS'					 => 'Friends only',
+	'SN_UP_PRIVACY_DEFAULT'					 => 'Default (Everyone)',
+	'SN_UP_ALLOW_FRIEND_REQUESTS'			 => 'Allow members to send me friend requests',
+	'SN_UP_PRIVACY_LOCKED'					 => 'The board administrator does not allow members to change their privacy policy.',
+	'SN_UP_PRIVACY_DEFAULT_NOTICE'			 => 'The board default privacy policy is: <strong>%s</strong>.',
 	'SN_UP_LANGUAGES'						 => 'Languages',
 	'SN_UP_ABOUT_ME'						 => 'About me',
 	'SN_UP_EMPLOYER'						 => 'Employer',
@@ -334,6 +341,13 @@ $lang = array_merge($lang, array(
 	'SN_UP_TABS_SPINNER'					 => '<em>Loading&#8230;<\/em>',
 	'SN_UP_EMOTES'							 => 'Send Emote',
 
+    'SN_LIKED_POSTS'						 => 'Likes Received',
+	'SN_SEARCH_LIKED_POSTS'					 => 'Search user’s liked posts',
+	'SN_LIKES_SENT'         				 => 'Likes Sent',
+	'SN_SEARCH_LIKES_SENT'  				 => 'Search posts you liked',
+	
+	'SN_SEARCH_LIKED_POSTS'					 => 'Search user’s liked posts',
+	
 	'SN_UP_PROFILE_VALUE_DELETED'			 => '<em>Removed</em>',
 
 	'SN_NTF_EMOTE_CB_TITLE'					 => 'Emote sent',

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}">
+<head>
+<meta charset="{S_CONTENT_ENCODING}" />
+<meta name="robots" content="noindex" />
+{META}
+<title>{SITENAME} &bull; {PAGE_TITLE}</title>
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="phpbb">
+    <header id="page-header">
+        <h1>{SITENAME}</h1>
+        <p>{SITE_DESCRIPTION}<br /><a href="{U_FORUM}">{U_FORUM}</a></p>
+        <h2>{TOPIC_TITLE}</h2>
+        <p><a href="{U_TOPIC}">{U_TOPIC}</a></p>
+    </header>
+    <main id="page-body">
+        <div class="page-number">{PAGE_NUMBER}</div>
+        <!-- BEGIN postrow -->
+        <article class="post">
+            <h3>{postrow.POST_SUBJECT}</h3>
+            <p class="date">{L_POSTED}: <strong>{postrow.POST_DATE}</strong></p>
+            <p class="author">{L_POST_BY_AUTHOR} <strong>{postrow.POST_AUTHOR}</strong></p>
+            <div class="content">{postrow.MESSAGE}</div>
+        </article>
+        <hr />
+        <!-- END postrow -->
+    </main>
+    <footer id="page-footer">
+        <div class="page-number">{S_TIMEZONE}<br />{PAGE_NUMBER}</div>
+        <div class="copyright">Powered by phpBB Forum Software &copy; phpBB Group<br />https://www.phpbb.com/</div>
+    </footer>
+</body>
+</html>

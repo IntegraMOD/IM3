@@ -1,0 +1,56 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{PAGE_TITLE}</h2>
+
+<form method="post" action="{S_MODE_ACTION}">
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <div class="member-profile-columns">
+                <div class="profile-details-grid">
+                    <p class="profile-details-label">{L_MOD_TITLE}:</p>
+                    <p><!-- IF MOD_VERSION_TYPE -->[{MOD_VERSION_TYPE}]&nbsp;<!-- ENDIF -->{MOD_TITLE}&nbsp;{MOD_VERSION}</p>
+                    <!-- IF MOD_AUTHOR -->
+                    <p class="profile-details-label">{L_MOD_AUTHOR}:</p>
+                    <p>{MOD_AUTHOR}</p>
+                    <!-- ENDIF -->
+                    <!-- IF MOD_PHPBB_VERSION -->
+                    <p class="profile-details-label">{L_MOD_PHPBB_VERSION}:</p>
+                    <p><!-- IF MOD_VERSION_TYPE -->phpbb{MOD_PHPBB_VERSION}<!-- ENDIF --></p>
+                    <!-- ENDIF -->
+                    <!-- IF S_MOD_IS_FOUNDER and MOD_INSTALL_DATE -->
+                    <p class="profile-details-label">{L_MOD_INSTALL_DATE}:</p>
+                    <p>{MOD_INSTALL_DATE}</p>
+                    <!-- ENDIF -->
+                </div>
+                <div class="profile-details-grid">
+                    <!-- IF MOD_URL -->
+                    <p class="profile-details-label">{L_WEBSITE}:</p>
+                    <p><a href="{MOD_URL}" title="{L_VISIT_WEBSITE}: {MOD_URL}">{L_WEBSITE}</a></p>
+                    <!-- ENDIF -->
+                    <!-- IF MOD_DOWNLOAD_URL -->
+                    <p class="profile-details-label">{L_DOWNLOAD}:</p>
+                    <p><a href="{MOD_DOWNLOAD_URL}" title="{L_DOWNLOAD_MOD}: {MOD_DOWNLOAD_URL}">{L_DOWNLOAD_MOD}</a></p>
+                    <!-- ENDIF -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <div class="member-profile-columns">
+                <div>
+                    <h3>{L_MOD_DESC}</h3>
+                    <p>{MOD_DESC}</p>
+                </div>
+                <div>
+                    <h3>{L_MOD_COMMENTS}</h3>
+                    <p>{MOD_COMMENTS}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+<!-- INCLUDE jumpbox.html -->
+<!-- INCLUDE overall_footer.html -->

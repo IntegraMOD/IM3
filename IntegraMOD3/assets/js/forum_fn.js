@@ -538,3 +538,55 @@ function apply_onkeypress_event()
 * Detect JQuery existance. We currently do not deliver it, but some styles do, so why not benefit from it. ;)
 */
 var jquery_present = typeof jQuery == 'function';
+
+document.addEventListener('DOMContentLoaded', function ()
+{
+	var sidebar = document.getElementById('ucp-sidebar');
+	var toggleBtn = document.getElementById('ucp-sidebar-toggle');
+
+	if (!sidebar || !toggleBtn)
+	{
+		return;
+	}
+
+	var globalSubNav = document.getElementById('ucp-sub-nav-global');
+	var activeMainNavItem = sidebar.querySelector('.ucp-nav-item.active-main');
+
+	if (globalSubNav && activeMainNavItem)
+	{
+		activeMainNavItem.appendChild(globalSubNav);
+	}
+
+	var overlay = document.createElement('div');
+	overlay.className = 'ucp-sidebar-overlay';
+	document.body.appendChild(overlay);
+
+	function openSidebar()
+	{
+		sidebar.classList.add('show-sidebar');
+		overlay.classList.add('show-overlay');
+		sidebar.style.backgroundColor = window.getComputedStyle(document.body).backgroundColor;
+	}
+
+	function closeSidebar()
+	{
+		sidebar.classList.remove('show-sidebar');
+		overlay.classList.remove('show-overlay');
+	}
+
+	toggleBtn.addEventListener('click', function (e)
+	{
+		e.preventDefault();
+
+		if (sidebar.classList.contains('show-sidebar'))
+		{
+			closeSidebar();
+		}
+		else
+		{
+			openSidebar();
+		}
+	});
+
+	overlay.addEventListener('click', closeSidebar);
+});

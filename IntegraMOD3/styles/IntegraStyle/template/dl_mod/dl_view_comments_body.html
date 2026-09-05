@@ -1,0 +1,38 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<!-- BEGIN comment_row -->
+<article class="viewtopic-post-inner">
+    <section class="post-profile">
+        {comment_row.POSTER}
+        <p>{comment_row.POST_TIME}</p>
+        {comment_row.POSTER_AVATAR}
+    </section>
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <!-- BEGIN action_button -->
+            <p class="dl-toolbar">
+                <a href="{comment_row.U_EDIT_COMMENT}">{L_EDIT_POST}</a>
+                <a href="{comment_row.U_DELETE_COMMENT}">{L_DELETE}</a>
+            </p>
+            <!-- END action_button -->
+            <div class="content">{comment_row.MESSAGE}</div>
+            <!-- IF comment_row.EDITED_BY --><p>{comment_row.EDITED_BY}</p><!-- ENDIF -->
+        </div>
+    </section>
+</article>
+<!-- END comment_row -->
+
+<!-- IF PAGE_NUMBER -->
+<p class="pagination">{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span></p>
+<!-- ENDIF -->
+
+<!-- IF S_COMMENT_BUTTON -->
+<form action="{S_FORM_ACTION}" method="post" id="comments_view">
+    <div class="ucp-actions">
+        <input type="submit" name="post" value="{L_POST_COMMENT}" class="button2" />
+        {S_HIDDEN_FIELDS}
+    </div>
+</form>
+<!-- ENDIF -->
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

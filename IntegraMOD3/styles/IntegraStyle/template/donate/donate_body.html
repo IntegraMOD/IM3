@@ -1,0 +1,54 @@
+<!-- INCLUDE overall_header.html -->
+
+<div class="gallery-layout donate-layout">
+<!-- IF MODE eq 'success' or MODE eq 'cancel' -->
+	<h2>{SITENAME} :: {L_DONATION_TITLE}</h2>
+	<!-- IF DONATION_BODY -->
+	<section class="ucp-card">
+		<div class="ucp-card-body">{DONATION_BODY}</div>
+	</section>
+	<!-- ENDIF -->
+<!-- ELSE -->
+
+	<!-- IF S_SANDBOX -->
+		<h2>{L_SANDBOX_TITLE}</h2>
+	<!-- ELSE -->
+		<h2>{L_DONATION_TITLE_HEAD} {SITENAME}</h2>
+	<!-- ENDIF -->
+
+	<!-- IF DONATION_BODY -->
+	<section class="ucp-card">
+		<div class="ucp-card-body">{DONATION_BODY}</div>
+	</section>
+	<!-- ENDIF -->
+
+	<section class="ucp-card">
+		<div class="ucp-card-body donate-form">
+			<form action="{S_DONATE_FORMS}" method="post">
+				<div class="ucp-form-inline donate-amount-row">
+					<!-- IF S_DONATION_DROPBOX -->
+					<select name="amount" id="amount" class="ucp-form-select">{LIST_DONATION_VALUE}</select>
+					<!-- ELSE -->
+					<input type="text" name="amount" class="inputbox ucp-form-input" value="{DONATION_DEFAULT_VALUE}" />
+					<!-- ENDIF -->
+					<select name="currency_code" id="currency_code" class="ucp-form-select">{LIST_DONATION_CURRENCY}</select>
+				</div>
+				<div id="contactpaypal" class="ucp-actions">
+					{S_HIDDEN_FIELDS}
+					<button type="submit" name="submit" class="button1" data-action="donate-paypal-submit">{L_IMG_DONATE}</button>
+				</div>
+				<div id="processingpaypal" class="ucp-actions donate-processing" hidden="hidden">
+					<span class="donate-loader" aria-hidden="true"></span>
+					<input type="submit" class="button1" name="submit" value="{L_DONATION_CONTACT_PAYPAL}" />
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<!-- IF DONATION_GOAL_ENABLE or DONATION_RAISED_ENABLE or DONATION_USED_ENABLE -->
+		<!-- INCLUDE donate/donate_stats.html -->
+	<!-- ENDIF -->
+<!-- ENDIF -->
+</div>
+
+<!-- INCLUDE overall_footer.html -->

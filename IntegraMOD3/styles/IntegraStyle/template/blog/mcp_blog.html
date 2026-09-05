@@ -1,0 +1,49 @@
+<!-- INCLUDE mcp_header.html -->
+
+<h2>{L_TITLE}</h2>
+
+<form id="mcp" method="post" action="{S_MCP_ACTION}">
+	<section class="ucp-card">
+		<div class="ucp-card-body">
+			<p>{L_EXPLAIN}</p>
+			<div class="topic-actions">
+				<div class="rightside pagination">
+					<!-- IF TOTAL --> {TOTAL}<!-- ENDIF -->
+					<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+				</div>
+			</div>
+			<header class="forum-header mcp-list-header">
+				<div class="forum-title"><!-- IF S_BLOGS -->{L_BLOG}<!-- ELSE -->{L_BLOG_REPLIES}<!-- ENDIF --></div>
+			</header>
+			<div class="forum-list">
+				<!-- BEGIN postrow -->
+					<article class="forum-row mcp-list-row<!-- IF postrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+						<div class="forum-details">
+							<a href="{postrow.U_VIEW}" class="forum-title">{postrow.SUBJECT}</a>
+							<p>{L_POSTED} {L_POST_BY_AUTHOR} {postrow.AUTHOR} {L_POSTED_ON_DATE} {postrow.TIME}</p>
+						</div>
+					</article>
+				<!-- BEGINELSE -->
+					<div class="forum-row"><div class="forum-details"><strong><!-- IF S_BLOGS -->{L_NO_BLOGS}<!-- ELSE -->{L_NO_REPLIES}<!-- ENDIF --></strong></div></div>
+				<!-- END postrow -->
+			</div>
+			<div class="ucp-actions display-options">
+				<!-- IF NEXT_PAGE --><a href="{NEXT_PAGE}" class="{S_CONTENT_FLOW_END}">{L_NEXT}</a><!-- ENDIF -->
+				<!-- IF PREVIOUS_PAGE --><a href="{PREVIOUS_PAGE}" class="{S_CONTENT_FLOW_BEGIN}">{L_PREVIOUS}</a><!-- ENDIF -->
+				<label>{L_DISPLAY_POSTS}: {S_SELECT_SORT_DAYS}</label>
+				<label>{L_SORT_BY} {S_SELECT_SORT_KEY}</label><label>{S_SELECT_SORT_DIR}</label>
+				<!-- IF TOPIC_ID --><label><input type="checkbox" class="radio" name="t" value="{TOPIC_ID}" checked="checked" /> <strong>{L_ONLY_TOPIC}</strong></label><!-- ENDIF -->
+				<input type="submit" name="sort" value="{L_GO}" class="button2" />
+			</div>
+			<div class="topic-actions">
+				<div class="rightside pagination">
+					<!-- IF TOTAL -->{TOTAL}<!-- ENDIF -->
+					<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+				</div>
+			</div>
+		</div>
+	</section>
+{S_FORM_TOKEN}
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

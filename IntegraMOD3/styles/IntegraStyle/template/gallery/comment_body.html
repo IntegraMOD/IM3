@@ -1,0 +1,81 @@
+<!-- INCLUDE gallery/gallery_header.html -->
+
+<div class="gallery-layout">
+	<h2><a href="{U_VIEW_IMAGE}">{IMAGE_NAME}</a></h2>
+
+	<!-- IF U_IMAGE -->
+	<section class="ucp-card gallery-image-view">
+		<div class="ucp-card-body">
+			<a href="{U_IMAGE}"<!-- IF S_GP_HIGHSLIDE --> class="highslide"<!-- ELSEIF S_GP_LYTEBOX --> rel="lytebox" class="image-resize"<!-- ENDIF -->><img src="{U_IMAGE}" alt="{IMAGE_NAME}" title="{IMAGE_NAME}" class="gallery-full-image" /></a>
+		</div>
+	</section>
+	<!-- ENDIF -->
+
+	<form id="postform" action="{S_ALBUM_ACTION}" method="post" enctype="multipart/form-data">
+		<div id="dl-editor-config" class="blog-hidden" hidden="hidden" data-form-name="postform" data-text-name="message"></div>
+		<section class="ucp-card" id="postingbox">
+			<div class="ucp-card-header">
+				<h3 class="ucp-card-title">{L_POST_COMMENT}</h3>
+			</div>
+			<div class="ucp-card-body ucp-form-grid">
+				<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+				<!-- IF not S_USER_LOGGED_IN -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="username">{L_USERNAME}:</label>
+					<input class="inputbox ucp-form-input" type="text" tabindex="1" name="username" id="username" value="{USERNAME}" size="60" maxlength="32" />
+				</div>
+				<!-- ENDIF -->
+				<!-- IF S_ALLOWED_TO_RATE -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label">{L_YOUR_RATING}:</label>
+					<!-- IF .rate_scale -->
+					<select name="rating" class="ucp-form-select">
+						<!-- BEGIN rate_scale -->
+							<!-- IF rate_scale.RATE_POINT == 1 --><option value="0">{L_DONT_RATE_IMAGE}</option><!-- ENDIF -->
+							<option value="{rate_scale.RATE_POINT}">{rate_scale.RATE_POINT}</option>
+						<!-- END rate_scale -->
+					</select>
+					<!-- ELSE -->
+					<p>{CONTEST_RATING}</p>
+					<!-- ENDIF -->
+				</div>
+				<!-- ENDIF -->
+				<!-- IF CAPTCHA_TEMPLATE -->
+					<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+				<!-- ENDIF -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="message">{L_YOUR_COMMENT}:</label>
+					<!-- INCLUDE posting_buttons.html -->
+					<div id="smiley-box">
+						<!-- IF S_SMILIES_ALLOWED and .smiley -->
+							<strong>{L_SMILIES}</strong>
+							<!-- BEGIN smiley -->
+								<a href="{U_MORE_SMILIES}" data-action="insert-smiley" data-smiley-code="{smiley.A_SMILEY_CODE}"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+							<!-- END smiley -->
+						<!-- ENDIF -->
+						<!-- IF S_SHOW_SMILEY_LINK and S_SMILIES_ALLOWED -->
+							<p><a href="{U_MORE_SMILIES}" data-action="popup" data-popup-width="300" data-popup-height="350" data-popup-target="_phpbbsmilies">{L_MORE_SMILIES}</a></p>
+						<!-- ENDIF -->
+						<!-- IF BBCODE_STATUS -->
+							<p>{BBCODE_STATUS}</p>
+							<!-- IF S_BBCODE_ALLOWED -->
+							<p>{IMG_STATUS}<br />{FLASH_STATUS}<br />{URL_STATUS}<br />{SMILIES_STATUS}</p>
+							<!-- ENDIF -->
+						<!-- ENDIF -->
+						<p>{L_COMMENT_LENGTH}</p>
+					</div>
+					<textarea name="message" id="message" rows="7" cols="76" tabindex="3" class="inputbox" data-store-caret="1">{MESSAGE}</textarea>
+					<label for="attach_sig"><input type="checkbox" name="attach_sig" id="attach_sig"{S_SIGNATURE_CHECKED} /> {L_ATTACH_SIG}</label>
+				</div>
+			</div>
+		</section>
+		<div class="ucp-actions">
+			{S_HIDDEN_FIELDS}{S_CAPTCHA_HIDDEN_FIELDS}
+			<input type="reset" accesskey="r" tabindex="200" value="{L_RESET}" class="button2" />
+			<input type="submit" accesskey="s" tabindex="201" name="submit" value="{L_SUBMIT}" class="button1" />
+			{S_FORM_TOKEN}
+		</div>
+	</form>
+</div>
+
+<!-- INCLUDE gallery/gallery_footer.html -->

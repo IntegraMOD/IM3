@@ -217,6 +217,9 @@ if (!class_exists('socialnet_userstatus')) {
                 $rs = $db->sql_query($sql);
                 $row = $db->sql_fetchrow($rs);
                 $db->sql_freeresult($rs);
+                if (!$row) {
+                    $row = array('status_id' => 0);
+                }
 
                 // Record about new status
                 $this->p_master->record_entry($wall_id, $row['status_id'], SN_TYPE_NEW_STATUS);
@@ -275,7 +278,10 @@ if (!class_exists('socialnet_userstatus')) {
       					FROM " . SN_STATUS_TABLE . "
       						WHERE status_id = " . $status_id;
             $res = $db->sql_query($sql);
-            $userstatus = $db->sql_fetchrow($res);
+                $userstatus = $db->sql_fetchrow($res);
+                if (!$userstatus) {
+                    $userstatus = array('poster_id' => 0, 'wall_id' => 0);
+                }
 
             if ($auth->acl_get('a_') || ($userstatus['poster_id'] == $user->data['user_id']) || ($userstatus['wall_id'] == $user->data['user_id'])) {
                 $sql = "DELETE FROM " . SN_STATUS_TABLE . "
@@ -435,7 +441,10 @@ if (!class_exists('socialnet_userstatus')) {
 										WHERE sn.status_id = {$status_id}
 											AND sn.poster_id = u.user_id";
                 $rs = $db->sql_query($sql);
-                $row = $db->sql_fetchrow();
+                $row = $db->sql_fetchrow($rs);
+                if (!$row) {
+                    $row = array('poster_id' => 0, 'username' => '', 'wall_id' => 0);
+                }
                 $db->sql_freeresult($rs);
 
                 $link = "memberlist.{$phpEx}?mode=viewprofile&amp;u={$row['wall_id']}&amp;status_id={$status_id}#socialnet_us";
@@ -632,6 +641,29 @@ if (!class_exists('socialnet_userstatus')) {
         {
             global $phpbb_root_path, $phpEx, $auth, $user, $db;
 
+            // Defensive: if no status row provided, return safe empty template data
+            if (!$status_row || !is_array($status_row)) {
+                return array(
+                    'SN_US_STATUS'             => '',
+                    'SN_US_STATUS_POSTED'      => '',
+                    'STATUS_ID'                => 0,
+                    'U_POSTER_PROFILE'         => '',
+                    'U_PROFILE'                => '',
+                    'POSTER_AVATAR'           => '',
+                    'TIME'                     => '',
+                    'TEXT'                     => '',
+                    'DELETE_STATUS'            => false,
+                    'B_SN_US_CAN_COMMENT'      => false,
+                    'B_ISPAGE'                 => false,
+                    'WALL_ID'                  => 0,
+                    'U_WALL'                   => '',
+                    'ANOTHER_WALL'             => false,
+                    'U_WALL_PROFILE'           => '',
+                    'COMMENTS'                 => '',
+                    'SN_US_MORE_COMMENTS'      => false,
+                );
+            }
+
             $avatar_img = $this->p_master->get_user_avatar_resized($status_row['user_avatar'], $status_row['user_avatar_type'], $status_row['user_avatar_width'], $status_row['user_avatar_height'], 50);
             if ($status_row['status_text'] != '0') {
                 $status_text_format = generate_text_for_display($status_row['status_text'], $status_row['bbcode_uid'], $status_row['bbcode_bitfield'], $this->p_master->bbCodeFlags);
@@ -683,6 +715,9 @@ if (!class_exists('socialnet_userstatus')) {
       			       WHERE user_id = ' . $status_row['wall_id'];
                 $result = $db->sql_query($sql);
                 $wall_row = $db->sql_fetchrow($result);
+                if (!$wall_row) {
+                    $wall_row = array('username' => '', 'user_colour' => '');
+                }
                 $db->sql_freeresult($result);
             }
 

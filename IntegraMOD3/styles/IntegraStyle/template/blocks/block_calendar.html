@@ -1,0 +1,51 @@
+<!-- IDTAG block_calendar starts -->
+<section class="block_data_calc calendar-block">
+    <form id="hidden" class="calendar-state-form">
+        <input type="hidden" id="cal_h_month" name="cal_h_month" value="{HIDDEN_MONTH}" />
+        <input type="hidden" id="cal_h_year" name="cal_h_year" value="{HIDDEN_YEAR}" />
+    </form>
+    <header class="calendar-block-header">
+        <button type="button" id="cal_month_prev" class="calendar-nav-button calendar-nav-prev" data-calendar-action="prev" aria-label="{L_PREVIOUS}"><svg class="css-icon css-icon-calendar-nav" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg></button>
+        <strong id="cal_month_name" class="calendar-month-name"></strong>
+        <button type="button" id="cal_month_next" class="calendar-nav-button calendar-nav-next" data-calendar-action="next" aria-label="{L_NEXT}"><svg class="css-icon css-icon-calendar-nav" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></button>
+    </header>
+    <div class="calendar-table-wrap">
+        <table class="calendar">{CALENDAR_TABLE}</table>
+    </div>
+<!-- IF S_SHOW_UPCOMING_EVENTS or S_SHOW_UPCOMING_BIRTHDAYS -->
+    <section class="calendar-upcoming" id="bday-panel">
+        <!-- IF S_SHOW_UPCOMING_EVENTS -->
+        <article class="calendar-upcoming-section">
+            <h4>{L_UPCOMING_EVENTS}{L_EVENTS_TIMEFRAME}:</h4>
+            <!-- IF S_IS_EVENTS -->
+            <ul>
+                <!-- BEGIN event_list --><li>{event_list.TITLE} ({L_ON} {event_list.DATE} {L_AT} {event_list.TIME})</li><!-- END event_list -->
+            </ul>
+            <!-- ELSE -->
+            <p>{L_NO_UPCOMING_EVENTS}</p>
+            <!-- ENDIF -->
+        </article>
+        <!-- ENDIF -->
+        <!-- IF S_SHOW_UPCOMING_BIRTHDAYS -->
+        <article class="calendar-upcoming-section">
+            <h4>{L_UPCOMING_BIRTHDAYS}{L_BIRTHDAYS_TIMEFRAME}:</h4>
+            <!-- IF S_IS_BIRTHDAYS -->
+            <p>{L_CONGRATULATIONS}:</p>
+            <ul>
+                <!-- BEGIN bday_list --><li>{bday_list.USERNAME_FULL} ({bday_list.AGE} {L_ON} {bday_list.ON_DAY})</li><!-- END bday_list -->
+            </ul>
+            <!-- ELSE -->
+            <p>{L_NO_UPCOMING_BIRTHDAYS}</p>
+            <!-- ENDIF -->
+        </article>
+        <!-- ENDIF -->
+    </section>
+<!-- ENDIF -->
+
+    <!-- IF S_NEW_EVENT -->
+    <div class="calendar-new-event-wrap">
+        <a class="button_event_new_icon" href="calendar.php?mode=new" title="{L_CALENDAR_ADD_EVENT}"><span>{L_CALENDAR_ADD_EVENT}</span></a>
+    </div>
+    <!-- ENDIF -->
+</section>
+<!-- IDTAG block_calendar ends -->

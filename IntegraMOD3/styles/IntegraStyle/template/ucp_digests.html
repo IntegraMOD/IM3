@@ -1,0 +1,218 @@
+<!-- INCLUDE ucp_header.html -->
+
+<h2>{DIGEST_TITLE}</h2>
+
+<form id="digests" method="post" action="{U_ACTION}" data-submit-check="show-warning" data-digest-size-error="{LA_DIGEST_SIZE_ERROR}" data-digest-size-error-min="{LA_DIGEST_SIZE_ERROR_MIN}" data-digest-no-forums-checked="{DIGEST_NO_FORUMS_CHECKED}">
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+									
+		<!-- IF S_BASICS -->
+		<p>{L_DIGEST_EXPLANATION}</p>
+		<!-- ENDIF -->
+		<div class="ucp-form-grid">
+			<!-- IF S_BASICS -->
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_FREQUENCY}:</p>
+				<p class="ucp-form-help">{L_DIGEST_FREQUENCY_EXPLAIN}</p>
+				<div>
+					<label for="none"><input type="radio" name="digest_type" id="none" value="NONE"<!-- IF S_DIGEST_NONE_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_NONE}</label><br />
+					<label for="daily"><input type="radio" name="digest_type" id="daily" value="DAY"<!-- IF S_DIGEST_DAY_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_DAILY}</label><br />
+					<label for="week"><input type="radio" name="digest_type" id="week" value="WEEK"<!-- IF S_DIGEST_WEEK_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_WEEKLY}</label><br />
+					<label for="month"><input type="radio" name="digest_type" id="month" value="MNTH"<!-- IF S_DIGEST_MONTH_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_MONTHLY}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_FORMAT_STYLING}:</p>
+				<p class="ucp-form-help">{L_DIGEST_FORMAT_STYLING_EXPLAIN}</p>
+				<div>
+					<label for="style1" title="{L_DIGEST_FORMAT_HTML_EXPLAIN}"><input type="radio" name="style" id="style1" value="{L_DIGEST_HTML_VALUE}"<!-- IF S_DIGEST_HTML_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_FORMAT_HTML}</label><br />
+					<label for="style4" title="{L_DIGEST_FORMAT_HTML_CLASSIC_EXPLAIN}"><input type="radio" name="style" id="style4" value="{L_DIGEST_HTML_CLASSIC_VALUE}"<!-- IF S_DIGEST_HTML_CLASSIC_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_FORMAT_HTML_CLASSIC}</label><br />
+					<label for="style2" title="{L_DIGEST_FORMAT_PLAIN_EXPLAIN}"><input type="radio" name="style" id="style2" value="{L_DIGEST_PLAIN_VALUE}"<!-- IF S_DIGEST_PLAIN_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_FORMAT_PLAIN}</label><br />
+					<label for="style5" title="{L_DIGEST_FORMAT_PLAIN_CLASSIC_EXPLAIN}"><input type="radio" name="style" id="style5" value="{L_DIGEST_PLAIN_CLASSIC_VALUE}"<!-- IF S_DIGEST_PLAIN_CLASSIC_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_FORMAT_PLAIN_CLASSIC}</label><br />
+					<label for="style3" title="{L_DIGEST_FORMAT_TEXT_EXPLAIN}"><input type="radio" name="style" id="style3" value="{L_DIGEST_TEXT_VALUE}"<!-- IF S_DIGEST_TEXT_CHECKED --> checked="checked"<!-- ENDIF --> />{L_DIGEST_FORMAT_TEXT}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="send_hour">{L_DIGEST_SEND_HOUR}:</label>
+				<p class="ucp-form-help">{L_DIGEST_SEND_HOUR_EXPLAIN}</p>
+				<select name="send_hour" id="send_hour" class="ucp-form-select">
+					<!-- BEGIN hour_loop -->
+					<option value="{hour_loop.COUNT}"{hour_loop.SELECTED}>{hour_loop.DISPLAY_HOUR}</option>
+					<!-- END hour_loop -->
+				</select>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF S_FORUMS_SELECTION -->
+			{DISABLED_MESSAGE}
+			<!-- IF S_NO_FORUMS -->
+			<p>{L_DIGEST_NO_FORUMS_AVAILABLE}</p>
+			<!-- ENDIF -->
+			<!-- IF not S_NO_FORUMS -->
+			<div class="ucp-form-row">
+			<p class="ucp-form-label">{L_DIGEST_FILTER_TYPE}:</p>
+			<div class="ucp-form-inline">
+				<input type="radio" name="filtertype" id="all" value="ALL" data-action="disable-forums" data-disabled-state="0" <!-- IF S_DIGEST_POST_ANY --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /><label for="all">{L_DIGEST_POSTS_TYPE_ANY}</label>
+				<input type="radio" name="filtertype" id="first" value="1ST" data-action="disable-forums" data-disabled-state="0" <!-- IF S_DIGEST_POST_FIRST --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /><label for="first">{L_DIGEST_POSTS_TYPE_FIRST}</label>
+				<input type="radio" name="filtertype" id="bookmarks" value="BM" data-action="disable-forums" data-disabled-state="1" <!-- IF S_DIGEST_POST_BM --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /><label for="bookmarks">{L_DIGEST_USE_BOOKMARKS}</label>
+			</div>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="all_forums">{L_DIGEST_SELECT_FORUMS}:</label>
+				<p class="ucp-form-help">{L_DIGEST_SELECT_FORUMS_EXPLAIN}</p>
+				<div>
+					<input type="checkbox" name="all_forums" id="all_forums" <!-- IF S_ALL_BY_DEFAULT --> checked="checked"<!-- ENDIF --><!-- IF S_ALL_DISABLED --> disabled="disabled"<!-- ENDIF --> data-action="uncheck-subscribed-forums"/> <label for="all_forums"><b>{L_DIGEST_ALL_FORUMS}</b></label>
+					<div id="div_0">
+						<!-- BEGIN forums -->
+						<!-- IF forums.S_DIV_OPEN -->
+						<div id="{forums.CAT_ID}" style="position:relative; left:20px;">
+						<!-- ENDIF -->
+						<!-- IF forums.S_PRINT -->
+							<!-- IF forums.S_IS_FORUM -->
+							<input type="checkbox" name="{forums.FORUM_NAME}" id="{forums.FORUM_NAME}"<!-- IF forums.S_FORUM_SUBSCRIBED --> checked="checked"<!-- ENDIF --><!-- IF forums.S_FORUM_DISABLED --> disabled="disabled"<!-- ENDIF --> data-action="uncheck-all-forums"/> <label for="{forums.FORUM_NAME}">{forums.FORUM_PREFIX}{forums.FORUM_LABEL}{forums.FORUM_SUFFIX}</label><br />
+							<!-- ENDIF -->
+							<!-- IF not forums.S_IS_FORUM -->
+							<i>{forums.FORUM_LABEL}</i><br />
+							<!-- ENDIF -->
+						<!-- ENDIF -->
+						<!-- IF forums.S_DIV_CLOSE -->
+						</div>
+						<!-- ENDIF -->
+						<!-- END forums -->
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- ENDIF -->
+			<!-- IF S_POST_FILTERS -->
+			{DISABLED_MESSAGE}
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="count_limit">{L_DIGEST_COUNT_LIMIT}:</label>
+				<p class="ucp-form-help">{L_DIGEST_COUNT_LIMIT_EXPLAIN}</p>
+				<input type="text" class="inputbox autowidth ucp-form-input" size="5" maxlength="5" name="count_limit" id="count_limit" value="{S_DIGEST_MAX_ITEMS}"<!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> data-action="check-word-size" />
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="min_word_size">{L_DIGEST_MIN_SIZE}:</label>
+				<p class="ucp-form-help">{L_DIGEST_MIN_SIZE_EXPLAIN}</p>
+				<input type="text" class="inputbox autowidth ucp-form-input" size="4" maxlength="4" name="min_word_size" id="min_word_size" value="{S_DIGEST_MIN_SIZE}"<!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> data-action="check-word-size-min" />
+			</div>
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_NEW_POSTS_ONLY}:</p>
+				<p class="ucp-form-help">{L_DIGEST_NEW_POSTS_ONLY_EXPLAIN}</p>
+				<div class="ucp-form-inline">
+					<label for="new_posts1"><input type="radio" name="new_posts" id="new_posts1" value="1"<!-- IF S_DIGEST_NEW_POSTS_ONLY_CHECKED_YES --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label for="new_posts2"><input type="radio" name="new_posts" id="new_posts2" value="0"<!-- IF S_DIGEST_NEW_POSTS_ONLY_CHECKED_NO --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_REMOVE_YOURS}:</p>
+				<div class="ucp-form-inline">
+					<label for="remove_yours1"><input type="radio" name="show_mine" id="remove_yours1" value="0"<!-- IF S_DIGEST_REMOVE_YOURS_CHECKED_YES --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label for="remove_yours2"><input type="radio" name="show_mine" id="remove_yours2" value="1"<!-- IF S_DIGEST_REMOVE_YOURS_CHECKED_NO --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_FILTER_FOES}:</p>
+				<div class="ucp-form-inline">
+					<label for="filter_foes1"><input type="radio" name="filter_foes" id="filter_foes1" value="1"<!-- IF S_DIGEST_FILTER_FOES_CHECKED_YES --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label for="filter_foes2"><input type="radio" name="filter_foes" id="filter_foes2" value="0"<!-- IF S_DIGEST_FILTER_FOES_CHECKED_NO --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_PRIVATE_MESSAGES_IN_DIGEST}:</p>
+				<div class="ucp-form-inline">
+					<label for="pms1"><input type="radio" name="pms" id="pms1" value="1"<!-- IF S_DIGEST_PRIVATE_MESSAGES_IN_DIGEST_YES --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> data-action="check-uncheck" data-check-target="mark_read" /> {L_YES}</label>
+					<label for="pms2"><input type="radio" name="pms" id="pms2" value="0"<!-- IF S_DIGEST_PRIVATE_MESSAGES_IN_DIGEST_NO --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> data-action="check-uncheck" data-check-target="mark_read" /> {L_NO}</label>
+					<input type="checkbox" name="mark_read" id="mark_read"<!-- IF S_DIGEST_MARK_READ_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> <label for="mark_read">{L_DIGEST_MARK_READ}</label>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF S_ADDITIONAL_CRITERIA -->
+			{DISABLED_MESSAGE}
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="sort_by">{L_DIGEST_SORT_BY}:</label>
+				<p class="ucp-form-help">{L_DIGEST_SORT_BY_EXPLAIN}</p>
+				<select name="sort_by" id="sort_by" class="ucp-form-select"<!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF -->>
+					<option value="board"<!-- IF S_BOARD_SELECTED --> selected="selected"<!-- ENDIF -->>{L_DIGEST_SORT_USER_ORDER}</option>
+					<option value="standard"<!-- IF S_STANDARD_SELECTED --> selected="selected"<!-- ENDIF -->>{L_DIGEST_SORT_FORUM_TOPIC}</option>
+					<option value="standard_desc"<!-- IF S_STANDARD_DESC_SELECTED --> selected="selected"<!-- ENDIF -->>{L_DIGEST_SORT_FORUM_TOPIC_DESC}</option>
+					<option value="postdate"<!-- IF S_POSTDATE_SELECTED --> selected="selected"<!-- ENDIF -->>{L_DIGEST_SORT_POST_DATE}</option>
+					<option value="postdate_desc"<!-- IF S_POSTDATE_DESC_SELECTED --> selected="selected"<!-- ENDIF -->>{L_DIGEST_SORT_POST_DATE_DESC}</option>
+				</select>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="max_word_size">{L_DIGEST_MAX_SIZE}:</label>
+				<p class="ucp-form-help">{L_DIGEST_MAX_SIZE_EXPLAIN}</p>
+				<div class="ucp-form-inline">
+					<input type="text" class="inputbox autowidth ucp-form-input" size="4" maxlength="4" name="max_word_size" id="max_word_size" value="{DIGEST_MAX_SIZE}"<!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> data-action="check-word-size-min" />
+					<input type="checkbox" name="no_post_text" id="no_post_text"<!-- IF S_DIGEST_NO_POST_TEXT_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> <label for="no_post_text">{L_DIGEST_NO_POST_TEXT}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_SEND_ON_NO_POSTS}:</p>
+				<div class="ucp-form-inline">
+					<label for="send_on_no_posts1"><input type="radio" name="send_on_no_posts" id="send_on_no_posts1"<!-- IF S_DIGEST_SEND_ON_NO_POSTS_YES_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> value="1" /> {L_YES}</label>
+					<label for="send_on_no_posts2"><input type="radio" name="send_on_no_posts" id="send_on_no_posts2"<!-- IF S_DIGEST_SEND_ON_NO_POSTS_NO_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> value="0" /> {L_NO}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_LASTVISIT_RESET}:</p>
+				<div class="ucp-form-inline">
+					<label for="lastvisit1"><input type="radio" name="lastvisit" id="lastvisit1" value="1"<!-- IF S_LASTVISIT_YES_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label for="lastvisit2"><input type="radio" name="lastvisit" id="lastvisit2" value="0"<!-- IF S_LASTVISIT_NO_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_SHOW_ATTACHMENTS}:</p>
+				<p class="ucp-form-help">{L_DIGEST_SHOW_ATTACHMENTS_EXPLAIN}</p>
+				<div class="ucp-form-inline">
+					<label for="attachments1"><input type="radio" name="attachments" id="attachments1" value="1"<!-- IF S_ATTACHMENTS_YES_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label for="attachments2"><input type="radio" name="attachments" id="attachments2" value="0"<!-- IF S_ATTACHMENTS_NO_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+				</div>
+			</div>
+			<!-- IF not S_BLOCK_IMAGES -->
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_BLOCK_IMAGES}:</p>
+				<p class="ucp-form-help">{L_DIGEST_BLOCK_IMAGES_EXPLAIN}</p>
+				<div class="ucp-form-inline">
+					<label for="blockimages1"><input type="radio" name="blockimages" id="blockimages1" value="1"<!-- IF S_BLOCK_IMAGES_YES_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label for="blockimages2"><input type="radio" name="blockimages" id="blockimages2" value="0"<!-- IF S_BLOCK_IMAGES_NO_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_TOC}:</p>
+				<p class="ucp-form-help">{L_DIGEST_TOC_EXPLAIN}</p>
+				<div class="ucp-form-inline">
+					<label for="toc1"><input type="radio" name="toc" id="toc1" value="1"<!-- IF S_TOC_YES_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label for="toc2"><input type="radio" name="toc" id="toc2" value="0"<!-- IF S_TOC_NO_CHECKED --> checked="checked"<!-- ENDIF --><!-- IF S_CONTROL_DISABLED --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+				</div>
+			</div>
+			<!-- ENDIF -->
+
+		</div>
+	</div>
+</div>
+
+<!-- IF S_SHOW_BUTTONS -->
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-actions">
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+</div>
+<!-- ENDIF -->
+
+<div class="copyright">
+	Powered by <a href="{S_DIGEST_PAGE_URL}" class="postlink" data-action="open-new-window">{S_DIGEST_HOME}</a>
+</div>
+
+</form>
+	
+
+				
+<!-- INCLUDE ucp_footer.html -->
+

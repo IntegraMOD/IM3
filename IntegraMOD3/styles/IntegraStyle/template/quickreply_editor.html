@@ -1,0 +1,52 @@
+<noscript>
+    <form class="quickreply-form" method="post" action="{U_QR_ACTION}">
+        <section class="panel quickreply-panel" id="qr_ns_editor_div">
+            <h2>{L_QUICKREPLY}</h2>
+
+            <fieldset class="fields1 quickreply-fields">
+                <div class="quickreply-field">
+                    <label for="subject-ns">{L_SUBJECT}:</label>
+                    <input type="text" name="subject" id="subject-ns" size="45" maxlength="64" tabindex="2" value="{SUBJECT}" class="inputbox autowidth" />
+                </div>
+
+                <textarea name="message" rows="7" cols="76" tabindex="3" class="inputbox quickreply-message"></textarea>
+            </fieldset>
+
+            <fieldset class="submit-buttons quickreply-actions">
+                {S_FORM_TOKEN}
+                {QR_HIDDEN_FIELDS}
+                <input type="submit" accesskey="s" tabindex="6" name="post" value="{L_SUBMIT}" class="button1" />
+                <input type="submit" accesskey="f" tabindex="7" name="full_editor" value="{L_FULL_EDITOR}" class="button2" />
+            </fieldset>
+        </section>
+    </form>
+</noscript>
+
+<div class="fastreply quickreply" data-quick-reply-editor>
+    <form class="quickreply-form" method="post" action="{U_QR_ACTION}">
+        <section class="panel quickreply-panel">
+            <div class="quickreply-header">
+                <h2>{L_QUICKREPLY}</h2>
+                <a href="javascript:void(0)" class="quickreply-collapse" data-quick-reply-toggle title="{L_COLLAPSE_QR}">{L_COLLAPSE_QR}</a>
+            </div>
+
+            <fieldset class="fields1 quickreply-fields">
+                <div class="quickreply-field">
+                    <label for="subject">{L_SUBJECT}:</label>
+                    <input type="text" name="subject" id="subject" size="45" maxlength="64" tabindex="2" value="{SUBJECT}" class="inputbox autowidth" />
+                </div>
+
+                <textarea name="message" rows="7" cols="76" tabindex="3" class="inputbox quickreply-message"></textarea>
+            </fieldset>
+
+            <fieldset class="submit-buttons quickreply-actions">
+                {S_FORM_TOKEN}
+                {QR_HIDDEN_FIELDS}
+                <input type="submit" accesskey="s" tabindex="6" name="post" value="{L_SUBMIT}" class="button1" />
+                <input type="submit" accesskey="f" tabindex="7" name="full_editor" value="{L_FULL_EDITOR}" class="button2" />
+                <input type="submit" accesskey="p" tabindex="8" name="preview" value="{L_PREVIEW}" class="button2" />
+                <a href="javascript:void(0)" tabindex="9" class="button2 fast-reply" data-quick-reply-toggle>{L_COLLAPSE_QR}</a>
+            </fieldset>
+        </section>
+    </form>
+</div>

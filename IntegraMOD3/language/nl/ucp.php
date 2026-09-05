@@ -452,6 +452,8 @@ $lang = array_merge($lang, array(
 	'UCP_PREFS_PERSONAL'		=> 'Wijzig persoonlijke instellingen',
 	'UCP_PREFS_POST'			=> 'Wijzig berichtstandaarden',
 	'UCP_PREFS_VIEW'			=> 'Wijzig weergave-instellingen',
+	'UCP_PUSH_NOTIFICATIONS'	=> 'Pushmeldingen',
+	'UCP_PUSH_SETTINGS'		    => 'Melding Voorkeuren',
 
 	'UCP_PM'					=> 'Privéberichten',
 	'UCP_PM_COMPOSE'			=> 'Schrijf bericht',

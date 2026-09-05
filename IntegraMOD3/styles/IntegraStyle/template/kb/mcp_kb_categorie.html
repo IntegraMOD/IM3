@@ -1,0 +1,68 @@
+<!-- INCLUDE mcp_header.html -->
+
+<h2><a href="{U_VIEW_CAT}">{L_CATEGORIE}: {CAT_NAME}</a></h2>
+
+<form method="post" id="mcp" action="{S_MCP_ACTION}">
+	<section class="ucp-card">
+		<div class="ucp-card-body">
+			<!-- IF PAGINATION or TOTAL_TOPICS -->
+			<div class="topic-actions">
+				<div class="rightside pagination">
+					<!-- IF TOTAL_TOPICS -->{TOTAL_TOPICS}<!-- ENDIF -->
+					<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+				</div>
+			</div>
+			<!-- ENDIF -->
+
+			<!-- IF .article_row -->
+			<header class="forum-header mcp-list-header">
+				<div class="forum-title">{L_ARTICLE}</div>
+				<div class="forum-stats-header posts">{L_VIEWED}</div>
+				<!-- IF not S_MERGE_SELECT --><div class="forum-stats-header mark">{L_MARK}</div><!-- ENDIF -->
+			</header>
+			<div class="forum-list">
+			<!-- BEGIN article_row -->
+				<article class="forum-row mcp-list-row<!-- IF article_row.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF --><!-- IF article_row.S_ARTICLE_REPORTED --> reported<!-- ENDIF -->">
+					<div class="forum-details">
+						<a href="{article_row.U_ARTICLE}" class="forum-title">{article_row.TITLE}</a>
+						<!-- IF article_row.S_ARTICLE_UNAPPROVED --><a href="{article_row.U_MCP_QUEUE}" title="{L_TOPIC_UNAPPROVED}"><svg class="css-icon css-icon-warning" aria-hidden="true" focusable="false"><use href="#icon-warning"></use></svg></a><!-- ENDIF -->
+						<!-- IF article_row.S_ARTICLE_REPORTED --><a href="{article_row.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}"><svg class="css-icon css-icon-flag" aria-hidden="true" focusable="false"><use href="#icon-flag"></use></svg></a><!-- ENDIF -->
+						<p><!-- IF article_row.HAS_ATTACHEMENT --><span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span> <!-- ENDIF -->{L_POST_BY_AUTHOR} {article_row.AUTHOR_FULL} &raquo; {article_row.TIME}</p>
+					</div>
+					<div class="forum-stats-grid mcp-list-stats">
+						<div class="stat-posts">{article_row.HITS} <dfn>{L_REPLIES}</dfn></div>
+						<div class="stat-mark"><input type="checkbox" name="article_id_list[]" value="{article_row.ARTICLE_ID}" /></div>
+					</div>
+				</article>
+			<!-- END article_row -->
+			</div>
+			<!-- ELSE -->
+			<p class="notopics">{L_NO_TOPICS}</p>
+			<!-- ENDIF -->
+
+			<!-- IF PAGINATION or TOTAL_TOPICS -->
+			<div class="topic-actions">
+				<div class="rightside pagination">
+					<!-- IF TOTAL_TOPICS -->{TOTAL_TOPICS}<!-- ENDIF -->
+					<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+				</div>
+			</div>
+			<!-- ENDIF -->
+		</div>
+	</section>
+
+	<div class="ucp-actions">
+		<select name="action">
+			<option value="" selected="selected">{L_SELECT_ACTION}</option>
+			<!-- IF S_CAN_DELETE --><option value="delete_article">{L_DELETE}</option><!-- ENDIF -->
+		</select>
+		<input class="button2" type="submit" value="{L_SUBMIT}" />
+		<div>
+			<a href="javascript:void(0)" data-action="marklist" data-mark-form="mcp" data-mark-name="article_id_list" data-mark-state="true">{L_MARK_ALL}</a> &bull;
+			<a href="javascript:void(0)" data-action="marklist" data-mark-form="mcp" data-mark-name="article_id_list" data-mark-state="false">{L_UNMARK_ALL}</a>
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

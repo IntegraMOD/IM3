@@ -1,0 +1,110 @@
+<!-- INCLUDE overall_header.html -->
+
+<form method="post" action="{S_UCP_ACTION}" id="register" class="ucp-form-grid" data-ajax-checks-file="{AJAX_CHECKS_FILE}" data-ajax-checking-img="{AJAX_CHECKING_IMG}" data-ajax-checking-username="{L_AJAX_CHECKING_USERNAME}" data-ajax-checking-password="{L_AJAX_CHECKING_PASSWORD}" data-ajax-checking-email="{L_AJAX_CHECKING_EMAIL}" <!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_REFRESH -->data-apply-onkeypress="1"<!-- ENDIF -->>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<h2>{SITENAME} - {L_REGISTRATION}</h2>
+
+		<div class="ucp-form-grid">
+			<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+			<!-- IF L_REG_COND -->
+				<p><strong>{L_REG_COND}</strong></p>
+			<!-- ENDIF -->
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="username">{L_USERNAME}</label>
+				<p class="ucp-form-help">{L_USERNAME_EXPLAIN}</p>
+				<input type="text" tabindex="1" name="username" id="username" size="25" value="{USERNAME}" class="inputbox autowidth ucp-form-input" title="{L_USERNAME}" data-action="ajax-check" data-check-mode="usernamecheck" data-check-name1="username" data-check-value1-source="self" data-check-name2="ignore" data-check-value2="ignore" />
+				<span id="usernamecheck"></span>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="email">{L_EMAIL_ADDRESS}</label>
+				<input type="text" tabindex="2" name="email" id="email" size="25" maxlength="100" value="{EMAIL}" class="inputbox autowidth ucp-form-input" title="{L_EMAIL_ADDRESS}" data-action="ajax-check" data-check-mode="emailcheck" data-check-name1="email1" data-check-value1-source="self" data-check-name2="email2" data-check-value2-source="#email_confirm" />
+				<span id="emailcheck"></span>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="email_confirm">{L_CONFIRM_EMAIL}</label>
+				<input type="text" tabindex="3" name="email_confirm" id="email_confirm" size="25" maxlength="100" value="{EMAIL_CONFIRM}" class="inputbox autowidth ucp-form-input" title="{L_CONFIRM_EMAIL}" data-action="ajax-check" data-check-mode="emailcheck" data-check-name1="email1" data-check-value1-source="#email" data-check-name2="email2" data-check-value2-source="self" />
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="new_password">{L_PASSWORD}</label>
+				<p class="ucp-form-help">{L_PASSWORD_EXPLAIN}</p>
+				<input type="password" tabindex="4" name="new_password" id="new_password" size="25" value="{PASSWORD}" class="inputbox autowidth ucp-form-input" title="{L_NEW_PASSWORD}" data-action="ajax-check" data-check-mode="passwordcheck" data-check-name1="password1" data-check-value1-source="self" data-check-name2="password2" data-check-value2-source="#password_confirm" />
+				<span id="passwordcheck"></span>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="password_confirm">{L_CONFIRM_PASSWORD}</label>
+				<input type="password" tabindex="5" name="password_confirm" id="password_confirm" size="25" value="{PASSWORD_CONFIRM}" class="inputbox autowidth ucp-form-input" title="{L_CONFIRM_PASSWORD}" data-action="ajax-check" data-check-mode="passwordcheck" data-check-name1="password1" data-check-value1-source="#new_password" data-check-name2="password2" data-check-value2-source="self" />
+			</div>
+
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="lang">{L_LANGUAGE}</label>
+				<select name="lang" id="lang" class="ucp-form-select" data-action="change-language" tabindex="6" title="{L_LANGUAGE}">{S_LANG_OPTIONS}</select>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="tz">{L_TIMEZONE}</label>
+				<select name="tz" id="tz" tabindex="7" class="autowidth ucp-form-select">{S_TZ_OPTIONS}</select>
+			</div>
+			<!-- IF S_DIGESTS -->
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_DIGEST_REGISTER}</p>
+				<p class="ucp-form-help">{L_DIGEST_REGISTER_EXPLAIN}</p>
+				<div class="ucp-form-inline">
+					<label for="digest1"><input type="radio" name="digest" id="digest1" value="1"<!-- IF S_DIGEST_REGISTER_CHECKED_YES --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label for="digest2"><input type="radio" name="digest" id="digest2" value="0"<!-- IF S_DIGEST_REGISTER_CHECKED_NO --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</div>
+			</div>
+			<!-- ENDIF -->
+
+			<!-- IF .profile_fields -->
+				<p><strong>{L_ITEMS_REQUIRED}</strong></p>
+			<!-- BEGIN profile_fields -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label"<!-- IF profile_fields.FIELD_ID --> for="{profile_fields.FIELD_ID}"<!-- ENDIF -->>{profile_fields.LANG_NAME}:<!-- IF profile_fields.S_REQUIRED --> *<!-- ENDIF --></label>
+					<!-- IF profile_fields.LANG_EXPLAIN --><p class="ucp-form-help">{profile_fields.LANG_EXPLAIN}</p><!-- ENDIF -->
+					<!-- IF profile_fields.ERROR --><p class="error">{profile_fields.ERROR}</p><!-- ENDIF -->
+					{profile_fields.FIELD}
+				</div>
+			<!-- END profile_fields -->
+			<!-- ENDIF -->
+
+			<!-- IF S_GROUPS_ON_REGISTRATION -->
+			<div class="ucp-form-row">
+				<p class="ucp-form-label">{L_GROUPS_ON_REGISTRATION}: <!-- IF S_GROUPS_REQUIRED -->*<!-- ENDIF --></p>
+				<p class="ucp-form-help">{GROUPS_REGISTRATION_EXP}</p>
+				<!-- IF S_GROUPS_ON_REG_MULTIPLE --><div style="height: 6em; width: 12em; overflow: auto;">{S_GROUP_MULTIPLE_OPTIONS}</div><!-- ELSE --><select name="reg_group_id" id="reg_group_id" class="autowidth ucp-form-select">{S_GROUP_OPTIONS}</select><!-- ENDIF -->
+			</div>
+			<!-- ENDIF -->
+		</div>
+	</div>
+</div>
+<!-- IF CAPTCHA_TEMPLATE -->
+	<!-- DEFINE $CAPTCHA_TAB_INDEX = 8 -->
+	<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+<!-- ENDIF -->
+
+<!-- IF S_COPPA -->
+
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<h4>{L_COPPA_COMPLIANCE}</h4>
+		<p>{L_COPPA_EXPLAIN}</p>
+	</div>
+</div>
+<!-- ENDIF -->
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-actions">
+			{S_HIDDEN_FIELDS}
+			<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+			<input type="submit" tabindex="9" name="submit" id="submit" value="{L_SUBMIT}" class="button1 default-submit-action" />
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+</div>
+</form>
+
+<!-- INCLUDE overall_footer.html -->
+

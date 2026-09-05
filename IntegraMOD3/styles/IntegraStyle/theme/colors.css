@@ -1,0 +1,188 @@
+/*
+ * IntegraStyle Theme Colors
+ * 
+ * Centralized CSS custom properties for all main components.
+ */
+
+:root[data-style-color="blue"],
+body[data-style-color="blue"] {
+    /* Global Colors */
+    --color-primary: #12A3EB;
+    --color-secondary: #0076b1;
+    --bg-main: #FFFFFF;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+
+    /* Header & Navigation */
+    --bg-header: #EBEBEB;
+    --header-text: #105289;
+    --nav-bg: #CADCEB;
+    --nav-text: #105289;
+    --nav-hover-bg: #A9B8C2;
+
+    /* Off-Canvas Menu */
+    --off-canvas-bg: #FFFFFF;
+    --off-canvas-text: #333333;
+    --off-canvas-border: #CCCCCC;
+    --off-canvas-overlay: rgba(0, 0, 0, 0.5);
+
+    /* Search Component */
+    --search-bg: #FFFFFF;
+    --search-border: #A9B8C2;
+    --search-text: #333333;
+    --search-icon: #105289;
+
+    /* Buttons & Links */
+    --btn-bg: #EAEAEA;
+    --btn-text: #333333;
+    --btn-border: #CCCCCC;
+    --link-color: #105289;
+    --link-hover: #D31141;
+
+    /* Shared Surfaces & Accents */
+    --surface-border: #DDDDDD;
+    --row-divider: #EEEEEE;
+    --on-primary-text: #FFFFFF;
+    --feed-accent: #ff9b37;
+    --state-locked: #d31141;
+    --state-hot: #f39c12;
+    --state-announce: #e74c3c;
+    --state-sticky: #27ae60;
+    --state-moved: #95a5a6;
+
+    /* Ads & Banners */
+    --bg-ad-panel: #ECF1F3;
+    --border-ad-panel: #8C8C8C;
+}
+
+:root[data-style-color="blue"][data-bs-theme="dark"],
+body[data-style-color="blue"][data-bs-theme="dark"] {
+    --color-primary: #0b6899;
+    --color-secondary: #004d75;
+    --bg-main: #121212;
+    --text-primary: #E0E0E0;
+    --text-secondary: #A0A0A0;
+
+    --bg-header: #1e1e1e;
+    --header-text: #E0E0E0;
+    --nav-bg: #2d2d2d;
+    --nav-text: #E0E0E0;
+    --nav-hover-bg: #3d3d3d;
+
+    --off-canvas-bg: #1e1e1e;
+    --off-canvas-text: #E0E0E0;
+    --off-canvas-border: #333333;
+    --off-canvas-overlay: rgba(0, 0, 0, 0.7);
+
+    --search-bg: #2d2d2d;
+    --search-border: #444444;
+    --search-text: #E0E0E0;
+    --search-icon: #E0E0E0;
+
+    --btn-bg: #333333;
+    --btn-text: #E0E0E0;
+    --btn-border: #444444;
+    --link-color: #5ab4e5;
+    --link-hover: #ff4d79;
+
+    --surface-border: #333333;
+    --row-divider: #2a2a2a;
+    --on-primary-text: #FFFFFF;
+    --feed-accent: #ffb05a;
+    --state-locked: #ff5c7c;
+    --state-hot: #ffb347;
+    --state-announce: #ff7b6b;
+    --state-sticky: #49c37a;
+    --state-moved: #9aa7b1;
+
+    --bg-ad-panel: #1e1e1e;
+    --border-ad-panel: #333333;
+}
+
+:root[data-style-color="orange"],
+body[data-style-color="orange"] {
+    --color-primary: #E96308;
+    --color-secondary: #b74c04;
+    --bg-main: #FFFFFF;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+
+    --bg-header: #F7E5D8;
+    --header-text: #8f3d05;
+    --nav-bg: #F2C9AF;
+    --nav-text: #8f3d05;
+    --nav-hover-bg: #E9B48D;
+
+    --off-canvas-bg: #FFFFFF;
+    --off-canvas-text: #333333;
+    --off-canvas-border: #D8B19A;
+    --off-canvas-overlay: rgba(0, 0, 0, 0.5);
+
+    --search-bg: #FFFFFF;
+    --search-border: #D29A76;
+    --search-text: #333333;
+    --search-icon: #8f3d05;
+
+    --btn-bg: #F7E5D8;
+    --btn-text: #333333;
+    --btn-border: #D8B19A;
+    --link-color: #8f3d05;
+    --link-hover: #c44710;
+
+    --surface-border: #D8B19A;
+    --row-divider: #EFD7C7;
+    --on-primary-text: #FFFFFF;
+    --feed-accent: #E96308;
+    --state-locked: #b93214;
+    --state-hot: #E96308;
+    --state-announce: #d04d0a;
+    --state-sticky: #c67a1a;
+    --state-moved: #b28b73;
+
+    --bg-ad-panel: #FDF2EA;
+    --border-ad-panel: #B78B73;
+}
+
+:root[data-style-color="orange"][data-bs-theme="dark"],
+body[data-style-color="orange"][data-bs-theme="dark"] {
+    --color-primary: #c65306;
+    --color-secondary: #9f4204;
+    --bg-main: #17120f;
+    --text-primary: #F0E3DA;
+    --text-secondary: #C9B6A9;
+
+    --bg-header: #231914;
+    --header-text: #F0E3DA;
+    --nav-bg: #35231a;
+    --nav-text: #F0E3DA;
+    --nav-hover-bg: #4a2f22;
+
+    --off-canvas-bg: #231914;
+    --off-canvas-text: #F0E3DA;
+    --off-canvas-border: #4a3428;
+    --off-canvas-overlay: rgba(0, 0, 0, 0.7);
+
+    --search-bg: #35231a;
+    --search-border: #5a4031;
+    --search-text: #F0E3DA;
+    --search-icon: #F0E3DA;
+
+    --btn-bg: #3d2a20;
+    --btn-text: #F0E3DA;
+    --btn-border: #5a4031;
+    --link-color: #ff9a55;
+    --link-hover: #ffc08c;
+
+    --surface-border: #4a3428;
+    --row-divider: #35261e;
+    --on-primary-text: #FFFFFF;
+    --feed-accent: #ff9a55;
+    --state-locked: #ff7c6b;
+    --state-hot: #ff9a55;
+    --state-announce: #ff8a47;
+    --state-sticky: #d28b3c;
+    --state-moved: #8f7769;
+
+    --bg-ad-panel: #231914;
+    --border-ad-panel: #4a3428;
+}

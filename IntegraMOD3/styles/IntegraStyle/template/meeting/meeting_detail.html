@@ -1,0 +1,129 @@
+<h3>{MEETING_SUBJECT}</h3>
+<!-- IF MEETING_CLOSED_STRING --><h3>{MEETING_CLOSED_STRING}</h3><!-- ENDIF -->
+<p>{MEETING_BY_USER}<br />{MEETING_EDIT_BY_USER}</p>
+
+<form action="{S_FORM_ACTION}" method="post" id="own_signs">
+	<section class="ucp-card"<!-- IF U_GUEST_POPUP --> data-meeting-guest-popup="{U_GUEST_POPUP}"<!-- ENDIF -->>
+		<div class="ucp-card-body ucp-form-grid">
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_LOCATION}:</span>
+				<div><!-- IF MEETING_LINK_D --><a href="{MEETING_LINK_D}"><!-- ENDIF -->{MEETING_LOCATION}<!-- IF MEETING_LINK_D --></a><!-- ENDIF --></div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_TIME}:</span>
+				<div>{MEETING_TIME}</div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_UNTIL}:</span>
+				<div>{MEETING_UNTIL}</div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_PLACES}:</span>
+				<div>{MEETING_PLACES}{MEETING_REMAIN_GUESTS}{MEETING_REMAIN_GUESTS_PLACES}</div>
+			</div>
+			<p>{U_MEETING_USER}</p>
+			<!-- IF U_MEETING_MAIL --><p><a href="{U_MEETING_MAIL}">{L_MEETING_MAIL}</a></p><!-- ENDIF -->
+			<!-- IF MEETING_DESC --><div class="content">{MEETING_DESC}</div><!-- ENDIF -->
+		</div>
+	</section>
+
+<!-- IF S_GUEST_NAMES_BLOCK -->
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_MEETING_OWM_GUESTS}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<!-- IF S_GUEST_BLOCK_HEADER -->
+			<p>{L_MEETING_GUESTNAME_ENTERING_EXPLAIN}</p>
+			<!-- ENDIF -->
+			<header class="forum-header mcp-list-header">
+				<div class="forum-title">{L_MEETING_PRENAMES}</div>
+				<div class="forum-stats-header">{L_MEETING_NAMES}</div>
+			</header>
+			<div class="forum-list">
+			<!-- BEGIN guest_name_row -->
+				<article class="forum-row mcp-list-row">
+					<div class="forum-details"><input type="text" name="meeting_guest_prename[]" class="inputbox autowidth ucp-form-input" size="50" maxlength="255" value="{guest_name_row.GUEST_PRENAME}" /></div>
+					<div class="forum-stats-grid"><input type="text" name="meeting_guest_name[]" class="inputbox autowidth ucp-form-input" size="50" maxlength="255" value="{guest_name_row.GUEST_NAME}" /></div>
+				</article>
+			<!-- END guest_name_row -->
+			<!-- BEGIN guest_name_row_read_only -->
+				<article class="forum-row mcp-list-row">
+					<div class="forum-details"><input type="hidden" name="meeting_guest_prename[]" value="{guest_name_row_read_only.GUEST_PRENAME}" />{guest_name_row_read_only.GUEST_PRENAME}</div>
+					<div class="forum-stats-grid"><input type="hidden" name="meeting_guest_name[]" value="{guest_name_row_read_only.GUEST_NAME}" />{guest_name_row_read_only.GUEST_NAME}</div>
+				</article>
+			<!-- END guest_name_row_read_only -->
+			</div>
+		</div>
+	</section>
+<!-- ENDIF -->
+
+	<!-- IF S_SIGNED_ON_EDIT || S_SIGNED_OFF -->
+	<div class="ucp-actions">
+		<!-- IF S_SIGNED_ON_EDIT --><input type="submit" name="sign_on_edit" class="button1" value="{S_SIGNED_ON_EDIT}" />{MEETING_SURE_USER}{S_REMAIN_GUESTS}<!-- ENDIF -->
+		<!-- IF S_SIGNED_OFF --><input type="submit" name="sign_off" class="button1" value="{S_SIGNED_OFF}" /><!-- ENDIF -->
+		{S_HIDDEN_FIELDS}
+	</div>
+	<!-- ENDIF -->
+</form>
+
+<!-- IF S_SIGN_ON_OTHER_USER -->
+<form action="{S_FORM_ACTION}" method="post" id="sign_on_other_user">
+	<div class="ucp-actions">{S_NEW_USERS} {MEETING_SURE_USER} <input type="submit" name="sign_on_edit" class="button2" value="{L_MEETING_YES_SIGNON}" /></div>
+	{S_HIDDEN_FIELDS_SON}
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_SIGN_OFF_USER -->
+<form action="{S_FORM_ACTION}" method="post" id="signoff_user">
+	<div class="ucp-actions">{S_HIDDEN_FIELDS_SOFF}{S_MEETING_SIGNOFFS} <input type="submit" name="sign_off" class="button2" value="{L_MEETING_SIGN_OFF}" /></div>
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_MEETING_COMMENTS -->
+<section class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_MEETING_COMMENTS}</h3>
+	</div>
+	<div class="ucp-card-body">
+		<!-- BEGIN meeting_comments -->
+		<article class="meeting-comment">
+			<p><strong>{meeting_comments.MEETING_COMMENT_USER}</strong> {meeting_comments.MEETING_COMMENT_ACTION}</p>
+			<p>{meeting_comments.MEETING_COMMENT}</p>
+		</article>
+		<!-- END meeting_comments -->
+	</div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_EDIT_COMMENT -->
+<form action="{S_FORM_COMMENT_ACTION}" method="post">
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{COMMENT_EDIT_MODE} &bull; {USERNAME}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<textarea class="inputbox autowidth ucp-form-textarea" rows="3" cols="100" name="meeting_comment">{MEETING_COMMENT}</textarea>
+			<!-- IF S_COMMENT_HINT --><p><strong>{L_MEETING_COMMENT_HINT}</strong></p><!-- ENDIF -->
+			<div class="ucp-actions"><input type="submit" name="submit" class="button1" value="{L_SUBMIT}" /></div>
+			{S_FORM_TOKEN}
+			{S_HIDDEN_COMMENT_FIELDS}
+		</div>
+	</section>
+</form>
+<!-- ELSE -->
+<form action="{S_FORM_COMMENT_ACTION}" method="post">
+	<div class="ucp-actions"><input type="submit" name="submit" class="button2" value="{L_MEETING_ENTER_COMMENT}" /></div>
+</form>
+<!-- ENDIF -->
+
+<section class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_MEETING_STATISTIC}</h3>
+	</div>
+	<div class="ucp-card-body">
+		<p><strong>{L_MEETING_FREE_PLACES}:</strong> {MEETING_FREE_PLACES}{MEETING_FREE_GUESTS}</p>
+		<p><strong>{L_MEETING_SURE_TOTAL}:</strong> {MEETING_SURE_TOTAL}</p>
+		<p><strong>{L_MEETING_SURE_TOTAL_USER}:</strong> {MEETING_SURE_TOTAL_USER}</p>
+	</div>
+</section>

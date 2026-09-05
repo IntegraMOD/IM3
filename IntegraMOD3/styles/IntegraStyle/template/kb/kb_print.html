@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}">
+<head>
+<meta charset="{S_CONTENT_ENCODING}" />
+<meta name="robots" content="noindex" />
+{META}
+<title>{SITENAME} &bull; {PAGE_TITLE}</title>
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" />
+</head>
+<body id="phpbb" class="kb-print">
+<div id="wrap">
+	<a id="top" name="top" accesskey="t"></a>
+	<header id="page-header">
+		<h1>{SITENAME}</h1>
+		<p>{SITE_DESCRIPTION}<br /><a href="{U_FORUM}">{U_FORUM}</a></p>
+		<h2>{TITEL}</h2>
+		<p><a href="{U_ARTICLE}">{U_ARTICLE}</a></p>
+	</header>
+	<main id="page-body">
+		<article class="post">
+			<p class="date">{L_POSTED}: <strong>{ARTICLE_TIME}</strong></p>
+			<p class="author">{L_POST_BY_AUTHOR} <strong>{USER}</strong></p>
+			<div class="content">{ARTICLE}</div>
+		</article>
+	</main>
+	<hr />
+	<footer id="page-footer">
+		<div class="page-number">{S_TIMEZONE}</div>
+		<div class="copyright">{U_FORUM}</div>
+	</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!-- IDTAG starts block_search.html 17 March 2008 copyright phpbbireland.com 2007 -->
+<!-- IF S_SEARCH -->
+
+<form method="get" id="search_block" class="block-search-form" action="{U_SEARCH}" data-search-block data-advanced-search-url="{U_SEARCH}">
+    <section class="block_data block-search">
+        <div class="block-search-keywords">
+			<input class="inputbox search" type="text" name="keywords" size="21" />{S_HIDDEN_FIELDS}
+		</div>
+        <div class="block-search-engine">
+            <select class="inputbox full" name="search_engine">
+                <optgroup label="{SITE_NAME}">
+                    <option value="site">{SITE_NAME}</option>
+					<option value="site">{L_POSTS}</option>
+					<option value="advanced">{L_ADVANCED_SEARCH}</option>
+			    </optgroup>
+                <optgroup style="font-size:12px;" label="Search Engine">
+		            <option value="google">Google</option>
+			        <option value="yahoo">Yahoo</option>
+			        <option value="lycos">Lycos</option>
+                </optgroup>
+			</select>
+		</div>
+        <div class="block-search-actions">
+			<input type="hidden" name="search_fields" value="all" />
+			<input type="hidden" name="show_results" value="topics" />
+			<input class="button1" type="submit" value="{L_SEARCH}" />
+			<a href="{U_SEARCH}">{L_ADVANCED_SEARCH}</a>
+		</div>
+		<!-- IF DEBUG_QUERIES --><div class="block_data">{SEARCH_DEBUG}</div><!-- ENDIF -->
+    </section>
+</form>
+<!-- ELSE -->
+{L_LOGIN_TO_USE_SEARCH}
+<!-- ENDIF -->
+<!-- IDTAG ends block_search -->

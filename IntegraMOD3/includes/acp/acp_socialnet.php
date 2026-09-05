@@ -626,6 +626,33 @@ class acp_socialnet extends AddOnsHookSystem
             $cache->destroy('config');
         }
     }
+
+    /**
+     * Build the <option> list for the SocialNet default privacy level select box.
+     * Privacy levels: 0 = Default (everyone), 1 = Friends only, 2 = Private (Admins only).
+     * @param mixed $selected Currently selected config value
+     * @param string $key Field id (unused, kept for build_cfg_template signature)
+     * @return string HTML option tags
+     */
+    public function sn_select_privacy_level($selected, $key = '')
+    {
+        global $user;
+
+        $selected = (int) $selected;
+
+        $options = array(
+            0 => isset($user->lang['SN_UP_PRIVACY_DEFAULT']) ? $user->lang['SN_UP_PRIVACY_DEFAULT'] : 'Default (Everyone)',
+            1 => isset($user->lang['SN_UP_PRIVACY_FRIENDS']) ? $user->lang['SN_UP_PRIVACY_FRIENDS'] : 'Friends only',
+            2 => isset($user->lang['SN_UP_PRIVACY_PRIVATE']) ? $user->lang['SN_UP_PRIVACY_PRIVATE'] : 'Private (Admins only)',
+        );
+
+        $tpl = '';
+        foreach ($options as $value => $title) {
+            $tpl .= '<option value="' . $value . '"' . (($value === $selected) ? ' selected="selected"' : '') . '>' . $title . '</option>';
+        }
+
+        return $tpl;
+    }
 }
 
 function catch_blocks($elem)

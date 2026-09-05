@@ -63,6 +63,27 @@ switch ($search_id)
 		}
 	break;
 
+	// Search for liked posts
+	case 'user_likes':
+		if ($user->data['user_id'] == ANONYMOUS)
+		{
+			login_box('', $user->lang['LOGIN_EXPLAIN_EGOSEARCH']);
+		}
+	break;
+	
+	// Search for posts the user liked
+	case 'user_likes_sent':
+		if ($user->data['user_id'] == ANONYMOUS)
+		{
+			login_box('', $user->lang['LOGIN_EXPLAIN_EGOSEARCH']);
+		}
+		// Security: Prevent users from searching anyone else's sent likes
+		if (request_var('u', 0) != $user->data['user_id'])
+		{
+			trigger_error('NOT_AUTHORISED');
+		}
+	break;
+	
 	// Search for unread posts needs to be allowed and user to be logged in if topics tracking for guests is disabled
 	case 'unreadposts':
 		if (!$config['load_unreads_search'])
@@ -106,7 +127,7 @@ if ($user->load && $config['limit_search_load'] && ($user->load > doubleval($con
 // It is applicable if the configuration setting is non-zero, and the user cannot
 // ignore the flood setting, and the search is a keyword search.
 $interval = ($user->data['user_id'] == ANONYMOUS) ? $config['search_anonymous_interval'] : $config['search_interval'];
-if ($interval && !in_array($search_id, array('unreadposts', 'unanswered', 'active_topics', 'egosearch')) && !$auth->acl_get('u_ignoreflood'))
+if ($interval && !in_array($search_id, array('unreadposts', 'unanswered', 'active_topics', 'egosearch', 'user_likes', 'user_likes_sent')) && !$auth->acl_get('u_ignoreflood'))
 {
 	if ($user->data['user_last_search'] > time() - $interval)
 	{
@@ -320,6 +341,74 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 	{
 		switch ($search_id)
 		{
+			case 'user_likes':
+				$author_id = request_var('u', 0);
+				if (!$author_id)
+				{
+					trigger_error('NO_SEARCH_RESULTS');
+				}
+
+				if (file_exists($phpbb_root_path . 'language/' . $user->data['user_lang'] . '/mods/socialnet.' . $phpEx))
+				{
+					$user->add_lang('mods/socialnet');
+				}
+
+				$l_search_title = $user->lang['SN_SEARCH_LIKED_POSTS'] ?? ($user->lang['SEARCH_LIKED_POSTS'] ?? 'Search user’s liked posts');
+
+				// Force post-level results
+				$show_results = 'posts';
+				$sort_key = 't';
+				$sort_dir = 'd';
+				$sort_by_sql['t'] = 'p.post_time';
+				$sql_sort = 'ORDER BY ' . $sort_by_sql[$sort_key] . (($sort_dir == 'a') ? ' ASC' : ' DESC');
+
+				gen_sort_selects($limit_days, $sort_by_text, $sort_days, $sort_key, $sort_dir, $s_limit_days, $s_sort_key, $s_sort_dir, $u_sort_param);
+				$s_sort_key = $s_sort_dir = $u_sort_param = $s_limit_days = '';
+
+				$sql = 'SELECT DISTINCT p.post_id, p.post_time
+					FROM ' . POSTS_TABLE . ' p, ' . LIKES_TABLE . ' l
+					WHERE l.poster_id = ' . (int) $author_id . '
+						AND p.post_id = l.post_id
+						' . $m_approve_fid_sql . '
+						' . ((sizeof($ex_fid_ary)) ? ' AND ' . $db->sql_in_set('p.forum_id', $ex_fid_ary, true) : '') . "
+					$sql_sort";
+				$field = 'post_id';
+			break;
+			
+			case 'user_likes_sent':
+				$author_id = request_var('u', 0);
+				if (!$author_id || $author_id != $user->data['user_id'])
+				{
+					trigger_error('NO_SEARCH_RESULTS');
+				}
+
+				if (file_exists($phpbb_root_path . 'language/' . $user->data['user_lang'] . '/mods/socialnet.' . $phpEx))
+				{
+					$user->add_lang('mods/socialnet');
+				}
+
+				$l_search_title = $user->lang['SN_SEARCH_LIKES_SENT'] ?? 'Search posts you liked';
+
+				// Force post-level results
+				$show_results = 'posts';
+				$sort_key = 't';
+				$sort_dir = 'd';
+				$sort_by_sql['t'] = 'p.post_time';
+				$sql_sort = 'ORDER BY ' . $sort_by_sql[$sort_key] . (($sort_dir == 'a') ? ' ASC' : ' DESC');
+
+				gen_sort_selects($limit_days, $sort_by_text, $sort_days, $sort_key, $sort_dir, $s_limit_days, $s_sort_key, $s_sort_dir, $u_sort_param);
+				$s_sort_key = $s_sort_dir = $u_sort_param = $s_limit_days = '';
+
+				$sql = 'SELECT DISTINCT p.post_id, p.post_time
+					FROM ' . POSTS_TABLE . ' p, ' . LIKES_TABLE . ' l
+					WHERE l.user_id = ' . (int) $author_id . '
+						AND p.post_id = l.post_id
+						' . $m_approve_fid_sql . '
+						' . ((sizeof($ex_fid_ary)) ? ' AND ' . $db->sql_in_set('p.forum_id', $ex_fid_ary, true) : '') . "
+					$sql_sort";
+				$field = 'post_id';
+			break;
+			
 			// Oh holy Bob, bring us some activity...
 			case 'active_topics':
 				$l_search_title = $user->lang['SEARCH_ACTIVE_TOPICS'];
@@ -586,6 +675,9 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 
 	$u_search = append_sid("{$phpbb_root_path}search.$phpEx", $u_sort_param . $u_show_results);
 	$u_search .= ($search_id) ? '&amp;search_id=' . $search_id : '';
+	$u_author_u = request_var('u', 0);
+	$u_search .= ($search_id == 'user_likes' && $u_author_u) ? '&amp;u=' . $u_author_u : '';
+	$u_search .= ($search_id == 'user_likes_sent' && $u_author_u) ? '&amp;u=' . $u_author_u : '';
 	$u_search .= ($u_hilit) ? '&amp;keywords=' . urlencode(htmlspecialchars_decode($keywords, ENT_COMPAT)) : '';
 	$u_search .= ($search_terms != 'all') ? '&amp;terms=' . $search_terms : '';
 	$u_search .= ($topic_id) ? '&amp;t=' . $topic_id : '';

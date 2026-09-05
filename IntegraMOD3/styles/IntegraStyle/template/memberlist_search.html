@@ -1,0 +1,116 @@
+<!-- IF S_IN_SEARCH_POPUP -->
+<span id="member-search-config" data-form-name="{S_FORM_NAME}" data-field-name="{S_FIELD_NAME}"></span>
+<!-- ENDIF -->
+
+<h2>{L_FIND_USERNAME}</h2>
+
+<form method="post" action="{S_MODE_ACTION}" id="search_memberlist">
+<div class="ucp-card">
+    <div class="ucp-card-body">
+        <p>{L_FIND_USERNAME_EXPLAIN}</p>
+
+        <div class="ucp-form-grid">
+            <div class="ucp-form-row">
+                <label for="username">{L_USERNAME}:</label>
+                <input type="text" name="username" id="username" value="{USERNAME}" class="inputbox ucp-form-input" />
+            </div>
+<!-- IF S_EMAIL_SEARCH_ALLOWED -->
+            <div class="ucp-form-row">
+                <label for="email">{L_EMAIL}:</label>
+                <input type="text" name="email" id="email" value="{EMAIL}" class="inputbox ucp-form-input" />
+            </div>
+<!-- ENDIF -->
+            <div class="ucp-form-row">
+                <label for="fb">{L_FB}:</label>
+                <input type="text" name="fb" id="fb" value="{FB}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="ig">{L_IG}:</label>
+                <input type="text" name="ig" id="ig" value="{IG}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="pt">{L_PT}:</label>
+                <input type="text" name="pt" id="pt" value="{PT}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="twr">{L_TWR}:</label>
+                <input type="text" name="twr" id="twr" value="{TWR}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="skp">{L_SKP}:</label>
+                <input type="text" name="skp" id="skp" value="{SKP}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="tg">{L_TG}:</label>
+                <input type="text" name="tg" id="tg" value="{TG}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="li">{L_LI}:</label>
+                <input type="text" name="li" id="li" value="{LI}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="tt">{L_TT}:</label>
+                <input type="text" name="tt" id="tt" value="{TT}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="dc">{L_DC}:</label>
+                <input type="text" name="dc" id="dc" value="{DC}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="icq">{L_ICQ}:</label>
+                <input type="text" name="icq" id="icq" value="{ICQ}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="aim">{L_AIM}:</label>
+                <input type="text" name="aim" id="aim" value="{AIM}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="yahoo">{L_YIM}:</label>
+                <input type="text" name="yahoo" id="yahoo" value="{YAHOO}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="msn">{L_MSNM}:</label>
+                <input type="text" name="msn" id="msn" value="{MSNM}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="jabber">{L_JABBER}:</label>
+                <input type="text" name="jabber" id="jabber" value="{JABBER}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label for="joined">{L_JOINED}:</label>
+                <div class="ucp-field-inline"><select name="joined_select">{S_JOINED_TIME_OPTIONS}</select> <input class="inputbox medium ucp-form-input" type="text" name="joined" id="joined" value="{JOINED}" /></div>
+            </div>
+<!-- IF S_VIEWONLINE -->
+            <div class="ucp-form-row">
+                <label for="active">{L_LAST_ACTIVE}:</label>
+                <div class="ucp-field-inline"><select name="active_select">{S_ACTIVE_TIME_OPTIONS}</select> <input class="inputbox medium ucp-form-input" type="text" name="active" id="active" value="{ACTIVE}" /></div>
+            </div>
+<!-- ENDIF -->
+            <div class="ucp-form-row">
+                <label for="count">{L_POSTS}:</label>
+                <div class="ucp-field-inline"><select name="count_select">{S_COUNT_OPTIONS}</select> <input class="inputbox medium ucp-form-input" type="text" name="count" id="count" value="{COUNT}" /></div>
+            </div>
+<!-- IF S_IP_SEARCH_ALLOWED -->
+            <div class="ucp-form-row">
+                <label for="ip">{L_POST_IP}:</label>
+                <input class="inputbox medium ucp-form-input" type="text" name="ip" id="ip" value="{IP}" />
+            </div>
+<!-- ENDIF -->
+            <div class="ucp-form-row">
+                <label for="search_group_id">{L_GROUP}:</label>
+                <select name="search_group_id" id="search_group_id">{S_GROUP_SELECT}</select>
+            </div>
+            <div class="ucp-form-row">
+                <label for="sk">{L_SORT_BY}:</label>
+                <div class="ucp-field-inline"><select name="sk" id="sk">{S_SORT_OPTIONS}</select> <select name="sd">{S_ORDER_SELECT}</select></div>
+            </div>
+        </div>
+
+        <div class="ucp-actions">
+            <input type="reset" value="{L_RESET}" name="reset" class="button2" />
+            <input type="submit" name="submit" value="{L_SEARCH}" class="button1" />
+            {S_FORM_TOKEN}
+        </div>
+    </div>
+</div>
+</form>

@@ -1,0 +1,329 @@
+<!-- INCLUDE gallery/gallery_header.html -->
+
+<div class="gallery-layout">
+<h2><a href="{S_ALBUM_ACTION}">{IMAGE_NAME}</a></h2>
+
+<section class="ucp-card gallery-image-view<!-- IF S_IMAGE_REPORTED --> reported<!-- ENDIF -->">
+	<div class="ucp-card-body">
+		<div class="gallery-nav-thumbs">
+			<!-- IF UC_PREVIOUS --><div class="gallery-nav-prev">{UC_PREVIOUS_IMAGE}<br />{UC_PREVIOUS}</div><!-- ENDIF -->
+			<!-- IF UC_NEXT --><div class="gallery-nav-next">{UC_NEXT_IMAGE}<br />{UC_NEXT}</div><!-- ENDIF -->
+		</div>
+		<div class="gallery-full-wrap">{UC_IMAGE}
+			<!-- IF S_IMAGE_REPORTED --><p><a href="{U_IMAGE_REPORTED}"><span class="error">{L_IMAGE_REPORTED}</span></a></p><!-- ENDIF -->
+		</div>
+	</div>
+</section>
+
+<article class="viewtopic-post-inner" id="details">
+	<section class="ucp-card">
+		<div class="ucp-card-body">
+			<!-- IF U_EDIT or U_DELETE or U_REPORT or U_WATCH_TOPIC or U_BOOKMARK_TOPIC -->
+			<p class="dl-toolbar">
+				<!-- IF U_WATCH_TOPIC --><a href="{U_WATCH_TOPIC}" title="{L_WATCH_TOPIC}">{L_WATCH_TOPIC}</a><!-- ENDIF -->
+				<!-- IF U_BOOKMARK_TOPIC --><a href="{U_BOOKMARK_TOPIC}" title="{L_BOOKMARK_TOPIC}">{L_BOOKMARK_TOPIC}</a><!-- ENDIF -->
+				<!-- IF U_EDIT --><a href="{U_EDIT}" title="{L_EDIT_IMAGE}">{L_EDIT_IMAGE}</a><!-- ENDIF -->
+				<!-- IF U_DELETE --><a href="{U_DELETE}" title="{L_DELETE_IMAGE}">{L_DELETE_IMAGE}</a><!-- ENDIF -->
+				<!-- IF U_REPORT --><a href="{U_REPORT}" title="{L_REPORT_IMAGE}">{L_REPORT_IMAGE}</a><!-- ENDIF -->
+			</p>
+			<!-- ENDIF -->
+			<h3>{IMAGE_NAME}</h3>
+			<div class="dl-meta-grid dl-detail-meta">
+				<!-- IF CONTEST_RANK --><div><strong>{L_CONTEST_RESULT}</strong><p>{CONTEST_RANK}</p></div><!-- ENDIF -->
+				<div><strong>{L_UPLOADED_ON_DATE}</strong><p>{IMAGE_TIME}</p></div>
+				<!-- IF IMAGE_URL --><div><strong>{L_IMAGE_URL}</strong><p><input type="text" size="28" value="{IMAGE_URL}" class="inputbox" data-action="select-on-focus" /></p></div><!-- ENDIF -->
+				<div><strong>{L_GALLERY_VIEWS}</strong><p>{IMAGE_VIEW}</p></div>
+				<!-- IF IMAGE_BBCODE -->
+				<div>
+					<strong>{L_IMAGE_BBCODE}</strong>
+					<p><input type="text" size="28" value="{IMAGE_BBCODE}" class="inputbox" data-action="select-on-focus" /></p>
+					<!-- IF IMAGE_IMGURL_BBCODE --><p><input type="text" size="28" value="{IMAGE_IMGURL_BBCODE}" class="inputbox" data-action="select-on-focus" /></p><!-- ENDIF -->
+				</div>
+				<!-- ENDIF -->
+				<!-- IF S_VIEW_RATE --><div><strong>{L_RATING}</strong><p><!-- IF CONTEST_RESULT_HIDDEN -->{CONTEST_RESULT_HIDDEN}<!-- ELSE -->{IMAGE_RATING}<!-- ENDIF --><!-- IF S_YOUR_RATING --> ({L_YOUR_RATING}: {S_YOUR_RATING})<!-- ENDIF --></p></div><!-- ENDIF -->
+			</div>
+			<!-- IF .exif_value -->
+			<h3>{L_EXIF-DATA}<!-- IF not S_VIEWEXIF --> - <a href="{S_ALBUM_ACTION}" data-action="toggle-display" data-toggle-id="exif_data_fieldset">{L_SHOW_EXIF}</a><!-- ENDIF --></h3>
+			<div id="exif_data_fieldset" class="dl-meta-grid dl-detail-meta"<!-- IF not S_VIEWEXIF --> hidden="hidden"<!-- ENDIF -->>
+				<!-- BEGIN exif_value -->
+				<div><strong>{exif_value.EXIF_NAME}</strong><p>{exif_value.EXIF_VALUE}</p></div>
+				<!-- END exif_value -->
+			</div>
+			<!-- ENDIF -->
+		</div>
+	</section>
+
+		<section class="post-profile" id="profile_poster">
+				<div>
+					<!-- IF POSTER_AVATAR -->
+						<!-- IF U_POSTER --><a href="{U_POSTER}">{POSTER_AVATAR}</a><!-- ELSE -->{POSTER_AVATAR}<!-- ENDIF -->
+					<!-- ENDIF -->
+					<!-- IF not U_POSTER --><strong>{POSTER_FULL}</strong><!-- ELSE -->{POSTER_FULL}<!-- ENDIF -->
+				</div>
+				<!-- IF POSTER_RANK_TITLE or POSTER_RANK_IMG --><div class="profile-rank">{POSTER_RANK_TITLE}<!-- IF POSTER_RANK_TITLE and POSTER_RANK_IMG --><br /><!-- ENDIF -->{POSTER_RANK_IMG}</div><!-- ENDIF -->
+				<div class="profile-details">
+				<!-- IF POSTER_POSTS != '' --><div><strong>{L_POSTS}:</strong> {POSTER_POSTS}</div><!-- ENDIF -->
+				<!-- IF POSTER_GALLERY_IMAGES != '' --><div><strong>{L_IMAGES}:</strong> <!-- IF U_POSTER_GALLERY_SEARCH --><a href="{U_POSTER_GALLERY_SEARCH}">{POSTER_GALLERY_IMAGES}</a><!-- ELSE -->{POSTER_GALLERY_IMAGES}<!-- ENDIF --></div><!-- ENDIF -->
+				<!-- IF POSTER_JOINED --><div><strong>{L_JOINED}:</strong> {POSTER_JOINED}</div><!-- ENDIF -->
+				<!-- IF POSTER_FROM --><div><strong>{L_LOCATION}:</strong> {POSTER_FROM}</div><!-- ENDIF -->
+				<!-- IF POSTER_IP --><div><strong>{L_IP}:</strong> {POSTER_IP} [ <a href="{U_POSTER_WHOIS}" data-action="popup" data-popup-width="750" data-popup-height="500">{L_WHOIS}</a> ]</div><!-- ENDIF -->
+
+			<!-- IF S_PROFILE_FIELD1 -->
+				<div><strong>{PROFILE_FIELD1_NAME}:</strong> {PROFILE_FIELD1_VALUE}</div>
+			<!-- ENDIF -->
+			<!-- BEGIN custom_fields -->
+				<div><strong>{custom_fields.PROFILE_FIELD_NAME}:</strong> {custom_fields.PROFILE_FIELD_VALUE}</div>
+			<!-- END custom_fields -->
+
+			<!-- IF not S_IS_BOT -->
+			<!-- IF U_POSTER_PM or U_POSTER_EMAIL or U_POSTER_WWW or U_POSTER_MSN or U_POSTER_ICQ or U_POSTER_YIM or U_POSTER_AIM or U_POSTER_JABBER or U_POSTER_FB or U_POSTER_IG or U_POSTER_PT or U_POSTER_TWR or U_POSTER_SKP or U_POSTER_TG or U_POSTER_LI or U_POSTER_TT or U_POSTER_DC -->
+				<div class="profile-contacts">
+					<ul class="profile-icons">
+						<!-- IF U_POSTER_PM --><li><a href="{U_POSTER_PM}" title="{L_PRIVATE_MESSAGE}"><svg class="css-icon css-icon-inbox" aria-hidden="true" focusable="false"><use href="#icon-inbox"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_EMAIL --><li><a href="{U_POSTER_EMAIL}" title="{L_SEND_EMAIL_USER} {POST_AUTHOR}"><svg class="css-icon css-icon-mail" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_WWW --><li><a href="{U_POSTER_WWW}" title="{L_VISIT_WEBSITE}: {U_WWW}"><svg class="css-icon css-icon-globe" aria-hidden="true" focusable="false"><use href="#icon-globe"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_FB --><li><a href="{U_POSTER_FB}" title="{L_FB}" target="_blank"><svg class="css-icon css-icon-brand-fb" aria-hidden="true" focusable="false"><use href="#icon-brand-fb"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_IG --><li><a href="{U_POSTER_IG}" title="{L_IG}" target="_blank"><svg class="css-icon css-icon-brand-ig" aria-hidden="true" focusable="false"><use href="#icon-brand-ig"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_PT --><li><a href="{U_POSTER_PT}" title="{L_PT}" target="_blank"><svg class="css-icon css-icon-brand-pt" aria-hidden="true" focusable="false"><use href="#icon-brand-pt"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_TWR --><li><a href="{U_POSTER_TWR}" title="{L_TWR}" target="_blank"><svg class="css-icon css-icon-brand-tw" aria-hidden="true" focusable="false"><use href="#icon-brand-tw"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_SKP --><li><a href="{U_POSTER_SKP}" title="{L_SKP}" target="_blank"><svg class="css-icon css-icon-brand-sk" aria-hidden="true" focusable="false"><use href="#icon-brand-sk"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_TG --><li><a href="{U_POSTER_TG}" title="{L_TG}" target="_blank"><svg class="css-icon css-icon-brand-tg" aria-hidden="true" focusable="false"><use href="#icon-brand-tg"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_LI --><li><a href="{U_POSTER_LI}" title="{L_LI}" target="_blank"><svg class="css-icon css-icon-brand-li" aria-hidden="true" focusable="false"><use href="#icon-brand-li"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_TT --><li><a href="{U_POSTER_TT}" title="{L_TT}" target="_blank"><svg class="css-icon css-icon-brand-tt" aria-hidden="true" focusable="false"><use href="#icon-brand-tt"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_DC --><li><a href="{U_POSTER_DC}" title="{L_DC}" target="_blank"><svg class="css-icon css-icon-brand-dc" aria-hidden="true" focusable="false"><use href="#icon-brand-dc"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_MSN --><li><a href="{U_POSTER_MSN}" title="{L_MSNM}" target="_blank"><svg class="css-icon css-icon-brand-msn" aria-hidden="true" focusable="false"><use href="#icon-brand-msn"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_ICQ --><li><a href="{U_POSTER_ICQ}" title="{L_ICQ}" target="_blank"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-globe"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_YIM --><li><a href="{U_POSTER_YIM}" title="{L_YIM}" target="_blank"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-globe"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_AIM --><li><a href="{U_POSTER_AIM}" title="{L_AIM}" target="_blank"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-globe"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_JABBER --><li><a href="{U_POSTER_JABBER}" title="{L_JABBER}" target="_blank"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-globe"></use></svg></a></li><!-- ENDIF -->
+						<!-- IF U_POSTER_GALLERY --><li><a href="{U_POSTER_GALLERY}" title="{L_PERSONAL_ALBUM}"><svg class="css-icon css-icon-images" aria-hidden="true" focusable="false"><use href="#icon-images"></use></svg></a></li><!-- ENDIF -->
+					</ul>
+				</div>
+			<!-- ENDIF -->
+			<!-- ENDIF -->
+			</div>
+	</section>
+</article>
+
+<!-- IF S_QUICK_MOD -->
+	<form method="post" action="{S_MOD_ACTION}" class="display-options">
+		<label for="quick-mod-select">{L_QUICK_MOD}:</label>
+		<select name="action" id="quick-mod-select">
+			<!-- IF S_QM_MOVE --><option value="images_move">{L_QUEUE_A_MOVE}</option><!-- ENDIF -->
+			<!-- IF S_QM_EDIT --><option value="image_edit">{L_EDIT_IMAGE}</option><!-- ENDIF -->
+			<!-- IF S_QM_STATUS -->
+				<!-- IF not S_STATUS_UNAPPROVED --><option value="images_unapprove">{L_QUEUE_A_UNAPPROVE}</option><!-- ENDIF -->
+				<!-- IF not S_STATUS_APPROVED --><option value="images_approve">{L_QUEUE_A_APPROVE}</option><!-- ENDIF -->
+				<!-- IF not S_STATUS_LOCKED --><option value="images_lock">{L_QUEUE_A_LOCK}</option><!-- ENDIF -->
+			<!-- ENDIF -->
+			<!-- IF S_QM_DELETE --><option value="images_delete">{L_QUEUE_A_DELETE}</option><!-- ENDIF -->
+			<!-- IF S_QM_REPORT and S_IMAGE_REPORTED --><option value="report_details">{L_READ_REPORT}</option><!-- ENDIF -->
+		</select>
+		<input type="submit" value="{L_GO}" class="button2" />
+		{S_FORM_TOKEN}
+	</form>
+<!-- ENDIF -->
+
+<!-- IF IMAGE_DESC -->
+<section class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_IMAGE_DESC}</h3>
+	</div>
+			<div class="ucp-card-body">
+				<div class="content">{IMAGE_DESC}</div>
+			</div>
+		</section>
+		<!-- ENDIF -->
+
+<!-- IF not S_IS_BOT and (S_ALLOWED_TO_RATE or S_ALLOWED_TO_COMMENT) -->
+<a name="rating"></a>
+<form id="postform" action="{S_COMMENT_ACTION}" method="post">
+<section id="postingbox" class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title"><!-- IF S_ALLOWED_TO_RATE and S_ALLOWED_TO_COMMENT -->{L_POST_COMMENT_RATE_IMAGE}<!-- ELSEIF S_ALLOWED_TO_COMMENT -->{L_POST_COMMENT}<!-- ELSE -->{L_RATE_IMAGE}<!-- ENDIF --></h3>
+	</div>
+	<div class="ucp-card-body">
+		<fieldset id="comment-box" class="fields1">
+			<!-- IF S_ALLOWED_TO_RATE -->
+				<dl>
+					<dt><label>{L_YOUR_RATING}:</label></dt>
+					<dd>
+						<!-- IF .rate_scale -->
+							<select name="rating">
+							<!-- BEGIN rate_scale -->
+								<!-- IF rate_scale.RATE_POINT == 1 --><option value="0">{L_DONT_RATE_IMAGE}</option><!-- ENDIF -->
+								<option value="{rate_scale.RATE_POINT}">{rate_scale.RATE_POINT}</option>
+							<!-- END rate_scale -->
+							</select>
+							<!-- IF (not S_ALLOWED_TO_COMMENT or S_HIDE_COMMENT_INPUT) and .rate_scale -->
+								<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+							<!-- ENDIF -->
+						<!-- ELSE -->
+							{CONTEST_RATING}
+						<!-- ENDIF -->
+					</dd>
+				</dl>
+			<!-- ENDIF -->
+			<!-- IF S_ALLOWED_TO_COMMENT and not S_HIDE_COMMENT_INPUT -->
+				<!-- IF not S_USER_LOGGED_IN -->
+					<dl>
+						<dt><label>{L_USERNAME}:</label></dt>
+						<dd><input class="inputbox autowidth" type="text" name="username" maxlength="32" /></dd>
+					</dl>
+				<!-- ENDIF -->
+				<!-- IF CAPTCHA_TEMPLATE -->
+					<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+				<!-- ENDIF -->
+				<!-- INCLUDE posting_buttons.html -->
+				<div id="smiley-box">
+					<!-- IF S_SMILIES_ALLOWED and .smiley -->
+						<strong>{L_SMILIES}</strong><br />
+						<!-- BEGIN smiley -->
+							<a href="{U_MORE_SMILIES}" data-action="insert-smiley" data-smiley-code="{smiley.A_SMILEY_CODE}"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+						<!-- END smiley -->
+					<!-- ENDIF -->
+					<!-- IF S_SHOW_SMILEY_LINK and S_SMILIES_ALLOWED-->
+						<br /><a href="{U_MORE_SMILIES}" data-action="popup" data-popup-width="300" data-popup-height="350" data-popup-target="_phpbbsmilies">{L_MORE_SMILIES}</a>
+					<!-- ENDIF -->
+
+					<!-- IF BBCODE_STATUS -->
+					<!-- IF .smiley --><hr /><!-- ENDIF -->
+					{BBCODE_STATUS}<br />
+					<!-- IF S_BBCODE_ALLOWED -->
+						{IMG_STATUS}<br />
+						{FLASH_STATUS}<br />
+						{URL_STATUS}<br />
+					<!-- ENDIF -->
+					{SMILIES_STATUS}
+					<!-- ENDIF -->
+					<hr />{L_COMMENT_LENGTH}
+				</div>
+				<div id="message-box">
+					<textarea name="message" id="message" rows="7" cols="76" tabindex="3" class="inputbox" data-store-caret="1"></textarea>
+				</div>
+				<div><label for="attach_sig"><input type="checkbox" name="attach_sig" id="attach_sig"{S_SIGNATURE_CHECKED} /> {L_ATTACH_SIG}</label></div>
+				<div class="ucp-actions"><input type="submit" name="submit" value="{L_SUBMIT}" class="button1" /></div>
+		<!-- ELSE IF S_HIDE_COMMENT_INPUT -->
+			<!-- IF S_ALLOWED_TO_RATE --><hr class="dashed" /><!-- ENDIF -->
+			{CONTEST_COMMENTS}
+		<!-- ENDIF -->
+		{S_FORM_TOKEN}
+	</div>
+</section>
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_ALLOWED_READ_COMMENTS -->
+<a name="comments"></a>
+<!-- IF not .commentrow or S_COMMENTS_DISABLED -->
+	<section id="comments" class="forum-category panel">
+		<div class="no-forums"><strong><!-- IF S_COMMENTS_DISABLED -->{L_IMAGE_COMMENTS_DISABLED}<!-- ELSE -->{L_NO_COMMENTS}<!-- ENDIF --></strong></div>
+	</section>
+<!-- ENDIF -->
+<!-- IF .commentrow -->
+	<div class="topic-actions">
+		<div class="pagination">
+			{IMAGE_COMMENTS} {L_COMMENTS} &bull; {PAGE_NUMBER}<!-- IF PAGINATION --> &bull; <span>{PAGINATION}</span><!-- ENDIF -->
+		</div>
+	</div>
+	<!-- BEGIN commentrow -->
+	<a id="comment_{commentrow.COMMENT_ID}"></a>
+	<div class="post <!-- IF commentrow.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF commentrow.S_ONLINE --> online<!-- ENDIF -->">
+		<div class="inner"><span class="corners-top"><span></span></span>
+			<div class="postbody">
+				<!-- IF commentrow.U_DELETE or commentrow.U_EDIT or commentrow.U_INFO or commentrow.U_QUOTE -->
+					<ul class="profile-icons">
+						<!-- IF commentrow.U_EDIT --><li class="edit-icon"><a href="{commentrow.U_EDIT}" title="{L_EDIT_COMMENT}">{L_EDIT_COMMENT}</a></li><!-- ENDIF -->
+						<!-- IF commentrow.U_DELETE --><li class="delete-icon"><a href="{commentrow.U_DELETE}" title="{L_DELETE_COMMENT}"><span>{L_DELETE_COMMENT}</span></a></li><!-- ENDIF -->
+						<!-- IF commentrow.U_INFO --><li><a href="{commentrow.U_INFO}" title="{L_IP}" data-action="popup" data-popup-width="750" data-popup-height="500">{L_IP}</a></li><!-- ENDIF -->
+						<!-- IF commentrow.U_QUOTE --><li class="quote-icon"><a href="{commentrow.U_QUOTE}" title="{L_QUOTE_COMMENT}">{L_QUOTE_COMMENT}</a></li><!-- ENDIF -->
+					</ul>
+				<!-- ENDIF -->
+				<p class="author"><a href="{commentrow.U_COMMENT}" title="{L_POST}"><svg class="css-icon css-icon-mini-post" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></a>&nbsp;{L_POST_BY_AUTHOR} <strong>{commentrow.POST_AUTHOR_FULL}</strong> &raquo; {commentrow.TIME} </p>
+				<div class="content">{commentrow.TEXT}</div>
+				<!-- IF commentrow.EDIT_INFO --><div class="notice">{commentrow.EDIT_INFO}</div><!-- ENDIF -->
+				<!-- IF commentrow.SIGNATURE --><div id="sig{commentrow.COMMENT_ID}" class="signature">{commentrow.SIGNATURE}</div><!-- ENDIF -->
+			</div>
+			<dl class="postprofile" id="profile{commentrow.COMMENT_ID}">
+				<dt>
+					<!-- IF commentrow.POSTER_AVATAR -->
+						<!-- IF commentrow.U_POST_AUTHOR --><a href="{commentrow.U_POST_AUTHOR}">{commentrow.POSTER_AVATAR}</a><!-- ELSE -->{commentrow.POSTER_AVATAR}<!-- ENDIF --><br />
+					<!-- ENDIF -->
+					<!-- IF not commentrow.U_POST_AUTHOR --><strong>{commentrow.POST_AUTHOR_FULL}</strong><!-- ELSE -->{commentrow.POST_AUTHOR_FULL}<!-- ENDIF -->
+				</dt>
+
+				<!-- IF commentrow.RANK_TITLE or commentrow.RANK_IMG --><dd>{commentrow.RANK_TITLE}<!-- IF commentrow.RANK_TITLE and commentrow.RANK_IMG --><br /><!-- ENDIF -->{commentrow.RANK_IMG}</dd><!-- ENDIF -->
+
+				<dd>&nbsp;</dd>
+
+				<!-- IF commentrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {commentrow.POSTER_POSTS}</dd><!-- ENDIF -->
+				<!-- IF commentrow.GALLERY_IMAGES != '' --><dd><strong>{L_IMAGES}:</strong> <!-- IF commentrow.U_GALLERY_SEARCH --><a href="{commentrow.U_GALLERY_SEARCH}">{commentrow.GALLERY_IMAGES}</a><!-- ELSE -->{commentrow.GALLERY_IMAGES}<!-- ENDIF --></dd><!-- ENDIF -->
+				<!-- IF commentrow.POSTER_JOINED --><dd><strong>{L_JOINED}:</strong> {commentrow.POSTER_JOINED}</dd><!-- ENDIF -->
+				<!-- IF commentrow.POSTER_FROM --><dd><strong>{L_LOCATION}:</strong> {commentrow.POSTER_FROM}</dd><!-- ENDIF -->
+
+				<!-- IF commentrow.S_PROFILE_FIELD1 -->
+					<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
+					<dd><strong>{commentrow.PROFILE_FIELD1_NAME}:</strong> {commentrow.PROFILE_FIELD1_VALUE}</dd>
+				<!-- ENDIF -->
+
+				<!-- BEGIN custom_fields -->
+					<dd><strong>{commentrow.custom_fields.PROFILE_FIELD_NAME}:</strong> {commentrow.custom_fields.PROFILE_FIELD_VALUE}</dd>
+				<!-- END custom_fields -->
+
+				<!-- IF not S_IS_BOT -->
+				<!-- IF commentrow.U_PM or commentrow.U_EMAIL or commentrow.U_WWW or commentrow.U_MSN or commentrow.U_ICQ or commentrow.U_YIM or commentrow.U_AIM or commentrow.U_JABBER or commentrow.U_FB or commentrow.U_IG or commentrow.U_PT or commentrow.U_TWR or commentrow.U_SKP or commentrow.U_TG or commentrow.U_LI or commentrow.U_TT or commentrow.U_DC -->
+					<dd>
+						<ul class="profile-icons">
+							<!-- IF commentrow.U_PM --><li class="pm-icon"><a href="{commentrow.U_PM}" title="{L_PRIVATE_MESSAGE}"><span>{L_PRIVATE_MESSAGE}</span></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_EMAIL --><li class="email-icon"><a href="{commentrow.U_EMAIL}" title="{L_SEND_EMAIL_USER} {commentrow.POST_AUTHOR}"><span>{L_SEND_EMAIL_USER} {commentrow.POST_AUTHOR}</span></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_WWW --><li class="web-icon"><a href="{commentrow.U_WWW}" title="{L_VISIT_WEBSITE}: {commentrow.U_WWW}"><span>{L_WEBSITE}</span></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_FB --><li class="facebook-icon"><a href="{commentrow.U_FB}" onclick="popup(this.href, 780, 550); return false;" title="{L_FB}"><i class="fa-brands fa-facebook fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_IG --><li class="instagram-icon"><a href="{commentrow.U_IG}" onclick="popup(this.href, 780, 550); return false;" title="{L_IG}"><i class="fa-brands fa-instagram fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_PT --><li class="pinterest-icon"><a href="{commentrow.U_PT}" onclick="popup(this.href, 780, 550); return false;" title="{L_PT}"><i class="fa-brands fa-pinterest fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_TWR --><li class="twitter-icon"><a href="{commentrow.U_TWR}" onclick="popup(this.href, 780, 550); return false;" title="{L_TWR}"><i class="fa-brands fa-twitter fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_SKP --><li class="skype-icon"><a href="{commentrow.U_SKP}" onclick="popup(this.href, 780, 550); return false;" title="{L_SKP}"><i class="fa-brands fa-skype fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_TG --><li class="telegram-icon"><a href="{commentrow.U_TG}" onclick="popup(this.href, 780, 550); return false;" title="{L_TG}"><i class="fa-brands fa-telegram fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_LI --><li class="linkedin-icon"><a href="{commentrow.U_LI}" onclick="popup(this.href, 780, 550); return false;" title="{L_LI}"><i class="fa-brands fa-linkedin fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_TT --><li class="tiktok-icon"><a href="{commentrow.U_TT}" onclick="popup(this.href, 780, 550); return false;" title="{L_TT}"><i class="fa-brands fa-tiktok fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_DC --><li class="discord-icon"><a href="{commentrow.U_DC}" onclick="popup(this.href, 780, 550); return false;" title="{L_DC}"><i class="fa-brands fa-discord fa-2x"></i></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_MSN --><li class="msnm-icon"><a href="{commentrow.U_MSN}" onclick="popup(this.href, 550, 320); return false;" title="{L_MSNM}"><span>{L_MSNM}</span></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_ICQ --><li class="icq-icon"><a href="{commentrow.U_ICQ}" onclick="popup(this.href, 550, 320); return false;" title="{L_ICQ}"><span>{L_ICQ}</span></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_YIM --><li class="yahoo-icon"><a href="{commentrow.U_YIM}" onclick="popup(this.href, 780, 550); return false;" title="{L_YIM}"><span>{L_YIM}</span></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_AIM --><li class="aim-icon"><a href="{commentrow.U_AIM}" onclick="popup(this.href, 550, 320); return false;" title="{L_AIM}"><span>{L_AIM}</span></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_JABBER --><li class="jabber-icon"><a href="{commentrow.U_JABBER}" onclick="popup(this.href, 550, 320); return false;" title="{L_JABBER}"><span>{L_JABBER}</span></a></li><!-- ENDIF -->
+							<!-- IF commentrow.U_GALLERY --><li class="gallery-icon"><a href="{commentrow.U_GALLERY}" title="{L_PERSONAL_ALBUM}"><span>{L_PERSONAL_ALBUM}</span></a></li><!-- ENDIF -->
+						</ul>
+					</dd>
+				<!-- ENDIF -->
+				<!-- ENDIF -->
+			</dl>
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+	<!-- END commentrow -->
+
+	<form action="{S_ALBUM_ACTION}" method="post">
+	<fieldset class="display-options" style="margin-top: 0; ">
+		<label>{L_ORDER}: <select name="sort_order"><option value="ASC"<!-- IF SORT_ASC --> selected="selected"<!-- ENDIF -->>{L_SORT_ASCENDING}</option><option value="DESC"<!-- IF not SORT_ASC --> selected="selected"<!-- ENDIF -->>{L_SORT_DESCENDING}</option></select>&nbsp;<input type="submit" name="submit" value="{L_GO}" class="button2" /></label>
+	</fieldset>
+	</form>
+	<hr />
+
+	<div class="topic-actions">
+		<div class="pagination">
+			{IMAGE_COMMENTS} {L_COMMENTS} &bull; {PAGE_NUMBER}<!-- IF PAGINATION --> &bull; <span>{PAGINATION}</span><!-- ENDIF -->
+		</div>
+	</div>
+<!-- ENDIF -->
+<!-- ENDIF -->
+
+<p><a href="{U_RETURN_LINK}" accesskey="r">{L_RETURN_TO} {S_RETURN_LINK}</a></p>
+<form method="post" id="jumpbox" action="{S_JUMPBOX_ACTION}" data-action="jumpbox-guard" data-jump-name="album_id">
+	<label for="album_id">{L_JUMP_TO}:</label>
+	<select name="album_id" id="album_id" data-action="submit-form">
+		{ALBUM_JUMPBOX}
+	</select>
+	<input type="submit" value="{L_GO}" class="button2" />
+</form>
+</div>
+
+<!-- INCLUDE gallery/gallery_footer.html -->

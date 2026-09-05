@@ -1,0 +1,73 @@
+<!-- INCLUDE overall_header.html -->
+
+<div class="ucp-mobile-header">
+    <button type="button" id="ucp-sidebar-toggle" class="ucp-sidebar-toggle" aria-label="{L_MCP}">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <span class="ucp-mobile-title">{L_MCP}</span>
+</div>
+
+<!-- IF U_MCP -->
+<p class="mcp-quick-links">
+    [ <a href="{U_MCP}">{L_MCP}</a><!-- IF U_MCP_FORUM --> | <a href="{U_MCP_FORUM}">{L_MODERATE_FORUM}</a><!-- ENDIF -->
+    <!-- IF U_MCP_TOPIC --> | <a href="{U_MCP_TOPIC}">{L_MODERATE_TOPIC}</a><!-- ENDIF -->
+    <!-- IF U_MCP_POST --> | <a href="{U_MCP_POST}">{L_MODERATE_POST}</a><!-- ENDIF --> ]
+</p>
+<!-- ENDIF -->
+
+<div class="ucp-layout-container mcp-layout-container">
+    <aside id="ucp-sidebar" class="ucp-sidebar">
+        <nav class="ucp-nav">
+            <ul class="ucp-nav-list">
+                <li class="ucp-nav-heading">{L_MCP}</li>
+                <!-- BEGIN l_block1 -->
+                <li class="ucp-nav-item <!-- IF l_block1.S_SELECTED -->active-main<!-- ENDIF -->">
+                    <a href="{l_block1.U_TITLE}" class="ucp-nav-link">
+                        <span class="nav-text">{l_block1.L_TITLE}</span>
+                    </a>
+                </li>
+                <!-- END l_block1 -->
+            </ul>
+            <ul class="ucp-sub-nav">
+                <!-- BEGIN l_block1 -->
+                    <!-- IF l_block1.S_SELECTED -->
+                        <!-- BEGIN l_block2 -->
+                        <li class="ucp-sub-item <!-- IF l_block1.l_block2.S_SELECTED -->active-sub<!-- ENDIF -->">
+                            <a href="{l_block1.l_block2.U_TITLE}" class="ucp-sub-link">
+                                <span>{l_block1.l_block2.L_TITLE}<!-- IF l_block1.l_block2.ADD_ITEM --> ({l_block1.l_block2.ADD_ITEM})<!-- ENDIF --></span>
+                            </a>
+                        </li>
+                        <!-- END l_block2 -->
+                    <!-- ENDIF -->
+                <!-- END l_block1 -->
+            </ul>
+        </nav>
+    </aside>
+
+    <main id="ucp-content" class="ucp-content mcp-content">
+        <!-- IF MESSAGE -->
+        <section class="ucp-card">
+            <div class="ucp-card-body">
+                <h2>{L_MESSAGE}</h2>
+                <p class="error">{MESSAGE}</p>
+                <p><!-- BEGIN return_links -->{return_links.MESSAGE_LINK}<br /><br /><!-- END return_links --></p>
+            </div>
+        </section>
+        <!-- ENDIF -->
+
+        <!-- IF CONFIRM_MESSAGE -->
+        <form id="confirm" method="post" action="{S_CONFIRM_ACTION}"{S_FORM_ENCTYPE}>
+            <section class="ucp-card">
+                <div class="ucp-card-body">
+                    <h2>{L_PLEASE_CONFIRM}</h2>
+                    <p>{CONFIRM_MESSAGE}</p>
+                    <div class="ucp-actions">
+                        {S_HIDDEN_FIELDS}<input class="button1" type="submit" name="submit" value="{L_YES}" />
+                        <input class="button2" type="cancel" value="{L_NO}" />
+                    </div>
+                </div>
+            </section>
+        </form>
+        <!-- ENDIF -->

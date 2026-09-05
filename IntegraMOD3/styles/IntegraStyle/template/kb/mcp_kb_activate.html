@@ -1,0 +1,53 @@
+<!-- INCLUDE mcp_header.html -->
+<h2>{L_ARTICLE_NEW}</h2>
+
+<form id="mcp" method="post" action="{S_MCP_ACTION}">
+	<section class="ucp-card">
+		<div class="ucp-card-body">
+			<p>{L_ARTICLE_NEW_DESC}</p>
+			<div class="topic-actions">
+				<div class="rightside pagination">
+					{TOTAL_REPORTS}
+					<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+				</div>
+			</div>
+			<header class="forum-header mcp-list-header">
+				<div class="forum-title">{L_ARTICLE}</div>
+				<div class="forum-stats-header info">{L_CATEGORIE}</div>
+				<div class="forum-stats-header mark">{L_MARK}</div>
+			</header>
+			<div class="forum-list">
+			<!-- BEGIN article_row -->
+				<article class="forum-row mcp-list-row<!-- IF article_row.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+					<div class="forum-details">
+						<a href="{article_row.U_SHOW}" class="forum-title">{article_row.TITLE}</a>
+						<p>{article_row.DESCRIPTION}</p>
+					</div>
+					<div class="forum-stats-grid mcp-list-stats">
+						<div class="stat-info"><a href="{article_row.U_CATEGORIE}">{article_row.CAT}</a></div>
+						<div class="stat-mark"><input type="checkbox" name="article_id_list[]" value="{article_row.ARTICLE_ID}" /></div>
+					</div>
+				</article>
+			<!-- END article_row -->
+			</div>
+			<div class="topic-actions">
+				<div class="rightside pagination">
+					{TOTAL_REPORTS}
+					<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- IF .article_row -->
+	<div class="ucp-actions">
+		<input class="button2" type="submit" value="{L_DELETE}" name="action[disapprove]" />
+		<!-- IF not S_CLOSED --><input class="button1" type="submit" name="action[approve]" value="{L_AKTIVATE}" /><!-- ENDIF -->
+		<div>
+			<a href="javascript:void(0)" data-action="marklist" data-mark-form="mcp" data-mark-name="article_id_list" data-mark-state="true">{L_MARK_ALL}</a> &bull;
+			<a href="javascript:void(0)" data-action="marklist" data-mark-form="mcp" data-mark-name="article_id_list" data-mark-state="false">{L_UNMARK_ALL}</a>
+		</div>
+	</div>
+	<!-- ENDIF -->
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

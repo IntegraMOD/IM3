@@ -1,0 +1,72 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<div id="dl-editor-config" class="blog-hidden" hidden="hidden" data-form-name="postform" data-text-name="message" data-too-few-chars="{L_TOO_FEW_CHARS}" data-no-text-selected="{L_NO_TEXT_SELECTED}"></div>
+<script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/editor.js"></script>
+
+<!-- IF S_PREVIEW -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_PREVIEW}</h3>
+    </div>
+    <div class="ucp-card-body">
+        <h3>{PREVIEW_TITLE}</h3>
+        <div class="content">{PREVIEW_TEXT}</div>
+    </div>
+</section>
+<!-- ENDIF -->
+
+<form action="{S_FORM_ACTION}" method="post" id="postform">
+    <section class="ucp-card" id="postingbox">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_NEW_POST}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="report_title">{L_DL_BUG_REPORT_TITLE}</label>
+                <input type="text" size="75" maxlength="255" class="inputbox ucp-form-input" id="report_title" name="report_title" value="{REPORT_TITLE}" />
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_DL_BUG_REPORT_FILE}</span>
+                <div class="ucp-form-content">{S_SELECT_DOWNLOAD}</div>
+            </div>
+            <!-- INCLUDE posting_buttons.html -->
+            <!-- IF .smiley -->
+            <div id="smiley-box">
+                <strong>{L_SMILIES}</strong>
+                <!-- BEGIN smiley -->
+                    <a href="{U_MORE_SMILIES}" data-action="insert-smiley" data-smiley-code="{smiley.A_SMILEY_CODE}"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+                <!-- END smiley -->
+                <a href="{U_MORE_SMILIES}" data-action="popup" data-popup-width="400" data-popup-height="200">{L_MORE_SMILIES}</a>
+            </div>
+            <!-- ENDIF -->
+            <div id="message-box">
+                <textarea name="message" id="message" rows="13" cols="76" tabindex="3" class="inputbox" data-store-caret="1">{REPORT_TEXT}</textarea>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="report_file_ver">{L_DL_HACK_VERSION}</label>
+                <input type="text" size="20" maxlength="50" class="inputbox ucp-form-input" id="report_file_ver" name="report_file_ver" value="{REPORT_FILE_VER}" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="report_php">{L_DL_BUG_REPORT_PHP}</label>
+                <input type="text" size="20" maxlength="50" class="inputbox ucp-form-input" id="report_php" name="report_php" value="{REPORT_PHP}" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="report_db">{L_DL_BUG_REPORT_DB}</label>
+                <input type="text" size="20" maxlength="50" class="inputbox ucp-form-input" id="report_db" name="report_db" value="{REPORT_DB}" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="report_forum">{L_DL_BUG_REPORT_FORUM}</label>
+                <input type="text" size="20" maxlength="50" class="inputbox ucp-form-input" id="report_forum" name="report_forum" value="{REPORT_FORUM}" />
+            </div>
+            <div class="ucp-actions">
+                <input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+                <input type="reset" name="reset" value="{L_RESET}" class="button2" />
+                <input type="submit" name="preview" value="{L_PREVIEW}" class="button1" />
+                {S_FORM_TOKEN}
+                {S_HIDDEN_FIELDS}
+            </div>
+        </div>
+    </section>
+</form>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

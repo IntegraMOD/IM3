@@ -16,6 +16,11 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
     'UCP_PUSH_NOTIFICATIONS'			=> 'Push Notifications',
     'UCP_PUSH_EXPLAIN'			=> 'Manage your push notification preferences. Only notification types enabled by administrators will appear below.',
+    'USER_PUSH_BROWSER'			=> 'Desktop / browser notifications',
+    'USER_PUSH_BROWSER_EXPLAIN'	=> 'This browser must be subscribed before web push can appear on your desktop. Click Enable, then Allow when the browser asks. OneSignal will show a push token after that.',
+    'USER_PUSH_BROWSER_ENABLE'	=> 'Enable desktop notifications',
+    'USER_PUSH_BROWSER_ON'		=> 'This browser is subscribed.',
+    'USER_PUSH_BROWSER_OFF'		=> 'This browser is not subscribed.',
     'UCP_PUSH_SETTINGS'			=> 'Notification Preferences',
     'UCP_PUSH_SETTINGS_SAVED'			=> 'Your push notification preferences have been saved.',
     'USER_MOBILE'			=> 'Mobile Phone Number',

@@ -1,0 +1,80 @@
+<!-- INCLUDE mcp_header.html -->
+
+<form method="post" id="mcp" action="{U_POST_ACTION}">
+    <h2>{L_WARN_USER}</h2>
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <h3>{L_SELECT_USER}</h3>
+            <div class="ucp-form-grid">
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="username">{L_SELECT_USER}:</label>
+                    <input name="username" id="username" type="text" class="inputbox ucp-form-input" />
+                    <p><strong><a href="{U_FIND_USERNAME}" data-find-username>{L_FIND_USERNAME}</a></strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="ucp-actions">
+        <input type="reset" value="{L_RESET}" name="reset" class="button2" />
+        <input type="submit" name="submituser" value="{L_SUBMIT}" class="button1" />
+        {S_FORM_TOKEN}
+    </div>
+</form>
+
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <h3>{L_MOST_WARNINGS}</h3>
+        <!-- IF .highest -->
+        <header class="forum-header mcp-warn-header">
+            <div class="forum-title">{L_USERNAME}</div>
+            <div class="forum-stats-header">{L_WARNINGS}</div>
+            <div class="forum-stats-header">{L_LATEST_WARNING_TIME}</div>
+            <div class="forum-stats-header"></div>
+        </header>
+        <div class="forum-list">
+        <!-- BEGIN highest -->
+            <div class="forum-row mcp-warn-row<!-- IF highest.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+                <div class="forum-details">{highest.USERNAME_FULL}</div>
+                <div class="forum-stats-grid mcp-warn-stats">
+                    <div class="stat-info">{highest.WARNINGS}</div>
+                    <div class="stat-info">{highest.WARNING_TIME}</div>
+                    <div class="stat-info"><a href="{highest.U_NOTES}">{L_VIEW_NOTES}</a></div>
+                </div>
+            </div>
+        <!-- END highest -->
+        </div>
+        <!-- ELSE -->
+        <p><strong>{L_WARNINGS_ZERO_TOTAL}</strong></p>
+        <!-- ENDIF -->
+    </div>
+</section>
+
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <h3>{L_LATEST_WARNINGS}</h3>
+        <!-- IF .latest -->
+        <header class="forum-header mcp-warn-header">
+            <div class="forum-title">{L_USERNAME}</div>
+            <div class="forum-stats-header">{L_TIME}</div>
+            <div class="forum-stats-header">{L_TOTAL_WARNINGS}</div>
+            <div class="forum-stats-header"></div>
+        </header>
+        <div class="forum-list">
+        <!-- BEGIN latest -->
+            <div class="forum-row mcp-warn-row<!-- IF latest.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+                <div class="forum-details">{latest.USERNAME_FULL}</div>
+                <div class="forum-stats-grid mcp-warn-stats">
+                    <div class="stat-info">{latest.WARNING_TIME}</div>
+                    <div class="stat-info">{latest.WARNINGS}</div>
+                    <div class="stat-info"><a href="{latest.U_NOTES}">{L_VIEW_NOTES}</a></div>
+                </div>
+            </div>
+        <!-- END latest -->
+        </div>
+        <!-- ELSE -->
+        <p><strong>{L_WARNINGS_ZERO_TOTAL}</strong></p>
+        <!-- ENDIF -->
+    </div>
+</section>
+
+<!-- INCLUDE mcp_footer.html -->

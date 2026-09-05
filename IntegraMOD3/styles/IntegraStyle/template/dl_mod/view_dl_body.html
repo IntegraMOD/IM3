@@ -1,0 +1,251 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<div id="dl-ajax-config" class="blog-hidden" hidden="hidden" data-phpex="{PHPEX}" data-sid="{_SID}" data-charset="{S_CONTENT_ENCODING}"></div>
+<!-- IF S_ENABLE_RATE -->
+<script type="text/javascript" src="{ROOT_PATH}dl_mod/js/ajax/ajax_core.js"></script>
+<script type="text/javascript" src="{ROOT_PATH}dl_mod/js/ajax/ajax_dl.js"></script>
+<!-- ENDIF -->
+
+<div class="dl-layout">
+    <!-- IF S_CAT_TRAFFIC -->
+    <section class="stat-block">
+        <strong>{CAT_TRAFFIC}</strong>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF S_CAT_RULE -->
+    <section class="rules panel">
+        {CAT_RULE}
+    </section>
+    <!-- ENDIF -->
+
+    <!-- BEGIN downloads -->
+    <div class="topic-actions">
+        <h2>{downloads.STATUS} {downloads.DESCRIPTION}{downloads.HACK_VERSION} {downloads.MINI_IMG}</h2>
+        <div class="search-box">
+            <a href="{U_DL_SEARCH}" class="button2">{L_DL_SEARCH_DOWNLOAD}</a>
+        </div>
+    </div>
+    <!-- END downloads -->
+
+    <!-- BEGIN category -->
+    <!-- IF category.S_FIRST_ROW -->
+    <nav class="dl-nav" aria-label="{L_OPTIONS}">
+    <!-- ENDIF -->
+        <a href="{U_DOWNLOADS}" id="tab_{category.CAT_ID}" class="<!-- IF category.S_FIRST_ROW -->is-active<!-- ENDIF -->" data-action="dl-subpanel" data-panel="{category.CAT_ID}">{category.CAT_NAME}</a>
+    <!-- IF category.S_LAST_ROW -->
+    </nav>
+    <!-- ENDIF -->
+    <!-- END category -->
+
+    <section class="forum-category dl-subpanel is-active" data-dl-subpanel="0" id="options0">
+        <div class="forum-header">
+            <div class="forum-title">{L_DL_FILE_DESCRIPTION}</div>
+        </div>
+        <div class="ucp-card-body">
+            <!-- BEGIN downloads -->
+            <div class="dl-file-row">
+                <div>
+                    <!-- IF downloads.LONG_DESC --><div class="content">{downloads.LONG_DESC}</div><!-- ENDIF -->
+                    <p>{downloads.ADD_USER} {downloads.CHANGE_USER} &bull; {downloads.LAST_TIME}</p>
+                </div>
+                <div>
+                    <!-- BEGIN thumbnail -->
+                    <!-- IF thumbnail.S_FIRST_ROW -->
+                    <ul id="dl_thumbs" class="dl-thumb-list"<!-- IF S_TOTAL_IMAGES --> data-carousel="1" data-visible="1" data-scroll="1"<!-- ENDIF -->>
+                    <!-- ENDIF -->
+                        <li>
+                            <!-- IF S_DL_LYTEBOX -->
+                            <a href="{downloads.thumbnail.THUMBNAIL_LINK}" title="{downloads.thumbnail.THUMBNAIL_NAME}" rel="lytebox<!-- IF S_TOTAL_IMAGES -->[DLMT]<!-- ENDIF -->"><img src="{downloads.thumbnail.THUMBNAIL_LINK}" alt="{downloads.thumbnail.THUMBNAIL_NAME}" title="{downloads.thumbnail.THUMBNAIL_NAME}" /></a>
+                            <!-- ELSE -->
+                            <img src="{downloads.thumbnail.THUMBNAIL_LINK}" alt="{downloads.thumbnail.THUMBNAIL_NAME}" title="{downloads.thumbnail.THUMBNAIL_NAME}" />
+                            <!-- ENDIF -->
+                        </li>
+                    <!-- IF thumbnail.S_LAST_ROW -->
+                    </ul>
+                    <!-- ENDIF -->
+                    <!-- END thumbnail -->
+                </div>
+            </div>
+            <!-- END downloads -->
+        </div>
+    </section>
+
+    <section class="forum-category dl-subpanel" data-dl-subpanel="1" id="options1">
+        <div class="forum-header">
+            <div class="forum-title">{L_DL_DETAIL}</div>
+        </div>
+        <div class="ucp-card-body dl-meta-grid dl-detail-meta">
+            <!-- BEGIN downloads -->
+            <div><strong>{L_DL_FILE_NAME}</strong><p>{downloads.FILE_NAME}</p></div>
+            <!-- BEGIN real_filetime -->
+            <div><strong>{L_DL_REAL_FILETIME}</strong><p>{downloads.real_filetime.REAL_FILETIME}</p></div>
+            <!-- END real_filetime -->
+            <!-- END downloads -->
+            <!-- BEGIN hacklist -->
+            <div><strong>{L_DL_HACK_AUTOR}</strong><p>{hacklist.HACK_AUTHOR}{hacklist.HACK_AUTHOR_WEBSITE}</p></div>
+            <!-- END hacklist -->
+            <!-- BEGIN downloads -->
+            <!-- BEGIN bug_tracker -->
+            <div><strong>{L_DL_BUG_TRACKER}</strong><p><a href="{downloads.bug_tracker.U_BUG_TRACKER}">{L_DL_BUG_TRACKER_FILE}</a></p></div>
+            <!-- END bug_tracker -->
+            <!-- IF S_SHOW_TOPIC_LINK -->
+            <div><strong>{L_TOPIC}</strong><p><a href="{U_TOPIC}">{L_VIEW_TOPIC}</a></p></div>
+            <!-- ENDIF -->
+            <div><strong>{L_DL_FILE_SIZE}</strong><p>{downloads.FILE_SIZE}</p></div>
+            <div><strong>{L_DL_KLICKS} / {L_DL_OVERALL_KLICKS}</strong><p>{downloads.FILE_KLICKS} / {downloads.FILE_OVERALL_KLICKS}</p></div>
+            <!-- END downloads -->
+            <!-- BEGIN hacklist -->
+            <div><strong>{L_DL_HACK_DL_URL}</strong><p>{hacklist.HACK_DL_URL}</p></div>
+            <!-- END hacklist -->
+            <!-- IF S_ENABLE_RATE -->
+            <div>
+                <strong>{L_DL_RATING}</strong> {RATINGS}
+                <div id="rating_{DF_ID}">{RATING_IMG}</div>
+            </div>
+            <!-- ENDIF -->
+        </div>
+    </section>
+
+    <!-- IF S_COMMENTS_TAB -->
+    <section class="forum-category dl-subpanel" data-dl-subpanel="2" id="options2">
+        <div class="forum-header">
+            <div class="forum-title">{L_DL_COMMENTS}</div>
+        </div>
+        <div class="ucp-card-body">
+            <form action="{S_COMMENT_ACTION}" method="post">
+                <!-- BEGIN comment_row -->
+                <article class="ucp-card">
+                    <div class="ucp-card-body">
+                        <p>{comment_row.POSTER} {comment_row.POST_TIME}</p>
+                        <div>{comment_row.MESSAGE}</div>
+                        <!-- IF comment_row.EDITED_BY --><p>{comment_row.EDITED_BY}</p><!-- ENDIF -->
+                    </div>
+                </article>
+                <!-- END comment_row -->
+                <!-- IF S_VIEW_COMMENTS -->
+                <div class="ucp-actions">
+                    <input type="submit" name="show" value="{L_DL_COMMENT_SHOW}" class="button2" />
+                    {S_HIDDEN_COMMENT_FIELDS}
+                </div>
+                <!-- ENDIF -->
+            </form>
+            <!-- IF S_POST_COMMENT -->
+            <form action="{S_COMMENT_POST_ACTION}" method="post">
+                <div class="ucp-actions">
+                    <input type="submit" name="post" value="{L_DL_COMMENT_WRITE}" class="button1" />
+                    {S_HIDDEN_POST_FIELDS}
+                </div>
+            </form>
+            <!-- ENDIF -->
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF S_MOD_LIST or S_MOD_TODO or S_DL_FIELDS -->
+    <section class="forum-category dl-subpanel" data-dl-subpanel="3" id="options3">
+        <div class="forum-header">
+            <div class="forum-title">{L_DL_MOD_DESC}</div>
+        </div>
+        <div class="ucp-card-body">
+            <!-- BEGIN modwarning -->
+            <h3>{L_DL_MOD_WARNING}</h3>
+            <p>{modwarning.MOD_WARNING}</p>
+            <!-- END modwarning -->
+            <!-- BEGIN modlisttest -->
+            <h3>{L_DL_MOD_TEST}</h3>
+            <p>{modlisttest.MOD_TEST}</p>
+            <!-- END modlisttest -->
+            <!-- BEGIN modrequire -->
+            <h3>{L_DL_MOD_REQUIRE}</h3>
+            <p>{modrequire.MOD_REQUIRE}</p>
+            <!-- END modrequire -->
+            <!-- BEGIN modtodo -->
+            <h3>{L_DL_MOD_TODO}</h3>
+            <p>{modtodo.MOD_TODO}</p>
+            <!-- END modtodo -->
+            <!-- BEGIN modlistdesc -->
+            <h3>{L_DL_MOD_DESC}</h3>
+            <p>{modlistdesc.MOD_DESC}</p>
+            <!-- END modlistdesc -->
+            <!-- IF S_DL_FIELDS -->
+            <!-- BEGIN custom_fields -->
+            <h3>{custom_fields.DL_FIELD_NAME}:</h3>
+            <p>{custom_fields.DL_FIELD_VALUE}</p>
+            <!-- END custom_fields -->
+            <!-- ENDIF -->
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF HASH_TAB -->
+    <section class="forum-category dl-subpanel" data-dl-subpanel="4" id="options4">
+        <div class="forum-header">
+            <div class="forum-title">{L_DL_MOD_FILE_HASH_TABLE}</div>
+        </div>
+        <div class="ucp-card-body dl-list">
+            <!-- BEGIN hash_row -->
+            <article class="dl-list-row">
+                <div>{hash_row.DL_VERSION}</div>
+                <div>{hash_row.DL_FILE_NAME}</div>
+                <div>[{hash_row.DL_HASH_METHOD}] {hash_row.DL_HASH}</div>
+            </article>
+            <!-- END hash_row -->
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF S_FAV_BLOCK or S_EDIT_BUTTON or S_DL_BROKEN_CUR or S_REPORT_BROKEN_DL or S_DL_BROKEN_MOD -->
+    <nav class="dl-toolbar topic-actions">
+        <!-- IF S_FAV_BLOCK --><a href="{U_FAVORITE}">{FAVORITE}</a><!-- ENDIF -->
+        <!-- IF S_EDIT_BUTTON --><a href="{U_EDIT}" title="{EDIT_IMG}"><svg class="css-icon css-icon-edit" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg> {EDIT_IMG}</a><!-- ENDIF -->
+        <!-- BEGIN report_broken_dl --><a href="{report_broken_dl.U_BROKEN_DOWNLOAD}">{L_DL_BROKEN}</a><!-- END report_broken_dl -->
+        <!-- IF S_DL_BROKEN_CUR --><strong>{L_DL_BROKEN_CUR}</strong><!-- ENDIF -->
+        <!-- BEGIN dl_broken_mod --><a href="{dl_broken_mod.U_REPORT}"><strong>{L_DL_BROKEN_MOD}</strong></a><!-- END dl_broken_mod -->
+        <!-- IF S_EDIT_THUMBS_BUTTON --><a href="{U_EDIT_THUMBS}">{L_DL_EDIT_THUMBS}</a><!-- ENDIF -->
+    </nav>
+    <!-- ENDIF -->
+
+    <!-- BEGIN download_button -->
+    <div id="dl_mod_button">
+        <form action="{download_button.U_DOWNLOAD}" method="post" id="download" {download_button.S_DL_WINDOW} data-hide-dl-button="1">
+            <!-- IF S_VC -->
+            <!-- IF CAPTCHA_TEMPLATE -->
+                <!-- DEFINE $CAPTCHA_TAB_INDEX = 8 -->
+                <!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+            <!-- ENDIF -->
+            <!-- ENDIF -->
+            <div class="ucp-actions">
+                {download_button.S_DL_VERSION}
+                <button type="submit" name="submit" id="submit" class="button1 dl-download-button" value="1" title="{L_DL_DOWNLOAD}"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-download"></use></svg> {L_DL_DOWNLOAD}</button>
+                <input type="hidden" name="hotlink_id" value="{download_button.S_HOTLINK_ID}" />
+                {download_button.S_HIDDEN_FIELDS}{S_HIDDEN_FIELDS}{S_FORM_TOKEN}
+            </div>
+            <!-- IF S_ALLOW_TRAFFICFREE_DOWNLOAD --><p>{L_DL_CAN_DOWNLOAD_TRAFFIC}</p><!-- ENDIF -->
+        </form>
+    </div>
+    <!-- END download_button -->
+
+    <!-- IF S_DL_USERBAN -->
+    <section class="ucp-card rules">
+        <div class="ucp-card-body">{L_DL_USER_BANNED}</div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- BEGIN similar_dl -->
+    <!-- IF similar_dl.S_FIRST_ROW -->
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_DL_SIMILAR_DL}</h3>
+        </div>
+        <div class="ucp-card-body dl-help-list">
+    <!-- ENDIF -->
+            <p><a href="{similar_dl.U_DOWNLOAD}">{similar_dl.DOWNLOAD}</a></p>
+    <!-- END similar_dl -->
+    <!-- IF .similar_dl -->
+        </div>
+    </section>
+    <!-- ENDIF -->
+</div>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

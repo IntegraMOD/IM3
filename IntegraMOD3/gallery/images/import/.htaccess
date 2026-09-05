@@ -1,12 +1,4 @@
-# 1. Deny access to everything by default
-Require all denied
-
-# 2. Only allow specific, safe image extensions to be served
-<FilesMatch "(?i)\.(jpg|jpeg|gif|png|webp)$">
-    Require all granted
-</FilesMatch>
-
-# 3. Explicit safety net: Ensure executables are absolutely blocked
-<FilesMatch "(?i)\.(php|php\.bak|php[3-8]|phtml|pht|shtml|sh|cgi)$">
-    Require all denied
-</FilesMatch>
+<Files *>
+	Order Allow,Deny
+	Deny from All
+</Files>

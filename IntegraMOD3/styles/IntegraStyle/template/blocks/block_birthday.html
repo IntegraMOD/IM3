@@ -1,0 +1,18 @@
+<!-- IDTAG block_birthday.html starts -->
+<!-- IF S_DISPLAY_BIRTHDAY_LIST and BIRTHDAY_LIST -->
+    <!-- INCLUDE blocks/blocks_header_left.html -->
+        {L_BIRTHDAYS}
+    <!-- INCLUDE blocks/blocks_header_right.html -->
+    <div class="portal-summary-block portal-birthday-summary">
+        <span class="bsw_b_img portal-summary-image" aria-hidden="true"></span>
+        <div class="portal-summary-content">
+            <!-- IF BIRTHDAY_LIST -->
+                <p>{L_CONGRATULATIONS}: <strong>{BIRTHDAY_LIST}</strong></p>
+            <!-- ELSE -->
+                <p>{L_NO_BIRTHDAYS}</p>
+            <!-- ENDIF -->
+        </div>
+    </div>
+    <!-- INCLUDE blocks/blocks_footer.html -->
+<!-- ENDIF -->
+<!-- IDTAG block_birthday.html ends -->

@@ -1,0 +1,51 @@
+<!-- INCLUDE overall_header.html -->
+
+<form id="confirm" action="{S_CONFIRM_ACTION}" method="post">
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h2 class="ucp-card-title">{MESSAGE_TITLE}</h2>
+		</div>
+		<div class="ucp-card-body ucp-form-grid">
+			<p>{MESSAGE_TEXT}</p>
+			<p>{L_ASACP_BAN_ACTIONS}</p>
+
+			<!-- IF S_BAN_USER -->
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="ban_reason">{L_ASACP_BAN_REASON}</label>
+				<p class="ucp-form-help">{L_ASACP_BAN_REASON_EXPLAIN}</p>
+				<textarea name="ban_reason" id="ban_reason" rows="4" cols="76" class="inputbox ucp-form-textarea">{BAN_REASON}</textarea>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="ban_reason_shown">{L_ASACP_BAN_REASON_SHOWN_TO_USER}</label>
+				<p class="ucp-form-help">{L_ASACP_BAN_REASON_SHOWN_TO_USER_EXPLAIN}</p>
+				<textarea name="ban_reason_shown" id="ban_reason_shown" rows="4" cols="76" class="inputbox ucp-form-textarea">{BAN_REASON_SHOWN_TO_USER}</textarea>
+			</div>
+			<!-- ENDIF -->
+
+			<!-- IF S_SFS_SUBMIT -->
+			<div class="ucp-form-row">
+				<h3>{L_STOP_FORUM_SPAM}</h3>
+				<label><input type="checkbox" name="sfs_submit"<!-- IF SFS_SUBMIT --> checked="checked"<!-- ENDIF --> /> {L_SFS_SUBMIT}</label>
+				<p<!-- IF SFS_EVIDENCE_ERROR --> class="error"<!-- ENDIF -->>{L_ASACP_EVIDENCE_SFS}</p>
+				<textarea name="sfs_evidence" id="sfs_evidence" rows="7" cols="76" class="inputbox ucp-form-textarea">{SFS_EVIDENCE}</textarea>
+			</div>
+			<!-- ENDIF -->
+
+			<!-- IF S_AKISMET_SUBMIT -->
+			<div class="ucp-form-row">
+				<h3>{L_ASACP_AKISMET}</h3>
+				<label><input type="checkbox" name="akismet_submit"<!-- IF AKISMET_SUBMIT --> checked="checked"<!-- ENDIF --> /> {L_ASACP_AKISMET_SUBMIT}</label>
+				<textarea name="akismet_post" rows="7" cols="76" class="inputbox ucp-form-textarea" readonly="readonly">{AKISMET_TEXT}</textarea>
+			</div>
+			<!-- ENDIF -->
+
+			<div class="ucp-actions">
+				{S_HIDDEN_FIELDS}
+				<input type="submit" name="confirm" value="{L_YES}" class="button1" />
+				<input type="submit" name="cancel" value="{L_NO}" class="button2" />
+			</div>
+		</div>
+	</section>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

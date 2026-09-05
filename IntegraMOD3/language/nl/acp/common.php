@@ -56,6 +56,9 @@ $lang = array_merge($lang, array(
 	'ACP_BOARD_FEATURES'		=> 'Forumeigenschappen',
 	'ACP_BOARD_MANAGEMENT'		=> 'Forumbeheer',
 	'ACP_BOARD_SETTINGS'		=> 'Foruminstellingen',
+	'ACP_PUSH_NOTIFICATIONS'	=> 'Pushmeldingen',
+	'ACP_PUSH_SETTINGS'		    => 'Pushmelding instellingen',
+	'ACP_PUSH_SEND'				=> 'Pushmelding versturen',
 	'ACP_BOTS'					=> 'Spiders/Robots',
 
 	'ACP_CAPTCHA'				=> 'CAPTCHA',

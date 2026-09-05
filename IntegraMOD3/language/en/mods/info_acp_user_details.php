@@ -130,6 +130,7 @@ $lang = array_merge($lang, array(
 	'USER_SIG_EXPLAIN'				=> 'Display the user’s signature.',
 	'USER_FROM'						=> 'From',
 	'USER_FROM_EXPLAIN'				=> 'Where is the user from?',
+
 	'USER_FB'						=> 'Facebook',
 	'USER_FB_EXPLAIN'				=> 'The user’s Facebook contact or profile link.',
 	'USER_IG'						=> 'Instagram',
@@ -148,6 +149,7 @@ $lang = array_merge($lang, array(
 	'USER_TT_EXPLAIN'				=> 'The user’s TikTok username or profile link.',
 	'USER_DC'						=> 'Discord',
 	'USER_DC_EXPLAIN'				=> 'The user’s Discord tag (e.g., user#1234).',
+	
 	'USER_ICQ'						=> 'ICQ',
 	'USER_ICQ_EXPLAIN'				=> 'The user’s ICQ address.',
 	'USER_AIM'						=> 'AIM',

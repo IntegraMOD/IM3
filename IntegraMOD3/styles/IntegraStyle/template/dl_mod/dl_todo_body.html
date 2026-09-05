@@ -1,0 +1,30 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{L_DL_MOD_TODO}</h2>
+
+<!-- IF S_TODO_EDIT --><p class="dl-toolbar"><a href="{U_TODO_EDIT}">{L_DL_EDIT_FILE}</a></p><!-- ENDIF -->
+
+<section class="ucp-card">
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{L_DL_FILE_DESCRIPTION}</div>
+            <div>{L_DL_MOD_TODO}</div>
+        </div>
+        <!-- BEGIN todolist_row -->
+        <article class="dl-list-row">
+            <div>
+                <a href="{todolist_row.FILE_LINK}"><strong>{todolist_row.FILENAME}</strong></a>
+                <span>{todolist_row.HACK_VERSION}</span>
+            </div>
+            <div>{todolist_row.TODO}</div>
+        </article>
+        <!-- END todolist_row -->
+        <!-- IF S_NO_TODOLIST -->
+        <div class="dl-list-row">
+            <div>{L_DL_NO_MOD_TODO}</div>
+        </div>
+        <!-- ENDIF -->
+    </div>
+</section>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

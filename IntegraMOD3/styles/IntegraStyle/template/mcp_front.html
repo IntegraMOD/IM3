@@ -1,0 +1,150 @@
+<!-- INCLUDE mcp_header.html -->
+
+<h2>{PAGE_TITLE}</h2>
+
+<!-- IF S_SHOW_UNAPPROVED -->
+<form id="mcp_queue" method="post" action="{S_MCP_QUEUE_ACTION}">
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <h3>{L_LATEST_UNAPPROVED}</h3>
+            <!-- IF S_HAS_UNAPPROVED_POSTS --><p>{L_UNAPPROVED_TOTAL}</p><!-- ENDIF -->
+            <!-- IF .unapproved -->
+            <header class="forum-header mcp-list-header">
+                <div class="forum-title">{L_VIEW_DETAILS}</div>
+                <div class="forum-stats-header info">{L_TOPIC} &amp; {L_FORUM}</div>
+                <div class="forum-stats-header mark">{L_MARK}</div>
+            </header>
+            <div class="forum-list">
+            <!-- BEGIN unapproved -->
+                <article class="forum-row mcp-list-row<!-- IF unapproved.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+                    <div class="forum-details">
+                        <a href="{unapproved.U_POST_DETAILS}" class="forum-title">{unapproved.SUBJECT}</a><!-- IF unapproved.ATTACH_ICON_IMG --> <span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span><!-- ENDIF -->
+                        <p>{L_POSTED} {L_POST_BY_AUTHOR} {unapproved.AUTHOR_FULL} &raquo; {unapproved.POST_TIME}</p>
+                    </div>
+                    <div class="forum-stats-grid mcp-list-stats">
+                        <div class="stat-info">
+                            {L_TOPIC}: <a href="{unapproved.U_TOPIC}">{unapproved.TOPIC_TITLE}</a> [<a href="{unapproved.U_MCP_TOPIC}">{L_MODERATE}</a>]<br />
+                            {L_FORUM}: <!-- IF unapproved.U_FORUM --><a href="{unapproved.U_FORUM}">{unapproved.FORUM_NAME}</a><!-- ELSE -->{unapproved.FORUM_NAME}<!-- ENDIF --><!-- IF unapproved.U_MCP_FORUM --> [<a href="{unapproved.U_MCP_FORUM}">{L_MODERATE}</a>]<!-- ENDIF -->
+                        </div>
+                        <div class="stat-mark"><input type="checkbox" name="post_id_list[]" value="{unapproved.POST_ID}" /></div>
+                    </div>
+                </article>
+            <!-- END unapproved -->
+            </div>
+            <!-- ELSE -->
+            <p>{L_UNAPPROVED_POSTS_ZERO_TOTAL}</p>
+            <!-- ENDIF -->
+        </div>
+        {S_FORM_TOKEN}
+    </section>
+    <!-- IF .unapproved -->
+    <div class="ucp-actions">
+        {S_HIDDEN_FIELDS}
+        <input class="button2" type="submit" name="action[disapprove]" value="{L_DISAPPROVE}" />
+        <input class="button1" type="submit" name="action[approve]" value="{L_APPROVE}" />
+        <div>
+            <a href="javascript:void(0)" data-action="marklist" data-mark-form="mcp_queue" data-mark-name="post_id_list" data-mark-state="true">{L_MARK_ALL}</a> &bull;
+            <a href="javascript:void(0)" data-action="marklist" data-mark-form="mcp_queue" data-mark-name="post_id_list" data-mark-state="false">{L_UNMARK_ALL}</a>
+        </div>
+    </div>
+    <!-- ENDIF -->
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_REPORTS -->
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <h3>{L_LATEST_REPORTED}</h3>
+        <!-- IF S_HAS_REPORTS --><p>{L_REPORTS_TOTAL}</p><!-- ENDIF -->
+        <!-- IF .report -->
+        <header class="forum-header mcp-list-header mcp-list-header-nomark">
+            <div class="forum-title">{L_VIEW_DETAILS}</div>
+            <div class="forum-stats-header info">{L_REPORTER} &amp; {L_FORUM}</div>
+        </header>
+        <div class="forum-list">
+        <!-- BEGIN report -->
+            <article class="forum-row mcp-list-row mcp-list-row-nomark<!-- IF report.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+                <div class="forum-details">
+                    <a href="{report.U_POST_DETAILS}#reports" class="forum-title">{report.SUBJECT}</a><!-- IF report.ATTACH_ICON_IMG --> <span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span><!-- ENDIF -->
+                    <p>{L_POSTED} {L_POST_BY_AUTHOR} {report.AUTHOR_FULL} &raquo; {report.POST_TIME}</p>
+                </div>
+                <div class="forum-stats-grid mcp-list-stats">
+                    <div class="stat-info">
+                        {L_REPORTED} {L_POST_BY_AUTHOR} {report.REPORTER_FULL} {L_REPORTED_ON_DATE} {report.REPORT_TIME}<br />
+                        {L_FORUM}: <a href="{report.U_FORUM}">{report.FORUM_NAME}</a>
+                    </div>
+                </div>
+            </article>
+        <!-- END report -->
+        </div>
+        <!-- ELSE -->
+        <p>{L_REPORTS_ZERO_TOTAL}</p>
+        <!-- ENDIF -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_PM_REPORTS -->
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <h3>{L_LATEST_REPORTED_PMS}</h3>
+        <!-- IF S_HAS_PM_REPORTS --><p>{L_PM_REPORTS_TOTAL}</p><!-- ENDIF -->
+        <!-- IF .pm_report -->
+        <header class="forum-header mcp-list-header mcp-list-header-nomark">
+            <div class="forum-title">{L_VIEW_DETAILS}</div>
+            <div class="forum-stats-header info">{L_REPORTER}</div>
+        </header>
+        <div class="forum-list">
+        <!-- BEGIN pm_report -->
+            <article class="forum-row mcp-list-row mcp-list-row-nomark<!-- IF pm_report.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+                <div class="forum-details">
+                    <a href="{pm_report.U_PM_DETAILS}" class="forum-title">{pm_report.PM_SUBJECT}</a><!-- IF pm_report.ATTACH_ICON_IMG --> <span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span><!-- ENDIF -->
+                    <p>{L_MESSAGE_BY_AUTHOR} {pm_report.PM_AUTHOR_FULL} &raquo; {pm_report.PM_TIME}</p>
+                    <p>{L_MESSAGE_TO} {pm_report.RECIPIENTS}</p>
+                </div>
+                <div class="forum-stats-grid mcp-list-stats">
+                    <div class="stat-info">{L_REPORTED} {L_POST_BY_AUTHOR} {pm_report.REPORTER_FULL} {L_REPORTED_ON_DATE} {pm_report.REPORT_TIME}</div>
+                </div>
+            </article>
+        <!-- END pm_report -->
+        </div>
+        <!-- ELSE -->
+        <p>{L_PM_REPORTS_ZERO_TOTAL}</p>
+        <!-- ENDIF -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_LOGS -->
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <h3>{L_LATEST_LOGS}</h3>
+        <header class="forum-header mcp-log-header">
+            <div class="forum-title">{L_ACTION}</div>
+            <div class="forum-stats-header">{L_USERNAME}</div>
+            <div class="forum-stats-header">{L_IP}</div>
+            <div class="forum-stats-header">{L_VIEW_TOPIC}</div>
+            <div class="forum-stats-header">{L_VIEW_TOPIC_LOGS}</div>
+            <div class="forum-stats-header">{L_TIME}</div>
+        </header>
+        <div class="forum-list">
+        <!-- BEGIN log -->
+            <div class="forum-row mcp-log-row<!-- IF log.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+                <div class="forum-details">{log.ACTION}</div>
+                <div class="forum-stats-grid mcp-log-stats">
+                    <div class="stat-info">{log.USERNAME}</div>
+                    <div class="stat-info">{log.IP}</div>
+                    <div class="stat-info"><!-- IF log.U_VIEW_TOPIC --><a href="{log.U_VIEW_TOPIC}" title="{L_VIEW_TOPIC}">{L_VIEW_TOPIC}</a><!-- ENDIF --></div>
+                    <div class="stat-info"><!-- IF log.U_VIEWLOGS --><a href="{log.U_VIEWLOGS}">{L_VIEW_TOPIC_LOGS}</a><!-- ENDIF --></div>
+                    <div class="stat-info">{log.TIME}</div>
+                </div>
+            </div>
+        <!-- BEGINELSE -->
+            <div class="forum-row mcp-log-row"><div class="forum-details">{L_NO_ENTRIES}</div></div>
+        <!-- END log -->
+        </div>
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- INCLUDE mcp_footer.html -->

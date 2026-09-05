@@ -1,0 +1,40 @@
+<!-- INCLUDE mcp_header.html -->
+
+<form method="post" id="mcp" action="{U_POST_ACTION}">
+    <h2>{L_WARN_USER}</h2>
+
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <h3>{USERNAME_FULL}</h3>
+            <div class="member-profile-summary">
+                <div class="member-profile-avatar"><!-- IF AVATAR_IMG -->{AVATAR_IMG}<!-- ENDIF --></div>
+                <div class="profile-details-grid">
+                    <!-- IF RANK_TITLE --><p class="profile-details-label">{L_RANK}:</p><p>{RANK_TITLE}</p><!-- ENDIF -->
+                    <!-- IF RANK_IMG --><p class="profile-details-label"><!-- IF not RANK_TITLE -->{L_RANK}:<!-- ENDIF --></p><p>{RANK_IMG}</p><!-- ENDIF -->
+                    <p class="profile-details-label">{L_JOINED}:</p><p>{JOINED}</p>
+                    <p class="profile-details-label">{L_TOTAL_POSTS}:</p><p>{POSTS}</p>
+                    <p class="profile-details-label">{L_WARNINGS}:</p><p>{WARNINGS}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <h3>{L_ADD_WARNING}</h3>
+            <p>{L_ADD_WARNING_EXPLAIN}</p>
+            <textarea name="warning" id="warning" class="inputbox ucp-form-textarea" cols="40" rows="3"></textarea>
+            <!-- IF S_CAN_NOTIFY -->
+            <p><label><input type="checkbox" name="notify_user" checked="checked" /> {L_NOTIFY_USER_WARN}</label></p>
+            <!-- ENDIF -->
+        </div>
+    </section>
+
+    <div class="ucp-actions">
+        <input type="reset" value="{L_RESET}" name="reset" class="button2" />
+        <input type="submit" name="action[add_warning]" value="{L_SUBMIT}" class="button1" />
+        {S_FORM_TOKEN}
+    </div>
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

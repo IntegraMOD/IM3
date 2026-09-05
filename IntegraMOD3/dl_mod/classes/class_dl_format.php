@@ -111,12 +111,12 @@ class dl_format extends dl_mod
 			if ($rate)
 			{
 				$ajax = 'onclick="AJAXDLVote(' . $df_id . ', ' . $j . '); return false;"';
-				$rate_image .= ($j <= $rate_points ) ? '<a href="#" ' . $ajax . '>' . $user->img('dl_rate_yes') . '</a>' : '<a href="#" ' . $ajax . '>' . $user->img('dl_rate_no') . '</a>';
+				$rate_image .= ($j <= $rate_points ) ? '<a href="#" ' . $ajax . '>' . dl_status::icon('dl_rate_yes') . '</a>' : '<a href="#" ' . $ajax . '>' . dl_status::icon('dl_rate_no') . '</a>';
 
 			}
 			else
 			{
-				$rate_image .= ($j <= $rate_points ) ? $user->img('dl_rate_yes') : $user->img('dl_rate_no');
+				$rate_image .= ($j <= $rate_points ) ? dl_status::icon('dl_rate_yes') : dl_status::icon('dl_rate_no');
 			}
 		}
 

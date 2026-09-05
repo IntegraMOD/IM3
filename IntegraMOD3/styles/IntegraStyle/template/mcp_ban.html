@@ -1,0 +1,92 @@
+<!-- INCLUDE mcp_header.html -->
+
+<div id="mcp-ban-config" hidden
+    <!-- BEGIN ban_length --> data-ban-length-{ban_length.BAN_ID}="{ban_length.A_LENGTH}"<!-- END ban_length -->
+    <!-- BEGIN ban_reason --> data-ban-reason-{ban_reason.BAN_ID}="{ban_reason.A_REASON}"<!-- END ban_reason -->
+    <!-- BEGIN ban_give_reason --> data-ban-give-reason-{ban_give_reason.BAN_ID}="{ban_give_reason.A_REASON}"<!-- END ban_give_reason -->
+></div>
+
+<form id="mcp_ban" method="post" action="{U_ACTION}">
+    <h2>{L_TITLE}</h2>
+
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <h3>{L_TITLE}</h3>
+            <p>{L_EXPLAIN}</p>
+            <div class="ucp-form-grid">
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="ban">{L_BAN_CELL}:</label>
+                    <textarea name="ban" id="ban" class="inputbox ucp-form-textarea" cols="40" rows="3">{BAN_QUANTIFIER}</textarea>
+                    <!-- IF S_USERNAME_BAN --><p><strong><a href="{U_FIND_USERNAME}" data-find-username>{L_FIND_USERNAME}</a></strong></p><!-- ENDIF -->
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="banlength">{L_BAN_LENGTH}:</label>
+                    <select name="banlength" id="banlength" class="ucp-form-select" data-action="ban-length">{S_BAN_END_OPTIONS}</select>
+                    <div id="banlengthother" class="ban-length-other">
+                        <label><input type="text" name="banlengthother" class="inputbox ucp-form-input" /><br /><span>{L_YEAR_MONTH_DAY}</span></label>
+                    </div>
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="banreason">{L_BAN_REASON}:</label>
+                    <input name="banreason" id="banreason" type="text" class="inputbox ucp-form-input" maxlength="255" />
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="bangivereason">{L_BAN_GIVE_REASON}:</label>
+                    <input name="bangivereason" id="bangivereason" type="text" class="inputbox ucp-form-input" maxlength="255" />
+                </div>
+                <div class="ucp-form-row">
+                    <p class="ucp-form-label">{L_BAN_EXCLUDE}:</p>
+                    <p class="ucp-form-help">{L_BAN_EXCLUDE_EXPLAIN}</p>
+                    <div class="ucp-form-inline">
+                        <label for="banexclude1"><input type="radio" name="banexclude" id="banexclude1" value="1" /> {L_YES}</label>
+                        <label for="banexclude0"><input type="radio" name="banexclude" id="banexclude0" value="0" checked="checked" /> {L_NO}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ucp-actions">
+        {S_HIDDEN_FIELDS}<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+        <input type="submit" name="bansubmit" value="{L_SUBMIT}" class="button1" />
+        {S_FORM_TOKEN}
+    </div>
+
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <h3>{L_UNBAN_TITLE}</h3>
+            <p>{L_UNBAN_EXPLAIN}</p>
+            <!-- IF S_BANNED_OPTIONS -->
+            <div class="ucp-form-grid">
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="unban">{L_BAN_CELL}:</label>
+                    <select name="unban[]" id="unban" multiple="multiple" size="5" class="ucp-form-select" data-action="ban-unban-details">{BANNED_OPTIONS}</select>
+                </div>
+                <div class="ucp-form-row">
+                    <p class="ucp-form-label">{L_BAN_LENGTH}:</p>
+                    <p><strong id="unbanlength"></strong></p>
+                </div>
+                <div class="ucp-form-row">
+                    <p class="ucp-form-label">{L_BAN_REASON}:</p>
+                    <p><strong id="unbanreason"></strong></p>
+                </div>
+                <div class="ucp-form-row">
+                    <p class="ucp-form-label">{L_BAN_GIVE_REASON}:</p>
+                    <p><strong id="unbangivereason"></strong></p>
+                </div>
+            </div>
+            <!-- ELSE -->
+            <p><strong>{L_NO_BAN_CELL}</strong></p>
+            <!-- ENDIF -->
+        </div>
+    </section>
+
+    <!-- IF S_BANNED_OPTIONS -->
+    <div class="ucp-actions">
+        {S_HIDDEN_FIELDS}<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+        <input type="submit" name="unbansubmit" value="{L_SUBMIT}" class="button1" />
+    </div>
+    <!-- ENDIF -->
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

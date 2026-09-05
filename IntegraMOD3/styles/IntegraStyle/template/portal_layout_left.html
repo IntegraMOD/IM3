@@ -1,0 +1,35 @@
+<!-- IDTAG START portal_layout_left 24 March 2011 -->
+
+<!-- BEGIN left_block_files -->
+<div class="portal-block-wrap" id="<!-- IF S_ARRANGE -->BLOCK_<!-- ENDIF -->{left_block_files.LEFT_BLOCK_ID}" data-portal-block-wrap="{left_block_files.LEFT_BLOCK_ID}">
+    <section class="portal-block">
+		<div class="block_header<!-- IF S_ARRANGE --> handle<!-- ENDIF -->">
+			<div class="block_title">{left_block_files.LEFT_BLOCK_TITLE}
+				<div class="portal-block-tools" id="p_{left_block_files.LEFT_BLOCK_ID}">
+					<!-- IF S_ARRANGE -->
+						<span class="bmove rtl"><svg class="css-icon css-icon-move" aria-hidden="true" focusable="false"><use href="#icon-menu"></use></svg></span>
+						<a href="javascript:void(0)" class="portal-block-toggle" data-portal-toggle="{left_block_files.LEFT_BLOCK_ID}" data-portal-toggle-show="_{left_block_files.LEFT_BLOCK_ID}" data-portal-toggle-hide="BLOCK_{left_block_files.LEFT_BLOCK_ID}">
+							<span class="bchide rtl"><svg class="css-icon css-icon-minus" aria-hidden="true" focusable="false"><use href="#icon-minus"></use></svg></span>
+						</a>
+					<!-- ELSE -->
+						<span class="bcimage rtl"><img src="{left_block_files.LEFT_BLOCK_IMG}" alt="" /></span>
+					<!-- ENDIF -->
+				</div>
+			</div>
+		</div>
+		<div class="box portal-block-body" id="<!-- IF not S_ARRANGE -->BLOCK_<!-- ENDIF -->{left_block_files.LEFT_BLOCK_ID}">
+			<!-- IF left_block_files.LEFT_BLOCK_SCROLL -->
+				<!-- IF S_ARRANGE -->
+					{L_SCROLLING_BLOCKS_DISABLED}
+				<!-- ELSE -->
+					<div class="scroll_outer" id="{left_block_files.LEFT_BLOCK_ID}_outer"><div class="scroll_inner" id="{left_block_files.LEFT_BLOCK_ID}_inner">{left_block_files.LEFT_BLOCKS}</div></div>
+				<!-- ENDIF -->
+			<!-- ELSE -->
+				{left_block_files.LEFT_BLOCKS}
+			<!-- ENDIF -->
+		</div>
+    </section>
+</div>
+<!-- END left_block_files -->
+
+<!-- IDTAG ENDS portal_layout_left -->

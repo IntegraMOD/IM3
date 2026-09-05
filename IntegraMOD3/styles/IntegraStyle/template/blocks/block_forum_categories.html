@@ -1,0 +1,30 @@
+<!-- IDTAG block_forum_categories.html starts updated 14 May 2012 -->
+<!-- to show categories only, remove the not in clause below -->
+<div class="block_data">
+	<!-- BEGIN forumrow -->
+		<!-- IF not forumrow.S_IS_CAT -->
+            <article class="bg1a portal-forum-category" id="T_{forumrow.FORUM_ID}" title="{L_CLICK_TO_EXPAND}">
+				<span class="pimg cat_images">
+					<!-- IF forumrow.FORUM_IMAGE_SRC -->
+					<img src="{forumrow.FORUM_IMAGE_SRC}" title="{CLICK_TO_EXPAND}..." class="smallimage" alt="" />
+					<!-- ELSE -->
+					<img src="./images/forum_icons/default.png" title="{CLICK_TO_EXPAND}..." class="smallimage" alt="" />
+					<!-- ENDIF -->
+				</span>
+                <span class="portal-forum-category-title"><strong><a href="{forumrow.U_VIEWFORUM}" title="{forumrow.POSTS} {L_FORUMS} &bull; {forumrow.TOPICS} {L_TOPICS} &bull; {forumrow.POSTS} {L_POSTS}">{forumrow.FORUM_NAME}<!-- IF forumrow.SUBFORUMS and forumrow.S_LIST_SUBFORUMS -->&deg;<!-- ENDIF --></a></strong></span>
+
+                <div class="hidden_part portal-forum-category-details" id="TT_{forumrow.FORUM_ID}">
+                    <div class="centre portal-forum-category-desc"><strong>{forumrow.FORUM_DESC}</strong></div>
+                    <div class="portal-forum-category-stats"><span class="gensmall">{L_TOPICS}: <strong>{forumrow.TOPICS}</strong> - {L_POSTS}: <strong>{forumrow.POSTS}</strong></span></div>
+					<!-- IF forumrow.SUBFORUMS and forumrow.S_LIST_SUBFORUMS -->
+                        <div class="portal-forum-category-subforums-title"><strong>{forumrow.L_SUBFORUM_STR}</strong></div>
+						<div>{forumrow.SUBFORUMS}</div>
+					<!-- ENDIF -->
+				</div>
+
+            </article>
+		<!-- ENDIF -->
+	<!-- END forumrow -->
+</div>
+<!-- IF DEBUG_QUERIES --><div class="block_data">{FORUM_CATEGORIES_DEBUG}</div><!-- ENDIF -->
+<!-- IDTAG block_forum_categories.html ends -->

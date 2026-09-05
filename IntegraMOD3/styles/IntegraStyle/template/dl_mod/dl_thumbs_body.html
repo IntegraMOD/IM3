@@ -1,0 +1,48 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{DL_THUMBS_SECOND}</h2>
+
+<form action="{S_FORMS_ACTION}" method="post" {ENCTYPE} id="dl_thumbs">
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_DL_EDIT_THUMBS}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="img_link">{L_DL_FILE_NAME}</label>
+				<input type="file" id="img_link" name="img_link" class="inputbox ucp-form-input" size="60" />
+				<p class="ucp-form-help">{DL_THUMB_MAX_SIZE}</p>
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="img_title">{L_DL_FILE_DESCRIPTION}</label>
+				<input type="text" id="img_title" name="img_title" size="70" maxlength="255" value="{EDIT_IMG_TITLE}" class="inputbox ucp-form-input" />
+			</div>
+			<div class="ucp-actions">
+				<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+				<input type="reset" name="reset" value="{L_RESET}" class="button2" />
+			</div>
+			{S_FORM_TOKEN}{S_HIDDEN_FIELDS}
+		</div>
+	</section>
+</form>
+
+<!-- BEGIN thumbnails -->
+<!-- IF thumbnails.S_FIRST_ROW -->
+<p class="rules">{L_DL_THUMB_HINTS}</p>
+<div class="dl-thumb-list">
+<!-- ENDIF -->
+	<article class="ucp-card">
+		<div class="ucp-card-body">
+			<a href="{thumbnails.IMG_LINK}" rel="lytebox" title="{thumbnails.IMG_TITLE}"><img src="{thumbnails.IMG_LINK}" alt="{thumbnails.IMG_TITLE}" title="{thumbnails.IMG_TITLE}" /></a>
+			<div class="ucp-actions">
+				<a href="{thumbnails.U_DELETE}">{L_DL_DELETE}</a>
+				<a href="{thumbnails.U_EDIT}">{L_DL_EDIT_FILE}</a>
+			</div>
+		</div>
+	</article>
+<!-- IF thumbnails.S_LAST_ROW -->
+</div>
+<!-- ENDIF -->
+<!-- END thumbnails -->
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

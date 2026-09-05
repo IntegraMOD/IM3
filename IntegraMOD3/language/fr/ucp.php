@@ -460,6 +460,8 @@ $lang = array_merge($lang, array(
 	'UCP_PREFS_PERSONAL'		=> 'Éditer les réglages généraux',
 	'UCP_PREFS_POST'			=> 'Éditer les préférences de publication par défaut',
 	'UCP_PREFS_VIEW'			=> 'Éditer les options d’affichage',
+	'UCP_PUSH_NOTIFICATIONS'	=> 'Notifications Push',
+	'UCP_PUSH_SETTINGS'		    => 'Préférences de notifications',
 
 	'UCP_PM'					=> 'Messages privés',
 	'UCP_PM_COMPOSE'			=> 'Rédiger un message',

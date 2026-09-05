@@ -1,0 +1,40 @@
+<!-- BEGIN imageblock -->
+<section class="forum-category gallery-imageblock" style="--gallery-col-width: {imageblock.S_COL_WIDTH}; --gallery-thumb-height: {S_THUMBNAIL_SIZE}px;">
+	<div class="forum-header">
+		<div class="forum-title"><!-- IF imageblock.U_BLOCK --><a href="{imageblock.U_BLOCK}">{imageblock.BLOCK_NAME}</a><!-- ELSE -->{imageblock.BLOCK_NAME}<!-- ENDIF --></div>
+	</div>
+	<div class="gallery-image-grid">
+		<!-- BEGIN imagerow -->
+			<!-- BEGIN image -->
+			<article class="gallery-image-card<!-- IF imageblock.imagerow.image.S_UNAPPROVED --> g_unapproved<!-- ENDIF --><!-- IF imageblock.imagerow.image.S_LOCKED --> g_locked<!-- ENDIF --><!-- IF imageblock.imagerow.image.S_REPORTED --> g_reported<!-- ENDIF -->">
+				<figure class="gallery-image-thumb">{imageblock.imagerow.image.UC_THUMBNAIL}</figure>
+				<div class="gallery-image-meta">
+					<!-- IF imageblock.imagerow.image.CONTEST_RANK --><p>{L_CONTEST_RESULT}: <strong>{imageblock.imagerow.image.CONTEST_RANK}</strong></p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.UC_IMAGE_NAME --><p>{L_IMAGE_NAME}: {imageblock.imagerow.image.UC_IMAGE_NAME}</p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.U_ALBUM --><p>{L_ALBUM_NAME}: <a href="{imageblock.imagerow.image.U_ALBUM}" title="{imageblock.imagerow.image.ALBUM_NAME_FULL}">{imageblock.imagerow.image.ALBUM_NAME}</a></p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.POSTER --><p>{L_UPLOADED_BY_USER}: {imageblock.imagerow.image.POSTER}</p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.TIME --><p>{L_UPLOADED_ON_DATE}: {imageblock.imagerow.image.TIME}</p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.VIEW > -1 --><p>{L_GALLERY_VIEWS}: {imageblock.imagerow.image.VIEW}</p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.S_RATINGS --><p>{L_RATING}: <a href="{imageblock.imagerow.image.U_RATINGS}">{imageblock.imagerow.image.S_RATINGS}</a></p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.S_COMMENTS --><p>{imageblock.imagerow.image.L_COMMENTS}: <a href="{imageblock.imagerow.image.U_COMMENTS}">{imageblock.imagerow.image.S_COMMENTS}</a></p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.S_IP --><p>{L_IP}: {imageblock.imagerow.image.S_IP} &#187; <a href="{imageblock.imagerow.image.U_WHOIS}" data-action="popup" data-popup-width="750" data-popup-height="500">{L_WHOIS}</a></p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.U_REPORT or imageblock.imagerow.image.U_STATUS or imageblock.imagerow.image.U_MOVE or imageblock.imagerow.image.U_EDIT or imageblock.imagerow.image.U_DELETE -->
+					<p><a href="{imageblock.imagerow.image.U_EDIT}" data-action="toggle-display" data-toggle-id="moderate_imageblock_{imageblock.S_ROW_COUNT}_imagerow_{imageblock.imagerow.image.IMAGE_ID}">{L_MODERATE}</a></p>
+					<div id="moderate_imageblock_{imageblock.S_ROW_COUNT}_imagerow_{imageblock.imagerow.image.IMAGE_ID}" class="gallery-moderate" hidden="hidden">
+						<!-- IF imageblock.imagerow.image.U_REPORT --><p>&#187; <a href="{imageblock.imagerow.image.U_REPORT}" class="reported-images-number">{L_READ_REPORT}</a></p><!-- ENDIF -->
+						<!-- IF imageblock.imagerow.image.U_STATUS --><p>&#187; <a href="{imageblock.imagerow.image.U_STATUS}">{imageblock.imagerow.image.L_STATUS}</a></p><!-- ENDIF -->
+						<!-- IF imageblock.imagerow.image.U_MOVE --><p>&#187; <a href="{imageblock.imagerow.image.U_MOVE}">{L_MOVE}</a></p><!-- ENDIF -->
+						<!-- IF imageblock.imagerow.image.U_EDIT --><p>&#187; <a href="{imageblock.imagerow.image.U_EDIT}">{L_EDIT_IMAGE}</a></p><!-- ENDIF -->
+						<!-- IF imageblock.imagerow.image.U_DELETE --><p>&#187; <a href="{imageblock.imagerow.image.U_DELETE}">{L_DELETE_IMAGE}</a></p><!-- ENDIF -->
+					</div>
+					<!-- ENDIF -->
+				</div>
+			</article>
+			<!-- END image -->
+			<!-- BEGIN no_image -->
+			<article class="gallery-image-card gallery-image-card-empty" aria-hidden="true"></article>
+			<!-- END no_image -->
+		<!-- END imagerow -->
+	</div>
+</section>
+<!-- END imageblock -->

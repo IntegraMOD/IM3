@@ -1,0 +1,23 @@
+<!-- IF S_ARCHIVES -->
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_ARCHIVES}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<!-- BEGIN archiverow -->
+				<button type="button" class="blog-archive-toggle" data-action="blog-archive-toggle" data-month="{archiverow.S_ROW_COUNT}">
+					<span class="blog-archive-icon"><!-- IF archiverow.S_ROW_COUNT > 0 -->+<!-- ELSE -->-<!-- ENDIF --></span>
+					<span>{archiverow.MONTH} {archiverow.YEAR}</span>
+				</button>
+				<div id="month_{archiverow.S_ROW_COUNT}" class="blog-archive-list<!-- IF archiverow.S_ROW_COUNT > 0 --> blog-hidden<!-- ENDIF -->">
+					<!-- BEGIN monthrow -->
+						<div class="blog-archive-item">
+							<a href="{archiverow.monthrow.U_VIEW}">{archiverow.monthrow.TITLE}</a>
+							<span>{archiverow.monthrow.DATE}</span>
+						</div>
+					<!-- END monthrow -->
+				</div>
+			<!-- END archiverow -->
+		</div>
+	</section>
+<!-- ENDIF -->

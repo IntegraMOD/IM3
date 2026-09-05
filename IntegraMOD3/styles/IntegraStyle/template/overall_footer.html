@@ -1,0 +1,84 @@
+
+<!-- INCLUDE portal_footer.html -->
+<div id="p_footer"><!-- PUT FOOTER BLOCKS HERE --></div>
+	</main>
+<!-- IF ADS_7 -->
+<div class="ads-panel ads-panel-bottom">
+	<div class="ads-panel-label">{L_ADVERTISEMENT}</div>
+	<div class="ads-panel-content">{ADS_7}</div>
+</div>
+<!-- ENDIF -->
+
+<footer class="site-footer">
+    <div class="site-footer-inner">
+        <nav class="footer-nav" aria-label="Footer navigation">
+            <ul class="footer-navlist">
+                <li class="footer-arrow"><a href="#top" title="{L_BACK_TO_TOP}"><svg class="css-icon css-icon-arrow-up" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg></a></li>
+                <!-- IF STARGATE -->
+                <li<!-- IF S_IS_PORTAL --> class="is-active"<!-- ENDIF -->><a href="{U_PORTAL}" title="{PORTAL_LABEL}">{PORTAL_LABEL}</a></li>
+                <!-- ENDIF -->
+                <li<!-- IF S_IS_INDEX --> class="is-active"<!-- ENDIF -->><a href="{U_INDEX}" title="{FORUM_LABEL}" accesskey="h">{FORUM_LABEL}</a></li>
+                <!-- IF U_ACP --><li><a href="{U_ACP}">{L_ACP}</a></li><!-- ENDIF -->
+                <!-- IF not S_IS_BOT -->
+                <li><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a></li>
+                    <!-- IF not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+                    <li><a href="{U_REGISTER}">{L_REGISTER}</a></li>
+                    <!-- ENDIF -->
+                    <!-- IF S_CONTACT_ENABLED -->
+                    <li><a href="{U_CONTACT}">{L_CONTACT_BOARD_ADMIN_SHORT}</a></li>
+                    <!-- ENDIF -->
+                    <!-- IF S_MOD_DISPLAY -->
+                    <li><a href="{U_MODS_DB}">{L_MODS_DB}</a></li>
+                    <!-- ENDIF -->
+                <!-- ENDIF -->
+                <li class="footer-arrow footer-arrow-end"><a href="#top" title="{L_BACK_TO_TOP}"><svg class="css-icon css-icon-arrow-up" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg></a></li>
+            </ul>
+        </nav>
+
+        <div class="footer-meta">
+            <!-- IF U_TEAM --><a href="{U_TEAM}">{L_THE_TEAM}</a><!-- ENDIF -->
+            <!-- IF not S_IS_BOT --><a href="{U_DELETE_COOKIES}">{L_DELETE_COOKIES}</a><!-- ENDIF -->
+            <span>{S_TIMEZONE}</span>
+        </div>
+
+    <div class="copyright">{CREDIT_LINE}
+<!-- IF SCRIPT_NAME eq 'activitypage' or SCRIPT_NAME eq 'profile' -->Powered by <a href="javascript:void(0)" title="phpBB Social Network">phpBB Social Network</a> &copy; phpBB SN Group'<!-- ENDIF -->
+		<!-- IF STARGATE --><!-- INCLUDE portal_copyright.html --><!-- ENDIF -->
+		<!-- IF SITE_COPYRIGHT -->{COPYRIGHT}<!-- ENDIF -->
+		<!-- IF TRANSLATION_INFO --><br />{TRANSLATION_INFO}<!-- ENDIF -->
+		<!-- IF DEBUG_OUTPUT --><br />{DEBUG_OUTPUT}<!-- ENDIF -->
+		<!-- IF U_ACP --><br /><strong><a href="{U_ACP}">{L_ACP}</a></strong><!-- ENDIF -->
+	</div>
+	{ADS_8}
+    </div>
+</footer>
+
+</div>
+
+<div>
+	<a id="bottom" name="bottom" accesskey="z"></a>
+	<!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->
+	<!-- ajaxlike -->
+	<!-- IF AJAXLIKE_ENABLE -->
+	<div id="ajaxlike_not-dialog"></div>
+	<div id="ajaxlike-not-dialog" title="{L_AL_LIKE_NEW_TITLE}"></div>
+	<!-- IF AJAXLIKE_NOTIFY_ENABLE and META == '' -->
+	<div id="ajaxlike-notify-data" data-interval="{AJAXLIKE_NOTIFY_INTERVAL}" data-callback="{AJAXLIKE_NOTIFY_CALLBACK}"></div>
+	<!-- ENDIF -->
+	<!-- ENDIF -->
+	<!-- ajaxlike -->	
+</div>
+
+<!-- IF STARGATE -->
+</div><!-- stylewidth -->
+<!-- ENDIF -->
+
+<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
+	<!-- INCLUDE password_strength.html -->
+<!-- ENDIF -->
+
+<!-- IF SN_MODULE_IM_ENABLED -->
+    <!-- INCLUDE socialnet/im.html -->
+<!-- ENDIF -->
+</body>
+</html>

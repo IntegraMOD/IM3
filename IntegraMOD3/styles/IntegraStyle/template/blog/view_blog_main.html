@@ -1,0 +1,106 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- IF U_BLOG_MCP -->
+	<p>[&nbsp;<a href="{U_BLOG_MCP}">{L_BLOG_MCP}</a>&nbsp;]</p>
+<!-- ENDIF -->
+
+<div class="blog-layout">
+	<aside class="blog-sidebar" id="left_menu">
+		<!-- INCLUDE blog/left_menu.html -->
+	</aside>
+	<div class="blog-main">
+		<!-- INCLUDE blog/category_list.html -->
+
+		<!-- IF S_RANDOM_BLOG -->
+			<section class="ucp-card">
+				<div class="ucp-card-header">
+					<h3 class="ucp-card-title">{L_RANDOM_BLOG}</h3>
+				</div>
+			</section>
+			<!-- BEGIN random -->
+				<article class="post post-row blog-post is-full <!-- IF random.S_REPORTED or random.S_UNAPPROVED --> reported<!-- ENDIF --><!-- IF random.S_DELETED --> deleted<!-- ENDIF -->">
+					<div class="post-content">
+						<!-- IF random.S_UNAPPROVED or random.S_REPORTED -->
+							<p class="post-rules">
+								<!-- IF random.S_UNAPPROVED --><a href="{random.U_APPROVE}"><strong>{L_UNAPPROVED}</strong></a><!-- ENDIF -->
+								<!-- IF random.S_REPORTED --><a href="{random.U_REPORT}"><strong>{L_REPORTED_SHORT}</strong></a><!-- ENDIF -->
+							</p>
+						<!-- ENDIF -->
+						<h3><!-- IF random.S_HAS_POLL --><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-state-bullhorn"></use></svg> <!-- ENDIF --><a href="{random.U_VIEW}">{random.TITLE}</a></h3>
+						<p class="post-author">{L_POST_BY_AUTHOR} <strong>{random.USER_FULL}</strong> {L_POSTED_ON_DATE} {random.DATE}</p>
+						<div class="post-message">{random.MESSAGE}</div>
+						<!-- IF random.S_HAS_ATTACHMENTS -->
+							<div class="attachbox"><div class="attachbox-title">{L_ATTACHMENTS}</div></div>
+						<!-- ENDIF -->
+						<div class="blog-post-meta">
+							<span class="num_replies">{random.REPLIES}</span>
+							<span>{random.VIEWS}</span>
+						</div>
+					</div>
+				</article>
+			<!-- BEGINELSE -->
+				<section class="ucp-card"><div class="ucp-card-body blog-empty"><strong>{L_NO_BLOGS}</strong></div></section>
+			<!-- END random -->
+		<!-- ENDIF -->
+
+		<div class="blog-columns">
+			<!-- BEGIN column -->
+				<section class="blog-column">
+					<div class="ucp-card">
+						<div class="ucp-card-header">
+							<div class="blog-card-title">
+								<h3 class="ucp-card-title"><a href="{column.U_VIEW}">{column.TITLE}</a></h3>
+								<!-- IF column.U_FEED --><a class="blog-feed-link" href="{column.U_FEED}" title="{L_FEED}"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-rss"></use></svg></a><!-- ENDIF -->
+							</div>
+						</div>
+					</div>
+					<!-- IF S_SORT -->
+						<form id="sortblogs" method="post" action="{S_POST_ACTION}" class="blog-sort">
+							<!-- IF PREVIOUS_PAGE --><a href="{PREVIOUS_PAGE}">{L_PREVIOUS}</a><!-- ENDIF -->
+							<!-- IF NEXT_PAGE --><a href="{NEXT_PAGE}">{L_NEXT}</a><!-- ENDIF -->
+							<label>{L_DISPLAY_POSTS}: {S_SELECT_SORT_DAYS}</label>
+							<label>{L_SORT_BY} {S_SELECT_SORT_KEY}</label>
+							<label>{S_SELECT_SORT_DIR} <input type="submit" name="sort" value="{L_GO}" class="button2" /></label>
+						</form>
+					<!-- ENDIF -->
+					<!-- BEGIN row -->
+						<article class="post post-row blog-post is-full <!-- IF row.S_REPORTED or row.S_UNAPPROVED --> reported<!-- ENDIF --><!-- IF row.S_DELETED --> deleted<!-- ENDIF -->">
+							<div class="post-content">
+								<!-- IF row.S_UNAPPROVED or row.S_REPORTED -->
+									<p class="post-rules">
+										<!-- IF row.S_UNAPPROVED --><a href="{row.U_APPROVE}"><strong>{L_UNAPPROVED}</strong></a><!-- ENDIF -->
+										<!-- IF row.S_REPORTED --><a href="{row.U_REPORT}"><strong>{L_REPORTED_SHORT}</strong></a><!-- ENDIF -->
+									</p>
+								<!-- ENDIF -->
+								<h3><!-- IF row.S_HAS_POLL --><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-state-bullhorn"></use></svg> <!-- ENDIF --><a href="{row.U_VIEW}">{row.TITLE}</a></h3>
+								<p class="post-author">{L_POST_BY_AUTHOR} <strong>{row.USER_FULL}</strong> {L_POSTED_ON_DATE} {row.DATE}</p>
+								<div class="post-message">{row.MESSAGE}</div>
+								<!-- IF row.S_HAS_ATTACHMENTS -->
+									<div class="attachbox"><div class="attachbox-title">{L_ATTACHMENTS}</div></div>
+								<!-- ENDIF -->
+								<div class="blog-post-meta">
+									<span class="num_replies">{row.REPLIES}</span>
+									<span>{row.VIEWS}</span>
+								</div>
+							</div>
+						</article>
+					<!-- BEGINELSE -->
+						<section class="ucp-card"><div class="ucp-card-body blog-empty"><strong>{column.L_NO_MSG}</strong></div></section>
+					<!-- END row -->
+					<!-- IF PAGINATION or TOTAL_POSTS -->
+						<div class="pagination">
+							{TOTAL_POSTS} <!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; {PAGE_NUMBER} &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+						</div>
+					<!-- ENDIF -->
+				</section>
+			<!-- END column -->
+		</div>
+	</div>
+</div>
+
+<!-- IF S_DISPLAY_ONLINE_LIST -->
+	<h3><a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a></h3>
+	<p>{LOGGED_IN_USER_LIST}</p>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,143 @@
+<!-- IF S_DL_UCP -->
+<!-- INCLUDE ucp_header.html -->
+<!-- ELSE -->
+<!-- INCLUDE dl_mod/dl_header.html -->
+<!-- ENDIF -->
+
+<!-- IF S_DL_UCP -->
+<h2>{DL_MOD_RELEASE}</h2>
+<!-- ENDIF -->
+
+<form action="{S_FORM_ACTION}" method="post" id="user_dl_config">
+<!-- IF S_DL_UCP_CONFIG -->
+    <!-- IF S_NO_DL_POPUP_NOTIFY -->
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_USER_DOWNLOAD_POPUP}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_USER_ALLOW_NEW_DOWNLOAD_POPUP}</span>
+                <div class="ucp-form-content">
+                    <label><input type="radio" class="radio" name="user_allow_new_download_popup" value="1" {ALLOW_NEW_DOWNLOAD_POPUP_YES} /> {L_YES}</label>
+                    <label><input type="radio" class="radio" name="user_allow_new_download_popup" value="0" {ALLOW_NEW_DOWNLOAD_POPUP_NO} /> {L_NO}</label>
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_USER_ALLOW_FAV_DOWNLOAD_POPUP}</span>
+                <div class="ucp-form-content">
+                    <label><input type="radio" class="radio" name="user_allow_fav_download_popup" value="1" {ALLOW_FAV_DOWNLOAD_POPUP_YES} /> {L_YES}</label>
+                    <label><input type="radio" class="radio" name="user_allow_fav_download_popup" value="0" {ALLOW_FAV_DOWNLOAD_POPUP_NO} /> {L_NO}</label>
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_USER_DOWNLOAD_NOTIFY_TYPE}</span>
+                <div class="ucp-form-content">
+                    <label><input type="radio" class="radio" name="user_dl_note_type" value="1" {USER_DL_NOTE_TYPE_POPUP} /> {L_USER_DOWNLOAD_NOTIFY_TYPE_POPUP}</label>
+                    <label><input type="radio" class="radio" name="user_dl_note_type" value="0" {USER_DL_NOTE_TYPE_MESSAGE} /> {L_USER_DOWNLOAD_NOTIFY_TYPE_MESSAGE}</label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF S_NO_DL_EMAIL_NOTIFY -->
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_USER_DOWNLOAD_EMAIL}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_USER_ALLOW_NEW_DOWNLOAD_EMAIL}</span>
+                <div class="ucp-form-content">
+                    <label><input type="radio" class="radio" name="user_allow_new_download_email" value="1" {ALLOW_NEW_DOWNLOAD_EMAIL_YES} /> {L_YES}</label>
+                    <label><input type="radio" class="radio" name="user_allow_new_download_email" value="0" {ALLOW_NEW_DOWNLOAD_EMAIL_NO} /> {L_NO}</label>
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_USER_ALLOW_FAV_DOWNLOAD_EMAIL}</span>
+                <div class="ucp-form-content">
+                    <label><input type="radio" class="radio" name="user_allow_fav_download_email" value="1" {ALLOW_FAV_DOWNLOAD_EMAIL_YES} /> {L_YES}</label>
+                    <label><input type="radio" class="radio" name="user_allow_fav_download_email" value="0" {ALLOW_FAV_DOWNLOAD_EMAIL_NO} /> {L_NO}</label>
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_USER_ALLOW_FAV_COMMENT_EMAIL}</span>
+                <div class="ucp-form-content">
+                    <label><input type="radio" class="radio" name="user_allow_fav_comment_email" value="1" {ALLOW_FAV_COMMENT_EMAIL_YES} /> {L_YES}</label>
+                    <label><input type="radio" class="radio" name="user_allow_fav_comment_email" value="0" {ALLOW_FAV_COMMENT_EMAIL_NO} /> {L_NO}</label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF S_SORT_CONFIG_OPTIONS -->
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_SORT_BY}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_DL_SORT_USER_OPT}</span>
+                <div class="ucp-form-content">
+                    {S_DL_SORT_USER_OPT} {S_DL_SORT_USER_DIR}
+                    <label><input type="checkbox" class="permissions-checkbox" name="user_dl_sort_opt" value="1" {S_DL_SORT_USER_EXT} /> {L_DL_SORT_USER_EXT}</label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_DL_CAT_TITLE}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_DL_SUB_ON_INDEX}</span>
+                <div class="ucp-form-content">
+                    <label><input type="radio" class="radio" name="user_dl_sub_on_index" value="1" {USER_DL_SUB_ON_INDEX_YES} /> {L_YES}</label>
+                    <label><input type="radio" class="radio" name="user_dl_sub_on_index" value="0" {USER_DL_SUB_ON_INDEX_NO} /> {L_NO}</label>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- ENDIF -->
+
+<!-- IF S_FAV_BLOCK -->
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_DL_FAVORITE}</h3>
+        </div>
+        <div class="ucp-card-body dl-list">
+            <div class="dl-list-head">
+                <div>{L_DOWNLOADS}</div>
+                <div>{L_DL_DELETE}</div>
+            </div>
+            <!-- BEGIN favorite_row -->
+            <article class="dl-list-row">
+                <div>{favorite_row.DL_CAT} <a href="{favorite_row.U_DOWNLOAD}">{favorite_row.DOWNLOAD}</a></div>
+                <div><input type="checkbox" name="fav_id[]" value="{favorite_row.DL_ID}" /></div>
+            </article>
+            <!-- END favorite_row -->
+        </div>
+    </section>
+    <p class="dl-toolbar">
+        <a href="{S_FORM_ACTION}" data-action="marklist" data-mark-form="user_dl_config" data-mark-name="fav_id[]" data-mark-state="true">{L_DL_MARK_ALL}</a>
+        <a href="{S_FORM_ACTION}" data-action="marklist" data-mark-form="user_dl_config" data-mark-name="fav_id[]" data-mark-state="false">{L_DL_UNMARK}</a>
+    </p>
+<!-- ENDIF -->
+
+    <div class="ucp-actions">
+        <input type="reset" value="{L_RESET}" name="reset" class="button2" />
+        <input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+        {S_FORM_TOKEN}
+    </div>
+</form>
+
+<!-- IF S_DL_UCP -->
+<!-- INCLUDE ucp_footer.html -->
+<!-- ELSE -->
+<!-- INCLUDE dl_mod/dl_footer.html -->
+<!-- ENDIF -->

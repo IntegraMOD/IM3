@@ -1,0 +1,19 @@
+<section class="block_data style-select-block">
+
+		<!-- IF S_USER_LOGGED_IN -->
+        <form method="post" class="style-select-form" action="{S_SELECT_ACTION}">
+			<!-- IF S_SHOW_PERM -->
+            <select class="style-select" data-style-select data-style-permanent-toggle="y">
+				{STYLE_SELECT}
+			</select>
+            <label class="style-select-permanent">{L_PERMANENT} <input type="checkbox" title="{L_MAKE_PERMANENT}" class="radio" id="y" name="y" value="" /></label>
+			<!-- ELSE -->
+            <select class="style-select" data-style-select>
+				{STYLE_SELECT}
+			</select>
+			<!-- ENDIF -->
+		</form>
+		<!-- ENDIF -->
+
+    <p class="style-select-count">{L_TOTAL_STYLES}: {STYLE_COUNT}</p>
+</section>

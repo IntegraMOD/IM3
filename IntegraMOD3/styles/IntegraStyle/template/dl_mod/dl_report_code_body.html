@@ -1,0 +1,27 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<form action="{S_CONFIRM_ACTION}" method="post" id="confirm_broken_dl">
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h2 class="ucp-card-title">{MESSAGE_TITLE}</h2>
+		</div>
+		<div class="ucp-card-body">
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="report_notify_text">{L_DL_REPORT_REASON}</label>
+				<textarea class="inputbox ucp-form-input" id="report_notify_text" rows="5" cols="50" name="report_notify_text"></textarea>
+			</div>
+			<!-- IF CAPTCHA_TEMPLATE -->
+				<!-- DEFINE $CAPTCHA_TAB_INDEX = 8 -->
+				<p>{L_DL_CONFIRM_EXPLAIN}</p>
+				<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+			<!-- ENDIF -->
+			<div class="ucp-actions">
+				<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+				{S_FORM_TOKEN}
+				{S_HIDDEN_FIELDS}
+			</div>
+		</div>
+	</section>
+</form>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

@@ -1,0 +1,38 @@
+<!-- IF S_UCATS -->
+<!-- BEGIN maincat -->
+<section class="forum-category kb-classic-cat">
+	<div class="forum-header forum-list-header">
+		<div class="forum-title">{maincat.TITLE}</div>
+		<div class="forum-stats-header posts">{L_TOPICS}</div>
+		<div class="forum-stats-header last-post">{L_LAST_POST}</div>
+	</div>
+	<div class="forum-list">
+	<!-- BEGIN ucat -->
+		<article class="forum-row">
+			<div class="forum-icon" title="">
+				<svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-state-folder"></use></svg>
+			</div>
+			<div class="forum-details">
+				<!-- IF maincat.ucat.CAT_IMAGE --><span class="forum-image"><img src="{maincat.ucat.CAT_IMAGE}" alt="" /></span><!-- ENDIF -->
+				<a href="{maincat.ucat.U_CATEGORIE}" class="forumtitle">{maincat.ucat.TITLE}</a>
+				<div class="forum-desc">{maincat.ucat.DESCRIPTION}</div>
+				<!-- IF maincat.ucat.SUB_CAT} --><div class="forum-subforums"><strong>{L_SUB_CATGEGORIES}: {maincat.ucat.SUB_CAT}</strong></div><!-- ENDIF -->
+			</div>
+			<div class="forum-stats-grid">
+				<div class="stat-posts">{maincat.ucat.ARTICLES}</div>
+				<div class="stat-lastpost">
+					<!-- IF maincat.ucat.NEWEST_ARTICLE -->
+					<div class="lastpost-meta">
+						<a href="{maincat.ucat.U_NEWEST_ARTICLE}">{maincat.ucat.NEWEST_ARTICLE}</a><br />
+						{L_FROM}: {maincat.ucat.AUTHOR_FULL}<br />
+						{L_POSTED_ON_DATE} {maincat.ucat.NEWEST_TIME}
+					</div>
+					<!-- ENDIF -->
+				</div>
+			</div>
+		</article>
+	<!-- END ucat -->
+	</div>
+</section>
+<!-- END maincat -->
+<!-- ENDIF -->

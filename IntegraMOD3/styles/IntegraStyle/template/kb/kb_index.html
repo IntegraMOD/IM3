@@ -1,0 +1,77 @@
+<!-- INCLUDE overall_header.html -->
+
+<p class="{S_CONTENT_FLOW_END}<!-- IF S_USER_LOGGED_IN --> rightside<!-- ENDIF -->"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ELSE -->{CURRENT_TIME}<!-- ENDIF --></p>
+<!-- IF U_MCP --><p>{CURRENT_TIME} <br />[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ELSEIF S_USER_LOGGED_IN --><p>{CURRENT_TIME}</p><!-- ENDIF -->
+
+
+<div class="kb-layout">
+	<h2>{KB_TITLE}</h2>
+	<p>{KB_DESCRIPTION}</p>
+
+	<section class="ucp-card kb-search">
+		<div class="ucp-card-body">
+			<form method="get" action="{U_ACTION}" class="kb-search-form">
+				<label for="add_keywords"><strong>{L_SEARCH_FOR}:</strong></label>
+				<input name="q" id="add_keywords" value="{KEYWORD}" class="inputbox ucp-form-input" type="search" />
+				<input class="button2" name="submit" value="{L_SEARCH}" type="submit" />
+				<p><a href="{U_ACTION}" title="{L_SEARCH_ADV_EXPLAIN}">{L_SEARCH_ADV}</a></p>
+			</form>
+		</div>
+	</section>
+
+<!-- IF CLASSIC_INDEX -->
+	<!-- INCLUDE kb/kb_index_clasic.html -->
+<!-- ELSE -->
+	<!-- INCLUDE kb/kb_index_modern.html -->
+<!-- ENDIF -->
+<br />
+
+
+<!-- IF not S_USER_LOGGED_IN and not S_IS_BOT -->
+	<form method="post" action="{S_LOGIN_ACTION}" class="headerspace">
+		<section class="ucp-card">
+			<div class="ucp-card-body">
+				<h3><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a><!-- IF S_REGISTER_ENABLED --> &bull; <a href="{U_REGISTER}">{L_REGISTER}</a><!-- ENDIF --></h3>
+				<div class="ucp-form-grid login-form-grid">
+					<div class="ucp-form-row">
+						<label class="ucp-form-label" for="username">{L_USERNAME}:</label>
+						<input type="text" name="username" id="username" size="10" class="inputbox ucp-form-input" title="{L_USERNAME}" />
+					</div>
+					<div class="ucp-form-row">
+						<label class="ucp-form-label" for="password">{L_PASSWORD}:</label>
+						<input type="password" name="password" id="password" size="10" class="inputbox ucp-form-input" title="{L_PASSWORD}" />
+						<!-- IF S_AUTOLOGIN_ENABLED -->
+							<label for="autologin">{L_LOG_ME_IN} <input type="checkbox" name="autologin" id="autologin" /></label>
+						<!-- ENDIF -->
+					</div>
+					<div class="ucp-actions">
+						<input type="submit" name="login" value="{L_LOGIN}" class="button2" />
+					</div>
+				</div>
+			</div>
+		</section>
+	</form>
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_ONLINE_LIST -->
+	<section class="ucp-card kb-online">
+		<div class="ucp-card-body">
+			<!-- IF U_VIEWONLINE --><h3><a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a></h3><!-- ELSE --><h3>{L_WHO_IS_ONLINE}</h3><!-- ENDIF -->
+			<p>{TOTAL_USERS_ONLINE} ({L_ONLINE_EXPLAIN})<br />{RECORD_USERS}<br />{LOGGED_IN_USER_LIST}
+			<!-- IF LEGEND --><br /><em>{L_LEGEND}: {LEGEND}</em><!-- ENDIF --></p>
+		</div>
+	</section>
+<!-- ENDIF -->
+
+	<section class="ucp-card kb-stats">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_STATISTICS}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<p>{L_ARTICLE_CONT}: <strong>{COUNT_ARTICLE}</strong> &bull; {L_CATEGORIES}: <strong>{CONT_CATS}</strong> &bull; {L_ARTICLE_NEWEST}: <strong><a href="{U_NEWEST_ARTICLE}">{NEWEST_ARTICLE}</a></strong></p>
+		</div>
+	</section>
+</div>
+
+<!-- INCLUDE overall_footer.html -->
+

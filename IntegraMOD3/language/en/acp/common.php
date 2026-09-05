@@ -56,6 +56,9 @@ $lang = array_merge($lang, array(
 	'ACP_BOARD_FEATURES'		=> 'Board features',
 	'ACP_BOARD_MANAGEMENT'		=> 'Board management',
 	'ACP_BOARD_SETTINGS'		=> 'Board settings',
+	'ACP_PUSH_NOTIFICATIONS'	=> 'Push Notifications',
+	'ACP_PUSH_SETTINGS'		    => 'Push notification settings',
+	'ACP_PUSH_SEND'				=> 'Send Push notification',
 	'ACP_BOTS'					=> 'Spiders/Robots',
 //---BEGIN CALENDAR MOD---
 	'ACP_CALENDAR'              => 'Calendar',
@@ -85,9 +88,6 @@ $lang = array_merge($lang, array(
 	'ACP_COOKIE_SETTINGS'		=> 'Cookie settings',
 	'ACP_CRITICAL_LOGS'			=> 'Error log',
 	'ACP_CUSTOM_PROFILE_FIELDS'	=> 'Custom profile fields',
-	'ACP_PUSH_NOTIFICATIONS'	=> 'Push Notifications',
-	'ACP_PUSH_SETTINGS'		=> 'OneSignal Settings',
-	'ACP_PUSH_SEND'			=> 'Send Broadcast',
 
 	'ACP_DATABASE'				=> 'Database management',
 	'ACP_DISALLOW'				=> 'Disallow',

@@ -128,7 +128,28 @@
 				})
 				.removeAttr('style');
 
+				$('#sn-up-profileTabs').tabs('load', $('#sn-up-profileTabs').tabs('option', 'selected'));
+
+
 				$('#sn-up-profileTabs li:first a').attr('href', c_url);
+
+				// Enforce single-panel visibility. Rewriting the first tab's href
+				// above breaks jQuery UI's tab<->panel association for the Wall
+				// panel, so the framework no longer hides it on tab change and its
+				// content (share box + activity feed) bleeds under every tab.
+				// Manually hide all profile tab panels except the active one.
+				var $snProfileTabs = $('#sn-up-profileTabs');
+				var snHideInactivePanels = function() {
+					var active = $snProfileTabs.tabs('option', 'active');
+					if (typeof active !== 'number') {
+						active = $snProfileTabs.tabs('option', 'selected');
+					}
+					$snProfileTabs.children('.sn-up-profileTabs-panel').each(function(i) {
+						$(this).css('display', i === active ? '' : 'none');
+					});
+				};
+				$snProfileTabs.on('tabsactivate tabsload', snHideInactivePanels);
+				snHideInactivePanels();
 			}
 
 			if ($('.sn-up-reportUser a').length > 0 && $('#sn-up-profileTabs').length > 0) {

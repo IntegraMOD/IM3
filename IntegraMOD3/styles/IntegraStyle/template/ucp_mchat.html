@@ -1,0 +1,41 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}">
+
+<h2>{L_TITLE}</h2>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-form-grid">
+			<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+			<!-- IF S_MCHAT_INDEX -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_DISPLAY_MCHAT}:</p><div class="ucp-form-inline"><label><input type="radio" name="user_mchat_index" value="1"<!-- IF S_DISPLAY_MCHAT --> id="mchat_index" checked="checked"<!-- ENDIF --> /> {L_YES}</label><label><input type="radio" name="user_mchat_index" value="0"<!-- IF not S_DISPLAY_MCHAT --> id="mchat_index" checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- ENDIF -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_SOUND_MCHAT}:</p><div class="ucp-form-inline"><label><input type="radio" name="user_mchat_sound" value="1"<!-- IF S_SOUND_MCHAT --> id="mchat_sound" checked="checked"<!-- ENDIF --> /> {L_YES}</label><label><input type="radio" name="user_mchat_sound" value="0"<!-- IF not S_SOUND_MCHAT --> id="mchat_sound" checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- IF S_MCHAT_INDEX -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_DISPLAY_STATS_INDEX}:</p><div class="ucp-form-inline"><label><input type="radio" name="user_mchat_stats_index" value="1"<!-- IF S_STATS_MCHAT --> id="mchat_statsindex" checked="checked"<!-- ENDIF --> /> {L_YES}</label><label><input type="radio" name="user_mchat_stats_index" value="0"<!-- IF not S_STATS_MCHAT --> id="mchat_statsindex" checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- ENDIF -->
+			<!-- IF S_MCHAT_TOPICS -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_DISPLAY_NEW_TOPICS}:</p><div class="ucp-form-inline"><label><input type="radio" name="user_mchat_topics" value="1"<!-- IF S_TOPICS_MCHAT --> id="mchat_topics" checked="checked"<!-- ENDIF --> /> {L_YES}</label><label><input type="radio" name="user_mchat_topics" value="0"<!-- IF not S_TOPICS_MCHAT --> id="mchat_topics" checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- ENDIF -->
+			<!-- IF S_MCHAT_AVATARS -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_DISPLAY_AVATARS}:</p><div class="ucp-form-inline"><label><input type="radio" name="user_mchat_avatars" value="1"<!-- IF S_AVATARS_MCHAT --> id="mchat_avatars" checked="checked"<!-- ENDIF --> /> {L_YES}</label><label><input type="radio" name="user_mchat_avatars" value="0"<!-- IF not S_AVATARS_MCHAT --> id="mchat_avatars" checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- ENDIF -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_CHAT_AREA}:</p><div class="ucp-form-inline"><label><input type="radio" name="user_mchat_input_area" value="1"<!-- IF S_INPUT_MCHAT --> id="mchat_input_type" checked="checked"<!-- ENDIF --> /> {L_INPUT_AREA}</label><label><input type="radio" name="user_mchat_input_area" value="0"<!-- IF not S_INPUT_MCHAT --> id="mchat_input_type" checked="checked"<!-- ENDIF --> /> {L_TEXT_AREA}</label></div></div>
+		</div>
+	</div>
+</div>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-actions">
+			{S_HIDDEN_FIELDS}
+			<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+			<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+</div>
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

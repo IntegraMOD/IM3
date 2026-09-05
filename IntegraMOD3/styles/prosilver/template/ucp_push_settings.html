@@ -10,19 +10,14 @@
     <p>{L_UCP_PUSH_EXPLAIN}</p>
 
     <fieldset>
-		<dl>
-			<dt><label for="user_mobile">{L_USER_MOBILE}:</label><br /><span>{L_USER_MOBILE_EXPLAIN}</span></dt>
-			<dd>
-				<div style="display: flex; align-items: center; flex-wrap: nowrap;">
-					<span style="margin-right: 4px;">+</span>
-					<input type="text" id="user_mobile_cc" name="user_mobile_cc" value="{USER_MOBILE_CC}" size="4" maxlength="4" class="inputbox autowidth" style="width: 60px; min-width: 60px; margin-right: 8px;" title="{L_USER_MOBILE_CC}" />
-					<input type="text" id="user_mobile" name="user_mobile" value="{USER_MOBILE}" class="inputbox" style="width: auto; flex-grow: 1; max-width: 250px;" />
-				</div>
-				<div style="margin-top: 4px;">
-					<span>{L_USER_MOBILE_CC_EXPLAIN}</span>
-				</div>
-			</dd>
-		</dl>
+        <dl>
+            <dt><label for="user_mobile">{L_USER_MOBILE}:</label><br /><span>{L_USER_MOBILE_EXPLAIN}</span></dt>
+            <dd>
+                +<input type="text" id="user_mobile_cc" name="user_mobile_cc" value="{USER_MOBILE_CC}" size="4" maxlength="4" class="inputbox autowidth" title="{L_USER_MOBILE_CC}" />
+                &nbsp;<input type="text" id="user_mobile" name="user_mobile" value="{USER_MOBILE}" class="inputbox" />
+                <br /><span>{L_USER_MOBILE_CC_EXPLAIN}</span>
+            </dd>
+        </dl>
 
         <!-- IF S_PUSH_ALLOW_WEB_FRIEND_REQ or S_PUSH_ALLOW_SMS_FRIEND_REQ -->
         <dl>

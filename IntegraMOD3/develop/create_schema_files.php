@@ -49,7 +49,37 @@ $dbms_type_map = array(
 		'VCHAR_CI'	=> 'varchar(255)',
 		'VARBINARY'	=> 'varbinary(255)',
 	),
-
+	
+	'mysql_40'	=> array(
+		'INT:'		=> 'int(%d)',
+		'BINT'		=> 'bigint(20)',
+		'UINT'		=> 'int(10) UNSIGNED',
+		'UINT:'		=> 'int(%d) UNSIGNED',
+		'TINT:'		=> 'tinyint(%d)',
+		'USINT'		=> 'smallint(4) UNSIGNED',
+		'BOOL'		=> 'tinyint(1) UNSIGNED',
+		'VCHAR'		=> 'varchar(255)',
+		'VCHAR:'	=> 'varchar(%d)',
+		'CHAR:'		=> 'char(%d)',
+		'XSTEXT'	=> 'text',
+		'XSTEXT_UNI'=> 'varchar(100)',
+		'STEXT'		=> 'text',
+		'STEXT_UNI'	=> 'varchar(255)',
+		'TEXT'		=> 'text',
+		'TEXT_UNI'	=> 'text',
+		'MTEXT'		=> 'mediumtext',
+		'MTEXT_UNI'	=> 'mediumtext',
+		'TIMESTAMP'	=> 'int(11) UNSIGNED',
+		'DECIMAL'	=> 'decimal(5,2)',
+		'DECIMAL:'	=> 'decimal(%d,2)',
+		'PDECIMAL'	=> 'decimal(6,3)',
+		'PDECIMAL:'	=> 'decimal(%d,3)',
+		'VCHAR_UNI'	=> 'varchar(255)',
+		'VCHAR_UNI:'=> 'varchar(%d)',
+		'VCHAR_CI'	=> 'varchar(255)',
+		'VARBINARY'	=> 'varbinary(255)',
+	),
+	
 	'mysql_41'	=> array(
 		'INT:'		=> 'int(%d)',
 		'BINT'		=> 'bigint(20)',
@@ -233,7 +263,7 @@ $dbms_type_map = array(
 
 // A list of types being unsigned for better reference in some db's
 $unsigned_types = array('UINT', 'UINT:', 'USINT', 'BOOL', 'TIMESTAMP');
-$supported_dbms = array('firebird', 'mssql', 'mysql_41', 'mysql_80', 'oracle', 'postgres', 'sqlite');
+$supported_dbms = array('firebird', 'mssql', 'mysql_40', 'mysql_41', 'mysql_80', 'oracle', 'postgres', 'sqlite');
 
 foreach ($supported_dbms as $dbms)
 {
@@ -257,6 +287,7 @@ foreach ($supported_dbms as $dbms)
 	// Write Header
 	switch ($dbms)
 	{
+		case 'mysql_40':
 		case 'mysql_41':
 		case 'mysql_80':
 		case 'firebird':
@@ -308,6 +339,7 @@ foreach ($supported_dbms as $dbms)
 		// Write comment about table
 		switch ($dbms)
 		{
+			case 'mysql_40':
 			case 'mysql_41':
 			case 'mysql_80':
 			case 'firebird':
@@ -328,6 +360,7 @@ foreach ($supported_dbms as $dbms)
 
 		switch ($dbms)
 		{
+			case 'mysql_40':
 			case 'mysql_41':
 			case 'mysql_80':
 			case 'firebird':
@@ -418,6 +451,30 @@ foreach ($supported_dbms as $dbms)
 
 			switch ($dbms)
 			{
+				case 'mysql_40':
+					$line .= "\t{$column_name} {$column_type} ";
+
+					// For hexadecimal values do not use single quotes
+					if (!is_null($column_data[1]) && substr($column_type, -4) !== 'text' && substr($column_type, -4) !== 'blob')
+					{
+						$line .= (strpos($column_data[1], '0x') === 0) ? "DEFAULT {$column_data[1]} " : "DEFAULT '{$column_data[1]}' ";
+					}
+					$line .= 'NOT NULL';
+
+					if (isset($column_data[2]))
+					{
+						if ($column_data[2] == 'auto_increment')
+						{
+							$line .= ' auto_increment';
+						}
+						else if ($column_data[2] == 'true_sort')
+						{
+							$line .= ' COLLATE utf8_unicode_ci';
+						}
+					}
+
+					$line .= ",\n";
+				break;
 				case 'mysql_41':
 					$line .= "\t{$column_name} {$column_type} ";
 
@@ -642,6 +699,7 @@ foreach ($supported_dbms as $dbms)
 
 			switch ($dbms)
 			{
+				case 'mysql_40':
 				case 'mysql_41':
 				case 'mysql_80':
 				case 'postgres':
@@ -729,6 +787,7 @@ foreach ($supported_dbms as $dbms)
 
 				switch ($dbms)
 				{
+					case 'mysql_40':
 					case 'mysql_41':
 					case 'mysql_80':
 						$line .= ($key_data[0] == 'INDEX') ? "\tKEY" : '';
@@ -794,6 +853,11 @@ foreach ($supported_dbms as $dbms)
 
 		switch ($dbms)
 		{
+			case 'mysql_40':
+				// Remove last line delimiter...
+				$line = substr($line, 0, -2);
+				$line .= "\n);\n\n";
+			break;
 			case 'mysql_41':
 				// Remove last line delimiter...
 				$line = substr($line, 0, -2);
@@ -3752,6 +3816,8 @@ function get_schema_struct()
 			'youtube'					 => array('VCHAR:255', ''),
 			'profile_views'				 => array('UINT:11', 0),
 			'profile_last_change'		 => array('UINT:11', 0),
+			'sn_privacy_level'			 => array('UINT:1', 0),
+			'sn_allow_friend_requests'	 => array('UINT:1', 1),
 		),
 		'PRIMARY_KEY'	 => array('user_id'),
 	);
@@ -4041,154 +4107,173 @@ function get_schema_struct()
 
 	$schema_data['phpbb_users'] = array(
 		'COLUMNS'		=> array(
-			'user_id'					=> array('UINT', NULL, 'auto_increment'),
-			'user_type'					=> array('TINT:2', 0),
-			'group_id'					=> array('UINT', 3),
-			'username'					=> array('VCHAR_CI', ''),
-			'username_clean'			=> array('VCHAR_CI', ''),
-			'user_regdate'				=> array('TIMESTAMP', 0),
-			'user_password'				=> array('VCHAR_UNI:40', ''),
-			'user_email'				=> array('VCHAR_UNI:100', ''),
-			'user_lang'					=> array('VCHAR:30', ''),
-			'user_style'				=> array('UINT', 0),
-			'user_rank'					=> array('UINT', 0),
-			'user_colour'				=> array('VCHAR:6', ''),
-			'user_posts'				=> array('UINT', 0),
-			'user_permissions'			=> array('MTEXT', ''),
-			'user_ip'					=> array('VCHAR:40', ''),
-			'user_birthday'				=> array('VCHAR:10', ''),
-			'user_lastpage'				=> array('VCHAR_UNI:200', ''),
-			'user_last_confirm_key'		=> array('VCHAR:10', ''),
-			'user_post_sortby_type'		=> array('VCHAR:1', 't'),
-			'user_post_sortby_dir'		=> array('VCHAR:1', 'a'),
-			'user_topic_sortby_type'	=> array('VCHAR:1', 't'),
-			'user_topic_sortby_dir'		=> array('VCHAR:1', 'd'),
-			'user_avatar'				=> array('VCHAR', ''),
-			'user_sig'					=> array('MTEXT_UNI', ''),
-			'user_sig_bbcode_uid'		=> array('VCHAR:8', ''),
-			'user_from'					=> array('VCHAR_UNI:100', ''),
-			'user_fb'					=> array('VCHAR_UNI', ''),
-			'user_ig'					=> array('VCHAR_UNI', ''),
-			'user_pt'					=> array('VCHAR_UNI', ''),
-			'user_twr'					=> array('VCHAR_UNI', ''),
-			'user_skp'					=> array('VCHAR_UNI', ''),
-			'user_tg'					=> array('VCHAR_UNI', ''),
-			'user_li'					=> array('VCHAR_UNI', ''),
-			'user_tt'					=> array('VCHAR_UNI', ''),
-			'user_dc'					=> array('VCHAR_UNI', ''),
-			'user_icq'					=> array('VCHAR:15', ''),
-			'user_aim'					=> array('VCHAR_UNI', ''),
-			'user_yim'					=> array('VCHAR_UNI', ''),
-			'user_msnm'					=> array('VCHAR_UNI', ''),
-			'user_jabber'				=> array('VCHAR_UNI', ''),
-			'user_website'				=> array('VCHAR_UNI:200', ''),
-			'user_occ'					=> array('TEXT_UNI', ''),
-			'user_interests'			=> array('TEXT_UNI', ''),
-			'user_actkey'				=> array('VCHAR:32', ''),
-			'user_newpasswd'			=> array('VCHAR_UNI:40', ''),
-			'user_allow_massemail'		=> array('BOOL', 1),
-			'user_perm_from'			=> array('UINT', 0),
-			'user_passchg'				=> array('TIMESTAMP', 0),
-			'user_pass_convert'			=> array('BOOL', 0),
-			'user_email_hash'			=> array('BINT', 0),
-			'user_lastvisit'			=> array('TIMESTAMP', 0),
-			'user_lastmark'				=> array('TIMESTAMP', 0),
-			'user_lastpost_time'		=> array('TIMESTAMP', 0),
-			'user_last_search'			=> array('TIMESTAMP', 0),
-			'user_warnings'				=> array('TINT:4', 0),
-			'user_last_warning'			=> array('TIMESTAMP', 0),
-			'user_login_attempts'		=> array('TINT:4', 0),
-			'user_inactive_reason'		=> array('TINT:2', 0),
-			'user_inactive_time'		=> array('TIMESTAMP', 0),
-			'user_timezone'				=> array('DECIMAL', 0),
-			'user_dst'					=> array('BOOL', 0),
-			'user_dateformat'			=> array('VCHAR_UNI:30', 'd M Y H:i'),
-			'user_new_privmsg'			=> array('INT:4', 0),
-			'user_unread_privmsg'		=> array('INT:4', 0),
-			'user_last_privmsg'			=> array('TIMESTAMP', 0),
-			'user_message_rules'		=> array('BOOL', 0),
-			'user_full_folder'			=> array('INT:11', -3),
-			'user_emailtime'			=> array('TIMESTAMP', 0),
-			'user_topic_show_days'		=> array('USINT', 0),
-			'user_post_show_days'		=> array('USINT', 0),
-			'user_notify'				=> array('BOOL', 0),
-			'user_notify_pm'			=> array('BOOL', 1),
-			'user_notify_type'			=> array('TINT:4', 0),
-			'user_allow_pm'				=> array('BOOL', 1),
-			'user_allow_viewonline'		=> array('BOOL', 1),
-			'user_allow_viewemail'		=> array('BOOL', 1),
-			'user_options'				=> array('UINT:11', 230271),
-			'user_avatar_type'			=> array('TINT:2', 0),
-			'user_avatar_width'			=> array('USINT', 0),
-			'user_avatar_height'		=> array('USINT', 0),
-			'user_sig_bbcode_bitfield'	=> array('VCHAR:255', ''),
-			'user_form_salt'			=> array('VCHAR_UNI:32', ''),
-			'user_new'					=> array('BOOL', 1),
-			'user_reminded'				=> array('TINT:4', 0),
-			'user_reminded_time'		=> array('TIMESTAMP', 0),
-  			'user_left_blocks'					=> array('VCHAR_CI', ''),
-			'user_center_blocks'				=> array('VCHAR_CI', ''),
-  			'user_right_blocks'					=> array('VCHAR_CI', ''),
-  			'user_flagged'						=> array('BOOL', 0),
-  			'user_flag_new'						=> array('BOOL', 0),
-  			'user_im3_config'					=> array('UINT:10', 1743781891),
-  			'user_allow_fav_download_email'		=> array('BOOL', 1),
-  			'user_allow_fav_download_popup'		=> array('BOOL', 1),
-  			'user_allow_new_download_email'		=> array('BOOL', 0),
-  			'user_allow_new_download_popup'		=> array('BOOL', 1),
-  			'user_dl_note_type'					=> array('BOOL', 1),
-  			'user_dl_sort_dir'					=> array('BOOL', 0),
-  			'user_dl_sort_fix'					=> array('BOOL', 0),
-  			'user_dl_sort_opt'					=> array('BOOL', 0),
-  			'user_dl_sub_on_index'				=> array('BOOL', 1),
-  			'user_dl_update_time'				=> array('UINT:11', 0),
-  			'user_new_download'					=> array('BOOL', 0),
-  			'user_traffic'						=> array('BINT', 0),
-  			'user_allow_fav_comment_email'		=> array('BOOL', 1),
-  			'user_popup_notes'					=> array('BOOL', 0),
-  			'user_mchat_index'					=> array('BOOL', 1),
-  			'user_mchat_portal'					=> array('BOOL', 1),
-  			'user_mchat_sound'					=> array('BOOL', 1),
-  			'user_mchat_stats_index'			=> array('BOOL', 1),
-  			'user_mchat_topics'					=> array('BOOL', 1),
-  			'user_mchat_avatars'				=> array('BOOL', 1),
-  			'user_mchat_input_area'				=> array('BOOL', 1),
-  			'ad_owner'							=> array('BOOL', 0),
-  			'user_digest_new_posts_only'		=> array('TINT:4', 0),
-  			'user_digest_ever_unsubscribed'		=> array('TINT:4', 0),
-  			'user_digest_no_post_text'			=> array('TINT:4', 0),
-  			'user_digest_filter_type'			=> array('VCHAR:3', 'ALL'),
-  			'user_digest_format'				=> array('VCHAR:4', 'HTML'),
-  			'user_digest_max_display_words'		=> array('UINT:4', 0),
-  			'user_digest_max_posts'				=> array('UINT', 0),
-  			'user_digest_min_words'				=> array('UINT', 0),
-  			'user_digest_pm_mark_read'			=> array('TINT:4', 0),
-  			'user_digest_remove_foes'			=> array('TINT:4', 0),
-			'user_digest_reset_lastvisit'		=> array('TINT:4', 1),
-  			'user_digest_send_hour_gmt'			=> array('DECIMAL:5', 0.00),
-  			'user_digest_send_on_no_posts'		=> array('TINT:4', 0),
-  			'user_digest_show_mine'				=> array('TINT:4', 1),
-  			'user_digest_show_pms'				=> array('TINT:4', 1),
-  			'user_digest_sortby'				=> array('VCHAR:13', 'board'),
-  			'user_digest_type'					=> array('VCHAR:4', 'NONE'),
-  			'user_digest_has_unsubscribed'		=> array('TINT:4', 0),
-  			'user_digest_attachments'			=> array('TINT:4', 1),
-  			'user_digest_block_images'			=> array('TINT:4', 0),
-  			'user_digest_toc'					=> array('TINT:4', 0),
-  			'user_digest_last_sent'				=> array('UINT:11', 0),
-  			'user_abbcode_mod'					=> array('BOOL', 1),
-  			'user_abbcode_compact'				=> array('BOOL', 0),
-  			'user_points'						=> array('DECIMAL:20', 0.00),
-			'user_lastrefresh'			        => array('INT:11', 0),			
-			'show_likes'				        => array('TINT:3', 1),
-			'blog_count'                        => array('UINT', 0),
+			'user_id'						=> array('UINT', NULL, 'auto_increment'),
+			'user_type'						=> array('TINT:2', 0),
+			'group_id'						=> array('UINT', 3),
+			'username'						=> array('VCHAR_CI', ''),
+			'username_clean'				=> array('VCHAR_CI', ''),
+			'user_regdate'					=> array('TIMESTAMP', 0),
+			'user_password'					=> array('VCHAR_UNI:40', ''),
+			'user_email'					=> array('VCHAR_UNI:100', ''),
+			'user_lang'						=> array('VCHAR:30', ''),
+			'user_style'					=> array('UINT', 0),
+			'user_rank'						=> array('UINT', 0),
+			'user_colour'					=> array('VCHAR:6', ''),
+			'user_posts'					=> array('UINT', 0),
+			'user_permissions'				=> array('MTEXT', ''),
+			'user_ip'						=> array('VCHAR:40', ''),
+			'user_birthday'					=> array('VCHAR:10', ''),
+			'user_lastpage'					=> array('VCHAR_UNI:200', ''),
+			'user_last_confirm_key'			=> array('VCHAR:10', ''),
+			'user_post_sortby_type'			=> array('VCHAR:1', 't'),
+			'user_post_sortby_dir'			=> array('VCHAR:1', 'a'),
+			'user_topic_sortby_type'		=> array('VCHAR:1', 't'),
+			'user_topic_sortby_dir'			=> array('VCHAR:1', 'd'),
+			'user_avatar'					=> array('VCHAR', ''),
+			'user_sig'						=> array('MTEXT_UNI', ''),
+			'user_sig_bbcode_uid'			=> array('VCHAR:8', ''),
+			'user_from'						=> array('VCHAR_UNI:100', ''),
+			'user_fb'						=> array('VCHAR_UNI', ''),
+			'user_ig'						=> array('VCHAR_UNI', ''),
+			'user_pt'						=> array('VCHAR_UNI', ''),
+			'user_twr'						=> array('VCHAR_UNI', ''),
+			'user_skp'						=> array('VCHAR_UNI', ''),
+			'user_tg'						=> array('VCHAR_UNI', ''),
+			'user_li'						=> array('VCHAR_UNI', ''),
+			'user_tt'						=> array('VCHAR_UNI', ''),
+			'user_dc'						=> array('VCHAR_UNI', ''),
+			'user_icq'						=> array('VCHAR:15', ''),
+			'user_aim'						=> array('VCHAR_UNI', ''),
+			'user_yim'						=> array('VCHAR_UNI', ''),
+			'user_msnm'						=> array('VCHAR_UNI', ''),
+			'user_jabber'					=> array('VCHAR_UNI', ''),
+			'user_website'					=> array('VCHAR_UNI:200', ''),
+			'user_occ'						=> array('TEXT_UNI', ''),
+			'user_interests'				=> array('TEXT_UNI', ''),
+			'user_actkey'					=> array('VCHAR:32', ''),
+			'user_newpasswd'				=> array('VCHAR_UNI:40', ''),
+			'user_allow_massemail'			=> array('BOOL', 1),
+			'user_perm_from'				=> array('UINT', 0),
+			'user_passchg'					=> array('TIMESTAMP', 0),
+			'user_pass_convert'				=> array('BOOL', 0),
+			'user_email_hash'				=> array('BINT', 0),
+			'user_lastvisit'				=> array('TIMESTAMP', 0),
+			'user_lastmark'					=> array('TIMESTAMP', 0),
+			'user_lastpost_time'			=> array('TIMESTAMP', 0),
+			'user_last_search'				=> array('TIMESTAMP', 0),
+			'user_warnings'					=> array('TINT:4', 0),
+			'user_last_warning'				=> array('TIMESTAMP', 0),
+			'user_login_attempts'			=> array('TINT:4', 0),
+			'user_inactive_reason'			=> array('TINT:2', 0),
+			'user_inactive_time'			=> array('TIMESTAMP', 0),
+			'user_timezone'					=> array('DECIMAL', 0),
+			'user_dst'						=> array('BOOL', 0),
+			'user_dateformat'				=> array('VCHAR_UNI:30', 'd M Y H:i'),
+			'user_new_privmsg'				=> array('INT:4', 0),
+			'user_unread_privmsg'			=> array('INT:4', 0),
+			'user_last_privmsg'				=> array('TIMESTAMP', 0),
+			'user_message_rules'			=> array('BOOL', 0),
+			'user_full_folder'				=> array('INT:11', -3),
+			'user_emailtime'				=> array('TIMESTAMP', 0),
+			'user_topic_show_days'			=> array('USINT', 0),
+			'user_post_show_days'			=> array('USINT', 0),
+			'user_notify'					=> array('BOOL', 0),
+			'user_notify_pm'				=> array('BOOL', 1),
+			'user_notify_type'				=> array('TINT:4', 0),
+			'user_allow_pm'					=> array('BOOL', 1),
+			'user_allow_viewonline'			=> array('BOOL', 1),
+			'user_allow_viewemail'			=> array('BOOL', 1),
+			'user_options'					=> array('UINT:11', 230271),
+			'user_avatar_type'				=> array('TINT:2', 0),
+			'user_avatar_width'				=> array('USINT', 0),
+			'user_avatar_height'			=> array('USINT', 0),
+			'user_sig_bbcode_bitfield'		=> array('VCHAR:255', ''),
+			'user_form_salt'				=> array('VCHAR_UNI:32', ''),
+			'user_new'						=> array('BOOL', 1),
+			'user_reminded'					=> array('TINT:4', 0),
+			'user_reminded_time'			=> array('TIMESTAMP', 0),
+			'user_left_blocks'				=> array('VCHAR_CI', ''),
+			'user_center_blocks'			=> array('VCHAR_CI', ''),
+			'user_right_blocks'				=> array('VCHAR_CI', ''),
+			'user_flagged'					=> array('BOOL', 0),
+			'user_flag_new'					=> array('BOOL', 0),
+			'user_im3_config'				=> array('UINT:10', 1743781891),
+			'user_allow_fav_download_email'	=> array('BOOL', 1),
+			'user_allow_fav_download_popup'	=> array('BOOL', 1),
+			'user_allow_new_download_email'	=> array('BOOL', 0),
+			'user_allow_new_download_popup'	=> array('BOOL', 1),
+			'user_dl_note_type'				=> array('BOOL', 1),
+			'user_dl_sort_dir'				=> array('BOOL', 0),
+			'user_dl_sort_fix'				=> array('BOOL', 0),
+			'user_dl_sort_opt'				=> array('BOOL', 0),
+			'user_dl_sub_on_index'			=> array('BOOL', 1),
+			'user_dl_update_time'			=> array('UINT:11', 0),
+			'user_new_download'				=> array('BOOL', 0),
+			'user_traffic'					=> array('BINT', 0),
+			'user_allow_fav_comment_email'	=> array('BOOL', 1),
+			'user_popup_notes'				=> array('BOOL', 0),
+			'user_mchat_index'				=> array('BOOL', 1),
+			'user_mchat_portal'				=> array('BOOL', 1),
+			'user_mchat_sound'				=> array('BOOL', 1),
+			'user_mchat_stats_index'		=> array('BOOL', 1),
+			'user_mchat_topics'				=> array('BOOL', 1),
+			'user_mchat_avatars'			=> array('BOOL', 1),
+			'user_mchat_input_area'			=> array('BOOL', 1),
+			'ad_owner'						=> array('BOOL', 0),
+			'user_digest_new_posts_only'	=> array('TINT:4', 0),
+			'user_digest_ever_unsubscribed'	=> array('TINT:4', 0),
+			'user_digest_no_post_text'		=> array('TINT:4', 0),
+			'user_digest_filter_type'		=> array('VCHAR:3', 'ALL'),
+			'user_digest_format'			=> array('VCHAR:4', 'HTML'),
+			'user_digest_max_display_words'	=> array('UINT:4', 0),
+			'user_digest_max_posts'			=> array('UINT', 0),
+			'user_digest_min_words'			=> array('UINT', 0),
+			'user_digest_pm_mark_read'		=> array('TINT:4', 0),
+			'user_digest_remove_foes'		=> array('TINT:4', 0),
+			'user_digest_reset_lastvisit'	=> array('TINT:4', 1),
+			'user_digest_send_hour_gmt'		=> array('DECIMAL:5', 0.00),
+			'user_digest_send_on_no_posts'	=> array('TINT:4', 0),
+			'user_digest_show_mine'			=> array('TINT:4', 1),
+			'user_digest_show_pms'			=> array('TINT:4', 1),
+			'user_digest_sortby'			=> array('VCHAR:13', 'board'),
+			'user_digest_type'				=> array('VCHAR:4', 'NONE'),
+			'user_digest_has_unsubscribed'	=> array('TINT:4', 0),
+			'user_digest_attachments'		=> array('TINT:4', 1),
+			'user_digest_block_images'		=> array('TINT:4', 0),
+			'user_digest_toc'				=> array('TINT:4', 0),
+			'user_digest_last_sent'			=> array('UINT:11', 0),
+			'user_abbcode_mod'				=> array('BOOL', 1),
+			'user_abbcode_compact'			=> array('BOOL', 0),
+			'user_points'					=> array('DECIMAL:20', 0.00),
+			'user_lastrefresh'				=> array('INT:11', 0),			
+			'show_likes'					=> array('TINT:3', 1),
+			'blog_count'					=> array('UINT', 0),
+			'user_mobile'					=> array('VCHAR:255', ''),
+			'user_push_web_friend_req'		=> array('BOOL', 1),
+			'user_push_web_friend_acc'		=> array('BOOL', 1),
+			'user_push_web_pm'				=> array('BOOL', 1),
+			'user_push_web_like'			=> array('BOOL', 1),
+			'user_push_web_activity'		=> array('BOOL', 1),
+			'user_push_web_sub_post'		=> array('BOOL', 1),
+			'user_push_web_sub_topic'		=> array('BOOL', 1),
+			'user_push_web_news'			=> array('BOOL', 1),
+			'user_push_web_announce'		=> array('BOOL', 1),
+			'user_push_sms_friend_req'		=> array('BOOL', 0),
+			'user_push_sms_friend_acc'		=> array('BOOL', 0),
+			'user_push_sms_pm'				=> array('BOOL', 0),
+			'user_push_sms_like'			=> array('BOOL', 0),
+			'user_push_sms_activity'		=> array('BOOL', 0),
+			'user_push_sms_sub_post'		=> array('BOOL', 0),
+			'user_push_sms_sub_topic'		=> array('BOOL', 0),
+			'user_push_sms_news'			=> array('BOOL', 0),
+			'user_push_sms_announce'		=> array('BOOL', 0),
 		),
 		'PRIMARY_KEY'	=> 'user_id',
 		'KEYS'			=> array(
-			'user_birthday'				=> array('INDEX', 'user_birthday'),
-			'user_email_hash'			=> array('INDEX', 'user_email_hash'),
-			'user_type'					=> array('INDEX', 'user_type'),
-			'username_clean'			=> array('UNIQUE', 'username_clean'),
+			'user_birthday'					=> array('INDEX', 'user_birthday'),
+			'user_email_hash'				=> array('INDEX', 'user_email_hash'),
+			'user_type'						=> array('INDEX', 'user_type'),
+			'username_clean'				=> array('UNIQUE', 'username_clean'),
 		),
 	);
 

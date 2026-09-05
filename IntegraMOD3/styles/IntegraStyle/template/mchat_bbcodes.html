@@ -1,0 +1,80 @@
+                <div id="mChatBBCodes" style="padding: 5px; display: none;">
+                <fieldset class="fields1">
+                    <div id="mchat-bbcode-config"
+                        data-tags="[b]|[/b]|[i]|[/i]|[u]|[/u]|[quote]|[/quote]|[code]|[/code]|[list]|[/list]|[list=]|[/list]|[img]|[/img]|[url]|[/url]|[flash=]|[/flash]|[size=]|[/size]<!-- BEGIN custom_tags -->|{custom_tags.BBCODE_NAME}<!-- END custom_tags -->"
+                        data-help-b="{LA_BBCODE_B_HELP}"
+                        data-help-i="{LA_BBCODE_I_HELP}"
+                        data-help-u="{LA_BBCODE_U_HELP}"
+                        data-help-q="{LA_BBCODE_Q_HELP}"
+                        data-help-c="{LA_BBCODE_C_HELP}"
+                        data-help-l="{LA_BBCODE_L_HELP}"
+                        data-help-o="{LA_BBCODE_O_HELP}"
+                        data-help-p="{LA_BBCODE_P_HELP}"
+                        data-help-w="{LA_BBCODE_W_HELP}"
+                        data-help-a="{LA_BBCODE_A_HELP}"
+                        data-help-s="{LA_BBCODE_S_HELP}"
+                        data-help-f="{LA_BBCODE_F_HELP}"
+                        data-help-e="{LA_BBCODE_E_HELP}"
+                        data-help-d="{LA_BBCODE_D_HELP}"
+                        data-help-tip="{LA_STYLES_TIP}"<!-- BEGIN custom_tags -->
+                        data-help-cb-{custom_tags.BBCODE_ID}="{custom_tags.A_BBCODE_HELPLINE}"<!-- END custom_tags -->></div>
+                        <!-- INCLUDE mchat_color.html -->
+                        <!-- IF S_MCHAT_BBCODE_B -->
+                        <input type="button" class="button2" accesskey="b" name="addbbcode0" value=" B " style="font-weight:bold; width: 30px" data-bbstyle="0" title="{L_BBCODE_B_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_I -->
+                        <input type="button" class="button2" accesskey="i" name="addbbcode2" value=" i " style="font-style:italic; width: 30px" data-bbstyle="2" title="{L_BBCODE_I_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_U -->
+                        <input type="button" class="button2" accesskey="u" name="addbbcode4" value=" u " style="text-decoration: underline; width: 30px" data-bbstyle="4" title="{L_BBCODE_U_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_QUOTE -->
+                        <input type="button" class="button2" accesskey="q" name="addbbcode6" value="Quote" style="width: 50px" data-bbstyle="6" title="{L_BBCODE_Q_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_CODE -->
+                        <input type="button" class="button2" accesskey="c" name="addbbcode8" value="Code" style="width: 40px" data-bbstyle="8" title="{L_BBCODE_C_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_LIST -->
+                        <input type="button" class="button2" accesskey="l" name="addbbcode10" value="List" style="width: 40px" data-bbstyle="10" title="{L_BBCODE_L_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_LIST= -->
+                        <input type="button" class="button2" accesskey="o" name="addbbcode12" value="List=" style="width: 40px" data-bbstyle="12" title="{L_BBCODE_O_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_LIST or S_MCHAT_LIST= -->
+                        <input type="button" class="button2" accesskey="t" name="addlitsitem" value="[*]" style="width: 40px" data-bbstyle="-1" title="{L_BBCODE_LISTITEM_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_IMG -->
+                            <input type="button" class="button2" accesskey="p" name="addbbcode14" value="Img" style="width: 40px" data-bbstyle="14" title="{L_BBCODE_P_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_URL -->
+                            <input type="button" class="button2" accesskey="w" name="addbbcode16" value="URL" style="text-decoration: underline; width: 40px" data-bbstyle="16" title="{L_BBCODE_W_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_FLASH -->
+                            <input type="button" class="button2" accesskey="d" name="addbbcode18" value="Flash" data-bbstyle="18" title="{L_BBCODE_D_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_SIZE -->
+                        <select name="addbbcode20" data-bbfont-size title="{L_BBCODE_F_HELP}">
+                            <option value="50">{L_FONT_TINY}</option>
+                            <option value="85">{L_FONT_SMALL}</option>
+                            <option value="100" selected="selected">{L_FONT_NORMAL}</option>
+                            <!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 150 -->
+                                <option value="150">{L_FONT_LARGE}</option>
+                                <!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 200 -->
+                                    <option value="200">{L_FONT_HUGE}</option>
+                                <!-- ENDIF -->
+                            <!-- ENDIF -->
+                        </select>
+                        <!-- ENDIF -->
+                        <!-- IF S_MCHAT_BBCODE_COLOR -->
+                        <input type="button" class="button2" name="bbpalette" id="bbpalette" value="{L_FONT_COLOR}" data-mchat-toggle="Colour" title="{L_BBCODE_S_HELP}" />
+                        <!-- ENDIF -->
+                        <!-- IF .custom_tags -->
+                        <select name="addbbcode_custom" data-bbstyle-select>
+                            <option value="#" selected="selected">{L_MCHAT_CUSTOM_BBCODES}</option>
+                            <!-- BEGIN custom_tags -->
+                                <option value="{custom_tags.BBCODE_ID}" title="{custom_tags.BBCODE_HELPLINE}">{custom_tags.BBCODE_TAG}</option>
+                            <!-- END custom_tags -->
+                        </select>
+                        <!-- ENDIF -->
+                    </fieldset>
+                </div>

@@ -1,0 +1,51 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+<h2>{L_TITLE}</h2>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-form-grid">
+			<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_SHOW_EMAIL}:</p><div class="ucp-form-inline"><label for="viewemail1"><input type="radio" name="viewemail" id="viewemail1" value="1"<!-- IF S_VIEW_EMAIL --> checked="checked"<!-- ENDIF --> /> {L_YES}</label><label for="viewemail0"><input type="radio" name="viewemail" id="viewemail0" value="0"<!-- IF not S_VIEW_EMAIL --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_ADMIN_EMAIL}:</p><div class="ucp-form-inline"><label for="massemail1"><input type="radio" name="massemail" id="massemail1" value="1"<!-- IF S_MASS_EMAIL --> checked="checked"<!-- ENDIF --> /> {L_YES}</label><label for="massemail0"><input type="radio" name="massemail" id="massemail0" value="0"<!-- IF not S_MASS_EMAIL --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_ALLOW_PM}:</p><p class="ucp-form-help">{L_ALLOW_PM_EXPLAIN}</p><div class="ucp-form-inline"><label for="allowpm1"><input type="radio" name="allowpm" id="allowpm1" value="1"<!-- IF S_ALLOW_PM --> checked="checked"<!-- ENDIF --> /> {L_YES}</label><label for="allowpm0"><input type="radio" name="allowpm" id="allowpm0" value="0"<!-- IF not S_ALLOW_PM --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- IF S_CAN_HIDE_ONLINE -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_HIDE_ONLINE}:</p><p class="ucp-form-help">{L_HIDE_ONLINE_EXPLAIN}</p><div class="ucp-form-inline"><label for="hideonline1"><input type="radio" name="hideonline" id="hideonline1" value="1"<!-- IF S_HIDE_ONLINE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label><label for="hideonline0"><input type="radio" name="hideonline" id="hideonline0" value="0"<!-- IF not S_HIDE_ONLINE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- ENDIF -->
+			<!-- IF S_SELECT_NOTIFY -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_NOTIFY_METHOD}:</p><div class="ucp-form-inline"><label for="notifymethod0"><input type="radio" name="notifymethod" id="notifymethod0" value="0"<!-- IF S_NOTIFY_EMAIL --> checked="checked"<!-- ENDIF --> /> {L_NOTIFY_METHOD_EMAIL}</label><label for="notifymethod1"><input type="radio" name="notifymethod" id="notifymethod1" value="1"<!-- IF S_NOTIFY_IM --> checked="checked"<!-- ENDIF --> /> {L_NOTIFY_METHOD_IM}</label><label for="notifymethod2"><input type="radio" name="notifymethod" id="notifymethod2" value="2"<!-- IF S_NOTIFY_BOTH --> checked="checked"<!-- ENDIF --> /> {L_NOTIFY_METHOD_BOTH}</label></div></div>
+			<!-- ENDIF -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_NOTIFY_ON_PM}:</p><div class="ucp-form-inline"><label for="notifypm1"><input type="radio" name="notifypm" id="notifypm1" value="1"<!-- IF S_NOTIFY_PM --> checked="checked"<!-- ENDIF --> /> {L_YES}</label><label for="notifypm0"><input type="radio" name="notifypm" id="notifypm0" value="0"<!-- IF not S_NOTIFY_PM --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_POPUP_ON_PM}:</p><div class="ucp-form-inline"><label for="popuppm1"><input type="radio" name="popuppm" id="popuppm1" value="1"<!-- IF S_POPUP_PM --> checked="checked"<!-- ENDIF --> /> {L_YES}</label><label for="popuppm0"><input type="radio" name="popuppm" id="popuppm0" value="0"<!-- IF not S_POPUP_PM --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- IF S_MORE_LANGUAGES -->
+			<div class="ucp-form-row"><label class="ucp-form-label" for="lang">{L_BOARD_LANGUAGE}:</label><select name="lang" id="lang" class="ucp-form-select">{S_LANG_OPTIONS}</select></div>
+			<!-- ENDIF -->
+			<!-- IF S_STYLE_OPTIONS and S_MORE_STYLES -->
+			<div class="ucp-form-row"><label class="ucp-form-label" for="style">{L_BOARD_STYLE}:</label><select name="style" id="style" class="ucp-form-select">{S_STYLE_OPTIONS}</select></div>
+			<!-- ENDIF -->
+			<div class="ucp-form-row"><label class="ucp-form-label" for="timezone">{L_BOARD_TIMEZONE}:</label><select name="tz" id="timezone" class="autowidth ucp-form-select">{S_TZ_OPTIONS}</select></div>
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_BOARD_DST}:</p><div class="ucp-form-inline"><label for="dst1"><input type="radio" name="dst" id="dst1" value="1"<!-- IF S_DST --> checked="checked"<!-- ENDIF --> /> {L_YES}</label><label for="dst0"><input type="radio" name="dst" id="dst0" value="0"<!-- IF not S_DST --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<div class="ucp-form-row"><label class="ucp-form-label" for="dateformat">{L_BOARD_DATE_FORMAT}:</label><p class="ucp-form-help">{L_BOARD_DATE_FORMAT_EXPLAIN}</p><select name="dateoptions" id="dateoptions" class="ucp-form-select" data-action="dateoptions-change" data-date-format="{A_DATE_FORMAT}" data-default-dateformat="{A_DEFAULT_DATEFORMAT}">{S_DATEFORMAT_OPTIONS}</select><div id="custom_date" style="display:none;"><input type="text" name="dateformat" id="dateformat" value="{DATE_FORMAT}" maxlength="30" class="inputbox narrow ucp-form-input" style="margin-top: 3px;" /></div></div>
+			<!-- ajaxlike --><!-- IF S_AJ_LIST_IN_PROFILE -->
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_AJ_SHOW_LIKES}:</p><div class="ucp-form-inline"><label for="show_likes1"><input type="radio" name="show_likes" id="show_likes1" value="1"<!-- IF S_SHOW_LIKES --> checked="checked"<!-- ENDIF --> /> {L_YES}</label><label for="show_likes0"><input type="radio" name="show_likes" id="show_likes0" value="0"<!-- IF not S_SHOW_LIKES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></div></div>
+			<!-- ENDIF --><!-- ajaxlike -->
+		</div>
+	</div>
+</div>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-actions">
+			{S_HIDDEN_FIELDS}
+			<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+			<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+</div>
+</form>
+
+<!-- INCLUDE ucp_footer.html -->
+

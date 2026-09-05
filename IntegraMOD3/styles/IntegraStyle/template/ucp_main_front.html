@@ -1,0 +1,34 @@
+<!-- INCLUDE ucp_header.html -->
+
+<h2>{L_TITLE}</h2>
+
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<p>{L_UCP_WELCOME}</p>
+
+<!-- IF .topicrow -->
+		<h3>{L_IMPORTANT_NEWS}</h3>
+		<div class="ucp-form-grid">
+		<!-- BEGIN topicrow -->
+			<div class="ucp-form-row">
+				<p class="ucp-form-label"><!-- IF topicrow.S_UNREAD --><a href="{topicrow.U_NEWEST_POST}" class="newest-post-link" title="{L_VIEW_UNREAD_POST}"><svg class="css-icon css-icon-newest" aria-hidden="true" focusable="false"><use href="#icon-arrow-down"></use></svg></a> <!-- ENDIF --><a href="{topicrow.U_VIEW_TOPIC}">{topicrow.TOPIC_TITLE}</a></p>
+				<p class="ucp-form-help"><!-- IF topicrow.PAGINATION -->{topicrow.PAGINATION} &bull; <!-- ENDIF --><!-- IF topicrow.ATTACH_ICON_IMG --><span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span> <!-- ENDIF -->{L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}</p>
+				<p>{L_LAST_POST} {L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL} <a href="{topicrow.U_LAST_POST}" class="lastpost-link" aria-label="{L_LAST_POST}"><svg class="css-icon css-icon-lastpost" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></a> {topicrow.LAST_POST_TIME}</p>
+			</div>
+		<!-- END topicrow -->
+		</div>
+<!-- ENDIF -->
+
+		<h3>{L_YOUR_DETAILS}</h3>
+		<div class="ucp-form-grid">
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_JOINED}:</p><p>{JOINED}</p></div>
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_VISITED}:</p><p>{LAST_VISIT_YOU}</p></div>
+			<div class="ucp-form-row"><p class="ucp-form-label">{L_TOTAL_POSTS}:</p><p><!-- IF POSTS_PCT -->{POSTS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_YOUR_POSTS}</a></strong><!-- ENDIF --><br />({POSTS_DAY} / {POSTS_PCT})<!-- ELSE -->{POSTS}<!-- ENDIF --></p></div>
+			<!-- IF ACTIVE_FORUM != '' --><div class="ucp-form-row"><p class="ucp-form-label">{L_ACTIVE_IN_FORUM}:</p><p><strong><a href="{U_ACTIVE_FORUM}">{ACTIVE_FORUM}</a></strong><br />({ACTIVE_FORUM_POSTS} / {ACTIVE_FORUM_PCT})</p></div><!-- ENDIF -->
+			<!-- IF ACTIVE_TOPIC != '' --><div class="ucp-form-row"><p class="ucp-form-label">{L_ACTIVE_IN_TOPIC}:</p><p><strong><a href="{U_ACTIVE_TOPIC}">{ACTIVE_TOPIC}</a></strong><br />({ACTIVE_TOPIC_POSTS} / {ACTIVE_TOPIC_PCT})</p></div><!-- ENDIF -->
+			<!-- IF WARNINGS --><div class="ucp-form-row"><p class="ucp-form-label">{L_YOUR_WARNINGS}:</p><p class="error"><svg class="css-icon css-icon-warning" aria-hidden="true" focusable="false"><use href="#icon-warning"></use></svg> [{WARNINGS}]</p></div><!-- ENDIF -->
+		</div>
+	</div>
+</div>
+
+<!-- INCLUDE ucp_footer.html -->

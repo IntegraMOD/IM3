@@ -1,0 +1,76 @@
+<!-- INCLUDE gallery/gallery_header.html -->
+
+<div class="gallery-layout">
+	<h2 class="solo">{L_SEARCH}</h2>
+
+	<form method="get" action="{S_SEARCH_ACTION}">
+		<section class="ucp-card">
+			<div class="ucp-card-header">
+				<h3 class="ucp-card-title">{L_SEARCH_QUERY}</h3>
+			</div>
+			<div class="ucp-card-body ucp-form-grid">
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="keywords">{L_SEARCH_KEYWORDS}:</label>
+					<!-- IF S_IMPLEMENTED --><p class="ucp-form-help">{L_SEARCH_KEYWORDS_EXPLAIN}</p><!-- ENDIF -->
+					<input type="text" class="inputbox ucp-form-input" name="keywords" id="keywords" size="40" title="{L_SEARCH_KEYWORDS}" />
+					<div class="ucp-form-inline">
+						<label for="terms1"><input type="radio" name="terms" id="terms1" value="all" checked="checked" /> {L_SEARCH_ALL_TERMS}</label>
+						<label for="terms2"><input type="radio" name="terms" id="terms2" value="any" /> {L_SEARCH_ANY_TERMS}</label>
+					</div>
+				</div>
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="username">{L_SEARCH_AUTHOR}:</label>
+					<p class="ucp-form-help">{L_SEARCH_AUTHOR_EXPLAIN}</p>
+					<input type="text" class="inputbox ucp-form-input" name="username" id="username" size="40" title="{L_SEARCH_AUTHOR}" />
+				</div>
+			</div>
+		</section>
+
+		<section class="ucp-card">
+			<div class="ucp-card-header">
+				<h3 class="ucp-card-title">{L_SEARCH_OPTIONS}</h3>
+			</div>
+			<div class="ucp-card-body ucp-form-grid">
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="search_album">{L_SEARCH_ALBUMS}:</label>
+					<!-- IF S_IMPLEMENTED --><p class="ucp-form-help">{L_SEARCH_ALBUMS_EXPLAIN}</p><!-- ENDIF -->
+					<select class="ucp-form-select" name="aid[]" id="search_album" multiple="multiple" size="8" title="{L_SEARCH_ALBUMS}">{S_ALBUM_OPTIONS}</select>
+				</div>
+				<!-- IF S_IMPLEMENTED -->
+				<div class="ucp-form-row">
+					<span class="ucp-form-label">{L_SEARCH_SUBALBUMS}:</span>
+					<div class="ucp-form-inline">
+						<label for="search_child1"><input type="radio" name="sc" id="search_child1" value="1" checked="checked" /> {L_YES}</label>
+						<label for="search_child2"><input type="radio" name="sc" id="search_child2" value="0" /> {L_NO}</label>
+					</div>
+				</div>
+				<div class="ucp-form-row">
+					<span class="ucp-form-label">{L_SEARCH_WITHIN}:</span>
+					<div class="ucp-form-inline">
+						<label for="sf1"><input type="radio" name="sf" id="sf1" value="all" checked="checked" /> {L_SEARCH_IMAGE_COMMENTS}</label>
+						<label for="sf2"><input type="radio" name="sf" id="sf2" value="msgonly" /> {L_SEARCH_IMAGE_VALUES}</label>
+						<label for="sf3"><input type="radio" name="sf" id="sf3" value="titleonly" /> {L_SEARCH_IMAGENAME}</label>
+						<label for="sf4"><input type="radio" name="sf" id="sf4" value="firstpost" /> {L_SEARCH_COMMENTS}</label>
+					</div>
+				</div>
+				<!-- ENDIF -->
+				<div class="ucp-form-row">
+					<span class="ucp-form-label">{L_RESULT_SORT}:</span>
+					<div class="ucp-form-inline">
+						{S_SELECT_SORT_KEY}
+						<label for="sa"><input type="radio" name="sd" id="sa" value="a" /> {L_SORT_ASCENDING}</label>
+						<label for="sd"><input type="radio" name="sd" id="sd" value="d" checked="checked" /> {L_SORT_DESCENDING}</label>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="ucp-actions">
+			{S_HIDDEN_FIELDS}
+			<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+			<input type="submit" name="submit" value="{L_SEARCH}" class="button1" />
+		</div>
+	</form>
+</div>
+
+<!-- INCLUDE gallery/gallery_footer.html -->

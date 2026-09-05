@@ -317,3 +317,61 @@ function mouse_click(obj)
     date_close();
     validateForm('postform', 'calendar:get_repeat_dates', 'repeat_dates');
 }
+
+// Event editor: toggle group/user visibility lists based on the selected radio
+function showHideGroups(obj)
+{
+    var this_radio;
+    for(var i=0; i<obj.length; i++)
+    {
+        if(obj[i].checked)
+        {
+            this_radio = obj[i].id;
+        }
+    }
+
+    switch(this_radio)
+    {
+        case 'group_public':
+            document.getElementById('users_list').style.display = 'none';
+            document.getElementById('group_list').style.display = 'none';
+        break;
+
+        case 'group_private':
+            document.getElementById('users_list').style.display = '';
+            document.getElementById('group_list').style.display = 'none';
+        break;
+
+        case 'group_groups':
+            document.getElementById('users_list').style.display = 'none';
+            document.getElementById('group_list').style.display = '';
+        break;
+    }
+}
+
+// Event editor: toggle the repeat-options sub form and nth day/month sections
+function showHideRepeatOptions(obj)
+{
+    document.getElementById('repeat_options').style.display = document.getElementById('event_repeat_yes').checked ? 'block' : 'none';
+
+    if(obj.id == 'event_repeat_when')
+    {
+        switch(obj.value)
+        {
+            case 'WM':
+                document.getElementById('nth_month_opts').style.display = 'none';
+                document.getElementById('nth_day_opts').style.display = 'block';
+            break;
+
+            case 'WY':
+                document.getElementById('nth_day_opts').style.display = 'none';
+                document.getElementById('nth_month_opts').style.display = 'block';
+            break;
+
+            default:
+                document.getElementById('nth_day_opts').style.display = 'none';
+                document.getElementById('nth_month_opts').style.display = 'none';
+            break;
+        }
+    }
+}

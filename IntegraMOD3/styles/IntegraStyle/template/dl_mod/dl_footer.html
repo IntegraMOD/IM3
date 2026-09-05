@@ -1,0 +1,81 @@
+{S_DL_JUMPBOX}
+
+<!-- IF S_DL_MOD_OFFLINE_ADMINS -->
+<section class="ucp-card rules">
+    <div class="ucp-card-body">
+        <strong>{L_DL_OFF_MESSAGE_ADMIN}</strong>
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- BEGIN approve -->
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <a href="{approve.U_APPROVE_DOWNLOADS}">{approve.L_APPROVE_DOWNLOADS}</a>
+    </div>
+</section>
+<!-- END approve -->
+<!-- BEGIN approve_comments -->
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <a href="{approve_comments.U_APPROVE_COMMENTS}">{approve_comments.L_APPROVE_COMMENTS}</a>
+    </div>
+</section>
+<!-- END approve_comments -->
+
+<!-- IF S_FOOTER_NAV_ON -->
+<nav class="ucp-card" aria-label="{L_DL_OVERVIEW}">
+    <div class="ucp-card-body dl-footer-nav">
+        <!-- IF U_DL_OVERALL_VIEW --><a href="{U_DL_OVERALL_VIEW}"><strong>{L_DL_OVERVIEW}</strong></a><!-- ENDIF -->
+        <!-- IF S_STATS_VIEW_ON --><a href="{U_DL_STATS}"><strong>{L_DL_STATS}</strong></a><!-- ENDIF -->
+        <!-- IF S_TODO_LINK --><a href="{U_DL_TODOLIST}"><strong>{L_DL_MOD_TODO}</strong></a><!-- ENDIF -->
+        <!-- IF S_U_CONFIG_LINK --><a href="{U_DL_CONFIG}"><strong>{L_DL_CONFIG}</strong></a><!-- ENDIF -->
+    </div>
+</nav>
+<!-- ENDIF -->
+
+<!-- IF S_FOOTER_LEGEND -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_LEGEND}</h3>
+    </div>
+    <div class="ucp-card-body dl-legend">
+        <!-- IF S_DL_TRAFFIC_OFF -->
+            <div class="dl-legend-item">{IMG_RED}<span>{L_DL_RED_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_GREEN}<span>{L_DL_GREEN_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_GREY}<span>{L_DL_GREY_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_WHITE}<span>{L_DL_WHITE_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_NEW_DL}<span>{L_DL_NEW}</span></div>
+            <div class="dl-legend-item">{IMG_EDIT_DL}<span>{L_DL_EDIT}</span></div>
+        <!-- ELSE -->
+            <div class="dl-legend-item">{IMG_BLUE}<span>{L_DL_BLUE_EXPLAIN_FOOT}</span></div>
+            <div class="dl-legend-item">{IMG_RED}<span>{L_DL_RED_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_GREY}<span>{L_DL_GREY_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_WHITE}<span>{L_DL_WHITE_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_YELLOW}<span>{L_DL_YELLOW_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_GREEN}<span>{L_DL_GREEN_EXPLAIN}</span></div>
+            <div class="dl-legend-item">{IMG_NEW_DL}<span>{L_DL_NEW}</span></div>
+            <div class="dl-legend-item">{IMG_EDIT_DL}<span>{L_DL_EDIT}</span></div>
+        <!-- ENDIF -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<section class="ucp-card">
+    <div class="ucp-card-body dl-footer-meta">
+        <!-- IF L_CAN_DOWNLOAD_AGAIN -->{L_CAN_DOWNLOAD_AGAIN}<br /><!-- ENDIF -->
+        <!-- BEGIN userdata -->{userdata.ACCOUNT_TRAFFIC}<br /><!-- END userdata -->
+        <!-- BEGIN remain_traffic -->{remain_traffic.REMAIN_TRAFFIC}<br /><!-- END remain_traffic -->
+        <!-- BEGIN no_remain_traffic --><strong>{no_remain_traffic.NO_OVERALL_TRAFFIC}</strong><br /><!-- END no_remain_traffic -->
+        <!-- BEGIN remain_guest_traffic -->{remain_guest_traffic.REMAIN_GUEST_TRAFFIC}<br /><!-- END remain_guest_traffic -->
+        <!-- BEGIN no_remain_guest_traffic --><strong>{no_remain_guest_traffic.NO_OVERALL_GUEST_TRAFFIC}</strong><br /><!-- END no_remain_guest_traffic -->
+        <!-- IF not S_HIDE_FOOTER_DATA and S_SERARATE_STATS --><br /><!-- ENDIF -->
+        <!-- BEGIN total_stat -->{total_stat.TOTAL_STAT}<!-- END total_stat -->
+        <!-- IF not S_HIDE_FOOTER_DATA --><br /><!-- ENDIF -->
+        <strong>{DL_MOD_RELEASE}</strong>
+        <!-- IF S_DL_TRANSLATION --> &bull; {L_DL_TRANSLATION}<!-- ENDIF -->
+        <!-- IF U_DL_RSS_FEED --> &bull; <a href="{U_DL_RSS_FEED}">{L_DL_ACP_CONF_RSS}</a><!-- ENDIF -->
+    </div>
+</section>
+
+<div id="dl-help-config" class="blog-hidden" hidden="hidden" data-help-url="{U_HELP_POPUP}"></div>

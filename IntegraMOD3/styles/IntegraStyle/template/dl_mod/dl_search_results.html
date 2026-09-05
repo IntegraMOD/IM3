@@ -1,0 +1,39 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{L_DOWNLOADS} {L_SEARCH}</h2>
+
+<section class="forum-category topic-category">
+    <div class="forum-header topic-list-header dl-file-header">
+        <div class="forum-title">{L_DL_FILE_DESCRIPTION}</div>
+        <div class="forum-stats-header posts">{L_DL_CAT_NAME}</div>
+        <div class="forum-stats-header views">{L_DL_FILE_NAME}</div>
+        <div class="forum-stats-header last-post">{L_DL_INFO}</div>
+    </div>
+    <div class="forum-list">
+        <!-- BEGIN searchresults -->
+        <div class="forum-row topic-row <!-- IF searchresults.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+            <div class="topic-icon read">{searchresults.STATUS}{searchresults.MINI_ICON}</div>
+            <div class="forum-details">
+                <a href="{searchresults.U_FILE_LINK}" class="topictitle">{searchresults.DESCRIPTION}</a>
+                <!-- IF searchresults.LONG_DESC --><div class="forum-desc">{searchresults.LONG_DESC}</div><!-- ENDIF -->
+            </div>
+            <div class="forum-stats-grid">
+                <div class="stat-replies"><a href="{searchresults.U_CAT_LINK}">{searchresults.CAT_NAME}</a> <dfn>{L_DL_CAT_NAME}</dfn></div>
+                <div class="stat-views">{searchresults.FILE_NAME} <dfn>{L_DL_FILE_NAME}</dfn></div>
+                <div class="stat-lastpost"><strong>{searchresults.STATUS}</strong></div>
+            </div>
+        </div>
+        <!-- END searchresults -->
+        <!-- IF S_NO_RESULTS -->
+        <div class="forum-row">
+            <div class="forum-details"><strong>{L_NO_SEARCH_RESULTS}</strong></div>
+        </div>
+        <!-- ENDIF -->
+    </div>
+</section>
+
+<!-- IF PAGE_NUMBER -->
+<div class="pagination">{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span></div>
+<!-- ENDIF -->
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

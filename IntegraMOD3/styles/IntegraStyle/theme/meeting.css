@@ -1,0 +1,149 @@
+/* IntegraStyle meeting module */
+.meeting-layout {
+    display: grid;
+    gap: 1rem;
+}
+
+.meeting-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+}
+
+.meeting-add {
+    text-align: end;
+}
+
+.meeting-cal-nav-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.meeting-cal-arrow {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.meeting-cal-grid {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.meeting-cal-head,
+.meeting-cal-cell {
+    min-width: 0;
+    padding: 0.5rem;
+    border: 1px solid var(--surface-border);
+    border-radius: 6px;
+    background: var(--bg-main);
+}
+
+.meeting-cal-head {
+    text-align: center;
+    font-weight: 600;
+    background: var(--bg-ad-panel);
+}
+
+.meeting-cal-event {
+    display: block;
+    margin-top: 0.35rem;
+    padding: 0.25rem 0.4rem;
+    border-radius: 4px;
+    color: var(--on-primary-text);
+    text-decoration: none;
+}
+
+.meeting-cal-event.is-time {
+    background: var(--color-primary);
+}
+
+.meeting-cal-event.is-until {
+    background: var(--text-secondary);
+}
+
+.meeting-cal-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.meeting-comment {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--surface-border);
+}
+
+.meeting-comment:last-child {
+    border-bottom: 0;
+}
+
+@media (min-width: 981px) {
+    .forum-header.meeting-manage-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) repeat(6, minmax(0, 1fr));
+        align-items: center;
+    }
+
+    .meeting-manage-stats {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 0.5rem;
+    }
+}
+
+.tcalInput {
+    background: var(--bg-main);
+    border: 1px solid var(--surface-border);
+    color: var(--text-primary);
+    padding: 0.25rem 0.5rem;
+    cursor: text;
+    width: 7rem;
+}
+
+#tcal {
+    position: absolute;
+    visibility: hidden;
+    z-index: 100;
+    width: 11rem;
+    margin-top: 0.25rem;
+    padding: 0.25rem;
+    border: 1px solid var(--surface-border);
+    border-radius: 6px;
+    background: var(--bg-main);
+    color: var(--text-primary);
+}
+
+#tcalControls,
+#tcalGrid {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tcalControls td,
+#tcalGrid td,
+#tcalGrid th {
+    text-align: center;
+    padding: 0.2rem;
+}
+
+#tcalGrid td.tcalOtherMonth {
+    color: var(--text-secondary);
+}
+
+#tcalGrid td.tcalWeekend {
+    background: var(--bg-ad-panel);
+}
+
+#tcalGrid td.tcalToday {
+    border: 1px solid var(--color-primary);
+}
+
+#tcalGrid td.tcalSelected {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+}

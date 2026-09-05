@@ -1,0 +1,30 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{U_ACTION}">
+	<h2>{L_BANK_MANAGEMENT}</h2>
+	<div class="ucp-card">
+		<div class="ucp-card-body">
+			<div class="ucp-form-grid">
+				<div class="ucp-form-row">
+					<span class="ucp-form-label">{L_USERNAME}:</span>
+					<div>{USERNAME_FULL}</div>
+				</div>
+				<!-- BEGIN cashrow -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="cash_amt[{cashrow.CASH_ID}]">{cashrow.CASH_NAME}:</label>
+					<input type="text" id="cash_amt[{cashrow.CASH_ID}]" name="cash_amt[{cashrow.CASH_ID}]" value="{cashrow.CASH_AMT}" class="inputbox ucp-form-input" />
+				</div>
+				<!-- END cashrow -->
+			</div>
+		</div>
+	</div>
+	<div class="ucp-card">
+		<div class="ucp-card-body">
+			<div class="ucp-actions">
+				<input type="submit" name="update" value="{L_SUBMIT}" class="button1" />
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

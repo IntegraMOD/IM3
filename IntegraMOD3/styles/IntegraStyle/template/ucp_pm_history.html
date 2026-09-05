@@ -1,0 +1,34 @@
+
+<h3 id="review">
+	<span class="right-box"><a href="javascript:void(0)" data-action="toggle-history-view" data-label-expand="{LA_EXPAND_VIEW}" data-label-collapse="{LA_COLLAPSE_VIEW}">{L_EXPAND_VIEW}</a></span>
+	{L_MESSAGE_HISTORY}:
+</h3>
+
+<div id="topicreview" data-bbcode-enabled="{S_BBCODE_ALLOWED}">
+	<!-- BEGIN history_row -->
+	<div class="post ucp-card <!-- IF history_row.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+		<div class="ucp-card-body">
+
+		<div class="postbody" id="pr{history_row.MSG_ID}">
+			<!-- IF history_row.U_QUOTE or history_row.MESSAGE_AUTHOR_QUOTE -->
+			<ul class="profile-icons">
+				<li class="quote-icon"><a <!-- IF history_row.U_QUOTE -->href="{history_row.U_QUOTE}"<!-- ELSE -->href="#postingbox" data-action="addquote" data-quote-msg-id="{history_row.MSG_ID}" data-quote-author="{history_row.MESSAGE_AUTHOR_QUOTE}" data-quote-wrote="{LA_WROTE}"<!-- ENDIF --> title="{L_QUOTE} {history_row.MESSAGE_AUTHOR}">{L_QUOTE} {history_row.MESSAGE_AUTHOR}</a></li>
+			</ul>
+			<!-- ENDIF -->
+
+			<h3><a href="{history_row.U_VIEW_MESSAGE}" <!-- IF history_row.S_CURRENT_MSG -->class="current"<!-- ENDIF -->>{history_row.SUBJECT}</a></h3>
+			<p class="author"><svg class="css-icon css-icon-post-marker" aria-hidden="true" focusable="false"><use href="#icon-topic"></use></svg> {L_SENT_AT}: <strong>{history_row.SENT_DATE}</strong><br />
+				{L_MESSAGE_BY_AUTHOR} {history_row.MESSAGE_AUTHOR_FULL}</p>
+			<div class="content"><!-- IF history_row.MESSAGE -->{history_row.MESSAGE}<!-- ELSE --><span class="error">{L_MESSAGE_REMOVED_FROM_OUTBOX}</span><!-- ENDIF --></div>
+					<div id="message_{history_row.MSG_ID}" style="display: none;">{history_row.DECODED_MESSAGE}</div>
+					</div>
+
+					</div>
+				</div>
+				<!-- END history_row -->
+			</div>
+
+<hr />
+<p><a href="#cp-main" class="top2">{L_BACK_TO_TOP}</a></p>
+
+

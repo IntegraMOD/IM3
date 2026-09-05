@@ -1,0 +1,43 @@
+<!-- IF CATEGORY_RULES -->
+	<section class="ucp-card rules">
+		<div class="ucp-card-body">
+			<strong>{L_CATEGORY_RULES}</strong><br />
+			{CATEGORY_RULES}
+		</div>
+	</section>
+<!-- ENDIF -->
+
+<!-- BEGIN category_row -->
+	<!-- IF category_row.S_FIRST_ROW -->
+		<section class="ucp-card">
+			<div class="ucp-card-header">
+				<div class="forum-header">
+					<div class="forum-title"><!-- IF CURRENT_CATEGORY --><a href="{U_CURRENT_CATEGORY}">{CURRENT_CATEGORY}</a><!-- ELSE -->{L_CATEGORY}<!-- ENDIF --></div>
+					<div class="forum-stats-header posts">{L_BLOGS}</div>
+				</div>
+			</div>
+			<div class="forum-list">
+	<!-- ENDIF -->
+
+	<article class="forum-row <!-- IF category_row.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+		<div class="forum-details">
+			<a href="{category_row.U_CATEGORY}" class="forumtitle">{category_row.CATEGORY_NAME}</a>
+			<p>{category_row.CATEGORY_DESCRIPTION}</p>
+			<!-- IF category_row.S_SUBCATEGORY -->
+				<p><strong>{category_row.L_SUBCATEGORY} :</strong>
+				<!-- BEGIN subcategory -->
+					<a href="{category_row.subcategory.U_CATEGORY}">{category_row.subcategory.CATEGORY_NAME}</a>
+				<!-- END subcategory -->
+				</p>
+			<!-- ENDIF -->
+		</div>
+		<div class="forum-stats-grid">
+			<div class="stat-replies">{category_row.BLOGS} <dfn>{L_BLOGS}</dfn></div>
+		</div>
+	</article>
+
+	<!-- IF category_row.S_LAST_ROW -->
+			</div>
+		</section>
+	<!-- ENDIF -->
+<!-- END category_row -->

@@ -295,6 +295,13 @@ $lang = array_merge($lang, array(
 	'SN_PROFILE_EMOTE_EDITED'				 => 'L’émote a été modifiée avec succès',
 	'SN_PROFILE_EMOTE_ADDED'				 => 'L’émote a été ajoutée avec succès',
 	'SN_PROFILE_EMOTE_DELETED'				 => 'L’émote a été supprimée avec succès',
+	// Security
+	'SN_PROFILE_SECURITY'					 => 'Sécurité',
+	'SN_PROFILE_SECURITY_EXPLAIN'			 => 'Vous pouvez définir ici la politique de confidentialité applicable à l’ensemble du forum pour les profils et l’activité des membres, et choisir si les membres sont autorisés à modifier leur propre paramètre de confidentialité.',
+	'SN_DEFAULT_PRIVACY_LEVEL'				 => 'Politique de confidentialité par défaut',
+	'SN_DEFAULT_PRIVACY_LEVEL_EXPLAIN'		 => 'La politique de confidentialité par défaut appliquée aux membres qui n’ont pas choisi la leur.<br /><strong>Privé</strong> - seuls les administrateurs peuvent voir le profil ou l’activité.<br /><strong>Amis</strong> - seuls les administrateurs et les amis peuvent voir le profil et l’activité.<br /><strong>Par défaut</strong> - l’activité apparaît dans le fil « Quoi de neuf » des amis et les non-amis peuvent trouver le membre par une recherche.',
+	'SN_ALLOW_PRIVACY_CHANGE'				 => 'Autoriser les membres à modifier leur politique de confidentialité',
+	'SN_ALLOW_PRIVACY_CHANGE_EXPLAIN'		 => 'Si défini sur Non, les membres ne peuvent pas modifier leur politique de confidentialité et la valeur par défaut du forum est appliquée à tous.',
 ));
 
 // CONFIGURATION DES LOGS PHPBB

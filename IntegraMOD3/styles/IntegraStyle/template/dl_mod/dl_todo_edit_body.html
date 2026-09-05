@@ -1,0 +1,59 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{L_DL_MOD_TODO}</h2>
+
+<section class="ucp-card">
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{L_DL_FILE_DESCRIPTION}</div>
+            <div>{L_DL_MOD_TODO}</div>
+            <div>{L_OPTIONS}</div>
+        </div>
+        <!-- BEGIN todolist_row -->
+        <article class="dl-list-row">
+            <div>
+                <a href="{todolist_row.FILE_LINK}"><strong>{todolist_row.FILENAME}</strong></a>
+                <span>{todolist_row.HACK_VERSION}</span>
+            </div>
+            <div>{todolist_row.TODO}</div>
+            <div>
+                <a href="{todolist_row.U_TODO_EDIT}">{L_DL_EDIT_FILE}</a><br />
+                <a href="{todolist_row.U_TODO_DELETE}">{L_DL_DELETE}</a>
+            </div>
+        </article>
+        <!-- END todolist_row -->
+        <!-- IF S_NO_TODOLIST -->
+        <div class="dl-list-row">
+            <div>{L_DL_NO_MOD_TODO}</div>
+        </div>
+        <!-- ENDIF -->
+    </div>
+</section>
+
+<!-- IF S_TODO_ADD -->
+<form action="{S_FORM_ACTION}" method="post">
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title"><!-- IF S_ADD_TODO -->{L_DL_NEW}<!-- ELSE -->{L_DL_EDIT_FILE}<!-- ENDIF --></h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{DL_FILE_DESCRIPTION}</span>
+                <div class="ucp-form-content">{S_DOWNLOAD}</div>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="todo">{L_DL_MOD_TODO}</label>
+                <textarea name="todo" id="todo" rows="10" cols="100" class="inputbox ucp-form-input">{TODO_TEXT}</textarea>
+            </div>
+            <div class="ucp-actions">
+                <input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+                <input type="reset" name="reset" value="{L_RESET}" class="button2" />
+                {S_FORM_TOKEN}
+                {S_HIDDEN_FIELDS}
+            </div>
+        </div>
+    </section>
+</form>
+<!-- ENDIF -->
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

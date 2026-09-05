@@ -1,0 +1,38 @@
+<!-- IF .draftrow -->
+<div class="ucp-card">
+    <div class="ucp-card-header">
+        <h3>{L_LOAD_DRAFT}</h3>
+    </div>
+    <div class="ucp-card-body">
+        <p>{L_LOAD_DRAFT_EXPLAIN}</p>
+    </div>
+</div>
+
+<div class="ucp-card draft-list">
+    <div class="ucp-card-header">
+        <div class="forum-header draft-list-header">
+            <div class="forum-title">{L_LOAD_DRAFT}</div>
+            <div class="forum-stats-header posted">{L_SAVE_DATE}</div>
+        </div>
+    </div>
+    <div class="forum-list">
+    <!-- BEGIN draftrow -->
+        <div class="forum-row draft-row <!-- IF draftrow.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+            <div class="forum-details">
+                <a href="{draftrow.U_INSERT}" title="{L_LOAD_DRAFT}" class="topictitle">{draftrow.DRAFT_SUBJECT}</a>
+                <!-- IF not S_PRIVMSGS -->
+                    <span class="topic-author">
+                    <!-- IF draftrow.S_LINK_TOPIC -->{L_TOPIC}: <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
+                    <!-- ELSEIF draftrow.S_LINK_FORUM -->{L_FORUM}: <a href="{draftrow.U_VIEW}">{draftrow.TITLE}</a>
+                    <!-- ELSE -->{L_NO_TOPIC_FORUM}<!-- ENDIF -->
+                    </span>
+                <!-- ENDIF -->
+            </div>
+            <div class="forum-stats-grid">
+                <div class="stat-posted">{draftrow.DATE}</div>
+            </div>
+        </div>
+    <!-- END draftrow -->
+    </div>
+</div>
+<!-- ENDIF -->

@@ -1,0 +1,21 @@
+<section class="ucp-card posting-attach" id="attach-panel">
+    <div class="ucp-card-body ucp-form-grid">
+
+	<p>{L_ADD_ATTACHMENT_EXPLAIN}</p>
+	
+	<fieldset class="fields2 ucp-form-grid">
+	<div class="ucp-form-row">
+		<div class="ucp-form-label"><label for="fileupload">{L_FILENAME}:</label></div>
+		<div class="ucp-form-content">
+			<input type="file" name="fileupload" id="fileupload" maxlength="{FILESIZE}" value="" class="inputbox autowidth" /> 
+			<input type="submit" name="add_file" value="{L_ADD_FILE}" class="button2" onclick="upload = true;" />
+		</div>
+	</div>
+	<div class="ucp-form-row">
+		<div class="ucp-form-label"><label for="filecomment">{L_FILE_COMMENT}:</label></div>
+		<div class="ucp-form-content"><textarea name="filecomment" id="filecomment" rows="1" cols="40" class="inputbox ucp-form-textarea">{FILE_COMMENT}</textarea></div>
+	</div>
+	</fieldset>
+
+    </div>
+</section>

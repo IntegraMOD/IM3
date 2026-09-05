@@ -1,0 +1,62 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<div class="dl-layout">
+    <ul class="linklist">
+        <li class="rightside"><a href="{U_DL_SEARCH}">{L_DL_SEARCH_DOWNLOAD}</a></li>
+    </ul>
+
+    <section class="forum-category">
+        <div class="forum-header forum-list-header dl-cat-header">
+            <div class="forum-title">{L_DL_CAT_NAME}</div>
+            <div class="forum-stats-header topics">{L_DL_CAT_FILES}</div>
+            <div class="forum-stats-header last-post">{L_DL_LATEST_DOWNLOADS}</div>
+        </div>
+        <div class="forum-list">
+            <!-- IF S_NO_CATEGORY -->
+            <div class="forum-row">
+                <div class="forum-details"><strong>{L_DL_NO_CATEGORY_INDEX}</strong></div>
+            </div>
+            <!-- ELSE -->
+            <!-- BEGIN downloads -->
+            <div class="forum-row">
+                <div class="forum-icon read">
+                    <!-- IF downloads.CAT_ICON --><img src="{downloads.CAT_ICON}" alt="{downloads.CAT_NAME}" title="{downloads.CAT_NAME}" /><!-- ELSE -->{downloads.MINI_IMG}<!-- ENDIF -->
+                </div>
+                <div class="forum-details">
+                    <a href="{downloads.U_CAT_VIEW}" class="forumtitle">{downloads.CAT_NAME}</a>
+                    <div class="forum-desc">{downloads.CAT_DESC}</div>
+                    <!-- IF downloads.CAT_PAGES --><strong class="pagination"><span>{downloads.CAT_PAGES}</span></strong><!-- ENDIF -->
+                    <!-- IF S_SUB_ON_INDEX -->
+                    <!-- BEGIN sub -->
+                    <div class="forum-subforums">
+                        <!-- BEGIN sublevel_row -->
+                        <span>
+                            {downloads.sub.sublevel_row.M_SUBLEVEL}
+                            <!-- IF downloads.sub.sublevel_row.M_SUBLEVEL_ICON --><img src="{downloads.sub.sublevel_row.M_SUBLEVEL_ICON}" alt="{downloads.sub.sublevel_row.L_SUBLEVEL}" title="{downloads.sub.sublevel_row.L_SUBLEVEL}" /><!-- ENDIF -->
+                            <a href="{downloads.sub.sublevel_row.U_SUBLEVEL}"><strong>{downloads.sub.sublevel_row.L_SUBLEVEL}</strong></a>
+                            ({downloads.sub.sublevel_row.SUBLEVEL_COUNT})
+                        </span>
+                        <!-- END sublevel_row -->
+                    </div>
+                    <!-- END sub -->
+                    <!-- ENDIF -->
+                </div>
+                <div class="forum-stats-grid">
+                    <div class="stat-topics"><strong>{downloads.CAT_DL}</strong> <dfn>{L_DL_CAT_FILES}</dfn></div>
+                    <div class="stat-lastpost">
+                        <!-- IF downloads.CAT_LAST_DL -->
+                        <div class="lastpost-meta">
+                            <a href="{downloads.U_CAT_LAST_LINK}">{downloads.CAT_LAST_DL}</a><br />
+                            <a href="{downloads.U_CAT_LAST_USER}">{downloads.CAT_LAST_USER}</a><!-- IF downloads.CAT_LAST_TIME --><br />{downloads.CAT_LAST_TIME}<!-- ENDIF -->
+                        </div>
+                        <!-- ENDIF -->
+                    </div>
+                </div>
+            </div>
+            <!-- END downloads -->
+            <!-- ENDIF -->
+        </div>
+    </section>
+</div>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

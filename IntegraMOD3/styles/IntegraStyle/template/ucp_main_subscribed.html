@@ -1,0 +1,66 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+<h2>{L_TITLE}</h2>
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<p>{L_WATCHED_EXPLAIN}</p>
+
+<!-- IF .forumrow -->
+	<h3>{L_WATCHED_FORUMS}</h3>
+	<div class="ucp-form-grid">
+	<!-- BEGIN forumrow -->
+		<div class="ucp-form-row<!-- IF forumrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+			<p class="ucp-form-label"><a href="{forumrow.U_VIEWFORUM}" class="forumtitle">{forumrow.FORUM_NAME}</a></p>
+			<!-- IF forumrow.FORUM_DESC --><p class="ucp-form-help">{forumrow.FORUM_DESC}</p><!-- ENDIF -->
+			<p><!-- IF forumrow.LAST_POST_TIME -->{L_LAST_POST} {L_POST_BY_AUTHOR} {forumrow.LAST_POST_AUTHOR_FULL} {forumrow.LAST_POST_TIME}<!-- ELSE -->{L_NO_POSTS}<!-- ENDIF --></p>
+			<label><input type="checkbox" name="f[{forumrow.FORUM_ID}]" id="f{forumrow.FORUM_ID}" /> {L_MARK}</label>
+		</div>
+	<!-- END forumrow -->
+	</div>
+<!-- ELSEIF S_FORUM_NOTIFY -->
+	<p><strong>{L_NO_WATCHED_FORUMS}</strong></p>
+<!-- ENDIF -->
+
+<!-- IF .topicrow -->
+	<h3>{L_WATCHED_TOPICS}</h3>
+	<div class="ucp-form-grid">
+	<!-- BEGIN topicrow -->
+		<div class="ucp-form-row<!-- IF topicrow.S_TOPIC_REPORTED --> reported<!-- ELSEIF topicrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+			<p class="ucp-form-label" title="{topicrow.TOPIC_FOLDER_IMG_ALT}"><!-- IF topicrow.S_UNREAD_TOPIC --><a href="{topicrow.U_NEWEST_POST}" class="newest-post-link" title="{L_VIEW_UNREAD_POST}"><svg class="css-icon css-icon-newest" aria-hidden="true" focusable="false"><use href="#icon-arrow-down"></use></svg></a> <!-- ENDIF --><a href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a>
+				<!-- IF topicrow.S_TOPIC_UNAPPROVED or topicrow.S_POSTS_UNAPPROVED --><a href="{topicrow.U_MCP_QUEUE}" title="{L_TOPIC_UNAPPROVED}"><svg class="css-icon css-icon-warning" aria-hidden="true" focusable="false"><use href="#icon-warning"></use></svg></a> <!-- ENDIF -->
+				<!-- IF topicrow.S_TOPIC_REPORTED --><a href="{topicrow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}"><svg class="css-icon css-icon-flag" aria-hidden="true" focusable="false"><use href="#icon-flag"></use></svg></a><!-- ENDIF --></p>
+			<p class="ucp-form-help"><!-- IF topicrow.PAGINATION -->{topicrow.PAGINATION} <!-- ENDIF --><!-- IF topicrow.ATTACH_ICON_IMG --><span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span> <!-- ENDIF -->{L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}</p>
+			<p>{L_LAST_POST} {L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL} <a href="{topicrow.U_LAST_POST}" class="lastpost-link" aria-label="{L_LAST_POST}"><svg class="css-icon css-icon-lastpost" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></a> {topicrow.LAST_POST_TIME}</p>
+			<label><input type="checkbox" name="t[{topicrow.TOPIC_ID}]" id="t{topicrow.TOPIC_ID}" /> {L_MARK}</label>
+		</div>
+	<!-- END topicrow -->
+	</div>
+	<ul class="linklist">
+		<li class="rightside pagination">
+			<!-- IF TOTAL_TOPICS --> {TOTAL_TOPICS} <!-- ENDIF -->
+			<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+		</li>
+	</ul>
+<!-- ELSEIF S_TOPIC_NOTIFY -->
+	<p><strong>{L_NO_WATCHED_TOPICS}</strong></p>
+<!-- ENDIF -->
+	</div>
+</div>
+
+<!-- IF .topicrow or .forumrow -->
+<div class="ucp-card">
+	<div class="ucp-card-body">
+		<div class="ucp-actions">
+			<input type="submit" name="unwatch" value="{L_UNWATCH_MARKED}" class="button2" />
+			<a href="javascript:void(0)" data-action="marklist-multi" data-marklist="ucp:t:true|ucp:f:true">{L_MARK_ALL}</a>
+			<a href="javascript:void(0)" data-action="marklist-multi" data-marklist="ucp:t:false|ucp:f:false">{L_UNMARK_ALL}</a>
+		</div>
+		{S_FORM_TOKEN}
+	</div>
+</div>
+<!-- ENDIF -->
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

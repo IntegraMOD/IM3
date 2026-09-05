@@ -1,0 +1,41 @@
+<!-- IF PORTAL_MESSAGE -->
+<section class="forum-category panel portal-center-block">
+	<div class="forum-header">
+		<div class="forum-title portal_message">{PORTAL_MESSAGE}</div>
+	</div>
+</section>
+<!-- ENDIF -->
+
+<!-- IDTAG START portal_layout_center 08 May 2011 -->
+
+<!-- BEGIN center_block_files -->
+<div class="portal-block-wrap" id="<!-- IF S_ARRANGE -->BLOCK_<!-- ENDIF -->{center_block_files.CENTER_BLOCK_ID}" data-portal-block-wrap="{center_block_files.CENTER_BLOCK_ID}">
+	<section class="forum-category panel portal-center-block<!-- IF S_ARRANGE --> portal-center-arrange<!-- ENDIF -->">
+		<div class="forum-header<!-- IF S_ARRANGE --> handle<!-- ENDIF -->">
+			<div class="forum-title">{center_block_files.CENTER_BLOCK_TITLE}</div>
+			<div class="portal-block-tools" id="p_{center_block_files.CENTER_BLOCK_ID}">
+				<!-- IF S_ARRANGE -->
+					<span class="bmove rtl"><svg class="css-icon css-icon-move" aria-hidden="true" focusable="false"><use href="#icon-menu"></use></svg></span>
+					<a href="javascript:void(0)" class="portal-block-toggle" data-portal-toggle="{center_block_files.CENTER_BLOCK_ID}" data-portal-toggle-show="_{center_block_files.CENTER_BLOCK_ID}" data-portal-toggle-hide="BLOCK_{center_block_files.CENTER_BLOCK_ID}">
+						<span class="bchide rtl"><svg class="css-icon css-icon-minus" aria-hidden="true" focusable="false"><use href="#icon-minus"></use></svg></span>
+					</a>
+				<!-- ELSE -->
+					<span class="bcimage rtl"><img src="{center_block_files.CENTER_BLOCK_IMG}" alt="" /></span>
+				<!-- ENDIF -->
+			</div>
+		</div>
+		<div class="index-stat-body" id="<!-- IF not S_ARRANGE -->BLOCK_<!-- ENDIF -->{center_block_files.CENTER_BLOCK_ID}">
+			<!-- IF center_block_files.CENTER_BLOCK_SCROLL and not DISABLE_RT_SCROLL -->
+				<!-- IF not S_ARRANGE -->
+					<div class="scroll_outer" data-scroll-height="{center_block_files.CENTER_BLOCK_HEIGHT}" id="{center_block_files.CENTER_BLOCK_ID}_outer"><div class="scroll_inner" id="{center_block_files.CENTER_BLOCK_ID}_inner">{center_block_files.CENTER_BLOCKS}</div></div>
+				<!-- ELSE -->
+					{L_SCROLLING_BLOCKS_DISABLED}
+				<!-- ENDIF -->
+			<!-- ELSE -->
+				{center_block_files.CENTER_BLOCKS}
+			<!-- ENDIF -->
+		</div>
+	</section>
+</div>
+<!-- END center_block_files -->
+<!-- IDTAG END portal_layout_center -->

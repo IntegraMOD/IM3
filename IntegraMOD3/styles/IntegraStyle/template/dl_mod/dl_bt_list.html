@@ -1,0 +1,72 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<!-- IF S_NO_BUG_TRACKER -->
+<h3>{L_DL_NO_BUG_TRACKER}</h3>
+<!-- ELSE -->
+<section class="ucp-card">
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{L_DL_BUG_REPORT_FILE}<!-- IF S_REPORT_TEXT --><br />{L_DL_BUG_REPORT_PHP} &bull; {L_DL_BUG_REPORT_DB} &bull; {L_DL_BUG_REPORT_FORUM}<!-- ENDIF --></div>
+            <div>{L_DL_BUG_REPORT_TITLE_DETAILS}</div>
+            <div>{L_OPTIONS}</div>
+            <div>{L_DL_BUG_REPORT_STATUS}</div>
+        </div>
+        <!-- BEGIN bug_tracker_row -->
+        <article class="dl-list-row">
+            <div>
+                <a href="{bug_tracker_row.REPORT_FILE_LINK}">{bug_tracker_row.REPORT_FILE} {bug_tracker_row.REPORT_FILE_VER}</a>
+                <!-- IF S_REPORT_TEXT -->
+                <p>{bug_tracker_row.REPORT_PHP}<br />{bug_tracker_row.REPORT_DB}<br />{bug_tracker_row.REPORT_FORUM}</p>
+                <!-- ENDIF -->
+            </div>
+            <div>
+                <strong>{bug_tracker_row.REPORT_ID} &bull; {bug_tracker_row.REPORT_TITLE}</strong>
+                <p>{L_DL_BUG_REPORT_DATE} {bug_tracker_row.REPORT_DATE}<br />{L_DL_BUG_REPORT_AUTHOR} {bug_tracker_row.REPORT_AUTHOR_LINK}</p>
+                <!-- IF S_REPORT_TEXT --><p>{bug_tracker_row.REPORT_TEXT}</p><!-- ENDIF -->
+            </div>
+            <div>
+                <a href="{bug_tracker_row.REPORT_DETAIL}">{L_DL_BUG_REPORT_DETAIL}</a>
+                <!-- BEGIN mod -->
+                <br /><a href="{bug_tracker_row.mod.U_DELETE}">{L_DL_DELETE}</a>
+                <!-- END mod -->
+            </div>
+            <div>
+                {bug_tracker_row.REPORT_STATUS_DATE} <strong>{bug_tracker_row.REPORT_STATUS}</strong>
+                <!-- BEGIN assign -->
+                <br />{L_DL_BUG_REPORT_ASSIGN_DATE} {bug_tracker_row.assign.REPORT_ASSIGN_DATE} {bug_tracker_row.assign.REPORT_ASSIGN_LINK}
+                <!-- END assign -->
+                <!-- IF S_NO_ASSIGN -->
+                <br />{L_DL_BUG_REPORT_UNASSIGNED}
+                <!-- ENDIF -->
+            </div>
+        </article>
+        <!-- END bug_tracker_row -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<section class="ucp-card">
+    <div class="ucp-card-body dl-toolbar">
+        <form action="{S_FORM_ACTION}" method="post" id="filter_report">
+            {S_SELECT_FILTER} <input type="submit" name="submit" value="{L_DL_FILTER}" class="button1" />
+        </form>
+        <!-- IF S_OWN_REPORT -->
+        <form action="{S_FORM_OWN_ACTION}" method="post" id="filter_own_report">
+            <input type="submit" name="submit" value="{L_DL_FILTER_BT_OWN}" class="button2" />
+        </form>
+        <!-- ENDIF -->
+        <!-- IF S_ASSIGN_REPORT -->
+        <form action="{S_FORM_ASSIGN_ACTION}" method="post" id="filter_assign_report">
+            <input type="submit" name="submit" value="{L_DL_FILTER_BT_ASSIGN}" class="button2" />
+        </form>
+        <!-- ENDIF -->
+        <!-- IF S_ADD_NEW_REPORT -->
+        <form action="{S_FORM_ACTION}" method="post" id="add_new_report">
+            <input type="submit" name="submit" value="{L_NEW_POST}" class="button1" />
+            {S_HIDDEN_FIELDS}
+        </form>
+        <!-- ENDIF -->
+    </div>
+</section>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

@@ -1,0 +1,78 @@
+<form action="{S_FORM_ACTION}" method="post" id="filter_meetings">
+	<section class="ucp-card">
+		<div class="ucp-card-body ucp-form-grid">
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_SORT}:</span>
+				<div>{SORT_BY_FIELD}</div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_ORDER}:</span>
+				<div>{SORT_BY_ORDER}</div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_FILTER}:</span>
+				<div class="ucp-form-inline">{FILTER_BY_FIELD} <input type="text" name="filter" value="{FILTER_FIELD}" class="inputbox autowidth ucp-form-input" size="20" maxlength="50" /></div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_CLOSE_STATUS}:</span>
+				<div class="ucp-form-inline">
+					<label><input type="radio" class="radio" name="closed" value="1" {CLOSED_NO} /> {L_MEETING_OPEN}</label>
+					<label><input type="radio" class="radio" name="closed" value="2" {CLOSED_YES} /> {L_MEETING_CLOSED}</label>
+					<label><input type="radio" class="radio" name="closed" value="3" {CLOSED_PERIOD} /> {L_MEETING_NO_PERIOD}</label>
+					<label><input type="radio" class="radio" name="closed" value="4" {CLOSED_NONE} /> {L_MEETING_ALL}</label>
+				</div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_SIGNONS}:</span>
+				<label><input type="checkbox" class="checkbox" name="meeting_signon" value="1" {S_MEETING_SIGNON} /></label>
+			</div>
+			<!-- IF S_CHECK_APPROVE -->
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_MEETING_UNAPPROVED_COMMENTS}:</span>
+				<label><input type="checkbox" class="checkbox" name="meeting_approve" value="1" {S_MEETING_APPROVE} /></label>
+			</div>
+			<!-- ENDIF -->
+			<div class="ucp-actions">
+				<input type="submit" name="submit_filter" class="button1" value="{L_SELECT}" />
+			</div>
+		</div>
+	</section>
+</form>
+
+<section class="ucp-card">
+	<div class="ucp-card-body">
+		<header class="forum-header mcp-list-header meeting-manage-header">
+			<div class="forum-title">{L_MEETING_SUBJECT}</div>
+			<div class="forum-stats-header">{L_MEETING_TIME}</div>
+			<div class="forum-stats-header">{L_MEETING_UNTIL}</div>
+			<div class="forum-stats-header">{L_MEETING_LOCATION}</div>
+			<div class="forum-stats-header">{L_MEETING_CLOSED}</div>
+			<div class="forum-stats-header">{L_REPLIES}</div>
+			<div class="forum-stats-header">{L_OPTIONS}</div>
+		</header>
+		<div class="forum-list">
+		<!-- BEGIN meeting_row -->
+			<article class="forum-row mcp-list-row bg<!-- IF meeting_row.S_ROW_COUNT is even -->2<!-- ELSE -->3<!-- ENDIF -->">
+				<div class="forum-details"><!-- IF S_M_CAN_VIEW --><a href="{meeting_row.U_MEETING_DETAIL}"><!-- ENDIF -->{meeting_row.MEETING_SUBJECT}<!-- IF S_M_CAN_VIEW --></a><!-- ENDIF --></div>
+				<div class="forum-stats-grid meeting-manage-stats">
+					<div>{meeting_row.MEETING_TIME}</div>
+					<div>{meeting_row.MEETING_UNTIL}</div>
+					<div>{meeting_row.MEETING_LOCATION}</div>
+					<div>{meeting_row.MEETING_CLOSED}</div>
+					<div>{meeting_row.MEETING_USERS}</div>
+					<div>
+						<!-- IF meeting_row.S_MEETING_EDIT --><a href="{meeting_row.MEETING_EDIT}">{L_MEETING_EDIT}</a><!-- ENDIF -->
+						<!-- IF meeting_row.S_MEETING_EDIT and meeting_row.S_MEETING_DELETE --> | <!-- ENDIF -->
+						<!-- IF meeting_row.S_MEETING_DELETE --><a href="{meeting_row.MEETING_DELETE}">{L_DELETE}</a><!-- ENDIF -->
+					</div>
+				</div>
+			</article>
+		<!-- END meeting_row -->
+		<!-- IF S_NO_MEETING -->
+			<p>{L_NO_MEETING}</p>
+		<!-- ENDIF -->
+		</div>
+	</div>
+</section>
+
+<!-- IF PAGINATION --><div class="pagination"><span>{PAGINATION}</span></div><!-- ENDIF -->

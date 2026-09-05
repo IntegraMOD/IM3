@@ -1,0 +1,225 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<h2>{L_DL_STATS}</h2>
+
+<!-- IF S_LATEST_DOWNLOADS -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_LATEST_DOWNLOADS}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_DL_FILE_DESCRIPTION}</div>
+            <div>{L_DL_TIME}</div>
+        </div>
+        <!-- BEGIN top_ten_latest -->
+        <article class="dl-list-row">
+            <div>{top_ten_latest.POS}</div>
+            <div><a href="{top_ten_latest.U_FILE_LINK}">{top_ten_latest.DESCRIPTION}</a> &bull; {top_ten_latest.CAT_NAME}</div>
+            <div>{top_ten_latest.USER_LINK}<br />{top_ten_latest.DL_TIME}</div>
+        </article>
+        <!-- END top_ten_latest -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_LATEST_UPLOADS -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_LATEST_UPLOADS}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_DL_FILE_DESCRIPTION}</div>
+            <div>{L_DL_TIME}</div>
+        </div>
+        <!-- BEGIN top_ten_uploads -->
+        <article class="dl-list-row">
+            <div>{top_ten_uploads.POS}</div>
+            <div><a href="{top_ten_uploads.U_FILE_LINK}">{top_ten_uploads.DESCRIPTION}</a> &bull; {top_ten_uploads.CAT_NAME}</div>
+            <div>{top_ten_uploads.USER_LINK}<br />{top_ten_uploads.DL_TIME}</div>
+        </article>
+        <!-- END top_ten_uploads -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_DOWN_MONTH -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_DOWNLOADS_CUR_MONTH}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_DL_FILE_DESCRIPTION}</div>
+            <div>{L_DL_KLICKS}</div>
+        </div>
+        <!-- BEGIN top_ten_dl_cur_month -->
+        <article class="dl-list-row">
+            <div>{top_ten_dl_cur_month.POS}</div>
+            <div><a href="{top_ten_dl_cur_month.U_FILE_LINK}">{top_ten_dl_cur_month.DESCRIPTION}</a> &bull; {top_ten_dl_cur_month.CAT_NAME}</div>
+            <div>{top_ten_dl_cur_month.DL_KLICKS}</div>
+        </article>
+        <!-- END top_ten_dl_cur_month -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_DOWN_ALL -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_DOWNLOADS_OVERALL}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_DL_FILE_DESCRIPTION}</div>
+            <div>{L_DL_OVERALL_KLICKS}</div>
+        </div>
+        <!-- BEGIN top_ten_dl_overall -->
+        <article class="dl-list-row">
+            <div>{top_ten_dl_overall.POS}</div>
+            <div><a href="{top_ten_dl_overall.U_FILE_LINK}">{top_ten_dl_overall.DESCRIPTION}</a> &bull; {top_ten_dl_overall.CAT_NAME}</div>
+            <div>{top_ten_dl_overall.DL_KLICKS}</div>
+        </article>
+        <!-- END top_ten_dl_overall -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_TRAFFIC_MONTH -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_TRAFFIC_CUR_MONTH}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_DL_FILE_DESCRIPTION}</div>
+            <div>{L_DL_TRAFFIC_CUR_MONTH}</div>
+        </div>
+        <!-- BEGIN top_ten_traffic_cur_month -->
+        <article class="dl-list-row">
+            <div>{top_ten_traffic_cur_month.POS}</div>
+            <div><a href="{top_ten_traffic_cur_month.U_FILE_LINK}">{top_ten_traffic_cur_month.DESCRIPTION}</a> &bull; {top_ten_traffic_cur_month.CAT_NAME}</div>
+            <div>{top_ten_traffic_cur_month.DL_TRAFFIC}</div>
+        </article>
+        <!-- END top_ten_traffic_cur_month -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_TRAFFIC_ALL -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_TRAFFIC_OVERALL}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_DL_FILE_DESCRIPTION}</div>
+            <div>{L_DL_TRAFFIC_OVERALL}</div>
+        </div>
+        <!-- BEGIN top_ten_traffic_overall -->
+        <article class="dl-list-row">
+            <div>{top_ten_traffic_overall.POS}</div>
+            <div><a href="{top_ten_traffic_overall.U_FILE_LINK}">{top_ten_traffic_overall.DESCRIPTION}</a> &bull; {top_ten_traffic_overall.CAT_NAME}</div>
+            <div>{top_ten_traffic_overall.DL_TRAFFIC}</div>
+        </article>
+        <!-- END top_ten_traffic_overall -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_DOWN_CLICKS -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_DOWNLOADS_COUNT}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_USERNAME}</div>
+            <div>{L_DL_DOWNLOADS_COUNT}</div>
+        </div>
+        <!-- BEGIN top_ten_dl_counts -->
+        <article class="dl-list-row">
+            <div>{top_ten_dl_counts.POS}</div>
+            <div>{top_ten_dl_counts.USER_LINK}</div>
+            <div>{top_ten_dl_counts.DL_COUNTS}</div>
+        </article>
+        <!-- END top_ten_dl_counts -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_DOWN_TRAFFIC -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_DOWNLOADS_TRAFFIC}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_USERNAME}</div>
+            <div>{L_TRAFFIC}</div>
+        </div>
+        <!-- BEGIN top_ten_dl_traffic -->
+        <article class="dl-list-row">
+            <div>{top_ten_dl_traffic.POS}</div>
+            <div>{top_ten_dl_traffic.USER_LINK}</div>
+            <div>{top_ten_dl_traffic.DL_TRAFFIC}</div>
+        </article>
+        <!-- END top_ten_dl_traffic -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_UP_COUNT -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_UPLOADS_COUNT}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_USERNAME}</div>
+            <div>{L_DL_UPLOADS_COUNT}</div>
+        </div>
+        <!-- BEGIN top_ten_up_counts -->
+        <article class="dl-list-row">
+            <div>{top_ten_up_counts.POS}</div>
+            <div>{top_ten_up_counts.USER_LINK}</div>
+            <div>{top_ten_up_counts.DL_COUNTS}</div>
+        </article>
+        <!-- END top_ten_up_counts -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_TOP10_UP_TRAFFIC -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_UPLOADS_TRAFFIC}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <div class="dl-list-head">
+            <div>{DL_POS}</div>
+            <div>{L_USERNAME}</div>
+            <div>{L_TRAFFIC}</div>
+        </div>
+        <!-- BEGIN top_ten_up_traffic -->
+        <article class="dl-list-row">
+            <div>{top_ten_up_traffic.POS}</div>
+            <div>{top_ten_up_traffic.USER_LINK}</div>
+            <div>{top_ten_up_traffic.DL_TRAFFIC}</div>
+        </article>
+        <!-- END top_ten_up_traffic -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

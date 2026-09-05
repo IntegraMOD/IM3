@@ -1,0 +1,66 @@
+<!-- IF S_NOTES_POPUP -->
+    <!-- INCLUDE simple_header.html -->
+<!-- ELSE -->
+    <!-- INCLUDE overall_header.html -->
+<!-- ENDIF -->
+
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <p><strong>{L_NOTES}</strong> &bull; {L_NOTES_TOTAL}</p>
+    </div>
+</section>
+
+<form action="{S_FORM_ACTION}" method="post" id="postform">
+    <section class="ucp-card" id="postingbox">
+        <div class="ucp-card-body">
+            <h3>{L_NOTES} - {L_NOTE_MODE}</h3>
+            <div class="ucp-form-grid">
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="subject">{L_SUBJECT}:</label>
+                    <input type="text" name="subject" id="subject" size="75" maxlength="255" tabindex="2" value="{NOTES_SUBJECT}" class="inputbox autowidth ucp-form-input" />
+                </div>
+                <div class="ucp-form-row">
+                    <p class="ucp-form-label">{L_NOTES_MEM}</p>
+                    <div class="ucp-form-inline">
+                        <label><input type="radio" name="mem_yesno" value="0" {MEM_CHECKED_NO} /> {L_NO}</label>
+                        <label><input type="radio" name="mem_yesno" value="1" {MEM_CHECKED_YES} /> {L_YES}</label>
+                        {S_NOTE_MEM_DAY}&nbsp;{S_NOTE_MEM_MONTH}&nbsp;{S_NOTE_MEM_YEAR}&nbsp;&bull;&nbsp;{S_NOTE_MEM_HOUR}&nbsp;{S_NOTE_MEM_MIN}
+                    </div>
+                </div>
+            </div>
+            <!-- INCLUDE posting_buttons.html -->
+            <!-- IF .smiley -->
+            <div id="smiley-box" class="posting-smiley-box">
+                <strong>{L_SMILIES}</strong><br />
+                <!-- BEGIN smiley -->
+                    <a href="javascript:void(0)" data-action="insert-text" data-insert-text="{smiley.A_SMILEY_CODE}"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+                <!-- END smiley -->
+                <br /><a href="{U_MORE_SMILIES}" data-action="popup" data-popup-width="400" data-popup-height="200" data-popup-target="_phpbbsmilies">{L_MORE_SMILIES}</a>
+            </div>
+            <!-- ENDIF -->
+            <div id="message-box" class="posting-message-box">
+                <textarea name="message" id="message" rows="13" cols="76" tabindex="3" class="inputbox ucp-form-textarea">{NOTES_MESSAGE}</textarea>
+            </div>
+        </div>
+    </section>
+
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <div class="ucp-actions">
+                <input type="submit" name="save" class="button1" value="{L_SUBMIT}" />
+                <input type="submit" name="cancel" class="button2" value="{L_CANCEL}" />
+                {S_FORM_TOKEN}
+                {S_HIDDEN_FIELDS}
+            </div>
+        </div>
+    </section>
+</form>
+
+<!-- IF S_NOTES_POPUP -->
+    <p class="ucp-actions">
+        <input type="button" class="button1" value="{L_CLOSE}" data-action="close-window" />
+    </p>
+    <!-- INCLUDE simple_footer.html -->
+<!-- ELSE -->
+    <!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->

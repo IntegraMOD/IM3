@@ -1,0 +1,35 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<div id="dl-editor-config" class="blog-hidden" hidden="hidden" data-form-name="postform" data-text-name="message" data-too-few-chars="{L_TOO_FEW_CHARS}" data-no-text-selected="{L_NO_TEXT_SELECTED}"></div>
+<script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/editor.js"></script>
+
+<form action="{S_FORM_ACTION}" method="post" id="postform">
+    <section class="ucp-card" id="postingbox">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_DL_COMMENT}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <!-- INCLUDE posting_buttons.html -->
+            <!-- IF .smiley -->
+            <div id="smiley-box">
+                <strong>{L_SMILIES}</strong>
+                <!-- BEGIN smiley -->
+                    <a href="{U_MORE_SMILIES}" data-action="insert-smiley" data-smiley-code="{smiley.A_SMILEY_CODE}"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+                <!-- END smiley -->
+                <a href="{U_MORE_SMILIES}" data-action="popup" data-popup-width="400" data-popup-height="200">{L_MORE_SMILIES}</a>
+            </div>
+            <!-- ENDIF -->
+            <div id="message-box">
+                <textarea name="message" id="message" rows="13" cols="76" tabindex="3" class="inputbox" data-store-caret="1">{COMMENT_TEXT}</textarea>
+            </div>
+            <div class="ucp-actions">
+                <input type="submit" name="save" class="button1" value="{L_SUBMIT}" />
+                <input type="submit" name="goback" class="button2" value="{L_CANCEL}" />
+                {S_FORM_TOKEN}
+                {S_HIDDEN_FIELDS}
+            </div>
+        </div>
+    </section>
+</form>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

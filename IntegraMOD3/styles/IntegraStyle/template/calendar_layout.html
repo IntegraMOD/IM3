@@ -1,0 +1,203 @@
+<!-- INCLUDE overall_header.html -->
+
+<section class="calendar-page" data-calendar-page="1" data-active-tab="{ACTIVE_TAB}" data-show-upcoming="<!-- IF S_SHOW_UPCOMING_BIRTHDAYS or S_SHOW_UPCOMING_EVENTS -->1<!-- ELSE -->0<!-- ENDIF -->" data-monday-first="<!-- IF S_MONDAY_FIRST -->1<!-- ELSE -->0<!-- ENDIF -->" data-override-user="<!-- IF S_OVERRIDE_USER -->1<!-- ELSE -->0<!-- ENDIF -->">
+    <h2>{L_CALENDAR_MONTH}</h2>
+
+    <!-- IF S_FORUM_RULES -->
+    <section class="post-rules">
+        <!-- IF U_FORUM_RULES -->
+            <a href="{U_FORUM_RULES}">{L_FORUM_RULES}</a>
+        <!-- ELSE -->
+            <strong>{L_FORUM_RULES}</strong>
+            <p>{FORUM_RULES}</p>
+        <!-- ENDIF -->
+    </section>
+    <!-- ENDIF -->
+
+    <nav class="calendar-toolbar">
+        <a href="{U_ICAL_LINK}" title="{L_CALENDAR_EXPORT_ICAL_EXPLAIN}">{L_CALENDAR_EXPORT_ICAL}</a>
+        <a href="{U_CSV_LINK}" title="{L_CALENDAR_EXPORT_CSV_EXPLAIN}">{L_CALENDAR_EXPORT_CSV}</a>
+        <a href="{U_SUBSCRIBE_PRIV_CAL}" title="{L_CALENDAR_SUBSCRIBE_PRIV_CAL_EXPLAIN}">{L_CALENDAR_SUBSCRIBE_PRIV_CAL}</a>
+        <a href="{U_SUBSCRIBE_PUBLIC_CAL}" title="{L_CALENDAR_SUBSCRIBE_PUBLIC_CAL_EXPLAIN}">{L_CALENDAR_SUBSCRIBE_PUBLIC_CAL}</a>
+        <!-- IF U_PUBLISH_RSS_CAL --><a href="{U_PUBLISH_RSS_CAL}" title="{L_CALENDAR_PUBLISH_RSS_EXPLAIN}">{L_CALENDAR_PUBLISH_RSS}</a><!-- ENDIF -->
+    </nav>
+
+    <nav id="tabs" class="calendar-tabs">
+        <ul>
+            <li id="calendar-panel-tab" class="activetab"><a href="#calendar-panel" data-action="calendar-subpanel" data-panel="calendar-panel"><span>{L_LANG_CALENDAR}</span></a></li>
+            <!-- IF S_NEW_EVENT -->
+            <li id="event-panel-tab"><a href="{S_POST_ACTION}" data-action="calendar-subpanel" data-panel="event-panel"><span>{U_ADD_EDIT_TAB}</span></a></li>
+            <!-- ENDIF -->
+            <!-- IF not S_OVERRIDE_USER -->
+            <li id="settings-panel-tab"><a href="#settings-panel" data-action="calendar-subpanel" data-panel="settings-panel"><span>{L_CALENDAR_SETTINGS}</span></a></li>
+            <!-- ENDIF -->
+        </ul>
+    </nav>
+
+    <form name="postform" id="postform" method="post" action="{S_POST_ACTION}"{S_FORM_ENCTYPE}>
+        <section class="ucp-card" id="calendar-panel">
+            <div class="ucp-card-body">
+                <header class="calendar-month-nav">
+                    <a href="{U_PREV_MONTH}" class="calendar-nav-button calendar-nav-prev" aria-label="{L_PREVIOUS}"><svg class="css-icon css-icon-calendar-nav" aria-hidden="true" focusable="false"><use href="#icon-arrow-left"></use></svg></a>
+                    <strong class="calendar-month-name">{L_CALENDAR_MONTH}</strong>
+                    <a href="{U_NEXT_MONTH}" class="calendar-nav-button calendar-nav-next" aria-label="{L_NEXT}"><svg class="css-icon css-icon-calendar-nav" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></a>
+                </header>
+
+                <div class="calendar-table-wrap">
+                    <div class="calendar-grid<!-- IF S_SHOW_WEEK_NUMS --> calendar-grid-weeks<!-- ENDIF -->">
+                        <!-- IF S_SHOW_WEEK_NUMS --><div class="calendar-grid-head"></div><!-- ENDIF -->
+                        <!-- IF not S_MONDAY_FIRST --><div class="calendar-grid-head">{L_SUN}</div><!-- ENDIF -->
+                        <div class="calendar-grid-head">{L_MON}</div>
+                        <div class="calendar-grid-head">{L_TUE}</div>
+                        <div class="calendar-grid-head">{L_WED}</div>
+                        <div class="calendar-grid-head">{L_THU}</div>
+                        <div class="calendar-grid-head">{L_FRI}</div>
+                        <div class="calendar-grid-head">{L_SAT}</div>
+                        <!-- IF S_MONDAY_FIRST --><div class="calendar-grid-head">{L_SUN}</div><!-- ENDIF -->
+
+                        <!-- BEGIN calendar_week -->
+                            <!-- IF S_SHOW_WEEK_NUMS -->
+                            <div class="calendar-weeknum" title="{L_WEEK_NUM_EXPLAIN}">
+                                <a href="https://www.iso.org/iso/date_and_time_format">{L_WEEK_NUM}<br />{calendar_week.WEEK_NUM}</a>
+                            </div>
+                            <!-- ENDIF -->
+                            <!-- IF not S_MONDAY_FIRST -->
+                            <div class="calendar-day">
+                                <div class="calendar-day-num">{calendar_week.DAY0}</div>
+                                <div class="calendar-day-events">{calendar_week.DAY0_EVENTS}</div>
+                            </div>
+                            <!-- ENDIF -->
+                            <div class="calendar-day">
+                                <div class="calendar-day-num">{calendar_week.DAY1}</div>
+                                <div class="calendar-day-events">{calendar_week.DAY1_EVENTS}</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="calendar-day-num">{calendar_week.DAY2}</div>
+                                <div class="calendar-day-events">{calendar_week.DAY2_EVENTS}</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="calendar-day-num">{calendar_week.DAY3}</div>
+                                <div class="calendar-day-events">{calendar_week.DAY3_EVENTS}</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="calendar-day-num">{calendar_week.DAY4}</div>
+                                <div class="calendar-day-events">{calendar_week.DAY4_EVENTS}</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="calendar-day-num">{calendar_week.DAY5}</div>
+                                <div class="calendar-day-events">{calendar_week.DAY5_EVENTS}</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="calendar-day-num">{calendar_week.DAY6}</div>
+                                <div class="calendar-day-events">{calendar_week.DAY6_EVENTS}</div>
+                            </div>
+                            <!-- IF S_MONDAY_FIRST -->
+                            <div class="calendar-day">
+                                <div class="calendar-day-num">{calendar_week.DAY7}</div>
+                                <div class="calendar-day-events">{calendar_week.DAY7_EVENTS}</div>
+                            </div>
+                            <!-- ENDIF -->
+                        <!-- END calendar_week -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- IF S_NEW_EVENT --><!-- INCLUDE calendar_editor.html --><!-- ENDIF -->
+    </form>
+
+    <!-- IF not S_OVERRIDE_USER -->
+    <form name="settings_form" id="settings_form">
+        <section class="ucp-card" id="settings-panel" style="display: none;">
+            <div class="ucp-card-body">
+                <h3>{L_CALENDAR_SETTINGS}</h3>
+                <div class="ucp-form-grid">
+                    <div class="ucp-form-row">
+                        <p class="ucp-form-label">{L_CAL_START_DAY}:</p>
+                        <div class="ucp-form-inline">
+                            <label for="cal_start_sunday"><input type="radio" name="cal_start_day" id="cal_start_sunday" value="0" <!-- IF not S_MONDAY_FIRST --> checked="checked"<!-- ENDIF --> /> {L_SUN}</label>
+                            <label for="cal_start_monday"><input type="radio" name="cal_start_day" id="cal_start_monday" value="1" <!-- IF S_MONDAY_FIRST --> checked="checked"<!-- ENDIF --> /> {L_MON}</label>
+                        </div>
+                    </div>
+                    <div class="ucp-form-row">
+                        <p class="ucp-form-label">{L_SHOW_WEEK_NUMS}:</p>
+                        <div class="ucp-form-inline">
+                            <label for="week_nums_on"><input type="radio" name="cal_week_nums" id="week_nums_on" value="1" <!-- IF S_SHOW_WEEK_NUMS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                            <label for="week_nums_off"><input type="radio" name="cal_week_nums" id="week_nums_off" value="0" <!-- IF not S_SHOW_WEEK_NUMS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+                        </div>
+                    </div>
+                    <div class="ucp-form-row">
+                        <p class="ucp-form-label">{L_SHOW_UPCOMING_EVENTS}:</p>
+                        <div class="ucp-form-inline">
+                            <label for="events_list_on"><input type="radio" name="cal_events_list" id="events_list_on" value="1" <!-- IF S_SHOW_UPCOMING_EVENTS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                            <label for="events_list_off"><input type="radio" name="cal_events_list" id="events_list_off" value="0" <!-- IF not S_SHOW_UPCOMING_EVENTS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+                        </div>
+                    </div>
+                    <div class="ucp-form-row">
+                        <label class="ucp-form-label" for="cal_upcoming_events_days">{L_UPCOMING_EVENTS_DAYS}:</label>
+                        <input type="text" name="cal_upcoming_events_days" id="cal_upcoming_events_days" size="2" maxlength="2" value="{UPCOMING_EVENTS_DAYS}" class="inputbox autowidth ucp-form-input" data-action="calendar-check-max" data-max="{EVENTS_LIST_MAX_DAYS}" />
+                    </div>
+                    <div class="ucp-form-row">
+                        <p class="ucp-form-label">{L_SHOW_BIRTHDAYS}:</p>
+                        <div class="ucp-form-inline">
+                            <label for="birthdays_on"><input type="radio" name="cal_birthdays" id="birthdays_on" value="1" <!-- IF S_SHOW_BIRTHDAYS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                            <label for="birthdays_off"><input type="radio" name="cal_birthdays" id="birthdays_off" value="0" <!-- IF not S_SHOW_BIRTHDAYS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+                        </div>
+                    </div>
+                    <div class="ucp-form-row">
+                        <p class="ucp-form-label">{L_SHOW_UPCOMING_BIRTHDAYS}:</p>
+                        <div class="ucp-form-inline">
+                            <label for="birthdays_list_on"><input type="radio" name="cal_birthdays_list" id="birthdays_list_on" value="1" <!-- IF S_SHOW_UPCOMING_BIRTHDAYS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                            <label for="birthdays_list_off"><input type="radio" name="cal_birthdays_list" id="birthdays_list_off" value="0" <!-- IF not S_SHOW_UPCOMING_BIRTHDAYS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+                        </div>
+                    </div>
+                    <div class="ucp-form-row">
+                        <label class="ucp-form-label" for="cal_upcoming_birthdays_days">{L_UPCOMING_BIRTHDAYS_DAYS}:</label>
+                        <input type="text" name="cal_upcoming_birthdays_days" id="cal_upcoming_birthdays_days" size="2" maxlength="2" value="{UPCOMING_BIRTHDAYS_DAYS}" class="inputbox autowidth ucp-form-input" data-action="calendar-check-max" data-max="{BDAYS_LIST_MAX_DAYS}" />
+                    </div>
+                    <div class="ucp-actions">
+                        <input type="submit" name="submit_settings" value="{L_SUBMIT}" class="button1" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <!-- ENDIF -->
+
+    <section class="ucp-card calendar-upcoming-card" id="bday-panel" style="display: none;">
+        <div class="ucp-card-body">
+            <!-- IF S_SHOW_UPCOMING_EVENTS -->
+            <article class="calendar-upcoming-section">
+                <h3>{L_UPCOMING_EVENTS}{L_EVENTS_TIMEFRAME}</h3>
+                <p>
+                    <!-- IF S_IS_EVENTS -->
+                        <!-- BEGIN event_list -->{event_list.TITLE} ({L_ON} {event_list.DATE} {L_AT} {event_list.TIME})<!-- IF not event_list.S_LAST_ROW -->, <!-- ENDIF --><!-- END event_list -->
+                    <!-- ELSE -->
+                        {L_NO_UPCOMING_EVENTS}
+                    <!-- ENDIF -->
+                </p>
+            </article>
+            <!-- ENDIF -->
+            <!-- IF S_SHOW_UPCOMING_BIRTHDAYS -->
+            <article class="calendar-upcoming-section">
+                <h3>{L_UPCOMING_BIRTHDAYS}{L_BIRTHDAYS_TIMEFRAME}</h3>
+                <p>
+                    <!-- IF S_IS_BIRTHDAYS -->
+                        {L_CONGRATULATIONS}: <!-- BEGIN bday_list -->{bday_list.USERNAME_FULL} ({bday_list.AGE} {L_ON} {bday_list.ON_DAY})<!-- IF not bday_list.S_LAST_ROW -->, <!-- ENDIF --><!-- END bday_list -->
+                    <!-- ELSE -->
+                        {L_NO_UPCOMING_BIRTHDAYS}
+                    <!-- ENDIF -->
+                </p>
+            </article>
+            <!-- ENDIF -->
+        </div>
+    </section>
+
+    <section class="ucp-card" id="notes-panel" style="display: none;">
+        <div class="ucp-card-body">
+            <h3>{L_CALENDAR_NOTES}</h3>
+            <p>{L_WEEK_NUM_NOTES}</p>
+        </div>
+    </section>
+</section>
+
+<!-- INCLUDE overall_footer.html -->

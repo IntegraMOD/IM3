@@ -1,0 +1,41 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<form action="{S_DL_MODCP_ACTION}" method="post" id="dl_modcp">
+    <section class="ucp-card">
+        <div class="ucp-card-body dl-list">
+            <div class="dl-list-head">
+                <div>{L_DL_CAT_NAME}</div>
+                <div>{L_DL_DOWNLOAD}</div>
+                <div>{L_OPTIONS}</div>
+            </div>
+            <!-- BEGIN approve_row -->
+            <article class="dl-list-row">
+                <div><a href="{approve_row.U_CAT_VIEW}">{approve_row.CAT_NAME}</a></div>
+                <div>{approve_row.MINI_ICON} <a href="{approve_row.U_DOWNLOAD}">{approve_row.DESCRIPTION}</a></div>
+                <div>
+                    <!-- IF approve_row.U_EDIT --><a href="{approve_row.U_EDIT}">{L_DL_EDIT_FILE}</a><!-- ENDIF -->
+                    <input type="checkbox" class="permissions-checkbox" name="dlo_id[]" value="{approve_row.FILE_ID}" />
+                </div>
+            </article>
+            <!-- END approve_row -->
+        </div>
+    </section>
+
+    <p class="dl-toolbar">
+        <a href="{S_DL_MODCP_ACTION}" data-action="marklist" data-mark-form="dl_modcp" data-mark-name="dlo_id[]" data-mark-state="true">{L_DL_MARK_ALL}</a>
+        <a href="{S_DL_MODCP_ACTION}" data-action="marklist" data-mark-form="dl_modcp" data-mark-name="dlo_id[]" data-mark-state="false">{L_DL_UNMARK}</a>
+    </p>
+
+    <!-- IF PAGE_NUMBER -->
+    <p class="pagination">{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span></p>
+    <!-- ENDIF -->
+
+    <div class="ucp-actions">
+        <input type="submit" name="delete" value="{L_DL_DELETE}" class="button2" />
+        <input type="submit" name="submit" value="{L_DL_APPROVE}" class="button1" />
+        {S_FORM_TOKEN}
+        {S_HIDDEN_FIELDS}
+    </div>
+</form>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

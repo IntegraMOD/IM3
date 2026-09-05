@@ -1,0 +1,57 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+<!-- ENDIF -->
+
+<section class="ucp-card">
+	<div class="ucp-card-header">
+		<h2 class="ucp-card-title">{L_TITLE}</h2>
+	</div>
+	<div class="ucp-card-body">
+		<p>{L_TITLE_EXPLAIN}</p>
+		<form id="confirm" method="post" action="{U_ACTION}" class="ucp-form-grid">
+			<!-- BEGIN options -->
+				<!-- IF options.S_LEGEND -->
+					<!-- IF not options.S_FIRST_ROW -->
+						</div>
+					</section>
+					<!-- ENDIF -->
+					<section class="ucp-card">
+						<div class="ucp-card-header">
+							<h3 class="ucp-card-title">{options.LEGEND}</h3>
+						</div>
+						<div class="ucp-card-body ucp-form-grid">
+				<!-- ELSE -->
+					<div class="ucp-form-row">
+						<label class="ucp-form-label" for="{options.KEY}">{options.TITLE}:</label>
+						<!-- IF options.S_EXPLAIN --><p class="ucp-form-help">{options.TITLE_EXPLAIN}</p><!-- ENDIF -->
+						<div>{options.CONTENT}</div>
+					</div>
+				<!-- ENDIF -->
+			<!-- BEGINELSE -->
+				<div class="ucp-form-grid">
+			<!-- END options -->
+			{S_FORM_TOKEN}
+			<!-- IF .options -->
+						</div>
+					</section>
+			<!-- ELSE -->
+				</div>
+			<!-- ENDIF -->
+			<div class="ucp-actions">
+			<!-- IF S_YES_NO -->
+				<input type="submit" name="submit" value="{L_YES}" class="button1" />
+				<input type="submit" name="cancel" value="{L_NO}" class="button2" />
+			<!-- ELSE -->
+				<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+				<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+			<!-- ENDIF -->
+			</div>
+		</form>
+	</div>
+</section>
+<!-- INCLUDE overall_footer.html -->

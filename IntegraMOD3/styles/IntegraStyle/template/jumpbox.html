@@ -1,0 +1,32 @@
+<div class="jumpbox-bar">
+    <div class="jumpbox-return">
+        <!-- IF S_VIEWTOPIC -->
+            <a href="{U_VIEW_FORUM}" accesskey="r">{L_RETURN_TO} {FORUM_NAME}</a>
+        <!-- ELSEIF S_VIEWFORUM -->
+            <a href="{U_INDEX}" accesskey="r">{L_RETURN_TO} {FORUM_LABEL}</a>
+        <!-- ELSEIF SEARCH_TOPIC -->
+            <a href="{U_SEARCH_TOPIC}" accesskey="r">{L_RETURN_TO}: {SEARCH_TOPIC}</a>
+        <!-- ELSEIF S_SEARCH_ACTION -->
+            <a href="{U_SEARCH}" title="{L_SEARCH_ADV}" accesskey="r">{L_RETURN_TO_SEARCH_ADV}</a>
+        <!-- ENDIF -->
+    </div>
+
+    <!-- IF S_DISPLAY_JUMPBOX -->
+        <form class="jumpbox-form" method="post" id="jumpbox" action="{S_JUMPBOX_ACTION}" data-jumpbox-form>
+            <!-- IF $CUSTOM_FIELDSET_CLASS -->
+                <fieldset class="jumpbox-fields {$CUSTOM_FIELDSET_CLASS}">
+            <!-- ELSE -->
+                <fieldset class="jumpbox-fields jumpbox">
+            <!-- ENDIF -->
+                    <label for="f" accesskey="j"><!-- IF S_IN_MCP and S_MERGE_SELECT -->{L_SELECT_TOPICS_FROM}<!-- ELSEIF S_IN_MCP -->{L_MODERATE_FORUM}<!-- ELSE -->{L_JUMP_TO}<!-- ENDIF -->:</label>
+                    <select name="f" id="f" data-jumpbox-select>
+                        <!-- BEGIN jumpbox_forums -->
+                            <!-- IF jumpbox_forums.S_FORUM_COUNT == 1 --><option value="-1">------------------</option><!-- ENDIF -->
+                            <option value="{jumpbox_forums.FORUM_ID}"{jumpbox_forums.SELECTED}><!-- BEGIN level -->&nbsp; &nbsp;<!-- END level -->{jumpbox_forums.FORUM_NAME}</option>
+                        <!-- END jumpbox_forums -->
+                    </select>
+                    <input type="submit" value="{L_GO}" class="button2" />
+                </fieldset>
+        </form>
+    <!-- ENDIF -->
+</div>

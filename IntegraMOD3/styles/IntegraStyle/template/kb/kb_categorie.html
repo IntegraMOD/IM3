@@ -1,0 +1,90 @@
+<!-- INCLUDE overall_header.html -->
+
+<p class="{S_CONTENT_FLOW_END}<!-- IF S_USER_LOGGED_IN --> rightside<!-- ENDIF -->"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ELSE -->{CURRENT_TIME}<!-- ENDIF --></p>
+<!-- IF U_MCP --><p>{CURRENT_TIME} <br />[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ELSEIF S_USER_LOGGED_IN --><p>{CURRENT_TIME}</p><!-- ENDIF -->
+
+<div class="kb-layout">
+	<h2>{CAT_TITLE}</h2>
+	<p>{CAT_DESCRIPTION}</p>
+
+	<!-- IF CLASSIC_INDEX -->
+		<!-- INCLUDE kb/kb_index_clasic.html -->
+	<!-- ELSE -->
+		<!-- INCLUDE kb/kb_index_modern.html -->
+	<!-- ENDIF -->
+
+	<div class="topic-actions">
+		<!-- IF S_ADD_ARTICLE -->
+			<div class="buttons">
+				<div class="post-icon"><a href="{U_ADD_ARTICLE}" title="{L_ARTICLE_ADD}"><svg class="css-icon css-icon-edit" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg>{L_ARTICLE_ADD}</a></div>
+			</div>
+		<!-- ENDIF -->
+
+		<div class="search-box">
+			<form method="get" id="forum-search" action="{S_SEARCHBOX_ACTION}">
+				<fieldset>
+					<input class="inputbox search tiny" type="text" name="q" id="search_keywords" size="20" value="{L_SEARCH_CATEGORIE}" data-placeholder-value="{L_SEARCH_CATEGORIE}" />
+					<input class="button2" type="submit" name="submit" value="{L_SEARCH}" />
+					<input type="hidden" value="{CATEGORIE_ID}" name="cid[]" />
+					<input type="hidden" value="all" name="terms" />
+				</fieldset>
+			</form>
+		</div>
+
+		<div class="pagination">
+			{TOTAL_TOPICS} {L_ARTICLE}
+			<!-- IF PAGE_NUMBER -->
+				<!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF -->
+			<!-- ENDIF -->
+		</div>
+	</div>
+
+	<section class="forum-category topic-category announcement">
+		<div class="forum-header topic-list-header">
+			<div class="forum-title">{L_TOPICS}</div>
+			<div class="forum-stats-header views">{L_VIEWED}</div>
+			<div class="forum-stats-header last-post">{L_RELASED}</div>
+		</div>
+		<div class="forum-list">
+		<!-- BEGIN article_row -->
+			<article class="forum-row topic-row <!-- IF article_row.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF article_row.S_ARTICLE_REPORTED --> reported<!-- ENDIF -->">
+				<div class="topic-icon" title="">
+					<svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-state-folder"></use></svg>
+				</div>
+				<div class="forum-details">
+					<a href="{article_row.U_ARTICLE}" class="topictitle">{article_row.TITLE}</a>
+					<!-- IF article_row.S_ARTICLE_UNAPPROVED --><a href="{article_row.U_MCP_QUEUE}" title="{L_TOPIC_UNAPPROVED}"><svg class="css-icon css-icon-warning" aria-hidden="true" focusable="false"><use href="#icon-warning"></use></svg></a><!-- ENDIF -->
+					<!-- IF article_row.S_ARTICLE_REPORTED --><a href="{article_row.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}"><svg class="css-icon css-icon-flag" aria-hidden="true" focusable="false"><use href="#icon-flag"></use></svg></a><!-- ENDIF -->
+					<p><!-- IF article_row.HAS_ATTACHEMENT --><span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span> <!-- ENDIF -->{article_row.DESCRIPTION}</p>
+				</div>
+				<div class="forum-stats-grid">
+					<div class="stat-views">{article_row.HITS}</div>
+					<div class="stat-lastpost">{article_row.TIME}<br />{L_FROM} {article_row.AUTHOR_FULL}</div>
+				</div>
+			</article>
+		<!-- END article_row -->
+		</div>
+	</section>
+
+	<div class="topic-actions">
+		<div class="pagination">
+			{TOTAL_TOPICS} {L_ARTICLE}
+			<!-- IF PAGE_NUMBER -->
+				<!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF -->
+			<!-- ENDIF -->
+		</div>
+	</div>
+
+	<p><a href="{U_KB}" class="left-box left" accesskey="r">{L_BACK_KB}</a></p>
+
+	<!-- IF S_ADD_ARTICLE -->
+		<section class="ucp-card">
+			<div class="ucp-card-body kb-add-article">
+				<p><strong><a href="{U_ADD_ARTICLE}">{L_ARTICLE_ADD}</a></strong></p>
+			</div>
+		</section>
+	<!-- ENDIF -->
+</div>
+
+<!-- INCLUDE overall_footer.html -->
+

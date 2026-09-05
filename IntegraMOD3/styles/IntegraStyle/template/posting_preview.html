@@ -1,0 +1,47 @@
+<section class="ucp-card posting-preview <!-- IF S_PRIVMSGS -->pm<!-- ELSE -->bg2<!-- ENDIF -->" id="preview">
+    <div class="ucp-card-body">
+
+<!-- IF S_HAS_POLL_OPTIONS -->
+	<div class="content">
+		<h2>{L_PREVIEW}: {POLL_QUESTION}</h2>
+		<p class="author"><!-- IF L_POLL_LENGTH -->{L_POLL_LENGTH}<br /><!-- ENDIF -->{L_MAX_VOTES}</p>
+
+		<fieldset class="polls">
+		<!-- BEGIN poll_option -->
+			<div class="ucp-form-row">
+				<div class="ucp-form-label"><label for="vote_{poll_option.POLL_OPTION_ID}">{poll_option.POLL_OPTION_CAPTION}</label></div>
+				<div class="ucp-form-content"><!-- IF S_IS_MULTI_CHOICE --><input type="checkbox" name="vote_id[]" id="vote_{poll_option.POLL_OPTION_ID}" value="{poll_option.POLL_OPTION_ID}"<!-- IF poll_option.POLL_OPTION_VOTED --> checked="checked"<!-- ENDIF --> /><!-- ELSE --><input type="radio" name="vote_id[]" id="vote_{poll_option.POLL_OPTION_ID}" value="{poll_option.POLL_OPTION_ID}"<!-- IF poll_option.POLL_OPTION_VOTED --> checked="checked"<!-- ENDIF --> /><!-- ENDIF --></div>
+			</div>
+		<!-- END poll_option -->
+		</fieldset>
+	</div>
+
+    </div>
+</section>
+
+<section class="ucp-card posting-preview bg2">
+    <div class="ucp-card-body">
+
+<!-- ENDIF -->
+
+	<div class="postbody">
+		<h3>{L_PREVIEW}: {PREVIEW_SUBJECT}</h3>
+
+		<div class="content">{PREVIEW_MESSAGE}</div>
+
+		<!-- IF .attachment -->
+		<div class="attachbox">
+			<strong>{L_ATTACHMENTS}</strong>
+			<!-- BEGIN attachment -->
+			<div>{attachment.DISPLAY_ATTACHMENT}</div>
+			<!-- END attachment -->
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF PREVIEW_SIGNATURE --><div id="sig" class="signature">{PREVIEW_SIGNATURE}</div><!-- ENDIF -->
+	</div>
+
+    </div>
+</section>
+
+<hr />

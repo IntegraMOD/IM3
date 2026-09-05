@@ -1,0 +1,44 @@
+<section class="forum-category">
+    <div class="forum-header forum-list-header dl-cat-header">
+        <div class="forum-title">{L_DL_CAT_NAME}</div>
+        <div class="forum-stats-header topics">{L_DL_CAT_FILES}</div>
+        <div class="forum-stats-header last-post">{L_DL_LATEST_DOWNLOADS}</div>
+    </div>
+    <div class="forum-list">
+        <!-- BEGIN subcats -->
+        <div class="forum-row">
+            <div class="forum-icon read">
+                <!-- IF subcats.CAT_ICON --><img src="{subcats.CAT_ICON}" alt="{subcats.CAT_NAME}" title="{subcats.CAT_NAME}" /><!-- ELSE -->{subcats.MINI_IMG}<!-- ENDIF -->
+            </div>
+            <div class="forum-details">
+                <a href="{subcats.U_CAT_VIEW}" class="forumtitle">{subcats.CAT_NAME}</a>
+                <div class="forum-desc">{subcats.CAT_DESC}</div>
+                <!-- IF subcats.CAT_PAGES --><strong class="pagination"><span>{subcats.CAT_PAGES}</span></strong><!-- ENDIF -->
+                <!-- BEGIN sub -->
+                <div class="forum-subforums">
+                    <!-- BEGIN sublevel_row -->
+                    <span>
+                        {subcats.sub.sublevel_row.M_SUBLEVEL}
+                        <!-- IF subcats.sub.sublevel_row.M_SUBLEVEL_ICON --><img src="{subcats.sub.sublevel_row.M_SUBLEVEL_ICON}" alt="{subcats.sub.sublevel_row.L_SUBLEVEL}" title="{subcats.sub.sublevel_row.L_SUBLEVEL}" /><!-- ENDIF -->
+                        <a href="{subcats.sub.sublevel_row.U_SUBLEVEL}"><strong>{subcats.sub.sublevel_row.L_SUBLEVEL}</strong></a>
+                        ({subcats.sub.sublevel_row.SUBLEVEL_COUNT})
+                    </span>
+                    <!-- END sublevel_row -->
+                </div>
+                <!-- END sub -->
+            </div>
+            <div class="forum-stats-grid">
+                <div class="stat-topics"><strong>{subcats.CAT_DL}</strong> <dfn>{L_DL_CAT_FILES}</dfn></div>
+                <div class="stat-lastpost">
+                    <!-- IF subcats.CAT_LAST_DL -->
+                    <div class="lastpost-meta">
+                        <a href="{subcats.U_CAT_LAST_LINK}">{subcats.CAT_LAST_DL}</a><br />
+                        <a href="{subcats.U_CAT_LAST_USER}">{subcats.CAT_LAST_USER}</a><br />{subcats.CAT_LAST_TIME}
+                    </div>
+                    <!-- ENDIF -->
+                </div>
+            </div>
+        </div>
+        <!-- END subcats -->
+    </div>
+</section>

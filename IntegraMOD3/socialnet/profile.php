@@ -95,9 +95,35 @@ if (!class_exists('socialnet_profile')) {
             $template->assign_vars($template_assign_vars);
         }
 
+        private function get_profile_privacy_settings($user_id)
+        {
+            global $db, $config;
+
+            $settings = array(
+                'sn_privacy_level' => isset($config['sn_default_privacy_level']) ? (int) $config['sn_default_privacy_level'] : 1,
+                'sn_allow_friend_requests' => 1,
+            );
+
+            $sql = 'SELECT sn_privacy_level, sn_allow_friend_requests
+                FROM ' . SN_USERS_TABLE . '
+                WHERE user_id = ' . (int) $user_id;
+            $result = $db->sql_query_limit($sql, 1);
+            $row = $db->sql_fetchrow($result);
+            $db->sql_freeresult($result);
+
+            if (!empty($row)) {
+                $settings['sn_privacy_level'] = (int) $row['sn_privacy_level'];
+                $settings['sn_allow_friend_requests'] = (int) $row['sn_allow_friend_requests'];
+            }
+
+            return $settings;
+        }
+
         public function load($mode, $user_id)
         {
-            global $socialnet_root_path, $phpbb_root_path, $phpEx, $socialnet, $template, $user, $auth;
+            global $socialnet_root_path, $phpbb_root_path, $phpEx, $socialnet, $template, $user, $auth, $db;
+
+            $user_id = (int) $user_id;
 
             if ($mode != 'upEdit' && $mode != 'emote') {
                 $call_mode = 'tab_' . $mode;
@@ -109,11 +135,57 @@ if (!class_exists('socialnet_profile')) {
 
             if (method_exists($this, $call_mode)) {
                 $user->add_lang('memberlist');
+
+                $privacy_settings = $this->get_profile_privacy_settings($user_id);
+                $is_own_profile = ((int) $user->data['user_id'] === $user_id);
+                $is_admin = $auth->acl_get('a_') ? true : false;
+                $is_friend = false;
+                $is_foe = false;
+
+                if (!$is_own_profile && $user->data['is_registered']) {
+                    $is_friend = in_array($user_id, $socialnet->friends['user_id']);
+
+                    $sql = 'SELECT zebra_id
+                        FROM ' . ZEBRA_TABLE . '
+                        WHERE ((user_id = ' . (int) $user_id . '
+                            AND zebra_id = ' . (int) $user->data['user_id'] . ')
+                            OR (user_id = ' . (int) $user->data['user_id'] . '
+                            AND zebra_id = ' . (int) $user_id . '))
+                            AND foe = 1';
+                    $result = $db->sql_query_limit($sql, 1);
+                    $is_foe = (bool) $db->sql_fetchfield('zebra_id');
+                    $db->sql_freeresult($result);
+                }
+
+                if (!$is_own_profile && !$is_admin) {
+                    if ($is_foe) {
+                        trigger_error('NOT_AUTHORISED');
+                    }
+
+                    if ((int) $privacy_settings['sn_privacy_level'] === 2) {
+                        trigger_error('NOT_AUTHORISED');
+                    }
+
+                    if ((int) $privacy_settings['sn_privacy_level'] === 1 && !$is_friend) {
+                        trigger_error('NOT_AUTHORISED');
+                    }
+                }
+
+                $can_add_friend = (!$is_own_profile
+                    && $user->data['is_registered']
+                    && !$is_foe
+                    && (int) $privacy_settings['sn_allow_friend_requests'] === 1);
+
                 $this->$call_mode($user_id);
+
+                if (!$can_add_friend) {
+                    $template->assign_var('U_ADD_FRIEND', '');
+                }
 
                 $template->assign_vars(array(
                     'USER_ID'			 => $user_id,
                     'FMS_LIMIT'			 => $this->p_master->config['fas_friendlist_limit'],
+                    'S_SN_CAN_ADD_FRIEND' => $can_add_friend,
                     'S_DISPLAY_SEARCH'	 => (!$this->p_master->config['load_search']) ? 0 : (isset($auth) ? ($auth->acl_get('u_search') && $auth->acl_getf_global('f_search')) : 1),
                     'U_SEARCH_USER'		 => ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.{$phpEx}", (($user_id === (int) $user->data['user_id']) ? 'search_id=egosearch' : "author_id=$user_id").'&amp;sr=posts') : '',
                 ));
@@ -486,7 +558,49 @@ if (!class_exists('socialnet_profile')) {
             unset($group_data);
             unset($group_sort);
 
+			// Count total likes received
+            $user_likes_count = 0;
+            if (defined('LIKES_TABLE'))
+            {
+                $sql = 'SELECT COUNT(like_id) AS total_likes
+                        FROM ' . LIKES_TABLE . '
+                        WHERE poster_id = ' . (int) $user_id;
+                $result = $db->sql_query($sql);
+                $user_likes_count = (int) $db->sql_fetchfield('total_likes');
+                $db->sql_freeresult($result);
+            }
+            $u_search_liked_posts = append_sid("{$phpbb_root_path}search.{$phpEx}", "search_id=user_likes&amp;u={$user_id}");
+
+            // Count total likes sent (ONLY if the person viewing the profile is the profile owner)
+            $user_likes_sent_count = 0;
+            $u_search_likes_sent = '';
+            if ($user_id == $user->data['user_id'])
+            {
+                if (defined('LIKES_TABLE'))
+                {
+                    $sql = 'SELECT COUNT(like_id) AS total_likes_sent
+                            FROM ' . LIKES_TABLE . '
+                            WHERE user_id = ' . (int) $user_id;
+                    $result = $db->sql_query($sql);
+                    $user_likes_sent_count = (int) $db->sql_fetchfield('total_likes_sent');
+                    $db->sql_freeresult($result);
+                }
+                $u_search_likes_sent = append_sid("{$phpbb_root_path}search.{$phpEx}", "search_id=user_likes_sent&amp;u={$user_id}");
+            }
+
             $template->assign_vars(array(
+				'USER_LIKES_COUNT'       => $user_likes_count,
+                'U_SEARCH_LIKED_POSTS'   => $u_search_liked_posts,
+                'S_HAS_LIKES'            => ($user_likes_count > 0) ? true : false,
+                'L_SN_LIKED_POSTS'       => $user->lang['SN_LIKED_POSTS'] ?? 'Likes Received',
+                'L_SN_SEARCH_LIKED_POSTS'=> $user->lang['SN_SEARCH_LIKED_POSTS'] ?? 'Search user’s liked posts',
+                
+                'USER_LIKES_SENT_COUNT'  => $user_likes_sent_count,
+                'U_SEARCH_LIKES_SENT'    => $u_search_likes_sent,
+                'S_HAS_LIKES_SENT'       => ($user_likes_sent_count > 0) ? true : false,
+                'L_SN_LIKES_SENT'        => $user->lang['SN_LIKES_SENT'] ?? 'Likes Sent',
+                'L_SN_SEARCH_LIKES_SENT' => $user->lang['SN_SEARCH_LIKES_SENT'] ?? 'Search posts you liked',
+                'S_OWN_PROFILE'          => ($user_id == $user->data['user_id']),
                 'L_POSTS_IN_QUEUE'	 => $user->lang('NUM_POSTS_IN_QUEUE', $member['posts_in_queue']),
                 'POSTS_IN_QUEUE'	 => $member['posts_in_queue'],
                 'PROFILE_VIEWS'		 => ($member['profile_views']) ? $member['profile_views'] : 0,

@@ -288,6 +288,13 @@ $lang = array_merge($lang, array(
 	'SN_PROFILE_EMOTE_EDITED'				 => 'Emote has been edited successfully',
 	'SN_PROFILE_EMOTE_ADDED'				 => 'Emote has been added successfully',
 	'SN_PROFILE_EMOTE_DELETED'				 => 'Emote has been deleted successfully',
+	// Security
+	'SN_PROFILE_SECURITY'					 => 'Security',
+	'SN_PROFILE_SECURITY_EXPLAIN'			 => 'Here you can set the board-wide privacy policy for member profiles and activity, and choose whether members are allowed to change their own privacy setting.',
+	'SN_DEFAULT_PRIVACY_LEVEL'				 => 'Default privacy policy',
+	'SN_DEFAULT_PRIVACY_LEVEL_EXPLAIN'		 => 'The default privacy policy applied to members who have not chosen their own.<br /><strong>Private</strong> - only Admins can view the profile or activity.<br /><strong>Friends</strong> - only Admins and Friends can view the profile and activity.<br /><strong>Default</strong> - activity shows up in Friends&rsquo; &ldquo;What&rsquo;s new&rdquo; feed and non-friends can find the member by searching.',
+	'SN_ALLOW_PRIVACY_CHANGE'				 => 'Allow members to change their privacy policy',
+	'SN_ALLOW_PRIVACY_CHANGE_EXPLAIN'		 => 'If set to No, members cannot change their privacy policy and the board default is enforced for everyone.',
 ));
 
 // PHPBB LOG CONFIG

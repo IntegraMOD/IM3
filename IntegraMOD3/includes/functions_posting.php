@@ -1311,6 +1311,40 @@ function user_notification($mode, $subject, $topic_title, $forum_name, $forum_id
 		}
 	}
 
+	// OneSignal web/SMS push is independent of email, so users without an address still receive it.
+	if (function_exists('trigger_user_push'))
+	{
+		$push_author = ($author_name !== '') ? $author_name : $user->data['username'];
+		$push_url = generate_board_url() . "/viewtopic.$phpEx?f=$forum_id&t=$topic_id&p=$post_id#p$post_id";
+		$push_title = $topic_title;
+
+		foreach ($notify_rows as $notify_user_id => $row)
+		{
+			if (empty($row['allowed']))
+			{
+				continue;
+			}
+
+			if ($row['notify_type'] === 'topic')
+			{
+				$event_type = 'sub_post';
+				$push_message = $push_author . ' replied';
+			}
+			else if ($topic_notification)
+			{
+				$event_type = 'sub_topic';
+				$push_message = $push_author . ' replied in ' . $forum_name;
+			}
+			else
+			{
+				$event_type = 'sub_topic';
+				$push_message = $push_author . ' posted a new topic';
+			}
+
+			trigger_user_push((int) $notify_user_id, $event_type, $push_title, $push_message, $push_url);
+		}
+	}
+
 	// Now, we have to do a little step before really sending, we need to distinguish our users a little bit. ;)
 	$msg_users = $delete_ids = $update_notification = array();
 	foreach ($notify_rows as $user_id => $row)

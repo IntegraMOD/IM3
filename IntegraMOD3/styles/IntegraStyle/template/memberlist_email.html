@@ -1,0 +1,51 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{L_SEND_EMAIL_USER} {USERNAME}</h2>
+
+<form method="post" action="{S_POST_ACTION}" id="post">
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <!-- IF ERROR_MESSAGE --><p class="error">{ERROR_MESSAGE}</p><!-- ENDIF -->
+            <div class="ucp-form-grid">
+                <!-- IF S_SEND_USER -->
+                <div class="ucp-form-row">
+                    <p class="ucp-form-label">{L_RECIPIENT}:</p>
+                    <strong>{USERNAME}</strong>
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="subject">{L_SUBJECT}:</label>
+                    <input class="inputbox autowidth ucp-form-input" type="text" name="subject" id="subject" size="50" tabindex="1" value="{SUBJECT}" />
+                </div>
+                <!-- ELSE -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="email">{L_EMAIL_ADDRESS}:</label>
+                    <input class="inputbox autowidth ucp-form-input" type="text" name="email" id="email" size="50" maxlength="100" tabindex="2" value="{EMAIL}" />
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="name">{L_REAL_NAME}:</label>
+                    <input class="inputbox autowidth ucp-form-input" type="text" name="name" id="name" size="50" tabindex="3" value="{NAME}" />
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="lang">{L_DEST_LANG}:</label>
+                    <p>{L_DEST_LANG_EXPLAIN}</p>
+                    <select name="lang" id="lang">{S_LANG_OPTIONS}</select>
+                </div>
+                <!-- ENDIF -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="message">{L_MESSAGE_BODY}:</label>
+                    <p>{L_EMAIL_BODY_EXPLAIN}</p>
+                    <textarea class="inputbox ucp-form-textarea" name="message" id="message" rows="15" cols="76" tabindex="4">{MESSAGE}</textarea>
+                </div>
+                <div class="ucp-form-row">
+                    <label for="cc_email"><input type="checkbox" name="cc_email" id="cc_email" value="1" checked="checked" tabindex="5" /> {L_CC_EMAIL}</label>
+                </div>
+                <div class="ucp-actions">
+                    <input type="submit" tabindex="6" name="submit" class="button1" value="{L_SEND_EMAIL}" />
+                </div>
+            </div>
+        </div>
+    </section>
+    {S_FORM_TOKEN}
+</form>
+
+<!-- INCLUDE overall_footer.html -->

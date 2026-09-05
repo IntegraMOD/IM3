@@ -1,0 +1,19 @@
+<!-- IDTAG block_whos_on_line.html starts -->
+<!-- INCLUDE blocks/blocks_header_left.html -->
+    <a href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a>
+<!-- INCLUDE blocks/blocks_header_right.html -->
+<!-- IF S_DISPLAY_ONLINE_LIST -->
+    <div class="portal-summary-block portal-online-summary">
+        <a href="{U_VIEWONLINE}" class="bsw_w_img portal-summary-image" aria-hidden="true"></a>
+        <div class="portal-summary-content">
+            <p>{TOTAL_USERS_ONLINE} ({L_ONLINE_EXPLAIN})</p>
+            <p>{RECORD_USERS}</p>
+            <p>{LOGGED_IN_USER_LIST}</p>
+            <p>{USERS_OF_THE_DAY_LIST}</p>
+            <p><a href="./uod.php">{L_USERS_OF_THE_DAY_TITLE}</a></p>
+            <!-- IF LEGEND --><p><em>{L_LEGEND}: {LEGEND}</em></p><!-- ENDIF -->
+        </div>
+    </div>
+<!-- ENDIF -->
+<!-- INCLUDE blocks/blocks_footer.html -->
+<!-- IDTAG block_whos_on_line.html ends -->

@@ -1,0 +1,36 @@
+<!-- INCLUDE overall_header.html -->
+
+<div class="meeting-layout">
+	<h3><a href="{U_MEETING_DETAIL}">{L_MEETING_DETAIL}</a></h3>
+	<p><strong>{MEETING_SUBJECT} :: {L_MEETING_MAIL}</strong></p>
+
+	<form action="{S_FORM_ACTION}" method="post" id="meeting_send_email">
+		<section class="ucp-card">
+			<div class="ucp-card-body ucp-form-grid">
+				<div class="ucp-form-row">
+					<span class="ucp-form-label">{L_MEETING_MAIL_TO}:</span>
+					<div class="ucp-form-inline">
+						<label><input type="radio" class="radio" name="mail_to" value="1" checked="checked" /> {L_MEETING_MAIL_SIGN_YES}</label>
+						<label><input type="radio" class="radio" name="mail_to" value="2" /> {L_MEETING_MAIL_SIGN_NO}</label>
+						<label><input type="radio" class="radio" name="mail_to" value="0" /> {L_MEETING_MAIL_ALL}</label>
+					</div>
+				</div>
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="meeting_mail_subject">{L_MEETING_MAIL_SUBJECT}:</label>
+					<input type="text" class="inputbox autowidth ucp-form-input" id="meeting_mail_subject" size="75" maxlength="100" value="" name="meeting_mail_subject" />
+				</div>
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="meeting_mail_text">{L_MEETING_MAIL_TEXT}:</label>
+					<textarea cols="100" rows="10" class="inputbox autowidth ucp-form-textarea" id="meeting_mail_text" name="meeting_mail_text"></textarea>
+				</div>
+				<div class="ucp-actions">
+					<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+					<input type="submit" name="cancel" value="{L_CANCEL}" class="button2" />
+					{S_FORM_TOKEN}
+				</div>
+			</div>
+		</section>
+	</form>
+</div>
+
+<!-- INCLUDE overall_footer.html -->

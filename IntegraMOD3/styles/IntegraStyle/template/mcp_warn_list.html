@@ -1,0 +1,52 @@
+<!-- INCLUDE mcp_header.html -->
+
+<form method="post" id="mcp" action="{U_POST_ACTION}">
+    <h2>{L_WARNED_USERS}</h2>
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <p>{L_WARNED_USERS_EXPLAIN}</p>
+            <!-- IF .user -->
+            <div class="topic-actions">
+                <div class="rightside pagination">
+                    <!-- IF TOTAL_USERS -->{TOTAL_USERS} <!-- ENDIF -->
+                    <!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+                </div>
+            </div>
+            <header class="forum-header mcp-warn-header">
+                <div class="forum-title">{L_USERNAME}</div>
+                <div class="forum-stats-header">{L_WARNINGS}</div>
+                <div class="forum-stats-header">{L_LATEST_WARNING_TIME}</div>
+                <div class="forum-stats-header"></div>
+            </header>
+            <div class="forum-list">
+            <!-- BEGIN user -->
+                <div class="forum-row mcp-warn-row<!-- IF user.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+                    <div class="forum-details">{user.USERNAME_FULL}</div>
+                    <div class="forum-stats-grid mcp-warn-stats">
+                        <div class="stat-info">{user.WARNINGS}</div>
+                        <div class="stat-info">{user.WARNING_TIME}</div>
+                        <div class="stat-info"><a href="{user.U_NOTES}">{L_VIEW_NOTES}</a></div>
+                    </div>
+                </div>
+            <!-- END user -->
+            </div>
+            <div class="ucp-actions display-options">
+                <label>{L_DISPLAY_POSTS}: {S_SELECT_SORT_DAYS}</label>
+                <label>{L_SORT_BY} {S_SELECT_SORT_KEY}</label><label>{S_SELECT_SORT_DIR}</label>
+                <input type="submit" name="sort" value="{L_GO}" class="button2" />
+            </div>
+            <div class="topic-actions">
+                <div class="rightside pagination">
+                    <!-- IF TOTAL_USERS -->{TOTAL_USERS} <!-- ENDIF -->
+                    <!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+                </div>
+            </div>
+            <!-- ELSE -->
+            <p><strong>{L_WARNINGS_ZERO_TOTAL}</strong></p>
+            <!-- ENDIF -->
+            {S_FORM_TOKEN}
+        </div>
+    </section>
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

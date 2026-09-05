@@ -1,0 +1,49 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2><!-- IF S_REPORT_POST -->{L_REPORT_POST}<!-- ELSE -->{L_REPORT_MESSAGE}<!-- ENDIF --></h2>
+
+<form method="post" action="{S_REPORT_ACTION}" id="report">
+    <div class="ucp-card">
+        <div class="ucp-card-body">
+            <p><!-- IF S_REPORT_POST -->{L_REPORT_POST_EXPLAIN}<!-- ELSE -->{L_REPORT_MESSAGE_EXPLAIN}<!-- ENDIF --></p>
+
+            <div class="ucp-form-grid">
+                <!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="reason_id">{L_REASON}:</label>
+                    <select name="reason_id" id="reason_id" class="ucp-form-input"><!-- BEGIN reason --><option value="{reason.ID}"<!-- IF reason.S_SELECTED --> selected="selected"<!-- ENDIF -->>{reason.DESCRIPTION}</option><!-- END reason --></select>
+                </div>
+
+                <!-- IF S_CAN_NOTIFY -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="notify1">{L_REPORT_NOTIFY}:</label>
+                    <p class="ucp-form-help">{L_REPORT_NOTIFY_EXPLAIN}</p>
+                    <div class="ucp-radio-group">
+                        <label class="ucp-radio-label" for="notify1"><input type="radio" name="notify" id="notify1" value="1" <!-- IF not S_NOTIFY -->checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                        <label class="ucp-radio-label" for="notify0"><input type="radio" name="notify" id="notify0" value="0" <!-- IF S_NOTIFY -->checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+                    </div>
+                </div>
+                <!-- ENDIF -->
+
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="report_text">{L_MORE_INFO}:</label>
+                    <p class="ucp-form-help">{L_CAN_LEAVE_BLANK}</p>
+                    <textarea name="report_text" id="report_text" rows="10" cols="76" class="inputbox ucp-form-input">{REPORT_TEXT}</textarea>
+                </div>
+
+                <!-- IF CAPTCHA_TEMPLATE -->
+                    <!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+                <!-- ENDIF -->
+
+                <div class="ucp-actions">
+                    <input type="submit" name="submit" class="button1" value="{L_SUBMIT}" />
+                    <input type="submit" name="cancel" class="button2" value="{L_CANCEL}" />
+                    {S_FORM_TOKEN}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

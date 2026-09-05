@@ -1,0 +1,35 @@
+<!-- INCLUDE ucp_header.html -->
+
+<!-- IF S_DRAFT_LOADED -->
+    <section class="ucp-card posting-info">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_INFORMATION}</h3>
+        </div>
+        <div class="ucp-card-body">
+		<p>{L_DRAFT_LOADED_PM}</p>
+        </div>
+    </section>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_DRAFTS --><!-- INCLUDE drafts.html --><!-- ENDIF -->
+
+<!-- IF S_DISPLAY_PREVIEW --><!-- INCLUDE posting_preview.html --><!-- ENDIF -->
+
+<h2 class="solo posting-title">{L_TITLE}</h2>
+
+<section class="ucp-card posting-card" id="postingbox">
+    <div class="ucp-card-body">
+
+	<!-- DEFINE $EXTRA_POSTING_OPTIONS = 1 -->
+	<!-- INCLUDE posting_editor.html -->
+
+    </div>
+</section>
+
+<!-- IF S_SHOW_ATTACH_BOX --><!-- INCLUDE posting_attach_body.html --><!-- ENDIF -->
+
+<!-- IF S_DISPLAY_REVIEW --><!-- INCLUDE posting_topic_review.html --><!-- ENDIF -->
+
+<!-- IF S_DISPLAY_HISTORY --><!-- INCLUDE ucp_pm_history.html --><!-- ENDIF -->
+
+<!-- INCLUDE ucp_footer.html -->

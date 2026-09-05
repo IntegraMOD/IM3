@@ -1,0 +1,27 @@
+<!-- BEGIN imageblock -->
+<section class="forum-category gallery-imageblock" style="--gallery-col-width: {imageblock.S_COL_WIDTH}; --gallery-thumb-height: {S_THUMBNAIL_SIZE}px;">
+	<div class="forum-header">
+		<div class="forum-title">{imageblock.BLOCK_NAME}</div>
+	</div>
+	<div class="gallery-image-grid">
+		<!-- BEGIN imagerow -->
+			<!-- BEGIN image -->
+			<article class="gallery-image-card">
+				<figure class="gallery-image-thumb">{imageblock.imagerow.image.UC_THUMBNAIL}</figure>
+				<div class="gallery-image-meta">
+					<!-- IF imageblock.imagerow.image.UC_IMAGE_NAME --><p>{L_IMAGE_NAME}: {imageblock.imagerow.image.UC_IMAGE_NAME}</p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.U_ALBUM --><p>{L_ALBUM_NAME}: <a href="{imageblock.imagerow.image.U_ALBUM}" title="{imageblock.imagerow.image.ALBUM_NAME_FULL}">{imageblock.imagerow.image.ALBUM_NAME}</a></p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.POSTER --><p>{L_UPLOADED_BY_USER}: {imageblock.imagerow.image.POSTER}</p><!-- ENDIF -->
+					<!-- IF imageblock.imagerow.image.TIME --><p>{L_UPLOADED_ON_DATE}: {imageblock.imagerow.image.TIME}</p><!-- ENDIF -->
+					<p class="gallery-inserted" id="inserted_{imageblock.S_ROW_COUNT}_{imageblock.imagerow.S_ROW_COUNT}_{imageblock.imagerow.image.S_ROW_COUNT}" hidden="hidden">[ {L_IMAGE_INSERTED} ]</p>
+					<button type="button" class="button2" data-action="gallery-insert-image" data-image-id="{imageblock.imagerow.image.IMAGE_ID}" data-insert-id="{imageblock.S_ROW_COUNT}_{imageblock.imagerow.S_ROW_COUNT}_{imageblock.imagerow.image.S_ROW_COUNT}">{L_INSERT_IMAGE_POST}</button>
+				</div>
+			</article>
+			<!-- END image -->
+			<!-- BEGIN no_image -->
+			<article class="gallery-image-card gallery-image-card-empty" aria-hidden="true"></article>
+			<!-- END no_image -->
+		<!-- END imagerow -->
+	</div>
+</section>
+<!-- END imageblock -->

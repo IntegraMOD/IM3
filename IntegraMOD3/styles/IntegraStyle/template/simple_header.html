@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" data-style-color="blue" data-bs-theme="light">
+<head>
+<meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="{S_USER_LANG}" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+{META}
+<title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
+<script src="{ROOT_PATH}assets/js/integra_theme_bootstrap.js"></script>
+<link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
+<link href="{T_THEME_PATH}/colors.css" rel="stylesheet" type="text/css" />
+<link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
+<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<!-- ENDIF -->
+<meta name="integra-jump-page" content="{LA_JUMP_PAGE}:" />
+<meta name="integra-on-page" content="{ON_PAGE}" />
+<meta name="integra-per-page" content="{PER_PAGE}" />
+<meta name="integra-base-url" content="{A_BASE_URL}" />
+<meta name="integra-style-cookie" content="phpBBstyle" />
+<meta name="integra-style-cookie-settings" content="{A_COOKIE_SETTINGS}" />
+<script src="{ROOT_PATH}assets/js/integra_core.js"></script>
+<script src="{ROOT_PATH}assets/js/styleswitch.js"></script>
+<script src="{ROOT_PATH}assets/js/forum_fn.js"></script>
+<!-- DEFINE $POPUP = 1 -->
+</head>
+<body id="phpbb" class="simple-page {S_CONTENT_DIRECTION}">
+<!-- INCLUDE sprites/css_icon_sprite.html -->
+<div id="simple-wrap" class="site-simple-wrap">
+    <a id="top" name="top" accesskey="t"></a>
+    <main id="page-body" class="site-simple-body">

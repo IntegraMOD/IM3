@@ -1,0 +1,37 @@
+<!-- BEGIN imageblock -->
+<section class="block_data portal-gallery-grid" aria-label="{L_ALBUM}">
+                <!-- BEGIN imagerow -->
+                <div class="portal-gallery-row">
+                    <!-- BEGIN image -->
+                    <article class="portal-gallery-card bg2<!-- IF imageblock.imagerow.image.S_UNAPPROVED --> g_unapproved<!-- ENDIF --><!-- IF imageblock.imagerow.image.S_LOCKED --> g_locked<!-- ENDIF --><!-- IF imageblock.imagerow.image.S_REPORTED --> g_reported<!-- ENDIF -->" style="width: {S_COL_WIDTH};">
+                        <figure class="portal-gallery-thumb bg1" style="height: {S_THUMBNAIL_SIZE}px;">
+                            <span class="genmed">{imageblock.imagerow.image.UC_THUMBNAIL}</span>
+                        </figure>
+                        <div class="portal-gallery-meta gensmall" style="overflow: hidden;">
+                            <!-- IF imageblock.imagerow.image.CONTEST_RANK --><p>{L_CONTEST_RESULT}: <strong>{imageblock.imagerow.image.CONTEST_RANK}</strong></p><!-- ENDIF -->
+                            <!-- IF (imageblock.imagerow.image.S_LOCKED or imageblock.imagerow.image.S_UNAPPROVED) and imageblock.imagerow.image.U_STATUS --><p><a style="font-weight: bold;" class="reported-images-number" href="{imageblock.imagerow.image.U_STATUS}">{imageblock.imagerow.image.L_STATUS}</a></p><!-- ENDIF -->
+                            <!-- IF imageblock.imagerow.image.S_REPORTED and imageblock.imagerow.image.U_REPORT --><p><a style="font-weight: bold;" class="reported-images-number" href="{imageblock.imagerow.image.U_REPORT}">{L_READ_REPORT}</a></p><!-- ENDIF -->
+                            <!-- IF imageblock.imagerow.image.UC_IMAGE_NAME --><p>{L_IMAGE_NAME}: {imageblock.imagerow.image.UC_IMAGE_NAME}</p><!-- ENDIF -->
+                            <!-- IF imageblock.imagerow.image.U_ALBUM --><p>{L_ALBUM_NAME}: <a href="{imageblock.imagerow.image.U_ALBUM}" style="font-weight: bold;" title="{imageblock.imagerow.image.ALBUM_NAME_FULL}">{imageblock.imagerow.image.ALBUM_NAME}</a></p><!-- ENDIF -->
+                            <!-- IF imageblock.imagerow.image.U_REPORT or imageblock.imagerow.image.U_STATUS or imageblock.imagerow.image.U_MOVE or  imageblock.imagerow.image.U_EDIT or imageblock.imagerow.image.U_DELETE -->
+                            <button type="button" class="portal-gallery-moderate-toggle" data-toggle-target="moderate_imageblock.imagerow_{imageblock.imagerow.image.IMAGE_ID}">{L_MODERATE}</button>
+                            <nav id="moderate_imageblock.imagerow_{imageblock.imagerow.image.IMAGE_ID}" class="portal-gallery-moderation" hidden>
+                                <!-- IF imageblock.imagerow.image.U_REPORT --><a href="{imageblock.imagerow.image.U_REPORT}" class="reported-images-number">{L_READ_REPORT}</a><br /><!-- ENDIF -->
+                                <!-- IF imageblock.imagerow.image.U_STATUS --><a href="{imageblock.imagerow.image.U_STATUS}">{imageblock.imagerow.image.L_STATUS}</a><br /><!-- ENDIF -->
+                                <!-- IF imageblock.imagerow.image.U_MOVE --><a href="{imageblock.imagerow.image.U_MOVE}">{L_MOVE}</a><br /><!-- ENDIF -->
+                                <!-- IF imageblock.imagerow.image.U_EDIT --><a href="{imageblock.imagerow.image.U_EDIT}" title="{L_EDIT_IMAGE}"><svg class="css-icon css-icon-edit" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg> {L_EDIT_IMAGE}</a><br /><!-- ENDIF -->
+                                <!-- IF imageblock.imagerow.image.U_DELETE --><a href="{imageblock.imagerow.image.U_DELETE}" title="{L_DELETE_IMAGE}"><svg class="css-icon css-icon-trash" aria-hidden="true" focusable="false"><use href="#icon-trash"></use></svg> {L_DELETE_IMAGE}</a><br /><!-- ENDIF -->
+                            </nav>
+                            <!-- ENDIF -->
+                        </div>
+                    </article>
+                    <!-- END image -->
+                    <!-- BEGIN no_image --> 
+                        <article class="portal-gallery-card portal-gallery-card-empty bg2" style="width: {S_COL_WIDTH};" aria-hidden="true">
+                            <figure class="portal-gallery-thumb bg1" style="height: {S_THUMBNAIL_SIZE}px;"></figure>
+                        </article> 
+                    <!-- END no_image -->
+                </div>
+                <!-- END imagerow -->
+</section>
+<!-- END imageblock -->

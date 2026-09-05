@@ -1,0 +1,26 @@
+<!-- IF S_UCATS -->
+<!-- BEGIN maincat -->
+<section class="ucp-card kb-modern-cat<!-- IF maincat.S_ROW_COUNT is even --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+	<div class="ucp-card-header">
+		<h2 class="ucp-card-title">{maincat.TITLE}</h2>
+	</div>
+	<div class="ucp-card-body">
+		<p>{maincat.DESCRIPTION}</p>
+		<div class="kb-modern-grid">
+		<!-- BEGIN ucat -->
+			<article class="kb-modern-item">
+				<h3><a href="{maincat.ucat.U_CATEGORIE}">{maincat.ucat.TITLE}</a></h3>
+				<!-- BEGIN article -->
+					<p><strong><a href="{maincat.ucat.article.U_ARTICLE}">{maincat.ucat.article.TITLE}</a></strong><br />
+					{maincat.ucat.article.DESCRIPTION}</p>
+				<!-- END article -->
+				<!-- IF maincat.ucat.SUB_CAT} --><p><strong>{L_SUB_CATGEGORIES}: {maincat.ucat.SUB_CAT}</strong></p><!-- ENDIF -->
+				<!-- IF maincat.ucat.S_MORE_LINK --><p><a href="{maincat.ucat.U_CATEGORIE}">{maincat.ucat.READ_MORE}</a></p><!-- ENDIF -->
+			</article>
+		<!-- END ucat -->
+		</div>
+		<p class="back2top"><a href="{U_KB}#wrap" class="top" title="{L_BACK_TO_TOP}">{L_BACK_TO_TOP}</a></p>
+	</div>
+</section>
+<!-- END maincat -->
+<!-- ENDIF -->

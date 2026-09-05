@@ -1,0 +1,119 @@
+<!-- INCLUDE mcp_header.html -->
+
+<!-- IF S_MCP_REPORT -->
+	<h2>{L_REPORT_DETAILS}</h2>
+	<section id="report" class="ucp-card">
+		<div class="ucp-card-body">
+			<h3>{L_REPORT_REASON}: {REPORT_REASON_TITLE}</h3>
+			<p class="author">{L_REPORTED} {L_POST_BY_AUTHOR} {REPORTER_FULL} {L_REPORTED_ON_DATE} {REPORT_DATE}</p>
+			<!-- IF not S_POST_REPORTED -->
+			<p class="rules">{L_REPORT_CLOSED}</p>
+			<!-- ENDIF -->
+			<div class="content">
+				<!-- IF REPORT_TEXT -->
+					{REPORT_TEXT}
+				<!-- ELSE -->
+					{REPORT_REASON_DESCRIPTION}
+				<!-- ENDIF -->
+			</div>
+		</div>
+	</section>
+	<form method="post" id="mcp_report" action="{S_CLOSE_ACTION}">
+		<div class="ucp-actions">
+			<!-- IF S_POST_REPORTED -->
+				<input class="button1" type="submit" value="{L_CLOSE_REPORT}" name="action[close]" />
+			<!-- ENDIF -->
+			<input class="button2" type="submit" value="{L_DELETE_REPORT}" name="action[delete]" />
+			<input type="hidden" name="report_id_list[]" value="{REPORT_ID}" />
+			{S_FORM_TOKEN}
+		</div>
+	</form>
+<!-- ELSE -->
+	<h2>{L_ARTICLE_DETAIL}</h2>
+<!-- ENDIF -->
+
+<section class="ucp-card">
+	<div class="ucp-card-body">
+		<!-- IF U_EDIT -->
+		<ul class="profile-icons">
+			<li class="edit-icon"><a href="{U_EDIT}" title="{L_EDIT_POST}">{L_EDIT_POST}</a></li>
+		</ul>
+		<!-- ENDIF -->
+		<h3>{POST_SUBJECT}</h3>
+		<p class="author"><svg class="css-icon css-icon-mini-post" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg> {L_POSTED} {L_POST_BY_AUTHOR} {POST_AUTHOR_FULL} {L_POSTED_ON_DATE} {POST_DATE}</p>
+		<!-- IF S_POST_UNAPPROVED -->
+		<form method="post" id="mcp_approve" action="{U_APPROVE_ACTION}">
+			<p class="rules">
+				<input class="button1" type="submit" value="{L_APPROVE}" name="action[approve]" />
+				<input class="button2" type="submit" value="{L_DISAPPROVE}" name="action[disapprove]" />
+				<input type="hidden" name="article_id_list[]" value="{ARTICLE_ID}" />
+				{S_FORM_TOKEN}
+			</p>
+		</form>
+		<!-- ENDIF -->
+		<!-- IF S_MESSAGE_REPORTED -->
+		<p class="rules post-rules"><svg class="css-icon css-icon-flag" aria-hidden="true" focusable="false"><use href="#icon-flag"></use></svg> <a href="{U_MCP_REPORT}"><strong>{L_MESSAGE_REPORTED}</strong></a></p>
+		<!-- ENDIF -->
+		<div class="content">{POST_PREVIEW}</div>
+		<!-- IF .attachment -->
+		<dl class="attachbox">
+			<dt>{L_ATTACHMENTS}</dt>
+			<!-- BEGIN attachment -->
+				<dd>{attachment.DISPLAY_ATTACHMENT}</dd>
+			<!-- END attachment -->
+		</dl>
+		<!-- ENDIF -->
+		<p><a href="{U_ARTICLE}">{L_SHOW_ARTICLE}</a></p>
+	</div>
+</section>
+
+<!-- IF S_CH_POSTER -->
+<section class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_MOD_OPTIONS}</h3>
+	</div>
+	<div class="ucp-card-body">
+		<form method="post" id="mcp_chgposter" action="{U_POST_ACTION}" class="ucp-form-grid">
+			<div class="ucp-form-row">
+				<label class="ucp-form-label">{L_CHANGE_POSTER}:</label>
+				<input class="inputbox autowidth ucp-form-input" type="text" name="username" value="" />
+				<input type="submit" class="button2" name="action[chgposter]" value="{L_CONFIRM}" />
+				<p><a href="{U_FIND_USERNAME}" data-find-username="true">{L_FIND_USERNAME}</a></p>
+			</div>
+			{S_FORM_TOKEN}
+		</form>
+	</div>
+</section>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_EDITS -->
+<a id="log" name="log"></a>
+<section class="ucp-card">
+	<div class="ucp-card-body">
+		<form method="post" action="{U_ACTION}">
+			<header class="forum-header mcp-list-header">
+				<div class="forum-title">{L_LOG_TITEL}</div>
+				<!-- IF S_DELETE_LOG --><div class="forum-stats-header mark">{L_MARK}</div><!-- ENDIF -->
+			</header>
+			<div class="forum-list">
+			<!-- BEGIN log -->
+				<article class="forum-row mcp-list-row <!-- IF log.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+					<div class="forum-details">{L_CHANGED_AT} : {log.CHANGE_TIME} {L_FROM} {log.USER} {log.CHANGE_REASON}</div>
+					<!-- IF S_DELETE_LOG --><div class="stat-mark"><input type="checkbox" class="radio" name="mark[]" value="{log.ID}" /></div><!-- ENDIF -->
+				</article>
+			<!-- BEGINELSE -->
+				<p>{L_NO_MATCHES_FOUND}</p>
+			<!-- END log -->
+			</div>
+			<!-- IF S_DELETE_LOG -->
+			<div class="ucp-actions">
+				<input class="button2" type="submit" name="delall" value="{L_DELETE_ALL}" />
+				<input class="button2" type="submit" name="delmarked" value="{L_DELETE_MARKED}" />
+			</div>
+			<!-- ENDIF -->
+		</form>
+	</div>
+</section>
+<!-- ENDIF -->
+
+<!-- INCLUDE mcp_footer.html -->

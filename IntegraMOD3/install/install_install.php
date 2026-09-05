@@ -529,25 +529,35 @@ class install_install extends module
 			'S_HIDDEN'	=> $s_hidden_fields,
 			'U_ACTION'	=> $url,
 		));
-        // Add ACM selection on the administrator page so it can be written into config.php
-        // Obtain any submitted data to ensure we have the current selection
-        $data = $this->get_submitted_data();
-        $detected_options = acm_select($data['acm_type']);
 
-        // Place ACM selector under its own legend
-        $template->assign_block_vars('options', array(
-            'S_LEGEND'	=> true,
-            'LEGEND'	=> $lang['CACHE_STORE'],
-        ));
+		// Display supported ACM backends. Selection is not made on this page.
+		$template->assign_block_vars('checks', array(
+			'S_LEGEND'			=> true,
+			'LEGEND'			=> $lang['CACHE_STORE'],
+			'LEGEND_EXPLAIN'	=> isset($lang['CACHE_STORE_EXPLAIN']) ? $lang['CACHE_STORE_EXPLAIN'] : '',
+		));
 
-        $template->assign_block_vars('options', array(
-            'KEY'			=> 'acm_type',
-            'TITLE'			=> $lang['CACHE_STORE'],
-            'S_EXPLAIN'		=> false,
-            'S_LEGEND'		=> false,
-            'TITLE_EXPLAIN'	=> '',
-            'CONTENT'		=> '<select id="acm_type" name="acm_type">' . $detected_options . '</select>',
-        ));
+		$cache_backends = array(
+			'eaccelerator'	=> extension_loaded('eaccelerator'),
+			'file'			=> true,
+			'memcache'		=> (extension_loaded('memcache') || class_exists('Memcache')),
+			'redis'			=> (extension_loaded('redis') || class_exists('Redis')),
+			'wincache'		=> extension_loaded('wincache'),
+			'xcache'		=> extension_loaded('xcache'),
+		);
+
+		foreach ($cache_backends as $acm_type => $available)
+		{
+			$label_key = 'CACHE_' . strtoupper($acm_type);
+			$title = isset($lang[$label_key]) ? $lang[$label_key] : $acm_type;
+
+			$template->assign_block_vars('checks', array(
+				'TITLE'		=> $title,
+				'RESULT'	=> ($available) ? '<strong style="color:green">' . $lang['AVAILABLE'] . '</strong>' : '<strong style="color:red">' . $lang['UNAVAILABLE'] . '</strong>',
+				'S_EXPLAIN'	=> false,
+				'S_LEGEND'	=> false,
+			));
+		}
 	}
 
 	/**

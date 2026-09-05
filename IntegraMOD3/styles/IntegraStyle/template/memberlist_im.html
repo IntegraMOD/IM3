@@ -1,0 +1,145 @@
+<!-- INCLUDE simple_header.html -->
+
+<h2>{L_SEND_IM}</h2>
+
+<form method="post" action="{S_IM_ACTION}">
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <p>{L_SEND_IM_EXPLAIN}</p>
+            <div class="ucp-form-grid">
+                <div class="ucp-form-row">
+                    <p class="ucp-form-label">{L_IM_RECIPIENT}:</p>
+                    <strong>{USERNAME}</strong><!-- IF S_SEND_ICQ or S_SEND_AIM or S_SEND_MSNM or S_NO_SEND_JABBER or S_SEND_FB or S_SEND_IG or S_SEND_PT or S_SEND_TWR or S_SEND_SKP or S_SEND_TG or S_SEND_LI or S_SEND_TT or S_SEND_DC --> [ {IM_CONTACT} ]<!-- ENDIF -->
+                </div>
+
+                <!-- IF S_SEND_FB -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_FB_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_FB_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://www.facebook.com">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_IG -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_IG_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_IG_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://www.instagram.com">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_PT -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_PT_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_PT_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://www.pinterest.com">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_TWR -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_TWR_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_TWR_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://twitter.com/download">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_SKP -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_SKP_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_SKP_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://www.skype.com/en/get-skype">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_TG -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_TG_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_TG_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://telegram.org">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_LI -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_LI_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_LI_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://www.linkedin.com">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_TT -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_TT_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_TT_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://www.tiktok.com/download">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_DC -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_DC_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_DC_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="https://discord.com/download">{L_IM_DOWNLOAD_APP}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_ICQ -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="from">{L_IM_NAME}:</label>
+                    <input class="inputbox autowidth ucp-form-input" type="text" name="from" id="from" size="20" />
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="body">{L_IM_MESSAGE}:</label>
+                    <textarea class="inputbox autowidth ucp-form-textarea" name="body" id="body" rows="5" cols="45"></textarea>
+                </div>
+                <div class="ucp-actions">
+                    <input class="button1" name="submit" type="submit" value="{L_IM_SEND}" />
+                </div>
+                <input type="hidden" name="fromemail" value="{EMAIL}" />
+                <input type="hidden" name="subject" value="{SITENAME}" />
+                <input type="hidden" name="to" value="{IM_CONTACT}" />
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_AIM -->
+                <ul class="member-im-actions">
+                    <li><a href="{U_AIM_CONTACT}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="{U_AIM_MESSAGE}">{L_IM_SEND_MESSAGE}</a></li>
+                    <li><a href="http://www.aim.com">{L_IM_DOWNLOAD_APP}</a> | <a href="http://www.aim.com/products/express">{L_IM_AIM_EXPRESS}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_MSNM -->
+                <object classid="clsid:B69003B3-C55E-4B48-836C-BC5946FC3B28" codetype="application/x-oleobject" id="objMessengerApp" width="0" height="0"></object>
+                <ul class="member-im-actions">
+                    <li><a href="javascript:void(0)" data-action="msn-add-contact" data-im-contact="{A_IM_CONTACT}" data-msn-connect="{LA_IM_MSNM_CONNECT}" data-msn-browser="{LA_IM_MSNM_BROWSER}">{L_IM_ADD_CONTACT}</a></li>
+                    <li><a href="javascript:void(0)" data-action="msn-send-message" data-im-contact="{A_IM_CONTACT}" data-msn-connect="{LA_IM_MSNM_CONNECT}" data-msn-browser="{LA_IM_MSNM_BROWSER}">{L_IM_SEND_MESSAGE}</a></li>
+                </ul>
+                <!-- ENDIF -->
+
+                <!-- IF S_SEND_JABBER -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="message">{L_IM_MESSAGE}:</label>
+                    <textarea class="inputbox autowidth ucp-form-textarea" name="message" id="message" rows="5" cols="45"></textarea>
+                </div>
+                <div class="ucp-actions">
+                    <input class="button1" name="submit" type="submit" value="{L_IM_SEND}" />
+                </div>
+                <!-- ENDIF -->
+
+                <!-- IF S_NO_SEND_JABBER -->
+                <p>{L_IM_NO_JABBER}</p>
+                <!-- ENDIF -->
+
+                <!-- IF S_SENT_JABBER -->
+                <p>{L_IM_SENT_JABBER}</p>
+                <!-- ENDIF -->
+                {S_FORM_TOKEN}
+            </div>
+        </div>
+    </section>
+</form>
+
+<p><a href="javascript:void(0)" data-action="close-window">{L_CLOSE_WINDOW}</a></p>
+
+<!-- INCLUDE simple_footer.html -->

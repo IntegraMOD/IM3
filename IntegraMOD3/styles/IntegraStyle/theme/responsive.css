@@ -1,0 +1,153 @@
+/* IntegraStyle Responsive Framework */
+@media (max-width: 980px) {
+    .forum-stats-header.topics,
+    .forum-stats-header.posts,
+    .stat-topics,
+    .stat-posts { display: none; }
+
+    .forum-stats-grid { width: 200px; justify-content: flex-end; }
+}
+
+@media (max-width: 768px) {
+    /* Base Reset */
+    #page-content,
+    .site-header-inner,
+    .navbar-inner,
+    .site-footer-inner { padding-left: 5px; padding-right: 5px; }
+    /* Prevent any child from stretching the page wider than the viewport */
+    #page-content { max-width: 100%; box-sizing: border-box; }
+    .site-header, .navbar, .site-footer { max-width: 100%; }
+    table { max-width: 100%; }
+    img, video, iframe { max-width: 100%; height: auto; }
+    /* Mobile Nav Overrides */
+    .navlist { flex-direction: column; width: 100%; }
+    .nav-item { width: 100%; border-bottom: 1px solid var(--border-ad-panel); }
+    .nav-item > a { padding: 15px; }
+    /* Dropdowns to accordions */
+    .sub-menu { position: relative; top: 0; min-width: 100%; box-shadow: none; border: none; border-top: 1px solid var(--border-ad-panel); display: none; }
+    .has-dropdown.dropdown-open .sub-menu { display: block; }
+    /* Strip hover behavior on mobile to prevent snapping */
+    .has-dropdown:hover .sub-menu { display: none; }
+    .has-dropdown.dropdown-open:hover .sub-menu { display: block; }
+    /* Site Header adjustments */
+    .site-header h1 { font-size: 1.5em; }
+    .navbar { padding: 0; }
+    /* Forum Lists */
+    .stat-topics, .stat-posts, .stat-lastpost { display: none; }
+    .forum-stats-header { display: none; }
+    .forum-row { flex-wrap: wrap; align-items: flex-start; }
+    .forum-details { flex: 1 1 auto; min-width: 0; }
+    /* In mobile we only want to show the forum icon, details and last post */
+    .stat-lastpost { display: block; width: auto; font-size: 0.85em; margin-top: 5px; }
+    /* Stats block drops to its own full-width line below the forum details */
+    .forum-stats-grid { flex: 0 0 100%; width: 100%; min-width: 0; flex-direction: column; align-items: flex-start; margin-top: 5px; }
+    .stat-replies, .stat-views { width: auto; text-align: left; }
+    .stat-lastpost, .lastpost-meta { width: 100%; min-width: 0; overflow-wrap: anywhere; }
+}
+
+@media (max-width: 768px) {
+    #wrap,
+    #page-width,
+    #page-body,
+    #page-content { max-width: 100%; min-width: 0; box-sizing: border-box; }
+    .footer-nav { width: 100%; max-width: 100%; margin: 0 0 10px; padding-left: 5px; padding-right: 5px; transform: none; }
+    .post-row > .viewtopic-post-inner,
+    .viewtopic-post-inner { display: block; width: 100%; max-width: 100%; }
+    .post-profile {
+        border-right: none;
+        border-bottom: 1px solid var(--surface-border);
+        width: 100%;
+        box-sizing: border-box;
+    }
+    /* Compact horizontal profile strip: avatar left, info right */
+    .post-profile .profile-header {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 0.75rem;
+    }
+    .post-profile .profile-avatar img { max-width: 48px; border-radius: 50%; }
+    .post-profile .profile-details {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.2rem 0.8rem;
+        margin-top: 0.3rem;
+        font-size: 0.85em;
+    }
+    .post-profile .profile-contacts { margin-top: 0.3rem; }
+    .post,
+    .post-row,
+    .postbody,
+    .viewtopic-post-inner,
+    .post-content,
+    .post-message { float: none; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+    .post-content { padding: 0.75rem 0.5rem; overflow-wrap: anywhere; word-wrap: break-word; word-break: break-word; }
+    .post-content h3 { padding-right: 0; }
+    .post-message img,
+    .post-message video,
+    .post-message iframe,
+    .post-message table { max-width: 100%; }
+    .post-message img,
+    .post-message video { height: auto; }
+    .post-message table { display: block; overflow-x: auto; }
+    /* Search results (post view) message wrapping */
+    .postbody .content { overflow-wrap: anywhere; word-wrap: break-word; word-break: break-word; }
+    .postbody .content img,
+    .postbody .content video,
+    .postbody .content iframe,
+    .postbody .content table { max-width: 100%; }
+    .postbody .content img,
+    .postbody .content video { height: auto; }
+    .postbody .content table { display: block; overflow-x: auto; }
+    /* Prevent search/UCP card grids from forcing the page wider than the viewport.
+       Grid/flex children default to min-width:auto, so long unbreakable strings
+       (author names, forum titles, URLs) can overflow horizontally. */
+    .ucp-card,
+    .ucp-card-body,
+    .ucp-form-grid,
+    .ucp-form-row { min-width: 0; }
+    .ucp-form-grid > *,
+    .ucp-form-row > * { min-width: 0; max-width: 100%; }
+    .ucp-form-row { overflow-wrap: anywhere; word-break: break-word; }
+    /* Cap any select (including phpBB-generated ones without a helper class) */
+    .ucp-card select,
+    .display-options select,
+    .topic-actions select { max-width: 100%; }
+    blockquote { margin-left: 0.5rem; margin-right: 0; }
+    .posttools { float: none; justify-content: flex-end; margin: 0 0 0.75rem; }
+}
+@media (max-width: 768px) {
+    .right-arrow { display: none; }
+}
+
+@media (max-width: 768px) {
+    .left-arrow { display: block; }
+}
+
+/* Search Toggle for Mobile */
+@media (max-width: 768px) {
+    .search-toggle-btn { display: block; }
+    #search.search-form-hidden { display: none; }
+    #search.search-form-visible { display: block; position: absolute; top: 100%; right: 0; background: var(--bg-header); border: 1px solid var(--border-ad-panel); padding: 15px; z-index: 1000; width: 280px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 4px; }
+    #search input.search { width: 100%; border-right: 1px solid var(--search-border); border-radius: 4px; margin-bottom: 10px; }
+    #search .button2 { width: 100%; border-radius: 4px; margin-left: 0; }
+}
+
+/* Header alignment for Mobile */
+@media (max-width: 768px) {
+    .site-header-inner { flex-direction: column; text-align: center; }
+    #site-description { flex-direction: column; gap: 5px; width: 100%; }
+    #site-description .site-text { align-items: center; }
+    .search-toggle-container { position: absolute; right: 15px; top: 15px; margin: 0; }
+    .footer-nav { padding-left: 5px; padding-right: 5px; }
+    .footer-navlist { justify-content: center; }
+    .footer-arrow-end { margin-left: 0; }
+    .footer-meta { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    .nav-style { margin-left: 0; }
+    .style-sub-menu { min-width: 100%; }
+    .style-sub-menu { grid-template-columns: repeat(2, min-content); justify-content: flex-start; }
+    .style-sub-menu a { justify-content: center; }
+}

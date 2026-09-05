@@ -1,0 +1,89 @@
+<!-- BEGIN forumrow -->
+	<!-- IF (forumrow.S_IS_CAT and not forumrow.S_FIRST_ROW) or forumrow.S_NO_CAT  -->
+			</div>
+		</section>
+	<!-- ENDIF -->
+
+	<!-- IF forumrow.S_IS_CAT or forumrow.S_FIRST_ROW  or forumrow.S_NO_CAT  -->
+		<section class="forum-category">
+            <div class="forum-header forum-list-header">
+				<div class="forum-title"><!-- IF forumrow.S_IS_CAT --><a href="{forumrow.U_VIEWFORUM}">{forumrow.FORUM_NAME}</a><!-- ELSE -->{L_FORUM}<!-- ENDIF --></div>
+				<div class="forum-stats-header topics">{L_TOPICS}</div>
+				<div class="forum-stats-header posts">{L_POSTS}</div>
+				<div class="forum-stats-header last-post">{L_LAST_POST}</div>
+                <div class="category-toggle-container"><button type="button" class="category-toggle {forumrow.COLLAPSE_CLASS}" data-target="flist{forumrow.FORUM_ID}"><svg class="css-icon css-icon-minus" aria-hidden="true" focusable="false"><use href="#icon-minus"></use></svg></button></div>
+			</div>
+			<div class="forum-list" id="flist{forumrow.FORUM_ID}" {forumrow.S_COLLAPSE}>
+	<!-- ENDIF -->
+
+			<!-- IF not forumrow.S_IS_CAT -->
+				<div class="forum-row">
+                    <div class="forum-icon {forumrow.FORUM_FOLDER_STATE} <!-- IF forumrow.S_UNREAD_FORUM -->unread<!-- ELSE -->read<!-- ENDIF --><!-- IF forumrow.S_LOCKED_FORUM --> locked<!-- ENDIF --><!-- IF forumrow.S_IS_LINK --> link<!-- ENDIF -->" title="{forumrow.FORUM_FOLDER_IMG_ALT}">
+                        <svg class="css-icon" aria-hidden="true" focusable="false"><!-- IF forumrow.FORUM_FOLDER_STATE == 'forum_link' --><use href="#icon-state-link"></use><!-- ELSEIF forumrow.FORUM_FOLDER_STATE == 'forum_read_locked' or forumrow.FORUM_FOLDER_STATE == 'forum_unread_locked' --><use href="#icon-state-lock"></use><!-- ELSEIF forumrow.FORUM_FOLDER_STATE == 'forum_read_subforum' or forumrow.FORUM_FOLDER_STATE == 'forum_unread_subforum' --><use href="#icon-state-folder-open"></use><!-- ELSE --><use href="#icon-state-folder"></use><!-- ENDIF --></svg>
+					</div>
+					<div class="forum-details">
+						<!-- IF S_ENABLE_FEEDS and forumrow.S_FEED_ENABLED -->
+                        <a class="feed-icon-forum" title="{L_FEED} - {forumrow.FORUM_NAME}" href="{U_FEED}?f={forumrow.FORUM_ID}"><svg class="css-icon css-icon-feed" aria-hidden="true" focusable="false"><use href="#icon-feed"></use></svg></a><!-- ENDIF -->
+						<!-- IF forumrow.FORUM_IMAGE --><span class="forum-image">{forumrow.FORUM_IMAGE}</span>
+						<!-- ENDIF -->
+						<a href="{forumrow.U_VIEWFORUM}" class="forumtitle">{forumrow.FORUM_NAME}</a>
+						<div class="forum-desc">{forumrow.FORUM_DESC}</div>
+						<!-- IF forumrow.MODERATORS -->
+						<div class="forum-mods"><strong>{forumrow.L_MODERATOR_STR}:</strong> {forumrow.MODERATORS}</div>
+						<!-- ENDIF -->
+						<!-- IF forumrow.SUBFORUMS and forumrow.S_LIST_SUBFORUMS -->
+						<div class="forum-subforums"><strong>{forumrow.L_SUBFORUM_STR}</strong> {forumrow.SUBFORUMS}</div>
+						<!-- ENDIF -->
+					</div>
+					
+					<div class="forum-stats-grid">
+					<!-- IF forumrow.CLICKS -->
+						<div class="stat-redirects">{L_REDIRECTS}: {forumrow.CLICKS}</div>
+					<!-- ELSEIF not forumrow.S_IS_LINK -->
+						<div class="stat-topics">{forumrow.TOPICS} <dfn>{L_TOPICS}</dfn></div>
+						<div class="stat-posts">{forumrow.POSTS} <dfn>{L_POSTS}</dfn></div>
+						<div class="stat-lastpost">
+							<!-- IF forumrow.U_UNAPPROVED_TOPICS -->
+                            <a href="{forumrow.U_UNAPPROVED_TOPICS}" class="forum-status-link forum-status-link-unapproved"><span aria-hidden="true"></span><strong>{L_UNAPPROVED}</strong></a>
+							<!-- ENDIF -->
+							<!-- IF forumrow.LAST_POST_TIME -->
+								<div class="avatar-stack">
+									<!-- IF forumrow.LAST_POSTER_AVATAR -->
+									<a href="{forumrow.U_LAST_POSTER}" class="avatar-stack-item avatar-stack-op" title="{forumrow.LAST_POSTER_NAME}">
+										{forumrow.LAST_POSTER_AVATAR}
+									</a>
+									<!-- ENDIF -->
+									<!-- BEGIN recent_posters -->
+									<a href="{forumrow.recent_posters.U_PROFILE}" class="avatar-stack-item" title="{forumrow.recent_posters.USERNAME}">
+										{forumrow.recent_posters.AVATAR}
+									</a>
+									<!-- END recent_posters -->
+								</div>
+								<div class="lastpost-meta">
+													{L_POST_BY_AUTHOR} {forumrow.LAST_POSTER_FULL}
+									<!-- IF not S_IS_BOT -->
+                                    <a href="{forumrow.U_LAST_POST}" class="lastpost-link" aria-label="{L_LAST_POST}"><svg class="css-icon css-icon-lastpost" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg></a>
+									<!-- ENDIF -->
+									<br />{forumrow.LAST_POST_TIME}
+								</div>
+							<!-- ELSE -->
+								{L_NO_POSTS}
+							<!-- ENDIF -->
+						</div>
+					<!-- ENDIF -->
+					</div>
+				</div>
+	        <!-- ENDIF -->
+
+	<!-- IF forumrow.S_LAST_ROW -->
+			</div>
+		</section>
+	<!-- ENDIF -->
+
+<!-- BEGINELSE -->
+	<section class="forum-category panel">
+		<div class="no-forums">
+			<strong>{L_NO_FORUMS}</strong>
+		</div>
+	</section>
+<!-- END forumrow -->

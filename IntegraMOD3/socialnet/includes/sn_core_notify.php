@@ -32,9 +32,9 @@ class sn_core_notify
      * @param mixed $to_user ID user(s), which belongs the notification
      * @param array $data Notification data to be displayed
      */
-    public function add($type, mixed $to_user, $data)
+    public function add($type, $to_user, $data)
     {
-        global $db, $config;
+        global $db, $config, $user;
         if (!is_array($to_user)) {
             $to_user = array($to_user);
         }
@@ -58,6 +58,71 @@ class sn_core_notify
 
             $db->sql_multi_insert(SN_NOTIFY_TABLE, $sqls);
             $return = 'SN_NTF_NTFS_SENDED';
+        }
+
+        if (function_exists('trigger_user_push'))
+        {
+            $text_key = isset($data['text']) ? $data['text'] : '';
+            $actor = isset($data['user']) ? $data['user'] : $user->data['username'];
+            $event_type = '';
+            $title = '';
+            $message = $actor;
+
+            if ($type == SN_NTF_FRIENDSHIP)
+            {
+                if ($text_key === 'SN_NTF_FRIENDSHIP_REQUEST')
+                {
+                    $event_type = 'friend_req';
+                    $title = 'Friend request';
+                    $message = $actor . ' sent you a friend request';
+                }
+                else if ($text_key === 'SN_NTF_FRIENDSHIP_ACCEPT')
+                {
+                    $event_type = 'friend_acc';
+                    $title = 'Friend request accepted';
+                    $message = $actor . ' accepted your friend request';
+                }
+            }
+            else if ($type == SN_NTF_WALL || $type == SN_NTF_COMMENT || $type == SN_NTF_EMOTE || $type == SN_NTF_FAMILY || $type == SN_NTF_RELATION || (defined('SN_NTF_REALTION') && $type == SN_NTF_REALTION))
+            {
+                $event_type = 'activity';
+                $title = 'Activity';
+                if ($text_key === 'SN_NTF_STATUS_FRIEND_WALL')
+                {
+                    $message = $actor . ' posted on your wall';
+                }
+                else if ($text_key === 'SN_NTF_STATUS_FRIEND_MENTION')
+                {
+                    $message = $actor . ' mentioned you';
+                }
+                else if ($text_key === 'SN_NTF_EMOTE')
+                {
+                    $emote = isset($data['emote']) ? $data['emote'] : 'emote';
+                    $message = $actor . ' sent you an emote: ' . $emote;
+                }
+                else
+                {
+                    $message = $actor . ' sent you an activity notification';
+                }
+            }
+
+            if ($event_type !== '')
+            {
+                $url = '';
+                if (!empty($data['link']))
+                {
+                    $url = generate_board_url() . '/' . str_replace('&amp;', '&', $data['link']);
+                }
+
+                foreach ($to_user as $push_user_id)
+                {
+                    $push_user_id = (int) $push_user_id;
+                    if ($push_user_id && $push_user_id != (int) $user->data['user_id'])
+                    {
+                        trigger_user_push($push_user_id, $event_type, $title, $message, $url);
+                    }
+                }
+            }
         }
 
         return $return;

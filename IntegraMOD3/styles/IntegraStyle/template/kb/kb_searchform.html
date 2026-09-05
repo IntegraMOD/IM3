@@ -1,0 +1,53 @@
+<!-- INCLUDE overall_header.html -->
+<p class="{S_CONTENT_FLOW_END}<!-- IF S_USER_LOGGED_IN --> rightside<!-- ENDIF -->"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ELSE -->{CURRENT_TIME}<!-- ENDIF --></p>
+<!-- IF U_MCP --><p>{CURRENT_TIME} <br />[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ELSEIF S_USER_LOGGED_IN --><p>{CURRENT_TIME}</p><!-- ENDIF -->
+
+<div class="kb-layout">
+	<h2>{L_SEARCH}</h2>
+	<form method="get" action="{U_ACTION}">
+		<section class="ucp-card">
+			<div class="ucp-card-header">
+				<h3 class="ucp-card-title">{L_SEARCH_QUERY}</h3>
+			</div>
+			<div class="ucp-card-body ucp-form-grid">
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="q">{L_SEARCH_KEYWORDS}:</label>
+					<p class="ucp-form-help">{L_SEARCH_KEYWORDS_DESC}</p>
+					<input type="text" class="inputbox ucp-form-input" name="q" id="q" size="40" title="{L_SEARCH_KEYWORDS}" />
+					<div class="ucp-form-inline">
+						<label for="terms1"><input type="radio" name="terms" id="terms1" value="all" checked="checked" /> {L_SEARCH_ALL_TERMS}</label>
+						<label for="terms2"><input type="radio" name="terms" id="terms2" value="any" /> {L_SEARCH_ANY_TERMS}</label>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="ucp-card">
+			<div class="ucp-card-header">
+				<h3 class="ucp-card-title">{L_SEARCH_OPTIONS}</h3>
+			</div>
+			<div class="ucp-card-body ucp-form-grid">
+				<!-- IF S_ARTICLE_TYPES -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="tid">{L_ARTICLE_TYPES}:</label>
+					<p class="ucp-form-help">{L_ARTICLE_TYPES_DESC}.</p>
+					<select name="tid[]" id="tid" multiple="multiple" size="4" title="{L_ARTICLE_TYPES}" class="ucp-form-select">{TYPE_OPTION}</select>
+				</div>
+				<!-- ENDIF -->
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="cid">{L_CATEGORIES}:</label>
+					<p class="ucp-form-help">{L_CATEGORIES_DESC}</p>
+					<select name="cid[]" id="cid" multiple="multiple" size="6" title="{L_CATEGORIES}" class="ucp-form-select">{CAT_OPTION}</select>
+				</div>
+			</div>
+		</section>
+
+		<div class="ucp-actions">
+			<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+			<input type="submit" name="submit" value="{L_SEARCH}" class="button1" />
+		</div>
+	</form>
+	<p><a href="{U_KB}" class="left-box left" accesskey="r">{L_BACK_KB}</a></p>
+</div>
+<!-- INCLUDE overall_footer.html -->
+

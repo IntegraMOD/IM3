@@ -1,0 +1,38 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{L_FAQ_TITLE}</h2>
+
+<nav class="ucp-card faq-index" id="faqlinks" aria-label="{L_FAQ_TITLE}">
+    <div class="ucp-card-body faq-index-grid">
+    <!-- BEGIN faq_block -->
+        <section class="faq-index-group">
+            <h3>{faq_block.BLOCK_TITLE}</h3>
+            <ul>
+            <!-- BEGIN faq_row -->
+                <li><a href="#f{faq_block.S_ROW_COUNT}r{faq_block.faq_row.S_ROW_COUNT}">{faq_block.faq_row.FAQ_QUESTION}</a></li>
+            <!-- END faq_row -->
+            </ul>
+        </section>
+    <!-- END faq_block -->
+    </div>
+</nav>
+
+<!-- BEGIN faq_block -->
+    <section class="ucp-card faq-section <!-- IF faq_block.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+        <div class="ucp-card-header">
+            <h3>{faq_block.BLOCK_TITLE}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <!-- BEGIN faq_row -->
+                <article class="faq-item">
+                    <h4 id="f{faq_block.S_ROW_COUNT}r{faq_block.faq_row.S_ROW_COUNT}">{faq_block.faq_row.FAQ_QUESTION}</h4>
+                    <div class="faq-answer">{faq_block.faq_row.FAQ_ANSWER}</div>
+                    <p class="faq-backtotop"><a href="#faqlinks">{L_BACK_TO_TOP}</a></p>
+                </article>
+            <!-- END faq_row -->
+        </div>
+    </section>
+<!-- END faq_block -->
+
+<!-- INCLUDE jumpbox.html -->
+<!-- INCLUDE overall_footer.html -->

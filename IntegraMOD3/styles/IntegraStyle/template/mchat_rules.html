@@ -1,0 +1,16 @@
+<!-- INCLUDE simple_header.html -->
+
+<h2>{L_MCHAT_HELP}</h2>
+<section class="ucp-card">
+    <div class="ucp-card-body">
+        <!-- IF MCHAT_RULES and not .rule -->
+        {MCHAT_RULES}
+        <!-- ENDIF -->
+        <!-- BEGIN rule -->
+        <p>{rule.MCHAT_RULE}</p>
+        <!-- END rule -->
+    </div>
+</section>
+<p><a href="javascript:void(0)" data-action="close-window">{L_CLOSE_WINDOW}</a></p>
+
+<!-- INCLUDE simple_footer.html -->

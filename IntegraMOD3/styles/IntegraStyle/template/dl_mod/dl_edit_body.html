@@ -1,0 +1,236 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<form action="{S_DOWNLOADS_ACTION}" method="post" {ENCTYPE} id="dl_edit">
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{DL_FILES_TITLE}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <!-- IF S_UPLOAD_TRAFFIC --><p>{L_DL_UPLOAD_TRAFFIC_COUNT}</p><!-- ENDIF -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="description">{L_DL_NAME}</label>
+                <a href="{U_HELP_POPUP}{L_DL_NAME_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_NAME_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="description" name="description" size="40" maxlength="255" value="{DESCRIPTION}" class="inputbox ucp-form-input" />
+            </div>
+            <!-- IF S_CAT_CHOOSE -->
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_DL_CAT_NAME}</span>
+                <a href="{U_HELP_POPUP}{L_DL_CAT_NAME_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_CAT_NAME_EXPLAIN}">{L_INFORMATION}</a>
+                <div class="ucp-form-content">{SELECT_CAT}</div>
+            </div>
+            <!-- ENDIF -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="long_desc">{L_DL_FILE_DESCRIPTION}</label>
+                <a href="{U_HELP_POPUP}{L_DL_DESCRIPTION_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_DESCRIPTION_EXPLAIN}">{L_INFORMATION}</a>
+                <textarea name="long_desc" id="long_desc" rows="4" cols="100" class="inputbox ucp-form-input">{LONG_DESC}</textarea>
+            </div>
+        </div>
+    </section>
+
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="dl_name">{L_DL_UPLOAD_FILE}</label>
+                <a href="{U_HELP_POPUP}{L_DL_UPLOAD_FILE_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_UPLOAD_FILE_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="file" id="dl_name" name="dl_name" class="inputbox ucp-form-input" size="46" />
+                <p class="ucp-form-help">{MAX_UPLOAD_SIZE}{EXT_BLACKLIST}</p>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="file_name">{L_DL_EXTERN}</label>
+                <a href="{U_HELP_POPUP}{L_DL_EXTERN_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_EXTERN_EXPLAIN}">{L_INFORMATION}</a>
+                <div class="ucp-form-content">
+                    <input type="checkbox" class="permissions-checkbox" name="file_extern" {CHECKEXTERN} value="1" />
+                    <input type="text" id="file_name" name="file_name" class="inputbox ucp-form-input" size="40" value="{URL}" />
+                    <input type="text" size="10" maxlength="20" name="file_extern_size" value="{FILE_EXT_SIZE}" class="inputbox ucp-form-input" /> {S_FILE_EXT_SIZE_RANGE}
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="hack_version">{L_DL_HACK_VERSION}</label>
+                <a href="{U_HELP_POPUP}{L_DL_HACK_VERSION_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_HACK_VERSION_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="hack_version" name="hack_version" size="10" maxlength="32" value="{HACK_VERSION}" class="inputbox ucp-form-input" />
+            </div>
+            <!-- IF S_VERSION_ON -->
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_DL_VERSION}</span>
+                <div class="ucp-form-content">
+                    <label><input type="radio" name="file_ver_opt" class="radio" value="0" checked="checked" /> {L_DL_VERSION_ADD_NEW}</label>
+                    <label><input type="radio" name="file_ver_opt" class="radio" value="1" /> {L_DL_VERSION_ADD_OLD}</label>
+                    <label><input type="radio" name="file_ver_opt" class="radio" value="2" /> {L_DL_VERSION_REPLACE}</label>
+                    {S_SELECT_VERSION}
+                    <!-- IF S_SELECT_VER_DEL -->
+                    <label><input type="radio" name="file_ver_opt" class="radio" value="3" /> {L_DL_VERSION_DELETE}</label>
+                    {S_SELECT_VER_DEL}
+                    <p class="ucp-form-help">{L_DL_VERSION_DELETE_EXPLAIN}</p>
+                    <!-- ENDIF -->
+                </div>
+            </div>
+            <!-- ENDIF -->
+            <!-- IF S_ALLOW_THUMBS -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="thumb_name">{L_DL_THUMB}</label>
+                <a href="{U_HELP_POPUP}{L_DL_THUMBNAIL_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_THUMBNAIL_EXPLAIN}">{L_INFORMATION}</a>
+                <!-- IF S_THUMBNAIL -->
+                <img src="{THUMBNAIL}" alt="" title="" />
+                <label><input type="checkbox" class="permissions-checkbox" name="del_thumb" value="1" /> {L_DELETE}</label>
+                <!-- ENDIF -->
+                <input type="file" id="thumb_name" name="thumb_name" class="inputbox ucp-form-input" size="46" />
+                <p class="ucp-form-help">{DL_THUMBNAIL_SECOND}</p>
+            </div>
+            <!-- ENDIF -->
+        </div>
+    </section>
+
+    <!-- IF S_MODCP or S_CHANGE_TIME or S_POPUP_NOTIFY or S_EMAIL_BLOCK -->
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <!-- IF S_MODCP -->
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_DL_IS_FREE}</span>
+                <a href="{U_HELP_POPUP}{L_DL_IS_FREE_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_IS_FREE_EXPLAIN}">{L_INFORMATION}</a>
+                <div class="ucp-form-content">{S_CHECK_FREE}</div>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="file_traffic">{L_DL_TRAFFIC}</label>
+                <a href="{U_HELP_POPUP}{L_DL_TRAFFIC_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_TRAFFIC_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="file_traffic" name="file_traffic" size="10" maxlength="10" value="{TRAFFIC}" class="inputbox ucp-form-input" /> {S_TRAFFIC_RANGE}
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label">{L_DL_APPROVE}</label>
+                <a href="{U_HELP_POPUP}{L_DL_APPROVE_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_APPROVE_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="checkbox" class="permissions-checkbox" name="approve" value="1" {APPROVE} />
+            </div>
+            <!-- ENDIF -->
+            <!-- IF S_CHANGE_TIME -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label">{L_DL_NO_CHANGE_EDIT_TIME}</label>
+                <a href="{U_HELP_POPUP}{L_CHANGE_TIME_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_CHANGE_TIME_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="checkbox" class="permissions-checkbox" name="change_time" value="1" />
+            </div>
+            <!-- ENDIF -->
+            <!-- IF S_CLICK_RESET -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label">{L_DL_KLICKS_RESET}</label>
+                <a href="{U_HELP_POPUP}{L_CLICK_RESET_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_CLICK_RESET_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="checkbox" class="permissions-checkbox" name="click_reset" value="1" />
+            </div>
+            <!-- ENDIF -->
+            <!-- IF S_POPUP_NOTIFY -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label">{L_DL_DISABLE_POPUP}</label>
+                <a href="{U_HELP_POPUP}{L_DISABLE_POPUP_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DISABLE_POPUP_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="checkbox" class="permissions-checkbox" name="disable_popup_notify" value="1" />
+            </div>
+            <!-- ENDIF -->
+            <!-- IF S_EMAIL_BLOCK -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label">{L_DL_DISABLE_EMAIL}</label>
+                <a href="{U_HELP_POPUP}{L_DL_SEND_NOTIFY_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_SEND_NOTIFY_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="checkbox" class="permissions-checkbox" name="send_notify" value="1" />
+            </div>
+            <!-- ENDIF -->
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF S_USE_HACKLIST -->
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_DL_HACKLIST}</span>
+                <a href="{U_HELP_POPUP}{L_DL_HACKLIST_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_HACKLIST_EXPLAIN}">{L_INFORMATION}</a>
+                <div class="ucp-form-content">{S_HACKLIST}</div>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="hack_author">{L_DL_HACK_AUTOR}</label>
+                <a href="{U_HELP_POPUP}{L_DL_HACK_AUTHOR_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_HACK_AUTHOR_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="hack_author" name="hack_author" size="40" maxlength="255" value="{HACK_AUTHOR}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="hack_author_email">{L_DL_HACK_AUTOR_EMAIL}</label>
+                <a href="{U_HELP_POPUP}{L_DL_HACK_AUTHOR_EMAIL_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_HACK_AUTHOR_EMAIL_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="hack_author_email" name="hack_author_email" size="40" maxlength="255" value="{HACK_AUTHOR_EMAIL}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="hack_author_website">{L_DL_HACK_AUTOR_WEBSITE}</label>
+                <a href="{U_HELP_POPUP}{L_DL_HACK_AUTHOR_WEBSITE_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_HACK_AUTHOR_WEBSITE_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="hack_author_website" name="hack_author_website" size="40" maxlength="255" value="{HACK_AUTHOR_WEBSITE}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="hack_dl_url">{L_DL_HACK_DL_URL}</label>
+                <a href="{U_HELP_POPUP}{L_DL_HACK_DL_URL_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_HACK_DL_URL_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="hack_dl_url" name="hack_dl_url" size="40" maxlength="255" value="{HACK_DL_URL}" class="inputbox ucp-form-input" />
+            </div>
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF S_ALLOW_EDIT_MOD_DESC or S_TODO_LINK_ONOFF -->
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <!-- IF S_ALLOW_EDIT_MOD_DESC -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label">{L_DL_MOD_LIST}</label>
+                <a href="{U_HELP_POPUP}{L_DL_MOD_LIST_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_MOD_LIST_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="checkbox" class="permissions-checkbox" name="mod_list" {MOD_LIST} value="1" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="test">{L_DL_MOD_TEST}</label>
+                <a href="{U_HELP_POPUP}{L_DL_MOD_TEST_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_MOD_TEST_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="test" name="test" size="40" maxlength="50" value="{MOD_TEST}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="require">{L_DL_MOD_REQUIRE}</label>
+                <a href="{U_HELP_POPUP}{L_DL_MOD_REQUIRE_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_MOD_REQUIRE_EXPLAIN}">{L_INFORMATION}</a>
+                <input type="text" id="require" name="require" size="40" maxlength="255" value="{MOD_REQUIRE}" class="inputbox ucp-form-input" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="mod_desc">{L_DL_MOD_DESC}</label>
+                <a href="{U_HELP_POPUP}{L_DL_MOD_DESC_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_MOD_DESC_EXPLAIN}">{L_INFORMATION}</a>
+                <textarea name="mod_desc" id="mod_desc" rows="4" cols="100" class="inputbox ucp-form-input">{MOD_DESC}</textarea>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="warning">{L_DL_MOD_WARNING}</label>
+                <a href="{U_HELP_POPUP}{L_DL_MOD_WARNING_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_MOD_WARNING_EXPLAIN}">{L_INFORMATION}</a>
+                <textarea name="warning" id="warning" rows="4" cols="100" class="inputbox ucp-form-input">{MOD_WARNING}</textarea>
+            </div>
+            <!-- ENDIF -->
+            <!-- IF S_TODO_LINK_ONOFF -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="todo">{L_DL_MOD_TODO}</label>
+                <a href="{U_HELP_POPUP}{L_DL_MOD_TODO_EXPLAIN}" title="{L_INFORMATION}" data-action="help-popup" data-help-url="{U_HELP_POPUP}{L_DL_MOD_TODO_EXPLAIN}">{L_INFORMATION}</a>
+                <textarea name="todo" id="todo" rows="4" cols="100" class="inputbox ucp-form-input">{MOD_TODO}</textarea>
+            </div>
+            <!-- ENDIF -->
+        </div>
+    </section>
+    <!-- ENDIF -->
+
+    <!-- IF not S_TODO_LINK_ONOFF -->
+    <input type="hidden" name="todo" value="{MOD_TODO}" />
+    <!-- ENDIF -->
+
+    <!-- BEGIN download_fields -->
+    <!-- IF download_fields.S_FIRST_ROW -->
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+    <!-- ENDIF -->
+            <div class="ucp-form-row">
+                <label class="ucp-form-label"<!-- IF download_fields.FIELD_ID --> for="{download_fields.FIELD_ID}"<!-- ENDIF -->>{download_fields.LANG_NAME}:<!-- IF download_fields.S_REQUIRED --> *<!-- ENDIF --></label>
+                <!-- IF download_fields.LANG_EXPLAIN --><p class="ucp-form-help">{download_fields.LANG_EXPLAIN}</p><!-- ENDIF -->
+                <!-- IF download_fields.ERROR --><p class="error">{download_fields.ERROR}</p><!-- ENDIF -->
+                <div class="ucp-form-content">{download_fields.FIELD}</div>
+            </div>
+    <!-- IF download_fields.S_LAST_ROW -->
+        </div>
+    </section>
+    <!-- ENDIF -->
+    <!-- END download_fields -->
+
+    <div class="ucp-actions">
+        <input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+        <input type="reset" name="reset" value="{L_RESET}" class="button2" />
+        {S_FORM_TOKEN}{S_HIDDEN_FIELDS}
+    </div>
+</form>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

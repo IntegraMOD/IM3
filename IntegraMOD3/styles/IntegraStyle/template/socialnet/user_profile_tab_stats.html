@@ -1,0 +1,110 @@
+<section class="sn-up-profileTabs-body sn-up-profileTabs-panel sn-up-stats" aria-label="{L_SN_AP_STATISTICS}">
+	<div class="sn-up-statsRows" role="list">
+		<!-- IF RANK_TITLE -->
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_RANK}:</div>
+			<div class="sn-up-statsValue">{RANK_TITLE}</div>
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF RANK_IMG -->
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel"><!-- IF not RANK_TITLE -->{L_RANK}:<!-- ELSE -->&nbsp;<!-- ENDIF --></div>
+			<div class="sn-up-statsValue">{RANK_IMG}</div>
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF S_GROUPS -->
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_USERGROUPS}:</div>
+			<div class="sn-up-statsValue">{S_GROUPS}</div>
+		</div>
+		<!-- ENDIF -->
+
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_JOINED}:</div>
+			<div class="sn-up-statsValue">{JOINED}</div>
+		</div>
+
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_VISITED}:</div>
+			<div class="sn-up-statsValue">{VISITED}</div>
+		</div>
+
+		<!-- IF LAST_CHANGE -->
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_SN_UP_LAST_CHANGE}:</div>
+			<div class="sn-up-statsValue">{LAST_CHANGE}</div>
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF S_WARNINGS -->
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_WARNINGS}:</div>
+			<div class="sn-up-statsValue">
+				<strong>{WARNINGS}</strong>
+				<!-- IF U_NOTES or U_WARN -->
+					(
+					<!-- IF U_NOTES --><a href="{U_NOTES}">{L_VIEW_NOTES}</a><!-- ENDIF -->
+					<!-- IF U_WARN --><!-- IF U_NOTES --> | <!-- ENDIF --><a href="{U_WARN}">{L_WARN_USER}</a><!-- ENDIF -->
+					)
+				<!-- ENDIF -->
+			</div>
+		</div>
+		<!-- ENDIF -->
+
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_TOTAL_POSTS}:</div>
+			<div class="sn-up-statsValue">
+				{POSTS}
+				<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_USER_POSTS}</a></strong><!-- ENDIF -->
+				<!-- IF POSTS_PCT --> ({POSTS_PCT} / {POSTS_DAY})<!-- ENDIF -->
+				<!-- IF POSTS_IN_QUEUE and U_MCP_QUEUE --> (<a href="{U_MCP_QUEUE}">{L_POSTS_IN_QUEUE}</a>)<!-- ELSEIF POSTS_IN_QUEUE --> ({L_POSTS_IN_QUEUE})<!-- ENDIF -->
+			</div>
+		</div>
+
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_SN_LIKED_POSTS}:</div>
+			<div class="sn-up-statsValue">
+				<strong>{USER_LIKES_COUNT}</strong>
+				<!-- IF S_DISPLAY_SEARCH and S_HAS_LIKES --> | <strong><a href="{U_SEARCH_LIKED_POSTS}">{L_SN_SEARCH_LIKED_POSTS}</a></strong><!-- ENDIF -->
+			</div>
+		</div>
+
+		<!-- IF S_OWN_PROFILE -->
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_SN_LIKES_SENT}:</div>
+			<div class="sn-up-statsValue">
+				<strong>{USER_LIKES_SENT_COUNT}</strong>
+				<!-- IF S_DISPLAY_SEARCH and S_HAS_LIKES_SENT --> | <strong><a href="{U_SEARCH_LIKES_SENT}">{L_SN_SEARCH_LIKES_SENT}</a></strong><!-- ENDIF -->
+			</div>
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF S_SHOW_ACTIVITY and POSTS -->
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_ACTIVE_IN_FORUM}:</div>
+			<div class="sn-up-statsValue"><!-- IF ACTIVE_FORUM != '' --><strong><a href="{U_ACTIVE_FORUM}">{ACTIVE_FORUM}</a></strong> ({ACTIVE_FORUM_POSTS} / {ACTIVE_FORUM_PCT})<!-- ELSE -->-<!-- ENDIF --></div>
+		</div>
+
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_ACTIVE_IN_TOPIC}:</div>
+			<div class="sn-up-statsValue"><!-- IF ACTIVE_TOPIC != '' --><strong><a href="{U_ACTIVE_TOPIC}">{ACTIVE_TOPIC}</a></strong> ({ACTIVE_TOPIC_POSTS} / {ACTIVE_TOPIC_PCT})<!-- ELSE -->-<!-- ENDIF --></div>
+		</div>
+		<!-- ENDIF -->
+
+		<!-- IF .visitors -->
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_SN_UP_LAST_VISITORS}:</div>
+			<div class="sn-up-statsValue"><!-- BEGIN visitors -->{visitors.USERNAME}<!-- IF not visitors.S_LAST_ROW -->, <!-- ENDIF --><!-- END visitors --></div>
+		</div>
+		<!-- ENDIF -->
+
+		<div class="sn-up-statsRow" role="listitem">
+			<div class="sn-up-statsLabel">{L_SN_UP_PROFILE_VIEWED}:</div>
+			<div class="sn-up-statsValue">{PROFILE_VIEWS}x</div>
+		</div>
+	</div>
+
+	{SN_ADDONS_PLACEHOLDER_PROFILE_TAB_STATISTICS_CONTENT}
+</section>

@@ -1,0 +1,140 @@
+<!-- INCLUDE overall_header.html -->
+
+<span id="message-editor-config" data-form-name="postform" data-text-name="message" data-editor-src="{ROOT_PATH}assets/js/editor.js"></span>
+
+<!-- IF S_DISPLAY_PREVIEW -->
+<section class="ucp-card" id="preview">
+    <div class="ucp-card-body">
+        <div class="postbody">
+            <h3>{L_PREVIEW}: {PREVIEW_SUBJECT}</h3>
+            <div class="content">{PREVIEW_MESSAGE}</div>
+            <!-- IF .attachment -->
+            <div class="attachbox">
+                <div class="attachbox-title">{L_ATTACHMENTS}</div>
+                <!-- BEGIN attachment -->
+                <div>{attachment.DISPLAY_ATTACHMENT}</div>
+                <!-- END attachment -->
+            </div>
+            <!-- ENDIF -->
+        </div>
+    </div>
+</section>
+<!-- ENDIF -->
+
+<form method="post" id="postform" name="postform" action="{S_CONTACT_ACTION}"{S_FORM_ENCTYPE}>
+<div id="contact">
+
+    <div class="ucp-card">
+        <div class="ucp-card-header">
+            <h2>{L_CONTACT_BOARD_ADMIN}</h2>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-grid">
+            <!-- IF S_ERROR -->
+                <p class="error">{S_ERROR}</p>
+            <!-- ENDIF -->
+
+            <!-- IF not S_USER_LOGGED_IN -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="username">{L_CONTACT_YOUR_NAME}:</label>
+                    <p class="ucp-form-help">{L_CONTACT_YOUR_NAME_EXPLAIN}</p>
+                    <input type="text" class="inputbox autowidth ucp-form-input" name="username" id="username" value="{USERNAME}" size="30" tabindex="1" />
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="email">{L_CONTACT_YOUR_EMAIL}:</label>
+                    <p class="ucp-form-help">{L_CONTACT_YOUR_EMAIL_EXPLAIN}</p>
+                    <input type="text" class="inputbox autowidth ucp-form-input" name="email" id="email" value="{EMAIL}" size="30" tabindex="2" />
+                </div>
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="email_confirm">{L_CONTACT_YOUR_EMAIL_CONFIRM}:</label>
+                    <p class="ucp-form-help">{L_CONTACT_YOUR_EMAIL_CONFIRM_EXPLAIN}</p>
+                    <input type="text" class="inputbox autowidth ucp-form-input" name="email_confirm" id="email_confirm" value="{EMAIL_CONFIRM}" size="30" tabindex="3" />
+                </div>
+            <!-- ENDIF -->
+
+            <!-- IF CONTACT_REASONS -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="contact_reason">{L_CONTACT_REASON}:</label>
+                    <select class="ucp-form-input" name="contact_reason" id="contact_reason" tabindex="4">{CONTACT_REASONS}</select>
+                </div>
+            <!-- ENDIF -->
+
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="contact_subject">{L_SUBJECT}:</label>
+                    <input type="text" size="45" maxlength="64" class="inputbox ucp-form-input" name="contact_subject" id="contact_subject" value="{CONTACT_SUBJECT}" tabindex="5" />
+                </div>
+
+            <!-- IF S_BBCODE_ALLOWED -->
+                <div class="ucp-form-row">
+                    <!-- INCLUDE posting_buttons.html -->
+                </div>
+            <!-- ENDIF -->
+
+            <!-- IF S_SMILIES_ALLOWED -->
+                <div class="ucp-form-row contact-smilies">
+                    <!-- BEGIN smiley --> <a href="javascript:void(0)" data-smiley-code="{smiley.A_SMILEY_CODE}"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a> <!-- END smiley --><!-- IF S_SHOW_SMILEY_LINK --><a href="{U_MORE_SMILIES}" data-more-smilies-url="{U_MORE_SMILIES}">{L_MORE_SMILIES}</a><!-- ENDIF -->
+                </div>
+            <!-- ENDIF -->
+
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="message">{L_MESSAGE_BODY}:</label>
+                    <p class="ucp-form-help">{L_CONTACT_MSG_BODY_EXPLAIN}</p>
+                    <p class="ucp-form-help">{BBCODE_STATUS} &bull; {URL_STATUS} &bull; {SMILIES_STATUS}</p>
+                    <textarea name="message" id="message" class="inputbox ucp-form-input contact-message" tabindex="6" data-editor-textarea>{CONTACT_MESSAGE}</textarea>
+                </div>
+
+            <!-- IF S_AB_QUESTION -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="ab_question">{L_AB_QUESTION}:</label>
+                    <p class="ucp-form-help">{L_AB_QUESTION_EXPLAIN}</p>
+                    <input type="text" tabindex="7" name="ab_question" id="ab_question" size="25" maxlength="255" value="{AB_QUESTION}" class="inputbox autowidth ucp-form-input" title="{L_AB_QUESTION}" />
+                </div>
+            <!-- ENDIF -->
+
+            <!-- IF CAPTCHA_TEMPLATE -->
+                <!-- DEFINE $CAPTCHA_TAB_INDEX = 8 -->
+                <!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+            <!-- ENDIF -->
+            </div>
+        </div>
+    </div>
+
+    <!-- IF S_HAS_ATTACHMENTS -->
+    <div class="ucp-card">
+        <div class="ucp-card-header">
+            <h3>{L_POSTED_ATTACHMENTS}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-grid">
+            <!-- BEGIN attach_row -->
+                <div class="ucp-form-row">
+                    <label class="ucp-form-label" for="comment_list_{attach_row.ASSOC_INDEX}">{L_FILE_COMMENT}:</label>
+                    <textarea name="comment_list[{attach_row.ASSOC_INDEX}]" id="comment_list_{attach_row.ASSOC_INDEX}" rows="1" cols="35" class="inputbox ucp-form-input">{attach_row.FILE_COMMENT}</textarea>
+                    <p><a href="{attach_row.U_VIEW_ATTACHMENT}" class="{S_CONTENT_FLOW_END}">{attach_row.FILENAME}</a></p>
+                    <div class="ucp-actions">
+                        <input type="submit" name="delete_file[{attach_row.ASSOC_INDEX}]" value="{L_DELETE_FILE}" class="button2" />
+                    </div>
+                </div>
+                {attach_row.S_HIDDEN}
+            <!-- END attach_row -->
+            </div>
+        </div>
+    </div>
+    <!-- ENDIF -->
+
+    <!-- IF S_ATTACH_BOX --><!-- INCLUDE posting_attach_body.html --><!-- ENDIF -->
+
+    <div class="ucp-card">
+        <div class="ucp-card-body">
+            <div class="ucp-actions">
+                {S_HIDDEN_FIELDS}
+                <input type="submit" name="submit" id="submit" value="{L_SUBMIT}" class="button1" tabindex="9" />
+                <!-- IF not S_EMAIL --><input type="submit" name="preview" id="preview_button" value="{L_PREVIEW}" class="button1" tabindex="10" /><!-- ENDIF -->
+                {S_FORM_TOKEN}
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

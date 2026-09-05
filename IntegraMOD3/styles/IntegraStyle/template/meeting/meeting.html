@@ -1,0 +1,24 @@
+<!-- INCLUDE overall_header.html -->
+
+<div class="meeting-layout">
+	<h2>{L_PAGE_TITLE}</h2>
+	<div class="topic-actions meeting-actions">
+		<!-- IF U_MEETING_VIEW --><p><a href="{U_MEETING_VIEW}">{MEETING_VIEW}</a></p><!-- ENDIF -->
+		<!-- IF S_M_CAN_ADD --><p><a href="{U_MEETING_ADD}">{L_MEETING_ADD}</a></p><!-- ENDIF -->
+	</div>
+
+	<!-- IF S_MEETING_EDIT --><!-- INCLUDE meeting/meeting_edit.html --><!-- ENDIF -->
+	<!-- IF S_MEETING_DETAIL --><!-- INCLUDE meeting/meeting_detail.html --><!-- ENDIF -->
+	<!-- IF S_MEETING_MANAGE --><!-- INCLUDE meeting/meeting_manage.html --><!-- ENDIF -->
+	<!-- IF S_MEETING_CAL --><!-- INCLUDE meeting/meeting_cal.html --><!-- ENDIF -->
+
+	<!-- IF S_M_CAN_ADD --><p class="meeting-add"><a href="{U_MEETING_ADD}">{L_MEETING_ADD}</a></p><!-- ENDIF -->
+
+	<section class="ucp-card">
+		<div class="ucp-card-body">
+			<p class="copyright">{MEETING_VERSION}<br />{L_MEETING_TIMEZONE_HINT}</p>
+		</div>
+	</section>
+</div>
+
+<!-- INCLUDE overall_footer.html -->

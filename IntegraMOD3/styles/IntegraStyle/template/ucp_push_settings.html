@@ -1,0 +1,140 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{U_ACTION}">
+
+<h2>{L_UCP_PUSH_NOTIFICATIONS}</h2>
+
+<div class="ucp-card">
+    <div class="ucp-card-body">
+
+    <p>{L_UCP_PUSH_EXPLAIN}</p>
+
+    <div class="ucp-form-grid">
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_BROWSER}:</p>
+            <p class="ucp-form-help">{L_USER_PUSH_BROWSER_EXPLAIN}</p>
+            <div class="ucp-form-inline">
+                <button type="button" class="button1" data-action="onesignal-subscribe">{L_USER_PUSH_BROWSER_ENABLE}</button>
+                <span data-onesignal-status data-label-on="{L_USER_PUSH_BROWSER_ON}" data-label-off="{L_USER_PUSH_BROWSER_OFF}"></span>
+            </div>
+        </div>
+
+        <div class="ucp-form-row">
+            <label class="ucp-form-label" for="user_mobile">{L_USER_MOBILE}:</label>
+            <p class="ucp-form-help">{L_USER_MOBILE_EXPLAIN}</p>
+            <div class="ucp-form-inline">
+                +<input type="text" id="user_mobile_cc" name="user_mobile_cc" value="{USER_MOBILE_CC}" size="4" maxlength="4" class="inputbox autowidth ucp-form-input" title="{L_USER_MOBILE_CC}" />
+                <input type="text" id="user_mobile" name="user_mobile" value="{USER_MOBILE}" class="inputbox ucp-form-input" />
+            </div>
+            <p class="ucp-form-help">{L_USER_MOBILE_CC_EXPLAIN}</p>
+        </div>
+
+        <!-- IF S_PUSH_ALLOW_WEB_FRIEND_REQ or S_PUSH_ALLOW_SMS_FRIEND_REQ -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_FRIEND_REQ}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_FRIEND_REQ --><label><input type="checkbox" class="radio" name="user_push_web_friend_req" value="1" <!-- IF USER_PUSH_WEB_FRIEND_REQ -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_FRIEND_REQ --><label><input type="checkbox" class="radio" name="user_push_sms_friend_req" value="1" <!-- IF USER_PUSH_SMS_FRIEND_REQ -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_FRIEND_ACC or S_PUSH_ALLOW_SMS_FRIEND_ACC -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_FRIEND_ACC}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_FRIEND_ACC --><label><input type="checkbox" class="radio" name="user_push_web_friend_acc" value="1" <!-- IF USER_PUSH_WEB_FRIEND_ACC -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_FRIEND_ACC --><label><input type="checkbox" class="radio" name="user_push_sms_friend_acc" value="1" <!-- IF USER_PUSH_SMS_FRIEND_ACC -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_PM or S_PUSH_ALLOW_SMS_PM -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_PM}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_PM --><label><input type="checkbox" class="radio" name="user_push_web_pm" value="1" <!-- IF USER_PUSH_WEB_PM -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_PM --><label><input type="checkbox" class="radio" name="user_push_sms_pm" value="1" <!-- IF USER_PUSH_SMS_PM -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_LIKE or S_PUSH_ALLOW_SMS_LIKE -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_LIKE}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_LIKE --><label><input type="checkbox" class="radio" name="user_push_web_like" value="1" <!-- IF USER_PUSH_WEB_LIKE -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_LIKE --><label><input type="checkbox" class="radio" name="user_push_sms_like" value="1" <!-- IF USER_PUSH_SMS_LIKE -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_ACTIVITY or S_PUSH_ALLOW_SMS_ACTIVITY -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_ACTIVITY}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_ACTIVITY --><label><input type="checkbox" class="radio" name="user_push_web_activity" value="1" <!-- IF USER_PUSH_WEB_ACTIVITY -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_ACTIVITY --><label><input type="checkbox" class="radio" name="user_push_sms_activity" value="1" <!-- IF USER_PUSH_SMS_ACTIVITY -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_SUB_POST or S_PUSH_ALLOW_SMS_SUB_POST -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_SUB_POST}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_SUB_POST --><label><input type="checkbox" class="radio" name="user_push_web_sub_post" value="1" <!-- IF USER_PUSH_WEB_SUB_POST -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_SUB_POST --><label><input type="checkbox" class="radio" name="user_push_sms_sub_post" value="1" <!-- IF USER_PUSH_SMS_SUB_POST -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_SUB_TOPIC or S_PUSH_ALLOW_SMS_SUB_TOPIC -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_SUB_TOPIC}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_SUB_TOPIC --><label><input type="checkbox" class="radio" name="user_push_web_sub_topic" value="1" <!-- IF USER_PUSH_WEB_SUB_TOPIC -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_SUB_TOPIC --><label><input type="checkbox" class="radio" name="user_push_sms_sub_topic" value="1" <!-- IF USER_PUSH_SMS_SUB_TOPIC -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_NEWS or S_PUSH_ALLOW_SMS_NEWS -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_NEWS}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_NEWS --><label><input type="checkbox" class="radio" name="user_push_web_news" value="1" <!-- IF USER_PUSH_WEB_NEWS -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_NEWS --><label><input type="checkbox" class="radio" name="user_push_sms_news" value="1" <!-- IF USER_PUSH_SMS_NEWS -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_ANNOUNCE or S_PUSH_ALLOW_SMS_ANNOUNCE -->
+        <div class="ucp-form-row">
+            <p class="ucp-form-label">{L_USER_PUSH_ANNOUNCE}:</p>
+            <div class="ucp-form-inline">
+                <!-- IF S_PUSH_ALLOW_WEB_ANNOUNCE --><label><input type="checkbox" class="radio" name="user_push_web_announce" value="1" <!-- IF USER_PUSH_WEB_ANNOUNCE -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label><!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_ANNOUNCE --><label><input type="checkbox" class="radio" name="user_push_sms_announce" value="1" <!-- IF USER_PUSH_SMS_ANNOUNCE -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </div>
+        </div>
+        <!-- ENDIF -->
+
+    </div>
+
+    </div>
+</div>
+
+<div class="ucp-card">
+    <div class="ucp-card-body">
+        <div class="ucp-actions">
+            <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+            <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+        </div>
+        {S_FORM_TOKEN}
+    </div>
+</div>
+
+</form>
+
+<!-- INCLUDE ucp_footer.html -->
+

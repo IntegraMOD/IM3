@@ -1,0 +1,60 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{PAGE_TITLE}</h2>
+
+<form method="post" action="{S_MODE_ACTION}">
+    <section class="ucp-card memberlist-card">
+        <header class="forum-header memberlist-header memberlist-leaders-header">
+            <div class="forum-title"><span class="rank-img">{L_RANK}</span> {L_ADMINISTRATORS}</div>
+            <div class="forum-stats-header info">{L_PRIMARY_GROUP}</div>
+            <div class="forum-stats-header info">{L_FORUMS}</div>
+        </header>
+        <div class="forum-list">
+            <!-- BEGIN admin -->
+            <div class="forum-row memberlist-row memberlist-leaders-row">
+                <div class="forum-details">
+                    <!-- IF admin.RANK_IMG --><span class="rank-img">{admin.RANK_IMG}</span><!-- ELSE --><span class="rank-img">{admin.RANK_TITLE}</span><!-- ENDIF -->
+                    {admin.USERNAME_FULL}
+                </div>
+                <div class="forum-stats-grid memberlist-leaders-stats">
+                    <div class="stat-info"><!-- IF admin.U_GROUP --><a<!-- IF admin.GROUP_COLOR --> style="font-weight: bold; color:#{admin.GROUP_COLOR}"<!-- ENDIF --> href="{admin.U_GROUP}">{admin.GROUP_NAME}</a><!-- ELSE -->{admin.GROUP_NAME}<!-- ENDIF --></div>
+                    <div class="stat-info">-</div>
+                </div>
+            </div>
+            <!-- BEGINELSE -->
+            <div class="forum-row memberlist-row">
+                <div class="forum-details"><strong>{L_NO_ADMINISTRATORS}</strong></div>
+            </div>
+            <!-- END admin -->
+        </div>
+    </section>
+
+    <section class="ucp-card memberlist-card">
+        <header class="forum-header memberlist-header memberlist-leaders-header">
+            <div class="forum-title">{L_MODERATORS}</div>
+            <div class="forum-stats-header info">{L_PRIMARY_GROUP}</div>
+            <div class="forum-stats-header info">{L_FORUMS}</div>
+        </header>
+        <div class="forum-list">
+            <!-- BEGIN mod -->
+            <div class="forum-row memberlist-row memberlist-leaders-row">
+                <div class="forum-details">
+                    <!-- IF mod.RANK_IMG --><span class="rank-img">{mod.RANK_IMG}</span><!-- ELSE --><span class="rank-img">{mod.RANK_TITLE}</span><!-- ENDIF -->
+                    {mod.USERNAME_FULL}
+                </div>
+                <div class="forum-stats-grid memberlist-leaders-stats">
+                    <div class="stat-info"><!-- IF mod.U_GROUP --><a<!-- IF mod.GROUP_COLOR --> style="font-weight: bold; color:#{mod.GROUP_COLOR}"<!-- ENDIF --> href="{mod.U_GROUP}">{mod.GROUP_NAME}</a><!-- ELSE -->{mod.GROUP_NAME}<!-- ENDIF --></div>
+                    <div class="stat-info"><!-- IF not mod.FORUMS -->{L_ALL_FORUMS}<!-- ELSE --><select class="ucp-form-select">{mod.FORUMS}</select><!-- ENDIF --></div>
+                </div>
+            </div>
+            <!-- BEGINELSE -->
+            <div class="forum-row memberlist-row">
+                <div class="forum-details"><strong>{L_NO_MODERATORS}</strong></div>
+            </div>
+            <!-- END mod -->
+        </div>
+    </section>
+</form>
+
+<!-- INCLUDE jumpbox.html -->
+<!-- INCLUDE overall_footer.html -->

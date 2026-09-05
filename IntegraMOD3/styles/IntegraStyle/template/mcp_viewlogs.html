@@ -1,0 +1,51 @@
+<!-- INCLUDE mcp_header.html -->
+
+<form method="post" id="mcp" action="{S_MCP_ACTION}">
+    <section class="ucp-card">
+        <div class="ucp-card-body">
+            <h2>{L_DISPLAY_OPTIONS}</h2>
+            <div class="ucp-actions display-options">
+                <label>{L_DISPLAY_LOG}: {S_SELECT_SORT_DAYS}</label>
+                <label>{L_SORT_BY} {S_SELECT_SORT_KEY} {S_SELECT_SORT_DIR}</label>
+                <input class="button2" type="submit" name="sort" value="{L_GO}" />
+            </div>
+            <!-- IF S_TOPIC_ID -->
+            <p>{L_LOGS_CURRENT_TOPIC} <a href="{U_VIEW_TOPIC}"><strong>{TOPIC_NAME}</strong></a></p>
+            <!-- ENDIF -->
+            <header class="forum-header mcp-viewlog-header<!-- IF not S_TOPIC_ID --> mcp-viewlog-header-links<!-- ENDIF -->">
+                <div class="forum-title">{L_USERNAME}</div>
+                <div class="forum-stats-header">{L_IP}</div>
+                <div class="forum-stats-header">{L_TIME}</div>
+                <div class="forum-stats-header info">{L_ACTION}</div>
+                <!-- IF not S_TOPIC_ID --><div class="forum-stats-header"></div><!-- ENDIF -->
+            </header>
+            <div class="forum-list">
+            <!-- BEGIN log -->
+                <div class="forum-row mcp-viewlog-row<!-- IF not S_TOPIC_ID --> mcp-viewlog-row-links<!-- ENDIF -->">
+                    <div class="forum-details">{log.USERNAME}</div>
+                    <div class="forum-stats-grid mcp-viewlog-stats">
+                        <div class="stat-info">{log.IP}</div>
+                        <div class="stat-info">{log.TIME}</div>
+                        <div class="stat-info">{log.ACTION}</div>
+                        <!-- IF not S_TOPIC_ID -->
+                        <div class="stat-info"><!-- IF log.U_VIEW_TOPIC --><a href="{log.U_VIEW_TOPIC}">{L_VIEW_TOPIC}</a><!-- IF log.U_VIEWLOGS --> | <!-- ENDIF --><!-- ENDIF --><!-- IF log.U_VIEWLOGS --><a href="{log.U_VIEWLOGS}">{L_VIEW_TOPIC_LOGS}</a><!-- ENDIF --></div>
+                        <!-- ENDIF -->
+                    </div>
+                </div>
+            <!-- BEGINELSE -->
+                <div class="forum-row"><div class="forum-details">{L_NO_ENTRIES}</div></div>
+            <!-- END log -->
+            </div>
+            {S_FORM_TOKEN}
+        </div>
+    </section>
+</form>
+
+<div class="topic-actions">
+    <div>{PAGE_NUMBER}</div>
+    <div class="rightside pagination">
+        <!-- IF PAGINATION --><a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{L_GOTO_PAGE}</a> <!-- IF PREVIOUS_PAGE --><a href="{PREVIOUS_PAGE}">{L_PREVIOUS}</a>&nbsp;&nbsp;<!-- ENDIF -->{PAGINATION}<!-- IF NEXT_PAGE -->&nbsp;&nbsp;<a href="{NEXT_PAGE}">{L_NEXT}</a><!-- ENDIF --><!-- ENDIF -->
+    </div>
+</div>
+
+<!-- INCLUDE mcp_footer.html -->

@@ -489,7 +489,7 @@ switch($mode)
 			'U_SUBSCRIBE_PUBLIC_CAL'	=> 'feed.php',
 			'U_PUBLISH_RSS_CAL'			=> $can_publish_rss ? 'feed.php' : null,
 			'S_POST_ACTION'				=> append_sid("{$phpbb_root_path}calendar.$phpEx", "mode=new"),
-			'ACTIVE_TAB'				=> $mode == 'edit' ? 'event-panel' : 'calendar-panel',
+			'ACTIVE_TAB'				=> ($mode == 'edit' || $mode == 'new') ? 'event-panel' : 'calendar-panel',
 			'S_SGP_AJAX'				=> true,
 			'S_IN_CALENDAR'				=> true,
 		));

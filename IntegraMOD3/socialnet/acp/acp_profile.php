@@ -45,6 +45,12 @@ class acp_profile extends socialnet
             'NAME'     => $user->lang['SN_PROFILE_MANAGE_EMOTES']
         ));
 
+        $template->assign_block_vars('sn_tabs', array(
+            'HREF'     => $this->p_master->u_action . '&amp;manage=security',
+            'SELECTED' => $manage == 'security' ? true : false,
+            'NAME'     => $user->lang['SN_PROFILE_SECURITY']
+        ));
+
         if (empty($manage)) {
             $display_vars = array(
                 'title' => 'ACP_UP_SETTINGS',
@@ -66,6 +72,64 @@ class acp_profile extends socialnet
                         'lang'     => 'SN_UP_EMOTES',
                         'validate' => 'bool',
                         'type'     => 'radio:yes:no',
+                        'explain'  => true
+                    ),
+                )
+            );
+
+            $this->p_master->_settings($id, 'sn_up', $display_vars);
+        } elseif ($manage == 'security') {
+            global $config;
+
+            // The ACP does not run the SocialNet bootstrap, so $config is NOT
+            // pre-populated with the phpbb_sn_config values. Load the current
+            // security settings straight from the DB so the form shows the real
+            // saved values and _settings() saves/updates against an existing row.
+            // Privacy levels: 0 = Default (everyone), 1 = Friends only, 2 = Private (Admins only).
+            $sn_security_defaults = array(
+                'sn_default_privacy_level' => 1,
+                'sn_allow_privacy_change'  => 1,
+            );
+
+            $sql = 'SELECT config_name, config_value
+                FROM ' . SN_CONFIG_TABLE . '
+                WHERE ' . $db->sql_in_set('config_name', array_keys($sn_security_defaults));
+            $result = $db->sql_query($sql);
+            while ($row = $db->sql_fetchrow($result)) {
+                $config[$row['config_name']] = $row['config_value'];
+                unset($sn_security_defaults[$row['config_name']]);
+            }
+            $db->sql_freeresult($result);
+
+            // Any settings still missing from the DB are seeded once (persisted),
+            // so subsequent saves have a row to UPDATE.
+            foreach ($sn_security_defaults as $config_name => $config_value) {
+                $this->p_master->_set_config($config_name, $config_value);
+            }
+
+            $this->p_master->acpPanel_title = $user->lang['SN_PROFILE_SECURITY'];
+            $this->p_master->acpPanel_explain = $user->lang['SN_PROFILE_SECURITY_EXPLAIN'];
+
+            // _settings() posts the form back to u_action; without the manage
+            // parameter the submit would land on the Settings tab, whose
+            // display_vars whitelist silently drops the security keys.
+            $this->p_master->u_action .= '&amp;manage=security';
+
+            $display_vars = array(
+                'title' => 'SN_PROFILE_SECURITY',
+                'vars'  => array(
+                    'legend1'                  => 'SN_PROFILE_SECURITY',
+                    'sn_default_privacy_level' => array(
+                        'lang'     => 'SN_DEFAULT_PRIVACY_LEVEL',
+                        'validate' => 'int:0:2',
+                        'type'     => 'select',
+                        'method'   => 'sn_select_privacy_level',
+                        'explain'  => true
+                    ),
+                    'sn_allow_privacy_change'  => array(
+                        'lang'     => 'SN_ALLOW_PRIVACY_CHANGE',
+                        'validate' => 'bool',
+                        'type'     => 'radio:yes_no',
                         'explain'  => true
                     ),
                 )

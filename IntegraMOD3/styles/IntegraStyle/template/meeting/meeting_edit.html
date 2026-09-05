@@ -1,0 +1,94 @@
+<script type="text/javascript" src="{T_SUPER_TEMPLATE_PATH}/meeting/tcal.js"></script>
+
+<form action="{S_FORM_ACTION}" method="post" id="edit_meeting" data-meeting-editor="1">
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{MEETING_MODE}</h3>
+        </div>
+        <div class="ucp-card-body ucp-form-grid">
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="meeting_subject">{L_MEETING_SUBJECT}</label>
+                <p class="ucp-form-help">{MEETING_BY_USER} {MEETING_EDIT_BY_USER}</p>
+                <input type="text" class="inputbox autowidth ucp-form-input" id="meeting_subject" name="meeting_subject" size="50" maxlength="255" value="{MEETING_SUBJECT}" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="meeting_location">{L_MEETING_LOCATION}</label>
+                <input type="text" class="inputbox autowidth ucp-form-input" id="meeting_location" name="meeting_location" size="50" maxlength="255" value="{MEETING_LOCATION}" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="meeting_link">{L_MEETING_LINK}</label>
+                <input type="text" class="inputbox autowidth ucp-form-input" id="meeting_link" name="meeting_link" size="50" maxlength="255" value="{MEETING_LINK_D}" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="message">{L_MEETING_DESC}</label>
+                <!-- IF S_BBCODE_ALLOWED -->
+                    <!-- INCLUDE posting_buttons.html -->
+                <!-- ENDIF -->
+                <textarea name="message" id="message" cols="75" rows="5" class="inputbox ucp-form-textarea" data-store-caret="1">{MEETING_DESC}</textarea>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_MEETING_TIME}</span>
+                <p class="ucp-form-help">{L_MEETING_TIMEFORMAT}</p>
+                <div>{MEETING_DATE}</div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_MEETING_TIME_END}</span>
+                <p class="ucp-form-help">{L_MEETING_TIMEFORMAT}</p>
+                <div>{MEETING_DATE_END}</div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_MEETING_UNTIL}</span>
+                <p class="ucp-form-help">{L_MEETING_TIMEFORMAT}</p>
+                <div>{MEETING_DATE_UNTIL}</div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_MEETING_START_VALUE} / {L_MEETING_RECURE_VALUE}</span>
+                <p class="ucp-form-help">{L_MEETING_INTERVALL_EXPLAIN}</p>
+                <div class="ucp-form-inline">
+                    <input type="text" class="inputbox autowidth ucp-form-input" size="3" maxlength="3" name="meeting_start_value" value="{MEETING_START_VALUE}" />
+                    <span>/</span>
+                    <input type="text" class="inputbox autowidth ucp-form-input" size="3" maxlength="3" name="meeting_recure_value" value="{MEETING_RECURE_VALUE}" />
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_MEETING_NOTIFY}</span>
+                <div class="ucp-form-inline">
+                    <label><input type="radio" class="radio" name="meeting_notify" value="1" {MEETING_NOTIFY_YES} /> {L_YES}</label>
+                    <label><input type="radio" class="radio" name="meeting_notify" value="0" {MEETING_NOTIFY_NO} /> {L_NO}</label>
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="meeting_places">{L_MEETING_PLACES}</label>
+                <input type="text" class="inputbox autowidth ucp-form-input" id="meeting_places" size="8" maxlength="8" name="meeting_places" value="{MEETING_PLACES}" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="meeting_guest_overall">{L_MEETING_GUEST_OVERALL}</label>
+                <p class="ucp-form-help">{L_MEETING_NO_GUEST_LIMIT}</p>
+                <input type="text" class="inputbox autowidth ucp-form-input" id="meeting_guest_overall" size="8" maxlength="8" name="meeting_guest_overall" value="{MEETING_GUEST_OVERALL}" />
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="meeting_guest_single">{L_MEETING_GUEST_SINGLE}</label>
+                <p class="ucp-form-help">{L_MEETING_NO_GUEST_LIMIT}</p>
+                <input type="text" class="inputbox autowidth ucp-form-input" id="meeting_guest_single" size="8" maxlength="8" name="meeting_guest_single" value="{MEETING_GUEST_SINGLE}" />
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_MEETING_GUEST_NAMES}</span>
+                <p class="ucp-form-help">{L_MEETING_GUEST_NAMES_EXPLAIN}</p>
+                <div class="ucp-form-inline">
+                    <label><input type="radio" class="radio" name="meeting_guest_names" value="1" {MEETING_GUEST_NAMES_YES} /> {L_YES}</label>
+                    <label><input type="radio" class="radio" name="meeting_guest_names" value="0" {MEETING_GUEST_NAMES_NO} /> {L_NO}</label>
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <span class="ucp-form-label">{L_MEETING_USERGROUP}</span>
+                <div>{S_MEETING_USERGROUP}</div>
+            </div>
+            <div class="ucp-actions">
+                <input type="submit" name="submit" class="button1" value="{L_SUBMIT}" />
+                <input type="reset" name="reset" class="button2" value="{L_RESET}" />
+                {S_HIDDEN_FIELDS}
+                {S_FORM_TOKEN}
+            </div>
+        </div>
+    </section>
+</form>

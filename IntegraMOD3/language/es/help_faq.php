@@ -149,7 +149,7 @@ $help = array(
 	),
 	array(
 		0 => '¿Por qué recibí una advertencia?',
-		1 => 'Los administradores de cada foro tienen su propio conjunto de reglas para su sitio. Si ha quebrantado alguna regla puede recibir una advertencia. Por favor recuerde que esta es una decisión de La Administración del foro, y el phpBB Group no tiene nada que ver con las advertencias dadas en este sitio. Comuníquese con La Administración del foro si no está seguro de porqué fue advertido.'
+		1 => 'Los administradores de cada foro tienen su propio conjunto de reglas para su sitio. Si ha quebrantado alguna regla puede recibir una advertencia. Por favor recuerde que esta es una decisión de La Administración del foro, y el IntegraMOD Team no tiene nada que ver con las advertencias dadas en este sitio. Comuníquese con La Administración del foro si no está seguro de porqué fue advertido.'
 	),
 	array(
 		0 => '¿Cómo se puede reportar un mensaje a un moderador?',
@@ -334,7 +334,7 @@ $help = array(
 	),
     array(
 		0 => '¿Quién escribió este foro?',
-		1 => 'Este software está impulsado por <a href="https://integramod.com/forum/portal.php" target="_blank" rel="noopener noreferrer">IntegraMOD</a>. Aunque la arquitectura central (phpBB 3.0.x) se escribió originalmente en 2007 —finalizando el soporte oficial el 31 de diciembre de 2017 y siendo el proyecto abandonado oficialmente en 2026— el Equipo de IntegraMOD ha mantenido y reconstruido en gran medida una parte sustancial del mismo. Este desarrollo continuo mantiene la plataforma rápida, altamente segura y excepcionalmente confiable en la actualidad. El software base original (en su forma sin modificar) estaba protegido por derechos de autor del phpBB Group y se distribuye bajo la Licencia Pública General de GNU.'
+		1 => 'Este software está impulsado por <a href="https://integramod.com/forum/portal.php" target="_blank" rel="noopener noreferrer">IntegraMOD</a>. Aunque la arquitectura central (phpBB 3.0.x) se escribió originalmente en 2007 —finalizando el soporte oficial el 31 de diciembre de 2017 y siendo el proyecto abandonado oficialmente en 2026— el Equipo de IntegraMOD ha mantenido y reconstruido en gran medida una parte sustancial del mismo. Este desarrollo continuo mantiene la plataforma rápida, altamente segura y excepcionalmente confiable en la actualidad. El software base original (en su forma sin modificar) estaba protegido por derechos de autor del IntegraMOD Team y se distribuye bajo la Licencia Pública General de GNU.'
 	),
 	array(
 		0 => '¿Por qué este foro no tiene tal cosa?',

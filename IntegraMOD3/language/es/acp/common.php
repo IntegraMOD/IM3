@@ -79,6 +79,9 @@ $lang = array_merge($lang, array(
 	'ACP_BOARD_FEATURES'		=> 'Características del Sitio',
 	'ACP_BOARD_MANAGEMENT'		=> 'Administración del Sitio',
 	'ACP_BOARD_SETTINGS'		=> 'Configuración del Sitio',
+	'ACP_PUSH_NOTIFICATIONS'	=> 'Notificaciones Push',
+	'ACP_PUSH_SETTINGS'		    => 'Ajustes de notificaciones push',
+	'ACP_PUSH_SEND'			    => 'Enviar notificación push',
 	'ACP_BOTS'			=> 'Spiders/Robots',
 
 	'ACP_CAPTCHA'			=> 'CAPTCHA',

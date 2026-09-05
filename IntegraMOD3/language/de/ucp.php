@@ -492,6 +492,8 @@ $lang = array_merge($lang, array(
 	'UCP_PREFS_PERSONAL'		=> 'Persönliche Einstellungen',
 	'UCP_PREFS_POST'			=> 'Nachrichten erstellen',
 	'UCP_PREFS_VIEW'			=> 'Anzeigeoptionen ändern',
+	'UCP_PUSH_NOTIFICATIONS'	=> 'Push-Benachrichtigungen',
+	'UCP_PUSH_SETTINGS'		    => 'Benachrichtigungseinstellungen',
 
 	'UCP_PM'					=> 'Private Nachrichten',
 	'UCP_PM_COMPOSE'			=> 'Neue Nachricht erstellen',

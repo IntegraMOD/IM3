@@ -1,0 +1,80 @@
+/* IntegraStyle donation */
+.donate-layout {
+    display: grid;
+    gap: 1rem;
+}
+
+.donate-form {
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+    text-align: center;
+}
+
+.donate-amount-row {
+    justify-content: center;
+}
+
+.donate-amount-row .ucp-form-input,
+.donate-amount-row .ucp-form-select {
+    width: auto;
+    min-width: 8rem;
+}
+
+.donate-processing[hidden] {
+    display: none;
+}
+
+.donate-loader {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--surface-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: donate-spin 0.8s linear infinite;
+}
+
+@keyframes donate-spin {
+    to { transform: rotate(360deg); }
+}
+
+.donation-stats {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.prog_grey {
+    width: 100%;
+    height: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--surface-border);
+    border-radius: 6px;
+    background: var(--bg-ad-panel);
+}
+
+.prog_green,
+.prog_red {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    max-width: 100%;
+    color: var(--on-primary-text);
+    font-weight: 600;
+}
+
+.prog_green {
+    background: var(--color-primary);
+}
+
+.prog_red {
+    background: var(--text-secondary);
+}
+
+span.progress {
+    padding-inline-start: 0.75rem;
+}
+
+p.donation_stats {
+    margin: 0;
+    text-align: center;
+}

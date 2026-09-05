@@ -5168,26 +5168,28 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 			$meeting_active_ids = 0;
 		}
 	
-		if (!$meeting_active_ids)
+	if (!$meeting_active_ids)
 		{
 			$meeting_active_string = $user->lang['NO_ACTIVE_MEETINGS'];
 		}
 		else if ($meeting_active_ids == 1)
 		{
-			$meeting_active_string = $user->lang['ONE_ACTIVE_MEETING'];
+			$meeting_active_string = '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>1</strong></span>&nbsp;' . $user->lang['ONE_ACTIVE_MEETING'];
 		}
 		else
 		{
-			$meeting_active_string = sprintf($user->lang['ACTIVE_MEETINGS'], $meeting_active_ids);
+			$meeting_active_string = '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $meeting_active_ids . '</strong></span>&nbsp;' . sprintf($user->lang['ACTIVE_MEETINGS'], $meeting_active_ids);
 		}
 	
 		$u_meeting_link = append_sid("{$phpbb_root_path}meeting.$phpEx");
 		$l_meeting_link = $meeting_active_string;
+		$s_has_meetings = ($meeting_active_ids > 0) ? true : false;
 	}
 	else
 	{
 		$u_meeting_link = '';
 		$l_meeting_link = '';
+		$s_has_meetings = false;
 	}
 
 	$db->return_on_error = false;
@@ -5265,27 +5267,27 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 	}
 	// End Ultimate Points
 	
-    //
-    // + new posts since last visit & you post number
-    //
+    // + new posts since last visit & you post number & unread blogs
+    $unread_blog_count = 0;
+
     if ($user->data['is_registered'])
     {
         $ex_fid_ary = array_unique(array_merge(array_keys($auth->acl_getf('!f_read', true)), array_keys($auth->acl_getf('!f_search', true))));
         
         if ($auth->acl_get('m_approve'))
         {
-         $m_approve_fid_ary = array(-1);
-         $m_approve_fid_sql = '';
+            $m_approve_fid_ary = array(-1);
+            $m_approve_fid_sql = '';
         }
         else if ($auth->acl_getf_global('m_approve'))
         {
-         $m_approve_fid_ary = array_diff(array_keys($auth->acl_getf('!m_approve', true)), $ex_fid_ary);
-         $m_approve_fid_sql = ' AND (p.post_approved = 1' . ((sizeof($m_approve_fid_ary)) ? ' OR ' . $db->sql_in_set('p.forum_id', $m_approve_fid_ary, true) : '') . ')';
+            $m_approve_fid_ary = array_diff(array_keys($auth->acl_getf('!m_approve', true)), $ex_fid_ary);
+            $m_approve_fid_sql = ' AND (p.post_approved = 1' . ((sizeof($m_approve_fid_ary)) ? ' OR ' . $db->sql_in_set('p.forum_id', $m_approve_fid_ary, true) : '') . ')';
         }
         else
         {
-         $m_approve_fid_ary = array();
-         $m_approve_fid_sql = ' AND p.post_approved = 1';
+            $m_approve_fid_ary = array();
+            $m_approve_fid_sql = ' AND p.post_approved = 1';
         }
 
         $sql = 'SELECT COUNT(distinct t.topic_id) as total
@@ -5313,24 +5315,60 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
         
         if (!empty($unread_list))
         {
-         $sql = 'SELECT COUNT(distinct t.topic_id) as total
-           FROM ' . TOPICS_TABLE . ' t
-           WHERE ' . $db->sql_in_set('t.topic_id', array_keys($unread_list));
-         $result = $db->sql_query($sql);
-         $unread_posts_count = (int) $db->sql_fetchfield('total');
+            $sql = 'SELECT COUNT(distinct t.topic_id) as total
+               FROM ' . TOPICS_TABLE . ' t
+               WHERE ' . $db->sql_in_set('t.topic_id', array_keys($unread_list));
+            $result = $db->sql_query($sql);
+            $unread_posts_count = (int) $db->sql_fetchfield('total');
         }
         else
         {
-         $unread_posts_count = 0;
+            $unread_posts_count = 0;
         }
-		$user_lang = $user->data['user_lang'];
 
-       $template->assign_vars(array(
-            'L_NEW_POST'        => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_NEW'],
-            'L_NEW_POSTS'        => $user->lang['SEARCH_NEW'] . '&nbsp;<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>',
-            'L_UNREAD_POSTS'=>   $user->lang['SEARCH_UNREAD'] . '&nbsp;<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $unread_posts_count . '</strong></span>',
-            'L_SELF_POSTS'        => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $you_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_SELF'],
-            ));
+        // Unread blogs count
+        if ($auth->acl_get('u_blog'))
+        {
+            if (!defined('BLOGS_TABLE'))
+            {
+                global $table_prefix;
+                if (file_exists($phpbb_root_path . 'blog/includes/constants.' . $phpEx))
+                {
+                    include_once($phpbb_root_path . 'blog/includes/constants.' . $phpEx);
+                }
+                else
+                {
+                    define('BLOGS_TABLE', $table_prefix . 'blogs');
+                    define('BLOGS_TRACK_TABLE', $table_prefix . 'blogs_track');
+                }
+            }
+
+            if (defined('BLOGS_TABLE') && defined('BLOGS_TRACK_TABLE'))
+            {
+                $sql = 'SELECT COUNT(b.blog_id) AS total_unread
+                        FROM ' . BLOGS_TABLE . ' b
+                        LEFT JOIN ' . BLOGS_TRACK_TABLE . ' bt 
+                            ON (bt.blog_id = b.blog_id AND bt.user_id = ' . (int) $user->data['user_id'] . ')
+                        WHERE b.blog_approved = 1
+                            AND (bt.mark_time IS NULL OR bt.mark_time < b.blog_time)';
+                $result = $db->sql_query($sql);
+                $unread_blog_count = (int) $db->sql_fetchfield('total_unread');
+                $db->sql_freeresult($result);
+            }
+        }
+
+        $user_lang = $user->data['user_lang'];
+
+        $template->assign_vars(array(
+            'L_NEW_POST'            => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_NEW'],
+            'L_NEW_POSTS'           => $user->lang['SEARCH_NEW'] . '&nbsp;<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $new_posts_count . '</strong></span>',
+            'L_UNREAD_POSTS'        => $user->lang['SEARCH_UNREAD'] . '&nbsp;<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $unread_posts_count . '</strong></span>',
+            'L_SELF_POSTS'          => '<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $you_posts_count . '</strong></span>&nbsp;' . $user->lang['SEARCH_SELF'],
+            'L_UNREAD_BLOGS'        => (isset($user->lang['SEARCH_UNREAD_BLOGS']) ? $user->lang['SEARCH_UNREAD_BLOGS'] : 'Unread Blogs') . '&nbsp;<span class="badge text-bg-light rounded-pill align-text-bottom"><strong>' . $unread_blog_count . '</strong></span>',
+            'UNREAD_BLOG_COUNT'     => $unread_blog_count,
+            'S_HAS_UNREAD_BLOGS'    => ($unread_blog_count > 0) ? true : false,
+            'U_SEARCH_UNREAD_BLOGS' => append_sid("{$phpbb_root_path}blog/index.$phpEx", 'mode=unread'),
+        ));
     }
 
 	$portal_label = (!empty($config['portal_name_' . $user_lang])) ? $config['portal_name_' . $user_lang] : ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal') ? $config['portal_name'] : $user->lang['PORTAL']);
@@ -5346,6 +5384,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
    		'AJAXLIKE_NOTIFY_ENABLE'		=> $ajaxlike_notify,
 		'AJAXLIKE_NOTIFY_INTERVAL'		=> $ajaxlike_notify_interval,
 		'AJAXLIKE_NOTIFY_CALLBACK'		=> append_sid("{$phpbb_root_path}viewtopic.$phpEx"),
+        'S_HAS_NEW_LIKES'				=> ($like_count > 0) ? true : false,
 		// ajaxlike
 	
 		'SITENAME'						=> $config['sitename'],
@@ -5363,7 +5402,8 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'PRIVATE_MESSAGE_INFO_UNREAD'	=> $l_privmsgs_text_unread,
 		'L_MEETING_LINK_N'				=> $l_meeting_link,
 		'U_MEETING_LINK_N'				=> $u_meeting_link,
-		
+		'S_HAS_MEETINGS'				=> $s_has_meetings,
+
 		'S_USER_NEW_PRIVMSG'			=> $user->data['user_new_privmsg'],
 		'S_USER_UNREAD_PRIVMSG'			=> $user->data['user_unread_privmsg'],
 		'S_USER_NEW'					=> $user->data['user_new'],
@@ -5455,7 +5495,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'U_SEARCH_UNREAD'		=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=unreadposts'),
 		'U_SEARCH_ACTIVE_TOPICS'=> append_sid("{$phpbb_root_path}search.$phpEx", 'search_id=active_topics'),
 		'U_SHOUT'				=> append_sid("{$phpbb_root_path}js.$phpEx"),
-		'U_SHOUT_STATIC'		=> append_sid("{$phpbb_root_path}static.js"),
+		'U_SHOUT_STATIC'		=> append_sid("{$phpbb_root_path}assets/js/static.js"),
 		'U_SHOUTBOX'			=> append_sid("{$phpbb_root_path}shout.$phpEx"),
 		'U_SHOUTPAGE'			=> append_sid("{$phpbb_root_path}portal.$phpEx", 'page=shout'),
 		'U_DELETE_COOKIES'		=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=delete_cookies'),

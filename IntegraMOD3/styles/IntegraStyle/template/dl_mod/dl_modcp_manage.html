@@ -1,0 +1,44 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<form method="post" id="dl_modcp" action="{S_DL_MODCP_ACTION}">
+    <h2>{L_DL_MODCP_MANAGE}</h2>
+    <section class="ucp-card">
+        <div class="ucp-card-body dl-list">
+            <div class="dl-list-head">
+                <div>{L_DL_DOWNLOAD}</div>
+                <div></div>
+                <div>{L_OPTIONS}</div>
+            </div>
+            <!-- BEGIN manage_row -->
+            <article class="dl-list-row">
+                <div>{manage_row.MINI_ICON} <a href="{manage_row.U_DOWNLOAD}">{manage_row.DESCRIPTION}</a></div>
+                <div><input type="checkbox" class="permissions-checkbox" name="dlo_id[]" id="dlo_id_{manage_row.S_ROW_COUNT}" value="{manage_row.FILE_ID}" /></div>
+                <div>
+                    <!-- IF SORT --><a href="{manage_row.U_UP}">{DL_UP}</a> &bull; <a href="{manage_row.U_DOWN}">{DL_DOWN}</a> &bull; <!-- ENDIF --><a href="{manage_row.U_EDIT}">{L_DL_EDIT_FILE}</a>
+                </div>
+            </article>
+            <!-- END manage_row -->
+            {S_HIDDEN_FIELDS}
+        </div>
+    </section>
+
+    <div class="ucp-actions">
+        <!-- IF S_ORDER_BUTTON --><input type="submit" name="sort" value="{L_DL_ORDER}" class="button2" /><!-- ENDIF -->
+        <!-- IF S_MODCP_BUTTON --><input type="submit" value="{L_DL_MODCP_MANAGE}" class="button1" /><!-- ENDIF -->
+        <input type="submit" name="move" value="{L_DL_MOVE}" class="button2" /> {S_CAT_SELECT}
+        <input type="submit" name="delete" value="{L_DL_DELETE}" class="button2" />
+        <input type="submit" name="lock" value="{L_DL_LOCK}" class="button2" />
+    </div>
+</form>
+
+<!-- IF PAGE_NUMBER -->
+<p class="pagination">{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span></p>
+<!-- ENDIF -->
+
+<p class="dl-toolbar">
+    <!-- IF S_SORT_ASC --><a href="{U_SORT_ASC}">{DL_ABC}</a><!-- ENDIF -->
+    <a href="{S_DL_MODCP_ACTION}" data-action="marklist" data-mark-form="dl_modcp" data-mark-name="dlo_id[]" data-mark-state="true">{L_DL_MARK_ALL}</a>
+    <a href="{S_DL_MODCP_ACTION}" data-action="marklist" data-mark-form="dl_modcp" data-mark-name="dlo_id[]" data-mark-state="false">{L_DL_UNMARK}</a>
+</p>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

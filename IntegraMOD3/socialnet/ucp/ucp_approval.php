@@ -152,6 +152,12 @@ class ucp_approval
                                     $ntf_text = 'SN_NTF_FRIENDSHIP_ACCEPT';
                                     $this->p_notify->add(SN_NTF_FRIENDSHIP, $user_id, array('text' => $ntf_text, 'user' => $user->data['username'], 'link' => $link));
 
+                                    // OneSignal push notification for accepted friend request
+                                    if (function_exists('trigger_user_push')) {
+                                        $push_url = generate_board_url() . "/ucp.$phpEx?i=socialnet&mode=module_approval_friends";
+                                        trigger_user_push((int) $user_id, 'friend_acc', $user->data['username'], $user->data['username'] . ' accepted your friend request', $push_url);
+                                    }
+
                                 } else {
                                     $error[] = $user->lang[$l_mode . '_APPROVALS_REQUEST_EXIST'] . " \"{$data['add_approval'][$idx]}\"";
                                     $message[] = $user->lang[$l_mode . '_APPROVALS_REQUEST_EXIST'] . " \"{$data['add_approval'][$idx]}\"";
@@ -409,6 +415,14 @@ class ucp_approval
                     $link = "ucp.{$phpEx}?i=socialnet&amp;mode=module_approval_friends";
                     $ntf_text = 'SN_NTF_FRIENDSHIP_REQUEST';
                     $this->p_notify->add(SN_NTF_FRIENDSHIP, $user_id_ary, array('text' => $ntf_text, 'user' => $user->data['username'], 'link' => $link));
+
+                    // OneSignal push notification for incoming friend requests
+                    if (function_exists('trigger_user_push')) {
+                        $push_url = generate_board_url() . "/ucp.$phpEx?i=socialnet&mode=module_approval_friends";
+                        foreach ($user_id_ary as $req_user_id) {
+                            trigger_user_push((int) $req_user_id, 'friend_req', $user->data['username'], $user->data['username'] . ' sent you a friend request', $push_url);
+                        }
+                    }
                 }
 
                 /*

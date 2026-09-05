@@ -38,12 +38,12 @@ class dl_faq
 
 		$text = str_replace('{DL_FAQ_URL}',		$dl_url,					$text);
 
-		$text = str_replace('{DL_IMG_BLUE}',	$user->img('dl_blue'),		$text);
-		$text = str_replace('{DL_IMG_RED}',		$user->img('dl_red'),		$text);
-		$text = str_replace('{DL_IMG_GREY}',	$user->img('dl_grey'),		$text);
-		$text = str_replace('{DL_IMG_WHITE}',	$user->img('dl_white'),		$text);
-		$text = str_replace('{DL_IMG_YELLOW}',	$user->img('dl_yellow'),	$text);
-		$text = str_replace('{DL_IMG_GREEN}',	$user->img('dl_green'),		$text);
+		$text = str_replace('{DL_IMG_BLUE}',	dl_status::icon('dl_blue'),		$text);
+		$text = str_replace('{DL_IMG_RED}',		dl_status::icon('dl_red'),		$text);
+		$text = str_replace('{DL_IMG_GREY}',	dl_status::icon('dl_grey'),		$text);
+		$text = str_replace('{DL_IMG_WHITE}',	dl_status::icon('dl_white'),		$text);
+		$text = str_replace('{DL_IMG_YELLOW}',	dl_status::icon('dl_yellow'),	$text);
+		$text = str_replace('{DL_IMG_GREEN}',	dl_status::icon('dl_green'),		$text);
 
 		return $text;
 	}

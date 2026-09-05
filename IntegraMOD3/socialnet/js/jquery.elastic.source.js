@@ -155,10 +155,10 @@
 				});
 
 				// Update width of twin if browser or textarea is resized (solution for textareas with widths in percent)
-				$(window).live('resize', setTwinWidth);
-				$textarea.live('resize', setTwinWidth);
-				$textarea.live('update', update);
-				$textarea.live('focusin', update);
+				$(window).on('resize', setTwinWidth);
+				$textarea.on('resize', setTwinWidth);
+				$textarea.on('update', update);
+				$textarea.on('focusin', update);
 				$textarea.attr('data-newline', defaults.showNewLine);
 				$textarea.dataElastic = 'elastic';
 

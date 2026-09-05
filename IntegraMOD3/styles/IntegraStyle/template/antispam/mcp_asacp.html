@@ -1,0 +1,57 @@
+<!-- INCLUDE mcp_header.html -->
+
+<a id="maincontent"></a>
+
+<!-- IF U_BACK -->
+	<p class="mcp-quick-links"><a href="{U_BACK}">&laquo; {L_BACK}</a></p>
+<!-- ENDIF -->
+
+<h2>{L_TITLE}</h2>
+
+<section class="ucp-card">
+	<div class="ucp-card-body">
+
+<!-- IF ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR}</p>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF S_DATA_OUTPUT -->
+	<!-- BEGIN data_output -->
+		<h3>{data_output.TITLE}</h3>
+		<div class="mcp-whois">{data_output.DATA}</div>
+		<!-- IF data_output.PAGINATION -->
+		<div class="pagination">
+			<span>{data_output.PAGINATION}</span>
+		</div>
+		<!-- ENDIF -->
+	<!-- BEGINELSE -->
+		<!-- IF not S_DISPLAY_IP_INPUT -->
+		<div class="errorbox">
+			<h3>{L_WARNING}</h3>
+			<p>{L_NO_ITEMS}<br /><a href="{U_BACK_NONE}">&laquo; {L_BACK}</a></p>
+		</div>
+		<!-- ENDIF -->
+	<!-- END data_output -->
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_IP_INPUT -->
+	<form id="asacp_ip_search" method="post" action="{U_ACTION}" class="ucp-form-grid">
+		<div class="ucp-form-row">
+			<label class="ucp-form-label" for="ip">{L_ASACP_IP_SEARCH}:</label>
+			<input id="ip" class="inputbox ucp-form-input" type="text" size="25" name="ip" value="" />
+		</div>
+		<div class="ucp-actions">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+			{S_HIDDEN_FIELDS}
+			{S_FORM_TOKEN}
+		</div>
+	</form>
+<!-- ENDIF -->
+
+	</div>
+</section>
+
+<!-- INCLUDE mcp_footer.html -->

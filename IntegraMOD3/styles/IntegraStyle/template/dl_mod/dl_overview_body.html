@@ -1,0 +1,72 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<!-- IF S_ENABLE_RATE -->
+<div id="dl-ajax-config" class="blog-hidden" hidden="hidden" data-phpex="{PHPEX}" data-sid="{_SID}" data-charset="{S_CONTENT_ENCODING}"></div>
+<script type="text/javascript" src="{ROOT_PATH}dl_mod/js/ajax/ajax_core.js"></script>
+<script type="text/javascript" src="{ROOT_PATH}dl_mod/js/ajax/ajax_dl.js"></script>
+<!-- ENDIF -->
+
+<h2>{PAGE_NAME}</h2>
+
+<section class="forum-category topic-category">
+    <div class="forum-header topic-list-header dl-file-header">
+        <div class="forum-title">{L_DL_NAME}</div>
+        <div class="forum-stats-header posts">{L_DL_FILE_SIZE}</div>
+        <div class="forum-stats-header views">{L_DL_KLICKS}</div>
+        <div class="forum-stats-header last-post"><!-- IF S_ENABLE_RATE -->{L_DL_RATING}<!-- ENDIF --></div>
+    </div>
+    <div class="forum-list">
+        <!-- IF S_OVERALL_VIEW -->
+        <!-- BEGIN downloads -->
+        <div class="forum-row topic-row <!-- IF downloads.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+            <div class="topic-icon read">{downloads.STATUS}</div>
+            <div class="forum-details">
+                <a href="{downloads.U_DL_LINK}" class="topictitle">{downloads.DESCRIPTION}</a>
+                <!-- IF downloads.HACK_VERSION --> <span class="topic-author">{downloads.HACK_VERSION}</span><!-- ENDIF -->
+                <div class="forum-desc"><a href="{downloads.U_CAT_VIEW}">{downloads.CAT_NAME}</a></div>
+            </div>
+            <div class="forum-stats-grid">
+                <div class="stat-replies">{downloads.FILE_SIZE} <dfn>{L_DL_FILE_SIZE}</dfn></div>
+                <div class="stat-views">{downloads.FILE_KLICKS} | {downloads.FILE_OVERALL_KLICKS} <dfn>{L_DL_KLICKS}</dfn></div>
+                <div class="stat-lastpost">
+                    <!-- IF S_ENABLE_RATE -->
+                    <!-- IF downloads.RATING_IMG --><div id="rating_{downloads.DF_ID}">{downloads.RATING_IMG}</div> {downloads.RATINGS}<!-- ENDIF -->
+                    <!-- ENDIF -->
+                </div>
+            </div>
+        </div>
+        <!-- END downloads -->
+        <!-- ENDIF -->
+    </div>
+</section>
+
+<!-- IF PAGE_NUMBER -->
+<div class="pagination">{PAGE_NUMBER} &bull; {L_GOTO_PAGE}: <span>{PAGINATION}</span></div>
+<!-- ENDIF -->
+
+<!-- IF S_SORT_OPTIONS -->
+<form action="{S_FORM_ACTION}" method="post" class="display-options">
+    <label>{L_SORT_BY}
+        <select name="sort_by" data-action="submit-form">
+            <option value="0"{SELECTED_0}>{L_DL_DEFAULT_SORT}</option>
+            <option value="1"{SELECTED_1}>{L_DL_FILE_DESCRIPTION}</option>
+            <option value="2"{SELECTED_2}>{L_DL_FILE_NAME}</option>
+            <option value="3"{SELECTED_3}>{L_DL_KLICKS}</option>
+            <option value="4"{SELECTED_4}>{L_DL_FREE}</option>
+            <option value="5"{SELECTED_5}>{L_DL_EXTERN}</option>
+            <option value="6"{SELECTED_6}>{L_DL_FILE_SIZE}</option>
+            <option value="7"{SELECTED_7}>{L_LAST_UPDATED}</option>
+            <option value="8"{SELECTED_8}>{L_DL_RATING}</option>
+        </select>
+    </label>
+    <label>{L_DL_ORDER}
+        <select name="order" data-action="submit-form">
+            <option value="ASC"{SELECTED_SORT_0}>{L_ASCENDING}</option>
+            <option value="DESC"{SELECTED_SORT_1}>{L_DESCENDING}</option>
+        </select>
+    </label>
+    <input type="submit" class="button2" value="{L_GO}" />
+</form>
+<!-- ENDIF -->
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

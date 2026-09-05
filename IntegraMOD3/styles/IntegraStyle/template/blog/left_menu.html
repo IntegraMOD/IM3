@@ -1,0 +1,89 @@
+<!-- IF S_USER_BLOG_MENU -->
+	<section class="ucp-card blog-profile-block<!-- IF S_ONLINE --> online<!-- ENDIF -->">
+		<div class="ucp-card-body">
+			<div class="profile-header">
+				<!-- IF AVATAR --><div class="profile-avatar">{AVATAR}</div><!-- ENDIF -->
+				<div class="profile-author">{USER_FULL}</div>
+				<!-- IF RANK_TITLE or RANK_IMG --><div class="profile-rank">{RANK_TITLE}<!-- IF RANK_TITLE and RANK_IMG --><span class="rank-break"></span><!-- ENDIF -->{RANK_IMG}</div><!-- ENDIF -->
+			</div>
+			<div class="profile-details">
+				<!-- IF POSTER_POSTS != '' --><div><strong>{L_POSTS}:</strong> {POSTER_POSTS}</div><!-- ENDIF -->
+				<!-- IF POSTER_JOINED --><div><strong>{L_JOINED}:</strong> {POSTER_JOINED}</div><!-- ENDIF -->
+				<!-- IF POSTER_FROM --><div><strong>{L_LOCATION}:</strong> {POSTER_FROM}</div><!-- ENDIF -->
+				<!-- BEGIN custom_fields -->
+					<div><strong>{custom_fields.PROFILE_FIELD_NAME}:</strong> {custom_fields.PROFILE_FIELD_VALUE}</div>
+				<!-- END custom_fields -->
+			</div>
+			<!-- IF U_PM or U_EMAIL or U_WWW or U_MSN or U_ICQ or U_YIM or U_AIM or U_FB or U_IG or U_PT or U_TWR or U_SKP or U_TG or U_LI or U_TT or U_DC -->
+			<div class="profile-contacts">
+				<ul class="profile-icons">
+					<!-- IF U_PM --><li><a href="{U_PM}" title="{L_PRIVATE_MESSAGE}"><svg class="css-icon css-icon-inbox" aria-hidden="true" focusable="false"><use href="#icon-inbox"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_EMAIL --><li><a href="{U_EMAIL}" title="{L_SEND_EMAIL_USER} {POST_AUTHOR}"><svg class="css-icon css-icon-mail" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_WWW --><li><a href="{U_WWW}" title="{L_VISIT_WEBSITE}: {U_WWW}"><svg class="css-icon css-icon-globe" aria-hidden="true" focusable="false"><use href="#icon-globe"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_FB --><li><a href="{U_FB}" title="{L_FB}" target="_blank"><svg class="css-icon css-icon-brand-fb" aria-hidden="true" focusable="false"><use href="#icon-brand-fb"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_IG --><li><a href="{U_IG}" title="{L_IG}" target="_blank"><svg class="css-icon css-icon-brand-ig" aria-hidden="true" focusable="false"><use href="#icon-brand-ig"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_PT --><li><a href="{U_PT}" title="{L_PT}" target="_blank"><svg class="css-icon css-icon-brand-pt" aria-hidden="true" focusable="false"><use href="#icon-brand-pt"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_TWR --><li><a href="{U_TWR}" title="{L_TWR}" target="_blank"><svg class="css-icon css-icon-brand-tw" aria-hidden="true" focusable="false"><use href="#icon-brand-tw"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_SKP --><li><a href="{U_SKP}" title="{L_SKP}" target="_blank"><svg class="css-icon css-icon-brand-sk" aria-hidden="true" focusable="false"><use href="#icon-brand-sk"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_TG --><li><a href="{U_TG}" title="{L_TG}" target="_blank"><svg class="css-icon css-icon-brand-tg" aria-hidden="true" focusable="false"><use href="#icon-brand-tg"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_LI --><li><a href="{U_LI}" title="{L_LI}" target="_blank"><svg class="css-icon css-icon-brand-li" aria-hidden="true" focusable="false"><use href="#icon-brand-li"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_TT --><li><a href="{U_TT}" title="{L_TT}" target="_blank"><svg class="css-icon css-icon-brand-tt" aria-hidden="true" focusable="false"><use href="#icon-brand-tt"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_DC --><li><a href="{U_DC}" title="{L_DC}" target="_blank"><svg class="css-icon css-icon-brand-dc" aria-hidden="true" focusable="false"><use href="#icon-brand-dc"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_MSN --><li><a href="{U_MSN}" title="{L_MSNM}" data-action="popup" data-popup-width="550" data-popup-height="320"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_ICQ --><li><a href="{U_ICQ}" title="{L_ICQ}" data-action="popup" data-popup-width="550" data-popup-height="320"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_YIM --><li><a href="{U_YIM}" title="{L_YIM}" data-action="popup" data-popup-width="780" data-popup-height="550"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_AIM --><li><a href="{U_AIM}" title="{L_AIM}" data-action="popup" data-popup-width="550" data-popup-height="320"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li><!-- ENDIF -->
+					<!-- IF U_JABBER --><li><a href="{U_JABBER}" title="{L_JABBER}" data-action="popup" data-popup-width="550" data-popup-height="320"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li><!-- ENDIF -->
+				</ul>
+			</div>
+			<!-- ENDIF -->
+		</div>
+	</section>
+	{USER_MENU_EXTRA}
+<!-- ENDIF -->
+
+<!-- IF S_BLOG_LINKS -->
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_BLOG_LINKS}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<ul class="blog-link-list">
+				<!-- BEGIN left_blog_links -->
+					<li class="{left_blog_links.CLASS}"><!-- IF left_blog_links.URL == 'spacer' && left_blog_links.NAME == 'spacer' -->&nbsp;<!-- ELSE --><a href="{left_blog_links.URL}">{left_blog_links.NAME}</a><!-- ENDIF --></li>
+				<!-- END left_blog_links -->
+			</ul>
+		</div>
+	</section>
+<!-- ENDIF -->
+
+<!-- IF S_BLOG_STATS -->
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_BLOG_STATS}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<!-- BEGIN stats -->
+				<div class="blog-stat-row"><!-- IF stats.URL == 'spacer' && stats.NAME == 'spacer' -->&nbsp;<!-- ELSE --><span>{stats.NAME}</span><span>{stats.VALUE}</span><!-- ENDIF --></div>
+			<!-- END stats -->
+		</div>
+	</section>
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_BLOG_SEARCH -->
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_SEARCH_BLOGS}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<form id="blog_searchform" class="blog-search-form" method="post" action="{U_BLOG_SEARCH}">
+				<input name="keywords" id="blog_keywords" type="text" maxlength="128" title="{L_SEARCH_KEYWORDS}" class="inputbox search ucp-form-input" value="<!-- IF SEARCH_WORDS-->{SEARCH_WORDS}<!-- ELSE -->{L_SEARCH_MINI}<!-- ENDIF -->" data-placeholder-value="{LA_SEARCH_MINI}" />
+				<input class="button2" value="{L_SEARCH}" type="submit" />
+				{S_HIDDEN_FIELDS}
+			</form>
+			<p><a href="{U_BLOG_SEARCH}" title="{L_SEARCH_ADV_EXPLAIN}">{L_SEARCH_ADV}</a></p>
+		</div>
+	</section>
+<!-- ENDIF -->
+
+{MENU_EXTRA}

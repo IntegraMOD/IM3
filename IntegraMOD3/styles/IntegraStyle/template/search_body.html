@@ -1,0 +1,110 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2 class="solo">{L_SEARCH}</h2>
+
+<form method="get" action="{S_SEARCH_ACTION}">
+
+<div class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_SEARCH_QUERY}</h3>
+	</div>
+	<div class="ucp-card-body ucp-form-grid">
+		<div class="ucp-form-row">
+			<label class="ucp-form-label" for="keywords">{L_SEARCH_KEYWORDS}:</label>
+			<p class="ucp-form-help">{L_SEARCH_KEYWORDS_EXPLAIN}</p>
+			<input type="text" class="inputbox ucp-form-input" name="keywords" id="keywords" size="40" title="{L_SEARCH_KEYWORDS}" autofocus="autofocus" />
+			<div class="ucp-form-inline">
+				<label for="terms1"><input type="radio" name="terms" id="terms1" value="all" checked="checked" /> {L_SEARCH_ALL_TERMS}</label>
+				<label for="terms2"><input type="radio" name="terms" id="terms2" value="any" /> {L_SEARCH_ANY_TERMS}</label>
+			</div>
+		</div>
+		<div class="ucp-form-row">
+			<label class="ucp-form-label" for="author">{L_SEARCH_AUTHOR}:</label>
+			<p class="ucp-form-help">{L_SEARCH_AUTHOR_EXPLAIN}</p>
+			<input type="text" class="inputbox ucp-form-input" name="author" id="author" size="40" title="{L_SEARCH_AUTHOR}" />
+		</div>
+	</div>
+</div>
+
+<div class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_SEARCH_OPTIONS}</h3>
+	</div>
+	<div class="ucp-card-body ucp-form-grid">
+		<div class="ucp-form-row">
+			<label class="ucp-form-label" for="search_forum">{L_SEARCH_FORUMS}:</label>
+			<p class="ucp-form-help">{L_SEARCH_FORUMS_EXPLAIN}</p>
+			<select class="ucp-form-select" name="fid[]" id="search_forum" multiple="multiple" size="8" title="{L_SEARCH_FORUMS}">{S_FORUM_OPTIONS}</select>
+		</div>
+		<div class="ucp-form-row">
+			<span class="ucp-form-label">{L_SEARCH_SUBFORUMS}:</span>
+			<div class="ucp-form-inline">
+				<label for="search_child1"><input type="radio" name="sc" id="search_child1" value="1" checked="checked" /> {L_YES}</label>
+				<label for="search_child2"><input type="radio" name="sc" id="search_child2" value="0" /> {L_NO}</label>
+			</div>
+		</div>
+		<div class="ucp-form-row">
+			<span class="ucp-form-label">{L_SEARCH_WITHIN}:</span>
+			<div class="ucp-form-inline">
+				<label for="sf1"><input type="radio" name="sf" id="sf1" value="all" checked="checked" /> {L_SEARCH_TITLE_MSG}</label>
+				<label for="sf2"><input type="radio" name="sf" id="sf2" value="msgonly" /> {L_SEARCH_MSG_ONLY}</label>
+				<label for="sf3"><input type="radio" name="sf" id="sf3" value="titleonly" /> {L_SEARCH_TITLE_ONLY}</label>
+				<label for="sf4"><input type="radio" name="sf" id="sf4" value="firstpost" /> {L_SEARCH_FIRST_POST}</label>
+			</div>
+		</div>
+		<div class="ucp-form-row">
+			<span class="ucp-form-label">{L_DISPLAY_RESULTS}:</span>
+			<div class="ucp-form-inline">
+				<label for="show_results1"><input type="radio" name="sr" id="show_results1" value="posts" checked="checked" /> {L_POSTS}</label>
+				<label for="show_results2"><input type="radio" name="sr" id="show_results2" value="topics" /> {L_TOPICS}</label>
+			</div>
+		</div>
+		<div class="ucp-form-row">
+			<span class="ucp-form-label">{L_RESULT_SORT}:</span>
+			<div class="ucp-form-inline">
+				{S_SELECT_SORT_KEY}
+				<label for="sa"><input type="radio" name="sd" id="sa" value="a" /> {L_SORT_ASCENDING}</label>
+				<label for="sd"><input type="radio" name="sd" id="sd" value="d" checked="checked" /> {L_SORT_DESCENDING}</label>
+			</div>
+		</div>
+		<div class="ucp-form-row">
+			<label class="ucp-form-label">{L_RESULT_DAYS}:</label>
+			<div>{S_SELECT_SORT_DAYS}</div>
+		</div>
+		<div class="ucp-form-row">
+			<label class="ucp-form-label" for="ch">{L_RETURN_FIRST}:</label>
+			<div class="ucp-form-inline">
+				<select name="ch" id="ch" title="{L_RETURN_FIRST}">{S_CHARACTER_OPTIONS}</select>
+				<span>{L_POST_CHARACTERS}</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<fieldset class="submit-buttons ucp-actions">
+	{S_HIDDEN_FIELDS}
+	<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+	<input type="submit" name="submit" value="{L_SEARCH}" class="button1" />
+</fieldset>
+
+</form>
+
+<!-- IF .recentsearch -->
+<div class="ucp-card">
+	<div class="ucp-card-header">
+		<h3 class="ucp-card-title">{L_RECENT_SEARCHES}</h3>
+	</div>
+	<div class="ucp-card-body ucp-form-grid">
+	<!-- BEGIN recentsearch -->
+		<div class="ucp-form-inline <!-- IF recentsearch.S_ROW_COUNT is even -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+			<a href="{recentsearch.U_KEYWORDS}">{recentsearch.KEYWORDS}</a>
+			<span>{recentsearch.TIME}</span>
+		</div>
+	<!-- BEGINELSE -->
+		<p class="ucp-zebra-empty">{L_NO_RECENT_SEARCHES}</p>
+	<!-- END recentsearch -->
+	</div>
+</div>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

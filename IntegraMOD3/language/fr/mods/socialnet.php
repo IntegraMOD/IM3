@@ -1,5 +1,6 @@
 <?php
 /**
+ * - [French]
  *
  * @package phpBB Social Network
  * @version 1.0.0
@@ -79,7 +80,7 @@ $lang = array_merge($lang, array(
 	'SN_US_CHOOSE_THUMB'					 => 'images',
 	'SN_CB_FETCH_ERROR'						 => 'Une erreur s’est produite lors du chargement de la page web',
 
-	'SN_AP_ACTIVITYPAGE'					 => 'Quoi de neuf ?',
+	'SN_AP_ACTIVITYPAGE'					 => 'Mon r&eacute;seau',
 	'SN_AP_AND'								 => 'et',
 	'SN_AP_ARE_FRIENDS'						 => 'sont maintenant amis',
 	'SN_AP_ADD_AS_FRIEND'					 => 'Ajouter comme ami',
@@ -142,6 +143,13 @@ $lang = array_merge($lang, array(
 	'SN_UP_HOMETOWN'						 => 'Ville d’origine',
 	'SN_UP_SEX'								 => 'Sexe',
 	'SN_UP_INTERESTED_IN'					 => 'Intéressé par',
+	'SN_UP_PRIVACY_LEVEL'					 => 'Niveau de confidentialité',
+	'SN_UP_PRIVACY_PRIVATE'					 => 'Privé (administrateurs uniquement)',
+	'SN_UP_PRIVACY_FRIENDS'					 => 'Amis uniquement',
+	'SN_UP_PRIVACY_DEFAULT'					 => 'Par défaut (tout le monde)',
+	'SN_UP_ALLOW_FRIEND_REQUESTS'			 => 'Autoriser les membres à m’envoyer des demandes d’ami',
+	'SN_UP_PRIVACY_LOCKED'					 => 'L’administrateur du forum n’autorise pas les membres à modifier leur politique de confidentialité.',
+	'SN_UP_PRIVACY_DEFAULT_NOTICE'			 => 'La politique de confidentialité par défaut du forum est : <strong>%s</strong>.',
 	'SN_UP_LANGUAGES'						 => 'Langues',
 	'SN_UP_ABOUT_ME'						 => 'À propos de moi',
 	'SN_UP_EMPLOYER'						 => 'Employeur',
@@ -334,6 +342,10 @@ $lang = array_merge($lang, array(
 	'SN_UP_TABS_SPINNER'					 => '<em>Chargement&#8230;<\/em>',
 	'SN_UP_EMOTES'							 => 'Envoyer une émoticône',
 
+	'SN_LIKED_POSTS'						 => 'J\'aime reçus',
+	'SN_SEARCH_LIKED_POSTS'					 => 'Rechercher les publications aimées par l’utilisateur',
+	'SN_LIKES_SENT'         				 => 'J\'aime envoyés',
+	'SN_SEARCH_LIKES_SENT'  				 => 'Rechercher les publications que vous avez aimées',
 	'SN_UP_PROFILE_VALUE_DELETED'			 => '<em>Supprimé</em>',
 
 	'SN_NTF_EMOTE_CB_TITLE'					 => 'Émoticône envoyée',

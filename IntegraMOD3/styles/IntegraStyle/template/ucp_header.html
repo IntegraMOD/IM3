@@ -1,0 +1,68 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- Mobile Toggle Bar (Visible only on smaller viewports) -->
+<div class="ucp-mobile-header">
+    <button type="button" id="ucp-sidebar-toggle" class="ucp-sidebar-toggle" aria-label="Toggle UCP Menu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <span class="ucp-mobile-title">{L_UCP}</span>
+</div>
+
+<div class="ucp-layout-container">
+    <!-- Sidebar Menu -->
+    <aside id="ucp-sidebar" class="ucp-sidebar">
+        <nav class="ucp-nav">
+            <ul class="ucp-nav-list">
+                <li class="ucp-nav-heading">{L_OPTIONS}</li>
+
+                <!-- BEGIN t_block1 -->
+                <li class="ucp-nav-item <!-- IF t_block1.S_SELECTED -->active-main<!-- ENDIF -->">
+                    <a href="{t_block1.U_TITLE}" class="ucp-nav-link">
+                        <span class="nav-text">{t_block1.L_TITLE}</span>
+                    </a>
+                </li>
+                <!-- END t_block1 -->
+            </ul>
+
+            <ul id="ucp-sub-nav-global" class="ucp-sub-nav">
+                <!-- IF S_PRIVMSGS -->
+                    <!-- BEGIN t_block2 -->
+                        <!-- IF S_PRIVMSGS and not t_block2.S_LAST_ROW -->
+                        <li class="ucp-sub-item <!-- IF t_block2.S_SELECTED -->active-sub<!-- ENDIF -->">
+                            <a href="{t_block2.U_TITLE}" class="ucp-sub-link">
+                                <span>{t_block2.L_TITLE}</span>
+                            </a>
+                        </li>
+                        <!-- ENDIF -->
+                    <!-- END t_block2 -->
+
+                    <!-- BEGIN folder -->
+                    <li class="ucp-sub-item <!-- IF folder.S_CUR_FOLDER -->active-sub<!-- ENDIF -->">
+                        <a href="{folder.U_FOLDER}" class="ucp-sub-link">
+                            <span><!-- IF folder.UNREAD_MESSAGES > 0 --><strong>{folder.FOLDER_NAME} ({folder.UNREAD_MESSAGES})</strong><!-- ELSE -->{folder.FOLDER_NAME}<!-- ENDIF --></span>
+                        </a>
+                    </li>
+                    <!-- END folder -->
+                <!-- ENDIF -->
+
+                <!-- BEGIN t_block2 -->
+                    <!-- IF (S_PRIVMSGS and t_block2.S_LAST_ROW) or not S_PRIVMSGS -->
+                    <li class="ucp-sub-item <!-- IF t_block2.S_SELECTED -->active-sub<!-- ENDIF -->">
+                        <a href="{t_block2.U_TITLE}" class="ucp-sub-link">
+                            <span>{t_block2.L_TITLE}</span>
+                        </a>
+                    </li>
+                    <!-- ENDIF -->
+                <!-- END t_block2 -->
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main UCP Content Area -->
+    <main id="ucp-content" class="ucp-content">
+
+<!-- IF S_COMPOSE_PM -->
+<form id="postform" method="post" action="{S_POST_ACTION}"{S_FORM_ENCTYPE}>
+<!-- ENDIF -->

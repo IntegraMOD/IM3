@@ -162,7 +162,7 @@ function as_display()
 		'S_DISPLAY_SHOUTBOX'	=> $auth->acl_get('u_as_view') ? true : false,
 		'S_CAN_VIEW_AS'			=> $auth->acl_get('u_as_view') ? true : false,
 		'U_SHOUT'				=> append_sid("{$phpbb_root_path}js.$phpEx"),
-		'U_SHOUT_STATIC'		=> append_sid("{$phpbb_root_path}static.js"),
+		'U_SHOUT_STATIC'		=> append_sid("{$phpbb_root_path}assets/js/static.js"),
 	));
 	// Do the shoutbox Prune thang - cron type job ...
 	if ($config['last_as_run'] + $config['as_interval'] < time())

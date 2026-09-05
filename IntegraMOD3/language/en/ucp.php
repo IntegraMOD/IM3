@@ -460,9 +460,8 @@ $lang = array_merge($lang, array(
 	'UCP_PREFS_PERSONAL'		=> 'Edit global settings',
 	'UCP_PREFS_POST'			=> 'Edit posting defaults',
 	'UCP_PREFS_VIEW'			=> 'Edit display options',
-
 	'UCP_PUSH_NOTIFICATIONS'	=> 'Push Notifications',
-	'UCP_PUSH_SETTINGS'		=> 'Notification Preferences',
+	'UCP_PUSH_SETTINGS'		    => 'Notification Preferences',
 
 	'UCP_PM'					=> 'Private messages',
 	'UCP_PM_COMPOSE'			=> 'Compose message',

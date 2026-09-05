@@ -1,0 +1,25 @@
+<!-- INCLUDE overall_header.html -->
+
+<h2>{L_PAGES}</h2>
+
+<section class="ucp-card page-list">
+    <header class="forum-header page-list-header">
+        <div class="forum-title">{L_PAGE}</div>
+        <div class="forum-stats-header info">{L_AUTHOR}</div>
+    </header>
+    <div class="forum-list">
+        <!-- BEGIN pagelist -->
+        <article class="forum-row page-list-row">
+            <div class="forum-details">
+                <a href="{pagelist.PAGE_LINK}" class="forum-title">{pagelist.PAGE_TITLE}</a>
+                <!-- IF pagelist.PAGE_DESC --><p class="forum-desc">{pagelist.PAGE_DESC}</p><!-- ENDIF -->
+            </div>
+            <div class="forum-stats-grid">
+                <div class="stat-info">{pagelist.PAGE_AUTHOR}</div>
+            </div>
+        </article>
+        <!-- END pagelist -->
+    </div>
+</section>
+
+<!-- INCLUDE overall_footer.html -->

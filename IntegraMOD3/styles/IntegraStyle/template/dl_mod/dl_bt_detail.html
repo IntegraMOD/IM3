@@ -1,0 +1,83 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<section class="ucp-card">
+    <div class="ucp-card-body dl-meta-grid">
+        <div>
+            <h3>{L_DL_BUG_REPORT_TITLE}</h3>
+            <p>{REPORT_TITLE}</p>
+            <h3>{L_DL_BUG_REPORT_TEXT}</h3>
+            <p>{REPORT_TEXT}</p>
+            <!-- IF U_BUG_REPORT_EDIT --><p><a href="{U_BUG_REPORT_EDIT}">{L_DL_EDIT_FILE}</a></p><!-- ENDIF -->
+        </div>
+        <div>
+            <p><strong>{L_DL_BUG_REPORT_ID}:</strong> {REPORT_ID}</p>
+            <p><strong>{L_DL_BUG_REPORT_FILE}:</strong> <a href="{U_DOWNLOAD_FILE}">{REPORT_FILE}</a></p>
+            <!-- IF REPORT_FILE_VER --><p><strong>{L_DL_HACK_VERSION}:</strong> {REPORT_FILE_VER}</p><!-- ENDIF -->
+            <p><strong>{L_DL_BUG_REPORT_DATE}:</strong> {REPORT_DATE}</p>
+            <p><strong>{L_DL_BUG_REPORT_AUTHOR}:</strong> {REPORT_AUTHOR}</p>
+            <!-- IF REPORT_PHP --><p><strong>{L_DL_BUG_REPORT_PHP}:</strong> {REPORT_PHP}</p><!-- ENDIF -->
+            <!-- IF REPORT_DB --><p><strong>{L_DL_BUG_REPORT_DB}:</strong> {REPORT_DB}</p><!-- ENDIF -->
+            <!-- IF REPORT_FORUM --><p><strong>{L_DL_BUG_REPORT_FORUM}:</strong> {REPORT_FORUM}</p><!-- ENDIF -->
+            <p><strong>{L_DL_BUG_REPORT_STATUS}:</strong> {REPORT_STATUS}</p>
+            <p><strong>{L_DL_BUG_REPORT_STATUS_DATE}:</strong> {STATUS_DATE}</p>
+            <!-- BEGIN assign -->
+            <p><strong>{L_DL_BUG_REPORT_ASSIGNED}:</strong> {assign.ASSIGN_TO}</p>
+            <p><strong>{L_DL_BUG_REPORT_ASSIGN_DATE}:</strong> {assign.ASSIGN_DATE}</p>
+            <!-- END assign -->
+            <!-- IF S_NO_ASSIGN -->
+            <p>{L_DL_BUG_REPORT_UNASSIGNED}</p>
+            <!-- ENDIF -->
+            <!-- IF S_ASSIGN_MOD -->
+            <form action="{S_FORM_ASSIGN_ACTION}" id="assign_user" method="post">
+                {S_SELECT_ASSIGN_USER}
+                <input type="submit" name="submit" value="{L_DL_BUG_REPORT_ASSIGN}" class="button2" />
+                {S_FORM_TOKEN}
+            </form>
+            <!-- ENDIF -->
+            <!-- BEGIN delete -->
+            <p><a href="{delete.U_DELETE}">{L_DL_DELETE}</a></p>
+            <!-- END delete -->
+        </div>
+    </div>
+</section>
+
+<!-- IF S_SELECT_STATUS -->
+<form action="{S_FORM_STATUS_ACTION}" method="post" id="status_change">
+    <section class="ucp-card">
+        <div class="ucp-card-header">
+            <h3 class="ucp-card-title">{L_DL_BUG_REPORT_STATUS}</h3>
+        </div>
+        <div class="ucp-card-body">
+            <div class="ucp-form-row">
+                <div class="ucp-form-content">
+                    {S_SELECT_STATUS}
+                    <input type="submit" name="submit" value="{L_DL_BUG_REPORT_STATUS_UPDATE}" class="button2" />
+                </div>
+            </div>
+            <div class="ucp-form-row">
+                <label class="ucp-form-label" for="new_status_text">{L_DL_BUG_REPORT_STATUS_TEXT}</label>
+                <textarea cols="75" rows="3" class="inputbox ucp-form-input" id="new_status_text" name="new_status_text"></textarea>
+            </div>
+            {S_FORM_TOKEN}
+        </div>
+    </section>
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_HISTORY -->
+<section class="ucp-card">
+    <div class="ucp-card-header">
+        <h3 class="ucp-card-title">{L_DL_BUG_REPORT_HISTORY}</h3>
+    </div>
+    <div class="ucp-card-body dl-list">
+        <!-- BEGIN history_row -->
+        <article class="dl-list-row">
+            <div><strong>{history_row.VALUE}</strong><br />{history_row.DATE}</div>
+            <div>{history_row.TEXT}</div>
+        </article>
+        <!-- END history_row -->
+    </div>
+</section>
+<!-- ENDIF -->
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

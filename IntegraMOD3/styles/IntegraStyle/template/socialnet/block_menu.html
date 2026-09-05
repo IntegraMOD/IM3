@@ -1,0 +1,62 @@
+<!-- IF B_SN_BLOCK_MENU_ENABLED -->
+<nav class="sn-menu">
+    <ul class="sn-menu-list">
+        <li class="sn-menu-item <!-- IF S_SN_AP_VIEW_MAIN or not S_USER_LOGGED_IN -->sn-menu-active<!-- ENDIF -->">
+            <a href="{U_SN_ACTIVITYPAGE}" class="sn-menu-link">
+                <svg class="css-icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+                {L_SN_AP_ACTIVITYPAGE}
+            </a>
+        </li>
+        <li class="sn-menu-item">
+            <a href="{U_INDEX}" class="sn-menu-link">
+                <svg class="css-icon" aria-hidden="true"><use href="#icon-forum"></use></svg>
+                {L_SN_AP_BOARD}
+            </a>
+        </li>
+        <!-- IF S_DISPLAY_PM -->
+        <li class="sn-menu-item">
+            <a href="{U_PRIVATEMSGS}" class="sn-menu-link">
+                <svg class="css-icon" aria-hidden="true"><use href="#icon-mail"></use></svg>
+                <!-- IF S_USER_UNREAD_PRIVMSG neq 0 --><span class="snbadge">{S_USER_UNREAD_PRIVMSG}</span><!-- ENDIF -->
+                {L_SN_AP_PRIVATE_MESSAGE}
+            </a>
+        </li>
+        <!-- ENDIF -->
+        <!-- IF S_USER_LOGGED_IN -->
+        <li class="sn-menu-item">
+            <a href="{U_MANAGE_FRIEND}" class="sn-menu-link">
+                <svg class="css-icon" aria-hidden="true"><use href="#icon-users"></use></svg>
+                <!-- IF S_NUM_FRIEND_REQUESTS > 0 --><span class="snbadge">{S_NUM_FRIEND_REQUESTS}</span><!-- ENDIF -->
+                {L_SN_AP_MANAGE_FRIENDS}
+            </a>
+        </li>
+        <!-- ENDIF -->
+        <!-- IF SN_MODULE_NOTIFY_ENABLED -->
+        <li class="sn-menu-item <!-- IF S_SN_AP_NOTIFY -->sn-menu-active<!-- ENDIF -->">
+            <a href="{U_VIEW_NOTIFY}" class="sn-menu-link">
+                <svg class="css-icon" aria-hidden="true"><use href="#icon-inbox"></use></svg>
+                <span class="snbadge" id="sn-ntf-cube"<!-- IF S_SN_USER_UNREAD_NOTIFY eq 0 --> style="display:none"<!-- ENDIF -->><!-- IF S_SN_USER_UNREAD_NOTIFY neq 0 -->{S_SN_USER_UNREAD_NOTIFY}<!-- ENDIF --></span>
+                {L_SN_AP_NOTIFY}
+            </a>
+        </li>
+        <!-- ENDIF -->
+        <!-- IF S_DISPLAY_MEMBERLIST -->
+        <li class="sn-menu-item">
+            <a href="{U_MEMBERLIST}" class="sn-menu-link">
+                <svg class="css-icon" aria-hidden="true"><use href="#icon-meeting"></use></svg>
+                {L_SN_AP_VIEW_MEMBERLIST}
+            </a>
+        </li>
+        <!-- ENDIF -->
+        <!-- IF S_USER_LOGGED_IN -->
+        <li class="sn-menu-item">
+            <a href="{U_LOGIN_LOGOUT}&amp;redirect=./activitypage.php" class="sn-menu-link">
+                <svg class="css-icon" aria-hidden="true"><use href="#icon-power"></use></svg>
+                {L_SN_AP_LOG_OUT}
+            </a>
+        </li>
+        <!-- ENDIF -->
+        {SN_BLOCK_MENU_HTML}
+    </ul>
+</nav>
+<!-- ENDIF -->

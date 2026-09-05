@@ -1,0 +1,58 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- IF S_SHOW_COPPA or S_REGISTRATION -->
+
+<!-- IF S_LANG_OPTIONS -->
+	<form method="post" action="{S_UCP_ACTION}" id="register" class="ucp-form-grid">
+		<div class="ucp-card">
+			<div class="ucp-card-body">
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="lang">{L_LANGUAGE}</label>
+					<select class="ucp-form-select" name="lang" id="lang" data-action="change-language" title="{L_LANGUAGE}">{S_LANG_OPTIONS}</select>
+				</div>
+				{S_HIDDEN_FIELDS}
+			</div>
+		</div>
+	</form>
+<!-- ENDIF -->
+
+	<form method="post" action="{S_UCP_ACTION}" id="agreement" class="ucp-form-grid">
+		<div class="ucp-card">
+			<div class="ucp-card-body">
+				<h2>{SITENAME} - {L_REGISTRATION}</h2>
+				<p><!-- IF S_SHOW_COPPA -->{L_COPPA_BIRTHDAY}<!-- ELSE -->{L_TERMS_OF_USE}<!-- ENDIF --></p>
+			</div>
+		</div>
+
+		<div class="ucp-card">
+			<div class="ucp-card-body">
+				<div class="ucp-actions">
+					<!-- IF S_SHOW_COPPA -->
+						<a href="{U_COPPA_NO}" class="button1">{L_COPPA_NO}</a>
+						<a href="{U_COPPA_YES}" class="button2">{L_COPPA_YES}</a>
+					<!-- ELSE -->
+						<input type="submit" name="agreed" id="agreed" value="{L_AGREE}" class="button1" />
+						<input type="submit" name="not_agreed" value="{L_NOT_AGREE}" class="button2" />
+					<!-- ENDIF -->
+				</div>
+				{S_HIDDEN_FIELDS}
+				{S_FORM_TOKEN}
+			</div>
+		</div>
+	</form>
+
+<!-- ELSEIF S_AGREEMENT -->
+
+	<div class="ucp-card">
+		<div class="ucp-card-body">
+			<h2>{SITENAME} - {AGREEMENT_TITLE}</h2>
+			<p>{AGREEMENT_TEXT}</p>
+			<hr class="dashed" />
+			<p><a href="{U_BACK}" class="button2">{L_BACK}</a></p>
+		</div>
+	</div>
+
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->
+

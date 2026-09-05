@@ -28,6 +28,17 @@ function load_tips(id)
 		});
 }
 
+function ajaxlike_prepare_dialog()
+{
+	jQuery(this).parent().find('.ui-dialog-titlebar-close').each(function()
+	{
+		jQuery(this).contents().filter(function()
+		{
+			return this.nodeType === 3;
+		}).remove();
+	});
+}
+
 function ajaxlike_like(post_id, topic_id, forum_id, user_id, callback_url)
 {
 	
@@ -84,6 +95,8 @@ function ajaxlike_fulllistbox(post_id, topic_id, forum_id, callback_url, like_on
 			width: '500',
 			height: '400',
 			modal: true,
+			dialogClass: 'ajaxlike-dialog-window',
+			create: ajaxlike_prepare_dialog,
 			position: 'center',
 			show: "fade",
 			hide: "fade",
@@ -132,6 +145,56 @@ function ajaxlike_fulllistbox(post_id, topic_id, forum_id, callback_url, like_on
 
 }
 
+function ajaxlike_bind_actions()
+{
+	if (typeof jQuery === 'undefined')
+	{
+		return;
+	}
+
+	jQuery(document).off('click.ajaxlike', 'a[data-ajaxlike-action]').on('click.ajaxlike', 'a[data-ajaxlike-action]', function(event)
+	{
+		event.preventDefault();
+
+		var link = jQuery(this);
+		var action = link.data('ajaxlike-action');
+		var postId = link.data('post-id');
+		var topicId = link.data('topic-id');
+		var forumId = link.data('forum-id');
+		var callbackUrl = link.data('callback');
+
+		if (action === 'like')
+		{
+			ajaxlike_like(postId, topicId, forumId, link.data('like-from'), callbackUrl);
+		}
+		else if (action === 'unlike')
+		{
+			ajaxlike_unlike(postId, topicId, forumId, link.data('like-from'), callbackUrl);
+		}
+		else if (action === 'list')
+		{
+			ajaxlike_fulllistbox(postId, topicId, forumId, callbackUrl, link.data('list-title'));
+		}
+	});
+
+	jQuery(document).off('click.ajaxlikeNotify', 'a[data-ajaxlike-list]').on('click.ajaxlikeNotify', 'a[data-ajaxlike-list]', function(event)
+	{
+		event.preventDefault();
+
+		var callbackUrl = jQuery(this).data('ajaxlike-callback');
+
+		if (callbackUrl)
+		{
+			ajaxlike_liked_listbox(callbackUrl);
+		}
+	});
+}
+
+jQuery(function()
+{
+	ajaxlike_bind_actions();
+});
+
 /*
 	ajaxlike notifications
 */
@@ -158,7 +221,8 @@ function ajaxlike_notificationsbox(callback_url)
 				for(i=0;i<data.length;i++){
 					document.getElementById('ajaxlike_not-dialog').innerHTML += '<div class="ajaxlike_not_listing_item" like_id="'+data[i].like_id+'" id="box'+data[i].like_id+'"><div class="ajaxlike_noti ajaxlike_noti_Top ajaxlike_noti_Bottom ajaxlike_noti_Selected" style="opacity: 1; "><span id="ajaxlike_not_x" class="close'+data[i].like_id+'">&nbsp;</span><div class="ajaxlike_not_listing_item_avatar">'+data[i].avatar+(data[i].avatar!=''?"</div>":"")+data[i].username_full+'<br />'+data[i].like_info+'<a href="'+data[i].post+'">'+data[i].like_text+'</a><br /><span class="ajaxlike_not_listing_item_date"><i>'+data[i].date+'</i></span></div></div>';
 			 	 
-					jQuery("#ajaxlike_not_new").html(""+"<strong>" + nlikes + "</strong>" + ninfo +  "");
+					jQuery('#ajaxlike_not_new .ajaxlike-notification-count').text(nlikes);
+					jQuery('#ajaxlike_not_new .ajaxlike-notification-text').text(ninfo);
 	  				jQuery("#ajaxlike_not-dialog").fadeIn("slow");	
 	   				jQuery('div').on('hover',function() {  
          			hoveredId = jQuery(this).attr('like_id');
@@ -199,17 +263,25 @@ function ajaxlike_liked_listbox(callback_url)
 {   
 
 	jQuery(function() {
+			var dialogElement = document.getElementById('ajaxlike-not-dialog') || document.getElementById('ajaxlike_not-dialog');
+
+			if (!dialogElement)
+			{
+				return;
+			}
 		
 			// show something until load complete in slow connection...
-			document.getElementById('ajaxlike-not-dialog').innerHTML = "<p>loading...</p>";
+			dialogElement.innerHTML = "<p>loading...</p>";
 				
 
 		jQuery( "#dialog:ui-dialog" ).dialog("destroy");
 
-			jQuery( "#ajaxlike-not-dialog" ).dialog({
+			jQuery(dialogElement).dialog({
 			width: '500',
 			height: '400',
 			modal: true,
+			dialogClass: 'ajaxlike-dialog-window ajaxlike-not-dialog-window',
+			create: ajaxlike_prepare_dialog,
 			show: "fade",
 			hide: "fade",
 			buttons: {
@@ -225,7 +297,7 @@ function ajaxlike_liked_listbox(callback_url)
     				
 				
 				jQuery('.ui-widget-overlay').bind('click',function(){ 
-                	jQuery('#ajaxlike-not-dialog').dialog('close'); 
+					jQuery(dialogElement).dialog('close'); 
             	});
 
 			var rv = new Date().getTime();
@@ -237,13 +309,14 @@ function ajaxlike_liked_listbox(callback_url)
 				},   function(data){
 					
 				var ninfo = (data[0].like_new);
-				document.getElementById('ajaxlike-not-dialog').innerHTML = "";
+				dialogElement.innerHTML = "";
 				
 				for(i=0;i<data.length;i++){
 					
-					document.getElementById('ajaxlike-not-dialog').innerHTML += '<div class="ajaxlike_listing_item ajaxlike_post_'+data[i].item_class+'"><div class="ajaxlike_not_listing_item_avatar">'+data[i].avatar+'</div><div class="ajaxlike_listing_content">'+data[i].username_full+'<br />'+data[i].like_info+'<a href="'+data[i].post+'" class="ajaxlike_link">'+data[i].like_text+'</a><br /><span class="ajaxlike_not_listing_item_date"><i>'+data[i].date+'</i></span><br /><span class="ajaxlike_listing_item_date"><i>'+data[i].post_text+'</i></span></div><div style="clear: both;">&nbsp;</div></div>';
+				dialogElement.innerHTML += '<div class="ajaxlike_listing_item ajaxlike_post_'+data[i].item_class+'"><div class="ajaxlike_not_listing_item_avatar">'+data[i].avatar+'</div><div class="ajaxlike_listing_content">'+data[i].username_full+'<br />'+data[i].like_info+'<a href="'+data[i].post+'" class="ajaxlike_link">'+data[i].like_text+'</a><br /><span class="ajaxlike_not_listing_item_date"><i>'+data[i].date+'</i></span><br /><span class="ajaxlike_listing_item_date"><i>'+data[i].post_text+'</i></span></div><div style="clear: both;">&nbsp;</div></div>';
 					
-				jQuery("#ajaxlike_not_new").html(""+"<strong>0</strong>" + ninfo +  "");
+				jQuery('#ajaxlike_not_new .ajaxlike-notification-count').text(0);
+				jQuery('#ajaxlike_not_new .ajaxlike-notification-text').text(ninfo);
 				
 				}
 			});
