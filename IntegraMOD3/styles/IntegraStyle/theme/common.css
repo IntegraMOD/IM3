@@ -309,6 +309,9 @@ h3 { font-size: 1.4em; border-bottom: 1px solid var(--border-ad-panel); padding-
     margin-top: 8px;
     padding: 4px 6px;
 }
+.red { color: var(--state-announce); font-weight: 700; }
+.orange { color: var(--state-hot); font-weight: 700; }
+.green { color: var(--state-sticky); font-weight: 700; }
 .recent-topics-empty { text-align: center; margin: 0; }
 @media (max-width: 768px) {
     .recent-topics-head,
