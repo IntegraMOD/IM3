@@ -58,6 +58,109 @@ const initializeLegacyPortalClock = () => {
 
 onPortalReady(initializeLegacyPortalClock);
 
+const initializeLanguageSelectFlags = () => {
+    document.querySelectorAll('[data-lang-select]').forEach(select => {
+        const block = select.closest('.language-select-block');
+        const form = select.closest('form');
+        const dropdown = block ? block.querySelector('[data-lang-dropdown]') : null;
+        const currentValue = block ? block.querySelector('[data-lang-value]') : null;
+        const list = block ? block.querySelector('[data-lang-list]') : null;
+        if (!block || !form || !dropdown || !currentValue || !list || !select.options.length) {
+            return;
+        }
+
+        let flagPath = block.getAttribute('data-flag-path') || './images/flags/';
+        if (flagPath.slice(-1) !== '/') {
+            flagPath += '/';
+        }
+
+        const fillFlagLabel = (target, option) => {
+            target.textContent = '';
+            const flag = option.getAttribute('data-flag');
+            if (flag) {
+                const img = document.createElement('img');
+                img.className = 'language-select-flag';
+                img.src = flagPath + flag;
+                img.alt = '';
+                img.width = 24;
+                img.height = 16;
+                target.appendChild(img);
+            }
+            const name = document.createElement('span');
+            name.className = 'language-select-name';
+            name.textContent = option.text;
+            target.appendChild(name);
+        };
+
+        const portalBlock = block.closest('.portal-block');
+        if (portalBlock) {
+            portalBlock.classList.add('has-language-select');
+        }
+
+        const setOpen = (open) => {
+            list.hidden = !open;
+            select.setAttribute('aria-expanded', open ? 'true' : 'false');
+            if (portalBlock) {
+                portalBlock.classList.toggle('language-select-open', open);
+            }
+        };
+
+        const closeList = () => {
+            setOpen(false);
+        };
+
+        const goToLanguage = (option) => {
+            let url = option.value;
+            if (!url) {
+                return;
+            }
+            const permanentToggle = form.querySelector('input[name="y"]');
+            if (permanentToggle) {
+                url += '&y=' + (permanentToggle.checked ? 1 : 0);
+            }
+            document.location.href = url;
+        };
+
+        list.textContent = '';
+        for (let i = 0; i < select.options.length; i++) {
+            const option = select.options[i];
+            const item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'language-select-option';
+            item.setAttribute('role', 'option');
+            if (option.selected) {
+                item.setAttribute('aria-selected', 'true');
+                fillFlagLabel(currentValue, option);
+            }
+            fillFlagLabel(item, option);
+            item.addEventListener('click', function() {
+                goToLanguage(option);
+            });
+            list.appendChild(item);
+        }
+
+        if (!currentValue.childNodes.length && select.options[select.selectedIndex]) {
+            fillFlagLabel(currentValue, select.options[select.selectedIndex]);
+        }
+
+        select.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            setOpen(list.hidden);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                closeList();
+            }
+        });
+
+        block.classList.add('language-select-ready');
+    });
+};
+
+onPortalReady(initializeLanguageSelectFlags);
+
 onPortalReady(() => {
     // Calendar block navigation wiring
     const calendarStateForm = document.getElementById('hidden');

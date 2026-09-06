@@ -1,8 +1,14 @@
-<section class="block_data language-select-block">
+<section class="block_data language-select-block" data-flag-path="{ROOT_PATH}images/flags/">
     <form method="post" id="lang_select_form" class="language-select-form" action="{S_SELECT_ACTION}">
-        <select id="lang_select" class="language-select" data-style-select>
-            {LANG_SELECT}
-        </select>
+        <div class="language-select-dropdown" data-lang-dropdown>
+            <div class="language-select-control">
+                <select id="lang_select" class="language-select style-select" data-style-select data-lang-select aria-haspopup="listbox" aria-expanded="false">
+                    {LANG_SELECT}
+                </select>
+                <span class="language-select-value" data-lang-value></span>
+            </div>
+            <div class="language-select-list" data-lang-list hidden role="listbox"></div>
+        </div>
 
         <label class="language-select-permanent">
             {L_PERMANENT}

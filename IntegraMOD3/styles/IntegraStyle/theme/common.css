@@ -101,7 +101,7 @@ body { margin: 0; font-family: sans-serif; background-color: var(--bg-main, #fff
 .back2top { clear: both; margin-top: 1rem; text-align: right; font-size: 0.85em; }
 .clear { clear: both; }
 /* Ajaxlike */
-.ajaxlike_container { display: block; clear: both; overflow: hidden; margin: 18px 0 0; padding: 3px 6px; border-radius: 5px; background: var(--bg-ad-panel); color: var(--text-secondary); font-size: 0.85em; line-height: 1.5; }
+.ajaxlike_container { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.35em; clear: both; overflow: visible; margin: 18px 0 0; padding: 3px 6px; border-radius: 5px; background: var(--bg-ad-panel); color: var(--text-secondary); font-size: 0.85em; line-height: 1.4; }
 .ajaxlike_link,
 .ajaxlike_link:link,
 .ajaxlike_link:visited { color: var(--link-color); font-weight: normal; text-decoration: none; }
@@ -110,8 +110,10 @@ body { margin: 0; font-family: sans-serif; background-color: var(--bg-main, #fff
 .ajaxlike_unlike_button:link,
 .ajaxlike_unlike_button:visited { color: var(--text-secondary); }
 .ajaxlike_like_button,
-.ajaxlike_unlike_button { display: inline-flex; align-items: center; gap: 4px; }
-.ajaxlike-icon { width: 1em; height: 1em; vertical-align: -0.1em; }
+.ajaxlike_unlike_button { display: inline-flex; align-items: baseline; gap: 4px; line-height: inherit; }
+.ajaxlike_container .ajaxlike-icon,
+.ajaxlike_like_button .css-icon,
+.ajaxlike_unlike_button .css-icon { width: 1em; height: 1em; vertical-align: baseline; }
 .ajaxlike_like_button .ajaxlike-icon { color: var(--state-locked, #d31141); }
 .ajaxlike_unlike_button .ajaxlike-icon { color: var(--text-secondary); }
 .ajaxlike_box { display: block; clear: both; }
@@ -238,6 +240,11 @@ h3 { font-size: 1.4em; border-bottom: 1px solid var(--border-ad-panel); padding-
 .portal-column { flex: 0 0 220px; min-width: 0; }
 #center { flex: 1 1 auto; min-width: 0; }
 .portal-block { margin-bottom: 12px; padding: 0; border: 1px solid var(--surface-border); border-radius: 6px; background: var(--bg-main); overflow: hidden; }
+.portal-block.has-language-select,
+.portal-block:has(.language-select-block) { overflow: visible; }
+.portal-block.language-select-open { position: relative; z-index: 40; }
+.portal-column-left .portal-block,
+.portal-column-right .portal-block { border-radius: 3px; }
 .portal-block > .inner { display: flex; flex-direction: column; }
 .portal-block .corners-top,
 .portal-block .corners-bottom { display: none; }

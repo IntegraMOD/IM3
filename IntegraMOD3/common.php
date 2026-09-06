@@ -16,13 +16,13 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-// error_reporting  (E_ERROR | E_WARNING | E_PARSE); // This will NOT report uninitialized variables
+error_reporting(E_ERROR | E_WARNING | E_PARSE); // Active
 
 // Uncomment these and comment out the previous "error_reporting" to debug errors
-ini_set('display_startup_errors',1); 
-ini_set('display_errors',1);
-error_reporting  (E_ALL);
-// Uncomment these and comment out "error_reporting" to debug errors
+//ini_set('display_startup_errors',1); 
+//ini_set('display_errors',1);
+//error_reporting(E_ALL);
+
 
 /**
 * PHP 8 String Function Compatibility

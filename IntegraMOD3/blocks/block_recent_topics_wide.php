@@ -264,6 +264,7 @@ for ($i = 0; $i < $display_this_many; $i++)
 	$template->assign_block_vars($style_row . 'recent_topic_row', array(
 		'AVATAR_SMALL_IMG'	=> get_user_avatar($row[$i]['user_avatar'], $row[$i]['user_avatar_type'], '15', '15'),
 		'FORUM_W'			=> $forum_name,
+		'FORUM_FULL_W'		=> $row[$i]['forum_name'],
 		'LAST_POST_IMG_W'	=> $user->img('icon_topic_newest', 'VIEW_LATEST_POST'),
 		'LAST_POST_IMG_W'	=> $next_img,
 		'POSTER_FULL_W'		=> get_username_string('full', $row[$i]['topic_last_poster_id'], $row[$i]['topic_last_poster_name'], $row[$i]['topic_last_poster_colour']),

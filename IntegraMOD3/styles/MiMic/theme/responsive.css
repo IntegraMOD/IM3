@@ -879,4 +879,30 @@
     .login-link {
         display: inline;
     }
+
+/* Recent topics: keep sidebar-length truncation in narrow left/right blocks,
+   and show full forum titles once the block is wide enough for center placement. */
+.recent-topics {
+    container-type: inline-size;
+    container-name: recent-topics;
+}
+.recent-topics-forum,
+.recent-topics-title { min-width: 0; }
+.recent-topics-forum a,
+.recent-topics-title a {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@container recent-topics (min-width: 360px) {
+    .recent-topics-forum a,
+    .recent-topics-title a {
+        overflow: visible;
+        text-overflow: unset;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}
 }
