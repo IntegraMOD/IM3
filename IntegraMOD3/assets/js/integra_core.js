@@ -566,30 +566,6 @@ const initializePasswordStrength = async () => {
     await loadScriptOnce(`${config.dataset.rootPath || ''}password_strength/password_strength_min.js`);
 };
 
-const initializeOneSignal = () => {
-    if (typeof ONESIGNAL_APP_ID === 'undefined' || !ONESIGNAL_APP_ID) {
-        return;
-    }
-
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    window.OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({
-            appId: ONESIGNAL_APP_ID,
-            allowLocalhostAsSecureOrigin: true
-        });
-
-        if (typeof PHPBB_USER_ID !== 'undefined' && PHPBB_USER_ID > 0) {
-            await OneSignal.login(String(PHPBB_USER_ID));
-        }
-
-        OneSignal.User.PushSubscription.addEventListener('change', function(event) {
-            console.log('OneSignal subscription state changed:', event.current && event.current.optedIn);
-        });
-    });
-
-    loadScriptOnce('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js').catch(() => {});
-};
-
 const initializeSortablesCaptcha = () => {
     const root = document.getElementById('sortables-captcha');
     if (!root || root.getAttribute('data-ready') === '1') {
@@ -675,7 +651,6 @@ document.addEventListener('DOMContentLoaded', initializeSortablesCaptcha);
 
 window.addEventListener('load', () => {
     checkCookieConsent();
-    initializeOneSignal();
 
     executeFunctions(initFunctions.onload);
     initializePageActions();
@@ -1018,10 +993,7 @@ window.addEventListener('load', () => {
         const action = actionEl.getAttribute('data-action');
 
         if (action === 'onesignal-subscribe') {
-            e.preventDefault();
-            if (typeof window.integraOneSignalSubscribe === 'function') {
-                window.integraOneSignalSubscribe(e);
-            }
+            // Handled by assets/js/onesignal_init.js (own document click listener)
             return;
         }
 
