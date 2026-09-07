@@ -1,0 +1,31 @@
+/* IntegraStyle portal overrides. Loaded after _portal_common so these win. */
+
+@media (max-width: 768px) {
+    #p_row_,
+    .portal-row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #left,
+    #right,
+    #center,
+    .portal-column {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        flex: 1 1 auto;
+        box-sizing: border-box;
+    }
+
+    .l_block_vert_gap,
+    .r_block_vert_gap,
+    .portal-column-left,
+    .portal-column-right {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
