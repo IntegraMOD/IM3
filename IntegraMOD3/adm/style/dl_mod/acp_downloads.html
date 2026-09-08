@@ -76,29 +76,4 @@ function help_popup(help_key, value)
 
 <fieldset class="submit-buttons">{DL_MOD_RELEASE}</fieldset>
 
-<!-- BEGIN mods -->
-<fieldset>
-	<legend>{L_DL_VERSION_CHECK}</legend>
-	<p style="font-weight: bold; color: <!-- IF mods.S_UP_TO_DATE -->#228822<!-- ELSE -->#BC2A4D<!-- ENDIF -->;">{mods.UP_TO_DATE}</p>
-	<dl>
-		<dt><label>{L_DL_CURRENT_VERSION}</label></dt>
-		<dd><strong>{mods.CURRENT_VERSION}</strong></dd>
-	</dl>
-	<dl>
-		<dt><label>{L_DL_LATEST_VERSION}</label></dt>
-		<dd><strong>{mods.LATEST_VERSION}</strong></dd>
-	</dl>
-	<!-- IF not mods.S_UP_TO_DATE -->
-		<dl>
-			<dt><label>{L_DL_DOWNLOAD_LATEST}</label></dt>
-			<dd><strong><a href="{mods.DOWNLOAD}">{L_DOWNLOAD} {mods.TITLE} {mods.LATEST_VERSION}</a></strong></dd>
-		</dl>
-		<dl>
-			<dt><label>{L_DL_ANNOUNCEMENT_TOPIC}</label></dt>
-			<dd><strong><a href="{mods.ANNOUNCEMENT}">{L_DL_RELEASE_ANNOUNCEMENT}</a></strong></dd>
-		</dl>
-	<!-- ENDIF -->
-</fieldset>
-<!-- END mods -->
-
 <!-- INCLUDE overall_footer.html -->
