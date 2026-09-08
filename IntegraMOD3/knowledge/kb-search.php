@@ -113,13 +113,22 @@ if ($submit == true)
 	{
 		if($auth->acl_get('kb_view_article', $row['cat_id']))
 		{
-			strip_bbcode($row['article'], $row['bbcode_uid']);
-			$message = get_context($row['article'], array_filter(explode('|', $hilit)), 300);
+			$localized = kb_localize_article_fields($row['titel'], $row['description'], $row['article']);
+			$search_article = $localized['article'];
+			if (kb_lang_token_key($row['article']) === false)
+			{
+				strip_bbcode($search_article, $row['bbcode_uid']);
+			}
+			else
+			{
+				strip_bbcode($search_article);
+			}
+			$message = get_context($search_article, array_filter(explode('|', $hilit)), 300);
 			$message = bbcode_nl2br($message);
 			$message = preg_replace('#(?!<.*)(?<!\w)(' . $hilit . ')(?!\w|[^<>]*(?:</s(?:cript|tyle))?>)#is', '<span class="posthilit">$1</span>', $message);
 			$template->assign_block_vars('result', array(
 				'U_ARTICLE'		=> article_link($row['article_id'], false) .'&highlight=' . $q,
-				'TITLE'			=> $row['titel'],
+				'TITLE'			=> $localized['titel'],
 				'DESCRIPTION'	=> $message,
 				'CAT' 			=> $cat[$row['cat_id']],
 				'U_CATEGORIE'	=> categorie_link($row['cat_id']),

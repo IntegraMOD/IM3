@@ -645,6 +645,9 @@ $lang = array_merge($lang, array(
 	'LOG_U_ROLE_ADD'		=> '<strong>Gebruikersrol toegevoegd</strong><br />» %s',
 	'LOG_U_ROLE_EDIT'		=> '<strong>Gebruikersrol gewijzigd</strong><br />» %s',
 	'LOG_U_ROLE_REMOVED'	=> '<strong>Gebruikersrol verwijderd</strong><br />» %s',
+	'LOG_KB_ROLE_ADD'		=> '<strong>Kennisbankrol toegevoegd</strong><br />» %s',
+	'LOG_KB_ROLE_EDIT'		=> '<strong>Kennisbankrol gewijzigd</strong><br />» %s',
+	'LOG_KB_ROLE_REMOVED'	=> '<strong>Kennisbankrol verwijderd</strong><br />» %s',
 
 	'LOG_PROFILE_FIELD_ACTIVATE'	=> '<strong>Profielveld geactiveerd</strong><br />» %s',
 	'LOG_PROFILE_FIELD_CREATE'		=> '<strong>Profielveld toegevoegd</strong><br />» %s',

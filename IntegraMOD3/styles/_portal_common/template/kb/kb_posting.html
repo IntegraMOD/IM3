@@ -30,6 +30,7 @@ function update_url(titel)
 		<dl style="clear: left;">
 			<dt><label for="title">{L_ARTICLE_TITLE}:</label></dt>
 			<dd><input type="text" name="title" id="title" size="45" maxlength="64"<!-- IF not S_EDIT and S_SEO_URI --> onkeyup="update_url(this.value);"<!-- ENDIF --> tabindex="1" value="{TITLE}" class="inputbox autowidth" /></dd>
+			<dd>{L_ARTICLE_TITLE_LANG_EXPLAIN}</dd>
 		</dl>
 
 
@@ -43,6 +44,7 @@ function update_url(titel)
 		<dl style="clear: left;">
 			<dt><label for="description">{L_ARTICLE_DESCRIPTION}:</label></dt>
 			<dd><textarea cols="40" rows="4" id="description" tabindex="3" name="description" class="inputbox autowidth">{DESCRIPTION}</textarea></dd>
+			<dd>{L_ARTICLE_DESCRIPTION_LANG_EXPLAIN}</dd>
 		</dl>
 	</fieldset>
 	</div>
@@ -99,6 +101,7 @@ function update_url(titel)
 	</div>
 	<div id="message-box">
 		<textarea name="message" id="message" rows="20" cols="76" tabindex="8" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" class="inputbox">{MESSAGE}</textarea>
+		<p>{L_ARTICLE_LANG_EXPLAIN}</p>
 	</div>
 	</fieldset>
 	<span class="corners-bottom"><span></span></span></div>

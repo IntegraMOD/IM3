@@ -14,6 +14,7 @@
 				<div class="ucp-form-row">
 					<label class="ucp-form-label" for="title">{L_ARTICLE_TITLE}:</label>
 					<input type="text" name="title" id="title" size="45" maxlength="64" tabindex="1" value="{TITLE}" class="inputbox autowidth ucp-form-input"<!-- IF not S_EDIT and S_SEO_URI --> data-kb-seo-source="1"<!-- ENDIF --> />
+					<p class="ucp-form-explain">{L_ARTICLE_TITLE_LANG_EXPLAIN}</p>
 				</div>
 				<!-- IF S_SEO_URI -->
 				<div class="ucp-form-row">
@@ -27,6 +28,7 @@
 				<div class="ucp-form-row">
 					<label class="ucp-form-label" for="description">{L_ARTICLE_DESCRIPTION}:</label>
 					<textarea cols="40" rows="4" id="description" tabindex="3" name="description" class="inputbox autowidth ucp-form-textarea">{DESCRIPTION}</textarea>
+					<p class="ucp-form-explain">{L_ARTICLE_DESCRIPTION_LANG_EXPLAIN}</p>
 				</div>
 			</fieldset>
 			<fieldset class="fields1 ucp-form-grid">
@@ -77,6 +79,7 @@
 			</div>
 			<div id="message-box">
 				<textarea name="message" id="message" rows="20" cols="76" tabindex="8" class="inputbox" data-store-caret="1">{MESSAGE}</textarea>
+				<p class="ucp-form-explain">{L_ARTICLE_LANG_EXPLAIN}</p>
 			</div>
 		</fieldset>
 	</div>

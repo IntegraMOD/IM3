@@ -684,6 +684,9 @@ $lang = array_merge($lang, array(
 	'LOG_U_ROLE_ADD'		=> '<strong>User role added</strong><br />» %s',
 	'LOG_U_ROLE_EDIT'		=> '<strong>User role edited</strong><br />» %s',
 	'LOG_U_ROLE_REMOVED'	=> '<strong>User role removed</strong><br />» %s',
+	'LOG_KB_ROLE_ADD'		=> '<strong>Knowledge Base role added</strong><br />» %s',
+	'LOG_KB_ROLE_EDIT'		=> '<strong>Knowledge Base role edited</strong><br />» %s',
+	'LOG_KB_ROLE_REMOVED'	=> '<strong>Knowledge Base role removed</strong><br />» %s',
 
 	'LOG_PROFILE_FIELD_ACTIVATE'	=> '<strong>Profile field activated</strong><br />» %s',
 	'LOG_PROFILE_FIELD_CREATE'		=> '<strong>Profile field added</strong><br />» %s',

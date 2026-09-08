@@ -74,7 +74,11 @@ $sql = 'SELECT *
 	WHERE article_id = ' . (int) $article_id;
 $result = $db->sql_query($sql);
 $row = $db->sql_fetchrow($result);
-
+$db->sql_freeresult($result);
+if (!is_array($row))
+{
+	$row = array();
+}
 
 if ($mode == 'edit' && empty($row))
 {
@@ -83,7 +87,9 @@ if ($mode == 'edit' && empty($row))
 	trigger_error($user->lang['NO_ARTICLE'] . '<br /><br />' . sprintf($user->lang['BACK_TO_KB'], '<a href="' . append_sid("{$kb_root_path}") . '">', '</a>'));
 }
 
-if (!$auth->acl_get('kb_add_article', $data['cat_id']) && !$auth->acl_get('kb_edit_article', $row['cat_id']) && !$auth->acl_get('edit_all_article', $row['cat_id']) && !$auth->acl_get('m_edit_kb'))
+$article_cat_id = !empty($row['cat_id']) ? (int) $row['cat_id'] : (int) $data['cat_id'];
+
+if (!$auth->acl_get('kb_add_article', $data['cat_id']) && !$auth->acl_get('kb_edit_article', $article_cat_id) && !$auth->acl_get('edit_all_article', $article_cat_id) && !$auth->acl_get('m_edit_kb'))
 {
 	trigger_error('NOT_AUTHORISED');
 }
@@ -92,7 +98,7 @@ if (!$auth->acl_get('kb_add_article', $data['cat_id']) && !$auth->acl_get('kb_ed
 $message_parser = new parse_message();
 $poll_bbcode = new bbcode();
 
-if ($auth->acl_get('kb_attache_article', $row['cat_id']) && $config['allow_attachments'])
+if ($auth->acl_get('kb_attache_article', $article_cat_id) && $config['allow_attachments'])
 {
 	$message_parser->get_submitted_attachment_data();
 	$message_parser->parse_attachments('fileupload', $mode, 0, $submit, $preview, $refresh);
@@ -101,9 +107,11 @@ if ($auth->acl_get('kb_attache_article', $row['cat_id']) && $config['allow_attac
 // preview
 if ($preview == true)
 {
+	$preview_title = kb_localize_field($data['title']);
+	$preview_message = kb_localize_field($data['message']);
 	$uid = $bitfield = $options = ''; // will be modified by generate_text_for_storage
-	generate_text_for_storage($data['message'], $uid, $bitfield, $options, $data['bbcode_checked'], $data['urls_checked'], $data['smilies_checked']);
-	$preview_message = generate_text_for_display($data['message'], $uid, $bitfield, $options);
+	generate_text_for_storage($preview_message, $uid, $bitfield, $options, $data['bbcode_checked'], $data['urls_checked'], $data['smilies_checked']);
+	$preview_message = generate_text_for_display($preview_message, $uid, $bitfield, $options);
 
 	// Attachment Preview
 	if (sizeof($message_parser->attachment_data))
@@ -124,7 +132,7 @@ if ($preview == true)
 	}
 
 	$template->assign_vars(array(
-		'PREVIEW_SUBJECT'	=> $data['title'],
+		'PREVIEW_SUBJECT'	=> $preview_title,
 		'PREVIEW_MESSAGE'	=> $preview_message,
 		'S_DISPLAY_PREVIEW'	=> true)
 	);
@@ -154,13 +162,50 @@ if ($submit == true && $preview == false)
 	}
 
 
-	if(empty($data['title']) || empty($data['message']) || empty($data['cat_id']))
+	$title_key = kb_lang_token_key($data['title']);
+	$message_key = kb_lang_token_key($data['message']);
+	$description_key = kb_lang_token_key($data['description']);
+	$need_input = empty($data['cat_id']);
+
+	if ($title_key !== false)
+	{
+		if (!kb_english_catalog_has_key($title_key))
+		{
+			$error[] = sprintf($user->lang['KB_LANG_KEY_MISSING'], $title_key);
+		}
+	}
+	else if ($data['title'] === '')
+	{
+		$need_input = true;
+	}
+
+	if ($message_key !== false)
+	{
+		if (!kb_english_catalog_has_key($message_key))
+		{
+			$error[] = sprintf($user->lang['KB_LANG_KEY_MISSING'], $message_key);
+		}
+	}
+	else if ($data['message'] === '')
+	{
+		$need_input = true;
+	}
+
+	if ($description_key !== false && !kb_english_catalog_has_key($description_key))
+	{
+		$error[] = sprintf($user->lang['KB_LANG_KEY_MISSING'], $description_key);
+	}
+
+	if ($need_input)
 	{
 		$error[] = $user->lang['NEED_INPUT'];
 	}
 
 	$uid = $bitfield = $options = ''; // will be modified by generate_text_for_storage
-	generate_text_for_storage($data['message'], $uid, $bitfield, $options, $data['bbcode_checked'], $data['urls_checked'], $data['smilies_checked']);
+	if ($message_key === false)
+	{
+		generate_text_for_storage($data['message'], $uid, $bitfield, $options, $data['bbcode_checked'], $data['urls_checked'], $data['smilies_checked']);
+	}
 
 	$sql_ary = array(
 		'titel'				=> $data['title'],
@@ -209,7 +254,7 @@ if ($submit == true && $mode != 'edit' && $preview == false && $auth->acl_get('k
 	$article_id = $db->sql_nextid();
 	article_log($article_id, $user->lang['ARTICLE_POSTET']);
 
-	if ($auth->acl_get('kb_attache_article', $row['cat_id']) && $config['allow_attachments'])
+	if ($auth->acl_get('kb_attache_article', $article_cat_id) && $config['allow_attachments'])
 	{
 		$attach_data = array(
 			'poster_id'			=> $user->data['user_id'],
@@ -344,7 +389,7 @@ if (sizeof($message_parser->warn_msg))
 	$message_parser->warn_msg = array();
 }
 
-if ($auth->acl_get('kb_attache_article', $row['cat_id']) && $config['allow_attachments'])
+if ($auth->acl_get('kb_attache_article', $article_cat_id) && $config['allow_attachments'])
 {
 	$attachment_data = $message_parser->attachment_data;
 	$filename_data = $message_parser->filename_data;

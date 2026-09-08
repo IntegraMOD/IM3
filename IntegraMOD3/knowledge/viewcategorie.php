@@ -82,13 +82,22 @@ if ($user->data['is_registered'] && !$user->data['is_bot'])
 
 $sql = $db->sql_build_query('SELECT', $sql_array);
 $result = $db->sql_query_limit($sql, $config['topics_per_page'], $start);
+$seen_articles = array();
 while ($row = $db->sql_fetchrow($result))
 {
-	$dotts = strlen($row['description']) > 50 ? '...' : '';
+	$article_id = (int) $row['article_id'];
+	if (isset($seen_articles[$article_id]))
+	{
+		continue;
+	}
+	$seen_articles[$article_id] = true;
+
+	$localized = kb_localize_article_fields($row['titel'], $row['description'], '');
+	$dotts = strlen($localized['description']) > 50 ? '...' : '';
 	$template->assign_block_vars('article_row', array(
-		'TITLE'					=> $row['titel'],
+		'TITLE'					=> $localized['titel'],
 		'FOLDER'				=> empty($row['mark_time']) && $user->data['is_registered'] && !$user->data['is_bot'] ? 'topic_unread' : 'topic_read',
-		'DESCRIPTION'			=> substr(str_replace('\n', '<br />', $row['description']), 0, 50) . $dotts,
+		'DESCRIPTION'			=> substr(str_replace('\n', '<br />', $localized['description']), 0, 50) . $dotts,
 		'TIME'					=> $user->format_date($row['post_time']),
 		'HITS'					=> $row['hits'],
 		'U_ARTICLE'				=> article_link($row['article_id'], $row['page_uri']),

@@ -35,9 +35,9 @@
 <section class="ucp-card">
 	<div class="ucp-card-body">
 		<!-- IF U_EDIT -->
-		<ul class="profile-icons">
-			<li class="edit-icon"><a href="{U_EDIT}" title="{L_EDIT_POST}">{L_EDIT_POST}</a></li>
-		</ul>
+		<nav class="ucp-actions kb-article-actions" aria-label="{L_EDIT_POST}">
+			<a class="button2" href="{U_EDIT}" title="{L_EDIT_POST}"><svg class="css-icon css-icon-edit" aria-hidden="true" focusable="false"><use href="#icon-edit"></use></svg> {L_EDIT_POST}</a>
+		</nav>
 		<!-- ENDIF -->
 		<h3>{POST_SUBJECT}</h3>
 		<p class="author"><svg class="css-icon css-icon-mini-post" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg> {L_POSTED} {L_POST_BY_AUTHOR} {POST_AUTHOR_FULL} {L_POSTED_ON_DATE} {POST_DATE}</p>

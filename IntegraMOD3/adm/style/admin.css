@@ -747,6 +747,10 @@ li {
 
 @media only screen and (max-width: 700px), only screen and (max-device-width: 700px)
 {
+	#toggle, .rtl #toggle {
+		display: none;
+	}
+
 	#menu, .rtl #menu {
 		float: none;
 		width: auto;

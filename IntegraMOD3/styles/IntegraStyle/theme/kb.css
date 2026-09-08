@@ -37,6 +37,17 @@
     gap: 1rem;
 }
 
+.kb-article-actions {
+    justify-content: flex-start;
+    margin: 0 0 1.75rem;
+}
+
+.kb-article-actions .button2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
 @media (min-width: 981px) {
     .kb-article-grid {
         grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
@@ -74,4 +85,37 @@
 .kb-diff-list {
     display: grid;
     gap: 0.5rem;
+}
+
+@media (min-width: 981px) {
+    .kb-classic-cat .forum-list-header,
+    .kb-layout .topic-list-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 80px 200px;
+        align-items: center;
+    }
+
+    .kb-classic-cat .forum-list-header .forum-title,
+    .kb-layout .topic-list-header .forum-title {
+        min-width: 0;
+        margin-left: 55px;
+    }
+
+    .kb-classic-cat .forum-stats-header.topics,
+    .kb-classic-cat .forum-stats-header.posts,
+    .kb-layout .topic-list-header .forum-stats-header.views {
+        text-align: center;
+        transform: none;
+    }
+
+    .kb-classic-cat .forum-stats-header.last-post,
+    .kb-layout .topic-list-header .forum-stats-header.last-post {
+        text-align: left;
+        transform: none;
+    }
+
+    .kb-classic-cat .forum-stats-grid,
+    .kb-layout .topic-category .forum-stats-grid {
+        width: 280px;
+    }
 }

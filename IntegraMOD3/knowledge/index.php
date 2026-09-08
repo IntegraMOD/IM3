@@ -55,7 +55,7 @@ $template->assign_vars(array(
 	'COUNT_ARTICLE'			=> (!empty($config['num_kb_article']) ? $config['num_kb_article'] : null),
 	'CONT_CATS'				=> (!empty($data['count_cats']) ? $data['count_cats'] : null),
 	'U_CANONICAL'			=> generate_board_url() . '/' . KB_FOLDER . '/',
-	'NEWEST_ARTICLE'		=> isset($config['kb_newest_title']) ? $config['kb_newest_title'] : '',
+	'NEWEST_ARTICLE'		=> isset($config['kb_newest_title']) ? kb_localize_field($config['kb_newest_title']) : '',
 	'KB_TITLE'				=> (!empty($kb_config['kb_title']) ? $kb_config['kb_title'] : null),
 	'KB_DESCRIPTION'		=> (!empty($kb_config['kb_description']) ? $kb_config['kb_description'] : null),
 	'CLASSIC_INDEX'			=> (!empty($kb_config['kb_mode']) ? $kb_config['kb_mode'] : null),

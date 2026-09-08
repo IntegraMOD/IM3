@@ -34,6 +34,15 @@ $user->setup(array('viewtopic', 'viewforum', 'mods/kb'));
 $article_id = request_var('id', 0);
 $filename = request_var('filename', '');
 $mode = request_var('mode', '');
+
+if ($mode == 'delete')
+{
+	$id = $article_id ? $article_id : request_var('id', 0);
+	if (delete_article($id))
+	{
+		trigger_error($user->lang['ARTICLE_DELETED'] . '<br /><br />' . sprintf($user->lang['BACK_TO_KB'], '<a href="' . append_sid("{$kb_root_path}") . '">', '</a>'));
+	}
+}
 $script_path = ( $config['script_path'] != '/' ) ? $config['script_path'] . '/' : '/';
 $filename = str_replace($script_path . KB_FOLDER . '/', '', $filename);
 
@@ -74,7 +83,7 @@ if ($user->data['is_registered'] && !$user->data['is_bot'])
 }
 
 $sql = $db->sql_build_query('SELECT', $sql_array);
-$result = $db->sql_query($sql, $kb_config['cache_time']);
+$result = $db->sql_query($sql);
 $row = $db->sql_fetchrow($result);
 $db->sql_freeresult($result);
 
@@ -141,14 +150,25 @@ if(!$row || !$auth->acl_get('kb_view_article', $row['cat_id']) || ($row['activ']
 
 if(empty($row['mark_time']) && $user->data['is_registered'] && !$user->data['is_bot'])
 {
-	$sql_ary = array(
-		'article_id'=> (int) $row['article_id'],
-		'cat_id'	=> (int) $row['cat_id'],
-		'user_id'	=> (int) $user->data['user_id'],
-		'mark_time'	=> time(),
-	);
-	$db->sql_query('INSERT INTO ' . KB_ARTICLE_TRACK_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary));
-	$cache->destroy('sql', KB_ARTICLE_TRACK_TABLE);
+	$sql = 'SELECT mark_time
+		FROM ' . KB_ARTICLE_TRACK_TABLE . '
+		WHERE article_id = ' . (int) $row['article_id'] . '
+			AND user_id = ' . (int) $user->data['user_id'];
+	$result = $db->sql_query($sql);
+	$already_tracked = $db->sql_fetchrow($result);
+	$db->sql_freeresult($result);
+
+	if (!$already_tracked)
+	{
+		$sql_ary = array(
+			'article_id'=> (int) $row['article_id'],
+			'cat_id'	=> (int) $row['cat_id'],
+			'user_id'	=> (int) $user->data['user_id'],
+			'mark_time'	=> time(),
+		);
+		$db->sql_query('INSERT INTO ' . KB_ARTICLE_TRACK_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary));
+		$cache->destroy('sql', KB_ARTICLE_TRACK_TABLE);
+	}
 }
 
 
@@ -184,7 +204,7 @@ if($kb_config['activ_similar'])
 		while($similar = $db->sql_fetchrow($result))
 		{
 			$template->assign_block_vars('similar', array(
-				'TOPIC_TITLE'			=> $similar['titel'],
+				'TOPIC_TITLE'			=> kb_localize_field($similar['titel']),
 				'U_TOPIC'				=> article_link($similar['article_id'], $similar['page_uri']),
 				'USER'					=> get_username_string('full', $similar['user_id'], $similar['username'], $similar['user_colour'], $similar['username']),
 				'U_CATEGORIE'			=> categorie_link($similar['cat_id']),
@@ -242,7 +262,15 @@ if ($auth->acl_get('kb_download', $row['cat_id']) && $row['has_attachment'] && $
 $row['bbcode_options'] = (($row['enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
     (($row['enable_smilies']) ? OPTION_FLAG_SMILIES : 0) + 
     (($row['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
-$message = generate_text_for_display($row['article'], $row['bbcode_uid'], $row['bbcode_bitfield'], $row['bbcode_options']);
+$localized = kb_localize_article_fields($row['titel'], $row['description'], $row['article']);
+if (kb_lang_token_key($row['article']) !== false)
+{
+    $message = kb_display_localized_article($localized['article'], (bool) $row['enable_bbcode'], (bool) $row['enable_magic_url'], (bool) $row['enable_smilies']);
+}
+else
+{
+    $message = generate_text_for_display($row['article'], $row['bbcode_uid'], $row['bbcode_bitfield'], $row['bbcode_options']);
+}
 
 if (!empty($attachments) && $config['allow_attachments'])
 {
@@ -376,11 +404,11 @@ $template->assign_vars(array(
 	'U_CATEGORIE'			=> (KB_SEO == true) ? append_sid("{$kb_root_path}categorie-" . $row['cat_id'] . '.html') : append_sid("{$kb_root_path}viewcategorie.$phpEx", 'id=' . $row['cat_id']),
 	'U_EDIT_ARTICLE'		=> append_sid("{$kb_root_path}kbposting.$phpEx", 'mode=edit&amp;id=' . $row['article_id']),
 	'U_REPORT'				=> append_sid("{$kb_root_path}kbreport.$phpEx", 'id=' . $row['article_id']),
-	'U_DELETE_ARTICLE'		=> append_sid("{$kb_root_path}index.$phpEx", 'mode=delete&amp;id=' . $row['article_id']),
-	'TITEL'					=> $row['titel'],
+	'U_DELETE_ARTICLE'		=> append_sid("{$kb_root_path}viewarticle.$phpEx", 'mode=delete&amp;id=' . $row['article_id']),
+	'TITEL'					=> $localized['titel'],
 	'CAT_TITEL'				=> $row['cat_title'],
 	'NOFORUMNAV'			=> true,
-	'DESCRIPTION'			=> str_replace('\n', '<br />', $row['description']),
+	'DESCRIPTION'			=> str_replace('\n', '<br />', $localized['description']),
 	'S_ADD_ARTICLE'			=> $auth->acl_get('kb_add_article', $row['cat_id']),
 	'S_RATE_ARTICLE'		=> $auth->acl_get('kb_rate_article', $row['cat_id']),
 	'S_RATING_ACTIV'		=> $kb_config['activ_rating'],
@@ -425,7 +453,7 @@ function trim_trailing_spaces($lines)
 }
 
 // Output page
-page_header($row['titel']);
+page_header($localized['titel']);
 
 $template->set_filenames(array(
 	'body' => $mode == 'print' ? 'kb/printarticle.html' : 'kb/viewarticle.html')
