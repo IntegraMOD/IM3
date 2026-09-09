@@ -889,16 +889,55 @@ window.addEventListener('load', () => {
     const offCanvasToggle = document.querySelector('.off-canvas-toggle');
     const offCanvasClose = document.querySelector('.off-canvas-close');
     const offCanvasMenu = document.querySelector('.off-canvas-menu');
+    let offCanvasOverlay = document.querySelector('.off-canvas-overlay');
+    const closeOffCanvas = function () {
+        if (!offCanvasMenu) {
+            return;
+        }
+        offCanvasMenu.classList.remove('is-open');
+        document.body.classList.remove('off-canvas-open');
+    };
+    const openOffCanvas = function () {
+        if (!offCanvasMenu) {
+            return;
+        }
+        if (!offCanvasOverlay) {
+            offCanvasOverlay = document.createElement('div');
+            offCanvasOverlay.className = 'off-canvas-overlay';
+            document.body.appendChild(offCanvasOverlay);
+            offCanvasOverlay.addEventListener('click', closeOffCanvas);
+        }
+        offCanvasMenu.classList.add('is-open');
+        document.body.classList.add('off-canvas-open');
+    };
     if (offCanvasToggle && offCanvasMenu) {
-        offCanvasToggle.addEventListener('click', () => {
-            offCanvasMenu.classList.add('is-open');
+        offCanvasToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (offCanvasMenu.classList.contains('is-open')) {
+                closeOffCanvas();
+            } else {
+                openOffCanvas();
+            }
         });
     }
     if (offCanvasClose && offCanvasMenu) {
-        offCanvasClose.addEventListener('click', () => {
-            offCanvasMenu.classList.remove('is-open');
+        offCanvasClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeOffCanvas();
         });
     }
+    if (offCanvasOverlay) {
+        offCanvasOverlay.addEventListener('click', closeOffCanvas);
+    }
+    document.addEventListener('click', (e) => {
+        if (!offCanvasMenu || !offCanvasMenu.classList.contains('is-open')) {
+            return;
+        }
+        if (e.target.closest('.off-canvas-menu') || e.target.closest('.off-canvas-toggle')) {
+            return;
+        }
+        closeOffCanvas();
+    });
 
     // Nav Dropdowns
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
