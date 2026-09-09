@@ -32,20 +32,24 @@ class dl_faq
 
 	public static function dl_faq_format($text)
 	{
-		global $user, $phpbb_root_path, $phpEx;
+		global $phpbb_root_path, $phpEx;
 
 		$dl_url = append_sid("{$phpbb_root_path}downloads.$phpEx");
 
-		$text = str_replace('{DL_FAQ_URL}',		$dl_url,					$text);
-
-		$text = str_replace('{DL_IMG_BLUE}',	dl_status::icon('dl_blue'),		$text);
-		$text = str_replace('{DL_IMG_RED}',		dl_status::icon('dl_red'),		$text);
-		$text = str_replace('{DL_IMG_GREY}',	dl_status::icon('dl_grey'),		$text);
-		$text = str_replace('{DL_IMG_WHITE}',	dl_status::icon('dl_white'),		$text);
-		$text = str_replace('{DL_IMG_YELLOW}',	dl_status::icon('dl_yellow'),	$text);
-		$text = str_replace('{DL_IMG_GREEN}',	dl_status::icon('dl_green'),		$text);
+		$text = str_replace('{DL_FAQ_URL}', $dl_url, $text);
+		$text = str_replace('{DL_IMG_BLUE}', self::dl_faq_icon('dl-blue'), $text);
+		$text = str_replace('{DL_IMG_RED}', self::dl_faq_icon('dl-red'), $text);
+		$text = str_replace('{DL_IMG_GREY}', self::dl_faq_icon('dl-grey'), $text);
+		$text = str_replace('{DL_IMG_WHITE}', self::dl_faq_icon('dl-white'), $text);
+		$text = str_replace('{DL_IMG_YELLOW}', self::dl_faq_icon('dl-yellow'), $text);
+		$text = str_replace('{DL_IMG_GREEN}', self::dl_faq_icon('dl-green'), $text);
 
 		return $text;
+	}
+
+	private static function dl_faq_icon($class)
+	{
+		return '<span class="dl-status-icon ' . htmlspecialchars($class, ENT_QUOTES, 'UTF-8') . '"></span>';
 	}
 }
 
