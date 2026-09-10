@@ -44,8 +44,6 @@ if ($mode =='delete')
 
 $data = make_categorie_list(0);
 
-$user->lang['TRANSLATION_INFO'] = $user->lang['KB_COPYRIGHT'] . '<br />' . $user->lang['TRANSLATION_INFO'];  
-
 // Assign index specific vars
 $template->assign_vars(array(
 	'S_LOGIN_ACTION'		=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=login'),

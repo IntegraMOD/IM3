@@ -111,8 +111,6 @@ while ($row = $db->sql_fetchrow($result))
 }
 $db->sql_freeresult($result);
 
-$user->lang['TRANSLATION_INFO'] = $user->lang['KB_COPYRIGHT'] . '<br />' . $user->lang['TRANSLATION_INFO'];  
-
 // Assign index specific vars
 $template->assign_vars(array(
 	'PAGINATION'		=> generate_pagination("viewcategorie.$phpEx?id=" . $cat_id, $total_articles, $config['topics_per_page'], $start),

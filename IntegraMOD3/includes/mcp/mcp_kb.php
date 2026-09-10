@@ -498,11 +498,12 @@ class mcp_kb
 		$result = $db->sql_query_limit($sql, $config['topics_per_page'], $start);
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$dotts = strlen($row['description']) > 50 ? '...' : '';
+			$localized = kb_localize_article_fields($row['titel'], $row['description'], '');
+			$dotts = strlen($localized['description']) > 50 ? '...' : '';
 			$template->assign_block_vars('article_row', array(
-				'TITLE'				=> $row['titel'],
+				'TITLE'				=> $localized['titel'],
 				'ARTICLE_ID'		=> $row['article_id'],
-				'DESCRIPTION'		=> substr(str_replace('\n', '<br />', $row['description']), 0, 50) . $dotts,
+				'DESCRIPTION'		=> substr(str_replace('\n', '<br />', $localized['description']), 0, 50) . $dotts,
 				'TIME'				=> $user->format_date($row['post_time']),
 				'HITS'				=> $row['hits'],
 				'HAS_ATTACHEMENT'	=> ($row['has_attachment'] == 1) ? true: false,
@@ -557,10 +558,11 @@ class mcp_kb
 		while ($row = $db->sql_fetchrow($result))
 		{
 
+			$localized = kb_localize_article_fields($row['titel'], $row['description'], '');
 			$template->assign_block_vars('article_row', array(
 				'ARTICLE_ID'	=> $row['article_id'],
-				'TITLE'			=> $row['titel'],
-				'DESCRIPTION'	=> $row['description'],
+				'TITLE'			=> $localized['titel'],
+				'DESCRIPTION'	=> $localized['description'],
 				'CAT'			=> $row['cat_title'],
 				'U_CATEGORIE'	=> categorie_link($row['cat_id']),
 				'U_SHOW'		=> append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=kb&amp;mode=kb_activate&amp;part=view&amp;id=' . $row['article_id']),
@@ -610,7 +612,7 @@ class mcp_kb
 		while ($row = $db->sql_fetchrow($result))
 		{
 			$template->assign_block_vars('postrow', array(
-				'ARTICLE_TITLE'			=> $row['titel'],
+				'ARTICLE_TITLE'			=> kb_localize_field($row['titel']),
 				'POST_TIME'				=> $user->format_date($row['post_time']),
 				'REPORT_ID'				=> $row['report_id'],
 				'REPORT_TIME'			=> $user->format_date($row['report_time']),
@@ -711,6 +713,19 @@ class mcp_kb
 			$db->sql_freeresult($result);
 		}
 		
+		$post_info['bbcode_options'] = (($post_info['enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
+			(($post_info['enable_smilies']) ? OPTION_FLAG_SMILIES : 0) + 
+			(($post_info['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
+		$localized = kb_localize_article_fields($post_info['titel'], '', $post_info['article']);
+		if (kb_lang_token_key($post_info['article']) !== false)
+		{
+			$message = kb_display_localized_article($localized['article'], (bool) $post_info['enable_bbcode'], (bool) $post_info['enable_magic_url'], (bool) $post_info['enable_smilies']);
+		}
+		else
+		{
+			$message = generate_text_for_display($post_info['article'], $post_info['bbcode_uid'], $post_info['bbcode_bitfield'], $post_info['bbcode_options']);
+		}
+
 		if (!empty($attachments) && $config['allow_attachments'])
 		{
 			parse_attachments(0, $message, $attachments, $update_count);
@@ -722,10 +737,6 @@ class mcp_kb
 			}
 		}
 
-		$post_info['bbcode_options'] = (($post_info['enable_bbcode']) ? OPTION_FLAG_BBCODE : 0) +
-			(($post_info['enable_smilies']) ? OPTION_FLAG_SMILIES : 0) + 
-			(($post_info['enable_magic_url']) ? OPTION_FLAG_LINKS : 0);
-		$message = generate_text_for_display($post_info['article'], $post_info['bbcode_uid'], $post_info['bbcode_bitfield'], $post_info['bbcode_options']);
 		$template->assign_vars(array(
 			'U_POST_ACTION'			=> append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=kb&amp;mode=kb_main&amp;a=' . $article_id),
 			'U_FIND_USERNAME'		=> append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=searchuser&amp;form=mcp_chgposter&amp;field=username&amp;select_single=true'),
@@ -737,7 +748,7 @@ class mcp_kb
 			'POST_DATE'				=> $user->format_date($post_info['post_time']),
 			'POST_PREVIEW'			=> $message,
 			'S_CH_POSTER'			=> $auth->acl_get('m_ch_poster'),
-			'POST_SUBJECT'			=> ($post_info['titel']) ? $post_info['titel'] : $user->lang['NO_SUBJECT'],
+			'POST_SUBJECT'			=> ($localized['titel']) ? $localized['titel'] : $user->lang['NO_SUBJECT'],
 		));
 	}
 }

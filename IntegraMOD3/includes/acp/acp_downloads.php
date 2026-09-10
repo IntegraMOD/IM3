@@ -207,8 +207,6 @@ class acp_downloads
 					$template->assign_var('S_DL_TRAFFIC_OFF', true);
 				}
 
-				dl_version::dl_mod_version('acp');
-
 				$template->assign_vars(array(
 					'DL_MANAGEMENT_TITLE'	=> $user->lang['DL_ACP_MANAGEMANT_PAGE'],
 					'DL_MANAGEMENT_EXPLAIN'	=> $user->lang['DL_ACP_MANAGEMANT_PAGE_EXPLAIN'],

@@ -5706,6 +5706,139 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 }
 
 /**
+* Read a previously assigned template variable.
+*/
+function im3_template_var($name)
+{
+	global $template;
+
+	if (isset($template->_rootref[$name]))
+	{
+		return $template->_rootref[$name];
+	}
+
+	if (isset($template->_tpldata['.'][0][$name]))
+	{
+		return $template->_tpldata['.'][0][$name];
+	}
+
+	return null;
+}
+
+/**
+* Build the public copyright block assigned to {CREDIT_LINE}.
+*/
+function im3_build_credit_line()
+{
+	global $user, $config, $phpEx;
+
+	$lines = array();
+	$lines[] = $user->lang('POWERED_BY', '<a href="https://www.integramod.com/">IntegraMOD</a>&reg; Communuty Software &copy; IntegraMOD Team');
+
+	$script_name = '';
+	if (!empty($user->page['page_name']))
+	{
+		$script_name = str_replace('.' . $phpEx, '', $user->page['page_name']);
+	}
+
+	if ($script_name === 'activitypage' || $script_name === 'profile')
+	{
+		$lines[] = 'phpBB Social Network &copy; phpBB SN Group';
+	}
+
+	if (im3_template_var('S_IS_PORTAL') || im3_template_var('S_SHOW_LEFT_BLOCKS') || im3_template_var('S_SHOW_RIGHT_BLOCKS'))
+	{
+		$lines[] = 'Portal: <a href="https://github.com/IntegraMOD/stargate-portal">Kiss Portal Engine</a> &copy; 2026 <a href="http://www.phpbb.com/community/memberlist.php?mode=viewprofile&amp;u=15915">Michael O\'Toole</a>';
+		$style_data = im3_template_var('STYLE_DATA');
+		if (!empty($style_data))
+		{
+			$lines[] = $style_data;
+		}
+	}
+
+	if (im3_template_var('S_IN_GALLERY'))
+	{
+		$gallery_line = 'Powered by <a href="http://www.flying-bits.org/">phpBB Gallery</a> &copy; 2007, 2009 <a href="http://www.flying-bits.org/">nickvergessen</a>';
+		$gallery_info = im3_template_var('GALLERY_TRANSLATION_INFO');
+		if (!empty($gallery_info))
+		{
+			$gallery_line .= '<br />' . $gallery_info;
+		}
+		$lines[] = $gallery_line;
+	}
+
+	if (im3_template_var('S_IN_DL'))
+	{
+		$lines[] = !empty($user->lang['DL_MOD_VERSION_PUBLIC']) ? $user->lang['DL_MOD_VERSION_PUBLIC'] : 'Download MOD &copy; by Hotschi, Demolition Fabi, OXPUS';
+	}
+
+	if (im3_template_var('S_IN_KNOWLEDGE_BASE'))
+	{
+		$lines[] = !empty($user->lang['KB_COPYRIGHT']) ? $user->lang['KB_COPYRIGHT'] : 'Knowledge Base by Tobi Schaefer';
+	}
+
+	if (im3_template_var('S_IN_MEETING') || $script_name === 'meeting')
+	{
+		$lines[] = !empty($user->lang['MEETING_VERSION']) ? $user->lang['MEETING_VERSION'] : 'Meeting MOD &copy; 2009, 2010, 2011, 2012 <a href="http://www.oxpus.net">OXPUS</a>';
+	}
+
+	if (im3_template_var('S_IN_BLOG') || $script_name === 'blog')
+	{
+		$lines[] = 'Blogs powered by User Blog Mod &copy; EXreaction';
+	}
+
+	if (!empty($config['site_copyright_enable']))
+	{
+		$lines[] = sprintf($user->lang('MY_WEBSITE'), '&copy; ' . $config['sitename']);
+	}
+
+	return implode('<br />', $lines);
+}
+
+/**
+* Confirm the IntegraMOD credit survived template rendering.
+*/
+function im3_credit_line_present($html)
+{
+	$html = (string) $html;
+	$plain = html_entity_decode(strip_tags($html), ENT_QUOTES, 'UTF-8');
+	$plain = strtolower(preg_replace('/\s+/', ' ', $plain));
+	$html_lc = strtolower($html);
+
+	return (strpos($html_lc, 'integramod.com') !== false && strpos($plain, 'integramod') !== false);
+}
+
+function im3_display_checked_body()
+{
+	global $template;
+
+	ob_start();
+	$template->display('body');
+	$page_html = ob_get_clean();
+
+	$skip_check = defined('IN_INSTALL') || defined('IN_CRON') || defined('IN_LOGIN') || defined('IN_ADMIN');
+	if (!$skip_check && !im3_credit_line_present($page_html))
+	{
+		while (ob_get_level() > 0)
+		{
+			@ob_end_clean();
+		}
+
+		if (!headers_sent())
+		{
+			header('HTTP/1.1 500 Internal Server Error');
+			header('Content-Type: text/plain; charset=UTF-8');
+		}
+
+		echo 'IntegraMOD cannot display this page because the required copyright line is missing.';
+		garbage_collection();
+		exit_handler();
+	}
+
+	echo $page_html;
+}
+
+/**
 * Generate page footer
 */
 function page_footer($run_cron = true)
@@ -5746,9 +5879,9 @@ function page_footer($run_cron = true)
 	$template->assign_vars(array(
 		'DEBUG_OUTPUT'			=> (defined('DEBUG')) ? $debug_output : '',
 		'TRANSLATION_INFO'		=> (!empty($user->lang['TRANSLATION_INFO'])) ? $user->lang['TRANSLATION_INFO'] : '',
-		'CREDIT_LINE'			=> $user->lang('POWERED_BY', '<a href="https://www.integramod.com/">IntegraMOD</a>&reg; Communuty Software &copy; IntegraMOD Team'),
-        'COPYRIGHT'             => sprintf($user->lang('MY_WEBSITE'), '&copy; ' . $config['sitename']),
-	    'SITE_COPYRIGHT'		=> (!empty($config['site_copyright_enable'])),
+		'CREDIT_LINE'			=> im3_build_credit_line(),
+		'COPYRIGHT'             => sprintf($user->lang('MY_WEBSITE'), '&copy; ' . $config['sitename']),
+		'SITE_COPYRIGHT'		=> (!empty($config['site_copyright_enable'])),
 
 		'U_ACP' => ($auth->acl_get('a_') && !empty($user->data['is_registered'])) ? append_sid("{$phpbb_root_path}adm/index.$phpEx", false, true, $user->session_id) : '')
 	);
@@ -5813,7 +5946,7 @@ function page_footer($run_cron = true)
 		}
 	}
 
-	$template->display('body');
+	im3_display_checked_body();
 
 	garbage_collection();
 	exit_handler();

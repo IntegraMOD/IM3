@@ -950,11 +950,6 @@ if (empty($view) && !$inc_module)
 
 $view_check = array('broken', 'bug_tracker', 'comment', 'detail', 'fav', 'load', 'modcp', 'overall', 'popup', 'rss', 'search', 'stat', 'thumbs', 'todo', 'unbroken', 'unfav', 'upload', 'user_config', 'view');
 
-if (in_array($view, $view_check, true))
-{
-	dl_version::dl_mod_version('check');
-}
-
 if (!in_array($view, $view_check, true) || !isset($template->filename['body']))
 {
 	trigger_error('DL_NO_PERMISSION');

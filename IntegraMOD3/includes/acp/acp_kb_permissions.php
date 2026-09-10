@@ -616,7 +616,8 @@ class acp_kb_permissions
 		$auth_options = array(0 => $auth_options);
 
 		// Making use of auth_admin method here (we do not really want to change two similar code fragments)
-		auth_admin::build_permission_array($auth_options, $content_array, $categories, $key_sort_array);
+		$auth_admin = new auth_admin();
+		$auth_admin->build_permission_array($auth_options, $content_array, $categories, $key_sort_array);
 
 		$content_array = $content_array[0];
 

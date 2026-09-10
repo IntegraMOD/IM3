@@ -25,7 +25,7 @@ class acp_kb
 		$sql = 'SELECT *
 			FROM ' . KB_CATEGORIE_TABLE . '
 			WHERE cat_id = ' . (int) $id;
-		$result = $db->sql_query($sql, $kb_config['cache_time']);
+		$result = $db->sql_query($sql);
 		$row = $db->sql_fetchrow($result);
 		$db->sql_freeresult($result);
 		return $row;
@@ -163,6 +163,20 @@ class acp_kb
 
 		include($phpbb_root_path . 'includes/functions_kb.' . $phpEx);
 		$user->add_lang('mods/kb');
+
+		if (!is_array($kb_config) || empty($kb_config))
+		{
+			$kb_config = array();
+			$sql = 'SELECT config_name, config_value
+				FROM ' . KB_CONFIG_TABLE;
+			$result = $db->sql_query($sql, 3600);
+			while ($row = $db->sql_fetchrow($result))
+			{
+				$kb_config[$row['config_name']] = $row['config_value'];
+			}
+			$db->sql_freeresult($result);
+		}
+
 		$action = (!isset($_GET['action'])) ? '' : $_GET['action'];
 		$id = request_var('id', 0);
 		$parent_id = request_var('parent_id', 0);
@@ -214,6 +228,11 @@ class acp_kb
 							WHERE cat_id = ' . (int) $id;
 						$result = $db->sql_query($sql);
 						$row = $db->sql_fetchrow($result);
+						$db->sql_freeresult($result);
+						if (!$row)
+						{
+							trigger_error((isset($user->lang['NO_CAT']) ? $user->lang['NO_CAT'] : 'The selected category does not exist.') . adm_back_link($this->u_action), E_USER_WARNING);
+						}
 						$desc_data = generate_text_for_edit($row['description'], $row['bbcode_uid'], $row['bbcode_options']);
 						$template->assign_vars(array(
 							'POST_ADS'					=> $row['ads'],
@@ -237,16 +256,25 @@ class acp_kb
 
 					// Add a categorie
 					case 'new_cat':
-						$sql = 'SELECT cat_mode
-							FROM ' . KB_CATEGORIE_TABLE . '
-							WHERE cat_id = ' . (int) $parent_id;
-						$result = $db->sql_query($sql);
-						$row = $db->sql_fetchrow($result);
+						$cat_mode = 0;
+						if ($parent_id)
+						{
+							$sql = 'SELECT cat_mode
+								FROM ' . KB_CATEGORIE_TABLE . '
+								WHERE cat_id = ' . (int) $parent_id;
+							$result = $db->sql_query($sql);
+							$row = $db->sql_fetchrow($result);
+							$db->sql_freeresult($result);
+							if ($row && (int) $row['cat_mode'] === 0)
+							{
+								$cat_mode = 1;
+							}
+						}
 						$template->assign_vars(array(
 							'MAIN_ID'			=> $parent_id,
 							'S_SUB_CATEGORIE'	=> true,
 							'S_NEW_CATEGORIE'	=> true,
-							'CAT_MODE'			=> ($row['cat_mode'] == 0 AND $parent_id != 0) ? 1 : 0,
+							'CAT_MODE'			=> $cat_mode,
 							'POST_SELECT'		=> '<option value="0">' . $user->lang['IN_INDEX'] . '</option>' . make_cat_select($parent_id, 2),
 							'U_ACTION'			=> $this->u_action . '&amp;action=add',
 							'S_SHOW_FORM'		=> true,
@@ -307,6 +335,10 @@ class acp_kb
 					// Update Subcat
 					case 'update':
 						$row = $this->get_cat_info($id);
+						if (!$row)
+						{
+							trigger_error((isset($user->lang['NO_CAT']) ? $user->lang['NO_CAT'] : 'The selected category does not exist.') . adm_back_link($this->u_action), E_USER_WARNING);
+						}
 						if ($row['parent_id'] != request_var('parent_id', 0))
 						{
 							$moving_ids = ($row['right_id'] - $row['left_id']) + 1;
@@ -434,7 +466,7 @@ class acp_kb
 					FROM ' . KB_CATEGORIE_TABLE . '
 					WHERE parent_id = ' . (int) $parent_id . '
 					ORDER BY left_id ASC';
-				$result = $db->sql_query($sql, $kb_config['cache_time']);
+				$result = $db->sql_query($sql);
 				while ($row = $db->sql_fetchrow($result))
 				{
 					$folder_image = ($row['left_id'] + 1 != $row['right_id']) ? '<img src="images/icon_subfolder.gif" alt="' . $user->lang['SUBFORUM'] . '" />' : '<img src="images/icon_folder.gif" alt="' . $user->lang['FOLDER'] . '" />';
@@ -485,26 +517,21 @@ class acp_kb
 					trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 				}
 
-				$sql = 'SELECT config_name, config_value
-					FROM ' . KB_CONFIG_TABLE;
-				$result = $db->sql_query($sql, $kb_config['cache_time']);
-				while($row = $db->sql_fetchrow($result))
-				{
-					$kb_config[$row['config_name']] = $row['config_value'];
-				}
+				$index_topics_current = isset($kb_config['index_topics']) ? (int) $kb_config['index_topics'] : 0;
+				$sort_order_current = isset($kb_config['sort_order']) ? $kb_config['sort_order'] : 'titel';
 
 				$index_topics = '';
 				for($i = 1; $i <= 20; $i++)
 				{
-					$index_topics .= ($i == $kb_config['index_topics']) ? '<option selected="selected" value="' . $kb_config['index_topics'] . '">' . $kb_config['index_topics'] . '</option>' : '<option value="' . $i . '">' . $i . '</option>';
+					$index_topics .= ($i == $index_topics_current) ? '<option selected="selected" value="' . $index_topics_current . '">' . $index_topics_current . '</option>' : '<option value="' . $i . '">' . $i . '</option>';
 				}
 
-				$sort_order = ($kb_config['sort_order'] == 'titel') ?  '<option value="titel" selected="selected">' . $user->lang['ARTICLE_TITLE'] . '</option>' :  '<option value="titel">' . $user->lang['ARTICLE_TITLE'] . '</option>';
-				$sort_order .= ($kb_config['sort_order'] == 'user_id') ?  '<option value="user_id" selected="selected">' . $user->lang['USERNAME'] . '</option>' :  '<option value="user_id">' . $user->lang['USERNAME'] . '</option>';
-				$sort_order .= ($kb_config['sort_order'] == 'type_id') ?  '<option value="type_id" selected="selected">' . $user->lang['TYPE'] . '</option>' :  '<option value="type_id">' . $user->lang['TYPE'] . '</option>';
-				$sort_order .= ($kb_config['sort_order'] == 'post_time') ?  '<option value="post_time" selected="selected">' . $user->lang['ARTICLE_POSTET'] . '</option>' :  '<option value="post_time">' . $user->lang['ARTICLE_POSTET'] . '</option>';
-				$sort_order .= ($kb_config['sort_order'] == 'hits') ?  '<option value="hits" selected="selected">' . $user->lang['VIEWED'] . '</option>' :  '<option value="hits">' . $user->lang['VIEWED'] . '</option>';
-				$sort_order .= ($kb_config['sort_order'] == 'ratig') ?  '<option value="ratig" selected="selected">' . $user->lang['RATING'] . '</option>' :  '<option value="ratig">' . $user->lang['RATING'] . '</option>';
+				$sort_order = ($sort_order_current == 'titel') ?  '<option value="titel" selected="selected">' . $user->lang['ARTICLE_TITLE'] . '</option>' :  '<option value="titel">' . $user->lang['ARTICLE_TITLE'] . '</option>';
+				$sort_order .= ($sort_order_current == 'user_id') ?  '<option value="user_id" selected="selected">' . $user->lang['USERNAME'] . '</option>' :  '<option value="user_id">' . $user->lang['USERNAME'] . '</option>';
+				$sort_order .= ($sort_order_current == 'type_id') ?  '<option value="type_id" selected="selected">' . $user->lang['TYPE'] . '</option>' :  '<option value="type_id">' . $user->lang['TYPE'] . '</option>';
+				$sort_order .= ($sort_order_current == 'post_time') ?  '<option value="post_time" selected="selected">' . $user->lang['ARTICLE_POSTET'] . '</option>' :  '<option value="post_time">' . $user->lang['ARTICLE_POSTET'] . '</option>';
+				$sort_order .= ($sort_order_current == 'hits') ?  '<option value="hits" selected="selected">' . $user->lang['VIEWED'] . '</option>' :  '<option value="hits">' . $user->lang['VIEWED'] . '</option>';
+				$sort_order .= ($sort_order_current == 'ratig') ?  '<option value="ratig" selected="selected">' . $user->lang['RATING'] . '</option>' :  '<option value="ratig">' . $user->lang['RATING'] . '</option>';
 
 
 				$kb_config['index_topics'] = $index_topics;
@@ -596,7 +623,7 @@ class acp_kb
 				// List Types in the System
 				$sql = 'SELECT type_id, name
 					FROM ' . KB_TYPES_TABLE;
-				$result = $db->sql_query($sql, $kb_config['cache_time']);
+				$result = $db->sql_query($sql, kb_sql_cache_time());
 				while ($row = $db->sql_fetchrow($result))
 				{
 					$template->assign_block_vars('types', array(

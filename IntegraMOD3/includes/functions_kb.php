@@ -18,6 +18,156 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
+function kb_sql_cache_time()
+{
+	global $kb_config;
+
+	if (is_array($kb_config) && isset($kb_config['cache_time']) && $kb_config['cache_time'] !== '')
+	{
+		return (int) $kb_config['cache_time'];
+	}
+
+	return 3600;
+}
+
+/**
+* Return catalog KEY when $value is exactly {L_KEY}; otherwise false.
+* Bare words, filenames, and mixed text are never treated as tokens.
+*/
+function kb_lang_token_key($value)
+{
+	if (!is_string($value))
+	{
+		return false;
+	}
+
+	$value = trim($value);
+
+	if (!preg_match('/^\{L_([A-Za-z0-9_]+)\}$/', $value, $match))
+	{
+		return false;
+	}
+
+	return $match[1];
+}
+
+/**
+* Load language/{iso}/kb/articles.php into a private array.
+* Never merges into $user->lang. Cached by iso + filemtime.
+*/
+function kb_load_article_catalog($iso)
+{
+	global $phpbb_root_path, $phpEx, $cache;
+
+	$iso = basename((string) $iso);
+	if ($iso === '' || $iso === '.' || $iso === '..')
+	{
+		$iso = 'en';
+	}
+
+	$path = $phpbb_root_path . 'language/' . $iso . '/kb/articles.' . $phpEx;
+	if (!file_exists($path) || !is_file($path))
+	{
+		return array();
+	}
+
+	$mtime = (int) @filemtime($path);
+	$cache_key = '_kb_article_catalog_' . $iso . '_' . $mtime;
+	if ($cache)
+	{
+		$cached = $cache->get($cache_key);
+		if (is_array($cached))
+		{
+			return $cached;
+		}
+	}
+
+	$lang = array();
+	include $path;
+
+	$catalog = (isset($lang) && is_array($lang)) ? $lang : array();
+
+	if ($cache)
+	{
+		$cache->put($cache_key, $catalog, kb_sql_cache_time());
+	}
+
+	return $catalog;
+}
+
+function kb_catalog_lookup($key)
+{
+	global $user, $config;
+
+	$key = (string) $key;
+	if ($key === '')
+	{
+		return false;
+	}
+
+	$user_iso = !empty($user->lang_name) ? $user->lang_name : (isset($config['default_lang']) ? basename($config['default_lang']) : 'en');
+	$catalog = kb_load_article_catalog($user_iso);
+
+	if (isset($catalog[$key]) && is_string($catalog[$key]) && $catalog[$key] !== '')
+	{
+		return $catalog[$key];
+	}
+
+	if ($user_iso !== 'en')
+	{
+		$english = kb_load_article_catalog('en');
+		if (isset($english[$key]) && is_string($english[$key]) && $english[$key] !== '')
+		{
+			return $english[$key];
+		}
+	}
+
+	return false;
+}
+
+function kb_english_catalog_has_key($key)
+{
+	$english = kb_load_article_catalog('en');
+	return isset($english[$key]) && is_string($english[$key]) && $english[$key] !== '';
+}
+
+function kb_localize_field($value)
+{
+	$key = kb_lang_token_key($value);
+	if ($key === false)
+	{
+		return $value;
+	}
+
+	$translated = kb_catalog_lookup($key);
+	return ($translated !== false) ? $translated : $value;
+}
+
+function kb_localize_article_fields($titel, $description, $article)
+{
+	return array(
+		'titel'			=> kb_localize_field($titel),
+		'description'	=> kb_localize_field($description),
+		'article'		=> kb_localize_field($article),
+	);
+}
+
+/**
+* Parse a catalog article body (BBCode) for display.
+*/
+function kb_display_localized_article($article, $enable_bbcode = true, $enable_urls = true, $enable_smilies = true)
+{
+	global $phpbb_root_path, $phpEx;
+
+	if (!function_exists('generate_text_for_storage'))
+	{
+		include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+	}
+
+	$uid = $bitfield = $options = '';
+	generate_text_for_storage($article, $uid, $bitfield, $options, $enable_bbcode, $enable_urls, $enable_smilies);
+	return generate_text_for_display($article, $uid, $bitfield, $options);
+}
 
 function upload_popup($forum_style = 0)
 {
@@ -150,7 +300,7 @@ function make_categorie_list($id)
 		FROM ' . KB_CATEGORIE_TABLE . '
 		WHERE ((parent_id = ' . (int) $id . ') OR cat_mode = 1)
 		ORDER BY left_id ASC';
-	$result = $db->sql_query($sql, $kb_config['cache_time']);
+	$result = $db->sql_query($sql, kb_sql_cache_time());
 	while ($row = $db->sql_fetchrow($result))
 	{
 		if($auth->acl_get('kb_view_article', $row['cat_id']))
@@ -213,7 +363,7 @@ function make_categorie_list($id)
 			WHERE a.activ  = '1'
 				AND u.user_id = a.user_id
 			ORDER BY a." . $db->sql_escape($kb_config['sort_order']) . ' ' . $db->sql_escape($kb_config['sort_order_dir']);
-		$result = $db->sql_query($sql, $kb_config['cache_time']);
+		$result = $db->sql_query($sql, kb_sql_cache_time());
 
 		for ($i = 0; $row = $db->sql_fetchrow($result); $i++)
 		{
@@ -243,7 +393,7 @@ function make_categorie_list($id)
 				$template->assign_block_vars('maincat.ucat', array(
 					'U_CATEGORIE'			=> categorie_link($cat[$j]['cat_id']),
 					'S_MORE_LINK'			=> true,
-					'NEWEST_ARTICLE'		=> $cat[$j]['last_article_title'],
+					'NEWEST_ARTICLE'		=> kb_localize_field($cat[$j]['last_article_title']),
 					'U_NEWEST_ARTICLE'		=> article_link($cat[$j]['last_article_id'], $cat[$j]['last_article_url']),
 					'NEWEST_TIME'			=> $user->format_date($cat[$j]['last_article_time']),
 					'AUTHOR_FULL'			=> $cat[$j]['last_poster'],
@@ -265,9 +415,10 @@ function make_categorie_list($id)
 					{
 						if ($cat[$j]['cat_id'] == $article[$k]['cat_id'] && $l < $kb_config['index_topics'])
 						{
+							$localized = kb_localize_article_fields($article[$k]['titel'], $article[$k]['description'], '');
 							$template->assign_block_vars('maincat.ucat.article', array(
-								'TITLE'			=> $article[$k]['titel'],
-								'DESCRIPTION'	=> $article[$k]['description'],
+								'TITLE'			=> $localized['titel'],
+								'DESCRIPTION'	=> str_replace('\n', '<br />', $localized['description']),
 								'U_ARTICLE'		=> article_link($article[$k]['article_id'], $article[$k]['page_uri']),
 							));
 							$l++;
@@ -331,7 +482,7 @@ function make_cat_select($select_id = false, $disable = 0, $own_id = 0)
 	$sql = 'SELECT cat_id, cat_title, parent_id, left_id, right_id, cat_mode
 		FROM ' . KB_CATEGORIE_TABLE . '
 		ORDER BY left_id ASC';
-	$result = $db->sql_query($sql, $kb_config['cache_time']);
+	$result = $db->sql_query($sql, kb_sql_cache_time());
 
 	$right = 0;
 	$padding_store = array('0' => '');
@@ -547,47 +698,73 @@ function set_newest_article($cat_id)
 {
 	global $db, $cache;
 
-	$sql = 'SELECT a.*, u.username, u.user_colour, u.user_id
-		FROM ' . KB_ARTICLE_TABLE . ' a, ' . USERS_TABLE . ' u
-		WHERE a.cat_id = ' . (int) $cat_id . '
-			AND a.activ = 1
-			AND a.user_id = u.user_id
-		ORDER BY a.post_time DESC';
-	$result = $db->sql_query_limit($sql, 1);
-	$row = $db->sql_fetchrow($result);
+	$cat_id = (int) $cat_id;
 
-	$sql_ary = array(	
-		//'cat_articles'					=> $total_articles,
-		'last_article_title'			=> $row['titel'],
-		'last_article_url'				=> $row['page_uri'],
-		'last_article_time'				=> $row['post_time'],
-		'last_article_id'				=> $row['article_id'],
-		'last_article_poster_name'		=> $row['username'],
-		'last_article_poster_id'		=> $row['user_id'],
-		'last_article_poster_colour'	=> $row['user_colour'],
-	);
+	$sql = 'SELECT left_id, right_id
+		FROM ' . KB_CATEGORIE_TABLE . '
+		WHERE cat_id = ' . $cat_id;
+	$result = $db->sql_query($sql);
+	$cat_row = $db->sql_fetchrow($result);
+	$db->sql_freeresult($result);
 
-	$sql = 'SELECT *
+	if (!$cat_row)
+	{
+		return;
+	}
+
+	$sql = 'SELECT cat_id, left_id, right_id
+		FROM ' . KB_CATEGORIE_TABLE . '
+		WHERE cat_id = ' . $cat_id . '
+			OR (left_id < ' . (int) $cat_row['left_id'] . '
+				AND right_id > ' . (int) $cat_row['right_id'] . ')';
+	$result = $db->sql_query($sql);
+	$cats = array();
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$cats[] = $row;
+	}
+	$db->sql_freeresult($result);
+
+	foreach ($cats as $cat)
+	{
+		$sql = 'SELECT a.titel, a.page_uri, a.post_time, a.article_id, u.username, u.user_colour, u.user_id
+			FROM ' . KB_ARTICLE_TABLE . ' a
+			LEFT JOIN ' . USERS_TABLE . ' u ON u.user_id = a.user_id
+			INNER JOIN ' . KB_CATEGORIE_TABLE . ' c ON c.cat_id = a.cat_id
+			WHERE a.activ = 1
+				AND c.left_id >= ' . (int) $cat['left_id'] . '
+				AND c.right_id <= ' . (int) $cat['right_id'] . '
+			ORDER BY a.post_time DESC';
+		$result = $db->sql_query_limit($sql, 1);
+		$article = $db->sql_fetchrow($result);
+		$db->sql_freeresult($result);
+
+		$sql_ary = array(
+			'last_article_title'			=> ($article && $article['titel']) ? $article['titel'] : '',
+			'last_article_url'				=> ($article && $article['page_uri']) ? $article['page_uri'] : '',
+			'last_article_time'				=> $article ? (int) $article['post_time'] : 0,
+			'last_article_id'				=> $article ? (int) $article['article_id'] : 0,
+			'last_article_poster_name'		=> ($article && $article['username']) ? $article['username'] : '',
+			'last_article_poster_id'		=> $article ? (int) $article['user_id'] : 0,
+			'last_article_poster_colour'	=> ($article && $article['user_colour']) ? $article['user_colour'] : '',
+		);
+
+		$db->sql_query('UPDATE ' . KB_CATEGORIE_TABLE . ' SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
+			WHERE cat_id = ' . (int) $cat['cat_id']);
+	}
+
+	$sql = 'SELECT titel, article_id, page_uri
 		FROM ' . KB_ARTICLE_TABLE . '
 		WHERE activ = 1
 		ORDER BY post_time DESC';
 	$result = $db->sql_query_limit($sql, 1);
-	$row = $db->sql_fetchrow($result);
-	set_config('kb_newest_title', $row['titel']);
-	set_config('kb_newest_id', $row['article_id']);
-	set_config('kb_newest_uri', $row['page_uri']);
-
-	$sql = 'SELECT left_id, right_id, cat_id
-		FROM ' . KB_CATEGORIE_TABLE . '
-		WHERE cat_id = ' . (int) $row['cat_id'];
-	$result = $db->sql_query($sql);
-	$row = $db->sql_fetchrow($result);
+	$newest = $db->sql_fetchrow($result);
 	$db->sql_freeresult($result);
 
-	$db->sql_query('UPDATE ' . KB_CATEGORIE_TABLE . ' SET ' . $db->sql_build_array('UPDATE', $sql_ary) . ' 
-		WHERE cat_id = ' . (int) $cat_id . '
-			OR (left_id < ' . (int) $row['left_id'] . '
-				AND right_id > ' . (int) $row['right_id'] . ')');
+	set_config('kb_newest_title', ($newest && $newest['titel']) ? $newest['titel'] : '');
+	set_config('kb_newest_id', $newest ? (int) $newest['article_id'] : 0);
+	set_config('kb_newest_uri', ($newest && $newest['page_uri']) ? $newest['page_uri'] : '');
+
 	$cache->destroy('sql', KB_CATEGORIE_TABLE);
 }
 
@@ -930,7 +1107,8 @@ function delete_article($article_id)
 	else
 	{
 		confirm_box(false, $user->lang['ARTICLE_DEL'], build_hidden_fields(array(
-			'id'		=> $articles,
+			'id'		=> is_array($article_id) ? $article_id : (int) $article_id,
+			'mode'		=> 'delete',
 			'action'	=> 'delete',
 		)));
 	}
@@ -945,7 +1123,7 @@ function make_type_list($id = 0)
 	$type_option = '<option value="0">' . $user->lang['NO_TYPE'] . '</option>';
 	$sql = 'SELECT type_id, name 
 		FROM ' . KB_TYPES_TABLE;
-	$result = $db->sql_query($sql, $kb_config['cache_time']);
+	$result = $db->sql_query($sql, kb_sql_cache_time());
 	while ($row = $db->sql_fetchrow($result))
 	{
 		$type_option .= ($id == $row['type_id']) ? '<option selected="selected" value="' . $row['type_id'] . '">' . $row['name'] . '</option>' : '<option value="' . $row['type_id'] . '">' . $row['name'] . '</option>';

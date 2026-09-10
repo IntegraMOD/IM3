@@ -23,6 +23,7 @@ define('KB_SEO',		false);
 
 $kb_root_path = $phpbb_root_path . KB_FOLDER . '/';
 
+$template->assign_var('S_IN_KNOWLEDGE_BASE', true);
 
 $sql = 'SELECT config_name, config_value
 	FROM ' . KB_CONFIG_TABLE;
