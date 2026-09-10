@@ -5801,11 +5801,10 @@ function im3_build_credit_line()
 function im3_credit_line_present($html)
 {
 	$html = (string) $html;
-	$plain = html_entity_decode(strip_tags($html), ENT_QUOTES, 'UTF-8');
-	$plain = strtolower(preg_replace('/\s+/', ' ', $plain));
-	$html_lc = strtolower($html);
 
-	return (strpos($html_lc, 'integramod.com') !== false && strpos($plain, 'integramod') !== false);
+	// Do not run strip_tags() on the full page. A stray '<' in rendered markup
+	// makes PHP eat the rest of the document, including the visible credit line.
+	return (bool) preg_match('/<a\b[^>]*href=["\']https?:\/\/(?:www\.)?integramod\.com[^"\']*["\'][^>]*>[^<]*integramod/i', $html);
 }
 
 function im3_display_checked_body()
