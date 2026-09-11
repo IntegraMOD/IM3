@@ -65,11 +65,11 @@ $j(function() {
             return this
         };
         $j('input.mChatText').autoGrowInput();
-		if (mChatSound && $j.cookie('mChatNoSound') != 'yes') {
-			$j.cookie('mChatNoSound', null);
+		if ($j.cookie('mChatUseSound') === 'yes') {
+			$j.removeCookie('mChatNoSound', { path: '/' });
 			$j('#mChatUseSound').prop('checked', true);
 		} else {
-			$j.cookie('mChatNoSound', 'yes');
+			$j.cookie('mChatNoSound', 'yes', { expires: 365, path: '/' });
 			$j('#mChatUseSound').prop('checked', false);
 		}
         if ($j('#mChatUserList').length && ($j.cookie('mChatShowUserList') == 'yes' || mChatCustomPage)) {
@@ -128,7 +128,7 @@ var mChat = {
         }
     },
 	sound: function(file) {
-		if ($j.cookie('mChatNoSound') == 'yes') {
+		if ($j.cookie('mChatUseSound') !== 'yes') {
 			return;
 		}
 
@@ -315,11 +315,10 @@ var mChat = {
             return
         }
         var mess_id = 0;
-        if ($j('#mChatData').children().not('#mChatNoMessage').length) {
-            if ($j('#mChatNoMessage')) {
-                $j('#mChatNoMessage').remove()
-            }
-            mess_id = $j('#mChatData').children(':last-child').attr('id').replace('mess', '')
+        $j('#mChatNoMessage').remove();
+        var $lastMessage = $j('#mChatData').children('[id^="mess"]').last();
+        if ($lastMessage.length && $lastMessage.attr('id')) {
+            mess_id = String($lastMessage.attr('id')).replace('mess', '');
         }
         var oldScrH = $j('#mChatmain')[0].scrollHeight;
         $j.ajax({
@@ -336,11 +335,12 @@ var mChat = {
                 $j('#mChatLoadIMG').show()
             },
             success: function(html) {
-                if (html != '' && html != 0) {
+                var $newMessages = $j('<div></div>').html(html || '').children('[id^="mess"]');
+                if ($newMessages.length) {
                     if ($j('#mChatRefreshText').hasClass('mchat-alert')) {
                         $j('#mChatRefreshText').removeClass('mchat-alert')
                     }
-                    $j('#mChatData').append(html).children(':last').not('#mChatNoMessage');
+                    $j('#mChatData').append($newMessages);
                     var newInner = $j('#mChatData').children().not('#mChatNoMessage').innerHeight();
                     var newH = oldScrH + newInner;
                     $j('#mChatmain').animate({
@@ -443,8 +443,10 @@ if ($j.cookie('mChatShowColour') == 'yes' && $j('#mChatColour').css('display', '
 }
 $j('#mChatUseSound').change(function() {
     if ($j(this).is(':checked')) {
-        $j.cookie('mChatNoSound', null)
+        $j.removeCookie('mChatNoSound', { path: '/' });
+        $j.cookie('mChatUseSound', 'yes', { expires: 365, path: '/' });
     } else {
-        $j.cookie('mChatNoSound', 'yes')
+        $j.removeCookie('mChatUseSound', { path: '/' });
+        $j.cookie('mChatNoSound', 'yes', { expires: 365, path: '/' });
     }
 });

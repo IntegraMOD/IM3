@@ -65,11 +65,7 @@
 			<!-- ELSE -->
 			var mChatMssgLngth = false;
 			<!-- ENDIF -->
-			<!-- IF S_MCHAT_SOUND_YES -->
-			var mChatSound = true;
-			<!-- ELSE -->
 			var mChatSound = false;
-			<!-- ENDIF -->
 			<!-- IF MCHAT_WHOIS -->
 			var mChatWhois = true;
 			var mChatWhoisRefresh = '{MCHAT_WHOIS_REFRESH}';
@@ -149,7 +145,7 @@
 					<img src="{ROOT_PATH}mchat/ok.gif" alt="{L_MCHAT_OK}" title="{L_MCHAT_OK}" id="mChatOkIMG" class="mChatImageOk" />
 					<img src="{ROOT_PATH}mchat/error.gif" alt="{L_MCHAT_ERROR}" title="{L_MCHAT_ERROR}" id="mChatErrorIMG" class="mChatImageHideImg" />
 					<img src="{ROOT_PATH}mchat/paused.gif" alt="{L_MCHAT_PAUSE}" title="{L_MCHAT_PAUSE}" id="mChatPauseIMG" class="mChatImageHideImg" />
-					<span id="mChatRefreshText">{MCHAT_REFRESH_YES}</span><!-- IF MCHAT_USER_TIMEOUT --> &bull; <span id="mChatSessMess">&nbsp;</span><!-- ENDIF --> &bull; <label for="mChatUseSound">{L_MCHAT_USESOUND} <input type="checkbox" id="mChatUseSound" <!-- IF S_MCHAT_SOUND_YES -->checked="checked"<!-- ENDIF --> /></label>
+					<input type="checkbox" id="mChatUseSound" />
 				</div>
 			</div>
 			</form>

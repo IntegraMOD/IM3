@@ -333,9 +333,11 @@ h3 { font-size: 1.4em; border-bottom: 1px solid var(--border-ad-panel); padding-
 .portal-search-links-left,
 .portal-search-links-right { display: inline-flex; gap: 0.35rem; flex-wrap: wrap; }
 .portal-search-links-right { margin-left: auto; }
-.portal-forum-category { text-align: center; padding-bottom: 13px; cursor: pointer; margin-bottom: 4px; }
-.portal-forum-category-title { margin-left: -12px; }
-.portal-forum-category-details { display: none; margin-top: 10px; margin-bottom: 5px; clear: both; }
+.portal-forum-category { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; text-align: start; column-gap: 0.25rem; row-gap: 0; padding-bottom: 0; cursor: pointer; margin-bottom: 2px; }
+.portal-forum-category .pimg,
+.portal-forum-category .cat_images { float: none; display: inline-flex; flex-shrink: 0; }
+.portal-forum-category-title { margin-left: 0; text-align: start; }
+.portal-forum-category-details { display: none; flex: 1 0 100%; margin-top: 10px; margin-bottom: 5px; }
 .portal-forum-category-desc { text-align: left; padding-top: 6px; padding-bottom: 3px; }
 .portal-forum-category-stats { text-align: left; padding-top: 3px; }
 .portal-forum-category-subforums-title { text-align: left; margin-top: 15px; padding-bottom: 5px; }
