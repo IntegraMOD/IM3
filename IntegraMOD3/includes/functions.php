@@ -5815,7 +5815,8 @@ function im3_display_checked_body()
 	$template->display('body');
 	$page_html = ob_get_clean();
 
-	$skip_check = defined('IN_INSTALL') || defined('IN_CRON') || defined('IN_LOGIN') || defined('IN_ADMIN');
+	$ajax_request = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower((string) $_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+	$skip_check = defined('IN_INSTALL') || defined('IN_CRON') || defined('IN_LOGIN') || defined('IN_ADMIN') || $ajax_request || (bool) im3_template_var('MCHAT_READ_MODE');
 	if (!$skip_check && !im3_credit_line_present($page_html))
 	{
 		while (ob_get_level() > 0)

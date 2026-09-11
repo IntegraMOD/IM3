@@ -404,6 +404,7 @@ textarea.mChatText {
 .mChatStatusOk { color: var(--state-sticky); }
 .mChatStatusError { color: var(--state-hot); }
 .mChatStatusPause { color: var(--state-locked); }
+.mChatImageHideImg { display: none; }
 .mChatActions { display: inline-flex; align-items: center; gap: 4px; }
 .mChatActions a { color: var(--text-secondary); text-decoration: none; }
 .mChatActions a:hover { color: var(--color-primary); text-decoration: none; }
