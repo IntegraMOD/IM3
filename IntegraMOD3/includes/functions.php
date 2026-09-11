@@ -4303,7 +4303,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '	</div>';
 			echo '	</div>';
 			echo '	<div id="page-footer">';
-			echo '		Powered by <a href="https://www.integramod.com/">IntegraMOD</a>&reg; Communuty Software &copy; IntegraMOD Team';
+			echo '		<a href="https://www.integramod.com/" title="Powered by IntegraMOD&reg; Communuty Software &copy; IntegraMOD Team">IntegraMOD &copy; 2026</a>';
 			echo '	</div>';
 			echo '</div>';
 			echo '</body>';
@@ -5733,7 +5733,7 @@ function im3_build_credit_line()
 	global $user, $config, $phpEx;
 
 	$lines = array();
-	$lines[] = $user->lang('POWERED_BY', '<a href="https://www.integramod.com/">IntegraMOD</a>&reg; Communuty Software &copy; IntegraMOD Team');
+	$lines[] = '<a href="https://www.integramod.com/" title="Powered by IntegraMOD&reg; Communuty Software &copy; IntegraMOD Team">IntegraMOD &copy; 2026</a>';
 
 	$script_name = '';
 	if (!empty($user->page['page_name']))

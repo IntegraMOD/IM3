@@ -260,7 +260,8 @@ if ($submit)
 
 			$hash_method = $config['dl_file_hash_algo'];
 			$func_hash = $hash_method . '_file';
-			$file_hash = $func_hash($phpbb_root_path . $config['dl_download_dir'] . $dl_path . $real_file);		
+			$upload_hash_path = $phpbb_root_path . $config['dl_download_dir'] . $dl_path . $real_file;
+			$file_hash = (!empty($real_file) && is_file($upload_hash_path) && is_callable($func_hash)) ? $func_hash($upload_hash_path) : '';
 		}
 		else
 		{

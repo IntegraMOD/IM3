@@ -317,9 +317,10 @@ if (!$dl_files['extern'])
 	
 			if (!$ver_file_hash)
 			{
-				if (file_exists($phpbb_root_path . $config['dl_download_dir'] . $index[$cat_id]['cat_path'] . $row['ver_real_file']))
+				$ver_hash_path = $phpbb_root_path . $config['dl_download_dir'] . $index[$cat_id]['cat_path'] . $row['ver_real_file'];
+				if (!empty($row['ver_real_file']) && is_file($ver_hash_path) && is_callable($func_hash))
 				{
-					$ver_file_hash = $func_hash($phpbb_root_path . $config['dl_download_dir'] . $index[$cat_id]['cat_path'] . $row['ver_real_file']);
+					$ver_file_hash = $func_hash($ver_hash_path);
 					$sql = 'UPDATE ' . DL_VERSIONS_TABLE . " SET ver_file_hash = '" . $db->sql_escape($ver_file_hash) . "' WHERE ver_id = " . (int) $row['ver_id'];
 					$db->sql_query($sql);
 				}

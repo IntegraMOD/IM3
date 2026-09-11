@@ -544,7 +544,8 @@ else
 
 					$hash_method = $config['dl_file_hash_algo'];
 					$func_hash = $hash_method . '_file';
-					$file_hash = $func_hash($phpbb_root_path . $config['dl_download_dir'] . $dl_path . $real_file_new);
+					$modcp_hash_path = $phpbb_root_path . $config['dl_download_dir'] . $dl_path . $real_file_new;
+					$file_hash = (!empty($real_file_new) && is_file($modcp_hash_path) && is_callable($func_hash)) ? $func_hash($modcp_hash_path) : '';
 				}
 
 				// validate custom profile fields

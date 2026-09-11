@@ -668,7 +668,8 @@ else if($action == 'save')
 		{
 			$hash_method = $config['dl_file_hash_algo'];
 			$func_hash = $hash_method . '_file';
-			$file_hash = $func_hash($phpbb_root_path . $config['dl_download_dir'] . $file_path . $new_real_file);		
+			$admin_hash_path = $phpbb_root_path . $config['dl_download_dir'] . $file_path . $new_real_file;
+			$file_hash = (is_file($admin_hash_path) && is_callable($func_hash)) ? $func_hash($admin_hash_path) : '';
 		}
 		else
 		{
