@@ -1585,6 +1585,13 @@ INSERT INTO phpbb_k_pages VALUES (19, 'knowledge/viewcategorie');
 INSERT INTO phpbb_k_pages VALUES (20, 'knowledge/viewarticle');
 INSERT INTO phpbb_k_pages VALUES (21, 'knowledge/kb-search');
 INSERT INTO phpbb_k_pages VALUES (22, 'calendar');
+INSERT INTO phpbb_k_pages VALUES (23, 'blog'),
+INSERT INTO phpbb_k_pages VALUES (24, 'activitypage'),
+INSERT INTO phpbb_k_pages VALUES (25, 'profile'),
+INSERT INTO phpbb_k_pages VALUES (26, 'contact'),
+INSERT INTO phpbb_k_pages VALUES (27, 'downloads'),
+INSERT INTO phpbb_k_pages VALUES (28, 'page'),
+INSERT INTO phpbb_k_pages VALUES (29, 'notes');
 
 # -- k_resources
 INSERT INTO phpbb_k_resources VALUES (1, 'phpBB', 'R');
