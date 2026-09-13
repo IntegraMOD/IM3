@@ -1592,6 +1592,7 @@ INSERT INTO phpbb_k_pages VALUES (26, 'contact'),
 INSERT INTO phpbb_k_pages VALUES (27, 'downloads'),
 INSERT INTO phpbb_k_pages VALUES (28, 'page'),
 INSERT INTO phpbb_k_pages VALUES (29, 'notes');
+INSERT INTO phpbb_k_pages VALUES (30, 'meeting');
 
 # -- k_resources
 INSERT INTO phpbb_k_resources VALUES (1, 'phpBB', 'R');
