@@ -162,6 +162,33 @@ CREATE INDEX phpbb_acl_users_auth_option_id ON phpbb_acl_users (auth_option_id);
 CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users (auth_role_id);
 
 /*
+	Table: 'phpbb_k_links_queue'
+*/
+CREATE SEQUENCE phpbb_k_links_queue_seq;
+
+CREATE TABLE phpbb_k_links_queue (
+	queue_id INT4 DEFAULT nextval('phpbb_k_links_queue_seq'),
+	post_id INT4 DEFAULT '0' NOT NULL CHECK (post_id >= 0),
+	topic_id INT4 DEFAULT '0' NOT NULL CHECK (topic_id >= 0),
+	forum_id INT4 DEFAULT '0' NOT NULL CHECK (forum_id >= 0),
+	user_id INT4 DEFAULT '0' NOT NULL CHECK (user_id >= 0),
+	logo_original varchar(255) DEFAULT '' NOT NULL,
+	logo_tmp varchar(255) DEFAULT '' NOT NULL,
+	logo_final varchar(255) DEFAULT '' NOT NULL,
+	logo_ext varchar(10) DEFAULT '' NOT NULL,
+	logo_size INT4 DEFAULT '0' NOT NULL CHECK (logo_size >= 0),
+	logo_status INT2 DEFAULT '0' NOT NULL CHECK (logo_status >= 0),
+	upload_time INT4 DEFAULT '0' NOT NULL CHECK (upload_time >= 0),
+	approved_time INT4 DEFAULT '0' NOT NULL CHECK (approved_time >= 0),
+	approved_by INT4 DEFAULT '0' NOT NULL CHECK (approved_by >= 0),
+	PRIMARY KEY (queue_id)
+);
+
+CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id);
+CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id);
+CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id);
+
+/*
 	Table: 'phpbb_ads'
 */
 CREATE SEQUENCE phpbb_ads_seq;

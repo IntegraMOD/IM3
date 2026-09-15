@@ -67,6 +67,29 @@ CREATE TABLE phpbb_acl_users (
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 
+# Table: 'phpbb_k_links_queue'
+CREATE TABLE phpbb_k_links_queue (
+	queue_id int(10) UNSIGNED NOT NULL auto_increment,
+	post_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	topic_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	forum_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	user_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	logo_original varchar(255) DEFAULT '' NOT NULL,
+	logo_tmp varchar(255) DEFAULT '' NOT NULL,
+	logo_final varchar(255) DEFAULT '' NOT NULL,
+	logo_ext varchar(10) DEFAULT '' NOT NULL,
+	logo_size int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	logo_status tinyint UNSIGNED DEFAULT '0' NOT NULL,
+	upload_time int UNSIGNED DEFAULT '0' NOT NULL,
+	approved_time int UNSIGNED DEFAULT '0' NOT NULL,
+	approved_by int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (queue_id),
+	KEY post_id (post_id),
+	KEY topic_id (topic_id),
+	KEY status_forum (logo_status, forum_id)
+) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
+
+
 # Table: 'phpbb_ads'
 CREATE TABLE phpbb_ads (
 	ad_id int UNSIGNED NOT NULL auto_increment,

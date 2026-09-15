@@ -136,6 +136,43 @@ GO
 
 
 /*
+	Table: 'phpbb_k_links_queue'
+*/
+CREATE TABLE [phpbb_k_links_queue] (
+	[queue_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[post_id] [int] DEFAULT (0) NOT NULL ,
+	[topic_id] [int] DEFAULT (0) NOT NULL ,
+	[forum_id] [int] DEFAULT (0) NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[logo_original] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_tmp] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_final] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_ext] [varchar] (10) DEFAULT ('') NOT NULL ,
+	[logo_size] [int] DEFAULT (0) NOT NULL ,
+	[logo_status] [int] DEFAULT (0) NOT NULL ,
+	[upload_time] [int] DEFAULT (0) NOT NULL ,
+	[approved_time] [int] DEFAULT (0) NOT NULL ,
+	[approved_by] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_k_links_queue] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_k_links_queue] PRIMARY KEY  CLUSTERED 
+	(
+		[queue_id]
+	)
+GO
+
+CREATE  INDEX [post_id] ON [phpbb_k_links_queue]([post_id])
+GO
+
+CREATE  INDEX [topic_id] ON [phpbb_k_links_queue]([topic_id])
+GO
+
+CREATE  INDEX [status_forum] ON [phpbb_k_links_queue]([logo_status], [forum_id])
+GO
+
+
+/*
 	Table: 'phpbb_ads'
 */
 CREATE TABLE [phpbb_ads] (

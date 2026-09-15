@@ -94,6 +94,41 @@ CREATE INDEX phpbb_acl_users_user_id ON phpbb_acl_users(user_id);;
 CREATE INDEX phpbb_acl_users_auth_option_id ON phpbb_acl_users(auth_option_id);;
 CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users(auth_role_id);;
 
+# Table: 'phpbb_k_links_queue'
+CREATE TABLE phpbb_k_links_queue (
+	queue_id INTEGER NOT NULL,
+	post_id INTEGER DEFAULT 0 NOT NULL,
+	topic_id INTEGER DEFAULT 0 NOT NULL,
+	forum_id INTEGER DEFAULT 0 NOT NULL,
+	user_id INTEGER DEFAULT 0 NOT NULL,
+	logo_original VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	logo_tmp VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	logo_final VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	logo_ext VARCHAR(10) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	logo_size INTEGER DEFAULT 0 NOT NULL,
+	logo_status INTEGER DEFAULT 0 NOT NULL,
+	upload_time INTEGER DEFAULT 0 NOT NULL,
+	approved_time INTEGER DEFAULT 0 NOT NULL,
+	approved_by INTEGER DEFAULT 0 NOT NULL
+);;
+
+ALTER TABLE phpbb_k_links_queue ADD PRIMARY KEY (queue_id);;
+
+CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue(post_id);;
+CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue(topic_id);;
+CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue(logo_status, forum_id);;
+
+CREATE GENERATOR phpbb_k_links_queue_gen;;
+SET GENERATOR phpbb_k_links_queue_gen TO 0;;
+
+CREATE TRIGGER t_phpbb_k_links_queue FOR phpbb_k_links_queue
+BEFORE INSERT
+AS
+BEGIN
+	NEW.queue_id = GEN_ID(phpbb_k_links_queue_gen, 1);
+END;;
+
+
 # Table: 'phpbb_ads'
 CREATE TABLE phpbb_ads (
 	ad_id INTEGER NOT NULL,
