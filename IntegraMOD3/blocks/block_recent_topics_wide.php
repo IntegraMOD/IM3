@@ -25,6 +25,11 @@ if (!defined('IN_PHPBB'))
 
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 
+if (!function_exists('kb_localize_tokens'))
+{
+	include($phpbb_root_path . 'includes/functions_kb.' . $phpEx);
+}
+
 $auth->acl($user->data);
 
 $queries = $cached_queries = 0;
@@ -236,7 +241,7 @@ for ($i = 0; $i < $display_this_many; $i++)
 		continue;
 	}
 
-	$my_title = $row[$i]['topic_title'];
+	$my_title = kb_localize_tokens($row[$i]['topic_title']);
 
 	if (strlen($my_title) > 25)
 	{
@@ -276,7 +281,7 @@ for ($i = 0; $i < $display_this_many; $i++)
 		'S_UNIQUE_W'		=> $unique,
 		'S_TYPE_W'			=> $row[$i]['topic_type'],
 		'TITLE_W'			=> censor_text($my_title),
-		'TOOLTIP_W'			=> bbcode_strip($row[$i]['post_text']),
+		'TOOLTIP_W'			=> bbcode_strip(kb_localize_tokens($row[$i]['post_text'])),
 		'TOOLTIP2_W'		=> bbcode_strip($row[$i]['forum_desc']),
 	));
 

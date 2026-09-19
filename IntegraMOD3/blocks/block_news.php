@@ -30,6 +30,10 @@ if (!class_exists('bbcode'))
 {
 	include($phpbb_root_path . 'includes/bbcode.' . $phpEx);
 }
+if (!function_exists('kb_localize_tokens'))
+{
+	include($phpbb_root_path . 'includes/functions_kb.' . $phpEx);
+}
 
 foreach ($k_blocks as $blk)
 {
@@ -238,6 +242,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 	}
 
 	$message = generate_text_for_display($row['post_text'], $row['bbcode_uid'], $row['bbcode_bitfield'], $row['bbcode_options']);
+	$message = kb_localize_tokens($message);
 
 	if (!empty($attachments[$row['post_id']]))
 	{
@@ -268,7 +273,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 		'ALLOW_POST'	=> ($auth->acl_get('f_post', $row['forum_id']) && $row['topic_status'] != ITEM_LOCKED) ? TRUE : FALSE,
 		'POSTER'		=> '<span style="color:#' . $row['user_colour'] . ';">' . $row['username'] . '</span>',
 		'TIME'			=> $row['post_time'],
-		'TITLE'			=> $row['topic_title'],
+		'TITLE'			=> kb_localize_tokens($row['topic_title']),
 		'MESSAGE'		=> $message,
 
 		'U_POSTER'		=> get_username_string('full', $row['poster_id'], $row['username'], $row['user_colour']),

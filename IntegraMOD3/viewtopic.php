@@ -17,6 +17,10 @@ $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 include($phpbb_root_path . 'includes/bbcode.' . $phpEx);
+if (!function_exists('kb_localize_field'))
+{
+	include($phpbb_root_path . 'includes/functions_kb.' . $phpEx);
+}
 
 // Start session management
 $user->session_begin();
@@ -676,7 +680,7 @@ if ($config['load_moderators'])
 $server_path = (!$view) ? $phpbb_root_path : generate_board_url() . '/';
 
 // Replace naughty words in title
-$topic_data['topic_title'] = censor_text($topic_data['topic_title']);
+$topic_data['topic_title'] = censor_text(kb_localize_tokens($topic_data['topic_title']));
 
 $s_search_hidden_fields = array(
 	't' => $topic_id,
@@ -1619,6 +1623,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 
 	$message = bbcode_nl2br($message);
 	$message = smiley_text($message);
+	$message = kb_localize_tokens($message);
 
 	if (!empty($attachments[$row['post_id']]))
 	{
@@ -1626,7 +1631,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 	}
 
 	// Replace naughty words such as farty pants
-	$row['post_subject'] = censor_text($row['post_subject']);
+	$row['post_subject'] = censor_text(kb_localize_tokens($row['post_subject']));
 
 	// Highlight active words (primarily for search)
 	if ($highlight_match)

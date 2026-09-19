@@ -106,6 +106,7 @@ $lang = array_merge($lang, array(
 	'acl_u_chggrp'		=> array('lang' => 'Can change default usergroup', 'cat' => 'profile'),
 
 	'acl_u_attach'		=> array('lang' => 'Can attach files', 'cat' => 'post'),
+	'acl_u_k_links_upload'	=> array('lang' => 'Can upload portal link banners', 'cat' => 'post'),
 	'acl_u_download'	=> array('lang' => 'Can download files', 'cat' => 'post'),
 	'acl_u_savedrafts'	=> array('lang' => 'Can save drafts', 'cat' => 'post'),
 	'acl_u_chgcensors'	=> array('lang' => 'Can disable word censors', 'cat' => 'post'),

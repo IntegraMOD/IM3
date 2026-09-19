@@ -15,6 +15,10 @@ define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
+if (!function_exists('kb_localize_tokens'))
+{
+	include($phpbb_root_path . 'includes/functions_kb.' . $phpEx);
+}
 
 // Start session management
 $user->session_begin();
@@ -970,7 +974,7 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 		{
 			$forum_id = $row['forum_id'];
 			$result_topic_id = $row['topic_id'];
-			$topic_title = censor_text($row['topic_title']);
+			$topic_title = censor_text(kb_localize_tokens($row['topic_title']));
 
 			// we need to select a forum id for this global topic
 			if (!$forum_id)
@@ -1038,7 +1042,7 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 				$u_mcp_queue = ($topic_unapproved || $posts_unapproved) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=queue&amp;mode=' . (($topic_unapproved) ? 'approve_details' : 'unapproved_posts') . "&amp;t=$result_topic_id", true, $user->session_id) : '';
 				if (STARGATE)
 				{
-					$tool_tips = $row['topic_title'] . ' : ' . sgp_truncate_message(bbcode_strip($row[ ('last_message_tooltip') ? 'last_message_tooltip': 'first_message_tooltip']), 400) . ' ... ';
+					$tool_tips = kb_localize_tokens($row['topic_title']) . ' : ' . sgp_truncate_message(bbcode_strip(kb_localize_tokens($row[ ('last_message_tooltip') ? 'last_message_tooltip': 'first_message_tooltip'])), 400) . ' ... ';
 				}
 
 				$row['topic_title'] = preg_replace('#(?!<.*)(?<!\w)(' . $hilit . ')(?!\w|[^<>]*(?:</s(?:cript|tyle))?>)#is', '<span class="posthilit">$1</span>', $row['topic_title']);
@@ -1049,7 +1053,7 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 					'TOPIC_AUTHOR_COLOUR'		=> get_username_string('colour', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
 					'TOPIC_AUTHOR_FULL'			=> get_username_string('full', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
 					'FIRST_POST_TIME'			=> $user->format_date($row['topic_time']),
-					'LAST_POST_SUBJECT'			=> $row['topic_last_post_subject'],
+					'LAST_POST_SUBJECT'			=> kb_localize_tokens($row['topic_last_post_subject']),
 					'LAST_POST_TIME'			=> $user->format_date($row['topic_last_post_time']),
 					'LAST_VIEW_TIME'			=> $user->format_date($row['topic_last_view_time']),
 					'LAST_POST_AUTHOR'			=> get_username_string('username', $row['topic_last_poster_id'], $row['topic_last_poster_name'], $row['topic_last_poster_colour']),
@@ -1062,6 +1066,7 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 					'TOPIC_FOLDER_IMG'		=> $user->img($folder_img, $folder_alt),
 					'TOPIC_FOLDER_IMG_SRC'	=> $user->img($folder_img, $folder_alt, false, '', 'src'),
 					'TOPIC_FOLDER_IMG_ALT'	=> $user->lang[$folder_alt],
+					'TOPIC_FOLDER_STATE'	=> $folder_img,
 					'TOPIC_FOLDER_IMG_WIDTH'=> $user->img($folder_img, '', false, '', 'width'),
 					'TOPIC_FOLDER_IMG_HEIGHT'	=> $user->img($folder_img, '', false, '', 'height'),
 
@@ -1075,6 +1080,13 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 					'S_TOPIC_TYPE'			=> $row['topic_type'],
 					'S_USER_POSTED'			=> (!empty($row['topic_posted'])) ? true : false,
 					'S_UNREAD_TOPIC'		=> $unread_topic,
+					'S_TOPIC_LOCKED'		=> ($row['topic_status'] == ITEM_LOCKED) ? true : false,
+					'S_TOPIC_MOVED'			=> ($row['topic_status'] == ITEM_MOVED) ? true : false,
+					'S_POST_ANNOUNCE'		=> ($row['topic_type'] == POST_ANNOUNCE) ? true : false,
+					'S_POST_GLOBAL'			=> ($row['topic_type'] == POST_GLOBAL) ? true : false,
+					'S_POST_STICKY'			=> ($row['topic_type'] == POST_STICKY) ? true : false,
+					'S_POST_NEWS'			=> (defined('POST_NEWS') && $row['topic_type'] == POST_NEWS) ? true : false,
+					'S_POST_NEWS_GLOBAL'	=> (defined('POST_NEWS_GLOBAL') && $row['topic_type'] == POST_NEWS_GLOBAL) ? true : false,
 
 					'S_TOPIC_REPORTED'		=> (!empty($row['topic_reported']) && $auth->acl_get('m_report', $forum_id)) ? true : false,
 					'S_TOPIC_UNAPPROVED'	=> $topic_unapproved,
@@ -1102,13 +1114,14 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 				}
 
 				// Replace naughty words such as farty pants
-				$row['post_subject'] = censor_text($row['post_subject']);
+				$row['post_subject'] = censor_text(kb_localize_tokens($row['post_subject']));
 
 				if ($row['display_text_only'])
 				{
 					// now find context for the searched words
 					$row['post_text'] = get_context($row['post_text'], array_filter(explode('|', $hilit), 'strlen'), $return_chars);
 					$row['post_text'] = bbcode_nl2br($row['post_text']);
+					$row['post_text'] = kb_localize_tokens($row['post_text']);
 				}
 				else
 				{
@@ -1120,6 +1133,7 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 
 					$row['post_text'] = bbcode_nl2br($row['post_text']);
 					$row['post_text'] = smiley_text($row['post_text']);
+					$row['post_text'] = kb_localize_tokens($row['post_text']);
 
 					if (!empty($attachments[$row['post_id']]))
 					{

@@ -178,6 +178,7 @@
 			<ul>
 				<li id="options-panel-tab" class="activetab"><a href="#tabs" onclick="subPanels('options-panel'); return false;"><span>{L_OPTIONS}</span></a></li>
 				<!-- IF S_SHOW_ATTACH_BOX --><li id="attach-panel-tab"><a href="#tabs" onclick="subPanels('attach-panel'); return false;"><span>{L_ADD_ATTACHMENT}</span></a></li><!-- ENDIF -->
+				<!-- IF S_SHOW_K_LINKS_BOX --><li id="k-links-panel-tab"><a href="#tabs" onclick="subPanels('k-links-panel'); return false;"><span>{L_K_LINKS_UPLOAD}</span></a></li><!-- ENDIF -->
 				<!-- IF S_SHOW_POLL_BOX || S_POLL_DELETE --><li id="poll-panel-tab"><a href="#tabs" onclick="subPanels('poll-panel'); return false;"><span>{L_ADD_POLL}</span></a></li><!-- ENDIF -->
 				<!-- IF S_SHOW_EVENT_BOX --><li id="event-panel-tab"><a href="#tabs" onclick="subPanels('event-panel'); return false;"><span>{L_CALENDAR_ASSOC_EVENT}</span></a></li><!-- ENDIF -->
 			</ul>
@@ -239,6 +240,23 @@
 	<!-- ENDIF -->
 
 	<!-- IF S_SHOW_ATTACH_BOX --><!-- INCLUDE posting_attach_body.html --><!-- ENDIF -->
+	<!-- IF S_SHOW_K_LINKS_BOX -->
+	<section class="ucp-card posting-options" id="k-links-panel">
+		<div class="ucp-card-body">
+			<fieldset class="fields1 ucp-form-grid">
+				<div class="ucp-form-row">
+					<div class="ucp-form-label"><label for="k_links_file">{L_K_LINKS_UPLOAD}:</label></div>
+					<div class="ucp-form-content">
+						<input type="file" name="k_links_file" id="k_links_file" class="inputbox autowidth" />
+						<input type="hidden" name="k_links_upload" value="1" />
+						<!-- IF not S_K_LINKS_ALLOWED --><p class="error">{L_K_LINKS_PERM_ERR}</p><!-- ENDIF -->
+						<p class="ucp-form-help">{L_K_LINKS_UPLOAD_EXPLAIN}</p>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</section>
+	<!-- ENDIF -->
 	<!-- IF S_SHOW_POLL_BOX or S_POLL_DELETE --><!-- INCLUDE posting_poll_body.html --><!-- ENDIF -->
 	<!-- IF S_SHOW_EVENT_BOX --><!-- INCLUDE calendar_editor.html --><!-- ENDIF -->
 

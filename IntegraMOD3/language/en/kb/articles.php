@@ -23,7 +23,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-    'RANDOM_TITLE'		 => 'Example localized title',
+	'RANDOM_TITLE'		 => 'Example localized title',
 	'RANDOM_DESCRIPTION' => 'Example localized description',
 	'RANDOM_ARTICLE'	 => 'This is an example localized Knowledge Base article body. You may use BBCode here.',
 ));

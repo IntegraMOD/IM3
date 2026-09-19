@@ -122,6 +122,15 @@ $lang = array_merge($lang, array(
 	'LOGIN_EXPLAIN_QUOTE'		=> 'You need to login in order to quote posts within this forum.',
 	'LOGIN_EXPLAIN_REPLY'		=> 'You need to login in order to reply to topics within this forum.',
 
+	'K_LINKS_UPLOAD'			=> 'Site Banner Exchange',
+	'K_LINKS_UPLOAD_EXPLAIN'	=> 'Upload a JPG, JPEG, GIF, or PNG banner no larger than 200px × 50px. Name the image from the target URL using + in place of /, such as integramod.com+forum.jpg. The file is staged in images/links/tmp and requires moderator/admin approval before it is moved to images/links.',
+	'K_LINKS_PERM_ERR'			=> 'You are not allowed to upload link banners in this forum.',
+	'K_LINKS_UPLOAD_ERR'		=> 'Banner upload failed.',
+	'K_LINKS_EXT_ERR'			=> 'Only JPG, JPEG, GIF, or PNG banners are allowed.',
+	'K_LINKS_IMAGE_ERR'			=> 'Uploaded banner is not a valid image.',
+	'K_LINKS_DIMENSION_ERR'	=> 'Uploaded banner must be no larger than 200px × 50px.',
+	'K_LINKS_TMP_DIR_ERR'		=> 'The temporary links upload folder is missing or not writable.',
+
 	'MAX_FONT_SIZE_EXCEEDED'	=> 'You may only use fonts up to size %1$d.',
 	'MAX_FLASH_HEIGHT_EXCEEDED'	=> 'Your flash files may only be up to %1$d pixels high.',
 	'MAX_FLASH_WIDTH_EXCEEDED'	=> 'Your flash files may only be up to %1$d pixels wide.',

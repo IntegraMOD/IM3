@@ -16,6 +16,10 @@ $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+if (!function_exists('kb_localize_tokens'))
+{
+	include($phpbb_root_path . 'includes/functions_kb.' . $phpEx);
+}
 
 // Start session
 $user->session_begin();
@@ -697,7 +701,7 @@ if (sizeof($topic_list))
 			'TOPIC_AUTHOR_COLOUR'		=> get_username_string('colour', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
 			'TOPIC_AUTHOR_FULL'			=> get_username_string('full', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
 			'FIRST_POST_TIME'			=> $user->format_date($row['topic_time']),
-			'LAST_POST_SUBJECT'			=> censor_text($row['topic_last_post_subject']),
+			'LAST_POST_SUBJECT'			=> censor_text(kb_localize_tokens($row['topic_last_post_subject'])),
 			'LAST_POST_TIME'			=> $user->format_date($row['topic_last_post_time']),
 			'LAST_VIEW_TIME'			=> $user->format_date($row['topic_last_view_time']),
 			'LAST_POST_AUTHOR'			=> get_username_string('username', $row['topic_last_poster_id'], $row['topic_last_poster_name'], $row['topic_last_poster_colour']),
@@ -707,7 +711,7 @@ if (sizeof($topic_list))
 			'PAGINATION'		=> topic_generate_pagination($replies, $view_topic_url),
 			'REPLIES'			=> $replies,
 			'VIEWS'				=> $row['topic_views'],
-			'TOPIC_TITLE'		=> censor_text($row['topic_title']),
+			'TOPIC_TITLE'		=> censor_text(kb_localize_tokens($row['topic_title'])),
 			'TOPIC_TYPE'		=> $topic_type,
 
 			'TOPIC_FOLDER_IMG'		=> $user->img($folder_img, $folder_alt),
@@ -750,7 +754,7 @@ if (sizeof($topic_list))
 
 			'S_TOPIC_TYPE_SWITCH'	=> ($s_type_switch == $s_type_switch_test) ? -1 : $s_type_switch_test,
 
-			'TOOLTIP'				=> (STARGATE && isset($row['message_tooltip'])) ? bbcode_strip($row['message_tooltip'], 200) : '',
+			'TOOLTIP'				=> (STARGATE && isset($row['message_tooltip'])) ? bbcode_strip(kb_localize_tokens($row['message_tooltip']), 200) : '',
 			'TOPIC_ICON_IMG_GROUP'	=> (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['group'] : '',
 			'S_POST_NEWS'			=> ($row['topic_type'] == POST_NEWS) ? true : false,
 			'S_POST_NEWS_GLOBAL'	=> ($row['topic_type'] == POST_NEWS_GLOBAL) ? true : false,

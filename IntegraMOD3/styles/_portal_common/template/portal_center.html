@@ -32,7 +32,7 @@
 				</div>
 
 				<div class="box" id="<!-- IF not S_ARRANGE -->BLOCK_<!-- ENDIF -->{center_block_files.CENTER_BLOCK_ID}">
-					<!-- IF center_block_files.CENTER_BLOCK_SCROLL and not DISABLE_RT_SCROLL -->
+                    <!-- IF center_block_files.CENTER_BLOCK_SCROLL and not center_block_files.CENTER_BLOCK_IS_LINKS and not DISABLE_RT_SCROLL -->
 						<!-- IF not S_ARRANGE -->
 							<div class="scroll_outer" height="{center_block_files.CENTER_BLOCK_HEIGHT}" id="{center_block_files.CENTER_BLOCK_ID}_outer" onmouseover="do_speed(this, event)" onmousemove="do_speed(this, event)" onmouseout="set_defaults(this, event)"><div class="scroll_inner" id="{center_block_files.CENTER_BLOCK_ID}_inner">{center_block_files.CENTER_BLOCKS}</div></div>
 						<!-- ELSE -->

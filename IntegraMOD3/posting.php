@@ -18,6 +18,7 @@ include($phpbb_root_path . 'common.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 include($phpbb_root_path . 'includes/message_parser.' . $phpEx);
+include($phpbb_root_path . 'includes/functions_k_links.' . $phpEx);
 
 
 // Start session management
@@ -231,6 +232,12 @@ if ($config['enable_post_confirm'] && !$user->data['is_registered'])
 $forum_id	= (!empty($post_data['forum_id'])) ? (int) $post_data['forum_id'] : (int) $forum_id;
 $topic_id	= (!empty($post_data['topic_id'])) ? (int) $post_data['topic_id'] : (int) $topic_id;
 $post_id	= (!empty($post_data['post_id'])) ? (int) $post_data['post_id'] : (int) $post_id;
+
+$k_links_forum_id = (isset($k_config['k_links_forum_id'])) ? (int) $k_config['k_links_forum_id'] : 0;
+$is_k_links_forum = ($k_links_forum_id && $forum_id == $k_links_forum_id) ? true : false;
+$k_links_banner_enabled = ($is_k_links_forum && in_array($mode, array('post', 'reply', 'quote', 'edit'))) ? true : false;
+$k_links_banner_allowed = ($k_links_banner_enabled && $auth->acl_get('u_k_links_upload')) ? true : false;
+$k_links_staged = array();
 
 // Need to login to passworded forum first?
 if ($post_data['forum_password'])
@@ -913,6 +920,26 @@ if ($submit || $preview || $refresh)
 		}
 	}
 
+	if ($submit && $k_links_banner_enabled && request_var('k_links_upload', 0))
+	{
+		if (!$k_links_banner_allowed)
+		{
+			$error[] = $user->lang['K_LINKS_PERM_ERR'];
+		}
+		else if (!isset($_FILES['k_links_file']) || empty($_FILES['k_links_file']['name']))
+		{
+			$error[] = $user->lang['K_LINKS_UPLOAD_ERR'];
+		}
+		else
+		{
+			$k_links_upload_error = '';
+			if (!k_links_stage_upload($_FILES['k_links_file'], $user->data['user_id'], $k_links_staged, $k_links_upload_error))
+			{
+				$error[] = $k_links_upload_error;
+			}
+		}
+	}
+
 	// Parse Attachments - before checksum is calculated
 	$message_parser->parse_attachments('fileupload', $mode, $forum_id, $submit, $preview, $refresh);
 
@@ -1440,6 +1467,10 @@ if ($submit || $preview || $refresh)
 			}
 			// END Anti-Spam ACP
 			$redirect_url = submit_post($mode, $post_data['post_subject'], $post_author_name, $post_data['topic_type'], $poll, $data, $update_message, ($update_message || $update_subject) ? true : false);
+			if (!empty($k_links_staged['logo_tmp']))
+			{
+				k_links_queue_insert($forum_id, (int) $data['topic_id'], (int) $data['post_id'], (int) $user->data['user_id'], $k_links_staged);
+			}
 			// START Anti-Spam ACP
 			antispam::submit_post($mode, $data['post_id']);
 			// END Anti-Spam ACP
@@ -1804,7 +1835,7 @@ if (isset($captcha) && $captcha->is_solved() !== false)
 	$s_hidden_fields .= build_hidden_fields($captcha->get_hidden_fields());
 }
 
-$form_enctype = (@ini_get('file_uploads') == '0' || strtolower(@ini_get('file_uploads')) == 'off' || !$config['allow_attachments'] || !$auth->acl_get('u_attach') || !$auth->acl_get('f_attach', $forum_id)) ? '' : ' enctype="multipart/form-data"';
+$form_enctype = ((@ini_get('file_uploads') == '0' || strtolower(@ini_get('file_uploads')) == 'off' || !$config['allow_attachments'] || !$auth->acl_get('u_attach') || !$auth->acl_get('f_attach', $forum_id)) && !$k_links_banner_allowed) ? '' : ' enctype="multipart/form-data"';
 add_form_key('posting');
 
 
@@ -1862,6 +1893,9 @@ $template->assign_vars(array(
 	'S_SAVE_ALLOWED'			=> ($auth->acl_get('u_savedrafts') && $user->data['is_registered'] && $mode != 'edit') ? true : false,
 	'S_HAS_DRAFTS'				=> ($auth->acl_get('u_savedrafts') && $user->data['is_registered'] && $post_data['drafts']) ? true : false,
 	'S_FORM_ENCTYPE'			=> $form_enctype,
+	'S_SHOW_K_LINKS_BOX'		=> $k_links_banner_enabled,
+	'S_K_LINKS_ALLOWED'		=> $k_links_banner_allowed,
+	'S_K_LINKS_PANEL_DEFAULT'	=> $k_links_banner_enabled,
 	'S_FIRST_POST_SHOW_ALLOWED'		=> ($first_post_show_allowed  && ($auth->acl_get('m_lock', $forum_id) || ($auth->acl_get('f_user_lock', $forum_id) && $user->data['is_registered'] && !empty($post_data['topic_poster']) && $user->data['user_id'] == $post_data['topic_poster']))) ? true : false,
 	'S_FIRST_POST_SHOW_CHECKED'		=> ($first_post_show_checked) ? ' checked="checked"' : '',
 	

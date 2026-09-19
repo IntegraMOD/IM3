@@ -1053,6 +1053,31 @@ function get_schema_struct()
 		),
 	);
 
+	$schema_data['phpbb_k_links_queue'] = array(
+		'COLUMNS'		=> array(
+			'queue_id'			=> array('UINT:10', NULL, 'auto_increment'),
+			'post_id'			=> array('UINT:10', 0),
+			'topic_id'			=> array('UINT:10', 0),
+			'forum_id'			=> array('UINT:10', 0),
+			'user_id'			=> array('UINT:10', 0),
+			'logo_original'		=> array('VCHAR:255', ''),
+			'logo_tmp'			=> array('VCHAR:255', ''),
+			'logo_final'		=> array('VCHAR:255', ''),
+			'logo_ext'			=> array('VCHAR:10', ''),
+			'logo_size'			=> array('UINT:10', 0),
+			'logo_status'		=> array('BOOL', 0),
+			'upload_time'		=> array('TIMESTAMP', 0),
+			'approved_time'		=> array('TIMESTAMP', 0),
+			'approved_by'		=> array('UINT:10', 0),
+		),
+		'PRIMARY_KEY'	=> 'queue_id',
+		'KEYS'			=> array(
+			'post_id'			=> array('INDEX', 'post_id'),
+			'topic_id'			=> array('INDEX', 'topic_id'),
+			'status_forum'		=> array('INDEX', array('logo_status', 'forum_id')),
+		),
+	);
+
 	$schema_data['phpbb_ads'] = array(
 		'COLUMNS'				=> array(
 			'ad_id'				=> array('UINT', NULL, 'auto_increment'),

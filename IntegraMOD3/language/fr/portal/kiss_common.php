@@ -536,6 +536,7 @@ $lang = array_merge($lang, array(
 	'VERSION'          => 'Version',
 	'VIEW'             => 'Voir',
 	'WELCOME'          => 'Bienvenue',
+	'WELCOME_SITE'     => 'Bienvenue sur %s',
 	'WIDE'             => 'Large',
 	'WIDTH'            => 'Largeur',
 	'YEARS'            => 'ans.',
