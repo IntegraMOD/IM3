@@ -238,7 +238,7 @@ INSERT INTO phpbb_config VALUES('default_dateformat', 'D M d, Y g:i a', 0);
 INSERT INTO phpbb_config VALUES('default_style', '2', 0);
 INSERT INTO phpbb_config VALUES('delete_time', '0', 0);
 INSERT INTO phpbb_config VALUES('digests_block_images', '0', 0);
-INSERT INTO phpbb_config VALUES('digests_custom_stylesheet_path', 'IntegraStyle/theme/digest_stylesheet.css', 0);
+INSERT INTO phpbb_config VALUES('digests_custom_stylesheet_path', 'core/theme/digest_stylesheet.css', 0);
 INSERT INTO phpbb_config VALUES('digests_digests_title', 'phpBB Digests', 0);
 INSERT INTO phpbb_config VALUES('digests_enable_auto_subscriptions', '0', 0);
 INSERT INTO phpbb_config VALUES('digests_enable_custom_stylesheets', '0', 0);
@@ -1189,16 +1189,16 @@ INSERT INTO phpbb_gallery_roles VALUES(6, 1, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 1,
 INSERT INTO phpbb_gallery_roles VALUES(7, 1, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0);
 
 # -- phpbb_imod_config
-INSERT INTO phpbb_imod_config VALUES(1, '3.0.17', 0);
+INSERT INTO phpbb_imod_config VALUES(1, '3.0.18', 0);
 
 # -- phpbb_styles
-INSERT INTO phpbb_styles (style_name, style_copyright, style_active, template_id, theme_id, imageset_id) VALUES ('IntegraStyle', '&copy; integramod.com, 2026', 0, 1, 1, 1);
+INSERT INTO phpbb_styles (style_name, style_copyright, style_active, template_id, theme_id, imageset_id) VALUES ('core', '&copy; integramod.com, 2026', 0, 1, 1, 1);
 
 # -- phpbb_styles_imageset
-INSERT INTO phpbb_styles_imageset (imageset_name, imageset_copyright, imageset_path) VALUES ('IntegraStyle', '&copy; integramod.com, 2026', 'IntegraStyle');
+INSERT INTO phpbb_styles_imageset (imageset_name, imageset_copyright, imageset_path) VALUES ('core', '&copy; integramod.com, 2026', 'core');
 
 # -- phpbb_styles_imageset_data
-# IntegraStyle uses SVG/CSS for forum, topic, contact, and post icons.
+# core uses SVG/CSS for forum, topic, contact, and post icons.
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('site_logo', 'IM3_logo.svg', '', 120, 120, 1);
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_topic_attach', 'icon_topic_attach.gif', '', 10, 7, 1);
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_user_online', 'icon_user_online.gif', 'de', 58, 58, 1);
@@ -1209,10 +1209,10 @@ INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, 
 INSERT INTO phpbb_styles_imageset_data (image_name, image_filename, image_lang, image_height, image_width, imageset_id) VALUES ('icon_user_online', 'icon_user_online.gif', 'uk', 58, 58, 1);
 
 # -- phpbb_styles_template
-INSERT INTO phpbb_styles_template (template_name, template_copyright, template_path, bbcode_bitfield, template_storedb) VALUES ('IntegraStyle', '&copy; integramod.com, 2026', 'IntegraStyle', 'lNg=', 0);
+INSERT INTO phpbb_styles_template (template_name, template_copyright, template_path, bbcode_bitfield, template_storedb) VALUES ('core', '&copy; integramod.com, 2026', 'core', 'lNg=', 0);
 
 # -- phpbb_styles_theme
-INSERT INTO phpbb_styles_theme (theme_name, theme_copyright, theme_path, theme_storedb, theme_data) VALUES ('IntegraStyle', '&copy; integramod.com, 2026', 'IntegraStyle', 1, '');
+INSERT INTO phpbb_styles_theme (theme_name, theme_copyright, theme_path, theme_storedb, theme_data) VALUES ('core', '&copy; integramod.com, 2026', 'core', 1, '');
 
 # -- Forums
 INSERT INTO phpbb_forums (forum_name, forum_desc, left_id, right_id, parent_id, forum_type, forum_posts, forum_topics, forum_topics_real, forum_last_post_id, forum_last_poster_id, forum_last_poster_name, forum_last_poster_colour, forum_last_post_time, forum_link, forum_password, forum_image, forum_rules, forum_rules_link, forum_rules_uid, forum_desc_uid, prune_days, prune_viewed, forum_parents, forum_recent_posters) VALUES ('{L_FORUMS_FIRST_CATEGORY}', '', 1, 4, 0, 0, 1, 1, 1, 1, 2, 'Admin', 'AA0000', 972086460, '', '', '', '', '', '', '', 0, 0, '', 'a:1:{i:0;i:2;}');
