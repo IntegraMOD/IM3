@@ -4303,7 +4303,7 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			echo '	</div>';
 			echo '	</div>';
 			echo '	<div id="page-footer">';
-			echo '		<a href="https://www.integramod.com/" title="Powered by IntegraMOD&reg; Communuty Software &copy; IntegraMOD Team">IntegraMOD &copy; 2026</a>';
+			echo '		<a href="https://www.integramod.com/" title="Powered by IntegraMOD&reg; Community Software &copy; IntegraMOD Team">IntegraMOD &copy; 2005 - 2026</a>';
 			echo '	</div>';
 			echo '</div>';
 			echo '</body>';
