@@ -146,6 +146,7 @@
 }
 
 @media (max-width: 768px) {
+    .nav-donate,
     .nav-style { margin-left: 0; }
     .style-sub-menu { min-width: 100%; }
     .style-sub-menu { grid-template-columns: repeat(2, min-content); justify-content: flex-start; }

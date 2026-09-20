@@ -5733,7 +5733,7 @@ function im3_build_credit_line()
 	global $user, $config, $phpEx;
 
 	$lines = array();
-	$lines[] = '<a href="https://www.integramod.com/" title="Powered by IntegraMOD&reg; Communuty Software &copy; IntegraMOD Team">IntegraMOD &copy; 2026</a>';
+	$lines[] = '<a href="https://www.integramod.com/" title="Powered by IntegraMOD&reg; Community Software &copy; IntegraMOD Team">IntegraMOD &copy; 2005 - 2026</a>';
 
 	$script_name = '';
 	if (!empty($user->page['page_name']))
@@ -5785,11 +5785,6 @@ function im3_build_credit_line()
 	if (im3_template_var('S_IN_BLOG') || $script_name === 'blog')
 	{
 		$lines[] = 'Blogs powered by User Blog Mod &copy; EXreaction';
-	}
-
-	if (!empty($config['site_copyright_enable']))
-	{
-		$lines[] = sprintf($user->lang('MY_WEBSITE'), '&copy; ' . $config['sitename']);
 	}
 
 	return implode('<br />', $lines);

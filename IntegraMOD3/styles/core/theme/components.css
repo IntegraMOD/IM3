@@ -626,8 +626,24 @@ ul.linklist { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap:
 .left-arrow { margin-right: auto; display: none; }
 .footer-right { margin-left: auto; }
 
-/* Push the style chooser and user dropdown to the right so they stay grouped */
+/* Push donate, style chooser, and user dropdown to the right so they stay grouped */
+.nav-donate,
 .nav-style { margin-left: auto; }
+.nav-donate + .nav-style { margin-left: 0; }
+.nav-item.nav-donate > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    overflow: visible;
+}
+.nav-item.nav-donate > a .css-icon,
+.nav-item.nav-donate > a .css-icon-paypal {
+    width: 16px;
+    height: 21px;
+    min-width: 16px;
+    min-height: 21px;
+}
 .nav-user { margin-left: 0; }
 .right-arrow { margin-left: initial; }
 

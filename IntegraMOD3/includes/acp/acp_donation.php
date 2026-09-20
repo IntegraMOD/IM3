@@ -1046,12 +1046,9 @@ class acp_donation
 	 *
 	 * @return string | false Version info on success, false on failure.
 	 */
-	function donation_obtain_latest_version_info($force_update = false, $warn_fail = false, $ttl = 86400)
-		{
-			// Bypasses the remote check and forces an "up to date" status
-			return "0.0.0\n";
-		}
-
-		return $info;
+	function obtain_latest_version_info($force_update = false, $warn_fail = false, $ttl = 86400)
+	{
+		// Bypasses the remote check and forces an "up to date" status
+		return "0.0.0\n";
 	}
 }
