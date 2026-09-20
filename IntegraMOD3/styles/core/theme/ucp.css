@@ -288,6 +288,71 @@ form#confirm .button2 {
     gap: 10px;
 }
 
+.ucp-push-choices {
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    justify-content: start;
+    justify-items: start;
+    align-items: center;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+}
+
+.ucp-push-choices .ucp-form-row,
+.ucp-push-choices .ucp-form-inline {
+    display: contents;
+}
+
+.ucp-push-choices .ucp-form-label {
+    margin: 0;
+    grid-column: 1;
+}
+
+.ucp-push-choices .ucp-form-inline label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.ucp-push-choices .ucp-form-inline label:has(input[name*="_web_"]) {
+    grid-column: 2;
+}
+
+.ucp-push-choices .ucp-form-inline label:has(input[name*="_sms_"]) {
+    grid-column: 3;
+}
+
+@media (max-width: 40rem) {
+    .ucp-push-choices {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .ucp-push-choices .ucp-form-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        column-gap: 12px;
+        row-gap: 6px;
+    }
+
+    .ucp-push-choices .ucp-form-inline {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        flex: 1 1 auto;
+        min-width: min(100%, 11rem);
+    }
+
+    .ucp-push-choices .ucp-form-inline label:has(input[name*="_web_"]),
+    .ucp-push-choices .ucp-form-inline label:has(input[name*="_sms_"]) {
+        grid-column: auto;
+    }
+}
+
 .ucp-actions {
     display: flex;
     flex-wrap: wrap;
