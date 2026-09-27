@@ -327,17 +327,36 @@ class ucp_pm
 				$folder = get_folder($user->data['user_id'], $folder_id);
 
 				$s_folder_options = $s_to_folder_options = '';
-				foreach ($folder as $f_id => $folder_ary)
+				if (is_array($folder))
 				{
-					$option = '<option' . ((!in_array($f_id, array(PRIVMSGS_INBOX, PRIVMSGS_OUTBOX, PRIVMSGS_SENTBOX))) ? ' class="sep"' : '') . ' value="' . $f_id . '"' . (($f_id == $folder_id) ? ' selected="selected"' : '') . '>' . $folder_ary['folder_name'] . (($folder_ary['unread_messages']) ? ' [' . $folder_ary['unread_messages'] . '] ' : '') . '</option>';
+					foreach ($folder as $f_id => $folder_ary)
+					{
+						$option = '<option' . ((!in_array($f_id, array(PRIVMSGS_INBOX, PRIVMSGS_OUTBOX, PRIVMSGS_SENTBOX))) ? ' class="sep"' : '') . ' value="' . $f_id . '"' . (($f_id == $folder_id) ? ' selected="selected"' : '') . '>' . $folder_ary['folder_name'] . (($folder_ary['unread_messages']) ? ' [' . $folder_ary['unread_messages'] . '] ' : '') . '</option>';
 
-					$s_to_folder_options .= ($f_id != PRIVMSGS_OUTBOX && $f_id != PRIVMSGS_SENTBOX) ? $option : '';
-					$s_folder_options .= $option;
+						$s_to_folder_options .= ($f_id != PRIVMSGS_OUTBOX && $f_id != PRIVMSGS_SENTBOX) ? $option : '';
+						$s_folder_options .= $option;
+					}
 				}
-				clean_sentbox($folder[PRIVMSGS_SENTBOX]['num_messages']);
+
+				if (!empty($folder[PRIVMSGS_SENTBOX]['num_messages']))
+				{
+					clean_sentbox($folder[PRIVMSGS_SENTBOX]['num_messages']);
+				}
 
 				// Header for message view - folder and so on
 				$folder_status = get_folder_status($folder_id, $folder);
+
+				if (!is_array($folder_status))
+				{
+					$folder_status = array(
+						'folder_name' => '',
+						'message'     => '',
+						'max'         => 0,
+						'cur'         => 0,
+						'remaining'   => 0,
+						'percent'     => 0,
+					);
+				}
 
 				$template->assign_vars(array(
 					'CUR_FOLDER_ID'			=> $folder_id,

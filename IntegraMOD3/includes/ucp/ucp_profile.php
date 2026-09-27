@@ -277,25 +277,25 @@ class ucp_profile
 
 				$cp_data = $cp_error = array();
 
-				$data = array(
-					'fb'			=> request_var('fb', $user->data['user_fb']),
-					'ig'			=> request_var('ig', $user->data['user_ig']),
-					'pt'			=> request_var('pt', $user->data['user_pt']),
-					'twr'			=> request_var('twr', $user->data['user_twr']),
-					'skp'			=> request_var('skp', $user->data['user_skp']),
-					'tg'			=> request_var('tg', $user->data['user_tg']),
-					'li'			=> request_var('li', $user->data['user_li']),
-					'tt'			=> request_var('tt', $user->data['user_tt']),
-					'dc'			=> request_var('dc', $user->data['user_dc']),
-					'icq'			=> request_var('icq', $user->data['user_icq']),
-					'aim'			=> request_var('aim', $user->data['user_aim']),
-					'msn'			=> request_var('msn', $user->data['user_msnm']),
-					'yim'			=> request_var('yim', $user->data['user_yim']),
-					'jabber'		=> utf8_normalize_nfc(request_var('jabber', $user->data['user_jabber'], true)),
-					'website'		=> request_var('website', $user->data['user_website']),
-					'location'		=> utf8_normalize_nfc(request_var('location', $user->data['user_from'], true)),
-					'occupation'	=> utf8_normalize_nfc(request_var('occupation', $user->data['user_occ'], true)),
-					'interests'		=> utf8_normalize_nfc(request_var('interests', $user->data['user_interests'], true)),
+                $data = array(
+					'fb'			=> request_var('fb', isset($user->data['user_fb']) ? $user->data['user_fb'] : ''),
+					'ig'			=> request_var('ig', isset($user->data['user_ig']) ? $user->data['user_ig'] : ''),
+					'pt'			=> request_var('pt', isset($user->data['user_pt']) ? $user->data['user_pt'] : ''),
+					'twr'			=> request_var('twr', isset($user->data['user_twr']) ? $user->data['user_twr'] : ''),
+					'skp'			=> request_var('skp', isset($user->data['user_skp']) ? $user->data['user_skp'] : ''),
+					'tg'			=> request_var('tg', isset($user->data['user_tg']) ? $user->data['user_tg'] : ''),
+					'li'			=> request_var('li', isset($user->data['user_li']) ? $user->data['user_li'] : ''),
+					'tt'			=> request_var('tt', isset($user->data['user_tt']) ? $user->data['user_tt'] : ''),
+					'dc'			=> request_var('dc', isset($user->data['user_dc']) ? $user->data['user_dc'] : ''),
+					'icq'			=> request_var('icq', isset($user->data['user_icq']) ? $user->data['user_icq'] : ''),
+					'aim'			=> request_var('aim', isset($user->data['user_aim']) ? $user->data['user_aim'] : ''),
+					'msn'			=> request_var('msn', isset($user->data['user_msnm']) ? $user->data['user_msnm'] : ''),
+					'yim'			=> request_var('yim', isset($user->data['user_yim']) ? $user->data['user_yim'] : ''),
+					'jabber'		=> utf8_normalize_nfc(request_var('jabber', isset($user->data['user_jabber']) ? $user->data['user_jabber'] : '', true)),
+					'website'		=> request_var('website', isset($user->data['user_website']) ? $user->data['user_website'] : ''),
+					'location'		=> utf8_normalize_nfc(request_var('location', isset($user->data['user_from']) ? $user->data['user_from'] : '', true)),
+					'occupation'	=> utf8_normalize_nfc(request_var('occupation', isset($user->data['user_occ']) ? $user->data['user_occ'] : '', true)),
+					'interests'		=> utf8_normalize_nfc(request_var('interests', isset($user->data['user_interests']) ? $user->data['user_interests'] : '', true)),
 				);
 
 				if ($config['allow_birthdays'])

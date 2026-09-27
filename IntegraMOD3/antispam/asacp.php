@@ -88,7 +88,8 @@ class antispam
 			$data['var_name'] = $data['field_ident'] = $field;
 			$data['lang_default_value'] = '';
 
-			switch ($config['asacp_profile_' . $field])
+			$asacp_setting = (isset($config['asacp_profile_' . $field])) ? $config['asacp_profile_' . $field] : 0;
+			switch ($asacp_setting)
 			{
 				case 1 :
 					// Required Field
@@ -146,7 +147,8 @@ class antispam
 				continue;
 			}
 
-			switch ($config['asacp_profile_' . $field])
+			$asacp_setting = (isset($config['asacp_profile_' . $field])) ? $config['asacp_profile_' . $field] : 0;
+			switch ($asacp_setting)
 			{
 				case 1 :
 					// Required
@@ -290,12 +292,13 @@ class antispam
 				continue;
 			}
 
-			switch ($config['asacp_profile_' . $field])
+			$asacp_setting = (isset($config['asacp_profile_' . $field])) ? $config['asacp_profile_' . $field] : 0;
+			switch ($asacp_setting)
 			{
 				case 1 :
 					// Required
 					$profile_data[$ary['db']] = utf8_normalize_nfc(request_var($field, '', true));
-				break;
+					break;
 
 				case 2 :
 					// Normal
@@ -338,7 +341,8 @@ class antispam
 
 		foreach (self::$profile_fields as $field => $ary)
 		{
-			switch ($config['asacp_profile_' . $field])
+			$asacp_setting = (isset($config['asacp_profile_' . $field])) ? $config['asacp_profile_' . $field] : 0;
+			switch ($asacp_setting)
 			{
 				case 1 :
 					// Required
@@ -362,7 +366,8 @@ class antispam
 
 				case 4 :
 					// Post Count
-					if ($user->data['user_posts'] < $config['asacp_profile_' . $field . '_post_limit'])
+					$post_limit = (isset($config['asacp_profile_' . $field . '_post_limit'])) ? $config['asacp_profile_' . $field . '_post_limit'] : 0;
+					if ($user->data['user_posts'] < $post_limit)
 					{
 						if (isset($data[$field]) && $data[$field])
 						{
@@ -393,7 +398,8 @@ class antispam
 
 		foreach (self::$profile_fields as $field => $lang)
 		{
-			switch ($config['asacp_profile_' . $field])
+			$asacp_setting = (isset($config['asacp_profile_' . $field])) ? $config['asacp_profile_' . $field] : 0;
+			switch ($asacp_setting)
 			{
 				case 1 :
 					// Required
@@ -411,7 +417,8 @@ class antispam
 
 				case 4 :
 					// Post Count
-					if ($user->data['user_posts'] < $config['asacp_profile_' . $field . '_post_limit'])
+					$post_limit = (isset($config['asacp_profile_' . $field . '_post_limit'])) ? $config['asacp_profile_' . $field . '_post_limit'] : 0;
+					if ($user->data['user_posts'] < $post_limit)
 					{
 						$template->assign_var('S_' . strtoupper($field) . '_DISABLED', true);
 					}
