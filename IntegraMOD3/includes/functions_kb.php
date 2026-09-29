@@ -143,6 +143,26 @@ function kb_localize_field($value)
 	return ($translated !== false) ? $translated : $value;
 }
 
+/**
+* Replace {L_KEY} tokens anywhere in mixed display text (forum posts, titles).
+* Unknown tokens are left unchanged. Does not merge the catalog into $user->lang.
+*/
+function kb_localize_tokens($value)
+{
+	if (!is_string($value) || strpos($value, '{L_') === false)
+	{
+		return $value;
+	}
+
+	return preg_replace_callback('/\{L_([A-Za-z0-9_]+)\}/', 'kb_localize_token_callback', $value);
+}
+
+function kb_localize_token_callback($match)
+{
+	$translated = kb_catalog_lookup($match[1]);
+	return ($translated !== false) ? $translated : $match[0];
+}
+
 function kb_localize_article_fields($titel, $description, $article)
 {
 	return array(
