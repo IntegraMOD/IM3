@@ -1,0 +1,15 @@
+<!-- IF S_GCLOUD_FD_AVAILABLE -->
+    <dl>
+    <dd>
+        <p>{L_GCLOUD_FD_EXPLAIN}</p>
+        <noscript>
+            <div>{L_GCLOUD_FD_NOSCRIPT}</div>
+        </noscript>
+        <div data-gcloud-fd="1" data-gcloud-fd-preview="1" data-sitekey="{GCLOUD_FD_SITEKEY}" data-action="{GCLOUD_FD_ACTION}">
+            <input type="hidden" name="gcloud_fd_token" value="" />
+        </div>
+    </dd>
+    </dl>
+<!-- ELSE -->
+{L_GCLOUD_FD_NOT_AVAILABLE}
+<!-- ENDIF -->

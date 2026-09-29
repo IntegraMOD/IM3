@@ -1,0 +1,56 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h1>{L_ACP_VC_SETTINGS}</h1>
+
+<p>{L_ACP_VC_SETTINGS_EXPLAIN}</p>
+
+
+<form id="acp_captcha" method="post" action="{U_ACTION}">
+
+<fieldset>
+<legend>{L_GENERAL_OPTIONS}</legend>
+
+<dl>
+    <dt><label for="gcloud_fd_sitekey">{L_GCLOUD_FD_SITEKEY}:</label><br /><span>{L_GCLOUD_FD_SITEKEY_EXPLAIN}</span></dt>
+    <dd><input id="gcloud_fd_sitekey" name="gcloud_fd_sitekey" value="{GCLOUD_FD_SITEKEY}" size="50" type="text" /></dd>
+</dl>
+<dl>
+    <dt><label for="gcloud_fd_apikey">{L_GCLOUD_FD_APIKEY}:</label><br /><span>{L_GCLOUD_FD_APIKEY_EXPLAIN}</span></dt>
+    <dd><input id="gcloud_fd_apikey" name="gcloud_fd_apikey" value="{GCLOUD_FD_APIKEY}" size="50" type="text" /></dd>
+</dl>
+<dl>
+    <dt><label for="gcloud_fd_project">{L_GCLOUD_FD_PROJECT}:</label><br /><span>{L_GCLOUD_FD_PROJECT_EXPLAIN}</span></dt>
+    <dd><input id="gcloud_fd_project" name="gcloud_fd_project" value="{GCLOUD_FD_PROJECT}" size="50" type="text" /></dd>
+</dl>
+<dl>
+    <dt><label for="gcloud_fd_score">{L_GCLOUD_FD_SCORE}:</label><br /><span>{L_GCLOUD_FD_SCORE_EXPLAIN}</span></dt>
+    <dd><input id="gcloud_fd_score" name="gcloud_fd_score" value="{GCLOUD_FD_SCORE}" size="6" type="text" /></dd>
+</dl>
+
+
+</fieldset>
+<fieldset>
+    <legend>{L_PREVIEW}</legend>
+    <div class="successbox">
+        <h3>{L_WARNING}</h3>
+        <p>{L_GCLOUD_FD_PREVIEW_MSG}</p>
+    </div>
+<!-- INCLUDE {CAPTCHA_PREVIEW} -->
+</fieldset>
+
+<fieldset>
+    <legend>{L_ACP_SUBMIT_CHANGES}</legend>
+    <p class="submit-buttons">
+        <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+        <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />&nbsp;
+    </p>
+    <input type="hidden" name="select_captcha" value="{CAPTCHA_NAME}" />
+    <input type="hidden" name="configure" value="1" />
+
+    {S_FORM_TOKEN}
+</fieldset>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

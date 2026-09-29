@@ -1,0 +1,35 @@
+<!-- IF S_TYPE == 1 -->
+<div class="panel">
+    <div class="inner"><span class="corners-top"><span></span></span>
+
+    <h3>{L_CONFIRMATION}</h3>
+    <p>{L_CONFIRM_EXPLAIN}</p>
+
+    <fieldset class="fields2">
+<!-- ENDIF -->
+
+<!-- IF S_GCLOUD_FD_AVAILABLE -->
+    <dl>
+    <dt><label>{L_CONFIRM_CODE}</label>:<br /><span>{L_GCLOUD_FD_EXPLAIN}</span></dt>
+    <dd>
+    <noscript>
+        <div>{L_GCLOUD_FD_NOSCRIPT}</div>
+    </noscript>
+        <div data-gcloud-fd="1" data-sitekey="{GCLOUD_FD_SITEKEY}" data-action="{GCLOUD_FD_ACTION}"<!-- IF S_GCLOUD_FD_PREVIEW --> data-gcloud-fd-preview="1"<!-- ENDIF -->>
+            <input type="hidden" name="gcloud_fd_token" value="" />
+        </div>
+        <!-- IF not S_GCLOUD_FD_PREVIEW -->
+        <script src="https://www.google.com/recaptcha/enterprise.js?render={GCLOUD_FD_SITEKEY}"></script>
+        <script src="{ROOT_PATH}assets/js/captcha_gcloud_fraud_defense.js"></script>
+        <!-- ENDIF -->
+    </dd>
+    </dl>
+<!-- ELSE -->
+{L_GCLOUD_FD_NOT_AVAILABLE}
+<!-- ENDIF -->
+
+<!-- IF S_TYPE == 1 -->
+    </fieldset>
+    <span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->

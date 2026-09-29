@@ -273,7 +273,7 @@ class phpbb_captcha_sortables extends phpbb_captcha_qa
 	{
 		global $db, $config;
 
-		$sql = 'SELECT c.confirm_id
+		$sql = 'SELECT c.confirm_id, c.session_id
 			FROM ' . CAPTCHA_SORTABLES_CONFIRM_TABLE . ' c
 			LEFT JOIN ' . SESSIONS_TABLE . ' s 
 				ON (c.session_id = s.session_id)
@@ -284,9 +284,13 @@ class phpbb_captcha_sortables extends phpbb_captcha_qa
 		if ($row = $db->sql_fetchrow($result))
 		{
 			$sql_in = array();
-			
+
 			do
 			{
+				if (phpbb_acm_stores_guest_sessions() && !empty($row['session_id']) && phpbb_guest_session_get($row['session_id']))
+				{
+					continue;
+				}
 				$sql_in[] = (string) $row['confirm_id'];
 			}
 			while ($row = $db->sql_fetchrow($result));

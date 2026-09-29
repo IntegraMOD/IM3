@@ -1,0 +1,30 @@
+<!-- IF S_TYPE == 1 -->
+<div class="ucp-card">
+    <div class="ucp-card-body">
+    <h3>{L_CONFIRMATION}</h3>
+    <p>{L_CONFIRM_EXPLAIN}</p>
+    <div class="ucp-form-grid">
+<!-- ENDIF -->
+
+<!-- IF S_GCLOUD_FD_AVAILABLE -->
+    <div class="ucp-form-row" data-gcloud-fd="1" data-sitekey="{GCLOUD_FD_SITEKEY}" data-action="{GCLOUD_FD_ACTION}"<!-- IF S_GCLOUD_FD_PREVIEW --> data-gcloud-fd-preview="1"<!-- ENDIF -->>
+        <p class="ucp-form-label">{L_CONFIRM_CODE}:</p>
+        <p class="ucp-form-help">{L_GCLOUD_FD_EXPLAIN}</p>
+        <noscript>
+            <div>{L_GCLOUD_FD_NOSCRIPT}</div>
+        </noscript>
+        <input type="hidden" name="gcloud_fd_token" value="" />
+        <!-- IF not S_GCLOUD_FD_PREVIEW -->
+        <script src="https://www.google.com/recaptcha/enterprise.js?render={GCLOUD_FD_SITEKEY}"></script>
+        <script src="{ROOT_PATH}assets/js/captcha_gcloud_fraud_defense.js"></script>
+        <!-- ENDIF -->
+    </div>
+<!-- ELSE -->
+<p>{L_GCLOUD_FD_NOT_AVAILABLE}</p>
+<!-- ENDIF -->
+
+<!-- IF S_TYPE == 1 -->
+    </div>
+    </div>
+</div>
+<!-- ENDIF -->

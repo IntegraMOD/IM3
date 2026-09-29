@@ -165,7 +165,12 @@ class phpbb_default_captcha
 			$sql_in = array();
 			do
 			{
-				$sql_in[] = (string) $row['session_id'];
+				$session_id = (string) $row['session_id'];
+				if (phpbb_acm_stores_guest_sessions() && phpbb_guest_session_get($session_id))
+				{
+					continue;
+				}
+				$sql_in[] = $session_id;
 			}
 			while ($row = $db->sql_fetchrow($result));
 
