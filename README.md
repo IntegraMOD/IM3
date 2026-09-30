@@ -1,26 +1,28 @@
 🌐 Welcome to IntegraMOD
-IntegraMOD is an enhanced phpBB 3.0 platform built for modern communities while still supporting older hosting environments. It combines the stability of classic phpBB with a wide range of integrated features designed to make community management easier and more enjoyable.
+# IntegraMOD
 
-Beyond standard forum discussions, IntegraMOD includes social networking tools, media sharing, blogging, downloads, live chat, and customizable portal features — all working together in a single system.
+IntegraMOD began life as the original phpBB portal and has evolved to become the most feature-rich community building platform available. Over the years, we have collected the best mods written for many different phpBB versions, updated them, integrated them, and often completely rewritten them to keep them secure and relevant.
 
-Whether you're running a gaming community, fan site, support forum, or hobby group, IntegraMOD gives your members more ways to connect and participate.<br>
-🚀 What Makes IntegraMOD Stand Out<br>
+By combining this foundation with our own modern features, we've built an all-in-one system. Instead of forcing you to piece together a web of third-party add-ons, IntegraMOD delivers standard forum discussions, social networking, media sharing, and custom portal management right out of the box.
+
+## Who It's For
+
+We built this for communities that want to own their space and need more than just a basic message board. It is a great fit for:
 <pre>
-<b>Features</b>                        <b>What You Get</b>
-📱 Mobile-Friendly Interface   Responsive layouts designed to work smoothly across desktop, tablet, and mobile devices.
-🧑 Social Network System       Member profiles, friends lists, status updates, and social interaction tools built directly into the forum.
-🖼️ Photo Gallery               Dedicated image galleries with uploads, comments, and album support.
-📁 Downloads Center            Organize and share files, mods, documents, and media with category-based downloads.
-📝 Blogs                       Create personal or community blogs for news, guides, updates, and announcements.
-❓ Editable FAQ                Manage and update help content directly through the administration panel.
-📬 Email Digests               Automatic summaries keep members informed about recent activity and discussions.
-📅 Topic Calendar              Attach events and schedules to forum topics for better community organization.
-🏠 Portal System               Custom homepage blocks for news, announcements, recent posts, and featured content.
-🔔 Push Notifications          Keep members engaged with real-time alerts sent straight to their devices for multiple events.
-💬 MChat & Shoutbox            Real-time chat features for quick conversations and live interaction.
-💸 PayPal Donation Support     Built-in donation tools to help support your community and hosting costs.
-🔧 Additional Enhancements     Includes profile improvements, moderation tools, customization options, and many other integrated features.
-</pre>
-IntegraMOD is designed for communities that want more flexibility and functionality than a standard forum alone. Everything is integrated into one platform, making it easier to manage your site and keep your members engaged.
+* **Bloggers and content creators:** Expand your site beyond standard articles. Give your audience a dedicated space to interact, share files, and build a connected community around your content using the integrated blogging and portal tools.
+* **Gaming clans and guilds:** Keep your rosters, event calendars, and strategies organized in a central hub where important info will not get buried in a fast-moving chat channel.
+* **Hobbyists, makers, and fan sites:** Share project logs, upload image galleries, and manage file downloads without relying on algorithmic social media feeds that hide your content.
+* **Support boards and tech communities:** Build structured discussions, maintain an editable FAQ knowledge base, and distribute files or mods right alongside your help forums.
+* **Community managers:** If you are tired of spending hours installing, testing, and fixing conflicting plugins just to get basic features to work together, IntegraMOD gives you everything in a single install.
 
-Install it, customize it, and build the kind of community you want.
+## Core Features
+
+* **Mobile-Ready Interface:** Responsive layouts that scale cleanly across desktop, tablet, and mobile screens.
+* **Social Networking:** Built-in member profiles, friends lists, status updates, and direct interaction tools.
+* **Media & File Sharing:** Dedicated image galleries with album support and a categorized downloads center for files and mods.
+* **Content Publishing:** Integrated community blogs and an editable FAQ managed directly from the administration panel.
+* **Active Engagement:** Real-time push notifications, automated email digests, and live chat via MChat and Shoutbox.
+* **Community Organization:** Topic calendars to schedule events and a modular portal system for custom homepage blocks (news, announcements, featured content).
+* **Built-in Funding:** Native PayPal donation support to help offset your server hosting costs.
+</pre>
+Install the package, configure your portal blocks, and your community is ready to go.
