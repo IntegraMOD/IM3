@@ -1,5 +1,4 @@
 🌐 Welcome to IntegraMOD
-# IntegraMOD
 
 IntegraMOD began life as the original phpBB portal and has evolved to become the most feature-rich community building platform available. Over the years, we have collected the best mods written for many different phpBB versions, updated them, integrated them, and often completely rewritten them to keep them secure and relevant.
 
