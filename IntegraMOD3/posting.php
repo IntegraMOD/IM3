@@ -1192,16 +1192,6 @@ if ($submit || $preview || $refresh)
 		$error[] = implode('<br />', $message_parser->warn_msg);
 	}
 
-	// DNSBL check
-	if ($config['check_dnsbl'] && !$refresh)
-	{
-		if (($dnsbl = $user->check_dnsbl('post')) !== false)
-		{
-			$error[] = sprintf($user->lang['IP_BLACKLISTED'], $user->ip, $dnsbl[1]);
-		}
-	}
-
-
 	// START Anti-Spam ACP
 	$sc_title = (empty($post_data['topic_title'])) ? $post_data['post_subject'] : $post_data['topic_title'];
 	$asacp_is_spam = false;
@@ -1467,6 +1457,14 @@ if ($submit || $preview || $refresh)
 			}
 			// END Anti-Spam ACP
 			$redirect_url = submit_post($mode, $post_data['post_subject'], $post_author_name, $post_data['topic_type'], $poll, $data, $update_message, ($update_message || $update_subject) ? true : false);
+
+			if (function_exists('im3_process_mentions') && !empty($data['post_id']) && empty($GLOBALS['im3_mentions_sent'][(int) $data['post_id']]))
+			{
+				$mention_author = ($post_author_name !== '') ? $post_author_name : $user->data['username'];
+				$mention_subject = ($post_data['post_subject'] !== '') ? $post_data['post_subject'] : $data['topic_title'];
+				$mention_text = $data['message'] . "\n" . utf8_normalize_nfc(request_var('message', '', true));
+				im3_process_mentions($mention_text, $data['bbcode_uid'], (int) $data['forum_id'], (int) $data['topic_id'], (int) $data['post_id'], $mention_subject, $mention_author, (int) $user->data['user_id'], true);
+			}
 			if (!empty($k_links_staged['logo_tmp']))
 			{
 				k_links_queue_insert($forum_id, (int) $data['topic_id'], (int) $data['post_id'], (int) $user->data['user_id'], $k_links_staged);
@@ -1801,6 +1799,9 @@ switch ($mode)
 	break;
 }
 
+// Button labels reuse these keys with an <h6> line break. Page title and breadcrumbs need the words on one line.
+$page_title = trim(preg_replace('/\s+/', ' ', str_replace(array('<h6>', '</h6>'), ' ', $page_title)));
+
 // Build Navigation Links
 generate_forum_nav($post_data);
 
@@ -2064,6 +2065,10 @@ $allowed = ($auth->acl_get('f_attach', $forum_id) && $auth->acl_get('u_attach') 
 posting_gen_attachment_entry($attachment_data, $filename_data, $allowed);
 
 // Output page ...
+$template->assign_vars(array(
+	'S_MENTIONS'	=> !empty($config['allow_mentions']),
+	'S_FORUM_ID'	=> (int) $forum_id,
+));
 page_header($page_title, false);
 
 $template->set_filenames(array(
@@ -2224,9 +2229,9 @@ function handle_topic_event_delete($forum_id, $topic_id, &$post_data)
         if (confirm_box(true))
         {
             $data = array(
-                'topic_calendar_time'       => null,
-                'topic_calendar_duration'   => null,
-                'event_repeat'              => null,
+                'topic_calendar_time'       => 0,
+                'topic_calendar_duration'   => 0,
+                'event_repeat'              => '',
                 'invite_attendees'          => 0,
                 'event_attendees'           => '',
                 'event_non_attendees'       => '',

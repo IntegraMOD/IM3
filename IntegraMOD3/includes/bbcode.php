@@ -69,6 +69,16 @@ class bbcode extends abbcode
 			$this->bbcode_cache_init();
 		}
 
+		if (function_exists('im3_process_mentions'))
+		{
+			im3_process_mentions($message, $this->bbcode_uid, 0, 0, 0, '', '', 0, false);
+		}
+
+		if ($this->bbcode_uid)
+		{
+			$message = preg_replace('#\[mention:' . $this->bbcode_uid . '\](.*?)\[/mention:' . $this->bbcode_uid . '\]#uis', '[mention]$1[/mention]', $message);
+		}
+
 		if (!$this->bbcode_bitfield)
 		{
 			// Remove the uid from tags that have not been transformed into HTML

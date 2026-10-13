@@ -7,21 +7,21 @@
 		</div>
 		<div class="ucp-card-body">
 			<!-- IF .article_row -->
-			<div class="forum-list">
-			<!-- BEGIN article_row -->
-				<article class="forum-row mcp-list-row<!-- IF article_row.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
-					<div class="forum-details">
-						<a href="{article_row.U_SHOW}" class="forum-title">{article_row.TITLE}</a>
-						<p>{article_row.DESCRIPTION}</p>
-					</div>
-					<div class="forum-stats-grid mcp-list-stats">
-						<div class="stat-info">{article_row.CAT}</div>
-					</div>
-				</article>
-			<!-- END article_row -->
-			</div>
+				<div class="forum-list">
+					<!-- BEGIN article_row -->
+						<article class="forum-row mcp-list-row<!-- IF article_row.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+							<div class="forum-details">
+								<a href="{article_row.U_SHOW}" class="forum-title">{article_row.TITLE}</a>
+								<p>{article_row.DESCRIPTION}</p>
+							</div>
+							<div class="forum-stats-grid mcp-list-stats">
+								<div class="stat-info">{article_row.CAT}</div>
+							</div>
+						</article>
+					<!-- END article_row -->
+				</div>
 			<!-- ELSE -->
-			<p>{L_UNAPPROVED_POSTS_ZERO_TOTAL}</p>
+				<p>{L_UNAPPROVED_POSTS_ZERO_TOTAL}</p>
 			<!-- ENDIF -->
 		</div>
 	</section>
@@ -34,26 +34,26 @@
 		</div>
 		<div class="ucp-card-body">
 			<!-- IF .postrow -->
-			<header class="forum-header mcp-list-header">
-				<div class="forum-title">{L_VIEW_DETAILS}</div>
-				<div class="forum-stats-header info">{L_REPORTER} &amp; {L_FORUM}</div>
-			</header>
-			<div class="forum-list">
-			<!-- BEGIN postrow -->
-				<article class="forum-row mcp-list-row<!-- IF postrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
-					<div class="forum-details">
-						<a href="{postrow.U_VIEW_DETAILS}" class="forum-title">{postrow.ARTICLE_TITLE}</a>
-						<p>{L_POSTED} {L_POST_BY_AUTHOR} {postrow.POST_AUTHOR_FULL} {L_POSTED_ON_DATE} {postrow.POST_TIME}</p>
-					</div>
-					<div class="forum-stats-grid mcp-list-stats">
-						<div class="stat-info">{postrow.REPORT_AUTHOR_FULL} {L_REPORTED_ON_DATE} {postrow.REPORT_TIME}<br />
-						{L_CATEGORIE}: <a href="{postrow.U_CATEGORIE}">{postrow.CATEGORIE_NAME}</a></div>
-					</div>
-				</article>
-			<!-- END postrow -->
-			</div>
+				<header class="forum-header mcp-list-header">
+					<div class="forum-title">{L_VIEW_DETAILS}</div>
+					<div class="forum-stats-header info">{L_REPORTER} &amp; {L_FORUM}</div>
+				</header>
+				<div class="forum-list">
+					<!-- BEGIN postrow -->
+						<article class="forum-row mcp-list-row<!-- IF postrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+							<div class="forum-details">
+								<a href="{postrow.U_VIEW_DETAILS}" class="forum-title">{postrow.ARTICLE_TITLE}</a>
+								<p>{L_POSTED} {L_POST_BY_AUTHOR} {postrow.POST_AUTHOR_FULL} {L_POSTED_ON_DATE} {postrow.POST_TIME}</p>
+							</div>
+							<div class="forum-stats-grid mcp-list-stats">
+								<div class="stat-info">{postrow.REPORT_AUTHOR_FULL} {L_REPORTED_ON_DATE} {postrow.REPORT_TIME}<br />
+									{L_CATEGORIE}: <a href="{postrow.U_CATEGORIE}">{postrow.CATEGORIE_NAME}</a></div>
+							</div>
+						</article>
+					<!-- END postrow -->
+				</div>
 			<!-- ELSE -->
-			<p>{L_REPORTS_ZERO_TOTAL}</p>
+				<p>{L_REPORTS_ZERO_TOTAL}</p>
 			<!-- ENDIF -->
 		</div>
 	</section>
@@ -66,9 +66,11 @@
 		</div>
 		<div class="ucp-card-body">
 			<!-- BEGIN log -->
-			<p class="<!-- IF log.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">{L_CHANGED_AT} : {log.CHANGE_TIME} {L_FROM} {log.USER} {log.CHANGE_REASON} | <a href="{log.U_ARTICLE}">{log.ARTICLE}</a></p>
+				<p class="<!-- IF log.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+					{L_CHANGED_AT} : {log.CHANGE_TIME} {L_FROM} {log.USER} {log.CHANGE_REASON} | <a href="{log.U_ARTICLE}">{log.ARTICLE}</a>
+				</p>
 			<!-- BEGINELSE -->
-			<p>{L_NO_MATCHES_FOUND}</p>
+				<p>{L_NO_MATCHES_FOUND}</p>
 			<!-- END log -->
 		</div>
 	</section>

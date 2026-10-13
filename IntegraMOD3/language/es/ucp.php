@@ -305,6 +305,14 @@ $lang = array_merge($lang, array(
 	'NOTIFY_METHOD_EXPLAIN'			=> 'Método para enviar mensajes empleado por este Sitio.',
 	'NOTIFY_METHOD_IM'				=> 'Sólo Jabber',
 	'NOTIFY_ON_PM'					=> 'Notificarme de nuevos mensajes privados',
+	'MENTION_NOTIFY'				=> 'Aviso de mención',
+	'MENTION_NOTIFY_EXPLAIN'		=> 'Se envía un mensaje privado cuando alguien le menciona. Elija correo electrónico para recibir un email en su lugar. Las notificaciones push no cambian.',
+	'MENTION_NOTIFY_PM'				=> 'Mensaje privado',
+	'MENTION_NOTIFY_EMAIL'			=> 'Correo electrónico',
+	'MENTION_PM_SUBJECT'			=> 'Ha sido mencionado por %s',
+	'MENTION_PM_BODY'				=> '%1$s le ha mencionado en "%2$s".
+
+%3$s',
 	'NOT_ADDED_FRIENDS_ANONYMOUS'	=> 'No puede añadir usuarios anónimos a su lista de amigos.',
 	'NOT_ADDED_FRIENDS_BOTS'		=> 'No puede añadir bots a su lista de amigos.',
 	'NOT_ADDED_FRIENDS_FOES'		=> 'No puede añadir usuarios a su lista de amigos mientras estén en su lista de ignorados',

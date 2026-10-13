@@ -111,9 +111,9 @@ function ajaxlike_fulllistbox(post_id, topic_id, forum_id, callback_url, like_on
 			open: function(event, ui) {
   				jQuery("body").css({ overflow: 'hidden' });
 				
-				jQuery('.ui-widget-overlay').bind('click',function(){ 
-                	jQuery('#ajaxlike-dialog').dialog('close'); 
-            	});
+				jQuery('.ui-widget-overlay').on('click',function(){ 
+					jQuery('#ajaxlike-dialog').dialog('close'); 
+				});
             	
 				var rv = new Date().getTime();
 				
@@ -227,7 +227,7 @@ function ajaxlike_notificationsbox(callback_url)
 	   				jQuery('div').on('hover',function() {  
          			hoveredId = jQuery(this).attr('like_id');
          			var like_id =(hoveredId);
-		 			jQuery(".close" + like_id).click(function () {
+					jQuery(".close" + like_id).on('click', function () {
         			//close notification when the close button is clicked
         			jQuery("#box" + like_id).fadeOut();
           			});
@@ -296,9 +296,9 @@ function ajaxlike_liked_listbox(callback_url)
   				jQuery("body").css({ overflow: 'hidden' });
     				
 				
-				jQuery('.ui-widget-overlay').bind('click',function(){ 
+				jQuery('.ui-widget-overlay').on('click',function(){ 
 					jQuery(dialogElement).dialog('close'); 
-            	});
+				});
 
 			var rv = new Date().getTime();
 				

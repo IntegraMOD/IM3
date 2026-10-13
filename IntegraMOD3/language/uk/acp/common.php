@@ -296,7 +296,9 @@ $lang = array_merge($lang, array(
 
 	'FILES_PER_DAY'	=> 'Приєднаних файлів за день',
 	'FORUM_STATS'	=> 'Статистика форуму',
+	'ACM_CACHE_TYPE'	=> 'Тип кешу ACM',
 	'GZIP_COMPRESSION'	=> 'Стиснення GZip',
+	'PHP_VERSION_INFO'	=> 'Версія PHP',
 	'NOT_AVAILABLE'	=> 'Недоступно',
 	'NUMBER_FILES'	=> 'Кількість приєднаних файлів',
 	'NUMBER_POSTS'	=> 'Кількість повідомлень',
@@ -726,3 +728,20 @@ $lang = array_merge($lang, array(
 ));
 
 
+
+// OneAll Social Login
+$lang = array_merge($lang, array(
+	'ACP_OA_SOCIAL_LOGIN'			=> 'OneAll Social Login',
+	'ACP_OA_SOCIAL_LOGIN_SETTINGS'	=> 'Налаштування OneAll Social Login',
+));
+
+$lang = array_merge($lang, array(
+	'ACP_DOCS'				=> 'Документація',
+	'ACP_NOTIFICATIONS'		=> 'Сповіщення',
+	'ACP_THEME_TOGGLE'		=> 'Світла або темна',
+	'ACP_LAYOUT_OPTIONS'	=> 'Параметри компонування',
+	'ACP_FIXED_SIDEBAR'		=> 'Фіксована бічна панель',
+	'ACP_FIXED_TOP'			=> 'Фіксована верхня панель',
+	'ACP_NONE'				=> 'Немає',
+	'ACP_VIEW_ALL'			=> 'Переглянути всі',
+));

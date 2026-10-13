@@ -1027,7 +1027,7 @@ CREATE TABLE phpbb_forums (
 	forum_last_post_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
 	forum_last_poster_name varchar(255) DEFAULT '' NOT NULL,
 	forum_last_poster_colour varchar(6) DEFAULT '' NOT NULL,
-	forum_flags tinyint(4) DEFAULT '32' NOT NULL,
+	forum_flags smallint(5) UNSIGNED DEFAULT '32' NOT NULL,
 	forum_options int(20) UNSIGNED DEFAULT '0' NOT NULL,
 	forum_share_enable tinyint(1) UNSIGNED DEFAULT '1' NOT NULL,
 	display_subforum_list tinyint(1) UNSIGNED DEFAULT '1' NOT NULL,
@@ -2009,6 +2009,45 @@ CREATE TABLE phpbb_points_values (
 	gallery_upload decimal(10,2) DEFAULT '0' NOT NULL,
 	gallery_remove decimal(10,2) DEFAULT '0' NOT NULL,
 	gallery_view decimal(10,2) DEFAULT '0' NOT NULL
+);
+
+
+# Table: 'phpbb_oasl_user'
+CREATE TABLE phpbb_oasl_user (
+	oasl_user_id int(10) UNSIGNED NOT NULL auto_increment,
+	user_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	user_token varchar(255) DEFAULT '' NOT NULL,
+	date_added int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (oasl_user_id),
+	KEY user_id (user_id),
+	KEY user_token (user_token)
+);
+
+
+# Table: 'phpbb_oasl_identity'
+CREATE TABLE phpbb_oasl_identity (
+	oasl_identity_id int(10) UNSIGNED NOT NULL auto_increment,
+	oasl_user_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	identity_token varchar(255) DEFAULT '' NOT NULL,
+	identity_provider varchar(255) DEFAULT '' NOT NULL,
+	num_logins int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	date_added int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	date_updated int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (oasl_identity_id),
+	KEY oasl_user_id (oasl_user_id),
+	KEY identity_token (identity_token)
+);
+
+
+# Table: 'phpbb_oasl_login_token'
+CREATE TABLE phpbb_oasl_login_token (
+	oasl_login_token_id int(10) UNSIGNED NOT NULL auto_increment,
+	login_token varchar(255) DEFAULT '' NOT NULL,
+	user_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	date_creation int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (oasl_login_token_id),
+	KEY user_id (user_id),
+	KEY login_token (login_token)
 );
 
 

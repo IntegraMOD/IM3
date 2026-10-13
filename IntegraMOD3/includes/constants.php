@@ -113,6 +113,7 @@ define('FORUM_FLAG_PRUNE_STICKY', 8);
 define('FORUM_FLAG_ACTIVE_TOPICS', 16);
 define('FORUM_FLAG_POST_REVIEW', 32);
 define('FORUM_FLAG_QUICK_REPLY', 64);
+define('FORUM_FLAG_MENTIONS', 128);
 
 // Forum Options... sequential order. Modifications should begin at number 10 (number 29 is maximum)
 define('FORUM_OPTION_FEED_NEWS', 1);
@@ -340,8 +341,13 @@ define('USERS_TABLE',				$table_prefix . 'users');
 define('WARNINGS_TABLE',			$table_prefix . 'warnings');
 define('WORDS_TABLE',				$table_prefix . 'words');
 define('ZEBRA_TABLE',				$table_prefix . 'zebra');
+define('K_LINKS_QUEUE_TABLE',		$table_prefix . 'k_links_queue');
 
 // Additional tables
+// OneAll Social Login
+define('OASL_LOGIN_TOKEN_TABLE',    $table_prefix . 'oasl_login_token');
+define('OASL_IDENTITY_TABLE',       $table_prefix . 'oasl_identity');
+define('OASL_USER_TABLE',           $table_prefix . 'oasl_user');
 // ajaxlike
 if(!defined('LIKES_TABLE'))
 {

@@ -55,6 +55,7 @@ class ucp_prefs
 					'hideonline'	=> request_var('hideonline', (bool) !$user->data['user_allow_viewonline']),
 					'notifypm'		=> request_var('notifypm', (bool) $user->data['user_notify_pm']),
 					'popuppm'		=> request_var('popuppm', (bool) $user->optionget('popuppm')),
+					'mention_email'	=> request_var('mention_email', (bool) $user->optionget('mention_email')),
 					'allowpm'		=> request_var('allowpm', (bool) $user->data['user_allow_pm']),
 				);
 
@@ -89,6 +90,7 @@ class ucp_prefs
 					if (!sizeof($error))
 					{
 						$user->optionset('popuppm', $data['popuppm']);
+						$user->optionset('mention_email', $data['mention_email']);
 
 						$sql_ary = array(
 							// ajaxlike
@@ -183,6 +185,7 @@ class ucp_prefs
 					'S_HIDE_ONLINE'		=> $data['hideonline'],
 					'S_NOTIFY_PM'		=> $data['notifypm'],
 					'S_POPUP_PM'		=> $data['popuppm'],
+					'S_MENTION_EMAIL'	=> $data['mention_email'],
 					'S_DST'				=> $data['dst'],
 					// ajaxlike
 					'S_SHOW_LIKES'			=> $data['show_likes'],

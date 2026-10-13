@@ -3339,6 +3339,81 @@ GO
 
 
 /*
+	Table: 'phpbb_oasl_user'
+*/
+CREATE TABLE [phpbb_oasl_user] (
+	[oasl_user_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[user_token] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[date_added] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_oasl_user] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_oasl_user] PRIMARY KEY  CLUSTERED 
+	(
+		[oasl_user_id]
+	)
+GO
+
+CREATE  INDEX [user_id] ON [phpbb_oasl_user]([user_id])
+GO
+
+CREATE  INDEX [user_token] ON [phpbb_oasl_user]([user_token])
+GO
+
+
+/*
+	Table: 'phpbb_oasl_identity'
+*/
+CREATE TABLE [phpbb_oasl_identity] (
+	[oasl_identity_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[oasl_user_id] [int] DEFAULT (0) NOT NULL ,
+	[identity_token] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[identity_provider] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[num_logins] [int] DEFAULT (0) NOT NULL ,
+	[date_added] [int] DEFAULT (0) NOT NULL ,
+	[date_updated] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_oasl_identity] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_oasl_identity] PRIMARY KEY  CLUSTERED 
+	(
+		[oasl_identity_id]
+	)
+GO
+
+CREATE  INDEX [oasl_user_id] ON [phpbb_oasl_identity]([oasl_user_id])
+GO
+
+CREATE  INDEX [identity_token] ON [phpbb_oasl_identity]([identity_token])
+GO
+
+
+/*
+	Table: 'phpbb_oasl_login_token'
+*/
+CREATE TABLE [phpbb_oasl_login_token] (
+	[oasl_login_token_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[login_token] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[date_creation] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_oasl_login_token] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_oasl_login_token] PRIMARY KEY  CLUSTERED 
+	(
+		[oasl_login_token_id]
+	)
+GO
+
+CREATE  INDEX [user_id] ON [phpbb_oasl_login_token]([user_id])
+GO
+
+CREATE  INDEX [login_token] ON [phpbb_oasl_login_token]([login_token])
+GO
+
+
+/*
 	Table: 'phpbb_poll_options'
 */
 CREATE TABLE [phpbb_poll_options] (

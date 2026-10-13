@@ -1137,6 +1137,18 @@ window.addEventListener('load', () => {
             return;
         }
 
+        if (action === 'pm-popup-inbox') {
+            e.preventDefault();
+            const inboxUrl = (actionEl.getAttribute('href') || '').replace(/&amp;/g, '&');
+            if (window.opener && !window.opener.closed) {
+                window.opener.location.href = inboxUrl;
+            } else {
+                window.open(inboxUrl, '_blank');
+            }
+            window.close();
+            return;
+        }
+
         if (action === 'msn-add-contact' || action === 'msn-send-message') {
             e.preventDefault();
             const app = document.getElementById('objMessengerApp');
@@ -1172,8 +1184,10 @@ window.addEventListener('load', () => {
             const width = parseInt(actionEl.getAttribute('data-popup-width') || '760', 10);
             const height = parseInt(actionEl.getAttribute('data-popup-height') || '570', 10);
             const target = actionEl.getAttribute('data-popup-target') || '_blank';
-            if (typeof popup === 'function') {
+            if (typeof popup === 'function' && window.matchMedia('(min-width: 768px)').matches) {
                 popup(actionEl.href, width, height, target);
+            } else {
+                window.open(actionEl.href, '_blank', 'noopener');
             }
             return;
         }
@@ -2154,26 +2168,7 @@ window.addEventListener('load', () => {
         });
     });
 
-    // Cookie consent actions
-    const cookieConsentModal = document.getElementById('cookie-consent-modal');
-    if (cookieConsentModal) {
-        const acceptBtn = cookieConsentModal.querySelector('.cookie-accept-btn');
-        const declineBtn = cookieConsentModal.querySelector('.cookie-decline-btn');
-
-        if (acceptBtn) {
-            acceptBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                globalThis.acceptCookies();
-            });
-        }
-
-        if (declineBtn) {
-            declineBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                globalThis.declineCookies();
-            });
-        }
-    }
+    // Cookie consent actions are bound via the delegated document click handler.
 
     checkCookieConsent();
 
@@ -2240,7 +2235,10 @@ globalThis.declineCookies = function() {
 
 function showCookieConsent() {
     var modal = document.getElementById('cookie-consent-modal');
-    if (modal) modal.style.display = 'block';
+    if (modal) {
+        modal.style.removeProperty('display');
+        modal.classList.remove('cookie-consent-hidden');
+    }
 }
 
 window.toggleDiv = function(divName) {
@@ -2255,14 +2253,21 @@ window.toggleDiv = function(divName) {
 
 function hideCookieConsent() {
     var modal = document.getElementById('cookie-consent-modal');
-    if (modal) modal.style.display = 'none';
+    if (modal) {
+        modal.style.removeProperty('display');
+        modal.classList.add('cookie-consent-hidden');
+    }
 }
 
 function checkCookieConsent() {
     if (!getCookie('cookie_consent')) {
         showCookieConsent();
+    } else {
+        hideCookieConsent();
     }
 }
+
+document.addEventListener('DOMContentLoaded', checkCookieConsent);
 
 document.addEventListener('click', function(e) {
     const acceptBtn = e.target.closest('.cookie-accept-btn');

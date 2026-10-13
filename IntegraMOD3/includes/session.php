@@ -335,13 +335,38 @@ class session
 		// if session id is set
 		if (!empty($this->session_id))
 		{
-			$sql = 'SELECT u.*, s.*
-				FROM ' . SESSIONS_TABLE . ' s, ' . USERS_TABLE . " u
-				WHERE s.session_id = '" . $db->sql_escape($this->session_id) . "'
-					AND u.user_id = s.session_user_id";
-			$result = $db->sql_query($sql);
-			$this->data = $db->sql_fetchrow($result);
-			$db->sql_freeresult($result);
+			$this->data = false;
+
+			if (phpbb_acm_stores_guest_sessions())
+			{
+				$guest_session = phpbb_guest_session_get($this->session_id);
+				if (is_array($guest_session))
+				{
+					$session_user_id = !empty($guest_session['session_user_id']) ? (int) $guest_session['session_user_id'] : ANONYMOUS;
+					$sql = 'SELECT *
+						FROM ' . USERS_TABLE . '
+						WHERE user_id = ' . $session_user_id;
+					$result = $db->sql_query($sql);
+					$user_row = $db->sql_fetchrow($result);
+					$db->sql_freeresult($result);
+
+					if ($user_row)
+					{
+						$this->data = array_merge($user_row, $guest_session);
+					}
+				}
+			}
+
+			if (!isset($this->data['user_id']))
+			{
+				$sql = 'SELECT u.*, s.*
+					FROM ' . SESSIONS_TABLE . ' s, ' . USERS_TABLE . " u
+					WHERE s.session_id = '" . $db->sql_escape($this->session_id) . "'
+						AND u.user_id = s.session_user_id";
+				$result = $db->sql_query($sql);
+				$this->data = $db->sql_fetchrow($result);
+				$db->sql_freeresult($result);
+			}
 
 			// Did the session exist in the DB?
 			if (isset($this->data['user_id']))
@@ -423,9 +448,16 @@ class session
 							{
 								$sql_ary['session_page'] = substr($this->page['page'], 0, 199);
 								$sql_ary['session_forum_id'] = $this->page['forum'];
-                                $sql_ary['session_album_id'] = $this->page['album'];
+								$sql_ary['session_album_id'] = $this->page['album'];
 							}
 
+							if (phpbb_acm_stores_guest_sessions() && phpbb_acm_session_user($this->data['user_id'], !empty($this->data['is_bot']) || (isset($this->data['user_type']) && $this->data['user_type'] == USER_IGNORE)))
+							{
+								$this->data = array_merge($this->data, $sql_ary);
+								phpbb_guest_session_put($this->session_id, $this->data);
+							}
+							else
+							{
 							$db->sql_return_on_error(true);
 
 							$sql = 'UPDATE ' . SESSIONS_TABLE . ' SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
@@ -460,6 +492,7 @@ class session
 							if ($this->data['user_id'] != ANONYMOUS && !empty($config['new_member_post_limit']) && $this->data['user_new'] && $config['new_member_post_limit'] <= $this->data['user_posts'])
 							{
 								$this->leave_newly_registered();
+							}
 							}
 						}
 
@@ -647,6 +680,24 @@ class session
 				$sql = 'SELECT *
 					FROM ' . USERS_TABLE . '
 					WHERE user_id = ' . (int) $this->cookie_data['u'];
+				$result = $db->sql_query($sql);
+				$this->data = $db->sql_fetchrow($result);
+				$db->sql_freeresult($result);
+			}
+			else if (phpbb_acm_stores_guest_sessions())
+			{
+				$sql = 'SELECT *
+					FROM ' . USERS_TABLE . '
+					WHERE user_id = ' . (int) $bot;
+				$result = $db->sql_query($sql);
+				$this->data = $db->sql_fetchrow($result);
+				$db->sql_freeresult($result);
+
+				$bot_session = phpbb_guest_session_get_by_user((int) $bot);
+				if (is_array($this->data) && is_array($bot_session))
+				{
+					$this->data = array_merge($this->data, $bot_session);
+				}
 			}
 			else
 			{
@@ -655,11 +706,10 @@ class session
 					FROM ' . USERS_TABLE . ' u
 					LEFT JOIN ' . SESSIONS_TABLE . ' s ON (s.session_user_id = u.user_id)
 					WHERE u.user_id = ' . (int) $bot;
+				$result = $db->sql_query($sql);
+				$this->data = $db->sql_fetchrow($result);
+				$db->sql_freeresult($result);
 			}
-
-			$result = $db->sql_query($sql);
-			$this->data = $db->sql_fetchrow($result);
-			$db->sql_freeresult($result);
 		}
 
 		if ($this->data['user_id'] != ANONYMOUS && !$bot)
@@ -732,12 +782,20 @@ class session
 					{
 						$sql_ary['session_page'] = substr($this->page['page'], 0, 199);
 						$sql_ary['session_forum_id'] = $this->page['forum'];
-                        $sql_ary['session_album_id'] = $this->page['album'];
+						$sql_ary['session_album_id'] = $this->page['album'];
 					}
 
-					$sql = 'UPDATE ' . SESSIONS_TABLE . ' SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
-						WHERE session_id = '" . $db->sql_escape($this->session_id) . "'";
-					$db->sql_query($sql);
+					if (phpbb_acm_stores_guest_sessions())
+					{
+						$this->data = array_merge($this->data, $sql_ary);
+						phpbb_guest_session_put($this->session_id, $this->data);
+					}
+					else
+					{
+						$sql = 'UPDATE ' . SESSIONS_TABLE . ' SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
+							WHERE session_id = '" . $db->sql_escape($this->session_id) . "'";
+						$db->sql_query($sql);
+					}
 
 					// Update the last visit time
 					$sql = 'UPDATE ' . USERS_TABLE . '
@@ -753,7 +811,14 @@ class session
 			else
 			{
 				// If the ip and browser does not match make sure we only have one bot assigned to one session
-				$db->sql_query('DELETE FROM ' . SESSIONS_TABLE . ' WHERE session_user_id = ' . $this->data['user_id']);
+				if (phpbb_acm_stores_guest_sessions())
+				{
+					phpbb_guest_session_destroy($this->data['session_id']);
+				}
+				else
+				{
+					$db->sql_query('DELETE FROM ' . SESSIONS_TABLE . ' WHERE session_user_id = ' . $this->data['user_id']);
+				}
 			}
 		}
 
@@ -783,18 +848,17 @@ class session
 
 		$db->sql_return_on_error(true);
 
-		$sql = 'DELETE
-			FROM ' . SESSIONS_TABLE . '
-			WHERE session_id = \'' . $db->sql_escape($this->session_id) . '\'
-				AND session_user_id = ' . ANONYMOUS;
+		$acm_guest = (phpbb_acm_stores_guest_sessions() && phpbb_acm_session_user($this->data['user_id'], !empty($this->data['is_bot'])));
 
-		if (!defined('IN_ERROR_HANDLER') && (!$this->session_id || !$db->sql_query($sql) || !$db->sql_affectedrows()))
+		if ($acm_guest)
 		{
-			// Limit new sessions in 1 minute period (if required)
-			if (empty($this->data['session_time']) && $config['active_sessions'])
+			if ($this->session_id)
 			{
-//				$db->sql_return_on_error(false);
+				phpbb_guest_session_destroy($this->session_id);
+			}
 
+			if (!defined('IN_ERROR_HANDLER') && empty($this->data['session_time']) && $config['active_sessions'])
+			{
 				$sql = 'SELECT COUNT(session_id) AS sessions
 					FROM ' . SESSIONS_TABLE . '
 					WHERE session_time >= ' . ($this->time_now - 60);
@@ -802,10 +866,51 @@ class session
 				$row = $db->sql_fetchrow($result);
 				$db->sql_freeresult($result);
 
-				if ((int) $row['sessions'] > (int) $config['active_sessions'])
+				$guest_burst = 0;
+				foreach (phpbb_guest_session_list() as $guest_row)
+				{
+					if ((int) $guest_row['session_time'] >= ($this->time_now - 60))
+					{
+						$guest_burst++;
+					}
+				}
+
+				if (((int) $row['sessions'] + $guest_burst) > (int) $config['active_sessions'])
 				{
 					send_status_line(503, 'Service Unavailable');
 					trigger_error('BOARD_UNAVAILABLE');
+				}
+			}
+		}
+		else
+		{
+			if (phpbb_acm_stores_guest_sessions() && $this->session_id)
+			{
+				phpbb_guest_session_destroy($this->session_id);
+			}
+
+			$sql = 'DELETE
+				FROM ' . SESSIONS_TABLE . '
+				WHERE session_id = \'' . $db->sql_escape($this->session_id) . '\'
+					AND session_user_id = ' . ANONYMOUS;
+
+			if (!defined('IN_ERROR_HANDLER') && (!$this->session_id || !$db->sql_query($sql) || !$db->sql_affectedrows()))
+			{
+				// Limit new sessions in 1 minute period (if required)
+				if (empty($this->data['session_time']) && $config['active_sessions'])
+				{
+					$sql = 'SELECT COUNT(session_id) AS sessions
+						FROM ' . SESSIONS_TABLE . '
+						WHERE session_time >= ' . ($this->time_now - 60);
+					$result = $db->sql_query($sql);
+					$row = $db->sql_fetchrow($result);
+					$db->sql_freeresult($result);
+
+					if ((int) $row['sessions'] > (int) $config['active_sessions'])
+					{
+						send_status_line(503, 'Service Unavailable');
+						trigger_error('BOARD_UNAVAILABLE');
+					}
 				}
 			}
 		}
@@ -823,18 +928,25 @@ class session
 			$this->data['session_created'] = true;
 		}
 
-		// Skip session database creation for guest users to reduce CPU/database load
-		if ($this->data['user_id'] != ANONYMOUS)
+		$this->session_id = $this->data['session_id'] = md5(unique_id());
+
+		$sql_ary['session_id'] = (string) $this->session_id;
+		$sql_ary['session_page'] = (string) substr($this->page['page'], 0, 199);
+		$sql_ary['session_forum_id'] = $this->page['forum'];
+		$sql_ary['session_album_id'] = $this->page['album'];
+
+		if ($acm_guest)
 		{
-			$this->session_id = $this->data['session_id'] = md5(unique_id());
-
-			$sql_ary['session_id'] = (string) $this->session_id;
-			$sql_ary['session_page'] = (string) substr($this->page['page'], 0, 199);
-			$sql_ary['session_forum_id'] = $this->page['forum'];
-			$sql_ary['session_album_id'] = $this->page['album'];
-
+			phpbb_guest_session_put($this->session_id, $sql_ary);
+		}
+		else
+		{
 			$sql = 'INSERT INTO ' . SESSIONS_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary);
 			$db->sql_query($sql);
+		}
+
+		if ($this->data['user_id'] != ANONYMOUS || $acm_guest)
+		{
 
 			$db->sql_return_on_error(false);
 
@@ -859,6 +971,15 @@ class session
 
 				unset($cookie_expire);
 
+				if ((int) $this->data['user_id'] === ANONYMOUS)
+				{
+					$SID = '?sid=';
+					$_SID = '';
+				}
+			}
+
+			if (!$bot && (int) $this->data['user_id'] !== ANONYMOUS)
+			{
 // Cap session scan window
 $session_scan_window = 3600;
 
@@ -899,7 +1020,7 @@ if ($session_count <= 1 || empty($this->data['user_form_salt']))
 					$db->sql_query($sql);
 				}
 			}
-			else
+			else if ($bot)
 			{
 				$this->data['session_time'] = $this->data['session_last_visit'] = $this->time_now;
 
@@ -915,22 +1036,15 @@ if ($session_count <= 1 || empty($this->data['user_form_salt']))
 		}
 		else
 		{
-            // Guest user - skip database session creation; store lightweight session info in cache
-            $db->sql_return_on_error(false);
-            $SID = '?sid=';
-            $_SID = '';
-            // Use guest session cache helper if available
-            // Only use guest cache if enabled in config and helper exists
-            if (!empty($GLOBALS['config']['guest_sessions_cache']) && file_exists($phpbb_root_path . 'includes/guest_sessions.' . $phpEx))
-            {
-                include_once($phpbb_root_path . 'includes/guest_sessions.' . $phpEx);
-                guest_session_put(array(
-                    'ip' => $this->ip,
-                    'browser' => substr($this->browser, 0, 149),
-                    'page' => substr($this->page['page'], 0, 199),
-                    'time' => $this->time_now,
-                ));
-            }
+			// File/null ACM keeps anonymous sessions in the sessions table.
+			$db->sql_return_on_error(false);
+			$SID = '?sid=';
+			$_SID = '';
+			$this->data = array_merge($this->data, $sql_ary);
+
+			$cookie_expire = $this->time_now + (($config['max_autologin_time']) ? 86400 * (int) $config['max_autologin_time'] : 31536000);
+			$this->set_cookie('u', ANONYMOUS, $cookie_expire);
+			$this->set_cookie('sid', $this->session_id, $cookie_expire);
 		}
 
 		return true;
@@ -947,6 +1061,11 @@ if ($session_count <= 1 || empty($this->data['user_form_salt']))
 	function session_kill($new_session = true)
 	{
 		global $SID, $_SID, $db, $config, $phpbb_root_path, $phpEx;
+
+		if (phpbb_acm_stores_guest_sessions() && $this->session_id)
+		{
+			phpbb_guest_session_destroy($this->session_id);
+		}
 
 		$sql = 'DELETE FROM ' . SESSIONS_TABLE . "
 			WHERE session_id = '" . $db->sql_escape($this->session_id) . "'
@@ -1035,10 +1154,38 @@ if ($session_count <= 1 || empty($this->data['user_form_salt']))
 		}
 
 		// Firstly, delete guest sessions
-		$sql = 'DELETE FROM ' . SESSIONS_TABLE . '
-			WHERE session_user_id = ' . ANONYMOUS . '
-				AND session_time < ' . (int) ($this->time_now - $config['session_length']);
-		$db->sql_query($sql);
+		if (phpbb_acm_stores_guest_sessions())
+		{
+			phpbb_guest_session_gc();
+
+			$sql = 'DELETE FROM ' . SESSIONS_TABLE . '
+				WHERE session_user_id = ' . ANONYMOUS;
+			$db->sql_query($sql);
+
+			$sql = 'SELECT user_id
+				FROM ' . BOTS_TABLE;
+			$result = $db->sql_query($sql);
+			$bot_ids = array();
+			while ($row = $db->sql_fetchrow($result))
+			{
+				$bot_ids[] = (int) $row['user_id'];
+			}
+			$db->sql_freeresult($result);
+
+			if (sizeof($bot_ids))
+			{
+				$sql = 'DELETE FROM ' . SESSIONS_TABLE . '
+					WHERE ' . $db->sql_in_set('session_user_id', $bot_ids);
+				$db->sql_query($sql);
+			}
+		}
+		else
+		{
+			$sql = 'DELETE FROM ' . SESSIONS_TABLE . '
+				WHERE session_user_id = ' . ANONYMOUS . '
+					AND session_time < ' . (int) ($this->time_now - $config['session_length']);
+			$db->sql_query($sql);
+		}
 
 		// Get expired sessions, only most recent for each user
 		$sql = 'SELECT session_user_id, session_page, MAX(session_time) AS recent_time
@@ -1316,68 +1463,6 @@ if ($session_count <= 1 || empty($this->data['user_form_salt']))
 	}
 
 	/**
-	* Check if ip is blacklisted
-	* This should be called only where absolutly necessary
-	*
-	* Only IPv4 (rbldns does not support AAAA records/IPv6 lookups)
-	*
-	* @author satmd (from the php manual)
-	* @param string $mode register/post - spamcop for example is ommitted for posting
-	* @return false if ip is not blacklisted, else an array([checked server], [lookup])
-	*/
-	function check_dnsbl($mode, $ip = false)
-	{
-		if ($ip === false)
-		{
-			$ip = $this->ip;
-		}
-
-		// Neither Spamhaus nor Spamcop supports IPv6 addresses.
-		if (strpos($ip, ':') !== false)
-		{
-			return false;
-		}
-
-		$dnsbl_check = array(
-			'sbl.spamhaus.org'	=> 'http://www.spamhaus.org/query/bl?ip=',
-		);
-
-		if ($mode == 'register')
-		{
-			$dnsbl_check['bl.spamcop.net'] = 'http://spamcop.net/bl.shtml?';
-		}
-
-		if ($ip)
-		{
-			$quads = explode('.', $ip);
-			$reverse_ip = $quads[3] . '.' . $quads[2] . '.' . $quads[1] . '.' . $quads[0];
-
-			// Need to be listed on all servers...
-			$listed = true;
-			$info = array();
-
-			foreach ($dnsbl_check as $dnsbl => $lookup)
-			{
-				if (phpbb_checkdnsrr($reverse_ip . '.' . $dnsbl . '.', 'A') === true)
-				{
-					$info = array($dnsbl, $lookup . $ip);
-				}
-				else
-				{
-					$listed = false;
-				}
-			}
-
-			if ($listed)
-			{
-				return $info;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	* Check if URI is blacklisted
 	* This should be called only where absolutly necessary, for example on the submitted website field
 	* This function is not in use at the moment and is only included for testing purposes, it may not work at all!
@@ -1590,7 +1675,7 @@ class user extends session
 	var $img_array = array();
 
 	// Able to add new options (up to id 31)
-	var $keyoptions = array('viewimg' => 0, 'viewflash' => 1, 'viewsmilies' => 2, 'viewsigs' => 3, 'viewavatars' => 4, 'viewcensors' => 5, 'attachsig' => 6, 'bbcode' => 8, 'smilies' => 9, 'popuppm' => 10, 'sig_bbcode' => 15, 'sig_smilies' => 16, 'sig_links' => 17);
+	var $keyoptions = array('viewimg' => 0, 'viewflash' => 1, 'viewsmilies' => 2, 'viewsigs' => 3, 'viewavatars' => 4, 'viewcensors' => 5, 'attachsig' => 6, 'bbcode' => 8, 'smilies' => 9, 'popuppm' => 10, 'mention_email' => 11, 'sig_bbcode' => 15, 'sig_smilies' => 16, 'sig_links' => 17);
 
 	/**
 	* Constructor to set the lang path
@@ -1708,14 +1793,7 @@ class user extends session
 		/* make allowances for portal being disabled but not removed...
 		   load basic lang file to prevent missing var error reports...
 		*/
-		if (STARGATE)
-		{
-			$this->add_lang('portal/kiss_common');
-		}
-		else if (isset($config['portal_build']))
-		{
-			$this->add_lang('portal/common');
-		}
+		$this->add_lang('portal/kiss_common');
 
 		if (!empty($_GET['style']) && $auth->acl_get('a_styles') && !defined('ADMIN_START'))
 		{
@@ -1767,7 +1845,7 @@ class user extends session
 			// SGP edit: Report missing style and redirect to default style.
 			// This stops bots generating countless errors.
 
-			add_log('critical', 'STYLE_MISSING', request_var('style', 0), $user->data['user_id']);
+			add_log('critical', 'STYLE_MISSING', request_var('style', 0), (isset($this->data['user_id'])) ? $this->data['user_id'] : ANONYMOUS);
 			redirect(build_url('style') .'?style='. $config['default_style']);
 
 			//trigger_error('Could not get style data', E_USER_ERROR);
@@ -2179,7 +2257,7 @@ class user extends session
 		if (!$this->lang_name)
 		{
 			global $config;
-			$this->lang_name = basename($config['default_lang']);
+			$this->lang_name = basename(isset($config['default_lang']) ? $config['default_lang'] : 'en');
 		}
 
 		// $lang == $this->lang
@@ -2200,27 +2278,30 @@ class user extends session
 			{
 				global $config;
 
+				$default_lang = basename(isset($config['default_lang']) ? $config['default_lang'] : 'en');
+				$user_lang = (isset($this->data['user_lang']) && $this->data['user_lang']) ? basename($this->data['user_lang']) : $default_lang;
+
 				if ($this->lang_name == 'en')
 				{
 					// The user's selected language is missing the file, the board default's language is missing the file, and the file doesn't exist in /en.
-					$language_filename = str_replace($this->lang_path . 'en', $this->lang_path . $this->data['user_lang'], $language_filename);
+					$language_filename = str_replace($this->lang_path . 'en', $this->lang_path . $user_lang, $language_filename);
 					trigger_error('Language file ' . $language_filename . ' couldn\'t be opened.', E_USER_ERROR);
 				}
-				else if ($this->lang_name == basename($config['default_lang']))
+				else if ($this->lang_name == $default_lang)
 				{
 					// Fall back to the English Language
 					$this->lang_name = 'en';
 					$this->set_lang($lang, $help, $lang_file, $use_db, $use_help);
 				}
-				else if ($this->lang_name == $this->data['user_lang'])
+				else if ($this->lang_name == $user_lang)
 				{
 					// Fall back to the board default language
-					$this->lang_name = basename($config['default_lang']);
+					$this->lang_name = $default_lang;
 					$this->set_lang($lang, $help, $lang_file, $use_db, $use_help);
 				}
 
 				// Reset the lang name
-				$this->lang_name = (file_exists($this->lang_path . $this->data['user_lang'] . "/common.$phpEx")) ? $this->data['user_lang'] : basename($config['default_lang']);
+				$this->lang_name = (file_exists($this->lang_path . $user_lang . "/common.$phpEx")) ? $user_lang : $default_lang;
 				return;
 			}
 

@@ -47,6 +47,19 @@ $lang = array_merge($lang, array(
     'USER_PUSH_SUB_TOPIC'			=> 'Subscribed Topic Updates',
     'USER_PUSH_NEWS'			=> 'News Broadcasts',
     'USER_PUSH_ANNOUNCE'			=> 'Announcement Broadcasts',
+    'USER_PUSH_REGISTER'			=> 'New Registrations',
+    'USER_PUSH_NEW_POST'			=> 'New Posts',
+    'USER_PUSH_MENTION'				=> 'Mentions',
+    'PUSH_REGISTER_TITLE'			=> 'New registration',
+    'PUSH_REGISTER_MESSAGE'			=> '%s registered.',
+    'PUSH_NEW_POST_TITLE'			=> 'New post',
+    'PUSH_NEW_POST_MESSAGE'			=> '%1$s posted: %2$s',
+    'PUSH_MENTION_TITLE'			=> 'You were mentioned',
+    'PUSH_MENTION_MESSAGE'			=> '%1$s mentioned you in %2$s',
+    'ACP_USER_MOBILE_STORED'		=> 'A mobile number is stored. It stays encrypted and is not shown here.',
+    'ACP_USER_MOBILE_NONE'			=> 'No mobile number is stored.',
+    'ACP_PUSH_CHANNEL_OFF'			=> 'Disabled board-wide',
+    'ACP_PUSH_USER_INELIGIBLE'		=> 'This user cannot currently receive this alert.',
 ));
 
 ?>

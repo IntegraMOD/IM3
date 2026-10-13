@@ -102,8 +102,59 @@
                 <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_announce" value="1" <!-- IF PUSH_ALLOW_WEB_ANNOUNCE -->checked="checked"<!-- ENDIF --> /></td>
                 <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_announce" value="1" <!-- IF PUSH_ALLOW_SMS_ANNOUNCE -->checked="checked"<!-- ENDIF --> /></td>
             </tr>
+            <tr class="row2">
+                <td>{L_PUSH_ALLOW_MENTION}</td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_mention" value="1" <!-- IF PUSH_ALLOW_WEB_MENTION -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_mention" value="1" <!-- IF PUSH_ALLOW_SMS_MENTION -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
         </tbody>
     </table>
+    <p>{L_ACP_PUSH_GLOBAL_TOGGLES_EXPLAIN}</p>
+</fieldset>
+
+<fieldset>
+    <legend>{L_ACP_PUSH_STAFF}</legend>
+    <p>{L_ACP_PUSH_STAFF_EXPLAIN}</p>
+    <table class="table1" cellspacing="1">
+        <thead>
+            <tr>
+                <th class="name">{L_EVENT}</th>
+                <th class="info" style="text-align: center;">{L_WEB_PUSH}</th>
+                <th class="info" style="text-align: center;">{L_SMS_PUSH}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row1">
+                <td>{L_PUSH_ALLOW_REGISTER}<br /><span>{L_PUSH_ALLOW_REGISTER_EXPLAIN}</span></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_register" value="1" <!-- IF PUSH_ALLOW_WEB_REGISTER -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_register" value="1" <!-- IF PUSH_ALLOW_SMS_REGISTER -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+            <tr class="row2">
+                <td>{L_PUSH_ALLOW_NEW_POST}<br /><span>{L_PUSH_ALLOW_NEW_POST_EXPLAIN}</span></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_web_new_post" value="1" <!-- IF PUSH_ALLOW_WEB_NEW_POST -->checked="checked"<!-- ENDIF --> /></td>
+                <td style="text-align: center;"><input type="checkbox" class="radio" name="push_allow_sms_new_post" value="1" <!-- IF PUSH_ALLOW_SMS_NEW_POST -->checked="checked"<!-- ENDIF --> /></td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>{L_ACP_PUSH_AUDIENCE}</legend>
+    <p>{L_ACP_PUSH_AUDIENCE_EXPLAIN}</p>
+    <dl>
+        <dt><label for="push_register_mods">{L_PUSH_REGISTER_MODS}:</label><br /><span>{L_PUSH_REGISTER_MODS_EXPLAIN}</span></dt>
+        <dd><label><input type="checkbox" class="radio" id="push_register_mods" name="push_register_mods" value="1" <!-- IF S_PUSH_REGISTER_MODS -->checked="checked"<!-- ENDIF --> /> {L_YES}</label></dd>
+    </dl>
+    <dl>
+        <dt><label for="push_new_post_groups">{L_PUSH_NEW_POST_GROUPS}:</label><br /><span>{L_PUSH_NEW_POST_GROUPS_EXPLAIN}</span></dt>
+        <dd>
+            <select id="push_new_post_groups" name="push_new_post_groups[]" multiple="multiple" size="8">
+                <!-- BEGIN new_post_groups -->
+                <option value="{new_post_groups.GROUP_ID}"<!-- IF new_post_groups.S_SELECTED --> selected="selected"<!-- ENDIF -->>{new_post_groups.GROUP_NAME}</option>
+                <!-- END new_post_groups -->
+            </select>
+        </dd>
+    </dl>
 </fieldset>
 <!-- ENDIF -->
 

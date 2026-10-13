@@ -1,14 +1,14 @@
-<div id="cookie-consent-modal" class="cookie-consent-modal cookie-consent-{COOKIE_CONSENT_POSITION}" style="display: none;">
+<div id="cookie-consent-modal" class="cookie-consent-modal cookie-consent-{COOKIE_CONSENT_POSITION} cookie-consent-hidden" role="dialog" aria-modal="true" aria-labelledby="cookie-consent-title">
   <div class="cookie-consent-content">
     <div class="cookie-consent-header">
-      <h3>{COOKIE_CONSENT_TITLE}</h3>
+      <h3 id="cookie-consent-title">{COOKIE_CONSENT_TITLE}</h3>
     </div>
     <div class="cookie-consent-body">
       <p>{COOKIE_CONSENT_MESSAGE}</p>
     </div>
     <div class="cookie-consent-footer">
-      <button type="button" class="cookie-accept-btn" onclick="acceptCookies()">{COOKIE_CONSENT_ACCEPT_TEXT}</button>
-      <button type="button" class="cookie-decline-btn" onclick="declineCookies()">{COOKIE_CONSENT_DECLINE_TEXT}</button>
+      <button type="button" class="cookie-accept-btn" aria-label="{COOKIE_CONSENT_ACCEPT_TEXT}" onclick="acceptCookies()">{COOKIE_CONSENT_ACCEPT_TEXT}</button>
+      <button type="button" class="cookie-decline-btn" aria-label="{COOKIE_CONSENT_DECLINE_TEXT}" onclick="declineCookies()">{COOKIE_CONSENT_DECLINE_TEXT}</button>
     </div>
   </div>
 </div>
@@ -19,6 +19,8 @@ function checkCookieConsent() {
   var consent = getCookie('cookie_consent');
   if (!consent) {
     showCookieConsent();
+  } else {
+    hideCookieConsent();
   }
 }
 
@@ -26,15 +28,15 @@ function checkCookieConsent() {
 function showCookieConsent() {
   var modal = document.getElementById('cookie-consent-modal');
   if (modal) {
-    modal.style.display = 'block';
+    modal.className = modal.className.replace(/\s*cookie-consent-hidden/g, '');
   }
 }
 
 // Hide cookie consent modal
 function hideCookieConsent() {
   var modal = document.getElementById('cookie-consent-modal');
-  if (modal) {
-    modal.style.display = 'none';
+  if (modal && modal.className.indexOf('cookie-consent-hidden') === -1) {
+    modal.className += ' cookie-consent-hidden';
   }
 }
 

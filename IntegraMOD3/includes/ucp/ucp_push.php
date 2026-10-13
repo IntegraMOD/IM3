@@ -57,7 +57,7 @@ class ucp_push
 
                     // Sanitize country code and mobile, then combine and encrypt
                     $user_mobile_cc = request_var('user_mobile_cc', '');
-                    $user_mobile_cc = preg_replace('/[^0-9]/', '', $user_mobile_cc);
+                    $user_mobile_cc = substr(preg_replace('/[^0-9]/', '', $user_mobile_cc), 0, 3);
                     $user_mobile = request_var('user_mobile', '');
                     $user_mobile = preg_replace('/[^0-9]/', '', $user_mobile);
 
@@ -75,7 +75,7 @@ class ucp_push
                     $sql_ary = array(
                         'user_mobile' => $encrypted_mobile,
                     );
-                    $events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce');
+                    $events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce', 'register', 'new_post', 'mention');
                     foreach ($events as $event)
                     {
                         $sql_ary['user_push_web_' . $event] = request_var('user_push_web_' . $event, 0);
@@ -128,13 +128,26 @@ class ucp_push
                     'USER_MOBILE_CC'			=> $decrypted_mobile_cc,
                 );
 
-                $events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce');
+                $events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce', 'register', 'new_post', 'mention');
+                $can_receive_staff = ((int) $user->data['user_type'] === USER_FOUNDER) || im3_user_can_receive_staff_push($user->data['user_id']);
+                $can_receive_new_post = $can_receive_staff || im3_user_in_push_groups($user->data['user_id']);
+
                 foreach ($events as $event)
                 {
-                    $template_vars['S_PUSH_ALLOW_WEB_' . strtoupper($event)] = isset($config['push_allow_web_' . $event]) && $config['push_allow_web_' . $event];
-                    $template_vars['S_PUSH_ALLOW_SMS_' . strtoupper($event)] = isset($config['push_allow_sms_' . $event]) && $config['push_allow_sms_' . $event];
+                    $allowed = true;
+                    if ($event === 'register')
+                    {
+                        $allowed = $can_receive_staff;
+                    }
+                    else if ($event === 'new_post')
+                    {
+                        $allowed = $can_receive_new_post;
+                    }
 
-                    $template_vars['USER_PUSH_WEB_' . strtoupper($event)] = isset($row['user_push_web_' . $event]) ? $row['user_push_web_' . $event] : 1;
+                    $template_vars['S_PUSH_ALLOW_WEB_' . strtoupper($event)] = $allowed && isset($config['push_allow_web_' . $event]) && $config['push_allow_web_' . $event];
+                    $template_vars['S_PUSH_ALLOW_SMS_' . strtoupper($event)] = $allowed && isset($config['push_allow_sms_' . $event]) && $config['push_allow_sms_' . $event];
+
+                    $template_vars['USER_PUSH_WEB_' . strtoupper($event)] = isset($row['user_push_web_' . $event]) ? $row['user_push_web_' . $event] : 0;
                     $template_vars['USER_PUSH_SMS_' . strtoupper($event)] = isset($row['user_push_sms_' . $event]) ? $row['user_push_sms_' . $event] : 0;
                 }
 

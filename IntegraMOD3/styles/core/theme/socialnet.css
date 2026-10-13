@@ -1,5 +1,5 @@
 /* =========================================================
-   IntegraStyle — SocialNet Activity Page Layout
+   core — SocialNet Activity Page Layout
    Three-column: left sidebar | content | right sidebar
    ========================================================= */
 
@@ -988,7 +988,7 @@ ul.sn-up-menu > .ui-menu-item {
     overflow-wrap: anywhere;
 }
 
-/* Hide inactive tab panels. IntegraStyle ships no jQuery UI stylesheet,
+/* Hide inactive tab panels. core ships no jQuery UI stylesheet,
    so the framework's default panel-hiding CSS is absent. Cover both the
    legacy 1.8 hide class and the 1.9+ aria-hidden mechanism so inactive
    panels (e.g. the default Wall/activity content) don't stack beneath

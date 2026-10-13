@@ -1,9 +1,10 @@
 /*
- * IntegraStyle Theme Colors
+ * core Theme Colors
  * 
  * Centralized CSS custom properties for all main components.
  */
 
+:root,
 :root[data-style-color="blue"],
 body[data-style-color="blue"] {
     /* Global Colors */

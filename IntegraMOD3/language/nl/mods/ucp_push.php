@@ -47,6 +47,19 @@ $lang = array_merge($lang, array(
     'USER_PUSH_SUB_TOPIC'			=> 'Geabonneerde onderwerp updates',
     'USER_PUSH_NEWS'			=> 'Nieuws Uitzendingen',
     'USER_PUSH_ANNOUNCE'			=> 'Aankondiging Uitzendingen',
+    'USER_PUSH_REGISTER'			=> 'Nieuwe registraties',
+    'USER_PUSH_NEW_POST'			=> 'Nieuwe berichten',
+    'USER_PUSH_MENTION'				=> 'Vermeldingen',
+    'PUSH_REGISTER_TITLE'			=> 'Nieuwe registratie',
+    'PUSH_REGISTER_MESSAGE'			=> '%s heeft zich geregistreerd.',
+    'PUSH_NEW_POST_TITLE'			=> 'Nieuw bericht',
+    'PUSH_NEW_POST_MESSAGE'			=> '%1$s plaatste: %2$s',
+    'PUSH_MENTION_TITLE'			=> 'U bent vermeld',
+    'PUSH_MENTION_MESSAGE'			=> '%1$s vermeldde u in %2$s',
+    'ACP_USER_MOBILE_STORED'		=> 'Er is een mobiel nummer opgeslagen. Het blijft versleuteld en wordt hier niet getoond.',
+    'ACP_USER_MOBILE_NONE'			=> 'Er is geen mobiel nummer opgeslagen.',
+    'ACP_PUSH_CHANNEL_OFF'			=> 'Bordbreed uitgeschakeld',
+    'ACP_PUSH_USER_INELIGIBLE'		=> 'Deze gebruiker kan deze melding momenteel niet ontvangen.',
 ));
 
 ?>

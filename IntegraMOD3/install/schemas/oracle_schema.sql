@@ -3705,6 +3705,108 @@ CREATE TABLE phpbb_points_values (
 
 
 /*
+	Table: 'phpbb_oasl_user'
+*/
+CREATE TABLE phpbb_oasl_user (
+	oasl_user_id number(10) NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	user_token varchar2(255) DEFAULT '' ,
+	date_added number(11) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_oasl_user PRIMARY KEY (oasl_user_id)
+)
+/
+
+CREATE INDEX phpbb_oasl_user_user_id ON phpbb_oasl_user (user_id)
+/
+CREATE INDEX phpbb_oasl_user_user_token ON phpbb_oasl_user (user_token)
+/
+
+CREATE SEQUENCE phpbb_oasl_user_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_oasl_user
+BEFORE INSERT ON phpbb_oasl_user
+FOR EACH ROW WHEN (
+	new.oasl_user_id IS NULL OR new.oasl_user_id = 0
+)
+BEGIN
+	SELECT phpbb_oasl_user_seq.nextval
+	INTO :new.oasl_user_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_oasl_identity'
+*/
+CREATE TABLE phpbb_oasl_identity (
+	oasl_identity_id number(10) NOT NULL,
+	oasl_user_id number(10) DEFAULT '0' NOT NULL,
+	identity_token varchar2(255) DEFAULT '' ,
+	identity_provider varchar2(255) DEFAULT '' ,
+	num_logins number(10) DEFAULT '0' NOT NULL,
+	date_added number(11) DEFAULT '0' NOT NULL,
+	date_updated number(11) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_oasl_identity PRIMARY KEY (oasl_identity_id)
+)
+/
+
+CREATE INDEX phpbb_oasl_identity_oasl_user_id ON phpbb_oasl_identity (oasl_user_id)
+/
+CREATE INDEX phpbb_oasl_identity_identity_token ON phpbb_oasl_identity (identity_token)
+/
+
+CREATE SEQUENCE phpbb_oasl_identity_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_oasl_identity
+BEFORE INSERT ON phpbb_oasl_identity
+FOR EACH ROW WHEN (
+	new.oasl_identity_id IS NULL OR new.oasl_identity_id = 0
+)
+BEGIN
+	SELECT phpbb_oasl_identity_seq.nextval
+	INTO :new.oasl_identity_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_oasl_login_token'
+*/
+CREATE TABLE phpbb_oasl_login_token (
+	oasl_login_token_id number(10) NOT NULL,
+	login_token varchar2(255) DEFAULT '' ,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	date_creation number(11) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_oasl_login_token PRIMARY KEY (oasl_login_token_id)
+)
+/
+
+CREATE INDEX phpbb_oasl_login_token_user_id ON phpbb_oasl_login_token (user_id)
+/
+CREATE INDEX phpbb_oasl_login_token_login_token ON phpbb_oasl_login_token (login_token)
+/
+
+CREATE SEQUENCE phpbb_oasl_login_token_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_oasl_login_token
+BEFORE INSERT ON phpbb_oasl_login_token
+FOR EACH ROW WHEN (
+	new.oasl_login_token_id IS NULL OR new.oasl_login_token_id = 0
+)
+BEGIN
+	SELECT phpbb_oasl_login_token_seq.nextval
+	INTO :new.oasl_login_token_id
+	FROM dual;
+END;
+/
+
+
+/*
 	Table: 'phpbb_poll_options'
 */
 CREATE TABLE phpbb_poll_options (

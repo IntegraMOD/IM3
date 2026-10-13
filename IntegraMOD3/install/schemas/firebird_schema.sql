@@ -2909,6 +2909,81 @@ CREATE TABLE phpbb_points_values (
 );;
 
 
+# Table: 'phpbb_oasl_user'
+CREATE TABLE phpbb_oasl_user (
+	oasl_user_id INTEGER NOT NULL,
+	user_id INTEGER DEFAULT 0 NOT NULL,
+	user_token VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	date_added INTEGER DEFAULT 0 NOT NULL
+);;
+
+ALTER TABLE phpbb_oasl_user ADD PRIMARY KEY (oasl_user_id);;
+
+CREATE INDEX phpbb_oasl_user_user_id ON phpbb_oasl_user(user_id);;
+CREATE INDEX phpbb_oasl_user_user_token ON phpbb_oasl_user(user_token);;
+
+CREATE GENERATOR phpbb_oasl_user_gen;;
+SET GENERATOR phpbb_oasl_user_gen TO 0;;
+
+CREATE TRIGGER t_phpbb_oasl_user FOR phpbb_oasl_user
+BEFORE INSERT
+AS
+BEGIN
+	NEW.oasl_user_id = GEN_ID(phpbb_oasl_user_gen, 1);
+END;;
+
+
+# Table: 'phpbb_oasl_identity'
+CREATE TABLE phpbb_oasl_identity (
+	oasl_identity_id INTEGER NOT NULL,
+	oasl_user_id INTEGER DEFAULT 0 NOT NULL,
+	identity_token VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	identity_provider VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	num_logins INTEGER DEFAULT 0 NOT NULL,
+	date_added INTEGER DEFAULT 0 NOT NULL,
+	date_updated INTEGER DEFAULT 0 NOT NULL
+);;
+
+ALTER TABLE phpbb_oasl_identity ADD PRIMARY KEY (oasl_identity_id);;
+
+CREATE INDEX phpbb_oasl_identity_oasl_user_id ON phpbb_oasl_identity(oasl_user_id);;
+CREATE INDEX phpbb_oasl_identity_identity_token ON phpbb_oasl_identity(identity_token);;
+
+CREATE GENERATOR phpbb_oasl_identity_gen;;
+SET GENERATOR phpbb_oasl_identity_gen TO 0;;
+
+CREATE TRIGGER t_phpbb_oasl_identity FOR phpbb_oasl_identity
+BEFORE INSERT
+AS
+BEGIN
+	NEW.oasl_identity_id = GEN_ID(phpbb_oasl_identity_gen, 1);
+END;;
+
+
+# Table: 'phpbb_oasl_login_token'
+CREATE TABLE phpbb_oasl_login_token (
+	oasl_login_token_id INTEGER NOT NULL,
+	login_token VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	user_id INTEGER DEFAULT 0 NOT NULL,
+	date_creation INTEGER DEFAULT 0 NOT NULL
+);;
+
+ALTER TABLE phpbb_oasl_login_token ADD PRIMARY KEY (oasl_login_token_id);;
+
+CREATE INDEX phpbb_oasl_login_token_user_id ON phpbb_oasl_login_token(user_id);;
+CREATE INDEX phpbb_oasl_login_token_login_token ON phpbb_oasl_login_token(login_token);;
+
+CREATE GENERATOR phpbb_oasl_login_token_gen;;
+SET GENERATOR phpbb_oasl_login_token_gen TO 0;;
+
+CREATE TRIGGER t_phpbb_oasl_login_token FOR phpbb_oasl_login_token
+BEFORE INSERT
+AS
+BEGIN
+	NEW.oasl_login_token_id = GEN_ID(phpbb_oasl_login_token_gen, 1);
+END;;
+
+
 # Table: 'phpbb_poll_options'
 CREATE TABLE phpbb_poll_options (
 	poll_option_id INTEGER DEFAULT 0 NOT NULL,

@@ -7,31 +7,31 @@
 <!-- IF PROMPT -->
 	<h2>{L_EXPORT_AS_CSV}</h2>
 	<form id="viewfolder" method="post" action="{S_PM_ACTION}">
-	<div class="ucp-card">
-		<div class="ucp-card-body">
-			<h3>{L_OPTIONS}</h3>
-			<div class="ucp-form-grid">
-				<div class="ucp-form-row">
-					<label class="ucp-form-label" for="delimiter">{L_DELIMITER}:</label>
-					<input class="inputbox ucp-form-input" type="text" id="delimiter" name="delimiter" value="," />
-				</div>
-				<div class="ucp-form-row">
-					<label class="ucp-form-label" for="enclosure">{L_ENCLOSURE}:</label>
-					<input class="inputbox ucp-form-input" type="text" id="enclosure" name="enclosure" value="&#034;" />
+		<div class="ucp-card">
+			<div class="ucp-card-body">
+				<h3>{L_OPTIONS}</h3>
+				<div class="ucp-form-grid">
+					<div class="ucp-form-row">
+						<label class="ucp-form-label" for="delimiter">{L_DELIMITER}:</label>
+						<input class="inputbox ucp-form-input" type="text" id="delimiter" name="delimiter" value="," />
+					</div>
+					<div class="ucp-form-row">
+						<label class="ucp-form-label" for="enclosure">{L_ENCLOSURE}:</label>
+						<input class="inputbox ucp-form-input" type="text" id="enclosure" name="enclosure" value="&#034;" />
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="ucp-card">
-		<div class="ucp-card-body">
-			<div class="ucp-actions">
-				<input type="hidden" name="export_option" value="CSV" />
-				<input class="button1" type="submit" name="submit_export" value="{L_EXPORT_FOLDER}" />
-				<input class="button2" type="reset" value="Reset" name="reset" />
+		<div class="ucp-card">
+			<div class="ucp-card-body">
+				<div class="ucp-actions">
+					<input type="hidden" name="export_option" value="CSV" />
+					<input class="button1" type="submit" name="submit_export" value="{L_EXPORT_FOLDER}" />
+					<input class="button2" type="reset" value="Reset" name="reset" />
+				</div>
+				{S_FORM_TOKEN}
 			</div>
-			{S_FORM_TOKEN}
 		</div>
-	</div>
 	</form>
 
 <!-- ELSE -->
@@ -49,82 +49,119 @@
 	<!-- ENDIF -->
 
 	<div class="ucp-card">
-	<!-- IF .messagerow -->
-		<div class="ucp-card-body ucp-list-table<!-- IF S_UNREAD --> ucp-list-table-unread<!-- ENDIF -->">
-			<div class="ucp-list-head">
-				<div class="ucp-list-main">{L_MESSAGE}</div>
-				<div class="ucp-list-author"><!-- IF S_SHOW_RECIPIENTS -->{L_TO}<!-- ELSE -->{L_AUTHOR}<!-- ENDIF --></div>
-				<div class="ucp-list-time">{L_SENT_AT}</div>
-				<!-- IF S_UNREAD --><div class="ucp-list-folder">{L_FOLDER}</div><!-- ENDIF -->
-				<div class="ucp-list-mark">{L_MARK}</div>
-			</div>
-		<!-- BEGIN messagerow -->
-			<article class="ucp-list-row<!-- IF messagerow.PM_CLASS --> {messagerow.PM_CLASS}<!-- ENDIF -->">
-				<div class="ucp-list-main">
-					<!-- IF messagerow.S_PM_DELETED -->
-						<a href="{messagerow.U_REMOVE_PM}" class="topictitle">{L_DELETE_MESSAGE}</a>
-						<p class="error">{L_MESSAGE_REMOVED_FROM_OUTBOX}</p>
-					<!-- ELSE -->
-						<a href="{messagerow.U_VIEW_PM}" class="topictitle">{messagerow.SUBJECT}</a>
-					<!-- ENDIF -->
-					<!-- IF messagerow.S_AUTHOR_DELETED --><p class="ucp-form-help">{L_PM_FROM_REMOVED_AUTHOR}</p><!-- ENDIF -->
-					<!-- IF messagerow.S_PM_REPORTED --><a href="{messagerow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}"><svg class="css-icon css-icon-flag" aria-hidden="true" focusable="false"><use href="#icon-flag"></use></svg></a><!-- ENDIF -->
-					<!-- IF messagerow.ATTACH_ICON_IMG --><span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}"><svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines"></use></svg></span><!-- ENDIF -->
+		<!-- IF .messagerow -->
+			<div class="ucp-card-body ucp-list-table<!-- IF S_UNREAD --> ucp-list-table-unread<!-- ENDIF -->">
+				<div class="ucp-list-head">
+					<div class="ucp-list-main">{L_MESSAGE}</div>
+					<div class="ucp-list-author"><!-- IF S_SHOW_RECIPIENTS -->{L_TO}<!-- ELSE -->{L_AUTHOR}<!-- ENDIF --></div>
+					<div class="ucp-list-time">{L_SENT_AT}</div>
+					<!-- IF S_UNREAD --><div class="ucp-list-folder">{L_FOLDER}</div><!-- ENDIF -->
+					<div class="ucp-list-mark">{L_MARK}</div>
 				</div>
-				<div class="ucp-list-author"><!-- IF S_SHOW_RECIPIENTS -->{messagerow.RECIPIENTS}<!-- ELSE -->{messagerow.MESSAGE_AUTHOR_FULL}<!-- ENDIF --></div>
-				<div class="ucp-list-time">{messagerow.SENT_TIME}</div>
-				<!-- IF S_UNREAD --><div class="ucp-list-folder"><!-- IF messagerow.FOLDER --><a href="{messagerow.U_FOLDER}">{messagerow.FOLDER}</a><!-- ELSE -->{L_UNKNOWN_FOLDER}<!-- ENDIF --></div><!-- ENDIF -->
-				<div class="ucp-list-mark"><input type="checkbox" name="marked_msg_id[]" value="{messagerow.MESSAGE_ID}" title="{L_MARK}" /></div>
-			</article>
-		<!-- END messagerow -->
-		</div>
-		<div class="ucp-card-body">
-	<!-- ELSE -->
-		<div class="ucp-card-body">
-		<p><strong>
-			<!-- IF S_COMPOSE_PM_VIEW and S_NO_AUTH_SEND_MESSAGE -->
-				<!-- IF S_USER_NEW -->{L_USER_NEW_PERMISSION_DISALLOWED}<!-- ELSE -->{L_NO_AUTH_SEND_MESSAGE}<!-- ENDIF -->
+				<!-- BEGIN messagerow -->
+					<article class="ucp-list-row<!-- IF messagerow.PM_CLASS --> {messagerow.PM_CLASS}<!-- ENDIF -->">
+						<div class="ucp-list-main">
+							<!-- IF messagerow.S_PM_DELETED -->
+								<a href="{messagerow.U_REMOVE_PM}" class="topictitle">{L_DELETE_MESSAGE}</a>
+								<p class="error">{L_MESSAGE_REMOVED_FROM_OUTBOX}</p>
+							<!-- ELSE -->
+								<a href="{messagerow.U_VIEW_PM}" class="topictitle">{messagerow.SUBJECT}</a>
+							<!-- ENDIF -->
+							<!-- IF messagerow.S_AUTHOR_DELETED --><p class="ucp-form-help">{L_PM_FROM_REMOVED_AUTHOR}</p><!-- ENDIF -->
+							<!-- IF messagerow.S_PM_REPORTED -->
+								<a href="{messagerow.U_MCP_REPORT}" title="{L_TOPIC_REPORTED}">
+									<svg class="css-icon css-icon-flag" aria-hidden="true" focusable="false"><use href="#icon-flag"></use></svg></a>
+							<!-- ENDIF -->
+							<!-- IF messagerow.ATTACH_ICON_IMG -->
+								<span class="topic-attachment-indicator" title="{L_ATTACHMENTS}" aria-label="{L_ATTACHMENTS}">
+									<svg class="css-icon css-icon-topic-attachment" aria-hidden="true" focusable="false"><use href="#icon-state-file-lines">
+										</use></svg></span>
+							<!-- ENDIF -->
+						</div>
+						<div class="ucp-list-author">
+							<!-- IF S_SHOW_RECIPIENTS -->
+								{messagerow.RECIPIENTS}
+							<!-- ELSE -->
+								{messagerow.MESSAGE_AUTHOR_FULL}
+							<!-- ENDIF -->
+						</div>
+						<div class="ucp-list-time">{messagerow.SENT_TIME}</div>
+						<!-- IF S_UNREAD -->
+							<div class="ucp-list-folder">
+								<!-- IF messagerow.FOLDER -->
+									<a href="{messagerow.U_FOLDER}">{messagerow.FOLDER}</a>
+								<!-- ELSE -->
+									{L_UNKNOWN_FOLDER}
+								<!-- ENDIF -->
+							</div>
+						<!-- ENDIF -->
+						<div class="ucp-list-mark"><input type="checkbox" name="marked_msg_id[]" value="{messagerow.MESSAGE_ID}" title="{L_MARK}" /></div>
+					</article>
+				<!-- END messagerow -->
+			</div>
+			<div class="ucp-card-body">
 			<!-- ELSE -->
-				{L_NO_MESSAGES}
-			<!-- ENDIF -->
-		</strong></p>
-	<!-- ENDIF -->
+				<div class="ucp-card-body">
+					<p><strong>
+							<!-- IF S_COMPOSE_PM_VIEW and S_NO_AUTH_SEND_MESSAGE -->
+								<!-- IF S_USER_NEW -->{L_USER_NEW_PERMISSION_DISALLOWED}<!-- ELSE -->{L_NO_AUTH_SEND_MESSAGE}<!-- ENDIF -->
+							<!-- ELSE -->
+								{L_NO_MESSAGES}
+							<!-- ENDIF -->
+						</strong></p>
+				<!-- ENDIF -->
 
-	<!-- IF FOLDER_CUR_MESSAGES neq 0 -->
-	<div class="ucp-actions">
-		<div class="left-box"><label for="export_option">{L_EXPORT_FOLDER}: <select name="export_option" id="export_option"><option value="CSV">{L_EXPORT_AS_CSV}</option><option value="CSV_EXCEL">{L_EXPORT_AS_CSV_EXCEL}</option><option value="XML">{L_EXPORT_AS_XML}</option></select></label> <input class="button2" type="submit" name="submit_export" value="{L_GO}" /><br /></div>
-		<select name="mark_option">{S_MARK_OPTIONS}{S_MOVE_MARKED_OPTIONS}</select> <input class="button2" type="submit" name="submit_mark" value="{L_GO}" />
-		<a href="javascript:void(0)" data-action="marklist" data-mark-form="viewfolder" data-mark-name="marked_msg" data-mark-state="true">{L_MARK_ALL}</a>
-		<a href="javascript:void(0)" data-action="marklist" data-mark-form="viewfolder" data-mark-name="marked_msg" data-mark-state="false">{L_UNMARK_ALL}</a>
-	</div>
+				<!-- IF FOLDER_CUR_MESSAGES neq 0 -->
+					<div class="ucp-actions">
+						<div class="left-box">
+							<label for="export_option">
+								{L_EXPORT_FOLDER}: <select name="export_option" id="export_option"><option value="CSV">{L_EXPORT_AS_CSV}</option>
+									<option value="CSV_EXCEL">{L_EXPORT_AS_CSV_EXCEL}</option><option value="XML">{L_EXPORT_AS_XML}</option></select>
+							</label>
+							<input class="button2" type="submit" name="submit_export" value="{L_GO}" /><br />
+						</div>
+						<select name="mark_option">{S_MARK_OPTIONS}{S_MOVE_MARKED_OPTIONS}</select>
+						<input class="button2" type="submit" name="submit_mark" value="{L_GO}" />
+						<a href="javascript:void(0)" data-action="marklist" data-mark-form="viewfolder" data-mark-name="marked_msg" data-mark-state="true">{L_MARK_ALL}
+						</a>
+						<a href="javascript:void(0)" data-action="marklist" data-mark-form="viewfolder" data-mark-name="marked_msg" data-mark-state="false">{L_UNMARK_ALL}
+						</a>
+					</div>
 
-	<ul class="linklist">
-		<!-- IF TOTAL_MESSAGES or S_VIEW_MESSAGE -->
-		<li class="rightside pagination">
-			<!-- IF TOTAL_MESSAGES -->{TOTAL_MESSAGES}<!-- ENDIF -->
-			<!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
-		</li>
-		<!-- ENDIF -->
-	</ul>
-	<!-- ENDIF -->
-		</div>
-	</div>
-
-	<!-- IF FOLDER_CUR_MESSAGES neq 0 -->
-	<div class="ucp-card">
-		<div class="ucp-card-body">
-			<div class="ucp-actions">
-				<!-- IF PREVIOUS_PAGE --><a href="{PREVIOUS_PAGE}" class="left-box {S_CONTENT_FLOW_BEGIN}">{L_PREVIOUS}</a><!-- ENDIF -->
-				<!-- IF NEXT_PAGE --><a href="{NEXT_PAGE}" class="right-box {S_CONTENT_FLOW_END}">{L_NEXT}</a><!-- ENDIF -->
-				<label>{L_DISPLAY}: {S_SELECT_SORT_DAYS}</label>
-				<label>{L_SORT_BY} {S_SELECT_SORT_KEY}</label>
-				<label>{S_SELECT_SORT_DIR} <input type="submit" name="sort" value="{L_GO}" class="button2" /></label>
-				<input type="hidden" name="cur_folder_id" value="{CUR_FOLDER_ID}" />
+					<ul class="linklist">
+						<!-- IF TOTAL_MESSAGES or S_VIEW_MESSAGE -->
+							<li class="rightside pagination">
+								<!-- IF TOTAL_MESSAGES -->{TOTAL_MESSAGES}<!-- ENDIF -->
+								<!-- IF PAGE_NUMBER -->
+									<!-- IF PAGINATION -->
+										&bull; <a href="javascript:void(0)" data-action="jumpto" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}
+										</span>
+									<!-- ELSE -->
+										&bull; {PAGE_NUMBER}
+									<!-- ENDIF -->
+								<!-- ENDIF -->
+							</li>
+						<!-- ENDIF -->
+					</ul>
+				<!-- ENDIF -->
 			</div>
 		</div>
-	</div>
-	<!-- ENDIF -->
 
-	<!-- INCLUDE ucp_pm_message_footer.html -->
-<!-- ENDIF -->
-<!-- INCLUDE ucp_footer.html -->
+		<!-- IF FOLDER_CUR_MESSAGES neq 0 -->
+			<div class="ucp-card">
+				<div class="ucp-card-body">
+					<div class="ucp-actions">
+						<!-- IF PREVIOUS_PAGE --><a href="{PREVIOUS_PAGE}" class="left-box {S_CONTENT_FLOW_BEGIN}">{L_PREVIOUS}</a><!-- ENDIF -->
+						<!-- IF NEXT_PAGE --><a href="{NEXT_PAGE}" class="right-box {S_CONTENT_FLOW_END}">{L_NEXT}</a><!-- ENDIF -->
+						<label>{L_DISPLAY}: {S_SELECT_SORT_DAYS}</label>
+						<label>{L_SORT_BY} {S_SELECT_SORT_KEY}</label>
+						<label>{S_SELECT_SORT_DIR} <input type="submit" name="sort" value="{L_GO}" class="button2" /></label>
+						<input type="hidden" name="cur_folder_id" value="{CUR_FOLDER_ID}" />
+					</div>
+				</div>
+			</div>
+		<!-- ENDIF -->
+
+		<!-- INCLUDE ucp_pm_message_footer.html -->
+	<!-- ENDIF -->
+	<!-- INCLUDE ucp_footer.html -->

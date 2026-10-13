@@ -1,4 +1,8 @@
 /* ===== Base Overlay Styles ===== */
+.cookie-consent-modal.cookie-consent-hidden {
+  display: none;
+}
+
 .cookie-consent-modal {
   position: fixed;
   top: 0;

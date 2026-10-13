@@ -346,8 +346,10 @@ $lang = array_merge($lang, array(
 
 	'FILES_PER_DAY'		=> 'Dateianhänge pro Tag',
 	'FORUM_STATS'		=> 'Board-Statistik',
+	'ACM_CACHE_TYPE'	=> 'ACM-Cache-Typ',
 
 	'GZIP_COMPRESSION'	=> 'gzip-Komprimierung',
+	'PHP_VERSION_INFO'	=> 'PHP-Version',
 
 	'NOT_AVAILABLE'		=> 'nicht verfügbar',
 	'NUMBER_FILES'		=> 'Anzahl Dateianhänge',
@@ -829,6 +831,23 @@ $lang = array_merge($lang, array(
 	'ACP_USER_MCHAT'								=> 'mChat Einstellungen',
 	'LOG_DELETED_MCHAT'								=> '<strong>mChat Nachricht gelöscht</strong><br />» %1$s',
 	'LOG_EDITED_MCHAT'								=> '<strong>mChat Nachricht geändert</strong><br />» %1$s',
+));
+
+// OneAll Social Login
+$lang = array_merge($lang, array(
+	'ACP_OA_SOCIAL_LOGIN'			=> 'OneAll Social Login',
+	'ACP_OA_SOCIAL_LOGIN_SETTINGS'	=> 'OneAll Social Login Einstellungen',
+));
+
+$lang = array_merge($lang, array(
+	'ACP_DOCS'				=> 'Dokumentation',
+	'ACP_NOTIFICATIONS'		=> 'Benachrichtigungen',
+	'ACP_THEME_TOGGLE'		=> 'Hell oder dunkel',
+	'ACP_LAYOUT_OPTIONS'	=> 'Layoutoptionen',
+	'ACP_FIXED_SIDEBAR'		=> 'Feste Seitenleiste',
+	'ACP_FIXED_TOP'			=> 'Feste obere Leiste',
+	'ACP_NONE'				=> 'Keine',
+	'ACP_VIEW_ALL'			=> 'Alle anzeigen',
 ));
 
 ?>

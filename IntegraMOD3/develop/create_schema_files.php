@@ -2083,7 +2083,7 @@ function get_schema_struct()
 			'forum_last_post_time'	=> array('TIMESTAMP', 0),
 			'forum_last_poster_name'=> array('VCHAR_UNI', ''),
 			'forum_last_poster_colour'=> array('VCHAR:6', ''),
-			'forum_flags'			=> array('TINT:4', 32),
+			'forum_flags'			=> array('USINT', 32),
 			'forum_options'			=> array('UINT:20', 0),
 			'forum_share_enable'	=> array('BOOL', 1),
 			'display_subforum_list'	=> array('BOOL', 1),
@@ -3115,7 +3115,52 @@ function get_schema_struct()
 			'gallery_view'					=> array('DECIMAL:10', 0.00),
 		),
 	);
-	
+
+
+	$schema_data['phpbb_oasl_user'] = array(
+		'COLUMNS'		=> array(
+			'oasl_user_id'		=> array('UINT', NULL, 'auto_increment'),
+			'user_id'			=> array('UINT', 0),
+			'user_token'		=> array('VCHAR', ''),
+			'date_added'		=> array('TIMESTAMP', 0),
+		),
+		'PRIMARY_KEY'	=> 'oasl_user_id',
+		'KEYS'			=> array(
+			'user_id'		=> array('INDEX', 'user_id'),
+			'user_token'	=> array('INDEX', 'user_token'),
+		),
+	);
+
+	$schema_data['phpbb_oasl_identity'] = array(
+		'COLUMNS'		=> array(
+			'oasl_identity_id'	=> array('UINT', NULL, 'auto_increment'),
+			'oasl_user_id'		=> array('UINT', 0),
+			'identity_token'	=> array('VCHAR', ''),
+			'identity_provider'	=> array('VCHAR', ''),
+			'num_logins'		=> array('UINT', 0),
+			'date_added'		=> array('TIMESTAMP', 0),
+			'date_updated'		=> array('TIMESTAMP', 0),
+		),
+		'PRIMARY_KEY'	=> 'oasl_identity_id',
+		'KEYS'			=> array(
+			'oasl_user_id'		=> array('INDEX', 'oasl_user_id'),
+			'identity_token'	=> array('INDEX', 'identity_token'),
+		),
+	);
+
+	$schema_data['phpbb_oasl_login_token'] = array(
+		'COLUMNS'		=> array(
+			'oasl_login_token_id'	=> array('UINT', NULL, 'auto_increment'),
+			'login_token'			=> array('VCHAR', ''),
+			'user_id'				=> array('UINT', 0),
+			'date_creation'			=> array('TIMESTAMP', 0),
+		),
+		'PRIMARY_KEY'	=> 'oasl_login_token_id',
+		'KEYS'			=> array(
+			'user_id'		=> array('INDEX', 'user_id'),
+			'login_token'	=> array('INDEX', 'login_token'),
+		),
+	);
 
 	$schema_data['phpbb_poll_options'] = array(
 		'COLUMNS'		=> array(

@@ -162,18 +162,6 @@ const initializeLanguageSelectFlags = () => {
 onPortalReady(initializeLanguageSelectFlags);
 
 onPortalReady(() => {
-    // Calendar block navigation wiring
-    const calendarStateForm = document.getElementById('hidden');
-    if (calendarStateForm && typeof populateTable === 'function') {
-        document.querySelectorAll('[data-calendar-action]').forEach(button => {
-            button.addEventListener('click', function() {
-                populateTable('block_calendar:populate_table', 'hidden', this.getAttribute('data-calendar-action') || '');
-            });
-        });
-
-        populateTable('block_calendar:populate_table', 'hidden', '');
-    }
-
     // Portal column and block wiring
     if (typeof Get_Cookie === 'function' && typeof ShowHide === 'function') {
         document.querySelectorAll('[data-portal-column]').forEach(column => {

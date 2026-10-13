@@ -110,6 +110,9 @@ $lang = array_merge($lang, array(
 	'GO_TO_EXTENSIONS'		=> 'Ga naar het extensiebeheer',
 	'GROUP_NAME'			=> 'Groepsnaam',
 
+	'IMAGICK_FOUND'			=> 'ImageMagick is gevonden in <strong>%s</strong>. Verstuur het formulier om dit pad op te slaan.',
+	'IMAGICK_NOT_FOUND'		=> 'ImageMagick kon niet worden gevonden. Het is niet op deze server geïnstalleerd of het bevindt zich buiten de mappen die doorzocht kunnen worden. Als je het pad kent, voer het dan handmatig in.',
+
 	'IMAGE_LINK_SIZE'			=> 'Afmetingen afbeelding link',
 	'IMAGE_LINK_SIZE_EXPLAIN'	=> 'Laat afbeeldingen in de bijlagen zien als een link indien ze groter zijn dan de hier op te geven afmetingen. Om dit te deactiveren, zet de waardes op 0px bij 0px.',
 	'IMAGICK_PATH'				=> 'Pad naar Imagemagick',

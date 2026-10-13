@@ -63,6 +63,13 @@
 			<label for="popuppm0"><input type="radio" name="popuppm" id="popuppm0" value="0"<!-- IF not S_POPUP_PM --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 		</dd>
 	</dl>
+	<dl>
+		<dt><label for="mention_email0">{L_MENTION_NOTIFY}:</label><br /><span>{L_MENTION_NOTIFY_EXPLAIN}</span></dt>
+		<dd>
+			<label for="mention_email0"><input type="radio" name="mention_email" id="mention_email0" value="0"<!-- IF not S_MENTION_EMAIL --> checked="checked"<!-- ENDIF --> /> {L_MENTION_NOTIFY_PM}</label>
+			<label for="mention_email1"><input type="radio" name="mention_email" id="mention_email1" value="1"<!-- IF S_MENTION_EMAIL --> checked="checked"<!-- ENDIF --> /> {L_MENTION_NOTIFY_EMAIL}</label>
+		</dd>
+	</dl>
 	<!-- IF S_MORE_LANGUAGES -->
 		<dl>
 			<dt><label for="lang">{L_BOARD_LANGUAGE}:</label></dt>

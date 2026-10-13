@@ -14,8 +14,10 @@
         return null;
     }
 
-    var color = readCookie('style_color') === 'orange' ? 'orange' : 'blue';
+    var savedColor = readCookie('style_color');
+    var color = (savedColor === 'orange' || savedColor === 'green') ? savedColor : 'blue';
     var mode = readCookie('style_mode') === 'dark' ? 'dark' : 'light';
+    
     document.documentElement.setAttribute('data-style-color', color);
     document.documentElement.setAttribute('data-bs-theme', mode);
 })();

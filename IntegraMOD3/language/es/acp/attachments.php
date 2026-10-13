@@ -133,6 +133,9 @@ $lang = array_merge($lang, array(
 	'GO_TO_EXTENSIONS'			=> 'Ir a la sección de administración de extensiones',
 	'GROUP_NAME'				=> 'Nombre del Grupo',
 
+	'IMAGICK_FOUND'				=> 'ImageMagick se encontró en <strong>%s</strong>. Envíe el formulario para guardar esta ruta.',
+	'IMAGICK_NOT_FOUND'			=> 'No se pudo encontrar ImageMagick. O no está instalado en este servidor o se encuentra fuera de los directorios que se pueden explorar. Si conoce la ruta, introdúzcala manualmente.',
+
 	'IMAGE_LINK_SIZE'			=> 'Dimensiones de la imagen enlazada',
 	'IMAGE_LINK_SIZE_EXPLAIN'		=> 'Mostrar la imagen adjunta como un enlace si es más grande. 0px por 0px significa ilimitado.',
 	'IMAGICK_PATH'				=> 'Ruta a Imagemagick',

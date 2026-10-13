@@ -3054,9 +3054,9 @@ function get_database_size()
 			{
 				$version = $row['mysql_version'];
 
-				if (preg_match('#(3\.23|[45]\.)#', $version))
+				if (version_compare($version, '3.23', '>='))
 				{
-					$db_name = (preg_match('#^(?:3\.23\.(?:[6-9]|[1-9]{2}))|[45]\.#', $version)) ? "`{$db->dbname}`" : $db->dbname;
+					$db_name = (version_compare($version, '3.23.6', '>=')) ? "`{$db->dbname}`" : $db->dbname;
 
 					$sql = 'SHOW TABLE STATUS
 						FROM ' . $db_name;
@@ -3458,4 +3458,21 @@ function enable_bitfield_column_flag($table_name, $column_name, $flag, $sql_more
 		SET ' . $column_name . ' = ' . $db->sql_bit_or($column_name, $flag) . '
 		' . $sql_more;
 	$db->sql_query($sql);
+}
+
+/**
+* Widen forum_flags so mention bits can be stored with the existing forum flags.
+*/
+function phpbb_ensure_forum_flags_width()
+{
+	global $db;
+
+	if (!class_exists('phpbb_db_tools'))
+	{
+		global $phpbb_root_path, $phpEx;
+		include_once($phpbb_root_path . 'includes/db/db_tools.' . $phpEx);
+	}
+
+	$db_tools = new phpbb_db_tools($db);
+	$db_tools->sql_column_change(FORUMS_TABLE, 'forum_flags', array('USINT', 32));
 }

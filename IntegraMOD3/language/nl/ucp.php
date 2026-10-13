@@ -282,6 +282,14 @@ $lang = array_merge($lang, array(
 	'NOTIFY_METHOD_EXPLAIN'			=> 'Methode om berichten via dit forum te versturen.',
 	'NOTIFY_METHOD_IM'				=> 'Alleen Jabber',
 	'NOTIFY_ON_PM'					=> 'Breng me op de hoogte van nieuwe privéberichten',
+	'MENTION_NOTIFY'				=> 'Vermelding',
+	'MENTION_NOTIFY_EXPLAIN'		=> 'Standaard wordt een privébericht verstuurd als iemand je vermeldt. Kies e-mail om in plaats daarvan een e-mail te ontvangen. Pushberichten blijven ongewijzigd.',
+	'MENTION_NOTIFY_PM'				=> 'Privébericht',
+	'MENTION_NOTIFY_EMAIL'			=> 'E-mail',
+	'MENTION_PM_SUBJECT'			=> 'Je bent vermeld door %s',
+	'MENTION_PM_BODY'				=> '%1$s heeft je vermeld in "%2$s".
+
+%3$s',
 	'NOT_ADDED_FRIENDS_ANONYMOUS'	=> 'Je kunt de anonieme gebruiker niet aan je vriendenlijst toevoegen.',
 	'NOT_ADDED_FRIENDS_BOTS'		=> 'Je kunt bots niet aan je vriendenlijst toevoegen.',
 	'NOT_ADDED_FRIENDS_FOES'		=> 'Je kunt geen gebruikers uit je vijandenlijst aan je vriendenlijst toevoegen',

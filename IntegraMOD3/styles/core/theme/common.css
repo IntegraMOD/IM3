@@ -1,4 +1,4 @@
-/* Core structural CSS for IntegraStyle */
+/* Core structural CSS for core */
 html { overflow-x: hidden; max-width: 100%; }
 body { margin: 0; font-family: sans-serif; background-color: var(--bg-main, #fff); color: var(--text-primary, #333); overflow-x: hidden; max-width: 100%; }
 #wrap,
@@ -196,7 +196,8 @@ h3 { font-size: 1.4em; border-bottom: 1px solid var(--border-ad-panel); padding-
 .forum-header { display: flex; background-color: var(--color-primary); color: var(--on-primary-text); padding: 10px; border-radius: 5px 5px 0 0; font-weight: bold; }
 .forum-header a { color: var(--on-primary-text); }
 .forum-stats-header { text-align: center; font-size: 0.9em; display: none; }
-@media (min-width: 981px) { .forum-list-header { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 80px 80px 200px; align-items: center; } .topic-list-header { display: grid; grid-template-columns: minmax(0, 1fr) 80px 80px 200px; align-items: center; } .forum-stats-header { display: block; text-align: center; } .forum-stats-header.last-post { transform: translateX(-3rem); } .forum-list-header .forum-title, .topic-list-header .forum-title { min-width: 0; margin-left: 55px; } .forum-list-header .category-toggle-container { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); margin-left: 0; } }
+@media (min-width: 981px) { .forum-list-header { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 80px 80px 200px; align-items: center; } .topic-list-header { display: grid; grid-template-columns: minmax(0, 1fr) 80px 80px 200px; align-items: center; } .forum-stats-header { display: block; text-align: center; } .forum-stats-header.last-post { text-align: left; transform: none; } .forum-list-header .forum-title, .topic-list-header .forum-title { min-width: 0; margin-left: 55px; } .forum-list-header .category-toggle-container { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); margin-left: 0; } }
+@media (max-width: 980px) { .forum-list-header, .topic-list-header { position: relative; align-items: center; } .forum-list-header .forum-title, .topic-list-header .forum-title { flex: 1 1 auto; min-width: 0; margin-left: 66px; } .forum-list-header .forum-stats-header.last-post, .topic-list-header .forum-stats-header.last-post { flex: 0 0 200px; width: 200px; text-align: left; } .forum-list-header .category-toggle-container { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); margin-left: 0; } }
 /* Avatars */
 .avatar-stack { display: inline-flex; margin-bottom: 5px; }
 .avatar-stack-item img { border-radius: 50%; width: 24px; height: 24px; border: 2px solid var(--bg-main); margin-left: -8px; }

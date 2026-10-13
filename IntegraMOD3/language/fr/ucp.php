@@ -284,6 +284,14 @@ $lang = array_merge($lang, array(
 	'NOTIFY_METHOD_EXPLAIN'			=> 'La méthode d’envoi des messages qui sont envoyés depuis ce forum.',
 	'NOTIFY_METHOD_IM'				=> 'Jabber uniquement',
 	'NOTIFY_ON_PM'					=> 'M’envoyer une notification lors de la réception d’un nouveau message privé',
+	'MENTION_NOTIFY'				=> 'Notification de mention',
+	'MENTION_NOTIFY_EXPLAIN'		=> 'Un message privé est envoyé lorsqu’on vous mentionne. Choisissez le courrier électronique pour recevoir un e-mail à la place. Les notifications push ne sont pas affectées.',
+	'MENTION_NOTIFY_PM'				=> 'Message privé',
+	'MENTION_NOTIFY_EMAIL'			=> 'Courrier électronique',
+	'MENTION_PM_SUBJECT'			=> 'Vous avez été mentionné par %s',
+	'MENTION_PM_BODY'				=> '%1$s vous a mentionné dans « %2$s ».
+
+%3$s',
 	'NOT_ADDED_FRIENDS_ANONYMOUS'	=> 'Vous ne pouvez pas ajouter des utilisateurs anonymes à votre liste d’amis.',
 	'NOT_ADDED_FRIENDS_BOTS'		=> 'Vous ne pouvez pas ajouter des robots à votre liste d’amis.',
 	'NOT_ADDED_FRIENDS_FOES'		=> 'Vous ne pouvez pas ajouter à votre liste d’amis des utilisateurs qui sont également présents dans votre liste d’ignorés.',

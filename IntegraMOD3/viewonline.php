@@ -56,17 +56,35 @@ if ($mode == 'whois' && $auth->acl_get('a_') && $session_id)
 {
 	include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 
-	$sql = 'SELECT u.user_id, u.username, u.user_type, s.session_ip
-		FROM ' . USERS_TABLE . ' u, ' . SESSIONS_TABLE . " s
-		WHERE s.session_id = '" . $db->sql_escape($session_id) . "'
-			AND	u.user_id = s.session_user_id";
-	$result = $db->sql_query($sql);
-
-	if ($row = $db->sql_fetchrow($result))
+	$whois_ip = false;
+	if (phpbb_acm_stores_guest_sessions())
 	{
-		$template->assign_var('WHOIS', user_ipwhois($row['session_ip']));
+		$guest_session = phpbb_guest_session_get($session_id);
+		if (is_array($guest_session))
+		{
+			$whois_ip = $guest_session['session_ip'];
+		}
 	}
-	$db->sql_freeresult($result);
+
+	if ($whois_ip === false)
+	{
+		$sql = 'SELECT u.user_id, u.username, u.user_type, s.session_ip
+			FROM ' . USERS_TABLE . ' u, ' . SESSIONS_TABLE . " s
+			WHERE s.session_id = '" . $db->sql_escape($session_id) . "'
+				AND	u.user_id = s.session_user_id";
+		$result = $db->sql_query($sql);
+
+		if ($row = $db->sql_fetchrow($result))
+		{
+			$whois_ip = $row['session_ip'];
+		}
+		$db->sql_freeresult($result);
+	}
+
+	if ($whois_ip !== false)
+	{
+		$template->assign_var('WHOIS', user_ipwhois($whois_ip));
+	}
 
 	// Output the page
 	page_header($user->lang['WHO_IS_ONLINE']);
@@ -97,8 +115,11 @@ $guest_counter = 0;
 // Get number of online guests (if we do not display them)
 if (!$show_guests)
 {
-    // Prefer in-memory cache guest sessions if enabled and helper exists
-    if (!empty($config['guest_sessions_cache']) && file_exists($phpbb_root_path . 'includes/guest_sessions.' . $phpEx))
+    if (phpbb_acm_stores_guest_sessions())
+    {
+        $guest_counter = obtain_guest_count();
+    }
+    else if (!empty($config['guest_sessions_cache']) && file_exists($phpbb_root_path . 'includes/guest_sessions.' . $phpEx))
     {
         include_once($phpbb_root_path . 'includes/guest_sessions.' . $phpEx);
         $guest_counter = guest_sessions_count_distinct_ips();
@@ -171,7 +192,7 @@ if ($show_guests && file_exists($phpbb_root_path . 'includes/guest_sessions.' . 
 $prev_id = $prev_ip = $user_list = array();
 $logged_visible_online = $logged_hidden_online = $counter = 0;
 
-while ($row = $db->sql_fetchrow($result))
+foreach ($online_rows as $row)
 {
 	if ($row['user_id'] != ANONYMOUS && !isset($prev_id[$row['user_id']]))
 	{
@@ -430,7 +451,6 @@ while ($row = $db->sql_fetchrow($result))
 		'S_USER_TYPE'		=> $row['user_type'],
 	));
 }
-$db->sql_freeresult($result);
 unset($prev_id, $prev_ip);
 
 // If we loaded guest cache rows, process them too

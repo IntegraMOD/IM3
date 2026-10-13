@@ -1530,6 +1530,13 @@ class acp_users
 			case 'prefs':
 
 				include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+				if (!function_exists('im3_user_can_receive_staff_push'))
+				{
+					include($phpbb_root_path . 'includes/functions_push.' . $phpEx);
+				}
+				$user->add_lang(array('mods/ucp_push', 'mods/acp_push'));
+
+				$push_events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce', 'register', 'new_post', 'mention');
 
 				$data = array(
 					'dateformat'		=> utf8_normalize_nfc(request_var('dateformat', $user_row['user_dateformat'], true)),
@@ -1543,6 +1550,7 @@ class acp_users
 					'notifymethod'		=> request_var('notifymethod', $user_row['user_notify_type']),
 					'notifypm'			=> request_var('notifypm', $user_row['user_notify_pm']),
 					'popuppm'			=> request_var('popuppm', $this->optionget($user_row, 'popuppm')),
+					'mention_email'		=> request_var('mention_email', $this->optionget($user_row, 'mention_email')),
 					'allowpm'			=> request_var('allowpm', $user_row['user_allow_pm']),
 
 					'topic_sk'			=> request_var('topic_sk', ($user_row['user_topic_sortby_type']) ? $user_row['user_topic_sortby_type'] : 't'),
@@ -1587,6 +1595,7 @@ class acp_users
 					if (!sizeof($error))
 					{
 						$this->optionset($user_row, 'popuppm', $data['popuppm']);
+						$this->optionset($user_row, 'mention_email', $data['mention_email']);
 						$this->optionset($user_row, 'viewimg', $data['view_images']);
 						$this->optionset($user_row, 'viewflash', $data['view_flash']);
 						$this->optionset($user_row, 'viewsmilies', $data['view_smilies']);
@@ -1623,6 +1632,13 @@ class acp_users
 
 							'user_notify'	=> $data['notify'],
 						);
+
+						// Absent checkboxes mean off. Do not fall back to the stored value.
+						foreach ($push_events as $push_event)
+						{
+							$sql_ary['user_push_web_' . $push_event] = request_var('user_push_web_' . $push_event, 0);
+							$sql_ary['user_push_sms_' . $push_event] = request_var('user_push_sms_' . $push_event, 0);
+						}
 
 						$sql = 'UPDATE ' . USERS_TABLE . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
@@ -1730,6 +1746,7 @@ class acp_users
 					'NOTIFY_BOTH'		=> ($data['notifymethod'] == NOTIFY_BOTH) ? true : false,
 					'NOTIFY_PM'			=> $data['notifypm'],
 					'POPUP_PM'			=> $data['popuppm'],
+					'MENTION_EMAIL'		=> $data['mention_email'],
 					'DST'				=> $data['dst'],
 					'BBCODE'			=> $data['bbcode'],
 					'SMILIES'			=> $data['smilies'],
@@ -1758,8 +1775,51 @@ class acp_users
 					'S_LANG_OPTIONS'	=> language_select($data['lang']),
 					'S_STYLE_OPTIONS'	=> style_select($data['style']),
 					'S_TZ_OPTIONS'		=> tz_select($data['tz'], true),
+
+					'S_USER_MOBILE_STORED'	=> !empty($user_row['user_mobile']),
 					)
 				);
+
+				$push_can_staff = ((int) $user_row['user_type'] === USER_FOUNDER) || im3_user_can_receive_staff_push($user_id);
+				$push_can_new_post = $push_can_staff || im3_user_in_push_groups($user_id);
+
+				foreach ($push_events as $push_event)
+				{
+					if ($submit)
+					{
+						$push_web = request_var('user_push_web_' . $push_event, 0);
+						$push_sms = request_var('user_push_sms_' . $push_event, 0);
+					}
+					else
+					{
+						$push_web = isset($user_row['user_push_web_' . $push_event]) ? (int) $user_row['user_push_web_' . $push_event] : 0;
+						$push_sms = isset($user_row['user_push_sms_' . $push_event]) ? (int) $user_row['user_push_sms_' . $push_event] : 0;
+					}
+
+					$push_ineligible = false;
+					$push_explain = '';
+					if ($push_event === 'register')
+					{
+						$push_ineligible = !$push_can_staff;
+						$push_explain = isset($user->lang['PUSH_ALLOW_REGISTER_EXPLAIN']) ? $user->lang['PUSH_ALLOW_REGISTER_EXPLAIN'] : '';
+					}
+					else if ($push_event === 'new_post')
+					{
+						$push_ineligible = !$push_can_new_post;
+						$push_explain = isset($user->lang['PUSH_ALLOW_NEW_POST_EXPLAIN']) ? $user->lang['PUSH_ALLOW_NEW_POST_EXPLAIN'] : '';
+					}
+
+					$template->assign_block_vars('push_event', array(
+						'NAME'			=> $push_event,
+						'LABEL'			=> isset($user->lang['USER_PUSH_' . strtoupper($push_event)]) ? $user->lang['USER_PUSH_' . strtoupper($push_event)] : $push_event,
+						'EXPLAIN'		=> $push_explain,
+						'WEB'			=> $push_web,
+						'SMS'			=> $push_sms,
+						'S_WEB_BOARD'	=> !empty($config['push_allow_web_' . $push_event]),
+						'S_SMS_BOARD'	=> !empty($config['push_allow_sms_' . $push_event]),
+						'S_INELIGIBLE'	=> $push_ineligible,
+					));
+				}
 
 			break;
 

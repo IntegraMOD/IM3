@@ -220,6 +220,7 @@ if ($active_blocks)
 		$html_file_name     = $row['html_file_name'];
 		$img_file_name      = $row['img_file_name'];
 		$view_pages         = $row['view_pages'];
+		$block_is_links    = ($html_file_name == 'block_links.html');
 
 		$arr = explode(',', (string) $view_pages);
 		$grps = explode(",", (string) $block_view_groups);
@@ -259,6 +260,7 @@ if ($active_blocks)
 			{
 				case 'L':
 						$left_block_ary[$L]    = $html_file_name;
+						$left_block_is_links[$L] = $block_is_links;
 						$left_block_id[$L]     = $block_id;
 						$left_block_ndx[$L]    = $block_ndx;
 						$left_block_title[$L]  = $block_title;
@@ -270,6 +272,7 @@ if ($active_blocks)
 				break;
 				case 'C':
 						$center_block_ary[$C]    = $html_file_name;
+						$center_block_is_links[$C] = $block_is_links;
 						$center_block_id[$C]     = $block_id;
 						$center_block_ndx[$C]    = $block_ndx;
 						$center_block_title[$C]  = $block_title;
@@ -281,6 +284,7 @@ if ($active_blocks)
 				break;
 				case 'R':
 						$right_block_ary[$R]    = $html_file_name;
+						$right_block_is_links[$R] = $block_is_links;
 						$right_block_id[$R]     = $block_id;
 						$right_block_ndx[$R]    = $block_ndx;
 						$right_block_title[$R]  = $block_title;
@@ -303,6 +307,7 @@ if (isset($left_block_ary) && $show_left)
 	{
 		$template->assign_block_vars('left_block_files', array(
 			'LEFT_BLOCKS'           => portal_block_template($value),
+			'LEFT_BLOCK_IS_LINKS'   => !empty($left_block_is_links[$block]),
 			'LEFT_BLOCK_ID'         => 'L_' .$left_block_id[$block],
 			'LEFT_BLOCK_TITLE'      => $left_block_title[$block],
 			'LEFT_BLOCK_SCROLL'     => $left_block_scroll[$block],
@@ -321,6 +326,7 @@ if (isset($right_block_ary) && $show_right)
 	{
 		$template->assign_block_vars('right_block_files', array(
 			'RIGHT_BLOCKS'          => portal_block_template($value),
+			'RIGHT_BLOCK_IS_LINKS'  => !empty($right_block_is_links[$block]),
 			'RIGHT_BLOCK_ID'        => 'R_' .$right_block_id[$block],
 			'RIGHT_BLOCK_TITLE'     => $right_block_title[$block],
 			'RIGHT_BLOCK_SCROLL'    => $right_block_scroll[$block],
@@ -360,6 +366,7 @@ if (isset($center_block_ary) && $show_center)
 
 		$template->assign_block_vars('center_block_files', array(
 			'CENTER_BLOCKS'        => portal_block_template($value),
+			'CENTER_BLOCK_IS_LINKS' => !empty($center_block_is_links[$block]),
 			'CENTER_BLOCK_ID'      => 'C_' .$center_block_id[$block],
 			'CENTER_BLOCK_TITLE'   => $center_block_title[$block],
 			'CENTER_BLOCK_SCROLL'  => $center_block_scroll[$block],

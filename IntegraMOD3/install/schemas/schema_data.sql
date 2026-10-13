@@ -194,7 +194,7 @@ INSERT INTO phpbb_config VALUES('calendar_show_birthdays_list', '1', 0);
 INSERT INTO phpbb_config VALUES('calendar_show_birthdays_main', '1', 0);
 INSERT INTO phpbb_config VALUES('calendar_show_events_list', '1', 0);
 INSERT INTO phpbb_config VALUES('calendar_show_week_nums', '1', 0);
-INSERT INTO phpbb_config VALUES('calendar_version', '2.0.0b1', 0);
+INSERT INTO phpbb_config VALUES('calendar_version', '2.1.0', 0);
 INSERT INTO phpbb_config VALUES('captcha_gd', '1', 0);
 INSERT INTO phpbb_config VALUES('captcha_gd_3d_noise', '1', 0);
 INSERT INTO phpbb_config VALUES('captcha_gd_fonts', '1', 0);
@@ -204,7 +204,6 @@ INSERT INTO phpbb_config VALUES('captcha_gd_x_grid', '25', 0);
 INSERT INTO phpbb_config VALUES('captcha_gd_y_grid', '25', 0);
 INSERT INTO phpbb_config VALUES('captcha_plugin', 'phpbb_captcha_sortables', 0);
 INSERT INTO phpbb_config VALUES('check_attachment_content', '1', 0);
-INSERT INTO phpbb_config VALUES('check_dnsbl', '0', 0);
 INSERT INTO phpbb_config VALUES('chg_passforce', '0', 0);
 INSERT INTO phpbb_config VALUES('compress_method', '.zip', 0);
 INSERT INTO phpbb_config VALUES('confirm_refresh', '1', 0);
@@ -217,10 +216,6 @@ INSERT INTO phpbb_config VALUES('cookie_secure', '0', 0);
 INSERT INTO phpbb_config VALUES('cookie_samesite', 'Strict', 0);
 INSERT INTO phpbb_config VALUES('cookie_partitioned', '1', 0);
 INSERT INTO phpbb_config VALUES('cookie_secure_admin', '1', 0);
-INSERT INTO phpbb_config VALUES('cookie_consent_enabled', '1', 0);
-INSERT INTO phpbb_config VALUES('cookie_consent_text', 'This website uses cookies to improve your experience.', 0);
-INSERT INTO phpbb_config VALUES('cookie_consent_confirm', 'Accept Cookies', 0);
-INSERT INTO phpbb_config VALUES('cookie_consent_decline', 'Decline Cookies', 0);
 INSERT INTO phpbb_config VALUES('cookie_consent_enable', '1', 0);
 INSERT INTO phpbb_config VALUES('cookie_consent_title', 'Cookie Notice', 0);
 INSERT INTO phpbb_config VALUES('cookie_consent_message', 'This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our use of cookies.', 0);
@@ -235,7 +230,7 @@ INSERT INTO phpbb_config VALUES('database_gc', '604800', 0);
 INSERT INTO phpbb_config VALUES('database_last_gc', '0', 1);
 INSERT INTO phpbb_config VALUES('dbms_version', '10.5.21-MariaDB-log', 0);
 INSERT INTO phpbb_config VALUES('default_dateformat', 'D M d, Y g:i a', 0);
-INSERT INTO phpbb_config VALUES('default_style', '2', 0);
+INSERT INTO phpbb_config VALUES('default_style', '1', 0);
 INSERT INTO phpbb_config VALUES('delete_time', '0', 0);
 INSERT INTO phpbb_config VALUES('digests_block_images', '0', 0);
 INSERT INTO phpbb_config VALUES('digests_custom_stylesheet_path', 'core/theme/digest_stylesheet.css', 0);
@@ -470,7 +465,7 @@ INSERT INTO phpbb_config VALUES('img_max_thumb_width', '400', 0);
 INSERT INTO phpbb_config VALUES('img_max_width', '0', 0);
 INSERT INTO phpbb_config VALUES('img_min_thumb_filesize', '12000', 0);
 INSERT INTO phpbb_config VALUES('imod_enabled', '1', 0);
-INSERT INTO phpbb_config VALUES('imod_version', '3.0.18', 0);
+INSERT INTO phpbb_config VALUES('imod_version', '3.0.19', 0);
 INSERT INTO phpbb_config VALUES('ip_check', '3', 0);
 INSERT INTO phpbb_config VALUES('ip_login_limit_max', '50', 0);
 INSERT INTO phpbb_config VALUES('ip_login_limit_time', '21600', 0);
@@ -566,6 +561,17 @@ INSERT INTO phpbb_config VALUES('num_files', '0', 1);
 INSERT INTO phpbb_config VALUES('num_posts', '1', 1);
 INSERT INTO phpbb_config VALUES('num_topics', '1', 1);
 INSERT INTO phpbb_config VALUES('num_users', '1', 1);
+INSERT INTO phpbb_config VALUES('oa_social_login_version', '3.11.0', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_disable', '0', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_disable_linking', '0', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_avatars_enable', '0', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_api_connection_handler', 'curl', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_api_connection_port', '443', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_api_subdomain', '', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_api_key', '', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_api_secret', '', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_providers', '', 0);
+INSERT INTO phpbb_config VALUES('oa_social_login_redirect', '', 0);
 INSERT INTO phpbb_config VALUES('override_user_style', '0', 0);
 INSERT INTO phpbb_config VALUES('paypal_sandbox_address', '', 0);
 INSERT INTO phpbb_config VALUES('paypal_sandbox_enable', '0', 0);
@@ -680,7 +686,7 @@ INSERT INTO phpbb_config VALUES('portal_name_es', 'Inicio', 0);
 INSERT INTO phpbb_config VALUES('portal_name_fr', 'Accueil', 0);
 INSERT INTO phpbb_config VALUES('portal_name_nl', 'Startpagina', 0);
 INSERT INTO phpbb_config VALUES('portal_name_uk', 'Головна', 0);
-INSERT INTO phpbb_config VALUES('portal_version', '1.0.20im', 0);
+INSERT INTO phpbb_config VALUES('portal_version', '2.0.0im', 0);
 INSERT INTO phpbb_config VALUES('posts_per_page', '10', 0);
 INSERT INTO phpbb_config VALUES('premod_version', '1.0.0', 0);
 INSERT INTO phpbb_config VALUES('preview_changes', '1', 0);
@@ -696,6 +702,10 @@ INSERT INTO phpbb_config VALUES('recaptcha_new_version', '1.0.0', 0);
 INSERT INTO phpbb_config VALUES('recaptcha_v2_privkey', '', 0);
 INSERT INTO phpbb_config VALUES('recaptcha_v2_pubkey', '', 0);
 INSERT INTO phpbb_config VALUES('recaptcha_v2_version', '1.0.0', 0);
+INSERT INTO phpbb_config VALUES('gcloud_fd_apikey', '', 0);
+INSERT INTO phpbb_config VALUES('gcloud_fd_project', '', 0);
+INSERT INTO phpbb_config VALUES('gcloud_fd_score', '0.50', 0);
+INSERT INTO phpbb_config VALUES('gcloud_fd_sitekey', '', 0);
 INSERT INTO phpbb_config VALUES('record_online_date', '0', 1);
 INSERT INTO phpbb_config VALUES('record_online_users', '0', 1);
 INSERT INTO phpbb_config VALUES('referer_validation', '1', 0);
@@ -751,7 +761,7 @@ INSERT INTO phpbb_config VALUES('upload_path', 'files', 0);
 INSERT INTO phpbb_config VALUES('user_details_max_cols', '12', 0);
 INSERT INTO phpbb_config VALUES('user_details_opts', '', 1);
 INSERT INTO phpbb_config VALUES('user_details_save', '0', 0);
-INSERT INTO phpbb_config VALUES('version', '3.0.16', 0);
+INSERT INTO phpbb_config VALUES('version', '3.0.19', 0);
 INSERT INTO phpbb_config VALUES('warnings_expire_days', '90', 0);
 INSERT INTO phpbb_config VALUES('warnings_gc', '14400', 0);
 INSERT INTO phpbb_config VALUES('warnings_last_gc', '1707674862', 1);
@@ -1145,32 +1155,32 @@ INSERT INTO phpbb_dl_rem_traf VALUES('dl_remain_guest_traffic', '0');
 INSERT INTO phpbb_dl_rem_traf VALUES('dl_remain_traffic', '0');
 
 # -- phpbb_donation_items
-INSERT INTO `phpbb_donation_item` VALUES(1, 'donation_pages', 'donation_body', 'de', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(2, 'donation_pages', 'donation_success', 'de', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(3, 'donation_pages', 'donation_cancel', 'de', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(4, 'donation_pages', 'donation_body', 'en', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(5, 'donation_pages', 'donation_success', 'en', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(6, 'donation_pages', 'donation_cancel', 'en', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(7, 'donation_pages', 'donation_body', 'es', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(8, 'donation_pages', 'donation_success', 'es', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(9, 'donation_pages', 'donation_cancel', 'es', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(10, 'donation_pages', 'donation_body', 'fr', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(11, 'donation_pages', 'donation_success', 'fr', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(12, 'donation_pages', 'donation_cancel', 'fr', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(13, 'donation_pages', 'donation_body', 'nl', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(14, 'donation_pages', 'donation_success', 'nl', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(15, 'donation_pages', 'donation_cancel', 'nl', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(16, 'donation_pages', 'donation_body', 'uk', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(17, 'donation_pages', 'donation_success', 'uk', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(18, 'donation_pages', 'donation_cancel', 'uk', '', '', 1, 0, 0, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(19, 'currency', 'U.S. Dollar', 'USD', '&#36;', '', 1, 1, 2, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(20, 'currency', 'Euro', 'EUR', '&#8364;', '', 1, 3, 4, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(21, 'currency', 'Pound Sterling', 'GBP', '&#163;', '', 1, 5, 6, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(22, 'currency', 'Yen', 'JPY', '&#165;', '', 1, 7, 8, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(23, 'currency', 'Australian Dollar', 'AUD', '&#36;', '', 1, 9, 10, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(24, 'currency', 'Canadian Dollar', 'CAD', '&#36;', '', 1, 11, 12, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(25, 'currency', 'Hong Kong Dollar', 'HKD', '&#36;', '', 1, 13, 14, '', '', 7);
-INSERT INTO `phpbb_donation_item` VALUES(26, 'currency', 'Ukrainian Hryvnia', 'UAH', '&#8372;', '', 1, 15, 16, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(1, 'donation_pages', 'donation_body', 'de', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(2, 'donation_pages', 'donation_success', 'de', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(3, 'donation_pages', 'donation_cancel', 'de', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(4, 'donation_pages', 'donation_body', 'en', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(5, 'donation_pages', 'donation_success', 'en', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(6, 'donation_pages', 'donation_cancel', 'en', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(7, 'donation_pages', 'donation_body', 'es', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(8, 'donation_pages', 'donation_success', 'es', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(9, 'donation_pages', 'donation_cancel', 'es', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(10, 'donation_pages', 'donation_body', 'fr', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(11, 'donation_pages', 'donation_success', 'fr', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(12, 'donation_pages', 'donation_cancel', 'fr', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(13, 'donation_pages', 'donation_body', 'nl', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(14, 'donation_pages', 'donation_success', 'nl', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(15, 'donation_pages', 'donation_cancel', 'nl', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(16, 'donation_pages', 'donation_body', 'uk', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(17, 'donation_pages', 'donation_success', 'uk', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(18, 'donation_pages', 'donation_cancel', 'uk', '', '', 1, 0, 0, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(19, 'currency', 'U.S. Dollar', 'USD', '&#36;', '', 1, 1, 2, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(20, 'currency', 'Euro', 'EUR', '&#8364;', '', 1, 3, 4, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(21, 'currency', 'Pound Sterling', 'GBP', '&#163;', '', 1, 5, 6, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(22, 'currency', 'Yen', 'JPY', '&#165;', '', 1, 7, 8, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(23, 'currency', 'Australian Dollar', 'AUD', '&#36;', '', 1, 9, 10, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(24, 'currency', 'Canadian Dollar', 'CAD', '&#36;', '', 1, 11, 12, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(25, 'currency', 'Hong Kong Dollar', 'HKD', '&#36;', '', 1, 13, 14, '', '', 7);
+INSERT INTO phpbb_donation_item VALUES(26, 'currency', 'Ukrainian Hryvnia', 'UAH', '&#8372;', '', 1, 15, 16, '', '', 7);
 
 # -- phpbb_gallery_permissions
 INSERT INTO phpbb_gallery_permissions VALUES(1, 1, 0, 0, 2, -2);
@@ -1189,10 +1199,10 @@ INSERT INTO phpbb_gallery_roles VALUES(6, 1, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 1,
 INSERT INTO phpbb_gallery_roles VALUES(7, 1, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0);
 
 # -- phpbb_imod_config
-INSERT INTO phpbb_imod_config VALUES(1, '3.0.18', 0);
+INSERT INTO phpbb_imod_config VALUES(1, '3.0.17', 0);
 
 # -- phpbb_styles
-INSERT INTO phpbb_styles (style_name, style_copyright, style_active, template_id, theme_id, imageset_id) VALUES ('core', '&copy; integramod.com, 2026', 0, 1, 1, 1);
+INSERT INTO phpbb_styles (style_name, style_copyright, style_active, template_id, theme_id, imageset_id) VALUES ('core', '&copy; integramod.com, 2026', 1, 1, 1, 1);
 
 # -- phpbb_styles_imageset
 INSERT INTO phpbb_styles_imageset (imageset_name, imageset_copyright, imageset_path) VALUES ('core', '&copy; integramod.com, 2026', 'core');
@@ -1586,12 +1596,12 @@ INSERT INTO phpbb_k_pages VALUES (19, 'knowledge/viewcategorie');
 INSERT INTO phpbb_k_pages VALUES (20, 'knowledge/viewarticle');
 INSERT INTO phpbb_k_pages VALUES (21, 'knowledge/kb-search');
 INSERT INTO phpbb_k_pages VALUES (22, 'calendar');
-INSERT INTO phpbb_k_pages VALUES (23, 'blog'),
-INSERT INTO phpbb_k_pages VALUES (24, 'activitypage'),
-INSERT INTO phpbb_k_pages VALUES (25, 'profile'),
-INSERT INTO phpbb_k_pages VALUES (26, 'contact'),
-INSERT INTO phpbb_k_pages VALUES (27, 'downloads'),
-INSERT INTO phpbb_k_pages VALUES (28, 'page'),
+INSERT INTO phpbb_k_pages VALUES (23, 'blog');
+INSERT INTO phpbb_k_pages VALUES (24, 'activitypage');
+INSERT INTO phpbb_k_pages VALUES (25, 'profile');
+INSERT INTO phpbb_k_pages VALUES (26, 'contact');
+INSERT INTO phpbb_k_pages VALUES (27, 'downloads');
+INSERT INTO phpbb_k_pages VALUES (28, 'page');
 INSERT INTO phpbb_k_pages VALUES (29, 'notes');
 INSERT INTO phpbb_k_pages VALUES (30, 'meeting');
 
@@ -2015,7 +2025,6 @@ INSERT INTO phpbb_sn_emotes (emote_id, emote_name, emote_image, emote_order) VAL
 INSERT INTO phpbb_sn_emotes (emote_id, emote_name, emote_image, emote_order) VALUES(12, 'Boo', 'kick.gif', 12);
 
 INSERT INTO phpbb_sn_entries (entry_id, user_id, entry_target, entry_type, entry_time, entry_additionals) VALUES(6, 49, 0, 4, 1696211425, 'a:1:{s:8:\"facebook\";s:38:\"https://www.facebook.com/iamjohnwagner\";}');
-INSERT INTO phpbb_sn_entries (entry_id, user_id, entry_target, entry_type, entry_time, entry_additionals) VALUES(14, 2, 6, 1, 1710363645, 'a:0:{}');
 
 INSERT INTO phpbb_sn_fms_groups (fms_gid, user_id, fms_name, fms_clean, fms_collapse) VALUES(1, 2, '---', '---', 0);
 INSERT INTO phpbb_sn_fms_groups (fms_gid, user_id, fms_name, fms_clean, fms_collapse) VALUES(2, 48, '---', '---', 0);
@@ -2100,8 +2109,6 @@ INSERT INTO phpbb_sn_smilies (smiley_id, smiley_allowed) VALUES(39, 1);
 INSERT INTO phpbb_sn_smilies (smiley_id, smiley_allowed) VALUES(40, 1);
 INSERT INTO phpbb_sn_smilies (smiley_id, smiley_allowed) VALUES(41, 1);
 INSERT INTO phpbb_sn_smilies (smiley_id, smiley_allowed) VALUES(42, 1);
-
-INSERT INTO phpbb_sn_status (status_id, poster_id, status_time, status_text, bbcode_bitfield, bbcode_uid, page_data, wall_id) VALUES(6, 2, 1710363645, 'test', '', '', '', 2);
 
 # -- Table data for table phpbb_sortables_questions
 INSERT INTO phpbb_sortables_questions (question_id, sort, lang_id, lang_iso, question_text, name_left, name_right) VALUES(1, 0, 2, 'en', 'What to include for tomato soup:', 'In the Pan', 'Throw away');

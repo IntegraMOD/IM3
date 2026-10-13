@@ -26,7 +26,12 @@
 								<!-- IF random.S_REPORTED --><a href="{random.U_REPORT}"><strong>{L_REPORTED_SHORT}</strong></a><!-- ENDIF -->
 							</p>
 						<!-- ENDIF -->
-						<h3><!-- IF random.S_HAS_POLL --><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-state-bullhorn"></use></svg> <!-- ENDIF --><a href="{random.U_VIEW}">{random.TITLE}</a></h3>
+						<h3>
+							<!-- IF random.S_HAS_POLL -->
+								<svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-state-bullhorn"></use></svg>
+							<!-- ENDIF -->
+							<a href="{random.U_VIEW}">{random.TITLE}</a>
+						</h3>
 						<p class="post-author">{L_POST_BY_AUTHOR} <strong>{random.USER_FULL}</strong> {L_POSTED_ON_DATE} {random.DATE}</p>
 						<div class="post-message">{random.MESSAGE}</div>
 						<!-- IF random.S_HAS_ATTACHMENTS -->
@@ -50,7 +55,10 @@
 						<div class="ucp-card-header">
 							<div class="blog-card-title">
 								<h3 class="ucp-card-title"><a href="{column.U_VIEW}">{column.TITLE}</a></h3>
-								<!-- IF column.U_FEED --><a class="blog-feed-link" href="{column.U_FEED}" title="{L_FEED}"><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-rss"></use></svg></a><!-- ENDIF -->
+								<!-- IF column.U_FEED -->
+									<a class="blog-feed-link" href="{column.U_FEED}" title="{L_FEED}">
+										<svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-rss"></use></svg></a>
+								<!-- ENDIF -->
 							</div>
 						</div>
 					</div>
@@ -72,7 +80,12 @@
 										<!-- IF row.S_REPORTED --><a href="{row.U_REPORT}"><strong>{L_REPORTED_SHORT}</strong></a><!-- ENDIF -->
 									</p>
 								<!-- ENDIF -->
-								<h3><!-- IF row.S_HAS_POLL --><svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-state-bullhorn"></use></svg> <!-- ENDIF --><a href="{row.U_VIEW}">{row.TITLE}</a></h3>
+								<h3>
+									<!-- IF row.S_HAS_POLL -->
+										<svg class="css-icon" aria-hidden="true" focusable="false"><use href="#icon-state-bullhorn"></use></svg>
+									<!-- ENDIF -->
+									<a href="{row.U_VIEW}">{row.TITLE}</a>
+								</h3>
 								<p class="post-author">{L_POST_BY_AUTHOR} <strong>{row.USER_FULL}</strong> {L_POSTED_ON_DATE} {row.DATE}</p>
 								<div class="post-message">{row.MESSAGE}</div>
 								<!-- IF row.S_HAS_ATTACHMENTS -->
@@ -89,7 +102,14 @@
 					<!-- END row -->
 					<!-- IF PAGINATION or TOTAL_POSTS -->
 						<div class="pagination">
-							{TOTAL_POSTS} <!-- IF PAGE_NUMBER --><!-- IF PAGINATION --> &bull; {PAGE_NUMBER} &bull; <span>{PAGINATION}</span><!-- ELSE --> &bull; {PAGE_NUMBER}<!-- ENDIF --><!-- ENDIF -->
+							{TOTAL_POSTS}
+							<!-- IF PAGE_NUMBER -->
+								<!-- IF PAGINATION -->
+									&bull; {PAGE_NUMBER} &bull; <span>{PAGINATION}</span>
+								<!-- ELSE -->
+									&bull; {PAGE_NUMBER}
+								<!-- ENDIF -->
+							<!-- ENDIF -->
 						</div>
 					<!-- ENDIF -->
 				</section>

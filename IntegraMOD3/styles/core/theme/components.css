@@ -647,6 +647,28 @@ ul.linklist { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap:
 .nav-user { margin-left: 0; }
 .right-arrow { margin-left: initial; }
 
+/* User dropdown avatar (desktop shows avatar + username) */
+.nav-user .dropdown-toggle { display: inline-flex; align-items: center; gap: 0.5rem; }
+.header-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.85rem;
+    height: 1.85rem;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    color: var(--on-primary-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    overflow: hidden;
+}
+.header-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Logged-out auth links (login / register) */
+.nav-auth { margin-left: 0; display: inline-flex; align-items: center; gap: 0.25rem; }
+.nav-auth .nav-auth-login,
+.nav-auth .nav-auth-register { display: inline-flex; align-items: center; min-height: 2.5em; padding: 10px; }
+
 /* Align right-side dropdowns to anchor on the right and open leftward */
 .nav-style .sub-menu,
 .nav-user .sub-menu { left: auto; right: 0; }
@@ -741,6 +763,31 @@ div.buttons div.qreply-icon .double-reply-icon svg { width: 12px !important; hei
 div.buttons div.qreply-icon .double-reply-icon svg + svg { margin-left: -7px !important; opacity: 0.72; }
 
 /* Posting page */
+.posting-card .ucp-card-title {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.3;
+}
+.posting-card .ucp-card-title h6,
+.subnav-current h6,
+#active-page-title h6,
+.navlinks h6 {
+    display: inline;
+    margin: 0 0 0 0.35em;
+    padding: 0;
+    border: 0;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: inherit;
+    color: inherit;
+}
+.posting-editor .posting-subject-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 8px 12px;
+}
 fieldset.submit-buttons.posting-actions { border: 0; padding: 8px 0; }
 .posting-message-box,
 #message-box {
@@ -950,4 +997,45 @@ blockquote.uncited {
 
 blockquote .codebox {
     margin-left: 0;
+}
+
+.mention-list {
+    background: var(--bg-main);
+    border: 1px solid var(--surface-border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    color: var(--text-primary);
+    list-style: none;
+    margin: 0;
+    max-width: 260px;
+    padding: 4px;
+    position: absolute;
+    z-index: 1000;
+}
+
+.mention-list li {
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+}
+
+.mention-list li.is-active,
+.mention-list li:hover {
+    background: var(--link-color);
+    color: var(--bg-main);
+}
+
+.mention-caret-mirror {
+    left: -9999px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+a.mention {
+    font-weight: 700;
+    text-decoration: none;
 }

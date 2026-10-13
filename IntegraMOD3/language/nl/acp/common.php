@@ -342,8 +342,10 @@ $lang = array_merge($lang, array(
 
 	'FILES_PER_DAY'		=> 'Bijlagen per dag',
 	'FORUM_STATS'		=> 'Forumstatistieken',
+	'ACM_CACHE_TYPE'	=> 'ACM-cachetype',
 
 	'GZIP_COMPRESSION'	=> 'GZip compressie',
+	'PHP_VERSION_INFO'	=> 'PHP-versie',
 
 	'NOT_AVAILABLE'		=> 'Niet beschikbaar',
 	'NUMBER_FILES'		=> 'Aantal bijlagen',
@@ -825,6 +827,23 @@ $lang = array_merge($lang, array(
 	'ACP_USER_MCHAT'								=> 'mChat Instellingen',
 	'LOG_DELETED_MCHAT'								=> '<strong>mChat bericht verwijderd</strong><br />» %1$s',
 	'LOG_EDITED_MCHAT'								=> '<strong>mChat bericht gewijzigd</strong><br />» %1$s',
+));
+
+// OneAll Social Login
+$lang = array_merge($lang, array(
+	'ACP_OA_SOCIAL_LOGIN'			=> 'OneAll Social Login',
+	'ACP_OA_SOCIAL_LOGIN_SETTINGS'	=> 'OneAll Social Login-instellingen',
+));
+
+$lang = array_merge($lang, array(
+	'ACP_DOCS'				=> 'Documentatie',
+	'ACP_NOTIFICATIONS'		=> 'Meldingen',
+	'ACP_THEME_TOGGLE'		=> 'Licht of donker',
+	'ACP_LAYOUT_OPTIONS'	=> 'Lay-outopties',
+	'ACP_FIXED_SIDEBAR'		=> 'Vaste zijbalk',
+	'ACP_FIXED_TOP'			=> 'Vaste bovenbalk',
+	'ACP_NONE'				=> 'Geen',
+	'ACP_VIEW_ALL'			=> 'Alles weergeven',
 ));
 
 ?>

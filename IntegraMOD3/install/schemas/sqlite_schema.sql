@@ -994,7 +994,7 @@ CREATE TABLE phpbb_forums (
 	forum_last_post_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	forum_last_poster_name varchar(255) NOT NULL DEFAULT '',
 	forum_last_poster_colour varchar(6) NOT NULL DEFAULT '',
-	forum_flags tinyint(4) NOT NULL DEFAULT '32',
+	forum_flags INTEGER UNSIGNED NOT NULL DEFAULT '32',
 	forum_options INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	forum_share_enable INTEGER UNSIGNED NOT NULL DEFAULT '1',
 	display_subforum_list INTEGER UNSIGNED NOT NULL DEFAULT '1',
@@ -1942,6 +1942,42 @@ CREATE TABLE phpbb_points_values (
 	gallery_view decimal(10,2) NOT NULL DEFAULT '0'
 );
 
+
+# Table: 'phpbb_oasl_user'
+CREATE TABLE phpbb_oasl_user (
+	oasl_user_id INTEGER PRIMARY KEY NOT NULL ,
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_token varchar(255) NOT NULL DEFAULT '',
+	date_added INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_oasl_user_user_id ON phpbb_oasl_user (user_id);
+CREATE INDEX phpbb_oasl_user_user_token ON phpbb_oasl_user (user_token);
+
+# Table: 'phpbb_oasl_identity'
+CREATE TABLE phpbb_oasl_identity (
+	oasl_identity_id INTEGER PRIMARY KEY NOT NULL ,
+	oasl_user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	identity_token varchar(255) NOT NULL DEFAULT '',
+	identity_provider varchar(255) NOT NULL DEFAULT '',
+	num_logins INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	date_added INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	date_updated INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_oasl_identity_oasl_user_id ON phpbb_oasl_identity (oasl_user_id);
+CREATE INDEX phpbb_oasl_identity_identity_token ON phpbb_oasl_identity (identity_token);
+
+# Table: 'phpbb_oasl_login_token'
+CREATE TABLE phpbb_oasl_login_token (
+	oasl_login_token_id INTEGER PRIMARY KEY NOT NULL ,
+	login_token varchar(255) NOT NULL DEFAULT '',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	date_creation INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_oasl_login_token_user_id ON phpbb_oasl_login_token (user_id);
+CREATE INDEX phpbb_oasl_login_token_login_token ON phpbb_oasl_login_token (login_token);
 
 # Table: 'phpbb_poll_options'
 CREATE TABLE phpbb_poll_options (

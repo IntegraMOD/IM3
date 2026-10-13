@@ -323,6 +323,14 @@ $lang = array_merge($lang, array(
 	'NOTIFY_METHOD_EXPLAIN'		=> 'Methode, die für den Versand von Nachrichten über das Board verwendet wird.',
 	'NOTIFY_METHOD_IM'			=> 'Nur per Jabber',
 	'NOTIFY_ON_PM'				=> 'Benachrichtige mich über neue Nachrichten',
+	'MENTION_NOTIFY'			=> 'Erwähnungen',
+	'MENTION_NOTIFY_EXPLAIN'	=> 'Standardmäßig wird eine private Nachricht gesendet. Wähle E-Mail, um stattdessen eine E-Mail zu erhalten. Push-Benachrichtigungen bleiben unverändert.',
+	'MENTION_NOTIFY_PM'			=> 'Private Nachricht',
+	'MENTION_NOTIFY_EMAIL'		=> 'E-Mail',
+	'MENTION_PM_SUBJECT'		=> 'Du wurdest von %s erwähnt',
+	'MENTION_PM_BODY'			=> '%1$s hat dich in „%2$s“ erwähnt.
+
+%3$s',
 	'NOT_ADDED_FRIENDS_ANONYMOUS'	=> 'Du kannst das Gäste-Benutzerkonto nicht zu deinen Freunden hinzufügen.',
 	'NOT_ADDED_FRIENDS_BOTS'		=> 'Du kannst keine Bots zu deinen Freunden hinzufügen.',
 	'NOT_ADDED_FRIENDS_FOES'		=> 'Du kannst kein Mitglied zu deinen Freunden hinzufügen, das sich in der Liste der ignorierten Mitglieder befindet.',

@@ -1747,14 +1747,24 @@ public function __construct()
 	return;
 	}
 	 
-	$xml_data = simplexml_load_string((string) $update_xml);
+	$xml_data = @simplexml_load_string((string) $update_xml);
 	$rows = $this->_simpleXMLToArray($xml_data);
-	 
+
+	if (!is_array($rows) || empty($rows['module']) || !is_array($rows['module'])) {
+	$template->assign_var('SN_VERSION_AVAILABLE', true);
+	$template->assign_var('B_COULD_NOT_GET_UPDATE', true);
+	return;
+	}
+
 	foreach ($rows['module'] as $idx => $module) {
 	if ($idx == 0) {
 	continue;
 	}
-	 
+
+	if (!is_array($module)) {
+	continue;
+	}
+
 	$code_name = $module["code"];
 	$name = $module["name"];
 	$msg = $module["msg"];
@@ -2007,18 +2017,24 @@ public function __construct()
 	if (!$flattenChildren) {
 	$return[$childrenKey] = $children;
 	} else {
+	if (!is_array($return)) {
+	$return = array($valueKey => $return);
+	}
 	$return = array_merge($return, $children);
 	}
 	}
 	 
 	$attributes = array();
-	foreach ($xml->attributes() as $name => $value) {
-	$attributes[$name] = trim($value);
+	foreach ($xml->attributes() as $attributeName => $value) {
+	$attributes[$attributeName] = trim((string) $value);
 	}
 	if (count($attributes) > 0) {
 	if (!$flattenAttributes) {
 	$return[$attributesKey] = $attributes;
 	} else {
+	if (!is_array($return)) {
+	$return = array($valueKey => $return);
+	}
 	$return = array_merge($return, $attributes);
 	}
 	}

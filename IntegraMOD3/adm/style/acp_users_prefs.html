@@ -44,6 +44,11 @@
 		<dd><label><input type="radio" class="radio" name="popuppm" value="1"<!-- IF POPUP_PM --> id="popuppm" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
 			<label><input type="radio" class="radio" name="popuppm" value="0"<!-- IF not POPUP_PM --> id="popuppm" checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
 	</dl>
+	<dl>
+		<dt><label for="mention_email">{L_MENTION_NOTIFY}:</label><br /><span>{L_MENTION_NOTIFY_EXPLAIN}</span></dt>
+		<dd><label><input type="radio" class="radio" name="mention_email" value="0"<!-- IF not MENTION_EMAIL --> id="mention_email" checked="checked"<!-- ENDIF --> /> {L_MENTION_NOTIFY_PM}</label>
+			<label><input type="radio" class="radio" name="mention_email" value="1"<!-- IF MENTION_EMAIL --> id="mention_email" checked="checked"<!-- ENDIF --> /> {L_MENTION_NOTIFY_EMAIL}</label></dd>
+	</dl>
 	<dl> 
 		<dt><label for="lang">{L_BOARD_LANGUAGE}:</label></dt>
 		<dd><select id="lang" name="lang">{S_LANG_OPTIONS}</select></dd>
@@ -148,6 +153,27 @@
 		<dt><label>{L_VIEW_POSTS_DIR}:</label></dt>
 		<dd>{S_POST_SORT_DIR}</dd>
 	</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{L_UCP_PUSH_NOTIFICATIONS}</legend>
+		<p>{L_UCP_PUSH_EXPLAIN}</p>
+		<dl>
+			<dt><label>{L_USER_MOBILE}:</label><br /><span>{L_USER_MOBILE_EXPLAIN}</span></dt>
+			<dd><!-- IF S_USER_MOBILE_STORED -->{L_ACP_USER_MOBILE_STORED}<!-- ELSE -->{L_ACP_USER_MOBILE_NONE}<!-- ENDIF --></dd>
+		</dl>
+		<!-- BEGIN push_event -->
+		<dl>
+			<dt><label>{push_event.LABEL}:</label><!-- IF push_event.EXPLAIN --><br /><span>{push_event.EXPLAIN}</span><!-- ENDIF --><!-- IF push_event.S_INELIGIBLE --><br /><span>{L_ACP_PUSH_USER_INELIGIBLE}</span><!-- ENDIF --></dt>
+			<dd>
+				<label><input type="checkbox" class="radio" name="user_push_web_{push_event.NAME}" value="1"<!-- IF push_event.WEB --> checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label>
+				<!-- IF not push_event.S_WEB_BOARD --> <span>{L_ACP_PUSH_CHANNEL_OFF}</span><!-- ENDIF -->
+				&nbsp;
+				<label><input type="checkbox" class="radio" name="user_push_sms_{push_event.NAME}" value="1"<!-- IF push_event.SMS --> checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label>
+				<!-- IF not push_event.S_SMS_BOARD --> <span>{L_ACP_PUSH_CHANNEL_OFF}</span><!-- ENDIF -->
+			</dd>
+		</dl>
+		<!-- END push_event -->
 	</fieldset>
 
 	<fieldset class="quick">

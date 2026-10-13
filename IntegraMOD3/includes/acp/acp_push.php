@@ -68,12 +68,20 @@ class acp_push
                     set_config('twilio_from_number', request_var('twilio_from_number', ''));
 
                     // Save global notification toggles
-                    $events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce');
+                    $events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce', 'register', 'new_post', 'mention');
                     foreach ($events as $event)
                     {
                         set_config('push_allow_web_' . $event, request_var('push_allow_web_' . $event, 0));
                         set_config('push_allow_sms_' . $event, request_var('push_allow_sms_' . $event, 0));
                     }
+
+                    // Staff registration audience and groups allowed to receive new-post alerts
+                    set_config('push_register_mods', request_var('push_register_mods', 0));
+
+                    $group_ids = request_var('push_new_post_groups', array(0));
+                    $group_ids = array_unique(array_map('intval', $group_ids));
+                    $group_ids = array_filter($group_ids);
+                    set_config('push_new_post_groups', implode(',', $group_ids));
 
                     $cache->destroy('config');
 
@@ -94,12 +102,35 @@ class acp_push
                     'TWILIO_FROM_NUMBER'		=> isset($config['twilio_from_number']) ? $config['twilio_from_number'] : '',
                 );
 
-                $events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce');
+                $events = array('friend_req', 'friend_acc', 'pm', 'like', 'activity', 'sub_post', 'sub_topic', 'news', 'announce', 'register', 'new_post', 'mention');
                 foreach ($events as $event)
                 {
-                    $template_vars['PUSH_ALLOW_WEB_' . strtoupper($event)] = isset($config['push_allow_web_' . $event]) ? $config['push_allow_web_' . $event] : 1;
-                    $template_vars['PUSH_ALLOW_SMS_' . strtoupper($event)] = isset($config['push_allow_sms_' . $event]) ? $config['push_allow_sms_' . $event] : 1;
+                    $template_vars['PUSH_ALLOW_WEB_' . strtoupper($event)] = isset($config['push_allow_web_' . $event]) ? $config['push_allow_web_' . $event] : 0;
+                    $template_vars['PUSH_ALLOW_SMS_' . strtoupper($event)] = isset($config['push_allow_sms_' . $event]) ? $config['push_allow_sms_' . $event] : 0;
                 }
+
+                $selected_groups = array();
+                if (!empty($config['push_new_post_groups']))
+                {
+                    $selected_groups = array_map('intval', explode(',', $config['push_new_post_groups']));
+                }
+
+                $template_vars['S_PUSH_REGISTER_MODS'] = !empty($config['push_register_mods']);
+
+                $sql = 'SELECT group_id, group_name, group_type
+                    FROM ' . GROUPS_TABLE . '
+                    WHERE group_type <> ' . GROUP_SPECIAL . '
+                    ORDER BY group_name ASC';
+                $result = $db->sql_query($sql);
+                while ($row = $db->sql_fetchrow($result))
+                {
+                    $template->assign_block_vars('new_post_groups', array(
+                        'GROUP_ID'		=> (int) $row['group_id'],
+                        'GROUP_NAME'	=> ($row['group_type'] == GROUP_SPECIAL) ? $user->lang['G_' . $row['group_name']] : $row['group_name'],
+                        'S_SELECTED'	=> in_array((int) $row['group_id'], $selected_groups, true),
+                    ));
+                }
+                $db->sql_freeresult($result);
 
                 $template->assign_vars($template_vars);
 

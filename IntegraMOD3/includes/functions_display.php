@@ -1647,32 +1647,27 @@ function get_user_avatar($avatar, $avatar_type, $avatar_width, $avatar_height, $
 	if (empty($avatar) || !$avatar_type || (!$config['allow_avatar'] && !$ignore_config))
 	{
 		// if no avatar we generate a random one //
-		if (!STARGATE)
+		if ($config['allow_avatar'] && (empty($avatar) || !$avatar_type))
 		{
-			return;
-		}
-		else
-		{
-			if ($config['allow_avatar'] && (empty($avatar) || !$avatar_type))
+			$poster_avatar = get_random_image($phpbb_root_path . 'images/avatars/no_avitar', false, '');
+
+			// do we wish to resize? 28 January 2010 should not require else...? will look later //
+			if ($poster_avatar && ($avatar_width || $avatar_height))
 			{
-					$poster_avatar = get_random_image($phpbb_root_path . 'images/avatars/no_avitar', false, '');
-
-					// do we wish to resize? 28 January 2010 should not require else...? will look later //
-					if ($avatar_width || $avatar_height)
-					{
-						if (strpos((string) $poster_avatar, '/>"'))
-						{
-							$poster_avatar = str_replace('/>"', '" height="' . $avatar_height . '" width="' . $avatar_width . '" />', (string) $poster_avatar);
-						}
-						elseif (strpos((string) $poster_avatar, '/>'))
-						{
-							$poster_avatar = str_replace('/>', ' height="' . $avatar_height . '" width="' . $avatar_width . '" />', (string) $poster_avatar);
-						}
-					}
-
-					return($poster_avatar);
+				if (strpos((string) $poster_avatar, '/>"'))
+				{
+					$poster_avatar = str_replace('/>"', '" height="' . $avatar_height . '" width="' . $avatar_width . '" />', (string) $poster_avatar);
+				}
+				elseif (strpos((string) $poster_avatar, '/>'))
+				{
+					$poster_avatar = str_replace('/>', ' height="' . $avatar_height . '" width="' . $avatar_width . '" />', (string) $poster_avatar);
+				}
 			}
+
+			return (string) $poster_avatar;
 		}
+
+		return '';
 	}
 
 	$avatar_img = '';

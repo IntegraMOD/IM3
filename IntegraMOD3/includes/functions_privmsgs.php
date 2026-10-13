@@ -1496,7 +1496,7 @@ function get_folder_status($folder_id, $folder)
 /**
 * Submit PM
 */
-function submit_pm($mode, $subject, &$data, $put_in_outbox = true)
+function submit_pm($mode, $subject, &$data, $put_in_outbox = true, $send_notification = true)
 {
 	global $db, $auth, $config, $phpEx, $template, $user, $phpbb_root_path;
 
@@ -1798,7 +1798,7 @@ function submit_pm($mode, $subject, &$data, $put_in_outbox = true)
 	$db->sql_transaction('commit');
 
 	// Send Notifications
-	if ($mode != 'edit')
+	if ($mode != 'edit' && $send_notification)
 	{
 		pm_notification($mode, $data['from_username'], $recipients, $subject, $data['message'], $data['msg_id']);
 	}

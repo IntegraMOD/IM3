@@ -47,24 +47,36 @@ if (navigator.appName == 'Microsoft Internet Explorer')
   else
   {       s=event_obj.target;
   }
+
+        var date_java = document.getElementById('date_java');
+        var time_java = document.getElementById('time_java');
+        var end_date_java = document.getElementById('end_date_java');
+        var end_time_java = document.getElementById('end_time_java');
+
+        // Nothing to do on pages that do not include the calendar widgets.
+        if (!date_java && !time_java && !end_date_java && !end_time_java)
+        {
+                return;
+        }
+
         while(s) {
                 //if (s.id =='mins' || s.id =='ampm'|| s.id =='hrs' ){return;}
-                if (s==document.getElementById('date_java'))
+                if (date_java && s==date_java)
                 {
                         time_close();
                         return;
                 }
-                if (s==document.getElementById('time_java'))
+                if (time_java && s==time_java)
                 {
                         date_close();
                         return;
                 }
-                if (s==document.getElementById('end_date_java'))
+                if (end_date_java && s==end_date_java)
                 {
                         end_time_close();
                         return;
                 }
-                if (s==document.getElementById('end_time_java'))
+                if (end_time_java && s==end_time_java)
                 {
                         end_date_close();
                         return;
@@ -73,6 +85,24 @@ if (navigator.appName == 'Microsoft Internet Explorer')
         }
         time_close();
         date_close();
+}
+
+function end_time_close()
+{
+        var end_time_java = document.getElementById('end_time_java');
+        if (end_time_java)
+        {
+                end_time_java.style.display='none';
+        }
+}
+
+function end_date_close()
+{
+        var end_date_java = document.getElementById('end_date_java');
+        if (end_date_java)
+        {
+                end_date_java.style.display='none';
+        }
 }
 
 //Show Hide Functions
@@ -107,7 +137,11 @@ function time_show(obj)
         
 function time_close()
 {
-        document.getElementById('time_java').style.display='none';
+        var time_java = document.getElementById('time_java');
+        if (time_java)
+        {
+                time_java.style.display='none';
+        }
 }
 
 function date_show(obj)
@@ -135,7 +169,11 @@ function date_show(obj)
 
 function date_close()
 {
-        document.getElementById('date_java').style.display='none';
+        var date_java = document.getElementById('date_java');
+        if (date_java)
+        {
+                date_java.style.display='none';
+        }
 }
 
 //Positioning functions

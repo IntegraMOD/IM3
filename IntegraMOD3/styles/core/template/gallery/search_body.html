@@ -34,25 +34,26 @@
 				<div class="ucp-form-row">
 					<label class="ucp-form-label" for="search_album">{L_SEARCH_ALBUMS}:</label>
 					<!-- IF S_IMPLEMENTED --><p class="ucp-form-help">{L_SEARCH_ALBUMS_EXPLAIN}</p><!-- ENDIF -->
-					<select class="ucp-form-select" name="aid[]" id="search_album" multiple="multiple" size="8" title="{L_SEARCH_ALBUMS}">{S_ALBUM_OPTIONS}</select>
+					<select class="ucp-form-select" name="aid[]" id="search_album" multiple="multiple" size="8" title="{L_SEARCH_ALBUMS}">{S_ALBUM_OPTIONS}
+					</select>
 				</div>
 				<!-- IF S_IMPLEMENTED -->
-				<div class="ucp-form-row">
-					<span class="ucp-form-label">{L_SEARCH_SUBALBUMS}:</span>
-					<div class="ucp-form-inline">
-						<label for="search_child1"><input type="radio" name="sc" id="search_child1" value="1" checked="checked" /> {L_YES}</label>
-						<label for="search_child2"><input type="radio" name="sc" id="search_child2" value="0" /> {L_NO}</label>
+					<div class="ucp-form-row">
+						<span class="ucp-form-label">{L_SEARCH_SUBALBUMS}:</span>
+						<div class="ucp-form-inline">
+							<label for="search_child1"><input type="radio" name="sc" id="search_child1" value="1" checked="checked" /> {L_YES}</label>
+							<label for="search_child2"><input type="radio" name="sc" id="search_child2" value="0" /> {L_NO}</label>
+						</div>
 					</div>
-				</div>
-				<div class="ucp-form-row">
-					<span class="ucp-form-label">{L_SEARCH_WITHIN}:</span>
-					<div class="ucp-form-inline">
-						<label for="sf1"><input type="radio" name="sf" id="sf1" value="all" checked="checked" /> {L_SEARCH_IMAGE_COMMENTS}</label>
-						<label for="sf2"><input type="radio" name="sf" id="sf2" value="msgonly" /> {L_SEARCH_IMAGE_VALUES}</label>
-						<label for="sf3"><input type="radio" name="sf" id="sf3" value="titleonly" /> {L_SEARCH_IMAGENAME}</label>
-						<label for="sf4"><input type="radio" name="sf" id="sf4" value="firstpost" /> {L_SEARCH_COMMENTS}</label>
+					<div class="ucp-form-row">
+						<span class="ucp-form-label">{L_SEARCH_WITHIN}:</span>
+						<div class="ucp-form-inline">
+							<label for="sf1"><input type="radio" name="sf" id="sf1" value="all" checked="checked" /> {L_SEARCH_IMAGE_COMMENTS}</label>
+							<label for="sf2"><input type="radio" name="sf" id="sf2" value="msgonly" /> {L_SEARCH_IMAGE_VALUES}</label>
+							<label for="sf3"><input type="radio" name="sf" id="sf3" value="titleonly" /> {L_SEARCH_IMAGENAME}</label>
+							<label for="sf4"><input type="radio" name="sf" id="sf4" value="firstpost" /> {L_SEARCH_COMMENTS}</label>
+						</div>
 					</div>
-				</div>
 				<!-- ENDIF -->
 				<div class="ucp-form-row">
 					<span class="ucp-form-label">{L_RESULT_SORT}:</span>

@@ -25,6 +25,10 @@ function parse_document(container)
 
 		// Set onclick event
 		blocks.children('a.header').click(function() {
+			var shell = document.getElementById('wrap');
+			if (shell && shell.getAttribute('data-sidebar-state') === 'collapsed' && window.acpShell && typeof window.acpShell.toggleSidebar === 'function') {
+				window.acpShell.toggleSidebar();
+			}
 			var parent = $(this).parent();
 			if (!parent.hasClass('active')) {
 				parent.siblings().removeClass('active');
@@ -259,5 +263,245 @@ function parse_document(container)
 		$('.actions a:has(i.acp-icon)').mouseover(function () {
 			$(this).css("text-decoration", "none");
 		});
+
+		initAcpShell();
 	});
 })(jQuery);
+
+/**
+* Dashboard shell: sidebar, mobile drawer, and layout options.
+* Module pages are not involved; they still render inside #main.
+*/
+function initAcpShell()
+{
+	var shell = document.getElementById('wrap');
+	if (!shell || !shell.classList || !shell.classList.contains('acp-shell') || shell.classList.contains('acp-shell-notice'))
+	{
+		return;
+	}
+
+	var cookieName = 'im3_acp_shell';
+	var desktopWidth = 992;
+	var saved = readAcpShellCookie(cookieName);
+	var desktopMode = (saved.sidebar === 'collapsed') ? 'collapsed' : 'expanded';
+	var mobileOpen = false;
+	var prefs = {
+		fixedSidebar: saved.fixedSidebar === '1' ? '1' : '0',
+		fixedTop: saved.fixedTop === '0' ? '0' : '1',
+		theme: saved.theme === 'dark' ? 'dark' : 'light'
+	};
+
+	function isNarrow()
+	{
+		return window.innerWidth < desktopWidth;
+	}
+
+	function visualState()
+	{
+		if (isNarrow())
+		{
+			return mobileOpen ? 'overlay' : 'closed';
+		}
+		return desktopMode;
+	}
+
+	function persist()
+	{
+		var value = 'sidebar=' + desktopMode + '&fixedSidebar=' + prefs.fixedSidebar + '&fixedTop=' + prefs.fixedTop + '&theme=' + prefs.theme;
+		document.cookie = cookieName + '=' + encodeURIComponent(value) + '; path=/; max-age=31536000; samesite=lax';
+	}
+
+	function apply()
+	{
+		var state = visualState();
+		shell.setAttribute('data-sidebar-state', state);
+		shell.setAttribute('data-fixed-sidebar', prefs.fixedSidebar);
+		shell.setAttribute('data-fixed-top', prefs.fixedTop);
+		shell.setAttribute('data-theme', prefs.theme);
+		var themeToggle = shell.querySelector('[data-acp-theme-toggle]');
+		if (themeToggle)
+		{
+			themeToggle.setAttribute('aria-pressed', prefs.theme === 'dark' ? 'true' : 'false');
+		}
+		if (typeof menu_state !== 'undefined')
+		{
+			menu_state = (state === 'expanded' || state === 'overlay') ? 'shown' : 'hidden';
+		}
+
+		var backdrop = shell.querySelector('[data-acp-backdrop]');
+		if (backdrop)
+		{
+			if (state === 'overlay')
+			{
+				backdrop.removeAttribute('hidden');
+			}
+			else
+			{
+				backdrop.setAttribute('hidden', 'hidden');
+			}
+		}
+	}
+
+	window.acpShell = window.acpShell || {};
+	window.acpShell.toggleSidebar = function()
+	{
+		if (isNarrow())
+		{
+			mobileOpen = !mobileOpen;
+		}
+		else
+		{
+			desktopMode = (desktopMode === 'collapsed') ? 'expanded' : 'collapsed';
+			persist();
+		}
+		apply();
+	};
+
+	var toggle = shell.querySelector('[data-acp-sidebar-toggle]');
+	if (toggle)
+	{
+		toggle.addEventListener('click', function(event)
+		{
+			event.preventDefault();
+			window.acpShell.toggleSidebar();
+		});
+	}
+
+	var backdrop = shell.querySelector('[data-acp-backdrop]');
+	if (backdrop)
+	{
+		backdrop.addEventListener('click', function()
+		{
+			mobileOpen = false;
+			apply();
+		});
+	}
+
+	function closeMenus(except)
+	{
+		var menus = shell.querySelectorAll('[data-acp-menu]');
+		for (var i = 0; i < menus.length; i++)
+		{
+			if (except && menus[i] === except)
+			{
+				continue;
+			}
+			menus[i].setAttribute('hidden', 'hidden');
+			var owner = shell.querySelector('[aria-controls="' + menus[i].id + '"]');
+			if (owner)
+			{
+				owner.setAttribute('aria-expanded', 'false');
+			}
+		}
+	}
+
+	var menuToggles = shell.querySelectorAll('[data-acp-menu-toggle]');
+	for (var m = 0; m < menuToggles.length; m++)
+	{
+		menuToggles[m].addEventListener('click', function(event)
+		{
+			event.preventDefault();
+			event.stopPropagation();
+			var panel = document.getElementById(this.getAttribute('aria-controls'));
+			if (!panel)
+			{
+				return;
+			}
+			var open = panel.hasAttribute('hidden');
+			closeMenus(open ? panel : null);
+			if (open)
+			{
+				panel.removeAttribute('hidden');
+				this.setAttribute('aria-expanded', 'true');
+			}
+			else
+			{
+				panel.setAttribute('hidden', 'hidden');
+				this.setAttribute('aria-expanded', 'false');
+			}
+		});
+	}
+
+	document.addEventListener('click', function(event)
+	{
+		if (event.target.closest && event.target.closest('.acp-menu-wrap'))
+		{
+			return;
+		}
+		closeMenus(null);
+	});
+
+	var themeToggle = shell.querySelector('[data-acp-theme-toggle]');
+	if (themeToggle)
+	{
+		themeToggle.addEventListener('click', function(event)
+		{
+			event.preventDefault();
+			prefs.theme = (prefs.theme === 'dark') ? 'light' : 'dark';
+			persist();
+			apply();
+		});
+	}
+
+	var optionInputs = shell.querySelectorAll('[data-acp-option]');
+	for (var i = 0; i < optionInputs.length; i++)
+	{
+		(function(input)
+		{
+			var name = input.getAttribute('data-acp-option');
+			if (name === 'fixed-sidebar')
+			{
+				input.checked = prefs.fixedSidebar === '1';
+			}
+			if (name === 'fixed-top')
+			{
+				input.checked = prefs.fixedTop === '1';
+			}
+			input.addEventListener('change', function()
+			{
+				if (name === 'fixed-sidebar')
+				{
+					prefs.fixedSidebar = input.checked ? '1' : '0';
+				}
+				if (name === 'fixed-top')
+				{
+					prefs.fixedTop = input.checked ? '1' : '0';
+				}
+				persist();
+				apply();
+			});
+		})(optionInputs[i]);
+	}
+
+	window.addEventListener('resize', function()
+	{
+		if (!isNarrow())
+		{
+			mobileOpen = false;
+		}
+		apply();
+	});
+
+	apply();
+}
+
+function readAcpShellCookie(name)
+{
+	var parts = ('; ' + document.cookie).split('; ' + name + '=');
+	var out = {};
+	if (parts.length < 2)
+	{
+		return out;
+	}
+	var raw = decodeURIComponent(parts.pop().split(';').shift() || '');
+	var pairs = raw.split('&');
+	for (var i = 0; i < pairs.length; i++)
+	{
+		var bits = pairs[i].split('=');
+		if (bits[0])
+		{
+			out[bits[0]] = bits[1] || '';
+		}
+	}
+	return out;
+}

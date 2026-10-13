@@ -118,7 +118,14 @@ class acm extends acm_memory
 
 		if (is_object($this->redis))
 		{
-			$this->redis->close();
+			try
+			{
+				$this->redis->close();
+			}
+			catch (Exception $e)
+			{
+				// Nothing to do, connection is gone anyway
+			}
 		}
 	}
 
@@ -129,7 +136,14 @@ class acm extends acm_memory
 	*/
 	function purge()
 	{
-		$this->redis->flushDB();
+		try
+		{
+			$this->redis->flushDB();
+		}
+		catch (Exception $e)
+		{
+			// Backend unavailable - still purge the file based part below
+		}
 
 		parent::purge();
 	}
@@ -143,7 +157,15 @@ class acm extends acm_memory
 	*/
 	function _read($var)
 	{
-		return $this->redis->get($var);
+		try
+		{
+			return $this->redis->get($var);
+		}
+		catch (Exception $e)
+		{
+			// Cache backend unavailable (OOM, connection loss, ...) - behave as a cache miss
+			return false;
+		}
 	}
 
 	/**
@@ -157,7 +179,15 @@ class acm extends acm_memory
 	*/
 	function _write($var, $data, $ttl = 2592000)
 	{
-		return $this->redis->setEx($var, (int) $ttl, $data);
+		try
+		{
+			return $this->redis->setEx($var, (int) $ttl, $data);
+		}
+		catch (Exception $e)
+		{
+			// Cache backend refused the write (OOM, read-only replica, ...) - continue uncached
+			return false;
+		}
 	}
 
 	/**
@@ -169,14 +199,21 @@ class acm extends acm_memory
 	*/
 	function _delete($var)
 	{
-		if (method_exists($this->redis, 'del'))
+		try
 		{
-			return ($this->redis->del($var) > 0);
-		}
+			if (method_exists($this->redis, 'del'))
+			{
+				return ($this->redis->del($var) > 0);
+			}
 
-		if (method_exists($this->redis, 'delete'))
+			if (method_exists($this->redis, 'delete'))
+			{
+				return ($this->redis->delete($var) > 0);
+			}
+		}
+		catch (Exception $e)
 		{
-			return ($this->redis->delete($var) > 0);
+			return false;
 		}
 
 		return false;

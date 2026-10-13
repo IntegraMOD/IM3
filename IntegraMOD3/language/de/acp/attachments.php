@@ -113,6 +113,9 @@ $lang = array_merge($lang, array(
 	'GO_TO_EXTENSIONS'		=> 'Dateierweiterungen bearbeiten',
 	'GROUP_NAME'			=> 'Gruppenname',
 
+	'IMAGICK_FOUND'			=> 'ImageMagick wurde unter <strong>%s</strong> gefunden. Sende das Formular ab, um diesen Pfad zu speichern.',
+	'IMAGICK_NOT_FOUND'		=> 'ImageMagick konnte nicht gefunden werden. Es ist entweder nicht auf diesem Server installiert oder liegt außerhalb der durchsuchbaren Verzeichnisse. Wenn der Pfad bekannt ist, kann er manuell eingetragen werden.',
+
 	'IMAGE_LINK_SIZE'			=> 'Dateigröße für verlinkte Bilder',
 	'IMAGE_LINK_SIZE_EXPLAIN'	=> 'Bild-Dateianhänge werden als Link dargestellt, wenn deren Größe diese Werte überschreitet. Um dieses Verhalten abzuschalten, stelle als Werte 0px &times; 0px ein.',
 	'IMAGICK_PATH'				=> 'Imagemagick-Pfad',

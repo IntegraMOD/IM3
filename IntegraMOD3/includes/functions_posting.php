@@ -696,10 +696,12 @@ function create_thumbnail($source, $destination, $mimetype)
 
 	if (file_exists($exe))
 	{
+		// Argument order valid for both ImageMagick 6 (convert) and 7 (magick):
+		// settings follow the input image, the last argument is the output image.
 		$cmd = escapeshellarg($exe)
-			. ' -quality 85'
-			. ' -geometry ' . (int) $new_width . 'x' . (int) $new_height
 			. ' ' . escapeshellarg(str_replace('\\', '/', $source))
+			. ' -quality 85'
+			. ' -resize ' . (int) $new_width . 'x' . (int) $new_height
 			. ' ' . escapeshellarg(str_replace('\\', '/', $destination));
 
 		@passthru($cmd);
@@ -2122,8 +2124,8 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 
 				'topic_attachment'			=> (!empty($data['attachment_data'])) ? 1 : (isset($data['topic_attachment']) ? $data['topic_attachment'] : 0),
 //---BEGIN CALENDAR MOD---
-                'topic_calendar_time'       => isset($data['topic_calendar_time']) ? $data['topic_calendar_time'] : null,
-                'topic_calendar_duration'   => isset($data['topic_calendar_duration']) ? $data['topic_calendar_duration'] : null,
+                'topic_calendar_time'       => isset($data['topic_calendar_time']) ? (int) $data['topic_calendar_time'] : 0,
+                'topic_calendar_duration'   => isset($data['topic_calendar_duration']) ? (int) $data['topic_calendar_duration'] : 0,
                 'event_repeat'              => isset($data['event_repeat']) ? $data['event_repeat'] : '',
                 'invite_attendees'          => isset($data['invite_attendees']) ? $data['invite_attendees'] : 0,
                 'event_attendees'           => isset($data['event_attendees']) ? $data['event_attendees'] : '',
@@ -3051,6 +3053,17 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 		$username = ($username !== '' || !$user->data['is_registered']) ? $username : $user->data['username'];
 		user_notification($mode, $subject, $data['topic_title'], $data['forum_name'], $data['forum_id'], $data['topic_id'], $data['post_id'], $username);
 
+		if (function_exists('trigger_new_post_push'))
+		{
+			trigger_new_post_push($data['forum_id'], $data['topic_id'], $data['post_id'], $subject, $username, $user->data['user_id'], true, false, im3_push_subscription_recipients($data['forum_id'], $data['topic_id'], $mode));
+		}
+
+		if (function_exists('im3_process_mentions') && !empty($data['post_id']))
+		{
+			$mention_text = $data['message'];
+			im3_process_mentions($mention_text, $data['bbcode_uid'], (int) $data['forum_id'], (int) $data['topic_id'], (int) $data['post_id'], $subject, $username, (int) $poster_id, true);
+		}
+
 		// OneSignal Push Notification Hook for News and Announcements
 		if (function_exists('trigger_mass_push') && $mode == 'post' && ($topic_type == POST_ANNOUNCE || $topic_type == POST_NEWS || $topic_type == POST_NEWS_GLOBAL))
 		{
@@ -3075,6 +3088,12 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll, &$data, $u
 	else if ($mode != 'post' && $post_mode != 'edit_first_post' && $post_mode != 'edit_topic')
 	{
 		$params .= '&amp;t=' . $data['topic_id'];
+	}
+
+	if (!$post_approval && ($mode == 'reply' || $mode == 'quote' || $mode == 'post') && function_exists('trigger_new_post_push'))
+	{
+		$pending_author = ($username !== '' || !$user->data['is_registered']) ? $username : $user->data['username'];
+		trigger_new_post_push($data['forum_id'], $data['topic_id'], $data['post_id'], $subject, $pending_author, $user->data['user_id'], false, false, array());
 	}
 
 	$url = (!$params) ? "{$phpbb_root_path}viewforum.$phpEx" : "{$phpbb_root_path}viewtopic.$phpEx";

@@ -2491,6 +2491,57 @@ CREATE TABLE phpbb_points_values (
 
 
 /*
+	Table: 'phpbb_oasl_user'
+*/
+CREATE SEQUENCE phpbb_oasl_user_seq;
+
+CREATE TABLE phpbb_oasl_user (
+	oasl_user_id INT4 DEFAULT nextval('phpbb_oasl_user_seq'),
+	user_id INT4 DEFAULT '0' NOT NULL CHECK (user_id >= 0),
+	user_token varchar(255) DEFAULT '' NOT NULL,
+	date_added INT4 DEFAULT '0' NOT NULL CHECK (date_added >= 0),
+	PRIMARY KEY (oasl_user_id)
+);
+
+CREATE INDEX phpbb_oasl_user_user_id ON phpbb_oasl_user (user_id);
+CREATE INDEX phpbb_oasl_user_user_token ON phpbb_oasl_user (user_token);
+
+/*
+	Table: 'phpbb_oasl_identity'
+*/
+CREATE SEQUENCE phpbb_oasl_identity_seq;
+
+CREATE TABLE phpbb_oasl_identity (
+	oasl_identity_id INT4 DEFAULT nextval('phpbb_oasl_identity_seq'),
+	oasl_user_id INT4 DEFAULT '0' NOT NULL CHECK (oasl_user_id >= 0),
+	identity_token varchar(255) DEFAULT '' NOT NULL,
+	identity_provider varchar(255) DEFAULT '' NOT NULL,
+	num_logins INT4 DEFAULT '0' NOT NULL CHECK (num_logins >= 0),
+	date_added INT4 DEFAULT '0' NOT NULL CHECK (date_added >= 0),
+	date_updated INT4 DEFAULT '0' NOT NULL CHECK (date_updated >= 0),
+	PRIMARY KEY (oasl_identity_id)
+);
+
+CREATE INDEX phpbb_oasl_identity_oasl_user_id ON phpbb_oasl_identity (oasl_user_id);
+CREATE INDEX phpbb_oasl_identity_identity_token ON phpbb_oasl_identity (identity_token);
+
+/*
+	Table: 'phpbb_oasl_login_token'
+*/
+CREATE SEQUENCE phpbb_oasl_login_token_seq;
+
+CREATE TABLE phpbb_oasl_login_token (
+	oasl_login_token_id INT4 DEFAULT nextval('phpbb_oasl_login_token_seq'),
+	login_token varchar(255) DEFAULT '' NOT NULL,
+	user_id INT4 DEFAULT '0' NOT NULL CHECK (user_id >= 0),
+	date_creation INT4 DEFAULT '0' NOT NULL CHECK (date_creation >= 0),
+	PRIMARY KEY (oasl_login_token_id)
+);
+
+CREATE INDEX phpbb_oasl_login_token_user_id ON phpbb_oasl_login_token (user_id);
+CREATE INDEX phpbb_oasl_login_token_login_token ON phpbb_oasl_login_token (login_token);
+
+/*
 	Table: 'phpbb_poll_options'
 */
 CREATE TABLE phpbb_poll_options (

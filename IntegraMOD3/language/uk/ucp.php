@@ -271,6 +271,14 @@ $lang = array_merge($lang, array(
 	'NOTIFY_METHOD_EXPLAIN'	=> 'Метод відправки повідомлень через форум.',
 	'NOTIFY_METHOD_IM'	=> 'Лише Jabber',
 	'NOTIFY_ON_PM'	=> 'Повідомте мене про надходження нових приватних повідомлень',
+	'MENTION_NOTIFY'	=> 'Сповіщення про згадку',
+	'MENTION_NOTIFY_EXPLAIN'	=> 'За замовчуванням надсилається приватне повідомлення. Оберіть e-mail, щоб натомість отримати лист. Push-сповіщення не змінюються.',
+	'MENTION_NOTIFY_PM'	=> 'Приватне повідомлення',
+	'MENTION_NOTIFY_EMAIL'	=> 'E-mail',
+	'MENTION_PM_SUBJECT'	=> 'Вас згадав користувач %s',
+	'MENTION_PM_BODY'	=> '%1$s згадав вас у темі "%2$s".
+
+%3$s',
 	'NOT_ADDED_FRIENDS_ANONYMOUS'	=> 'Ви не можете додати анонімного користувача до вашого списку друзів.',
 	'NOT_ADDED_FRIENDS_BOTS' => 'Ви не можете додати бота в список друзів.',
 	'NOT_ADDED_FRIENDS_FOES'	=> 'Ви не можете додавати користувачів, які в вашому списку недругів',

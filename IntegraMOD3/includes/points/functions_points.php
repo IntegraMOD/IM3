@@ -419,8 +419,10 @@ function number_format_points($num)
 	global $user;
 
 	$decimals = 2;
+	$decimal = (isset($user->lang['POINTS_SEPARATOR_DECIMAL']) && $user->lang['POINTS_SEPARATOR_DECIMAL'] !== '') ? $user->lang['POINTS_SEPARATOR_DECIMAL'] : '.';
+	$thousands = (isset($user->lang['POINTS_SEPARATOR_THOUSANDS'])) ? $user->lang['POINTS_SEPARATOR_THOUSANDS'] : ',';
 
-	return number_format($num, $decimals, $user->lang['POINTS_SEPARATOR_DECIMAL'], $user->lang['POINTS_SEPARATOR_THOUSANDS']);
+	return number_format((float) $num, $decimals, $decimal, $thousands);
 }
 
 /**

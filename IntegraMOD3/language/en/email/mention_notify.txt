@@ -1,0 +1,10 @@
+Subject: You were mentioned by {AUTHOR_NAME}
+
+Hello {USERNAME},
+
+{AUTHOR_NAME} mentioned you in "{TOPIC_TITLE}".
+
+To view the post, click the following link:
+{U_POST}
+
+{EMAIL_SIG}

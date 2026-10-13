@@ -79,13 +79,31 @@ if ($id)
 
 	if ($sid)
 	{
-		$sql = 'SELECT u.user_id, u.user_lang
-			FROM ' . SESSIONS_TABLE . ' s, ' . USERS_TABLE . " u
-			WHERE s.session_id = '" . $db->sql_escape($sid) . "'
-				AND s.session_user_id = u.user_id";
-		$result = $db->sql_query($sql);
-		$user = $db->sql_fetchrow($result);
-		$db->sql_freeresult($result);
+		if (phpbb_acm_stores_guest_sessions())
+		{
+			$guest_session = phpbb_guest_session_get($sid);
+			if (is_array($guest_session))
+			{
+				$session_user_id = !empty($guest_session['session_user_id']) ? (int) $guest_session['session_user_id'] : ANONYMOUS;
+				$sql = 'SELECT user_id, user_lang
+					FROM ' . USERS_TABLE . '
+					WHERE user_id = ' . $session_user_id;
+				$result = $db->sql_query($sql);
+				$user = $db->sql_fetchrow($result);
+				$db->sql_freeresult($result);
+			}
+		}
+
+		if (!$user)
+		{
+			$sql = 'SELECT u.user_id, u.user_lang
+				FROM ' . SESSIONS_TABLE . ' s, ' . USERS_TABLE . " u
+				WHERE s.session_id = '" . $db->sql_escape($sid) . "'
+					AND s.session_user_id = u.user_id";
+			$result = $db->sql_query($sql);
+			$user = $db->sql_fetchrow($result);
+			$db->sql_freeresult($result);
+		}
 	}
 
 	$recompile = $config['load_tplcompile'];

@@ -287,7 +287,7 @@ class phpbb_captcha_sortables extends phpbb_captcha_qa
 
 			do
 			{
-				if (phpbb_acm_stores_guest_sessions() && !empty($row['session_id']) && phpbb_guest_session_get($row['session_id']))
+				if (function_exists('phpbb_acm_stores_guest_sessions') && phpbb_acm_stores_guest_sessions() && !empty($row['session_id']) && function_exists('phpbb_guest_session_get') && phpbb_guest_session_get($row['session_id']))
 				{
 					continue;
 				}

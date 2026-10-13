@@ -47,6 +47,19 @@ $lang = array_merge($lang, array(
     'USER_PUSH_SUB_TOPIC'			=> 'Abonnierte Themen-Updates',
     'USER_PUSH_NEWS'			=> 'News-Broadcasts',
     'USER_PUSH_ANNOUNCE'			=> 'Ankündigungs-Broadcasts',
+    'USER_PUSH_REGISTER'			=> 'Neue Registrierungen',
+    'USER_PUSH_NEW_POST'			=> 'Neue Beiträge',
+    'USER_PUSH_MENTION'				=> 'Erwähnungen',
+    'PUSH_REGISTER_TITLE'			=> 'Neue Registrierung',
+    'PUSH_REGISTER_MESSAGE'			=> '%s hat sich registriert.',
+    'PUSH_NEW_POST_TITLE'			=> 'Neuer Beitrag',
+    'PUSH_NEW_POST_MESSAGE'			=> '%1$s schrieb: %2$s',
+    'PUSH_MENTION_TITLE'			=> 'Sie wurden erwähnt',
+    'PUSH_MENTION_MESSAGE'			=> '%1$s hat Sie in %2$s erwähnt',
+    'ACP_USER_MOBILE_STORED'		=> 'Eine Mobilnummer ist gespeichert. Sie bleibt verschlüsselt und wird hier nicht angezeigt.',
+    'ACP_USER_MOBILE_NONE'			=> 'Keine Mobilnummer gespeichert.',
+    'ACP_PUSH_CHANNEL_OFF'			=> 'Boardweit deaktiviert',
+    'ACP_PUSH_USER_INELIGIBLE'		=> 'Dieser Benutzer kann diese Meldung derzeit nicht erhalten.',
 ));
 
 ?>

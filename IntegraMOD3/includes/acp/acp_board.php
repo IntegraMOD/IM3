@@ -305,6 +305,7 @@ class acp_board
 						'allow_bookmarks'		=> array('lang' => 'ALLOW_BOOKMARKS',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'enable_post_confirm'	=> array('lang' => 'VISUAL_CONFIRM_POST',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'allow_quick_reply'		=> array('lang' => 'ALLOW_QUICK_REPLY',		'validate' => 'bool',	'type' => 'custom', 'method' => 'quick_reply', 'explain' => true),
+						'allow_mentions'		=> array('lang' => 'ALLOW_MENTIONS',		'validate' => 'bool',	'type' => 'custom', 'method' => 'mentions', 'explain' => true),
 
 						'legend2'				=> 'POSTING',
 						'bump_type'				=> false,
@@ -1178,7 +1179,6 @@ class acp_board
 						'browser_check'			=> array('lang' => 'BROWSER_VALID',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'forwarded_for_check'	=> array('lang' => 'FORWARDED_FOR_VALID',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'referer_validation'	=> array('lang' => 'REFERER_VALID',		'validate' => 'int:0:3','type' => 'custom', 'method' => 'select_ref_check', 'explain' => true),
-						'check_dnsbl'			=> array('lang' => 'CHECK_DNSBL',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'email_check_mx'		=> array('lang' => 'EMAIL_CHECK_MX',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'max_pass_chars'		=> array('lang' => 'PASSWORD_LENGTH', 'validate' => 'int:8:255', 'type' => false, 'method' => false, 'explain' => false,),
 						'min_pass_chars'		=> array('lang' => 'PASSWORD_LENGTH',	'validate' => 'int:1',	'type' => 'custom', 'method' => 'password_length', 'explain' => true),
@@ -1305,6 +1305,17 @@ class acp_board
 				if ($config_name == 'allow_quick_reply' && isset($_POST['allow_quick_reply_enable']))
 				{
 					enable_bitfield_column_flag(FORUMS_TABLE, 'forum_flags', log(FORUM_FLAG_QUICK_REPLY, 2));
+				}
+
+				if ($config_name == 'allow_mentions' && isset($_POST['allow_mentions_enable']))
+				{
+					if (!function_exists('phpbb_ensure_forum_flags_width'))
+					{
+						global $phpbb_root_path, $phpEx;
+						include_once($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
+					}
+					phpbb_ensure_forum_flags_width();
+					enable_bitfield_column_flag(FORUMS_TABLE, 'forum_flags', log(FORUM_FLAG_MENTIONS, 2));
 				}
 			}
 		}
@@ -1947,9 +1958,11 @@ class acp_board
 	                trigger_error($user->lang['DIGEST_NO_MASS_ACTION'] . $custom_message . adm_back_link($this->u_action));
 	            }
 	 
-	        }
-	    // End Digest Mod
+			}
+		// End Digest Mod
 
+			// All other modes fall through to here, the digest modes above exit via trigger_error()
+			trigger_error($user->lang['CONFIG_UPDATED'] . $custom_message . adm_back_link($this->u_action));
 		}
 
 		$this->tpl_name = 'acp_board';
@@ -2272,6 +2285,19 @@ class acp_board
 
 		return h_radio('config[allow_quick_reply]', $radio_ary, $value) .
 			'<br /><br /><input class="button2" type="submit" id="' . $key . '_enable" name="' . $key . '_enable" value="' . $user->lang['ALLOW_QUICK_REPLY_BUTTON'] . '" />';
+	}
+
+	/**
+	* Global mentions enable/disable setting and button to enable in all forums
+	*/
+	function mentions($value, $key)
+	{
+		global $user;
+
+		$radio_ary = array(1 => 'YES', 0 => 'NO');
+
+		return h_radio('config[allow_mentions]', $radio_ary, $value) .
+			'<br /><br /><input class="button2" type="submit" id="' . $key . '_enable" name="' . $key . '_enable" value="' . $user->lang['ALLOW_MENTIONS_BUTTON'] . '" />';
 	}
 
 

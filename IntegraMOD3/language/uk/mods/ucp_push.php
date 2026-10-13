@@ -47,6 +47,19 @@ $lang = array_merge($lang, array(
     'USER_PUSH_SUB_TOPIC'			=> 'Оновлення підписаних тем',
     'USER_PUSH_NEWS'			=> 'Новинні трансляції',
     'USER_PUSH_ANNOUNCE'			=> 'Оголошення',
+    'USER_PUSH_REGISTER'			=> 'Нові реєстрації',
+    'USER_PUSH_NEW_POST'			=> 'Нові дописи',
+    'USER_PUSH_MENTION'				=> 'Згадки',
+    'PUSH_REGISTER_TITLE'			=> 'Нова реєстрація',
+    'PUSH_REGISTER_MESSAGE'			=> '%s зареєструвався.',
+    'PUSH_NEW_POST_TITLE'			=> 'Новий допис',
+    'PUSH_NEW_POST_MESSAGE'			=> '%1$s написав: %2$s',
+    'PUSH_MENTION_TITLE'			=> 'Вас згадали',
+    'PUSH_MENTION_MESSAGE'			=> '%1$s згадав вас у %2$s',
+    'ACP_USER_MOBILE_STORED'		=> 'Мобільний номер збережено. Він лишається зашифрованим і тут не показується.',
+    'ACP_USER_MOBILE_NONE'			=> 'Мобільний номер не збережено.',
+    'ACP_PUSH_CHANNEL_OFF'			=> 'Вимкнено для всієї дошки',
+    'ACP_PUSH_USER_INELIGIBLE'		=> 'Цей користувач зараз не може отримувати це сповіщення.',
 ));
 
 ?>

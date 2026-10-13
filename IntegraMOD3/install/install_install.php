@@ -407,10 +407,19 @@ class install_install extends module
 					$location .= '/';
 				}
 
-				if (@file_exists($location) && @is_readable($location . 'mogrify' . $exe) && @filesize($location . 'mogrify' . $exe) > 3000)
+				if (!@file_exists($location))
 				{
-					$img_imagick = str_replace('\\', '/', $location);
 					continue;
+				}
+
+				// 'magick' is ImageMagick 7, 'mogrify'/'convert' are ImageMagick 6
+				foreach (array('magick', 'mogrify', 'convert') as $binary)
+				{
+					if (@is_readable($location . $binary . $exe) && @filesize($location . $binary . $exe) > 3000)
+					{
+						$img_imagick = str_replace('\\', '/', $location);
+						break 2;
+					}
 				}
 			}
 		}
@@ -1559,11 +1568,11 @@ class install_install extends module
 		// CONFIG
 		// -------------------------------------------------
 
-		$sql = "DELETE FROM phpbb_config
+		$sql = 'DELETE FROM ' . CONFIG_TABLE . "
 			WHERE config_name = 'version_socialNet'";
 		$db->sql_query($sql);
 
-		$sql = "INSERT INTO phpbb_config (config_name, config_value)
+		$sql = 'INSERT INTO ' . CONFIG_TABLE . " (config_name, config_value)
 			VALUES ('version_socialNet', '1.0.0')";
 		$db->sql_query($sql);
 		

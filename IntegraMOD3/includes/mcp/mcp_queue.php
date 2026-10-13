@@ -37,6 +37,7 @@ class mcp_queue
 		global $config, $phpbb_root_path, $phpEx, $action;
 
 		include_once($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
+		include_once($phpbb_root_path . 'includes/functions_k_links.' . $phpEx);
 
 		$forum_id = request_var('f', 0);
 		$start = request_var('start', 0);
@@ -621,6 +622,8 @@ function approve_post($post_id_list, $id, $mode)
 		sync('forum', 'forum_id', array_keys($forum_id_list), true, true);
 		unset($topic_id_list, $forum_id_list);
 
+		k_links_queue_approve_by_posts($post_id_list, (int) $user->data['user_id']);
+
 		$messenger = new messenger();
 
 		// Notify Poster?
@@ -671,6 +674,12 @@ function approve_post($post_id_list, $id, $mode)
 			{
 				// Topic Notifications
 				user_notification('reply', $post_data['post_subject'], $post_data['topic_title'], $post_data['forum_name'], $post_data['forum_id'], $post_data['topic_id'], $post_id, $username);
+			}
+
+			if (function_exists('trigger_new_post_push'))
+			{
+				$notify_mode = ($post_id == $post_data['topic_first_post_id'] && $post_id == $post_data['topic_last_post_id']) ? 'post' : 'reply';
+				trigger_new_post_push($post_data['forum_id'], $post_data['topic_id'], $post_id, $post_data['post_subject'], $username, $post_data['poster_id'], true, true, im3_push_subscription_recipients($post_data['forum_id'], $post_data['topic_id'], $notify_mode));
 			}
 		}
 

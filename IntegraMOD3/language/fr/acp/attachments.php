@@ -110,6 +110,9 @@ $lang = array_merge($lang, array(
 	'GO_TO_EXTENSIONS'		=> 'Aller sur la page de gestion des extensions',
 	'GROUP_NAME'			=> 'Nom du groupe d’extensions',
 
+	'IMAGICK_FOUND'			=> 'ImageMagick a été trouvé dans <strong>%s</strong>. Envoyez le formulaire pour enregistrer ce chemin.',
+	'IMAGICK_NOT_FOUND'		=> 'ImageMagick est introuvable. Il n’est pas installé sur ce serveur ou se situe en dehors des répertoires pouvant être analysés. Si vous connaissez le chemin, saisissez-le manuellement.',
+
 	'IMAGE_LINK_SIZE'			=> 'Dimensions maximales des images avant la mise en lien',
 	'IMAGE_LINK_SIZE_EXPLAIN'	=> 'Les images transférées en pièces jointes seront affichées sous forme de lien si elles dépassent ces valeurs. Réglez ces deux valeurs sur 0 si vous souhaitez désactiver cette fonctionnalité.',
 	'IMAGICK_PATH'				=> 'Chemin d’ImageMagick',

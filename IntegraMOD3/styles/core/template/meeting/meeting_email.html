@@ -21,16 +21,17 @@
 				</div>
 				<div class="ucp-form-row">
 					<label class="ucp-form-label" for="meeting_mail_text">{L_MEETING_MAIL_TEXT}:</label>
-					<textarea cols="100" rows="10" class="inputbox autowidth ucp-form-textarea" id="meeting_mail_text" name="meeting_mail_text"></textarea>
+					<textarea cols="100" rows="10" class="inputbox autowidth ucp-form-textarea" id="meeting_mail_text" name="meeting_mail_text">
+					</textarea>
+					</div>
+					<div class="ucp-actions">
+						<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
+						<input type="submit" name="cancel" value="{L_CANCEL}" class="button2" />
+						{S_FORM_TOKEN}
+					</div>
 				</div>
-				<div class="ucp-actions">
-					<input type="submit" name="submit" value="{L_SUBMIT}" class="button1" />
-					<input type="submit" name="cancel" value="{L_CANCEL}" class="button2" />
-					{S_FORM_TOKEN}
-				</div>
-			</div>
-		</section>
-	</form>
-</div>
+			</section>
+		</form>
+	</div>
 
-<!-- INCLUDE overall_footer.html -->
+	<!-- INCLUDE overall_footer.html -->

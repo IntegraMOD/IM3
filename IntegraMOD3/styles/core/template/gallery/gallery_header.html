@@ -10,10 +10,13 @@
 	<!-- INCLUDE overall_header.html -->
 
 	<!-- IF GALLERY_VERSION_CHECK and U_ACP -->
-	<section class="ucp-card rules">
-		<div class="ucp-card-body">
-			<strong>{L_INFORMATION}:</strong> {GALLERY_VERSION_CHECK}<!-- IF U_MVC_IGNORE --> [ <a href="{U_MVC_IGNORE}">{L_IGNORE_NOTUPTODATE_MESSAGE}</a> ]<!-- ENDIF -->
-		</div>
-	</section>
+		<section class="ucp-card rules">
+			<div class="ucp-card-body">
+				<strong>{L_INFORMATION}:</strong> {GALLERY_VERSION_CHECK}
+				<!-- IF U_MVC_IGNORE -->
+					[ <a href="{U_MVC_IGNORE}">{L_IGNORE_NOTUPTODATE_MESSAGE}</a> ]
+				<!-- ENDIF -->
+			</div>
+		</section>
 	<!-- ENDIF -->
 <!-- ENDIF -->

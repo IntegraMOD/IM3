@@ -166,7 +166,7 @@ class phpbb_default_captcha
 			do
 			{
 				$session_id = (string) $row['session_id'];
-				if (phpbb_acm_stores_guest_sessions() && phpbb_guest_session_get($session_id))
+				if (function_exists('phpbb_acm_stores_guest_sessions') && phpbb_acm_stores_guest_sessions() && function_exists('phpbb_guest_session_get') && phpbb_guest_session_get($session_id))
 				{
 					continue;
 				}

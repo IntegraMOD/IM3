@@ -1,0 +1,48 @@
+/* ---------------------------------------------------------------------- */
+/* OneAll Social Login                                                     */
+/* Uses core CSS custom properties; no hardcoded colors.                   */
+/* ---------------------------------------------------------------------- */
+.oasl-widget {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .5rem;
+}
+
+.oasl-widget-title {
+    color: var(--text-secondary, var(--text-primary));
+    font-size: .9em;
+}
+
+.oasl-profile {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--surface-border);
+}
+
+.oasl-profile-title {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.oasl-profile-desc {
+    margin: 0;
+    color: var(--text-secondary, var(--text-primary));
+    font-size: .9em;
+}
+
+.oasl-error {
+    padding: .5rem .75rem;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius, 4px);
+    background: var(--bg-error, #d31141);
+    color: var(--text-on-error, #fff);
+}
+
+.oneall_social_login_providers {
+    display: inline-block;
+}

@@ -47,6 +47,19 @@ $lang = array_merge($lang, array(
     'USER_PUSH_SUB_TOPIC'			=> 'Mises à jour des sujets abonnés',
     'USER_PUSH_NEWS'			=> 'Diffusions de nouvelles',
     'USER_PUSH_ANNOUNCE'			=> 'Diffusions d\'annonces',
+    'USER_PUSH_REGISTER'			=> 'Nouvelles inscriptions',
+    'USER_PUSH_NEW_POST'			=> 'Nouveaux messages',
+    'USER_PUSH_MENTION'				=> 'Mentions',
+    'PUSH_REGISTER_TITLE'			=> 'Nouvelle inscription',
+    'PUSH_REGISTER_MESSAGE'			=> '%s s\'est inscrit.',
+    'PUSH_NEW_POST_TITLE'			=> 'Nouveau message',
+    'PUSH_NEW_POST_MESSAGE'			=> '%1$s a publié : %2$s',
+    'PUSH_MENTION_TITLE'			=> 'Vous avez été mentionné',
+    'PUSH_MENTION_MESSAGE'			=> '%1$s vous a mentionné dans %2$s',
+    'ACP_USER_MOBILE_STORED'		=> 'Un numéro mobile est enregistré. Il reste chiffré et n’est pas affiché ici.',
+    'ACP_USER_MOBILE_NONE'			=> 'Aucun numéro mobile enregistré.',
+    'ACP_PUSH_CHANNEL_OFF'			=> 'Désactivé pour tout le forum',
+    'ACP_PUSH_USER_INELIGIBLE'		=> 'Cet utilisateur ne peut pas recevoir cette alerte pour le moment.',
 ));
 
 ?>

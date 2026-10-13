@@ -2,8 +2,19 @@ function usesThemeSelectorMode() {
   return !!document.querySelector('.theme-choice');
 }
 
+function getAvailableThemeColors() {
+  var colors = [];
+  document.querySelectorAll('.theme-choice[data-style-color]').forEach(function(choice) {
+    var color = choice.getAttribute('data-style-color');
+    if (color && colors.indexOf(color) === -1) {
+      colors.push(color);
+    }
+  });
+  return colors.length ? colors : ['blue', 'orange'];
+}
+
 function setThemeColor(color) {
-  var selectedColor = color === 'orange' ? 'orange' : 'blue';
+  var selectedColor = getAvailableThemeColors().includes(color) ? color : 'blue';
   document.documentElement.setAttribute('data-style-color', selectedColor);
 
   if (document.body) {
@@ -72,12 +83,12 @@ function getIntegraThemeMode() {
 
 function getIntegraThemeColor() {
   var storedColor = readCookie('style_color');
-  return storedColor === 'orange' ? 'orange' : 'blue';
+  return getAvailableThemeColors().includes(storedColor) ? storedColor : 'blue';
 }
 
 function getCurrentIntegraThemeColor() {
   var currentColor = document.documentElement.getAttribute('data-style-color');
-  return currentColor === 'orange' ? 'orange' : 'blue';
+  return getAvailableThemeColors().includes(currentColor) ? currentColor : 'blue';
 }
 
 function getActiveStyleSheet() {
@@ -134,14 +145,20 @@ function initializeStyleSwitcher() {
     applyIntegraTheme(color, mode);
     syncStyleSelector(color);
 
+    if (readCookie('style_color') !== color) {
+      createCookie('style_color', color, 365);
+    }
+
     var themeChoices = document.querySelectorAll('.theme-choice');
     themeChoices.forEach(function(choice) {
       if (!choice.hasAttribute('data-style-switcher-bound')) {
         choice.setAttribute('data-style-switcher-bound', 'true');
         choice.addEventListener('click', function(e) {
           e.preventDefault();
-          var selectedColor = this.getAttribute('data-style-color') === 'orange' ? 'orange' : 'blue';
+          var attrColor = this.getAttribute('data-style-color');
+          var selectedColor = getAvailableThemeColors().includes(attrColor) ? attrColor : 'blue';
           var selectedMode = this.getAttribute('data-theme-mode') === 'dark' ? 'dark' : 'light';
+          
           applyIntegraTheme(selectedColor, selectedMode);
           createCookie('style_color', selectedColor, 365);
           createCookie('style_mode', selectedMode, 365);

@@ -369,6 +369,11 @@ class acp_main
 							}
 						}
 
+						if (phpbb_acm_stores_guest_sessions())
+						{
+							phpbb_guest_session_purge();
+						}
+
 						// let's restore the admin session
 						$reinsert_ary = array(
 								'session_id'			=> (string) $user->session_id,
@@ -520,6 +525,8 @@ class acp_main
 			'S_TOTAL_ORPHAN'	=> ($total_orphan === false) ? false : true,
 			'GZIP_COMPRESSION'	=> ($config['gzip_compress'] && @extension_loaded('zlib')) ? $user->lang['ON'] : $user->lang['OFF'],
 			'DATABASE_INFO'		=> $db->sql_server_info(),
+			'PHP_VERSION_INFO'	=> PHP_VERSION,
+			'ACM_CACHE_TYPE'	=> !empty($GLOBALS['acm_type']) ? $GLOBALS['acm_type'] : 'file',
 			'BOARD_VERSION'		=> isset($config['version']) ? $config['version'] : '',
 			'IM_VERSION'		=> isset($config['imod_version']) ? $config['imod_version'] : '',
 

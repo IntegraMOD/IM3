@@ -459,6 +459,11 @@ function generate_text_for_display($text, $uid, $bitfield, $flags)
 		$bbcode->bbcode_second_pass($text, $uid);
 	}
 
+	if (strpos($text, '[mention') !== false && function_exists('im3_process_mentions'))
+	{
+		im3_process_mentions($text, $uid, 0, 0, 0, '', '', 0, false);
+	}
+
 	$text = bbcode_nl2br($text);
 	$text = smiley_text($text, !($flags & OPTION_FLAG_SMILIES));
 
@@ -1479,11 +1484,7 @@ class bitfield
 	}
 }
 
-@define('STARGATE', 'STARGATE');
-if (STARGATE)
-{
-	global $phpEx, $phpbb_root_path;
-	require($phpbb_root_path . 'includes/sgp_functions_content.' . $phpEx);
-}
+global $phpEx, $phpbb_root_path;
+require($phpbb_root_path . 'includes/sgp_functions_content.' . $phpEx);
 
 ?>

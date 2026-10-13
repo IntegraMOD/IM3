@@ -1,4 +1,4 @@
-/* IntegraStyle blog module */
+/* core blog module */
 .blog-layout {
     display: grid;
     grid-template-columns: minmax(16rem, 17.5rem) minmax(0, 1fr);

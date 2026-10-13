@@ -7,17 +7,17 @@
 					<span class="sub_heading">{portal_menus_row.PORTAL_MENU_HEAD_NAME}</span>
 				<!-- ELSE -->
 					<span class="menu_item">
-					<!-- IF portal_menus_row.PORTAL_MENU_ICON -->{portal_menus_row.PORTAL_MENU_ICON}<!-- ENDIF -->
+						<!-- IF portal_menus_row.PORTAL_MENU_ICON -->{portal_menus_row.PORTAL_MENU_ICON}<!-- ENDIF -->
 						<a href="{portal_menus_row.U_PORTAL_MENU_LINK}" {portal_menus_row.LINK_OPTION} >
 						{portal_menus_row.PORTAL_MENU_NAME}</a>
 					</span>
 					<!-- IF portal_menus_row.S_SOFT_HR == 1 --></div> <br /><img src="./images/soft_hr.gif" alt="" /><!-- ENDIF -->
-				<!-- ENDIF -->
-			<!-- BEGINELSE -->
-				<div style="text-align:center;">{L_NO_MENU}</div>
-			<!-- END portal_menus_row -->
-		</div>
+			<!-- ENDIF -->
+		<!-- BEGINELSE -->
+			<div style="text-align:center;">{L_NO_MENU}</div>
+		<!-- END portal_menus_row -->
 	</div>
+</div>
 </div>
 <!-- IF DEBUG_QUERIES --><div class="block_data">{MENUS_DEBUG}</div><!-- ENDIF -->
 <!-- IDTAG block_menus ends -->

@@ -14,21 +14,22 @@
 	<div class="ucp-card-body">
 		<div class="meeting-cal-grid">
 			<!-- BEGIN cal_title -->
-			<div class="meeting-cal-head">{cal_title.MEETING_DAY_TITLE}</div>
+				<div class="meeting-cal-head">{cal_title.MEETING_DAY_TITLE}</div>
 			<!-- END cal_title -->
 			<!-- BEGIN cal_weeks -->
 				<!-- BEGIN cal_day_title -->
-				<div class="meeting-cal-cell bg{cal_weeks.cal_day_title.C_CAL_DAY_TITLE}">
-					<strong>{cal_weeks.cal_day_title.CAL_DAY_TITLE}</strong>
-					<!-- BEGIN cal_day -->
-					<!-- IF cal_weeks.cal_day_title.cal_day.U_CAL_DAY -->
-					<a href="{cal_weeks.cal_day_title.cal_day.U_CAL_DAY}" class="meeting-cal-event<!-- IF cal_weeks.cal_day_title.cal_day.C_CAL_DAY == 't' --> is-time<!-- ELSE --> is-until<!-- ENDIF -->">{cal_weeks.cal_day_title.cal_day.CAL_DAY}</a>
-					<!-- ENDIF -->
-					<!-- IF cal_weeks.cal_day_title.cal_day.S_CAL_DAY -->
-					<span class="meeting-cal-plain">{cal_weeks.cal_day_title.cal_day.CAL_DAY}</span>
-					<!-- ENDIF -->
-					<!-- END cal_day -->
-				</div>
+					<div class="meeting-cal-cell bg{cal_weeks.cal_day_title.C_CAL_DAY_TITLE}">
+						<strong>{cal_weeks.cal_day_title.CAL_DAY_TITLE}</strong>
+						<!-- BEGIN cal_day -->
+							<!-- IF cal_weeks.cal_day_title.cal_day.U_CAL_DAY -->
+								<a href="{cal_weeks.cal_day_title.cal_day.U_CAL_DAY}" class="meeting-cal-event<!-- IF cal_weeks.cal_day_title.cal_day.C_CAL_DAY == 't' --> is-time<!-- ELSE --> is-until<!-- ENDIF -->">{cal_weeks.cal_day_title.cal_day.CAL_DAY}
+								</a>
+							<!-- ENDIF -->
+							<!-- IF cal_weeks.cal_day_title.cal_day.S_CAL_DAY -->
+								<span class="meeting-cal-plain">{cal_weeks.cal_day_title.cal_day.CAL_DAY}</span>
+							<!-- ENDIF -->
+						<!-- END cal_day -->
+					</div>
 				<!-- END cal_day_title -->
 			<!-- END cal_weeks -->
 		</div>

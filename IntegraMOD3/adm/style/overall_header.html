@@ -12,6 +12,7 @@
 <title>{PAGE_TITLE}</title>
 
 <link href="style/admin.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet" type="text/css" media="screen" />
 <link href="style/meeting/tcal.css" rel="stylesheet" type="text/css" media="screen" />
 
 <script>
@@ -115,57 +116,25 @@ function popup(url, width, height, name)
 }
 
 /**
-* Hiding/Showing the side menu
+* Compatibility wrapper. Layout state is applied by admin.js.
 */
 function switch_menu()
 {
-	var menu = document.getElementById('menu');
-	var main = document.getElementById('main');
-	var toggle = document.getElementById('toggle');
-	var handle = document.getElementById('toggle-handle');
-
-	switch (menu_state)
+	if (window.acpShell && typeof window.acpShell.toggleSidebar === 'function')
 	{
-		// hide
-		case 'shown':
-			main.style.width = '93%';
-			menu_state = 'hidden';
-			menu.style.display = 'none';
-			toggle.style.width = '18px';
-			handle.style.backgroundImage = 'url(images/toggle.gif)';
-			handle.style.backgroundRepeat = 'no-repeat';
-
-			<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
-				handle.style.backgroundPosition = '0% 50%';
-				toggle.style.left = 'auto';
-				toggle.style.right = '0';
-			<!-- ELSE -->
-				handle.style.backgroundPosition = '100% 50%';
-				toggle.style.left = '0';
-				toggle.style.right = 'auto';
-			<!-- ENDIF -->
-		break;
-
-		// show
-		case 'hidden':
-			main.style.width = '76%';
-			menu_state = 'shown';
-			menu.style.display = 'block';
-			toggle.style.width = '18px';
-			handle.style.backgroundImage = 'url(images/toggle.gif)';
-			handle.style.backgroundRepeat = 'no-repeat';
-
-			<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
-				handle.style.backgroundPosition = '100% 50%';
-				toggle.style.left = 'auto';
-				toggle.style.right = '200px';
-			<!-- ELSE -->
-				handle.style.backgroundPosition = '0% 50%';
-				toggle.style.left = '200px';
-				toggle.style.right = 'auto';
-			<!-- ENDIF -->
-		break;
+		window.acpShell.toggleSidebar();
+		return;
 	}
+
+	var shell = document.getElementById('wrap');
+	if (!shell)
+	{
+		return;
+	}
+
+	var next = (shell.getAttribute('data-sidebar-state') === 'collapsed') ? 'expanded' : 'collapsed';
+	shell.setAttribute('data-sidebar-state', next);
+	menu_state = (next === 'collapsed') ? 'hidden' : 'shown';
 }
 
 // ]]>
@@ -176,59 +145,217 @@ function switch_menu()
 <!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
 </head>
 
-<body class="{S_CONTENT_DIRECTION}">
+<body class="{S_CONTENT_DIRECTION} nojs<!-- IF S_USER_NOTICE --> acp-notice<!-- ENDIF -->">
 
-<div id="wrap">
-	<div id="page-header">
-		<h1>{L_ADMIN_PANEL}</h1>
-		<p><a href="{U_ADM_INDEX}">{L_ADMIN_INDEX}</a> &bull; <a href="{U_INDEX}">{L_FORUM_INDEX}</a> &bull; <a href="{U_PORTAL}">{L_PORTAL}</a></p>
-		<p id="skip"><a href="#acp">{L_SKIP}</a></p>
-	</div>
-	
-	<div id="page-body">
-		<div id="tabs">
-			<ul>
-			<!-- BEGIN t_block1 -->
-				<li class="tab<!-- IF t_block1.S_SELECTED --> activetab<!-- ENDIF -->"><a href="{t_block1.U_TITLE}">{t_block1.L_TITLE}</a></li>
-			<!-- END t_block1 -->
-			</ul>
+<svg class="acp-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+	<symbol id="acp-icon-menu" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/></symbol>
+	<symbol id="acp-icon-user" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z"/></symbol>
+	<symbol id="acp-icon-options" viewBox="0 0 24 24"><path fill="currentColor" d="M4 7h9v2H4V7zm11 0h5v2h-5V7zM4 15h5v2H4v-2zm7 0h9v2h-9v-2z"/><circle cx="13.5" cy="8" r="1.6" fill="currentColor"/><circle cx="8.5" cy="16" r="1.6" fill="currentColor"/></symbol>
+	<symbol id="acp-icon-docs" viewBox="0 0 24 24"><path fill="currentColor" d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm8 1.5V9h4.5L14 4.5zM8 12h8v1.5H8V12zm0 3.5h8V17H8v-1.5z"/></symbol>
+	<symbol id="acp-icon-sun" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0-5h0v2h0zm0 18v2h0v-2zM4.2 5.6l1.4-1.4 1.4 1.4-1.4 1.4zm12.8 12.8 1.4-1.4 1.4 1.4-1.4 1.4zM3 11h2v2H3zm16 0h2v2h-2zM5.6 18.4l1.4-1.4 1.4 1.4-1.4 1.4zM17 6.4l1.4-1.4 1.4 1.4-1.4 1.4z"/></symbol>
+	<symbol id="acp-icon-moon" viewBox="0 0 24 24"><path fill="currentColor" d="M14.5 3.1a8.5 8.5 0 1 0 6.4 13.8A8 8 0 0 1 14.5 3.1z"/></symbol>
+	<symbol id="acp-icon-bell" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22a2.2 2.2 0 0 0 2.2-2.2h-4.4A2.2 2.2 0 0 0 12 22zm7-6V11a7 7 0 0 0-5-6.7V3.5a2 2 0 0 0-4 0v.8A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></symbol>
+	<symbol id="acp-icon-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4.2 7.1 3.4 8.4 12 13.8l8.6-5.4-.8-1.3z"/></symbol>
+	<symbol id="acp-ic-bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+	<symbol id="acp-ic-gear" viewBox="0 0 24 24"><path fill="currentColor" d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3h-4l-.4 2.7a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1L11 21h4l.4-2.7a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 3.5-3.5 3.5 3.5 0 0 1-3.5 3.5z" transform="translate(-1 0)"/></symbol>
+	<symbol id="acp-ic-chat" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 1-2zm3 5v2h10V8zm0 4v2h7v-2z"/></symbol>
+	<symbol id="acp-ic-server" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm0 10h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1zm3-7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm0 10a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></symbol>
+	<symbol id="acp-ic-money" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15.9V19h-2v-1.1a3.6 3.6 0 0 1-3-3.4h2c.1 1 .8 1.5 2 1.5 1.3 0 1.8-.6 1.8-1.2 0-.7-.4-1.1-2.1-1.5-2-.5-3.3-1.3-3.3-3a3 3 0 0 1 2.6-2.9V6h2v1.1a3.2 3.2 0 0 1 2.6 3.1h-2c-.1-.9-.6-1.4-1.7-1.4s-1.6.5-1.6 1.1.5 1 2.1 1.4 3.3 1.1 3.3 3.1a3.1 3.1 0 0 1-2.7 3z"/></symbol>
+	<symbol id="acp-ic-users" viewBox="0 0 24 24"><path fill="currentColor" d="M9 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-3.3 0-7 1.7-7 4v2h14v-2c0-2.3-3.7-4-7-4zm8-2a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2a8.6 8.6 0 0 0-1.5.1A5.2 5.2 0 0 1 18 18v2h4v-2c0-2.2-2.7-4-5-4z"/></symbol>
+	<symbol id="acp-ic-shield" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5zm-1.2 14.2L7 12.4l1.4-1.4 2.4 2.4 4.8-4.8L17 10z"/></symbol>
+	<symbol id="acp-ic-folder" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+	<symbol id="acp-ic-list" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h2v2H3zm4 0h14v2H7zM3 11h2v2H3zm4 0h14v2H7zm-4 6h2v2H3zm4 0h14v2H7z"/></symbol>
+	<symbol id="acp-ic-palette" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0 0 20 1.7 1.7 0 0 0 1.3-2.8 1.7 1.7 0 0 1 1.3-2.8H17a5 5 0 0 0 5-5C22 6 17.5 2 12 2zM6.5 13A1.5 1.5 0 1 1 8 11.5 1.5 1.5 0 0 1 6.5 13zm3-4A1.5 1.5 0 1 1 11 7.5 1.5 1.5 0 0 1 9.5 9zm5 0A1.5 1.5 0 1 1 16 7.5 1.5 1.5 0 0 1 14.5 9zm3 4a1.5 1.5 0 1 1 1.5-1.5 1.5 1.5 0 0 1-1.5 1.5z"/></symbol>
+	<symbol id="acp-ic-grid" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></symbol>
+	<symbol id="acp-ic-book" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h13a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6.5a1.5 1.5 0 0 0 0 3H20v-1H7v-1h13V3H6a3 3 0 0 0-3 3v13.5A3.5 3.5 0 0 0 6.5 23 .5.5 0 0 1 6 22.5V6a1 1 0 0 1 0-4z"/></symbol>
+	<symbol id="acp-ic-code" viewBox="0 0 24 24"><path fill="currentColor" d="M8.6 16.6 4 12l4.6-4.6L7.2 6 1.2 12l6 6zm6.8 0L20 12l-4.6-4.6L16.8 6l6 6-6 6zM13 4l-4 16h2l4-16z"/></symbol>
+	<symbol id="acp-ic-calendar" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3zM5 9v10h14V9zm2 2h4v4H7z"/></symbol>
+	<symbol id="acp-ic-image" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 14v2h14v-3l-4-4-5 5-2-2zm3.5-9A1.5 1.5 0 1 0 10 9.5 1.5 1.5 0 0 0 8.5 8z"/></symbol>
+	<symbol id="acp-ic-mailopen" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 2 8v12a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V8zm0 2.3L19.6 9 12 13.6 4.4 9z"/></symbol>
+	<symbol id="acp-cat-ACP_QUICK_ACCESS" viewBox="0 0 24 24"><use href="#acp-ic-bolt"/></symbol>
+	<symbol id="acp-cat-ACP_BOARD_CONFIGURATION" viewBox="0 0 24 24"><use href="#acp-ic-gear"/></symbol>
+	<symbol id="acp-cat-ACP_IMOD_CONFIG" viewBox="0 0 24 24"><use href="#acp-ic-gear"/></symbol>
+	<symbol id="acp-cat-ACP_K_CONFIG" viewBox="0 0 24 24"><use href="#acp-ic-gear"/></symbol>
+	<symbol id="acp-cat-ACP_SN_CONFIGURATION" viewBox="0 0 24 24"><use href="#acp-ic-gear"/></symbol>
+	<symbol id="acp-cat-ACP_SN_MODULES_CONFIGURATION" viewBox="0 0 24 24"><use href="#acp-ic-grid"/></symbol>
+	<symbol id="acp-cat-ACP_MODS" viewBox="0 0 24 24"><use href="#acp-ic-grid"/></symbol>
+	<symbol id="acp-cat-ACP_AJAXLIKE_MOD_TITLE" viewBox="0 0 24 24"><use href="#acp-ic-chat"/></symbol>
+	<symbol id="acp-cat-ACP_CLIENT_COMMUNICATION" viewBox="0 0 24 24"><use href="#acp-ic-chat"/></symbol>
+	<symbol id="acp-cat-ACP_MESSAGES" viewBox="0 0 24 24"><use href="#acp-ic-chat"/></symbol>
+	<symbol id="acp-cat-ACP_SERVER_CONFIGURATION" viewBox="0 0 24 24"><use href="#acp-ic-server"/></symbol>
+	<symbol id="acp-cat-ACP_CAT_DATABASE" viewBox="0 0 24 24"><use href="#acp-ic-server"/></symbol>
+	<symbol id="acp-cat-ACP_DIGEST_SETTINGS" viewBox="0 0 24 24"><use href="#acp-ic-mailopen"/></symbol>
+	<symbol id="acp-cat-ACP_DONATION_MOD" viewBox="0 0 24 24"><use href="#acp-ic-money"/></symbol>
+	<symbol id="acp-cat-ACP_POINTS" viewBox="0 0 24 24"><use href="#acp-ic-money"/></symbol>
+	<symbol id="acp-cat-ACP_CAT_USERS" viewBox="0 0 24 24"><use href="#acp-ic-users"/></symbol>
+	<symbol id="acp-cat-ACP_GROUPS" viewBox="0 0 24 24"><use href="#acp-ic-users"/></symbol>
+	<symbol id="acp-cat-ACP_USER_SECURITY" viewBox="0 0 24 24"><use href="#acp-ic-shield"/></symbol>
+	<symbol id="acp-cat-ANTISPAM" viewBox="0 0 24 24"><use href="#acp-ic-shield"/></symbol>
+	<symbol id="acp-cat-ACP_GLOBAL_PERMISSIONS" viewBox="0 0 24 24"><use href="#acp-ic-shield"/></symbol>
+	<symbol id="acp-cat-ACP_FORUM_BASED_PERMISSIONS" viewBox="0 0 24 24"><use href="#acp-ic-shield"/></symbol>
+	<symbol id="acp-cat-ACP_PERMISSION_ROLES" viewBox="0 0 24 24"><use href="#acp-ic-shield"/></symbol>
+	<symbol id="acp-cat-ACP_PERMISSION_MASKS" viewBox="0 0 24 24"><use href="#acp-ic-shield"/></symbol>
+	<symbol id="acp-cat-ACP_MANAGE_FORUMS" viewBox="0 0 24 24"><use href="#acp-ic-folder"/></symbol>
+	<symbol id="acp-cat-ACP_CAT_FILES" viewBox="0 0 24 24"><use href="#acp-ic-folder"/></symbol>
+	<symbol id="acp-cat-ACP_ATTACHMENTS" viewBox="0 0 24 24"><use href="#acp-ic-folder"/></symbol>
+	<symbol id="acp-cat-ACP_DOWNLOADS" viewBox="0 0 24 24"><use href="#acp-ic-folder"/></symbol>
+	<symbol id="acp-cat-ACP_FORUM_LOGS" viewBox="0 0 24 24"><use href="#acp-ic-list"/></symbol>
+	<symbol id="acp-cat-ACP_GENERAL_TASKS" viewBox="0 0 24 24"><use href="#acp-ic-list"/></symbol>
+	<symbol id="acp-cat-ACP_AUTOMATION" viewBox="0 0 24 24"><use href="#acp-ic-bolt"/></symbol>
+	<symbol id="acp-cat-ACP_STYLE_MANAGEMENT" viewBox="0 0 24 24"><use href="#acp-ic-palette"/></symbol>
+	<symbol id="acp-cat-ACP_STYLE_COMPONENTS" viewBox="0 0 24 24"><use href="#acp-ic-palette"/></symbol>
+	<symbol id="acp-cat-ACP_K_BLOCKS" viewBox="0 0 24 24"><use href="#acp-ic-grid"/></symbol>
+	<symbol id="acp-cat-ACP_K_MENUS" viewBox="0 0 24 24"><use href="#acp-ic-list"/></symbol>
+	<symbol id="acp-cat-ACP_K_PAGES" viewBox="0 0 24 24"><use href="#acp-ic-book"/></symbol>
+	<symbol id="acp-cat-ACP_K_VARS_AND_RESOURCES" viewBox="0 0 24 24"><use href="#acp-ic-code"/></symbol>
+	<symbol id="acp-cat-ACP_MODULE_MANAGEMENT" viewBox="0 0 24 24"><use href="#acp-ic-grid"/></symbol>
+	<symbol id="acp-cat-ACP_CAT_KB" viewBox="0 0 24 24"><use href="#acp-ic-book"/></symbol>
+	<symbol id="acp-cat-ACP_BLOGS" viewBox="0 0 24 24"><use href="#acp-ic-book"/></symbol>
+	<symbol id="acp-cat-ACP_ABBCODES" viewBox="0 0 24 24"><use href="#acp-ic-code"/></symbol>
+	<symbol id="acp-cat-MEETING" viewBox="0 0 24 24"><use href="#acp-ic-calendar"/></symbol>
+	<symbol id="acp-cat-PHPBB_GALLERY" viewBox="0 0 24 24"><use href="#acp-ic-image"/></symbol>
+</svg>
+
+<div id="wrap" class="acp-shell<!-- IF S_USER_NOTICE --> acp-shell-notice<!-- ENDIF -->" data-content-direction="{S_CONTENT_DIRECTION}" data-sidebar-state="expanded" data-fixed-sidebar="0" data-fixed-top="1">
+	<a class="acp-skip" href="#main">{L_SKIP}</a>
+
+	<!-- IF not S_USER_NOTICE -->
+	<aside class="acp-sidebar" data-acp-sidebar="1">
+		<div class="acp-brand">
+			<a href="{U_ADM_INDEX}">{L_ADMIN_PANEL}</a>
 		</div>
+		<div class="acp-profile">
+			<span class="acp-avatar"><!-- IF CURRENT_USER_AVATAR -->{CURRENT_USER_AVATAR}<!-- ELSE --><svg class="acp-icon" aria-hidden="true" focusable="false"><use href="#acp-icon-user"></use></svg><!-- ENDIF --></span>
+			<div class="acp-profile-meta">
+				<p class="acp-profile-label">{L_LOGGED_IN_AS}</p>
+				<strong class="acp-profile-name">{USERNAME}</strong>
+				<p class="acp-profile-links"><a href="{U_LOGOUT}">{L_LOGOUT}</a><a href="{U_ADM_LOGOUT}">{L_ADM_LOGOUT}</a></p>
+			</div>
+		</div>
+		<div id="menu" class="acp-side-nav">
+			<!-- DEFINE $LI_USED = 0 -->
+			<!-- BEGIN l_block1 -->
+				<!-- IF l_block1.S_SELECTED -->
 
-		<div id="acp">
-		<div class="panel">
-			<span class="corners-top"><span></span></span>
-				<div id="content">
-					<!-- IF not S_USER_NOTICE --> 
-					<div id="toggle">
-						<a id="toggle-handle" accesskey="m" title="{L_MENU_TOGGLE}" onclick="switch_menu(); return false;" href="#"></a></div>
+			<!-- BEGIN l_block2 -->
+				<!-- IF .l_block1.l_block2.l_block3 -->
+				<!-- IF $LI_USED --></ul></div><!-- ENDIF -->
+				<div class="menu-block">
+					<a class="header" href="javascript:void(0);" title="{l_block1.l_block2.L_TITLE}"><svg class="acp-cat-icon" aria-hidden="true" focusable="false"><use href="#acp-cat-{l_block1.l_block2.LANGNAME}"></use></svg><span class="acp-cat-label">{l_block1.l_block2.L_TITLE}</span></a>
+					<ul>
+				<!-- DEFINE $LI_USED = 1 -->
+				<!-- ENDIF -->
+
+				<!-- BEGIN l_block3 -->
+					<li<!-- IF l_block1.l_block2.l_block3.S_SELECTED --> id="activemenu"<!-- ENDIF -->><a href="{l_block1.l_block2.l_block3.U_TITLE}"><span>{l_block1.l_block2.l_block3.L_TITLE}</span></a></li>
+					<!-- DEFINE $LI_USED = 1 -->
+				<!-- END l_block3 -->
+			<!-- END l_block2 -->
+
+				<!-- ENDIF -->
+			<!-- END l_block1 -->
+			<!-- IF $LI_USED -->
+					</ul>
+				</div>
+			<!-- ENDIF -->
+		</div>
+	</aside>
+	<button type="button" class="acp-backdrop" data-acp-backdrop="1" hidden aria-label="{L_MENU_TOGGLE}"></button>
+	<!-- ENDIF -->
+
+	<div class="acp-main-column" id="page-body">
+		<header class="acp-topbar" id="page-header">
+			<div class="acp-utility-bar">
+				<!-- IF not S_USER_NOTICE -->
+				<button type="button" class="acp-icon-button acp-sidebar-toggle" id="toggle-handle" data-acp-sidebar-toggle="1" accesskey="m" title="{L_MENU_TOGGLE}" aria-label="{L_MENU_TOGGLE}">
+					<svg class="acp-icon" aria-hidden="true" focusable="false"><use href="#acp-icon-menu"></use></svg>
+				</button>
+				<!-- ENDIF -->
+				<div class="acp-utility-left">
+					<!-- IF not S_USER_NOTICE -->
+					<a class="acp-utility-link" href="{U_ADM_INDEX}">{L_ADMIN_INDEX}</a>
+					<a class="acp-utility-link" href="{U_INDEX}">{L_FORUM_INDEX}</a>
+					<a class="acp-utility-link" href="{U_PORTAL}">{L_PORTAL}</a>
 					<!-- ENDIF -->
-					<div id="menu">
-						<p>{L_LOGGED_IN_AS}<br /><strong>{USERNAME}</strong> [&nbsp;<a href="{U_LOGOUT}">{L_LOGOUT}</a>&nbsp;][&nbsp;<a href="{U_ADM_LOGOUT}">{L_ADM_LOGOUT}</a>&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-						<!-- DEFINE $LI_USED = 0 -->
-						<!-- BEGIN l_block1 -->
-							<!-- IF l_block1.S_SELECTED -->
-	
-						<!-- BEGIN l_block2 -->
-							<!-- IF .l_block1.l_block2.l_block3 -->
-							<!-- IF $LI_USED --></ul></div><!-- ENDIF -->
-							<div class="menu-block">
-								<a class="header" href="javascript:void(0);">{l_block1.l_block2.L_TITLE}</a>
-								<ul>
-							<!-- DEFINE $LI_USED = 1 -->
-							<!-- ENDIF -->
-	
-							<!-- BEGIN l_block3 -->
-								<li<!-- IF l_block1.l_block2.l_block3.S_SELECTED --> id="activemenu"<!-- ENDIF -->><a href="{l_block1.l_block2.l_block3.U_TITLE}"><span>{l_block1.l_block2.l_block3.L_TITLE}</span></a></li>
-								<!-- DEFINE $LI_USED = 1 -->
-							<!-- END l_block3 -->
-						<!-- END l_block2 -->
-						
-							<!-- ENDIF -->
-						<!-- END l_block1 -->
-						<!-- IF $LI_USED -->
-								</ul>
-							</div>
-						<!-- ENDIF -->
+				</div>
+				<div class="acp-utility-links">
+					<div class="acp-menu-wrap">
+						<button type="button" class="acp-icon-button" data-acp-menu-toggle="1" aria-expanded="false" aria-controls="acp-docs" title="{L_ACP_DOCS}" aria-label="{L_ACP_DOCS}">
+							<svg class="acp-icon" aria-hidden="true" focusable="false"><use href="#acp-icon-docs"></use></svg>
+							<span class="acp-sr-only">{L_ACP_DOCS}</span>
+						</button>
+						<div id="acp-docs" class="acp-menu acp-docs-menu" data-acp-menu="1" hidden>
+							<p class="acp-menu-title">{L_ACP_DOCS}</p>
+							<ul>
+							<!-- BEGIN acp_docs -->
+								<li><a href="{acp_docs.U_VIEW}" target="_blank" rel="noopener">{acp_docs.TITLE}</a></li>
+							<!-- BEGINELSE -->
+								<li class="acp-menu-empty">{L_ACP_NONE}</li>
+							<!-- END acp_docs -->
+							</ul>
+						</div>
 					</div>
-	
-					<div id="main">
+					<!-- IF not S_USER_NOTICE -->
+					<div class="acp-menu-wrap">
+						<button type="button" class="acp-icon-button" data-acp-menu-toggle="1" aria-expanded="false" aria-controls="acp-notify" title="{L_ACP_NOTIFICATIONS}" aria-label="{L_ACP_NOTIFICATIONS}">
+							<svg class="acp-icon" aria-hidden="true" focusable="false"><use href="#acp-icon-bell"></use></svg>
+							<!-- IF ACP_NOTIFY_COUNT --><span class="acp-badge">{ACP_NOTIFY_COUNT}</span><!-- ENDIF -->
+						</button>
+						<div id="acp-notify" class="acp-menu" data-acp-menu="1" hidden>
+							<p class="acp-menu-title">{L_ACP_NOTIFICATIONS}</p>
+							<ul>
+							<!-- BEGIN acp_notify -->
+								<li><a href="{acp_notify.U_VIEW}"><strong>{acp_notify.AUTHOR}</strong><span>{acp_notify.TITLE}</span><em>{acp_notify.TIME}</em></a></li>
+							<!-- BEGINELSE -->
+								<li class="acp-menu-empty">{L_ACP_NONE}</li>
+							<!-- END acp_notify -->
+							</ul>
+							<p class="acp-menu-more"><a href="{U_ACP_REPORTS}">{L_ACP_VIEW_ALL}</a></p>
+						</div>
+					</div>
+					<div class="acp-menu-wrap">
+						<button type="button" class="acp-icon-button" data-acp-menu-toggle="1" aria-expanded="false" aria-controls="acp-messages" title="{L_PRIVATE_MESSAGES}" aria-label="{L_PRIVATE_MESSAGES}">
+							<svg class="acp-icon" aria-hidden="true" focusable="false"><use href="#acp-icon-mail"></use></svg>
+							<!-- IF ACP_PM_COUNT --><span class="acp-badge">{ACP_PM_COUNT}</span><!-- ENDIF -->
+						</button>
+						<div id="acp-messages" class="acp-menu" data-acp-menu="1" hidden>
+							<p class="acp-menu-title">{L_PRIVATE_MESSAGES}</p>
+							<ul>
+							<!-- BEGIN acp_pm -->
+								<li><a href="{acp_pm.U_VIEW}"><strong>{acp_pm.AUTHOR}</strong><span>{acp_pm.SUBJECT}</span><em>{acp_pm.TIME}</em></a></li>
+							<!-- BEGINELSE -->
+								<li class="acp-menu-empty">{L_ACP_NONE}</li>
+							<!-- END acp_pm -->
+							</ul>
+							<p class="acp-menu-more"><a href="{U_ACP_PM}">{L_ACP_VIEW_ALL}</a></p>
+						</div>
+					</div>
+					<div class="acp-menu-wrap acp-layout-wrap">
+						<button type="button" class="acp-icon-button" data-acp-menu-toggle="1" aria-expanded="false" aria-controls="acp-options" title="{L_ACP_LAYOUT_OPTIONS}" aria-label="{L_ACP_LAYOUT_OPTIONS}">
+							<svg class="acp-icon" aria-hidden="true" focusable="false"><use href="#acp-icon-options"></use></svg>
+						</button>
+						<div id="acp-options" class="acp-menu acp-options" data-acp-menu="1" hidden>
+							<button type="button" class="acp-theme-option" data-acp-theme-toggle="1" title="{L_ACP_THEME_TOGGLE}" aria-label="{L_ACP_THEME_TOGGLE}" aria-pressed="false">
+								<svg class="acp-icon acp-icon-sun" aria-hidden="true" focusable="false"><use href="#acp-icon-sun"></use></svg>
+								<svg class="acp-icon acp-icon-moon" aria-hidden="true" focusable="false"><use href="#acp-icon-moon"></use></svg>
+								<span>{L_ACP_THEME_TOGGLE}</span>
+							</button>
+							<label class="acp-option"><input type="checkbox" data-acp-option="fixed-sidebar" /> {L_ACP_FIXED_SIDEBAR}</label>
+							<label class="acp-option"><input type="checkbox" data-acp-option="fixed-top" checked="checked" /> {L_ACP_FIXED_TOP}</label>
+						</div>
+					</div>
+					<!-- ENDIF -->
+				</div>
+			</div>
+			<div id="tabs" class="acp-tabs">
+				<ul>
+				<!-- BEGIN t_block1 -->
+					<li class="tab<!-- IF t_block1.S_SELECTED --> activetab<!-- ENDIF -->"><a href="{t_block1.U_TITLE}">{t_block1.L_TITLE}</a></li>
+				<!-- END t_block1 -->
+				</ul>
+			</div>
+		</header>
+
+		<div id="acp" class="acp-canvas">
+			<div id="content">
+				<div id="main">

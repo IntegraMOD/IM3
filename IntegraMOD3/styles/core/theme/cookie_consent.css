@@ -7,6 +7,23 @@
     animation: cookie-consent-fade-in 0.2s ease;
 }
 
+.cookie-consent-modal.cookie-consent-hidden {
+    display: none;
+}
+
+/*
+ * Fail-safe: the overlay covers the whole viewport, so it must never be able to
+ * swallow clicks meant for the page behind it. Only the dialog itself is
+ * interactive; the backdrop stays click-through.
+ */
+.cookie-consent-modal {
+    pointer-events: none;
+}
+
+.cookie-consent-modal .cookie-consent-content {
+    pointer-events: auto;
+}
+
 .cookie-consent-content {
     width: min(92vw, 640px);
     max-width: calc(100vw - 20px);

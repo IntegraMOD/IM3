@@ -30,8 +30,8 @@ class acp_push_info
             'title'		=> 'ACP_PUSH_NOTIFICATIONS',
             'version'	=> '1.0.0',
             'modes'		=> array(
-                'settings'	=> array('title' => 'ACP_PUSH_SETTINGS', 'auth' => 'acl_a_board', 'cat' => array('ACP_BOARD_CONFIGURATION')),
-                'send'		=> array('title' => 'ACP_PUSH_SEND', 'auth' => 'acl_a_board', 'cat' => array('ACP_BOARD_CONFIGURATION')),
+                'settings'	=> array('title' => 'ACP_PUSH_SETTINGS', 'auth' => 'acl_a_board', 'cat' => array('ACP_CLIENT_COMMUNICATION')),
+                'send'		=> array('title' => 'ACP_PUSH_SEND', 'auth' => 'acl_a_board', 'cat' => array('ACP_CLIENT_COMMUNICATION')),
             ),
         );
     }

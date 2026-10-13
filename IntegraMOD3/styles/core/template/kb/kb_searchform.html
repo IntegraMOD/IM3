@@ -1,6 +1,20 @@
 <!-- INCLUDE overall_header.html -->
-<p class="{S_CONTENT_FLOW_END}<!-- IF S_USER_LOGGED_IN --> rightside<!-- ENDIF -->"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ELSE -->{CURRENT_TIME}<!-- ENDIF --></p>
-<!-- IF U_MCP --><p>{CURRENT_TIME} <br />[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ELSEIF S_USER_LOGGED_IN --><p>{CURRENT_TIME}</p><!-- ENDIF -->
+<p class="{S_CONTENT_FLOW_END}<!-- IF S_USER_LOGGED_IN --> rightside<!-- ENDIF -->">
+	<!-- IF S_USER_LOGGED_IN -->
+		{LAST_VISIT_DATE}
+	<!-- ELSE -->
+		{CURRENT_TIME}
+	<!-- ENDIF -->
+</p>
+<!-- IF U_MCP -->
+	<p>
+		{CURRENT_TIME} <br />[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]
+	</p>
+<!-- ELSEIF S_USER_LOGGED_IN -->
+	<p>
+		{CURRENT_TIME}
+	</p>
+<!-- ENDIF -->
 
 <div class="kb-layout">
 	<h2>{L_SEARCH}</h2>
@@ -28,11 +42,11 @@
 			</div>
 			<div class="ucp-card-body ucp-form-grid">
 				<!-- IF S_ARTICLE_TYPES -->
-				<div class="ucp-form-row">
-					<label class="ucp-form-label" for="tid">{L_ARTICLE_TYPES}:</label>
-					<p class="ucp-form-help">{L_ARTICLE_TYPES_DESC}.</p>
-					<select name="tid[]" id="tid" multiple="multiple" size="4" title="{L_ARTICLE_TYPES}" class="ucp-form-select">{TYPE_OPTION}</select>
-				</div>
+					<div class="ucp-form-row">
+						<label class="ucp-form-label" for="tid">{L_ARTICLE_TYPES}:</label>
+						<p class="ucp-form-help">{L_ARTICLE_TYPES_DESC}.</p>
+						<select name="tid[]" id="tid" multiple="multiple" size="4" title="{L_ARTICLE_TYPES}" class="ucp-form-select">{TYPE_OPTION}</select>
+					</div>
 				<!-- ENDIF -->
 				<div class="ucp-form-row">
 					<label class="ucp-form-label" for="cid">{L_CATEGORIES}:</label>

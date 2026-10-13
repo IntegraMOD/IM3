@@ -1,0 +1,14 @@
+Options -Indexes -ExecCGI
+
+RemoveHandler .php .php3 .php4 .php5 .php7 .php8 .phtml .phar .pl .py .cgi .asp .aspx .jsp .sh .shtml
+RemoveType .php .php3 .php4 .php5 .php7 .php8 .phtml .phar .pl .py .cgi .asp .aspx .jsp .sh .shtml
+
+<FilesMatch "\.(php[0-9]?|phtml|phar|pl|py|cgi|asp|aspx|jsp|sh|shtml)$">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order Allow,Deny
+		Deny from All
+	</IfModule>
+</FilesMatch>

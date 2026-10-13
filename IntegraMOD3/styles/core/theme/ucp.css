@@ -262,16 +262,25 @@ form#confirm .button2 {
 
 .ucp-form-row {
     display: grid;
-    gap: 6px;
+    gap: 4px;
+}
+
+.ucp-form-row > p {
+    margin: 0;
+    line-height: 1.3;
 }
 
 .ucp-form-label {
+    margin: 0;
     font-weight: 600;
+    line-height: 1.3;
 }
 
 .ucp-form-help {
+    margin: 0;
     color: var(--text-secondary);
     font-size: 0.9em;
+    line-height: 1.3;
 }
 
 .ucp-form-input,
@@ -286,6 +295,28 @@ form#confirm .button2 {
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
+}
+
+.ucp-form-inline .ucp-form-select {
+    width: auto;
+    max-width: 100%;
+}
+
+.ucp-mobile-fields {
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.ucp-mobile-fields .ucp-mobile-cc {
+    width: 4.25rem;
+    flex: 0 0 4.25rem;
+    text-align: center;
+}
+
+.ucp-mobile-fields .ucp-mobile-number {
+    width: auto;
+    flex: 1 1 12rem;
+    min-width: 0;
 }
 
 .ucp-push-choices {
@@ -472,6 +503,44 @@ form#confirm .button2 {
     margin-top: 8px;
 }
 
+.ucp-overview-intro,
+.ucp-overview-news p,
+.ucp-overview-details p {
+    margin: 0;
+    line-height: 1.3;
+}
+
+.ucp-overview-heading {
+    margin: 0.7rem 0 0.25rem;
+    font-size: 1rem;
+    line-height: 1.25;
+}
+
+.ucp-overview-news {
+    gap: 0.4rem;
+}
+
+.ucp-overview-news .ucp-form-row {
+    gap: 0;
+}
+
+.ucp-overview-details {
+    gap: 0.15rem;
+}
+
+.ucp-overview-details .ucp-form-row {
+    grid-template-columns: minmax(7.5rem, 12rem) minmax(0, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 0;
+    align-items: baseline;
+}
+
+@media (max-width: 40rem) {
+    .ucp-overview-details .ucp-form-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     body.section-ucp {
@@ -518,5 +587,35 @@ form#confirm .button2 {
 
     .ucp-sidebar-overlay.show-overlay {
         display: block;
+    }
+}
+/* Posting/PM editor: label beside field */
+.posting-editor .ucp-form-row,
+.ucp-form-columns > .ucp-form-row {
+    grid-template-columns: minmax(120px, 180px) minmax(0, 1fr);
+    align-items: start;
+    column-gap: 12px;
+}
+
+.posting-editor .ucp-form-label br {
+    display: none;
+}
+
+.posting-editor .ucp-form-label span {
+    display: block;
+    font-weight: 400;
+}
+
+.posting-editor .ucp-form-content > label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 10px 4px 0;
+}
+
+@media (max-width: 600px) {
+    .posting-editor .ucp-form-row,
+    .ucp-form-columns > .ucp-form-row {
+        grid-template-columns: minmax(0, 1fr);
     }
 }

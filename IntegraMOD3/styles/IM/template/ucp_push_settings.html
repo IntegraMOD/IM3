@@ -13,7 +13,7 @@
         <dl>
             <dt><label for="user_mobile">{L_USER_MOBILE}:</label><br /><span>{L_USER_MOBILE_EXPLAIN}</span></dt>
             <dd>
-                +<input type="text" id="user_mobile_cc" name="user_mobile_cc" value="{USER_MOBILE_CC}" size="4" maxlength="4" class="inputbox autowidth" title="{L_USER_MOBILE_CC}" />
+                <input type="text" id="user_mobile_cc" name="user_mobile_cc" value="{USER_MOBILE_CC}" size="3" maxlength="3" class="inputbox autowidth" placeholder="+" title="{L_USER_MOBILE_CC}" />
                 &nbsp;<input type="text" id="user_mobile" name="user_mobile" value="{USER_MOBILE}" class="inputbox" />
                 <br /><span>{L_USER_MOBILE_CC_EXPLAIN}</span>
             </dd>
@@ -95,6 +95,36 @@
             <dd>
                 <!-- IF S_PUSH_ALLOW_WEB_NEWS --><label><input type="checkbox" class="radio" name="user_push_web_news" value="1" <!-- IF USER_PUSH_WEB_NEWS -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label> &nbsp;<!-- ENDIF -->
                 <!-- IF S_PUSH_ALLOW_SMS_NEWS --><label><input type="checkbox" class="radio" name="user_push_sms_news" value="1" <!-- IF USER_PUSH_SMS_NEWS -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </dd>
+        </dl>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_REGISTER or S_PUSH_ALLOW_SMS_REGISTER -->
+        <dl>
+            <dt><label>{L_USER_PUSH_REGISTER}:</label></dt>
+            <dd>
+                <!-- IF S_PUSH_ALLOW_WEB_REGISTER --><label><input type="checkbox" class="radio" name="user_push_web_register" value="1" <!-- IF USER_PUSH_WEB_REGISTER -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label> &nbsp;<!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_REGISTER --><label><input type="checkbox" class="radio" name="user_push_sms_register" value="1" <!-- IF USER_PUSH_SMS_REGISTER -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </dd>
+        </dl>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_NEW_POST or S_PUSH_ALLOW_SMS_NEW_POST -->
+        <dl>
+            <dt><label>{L_USER_PUSH_NEW_POST}:</label></dt>
+            <dd>
+                <!-- IF S_PUSH_ALLOW_WEB_NEW_POST --><label><input type="checkbox" class="radio" name="user_push_web_new_post" value="1" <!-- IF USER_PUSH_WEB_NEW_POST -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label> &nbsp;<!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_NEW_POST --><label><input type="checkbox" class="radio" name="user_push_sms_new_post" value="1" <!-- IF USER_PUSH_SMS_NEW_POST -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
+            </dd>
+        </dl>
+        <!-- ENDIF -->
+
+        <!-- IF S_PUSH_ALLOW_WEB_MENTION or S_PUSH_ALLOW_SMS_MENTION -->
+        <dl>
+            <dt><label>{L_USER_PUSH_MENTION}:</label></dt>
+            <dd>
+                <!-- IF S_PUSH_ALLOW_WEB_MENTION --><label><input type="checkbox" class="radio" name="user_push_web_mention" value="1" <!-- IF USER_PUSH_WEB_MENTION -->checked="checked"<!-- ENDIF --> /> {L_WEB_PUSH}</label> &nbsp;<!-- ENDIF -->
+                <!-- IF S_PUSH_ALLOW_SMS_MENTION --><label><input type="checkbox" class="radio" name="user_push_sms_mention" value="1" <!-- IF USER_PUSH_SMS_MENTION -->checked="checked"<!-- ENDIF --> /> {L_SMS_PUSH}</label><!-- ENDIF -->
             </dd>
         </dl>
         <!-- ENDIF -->

@@ -64,11 +64,17 @@ function assign_cookie_consent_vars()
 
 	if (!empty($config['cookie_consent_enable']))
 	{
+		// Already answered - do not render the modal at all.
+		if (isset($_COOKIE['cookie_consent']))
+		{
+			return;
+		}
+
 		// Fallbacks
 		$cookie_consent_title        = !empty($config['cookie_consent_title'])        ? $config['cookie_consent_title']        : 'Cookie Notice';
 		$cookie_consent_message      = !empty($config['cookie_consent_message'])      ? $config['cookie_consent_message']      : 'This website uses cookies to ensure you get the best experience on our website.';
-		$cookie_consent_accept_text  = !empty($config['cookie_consent_accept_text'])  ? $config['cookie_consent_accept_text']  : 'Accept';
-		$cookie_consent_decline_text = !empty($config['cookie_consent_decline_text']) ? $config['cookie_consent_decline_text'] : 'Decline';
+		$cookie_consent_accept_text  = !empty($config['cookie_consent_accept_text'])  ? $config['cookie_consent_accept_text']  : 'Accept All Cookies';
+		$cookie_consent_decline_text = !empty($config['cookie_consent_decline_text']) ? $config['cookie_consent_decline_text'] : 'Decline All Cookies';
 		$cookie_consent_position     = isset($config['cookie_consent_position'])      ? (int) $config['cookie_consent_position'] : 1;
 
 		// Position map
@@ -3546,14 +3552,22 @@ function login_forum_box($forum_data)
 			$sql_in = array();
 			do
 			{
-				$sql_in[] = (string) $row['session_id'];
+				$session_id = (string) $row['session_id'];
+				if (phpbb_acm_stores_guest_sessions() && phpbb_guest_session_get($session_id))
+				{
+					continue;
+				}
+				$sql_in[] = $session_id;
 			}
 			while ($row = $db->sql_fetchrow($result));
 
 			// Remove expired sessions
-			$sql = 'DELETE FROM ' . FORUMS_ACCESS_TABLE . '
-				WHERE ' . $db->sql_in_set('session_id', $sql_in);
-			$db->sql_query($sql);
+			if (sizeof($sql_in))
+			{
+				$sql = 'DELETE FROM ' . FORUMS_ACCESS_TABLE . '
+					WHERE ' . $db->sql_in_set('session_id', $sql_in);
+				$db->sql_query($sql);
+			}
 		}
 		$db->sql_freeresult($result);
 
@@ -4341,6 +4355,20 @@ function msg_handler($errno, $msg_text, $errfile, $errline)
 			$msg_text = (!empty($user->lang[$msg_text])) ? $user->lang[$msg_text] : $msg_text;
 			$msg_title = (!isset($msg_title)) ? $user->lang['INFORMATION'] : ((!empty($user->lang[$msg_title])) ? $user->lang[$msg_title] : $msg_title);
 
+			// Automatically return to the previous ACP page after a successful action
+			// instead of requiring the user to click the "back to previous page" link.
+			if ($errno == E_USER_NOTICE && defined('IN_ADMIN') && isset($user->data['session_admin']) && $user->data['session_admin'])
+			{
+				if (preg_match('#<a href="([^"]+)"#i', $msg_text, $match))
+				{
+					$refresh_url = html_entity_decode($match[1], ENT_COMPAT);
+
+					$template->assign_vars(array(
+						'META'	=> '<meta http-equiv="refresh" content="3; url=' . str_replace('&', '&amp;', $refresh_url) . '" />')
+					);
+				}
+			}
+
 			if (!defined('HEADER_INC'))
 			{
 				if (defined('IN_ADMIN') && isset($user->data['session_admin']) && $user->data['session_admin'])
@@ -4414,6 +4442,348 @@ function phpbb_filter_root_path($errfile)
 }
 
 /**
+* Whether anonymous/guest and identified-bot sessions are stored in the active ACM backend.
+* File and null ACM keep them in the database (file cache cannot absorb that write volume).
+*/
+function phpbb_acm_stores_guest_sessions()
+{
+	global $acm_type;
+
+	return (!empty($acm_type) && $acm_type !== 'file' && $acm_type !== 'null');
+}
+
+/**
+* Anonymous guests and spider/bot users belong in ACM, not the sessions table.
+*/
+function phpbb_acm_session_user($user_id, $is_bot = false)
+{
+	$user_id = (int) $user_id;
+	return ($is_bot || $user_id === ANONYMOUS);
+}
+
+/**
+* TTL for ACM-backed guest session keys
+*/
+function phpbb_guest_session_ttl()
+{
+	global $config;
+
+	$ttl = (int) $config['session_length'] + 60;
+	return ($ttl < 120) ? 120 : $ttl;
+}
+
+/**
+* Build the compact session payload stored in ACM
+*/
+function phpbb_guest_session_extract($data)
+{
+	$fields = array(
+		'session_id',
+		'session_user_id',
+		'session_start',
+		'session_last_visit',
+		'session_time',
+		'session_browser',
+		'session_forwarded_for',
+		'session_ip',
+		'session_autologin',
+		'session_admin',
+		'session_viewonline',
+		'session_page',
+		'session_forum_id',
+		'session_album_id',
+	);
+
+	$row = array();
+	foreach ($fields as $field)
+	{
+		$row[$field] = isset($data[$field]) ? $data[$field] : (($field === 'session_forum_id' || $field === 'session_album_id') ? 0 : '');
+	}
+
+	if (isset($data['user_id']) && (int) $data['user_id'] && (int) $row['session_user_id'] === 0)
+	{
+		$row['session_user_id'] = (int) $data['user_id'];
+	}
+
+	$row['session_user_id'] = (int) $row['session_user_id'];
+	if (!$row['session_user_id'])
+	{
+		$row['session_user_id'] = ANONYMOUS;
+	}
+
+	$row['session_autologin'] = 0;
+	$row['session_admin'] = 0;
+
+	return $row;
+}
+
+/**
+* Read a guest session from ACM
+*/
+function phpbb_guest_session_get($session_id)
+{
+	global $cache, $config;
+
+	if ($session_id === '' || $session_id === false || !is_object($cache))
+	{
+		return false;
+	}
+
+	$data = $cache->get('_gsess_' . $session_id);
+	if (!is_array($data) || empty($data['session_id']))
+	{
+		return false;
+	}
+
+	if (!empty($data['session_time']) && (int) $data['session_time'] < time() - (int) $config['session_length'])
+	{
+		phpbb_guest_session_destroy($session_id);
+		return false;
+	}
+
+	return $data;
+}
+
+/**
+* Persist a guest session in ACM and refresh the online index
+*/
+function phpbb_guest_session_put($session_id, $data)
+{
+	global $cache;
+
+	if ($session_id === '' || $session_id === false || !is_object($cache))
+	{
+		return;
+	}
+
+	$row = phpbb_guest_session_extract($data);
+	$row['session_id'] = (string) $session_id;
+	$ttl = phpbb_guest_session_ttl();
+	$cache->put('_gsess_' . $session_id, $row, $ttl);
+
+	$idx = $cache->get('_gsess_idx');
+	if (!is_array($idx))
+	{
+		$idx = array();
+	}
+
+	$now = time();
+	$expire = $now - $ttl;
+	foreach ($idx as $sid => $info)
+	{
+		if (!is_array($info) || empty($info['t']) || (int) $info['t'] < $expire)
+		{
+			unset($idx[$sid]);
+		}
+	}
+
+	$idx[$session_id] = array(
+		'u'	=> (int) $row['session_user_id'],
+		'i'	=> (string) $row['session_ip'],
+		't'	=> (int) $row['session_time'],
+		'f'	=> (int) $row['session_forum_id'],
+		'a'	=> (int) $row['session_album_id'],
+		'p'	=> (string) $row['session_page'],
+		'b'	=> (string) $row['session_browser'],
+	);
+	$cache->put('_gsess_idx', $idx, $ttl);
+
+	if ((int) $row['session_user_id'] !== ANONYMOUS)
+	{
+		$old_sid = $cache->get('_gsess_uid_' . (int) $row['session_user_id']);
+		if ($old_sid && $old_sid !== $session_id)
+		{
+			$cache->destroy('_gsess_' . $old_sid);
+			if (isset($idx[$old_sid]))
+			{
+				unset($idx[$old_sid]);
+				$cache->put('_gsess_idx', $idx, $ttl);
+			}
+		}
+
+		$cache->put('_gsess_uid_' . (int) $row['session_user_id'], (string) $session_id, $ttl);
+	}
+}
+
+/**
+* Remove a guest session from ACM
+*/
+function phpbb_guest_session_destroy($session_id)
+{
+	global $cache;
+
+	if ($session_id === '' || $session_id === false || !is_object($cache))
+	{
+		return;
+	}
+
+	$idx = $cache->get('_gsess_idx');
+	$user_id = 0;
+	if (is_array($idx) && isset($idx[$session_id]['u']))
+	{
+		$user_id = (int) $idx[$session_id]['u'];
+	}
+
+	$cache->destroy('_gsess_' . $session_id);
+
+	if (is_array($idx) && isset($idx[$session_id]))
+	{
+		unset($idx[$session_id]);
+		$cache->put('_gsess_idx', $idx, phpbb_guest_session_ttl());
+	}
+
+	if ($user_id && $user_id !== ANONYMOUS)
+	{
+		$mapped = $cache->get('_gsess_uid_' . $user_id);
+		if ($mapped === $session_id)
+		{
+			$cache->destroy('_gsess_uid_' . $user_id);
+		}
+	}
+}
+
+/**
+* Drop all ACM-backed guest sessions (ACP session purge)
+*/
+function phpbb_guest_session_purge()
+{
+	global $cache;
+
+	if (!is_object($cache))
+	{
+		return;
+	}
+
+	$idx = $cache->get('_gsess_idx');
+	if (is_array($idx))
+	{
+		foreach ($idx as $session_id => $info)
+		{
+			$cache->destroy('_gsess_' . $session_id);
+			if (is_array($info) && !empty($info['u']) && (int) $info['u'] !== ANONYMOUS)
+			{
+				$cache->destroy('_gsess_uid_' . (int) $info['u']);
+			}
+		}
+	}
+
+	$cache->destroy('_gsess_idx');
+}
+
+/**
+* Expire stale ACM guest sessions and compact the online index
+*/
+function phpbb_guest_session_gc()
+{
+	global $cache, $config;
+
+	if (!is_object($cache))
+	{
+		return;
+	}
+
+	$idx = $cache->get('_gsess_idx');
+	if (!is_array($idx) || !sizeof($idx))
+	{
+		return;
+	}
+
+	$expire = time() - (int) $config['session_length'];
+	$changed = false;
+
+	foreach ($idx as $session_id => $info)
+	{
+		if (!is_array($info) || empty($info['t']) || (int) $info['t'] < $expire)
+		{
+			unset($idx[$session_id]);
+			$cache->destroy('_gsess_' . $session_id);
+			if (!empty($info['u']) && (int) $info['u'] !== ANONYMOUS)
+			{
+				$cache->destroy('_gsess_uid_' . (int) $info['u']);
+			}
+			$changed = true;
+		}
+	}
+
+	if ($changed)
+	{
+		$cache->put('_gsess_idx', $idx, phpbb_guest_session_ttl());
+	}
+}
+
+/**
+* Active ACM guest sessions for online lists / counts
+*/
+function phpbb_guest_session_list($item_id = 0, $item = 'forum')
+{
+	global $cache, $config;
+
+	$list = array();
+	if (!is_object($cache))
+	{
+		return $list;
+	}
+
+	$idx = $cache->get('_gsess_idx');
+	if (!is_array($idx) || !sizeof($idx))
+	{
+		return $list;
+	}
+
+	$time = time() - (intval($config['load_online_time']) * 60);
+	$item_key = ($item === 'album') ? 'a' : 'f';
+
+	foreach ($idx as $session_id => $info)
+	{
+		if (!is_array($info) || empty($info['t']) || (int) $info['t'] < $time)
+		{
+			continue;
+		}
+
+		if ($item_id && (!isset($info[$item_key]) || (int) $info[$item_key] !== (int) $item_id))
+		{
+			continue;
+		}
+
+		$list[] = array(
+			'session_id'			=> (string) $session_id,
+			'session_user_id'		=> isset($info['u']) ? (int) $info['u'] : ANONYMOUS,
+			'session_time'			=> (int) $info['t'],
+			'session_ip'			=> isset($info['i']) ? (string) $info['i'] : '',
+			'session_forum_id'		=> isset($info['f']) ? (int) $info['f'] : 0,
+			'session_album_id'		=> isset($info['a']) ? (int) $info['a'] : 0,
+			'session_page'			=> isset($info['p']) ? (string) $info['p'] : '',
+			'session_browser'		=> isset($info['b']) ? (string) $info['b'] : '',
+			'session_viewonline'	=> 1,
+		);
+	}
+
+	return $list;
+}
+
+/**
+* Latest ACM session for a bot user (phpBB reuses one session per spider)
+*/
+function phpbb_guest_session_get_by_user($user_id)
+{
+	global $cache;
+
+	$user_id = (int) $user_id;
+	if (!$user_id || $user_id === ANONYMOUS || !is_object($cache))
+	{
+		return false;
+	}
+
+	$session_id = $cache->get('_gsess_uid_' . $user_id);
+	if (!$session_id)
+	{
+		return false;
+	}
+
+	return phpbb_guest_session_get($session_id);
+}
+
+/**
 * Queries the session table to get information about online guests
 * @param int $item_id Limits the search to the item with this id
 * @param string $item The name of the item which is stored in the session table as session_{$item}_id
@@ -4422,6 +4792,22 @@ function phpbb_filter_root_path($errfile)
 function obtain_guest_count($item_id = 0, $item = 'forum')
 {
 	global $db, $config;
+
+	if (phpbb_acm_stores_guest_sessions())
+	{
+		$ips = array();
+		foreach (phpbb_guest_session_list($item_id, $item) as $row)
+		{
+			if ((int) $row['session_user_id'] !== ANONYMOUS)
+			{
+				continue;
+			}
+
+			$ips[$row['session_ip']] = true;
+		}
+
+		return sizeof($ips);
+	}
 
 	if ($item_id)
 	{
@@ -4518,8 +4904,24 @@ function obtain_users_online($item_id = 0, $item = 'forum')
 			}
 		}
 	}
-	$online_users['total_online'] = $online_users['guests_online'] + $online_users['visible_online'] + $online_users['hidden_online'];
 	$db->sql_freeresult($result);
+
+	if (phpbb_acm_stores_guest_sessions())
+	{
+		foreach (phpbb_guest_session_list($item_id, $item) as $row)
+		{
+			$acm_user_id = (int) $row['session_user_id'];
+			if ($acm_user_id === ANONYMOUS || isset($online_users['online_users'][$acm_user_id]))
+			{
+				continue;
+			}
+
+			$online_users['online_users'][$acm_user_id] = $acm_user_id;
+			$online_users['visible_online']++;
+		}
+	}
+
+	$online_users['total_online'] = $online_users['guests_online'] + $online_users['visible_online'] + $online_users['hidden_online'];
 
 	return $online_users;
 }
@@ -5594,15 +5996,19 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'S_DONATE_ENABLED'	=> $auth->acl_get('u_pdm_use'),
 	));
 //-- end : Paypal Donation --------------------------------------------------------
+	if (!function_exists('get_user_avatar'))
+	{
+		include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+	}
+
+	$template->assign_vars(array(
+		'AVATAR_SMALL_IMG'	=> ($user->data['user_id'] != ANONYMOUS) ? get_user_avatar($user->data['user_avatar'], $user->data['user_avatar_type'], '35', '35') : '',
+	));
+
 // Stargate Portal Start
 	if (STARGATE)
 	{
 		global $user, $queries, $cached_queries, $total_queries;
-
-		if (!function_exists('get_user_avatar'))
-		{
-			include($phpbb_root_path . 'includes/functions_display.'. $phpEx);
-		}
 
 		$cache_time = (isset($k_config['block_cache_time'])) ? $k_config['block_cache_time'] : '600';
 
@@ -5611,9 +6017,8 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 			'STARGATE_BUILD'		=> (isset($config['portal_build'])) ? $config['portal_build'] : '',
 			'STARGATE_VERSION'		=> (isset($config['portal_version'])) ? $config['portal_version'] : '',
 
-			'AVATAR_SMALL_IMG'		=> (STARGATE) ? get_user_avatar($user->data['user_avatar'], $user->data['user_avatar_type'], '35', '35') : '',
-			'P_USERNAME'			=> (STARGATE) ? $user->data['username'] : '',
-			'P_USERNAME_FULL'		=> (STARGATE) ? get_username_string('full', $user->data['user_id'], $user->data['username'], $user->data['user_colour']) : '',
+			'P_USERNAME'			=> $user->data['username'],
+			'P_USERNAME_FULL'		=> get_username_string('full', $user->data['user_id'], $user->data['username'], $user->data['user_colour']),
 
 			'T_THEME_PATH'			=> "{$web_path}styles/" . $user->theme['theme_path'] . '/theme',
 			'T_PORTAL_THEME_PATH'	=> "{$web_path}styles/_portal_common/theme",
@@ -5758,7 +6163,7 @@ function im3_build_credit_line()
 
 	if (im3_template_var('S_IN_GALLERY'))
 	{
-		$gallery_line = 'Powered by <a href="http://www.flying-bits.org/">phpBB Gallery</a> &copy; 2007, 2009 <a href="http://www.flying-bits.org/">nickvergessen</a>';
+		$gallery_line = 'Powered by <a href="http://www.flying-bits.org/">phpBB Gallery</a> &copy; <a href="http://www.flying-bits.org/">nickvergessen</a>';
 		$gallery_info = im3_template_var('GALLERY_TRANSLATION_INFO');
 		if (!empty($gallery_info))
 		{
@@ -5779,7 +6184,7 @@ function im3_build_credit_line()
 
 	if (im3_template_var('S_IN_MEETING') || $script_name === 'meeting')
 	{
-		$lines[] = !empty($user->lang['MEETING_VERSION']) ? $user->lang['MEETING_VERSION'] : 'Meeting MOD &copy; 2009, 2010, 2011, 2012 <a href="http://www.oxpus.net">OXPUS</a>';
+		$lines[] = !empty($user->lang['MEETING_VERSION']) ? $user->lang['MEETING_VERSION'] : 'Meeting MOD &copy; <a href="http://www.oxpus.net">OXPUS</a>';
 	}
 
 	if (im3_template_var('S_IN_BLOG') || $script_name === 'blog')
@@ -6111,12 +6516,12 @@ if (!function_exists('trim_string'))
 */
 function get_random_image($dir_path, $add_link = false, $token = '', $raw = false)
 {
-	if (defined('IN_ADMIN') || (!STARGATE))
+	if (defined('IN_ADMIN'))
 	{
 		return;
 	}
 
-	// The $token can be used to filter image types...
+	// The $token
 	// initialise vars
 	//$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
 

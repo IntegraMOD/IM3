@@ -1,4 +1,4 @@
-/* IntegraStyle portal overrides. Loaded after _portal_common so these win. */
+/* core portal overrides. Loaded after _portal_common so these win. */
 
 @media (max-width: 768px) {
     #p_row_,

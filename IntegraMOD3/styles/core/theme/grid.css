@@ -1,4 +1,4 @@
-/* IntegraStyle Grid System */
+/* core Grid System */
 .forum-row { display: flex; flex-wrap: nowrap; align-items: center; border-top: 1px solid var(--border-ad-panel); padding: 10px; }
 .forum-icon, .topic-icon { width: 56px; flex: 0 0 56px; text-align: center; font-size: 24px; }
 .forum-icon.unread, .topic-icon.unread { color: var(--color-primary); }
@@ -16,9 +16,9 @@
 .topic-icon.news_read_locked, .topic-icon.news_read_locked_mine,
 .topic-icon.news_unread_locked, .topic-icon.news_unread_locked_mine { color: var(--state-locked); }
 .forum-details { flex: 1 1 auto; min-width: 0; padding: 0 10px; }
-.forum-stats-grid { display: flex; width: 360px; text-align: center; font-size: 0.9em; flex-shrink: 0; align-self: flex-start; }
-.stat-topics, .stat-posts, .stat-replies, .stat-views { width: 80px; }
-.stat-lastpost { width: 200px; text-align: left; }
+.forum-stats-grid { display: flex; width: 360px; min-width: 360px; text-align: center; font-size: 0.9em; flex: 0 0 360px; align-self: flex-start; }
+.stat-topics, .stat-posts, .stat-replies, .stat-views { flex: 0 0 80px; width: 80px; min-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.stat-lastpost { flex: 0 0 200px; width: 200px; min-width: 200px; text-align: left; }
 /* Specific Topic Types */
 .topic-icon.topic_read_hot, .topic-icon.topic_read_hot_mine,
 .topic-icon.topic_unread_hot, .topic-icon.topic_unread_hot_mine,

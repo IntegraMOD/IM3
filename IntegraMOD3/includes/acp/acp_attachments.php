@@ -97,6 +97,17 @@ class acp_attachments
 
 				$l_legend_cat_images = $user->lang['SETTINGS_CAT_IMAGES'] . ' [' . $user->lang['ASSIGNED_GROUP'] . ': ' . ((!empty($s_assigned_groups[ATTACHMENT_CATEGORY_IMAGE])) ? implode(', ', $s_assigned_groups[ATTACHMENT_CATEGORY_IMAGE]) : $user->lang['NO_EXT_GROUP']) . ']';
 
+				// Run the ImageMagick search here so the result can be displayed directly
+				// underneath the search link instead of at the top of the page.
+				$imagick_path = false;
+				$imagick_message = '';
+
+				if ($action == 'imgmagick')
+				{
+					$imagick_path = $this->search_imagemagick();
+					$imagick_message = '<br /><span class="' . (($imagick_path) ? 'success' : 'error') . '">' . (($imagick_path) ? sprintf($user->lang['IMAGICK_FOUND'], $imagick_path) : $user->lang['IMAGICK_NOT_FOUND']) . '</span>';
+				}
+
 				$display_vars = array(
 					'title'	=> 'ACP_ATTACHMENT_SETTINGS',
 					'vars'	=> array(
@@ -127,7 +138,7 @@ class acp_attachments
 						'img_create_thumbnail'		=> array('lang' => 'CREATE_THUMBNAIL',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 						'img_max_thumb_width'		=> array('lang' => 'MAX_THUMB_WIDTH',		'validate' => 'int',	'type' => 'text:7:15', 'explain' => true, 'append' => ' ' . $user->lang['PIXEL']),
 						'img_min_thumb_filesize'	=> array('lang' => 'MIN_THUMB_FILESIZE',	'validate' => 'int',	'type' => 'text:7:15', 'explain' => true, 'append' => ' ' . $user->lang['BYTES']),
-						'img_imagick'				=> array('lang' => 'IMAGICK_PATH',			'validate' => 'absolute_path',	'type' => 'text:20:200', 'explain' => true, 'append' => '&nbsp;&nbsp;<span>[ <a href="' . $this->u_action . '&amp;action=imgmagick">' . $user->lang['SEARCH_IMAGICK'] . '</a> ]</span>'),
+						'img_imagick'				=> array('lang' => 'IMAGICK_PATH',			'validate' => 'absolute_path',	'type' => 'text:20:200', 'explain' => true, 'append' => '&nbsp;&nbsp;<span>[ <a href="' . $this->u_action . '&amp;action=imgmagick#img_imagick">' . $user->lang['SEARCH_IMAGICK'] . '</a> ]</span>' . $imagick_message),
 						'img_max'					=> array('lang' => 'MAX_IMAGE_SIZE',		'validate' => 'int',	'type' => 'dimension:3:4', 'explain' => true, 'append' => ' ' . $user->lang['PIXEL']),
 						'img_link'					=> array('lang' => 'IMAGE_LINK_SIZE',		'validate' => 'int',	'type' => 'dimension:3:4', 'explain' => true, 'append' => ' ' . $user->lang['PIXEL']),
 					)
@@ -185,9 +196,9 @@ class acp_attachments
 
 				$template->assign_var('S_ATTACHMENT_SETTINGS', true);
 
-				if ($action == 'imgmagick')
+				if ($action == 'imgmagick' && $imagick_path)
 				{
-					$this->new_config['img_imagick'] = $this->search_imagemagick();
+					$this->new_config['img_imagick'] = $imagick_path;
 				}
 
 				// We strip eventually manual added convert program, we only want the patch
@@ -195,7 +206,10 @@ class acp_attachments
 				{
 					// Change path separator
 					$this->new_config['img_imagick'] = str_replace('\\', '/', $this->new_config['img_imagick']);
-					$this->new_config['img_imagick'] = str_replace(array('convert', '.exe'), array('', ''), $this->new_config['img_imagick']);
+
+					// Strip a manually added binary name, we only want the path.
+					// Anchored on a slash so directories such as /usr/bin/imagemagick/ stay intact.
+					$this->new_config['img_imagick'] = preg_replace('#/(convert|magick|mogrify)(\.exe)?/?$#i', '/', $this->new_config['img_imagick']);
 
 					// Check for trailing slash
 					if (substr($this->new_config['img_imagick'], -1) !== '/')
@@ -1166,7 +1180,9 @@ class acp_attachments
 		if (empty($magic_home))
 		{
 			$locations = array('C:/WINDOWS/', 'C:/WINNT/', 'C:/WINDOWS/SYSTEM/', 'C:/WINNT/SYSTEM/', 'C:/WINDOWS/SYSTEM32/', 'C:/WINNT/SYSTEM32/', '/usr/bin/', '/usr/sbin/', '/usr/local/bin/', '/usr/local/sbin/', '/opt/', '/usr/imagemagick/', '/usr/bin/imagemagick/');
-			$path_locations = str_replace('\\', '/', (explode(($exe) ? ';' : ':', getenv('PATH'))));
+
+			$env_path = getenv('PATH');
+			$path_locations = ($env_path) ? str_replace('\\', '/', explode(($exe) ? ';' : ':', $env_path)) : array();
 
 			$locations = array_merge($path_locations, $locations);
 
@@ -1178,10 +1194,19 @@ class acp_attachments
 					$location .= '/';
 				}
 
-				if (@file_exists($location) && @is_readable($location . 'mogrify' . $exe) && @filesize($location . 'mogrify' . $exe) > 3000)
+				if (!@file_exists($location))
 				{
-					$imagick = str_replace('\\', '/', $location);
 					continue;
+				}
+
+				// 'magick' is ImageMagick 7, 'mogrify'/'convert' are ImageMagick 6
+				foreach (array('magick', 'mogrify', 'convert') as $binary)
+				{
+					if (@is_readable($location . $binary . $exe) && @filesize($location . $binary . $exe) > 3000)
+					{
+						$imagick = str_replace('\\', '/', $location);
+						break 2;
+					}
 				}
 			}
 		}

@@ -284,6 +284,14 @@ $lang = array_merge($lang, array(
 	'NOTIFY_METHOD_EXPLAIN'			=> 'Method for sending messages sent via this board.',
 	'NOTIFY_METHOD_IM'				=> 'Jabber only',
 	'NOTIFY_ON_PM'					=> 'Notify me on new private messages',
+	'MENTION_NOTIFY'				=> 'Mention notification',
+	'MENTION_NOTIFY_EXPLAIN'		=> 'A private message is sent when someone mentions you. Choose e-mail to receive an e-mail instead. Push notifications are not affected.',
+	'MENTION_NOTIFY_PM'				=> 'Private message',
+	'MENTION_NOTIFY_EMAIL'			=> 'E-mail',
+	'MENTION_PM_SUBJECT'			=> 'You were mentioned by %s',
+	'MENTION_PM_BODY'				=> '%1$s mentioned you in "%2$s".
+
+%3$s',
 	'NOT_ADDED_FRIENDS_ANONYMOUS'	=> 'You cannot add the anonymous user to your friends list.',
 	'NOT_ADDED_FRIENDS_BOTS'		=> 'You cannot add bots to your friends list.',
 	'NOT_ADDED_FRIENDS_FOES'		=> 'You cannot add users to your friends list who are on your foes list.',

@@ -156,6 +156,7 @@ class bbcode_firstpass extends bbcode
 			'list'			=> array('bbcode_id' => 9,	'regexp' => array('#\[list(?:=(?:[a-z0-9]|disc|circle|square))?].*\[/list]#uis' => function($matches){return $this->bbcode_parse_list($matches[0]);})),
 			'email'			=> array('bbcode_id' => 10,	'regexp' => array('#\[email=?(.*?)?\](.*?)\[/email\]#uis' => function($matches){return $this->validate_email($matches[1], $matches[2]);})),
 			'flash'			=> array('bbcode_id' => 11,	'regexp' => array('#\[flash=([0-9]+),([0-9]+)\](.*?)\[/flash\]#ui' => function($matches){return $this->bbcode_flash($matches[1], $matches[2], $matches[3]);})),
+			'mention'		=> array('bbcode_id' => 12,	'regexp' => array('#\[mention\]([^\[]{1,64})\[/mention\]#ui' => function($matches){return $this->bbcode_mention($matches[1]);})),
 		);
 
 		// Zero the parsed items array
@@ -222,6 +223,22 @@ class bbcode_firstpass extends bbcode
 		$this->parsed_items[$bbcode]++;
 
 		return true;
+	}
+
+	/**
+	* Transform some characters in valid bbcodes
+	*/
+	/**
+	* Parse a mention tag without turning it into HTML during the first pass.
+	*/
+	function bbcode_mention($in)
+	{
+		if (!$this->check_bbcode('mention', $in))
+		{
+			return $in;
+		}
+
+		return '[mention:' . $this->bbcode_uid . ']' . $this->bbcode_specialchars(trim($in)) . '[/mention:' . $this->bbcode_uid . ']';
 	}
 
 	/**

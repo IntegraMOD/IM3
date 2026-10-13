@@ -6,7 +6,7 @@
 * @copyright (c) 2005 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
-* Minimum Requirement: PHP 4.3.3
+* Minimum Requirement: PHP 7.4
 */
 
 /**
@@ -16,7 +16,7 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
- error_reporting  (E_ERROR | E_WARNING | E_PARSE); // This will NOT report uninitialized variables
+error_reporting  (E_ERROR | E_WARNING | E_PARSE); // This will NOT report uninitialized variables
 
 // Uncomment these and comment out the previous "error_reporting" to debug errors
 // ini_set('display_startup_errors',1); 
@@ -199,6 +199,7 @@ require($phpbb_root_path . 'includes/auth.' . $phpEx);
 
 require($phpbb_root_path . 'includes/functions.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+require($phpbb_root_path . 'includes/functions_mentions.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_push.' . $phpEx);
 
 require($phpbb_root_path . 'includes/constants.' . $phpEx);
@@ -231,6 +232,12 @@ unset($dbpasswd);
 
 // Grab global variables, re-cache if necessary
 $config = $cache->obtain_config();
+
+// One-time push notification schema for existing installs
+if (empty($config['im3_push_schema']) && function_exists('im3_push_install'))
+{
+	im3_push_install();
+}
 // Start Ultimate Points
 if ( isset($config['points_name']) )
 {
@@ -238,7 +245,10 @@ if ( isset($config['points_name']) )
 	$points_values = $cache->obtain_points_values();
 }
 // End Ultimate Points
-@define('STARGATE', ($config['portal_enabled']));
+if (!defined('STARGATE'))
+{
+	define('STARGATE', !empty($config['portal_enabled']));
+}
 
 if (STARGATE)
 {

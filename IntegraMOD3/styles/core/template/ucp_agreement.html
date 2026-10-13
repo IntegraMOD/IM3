@@ -2,19 +2,19 @@
 
 <!-- IF S_SHOW_COPPA or S_REGISTRATION -->
 
-<!-- IF S_LANG_OPTIONS -->
-	<form method="post" action="{S_UCP_ACTION}" id="register" class="ucp-form-grid">
-		<div class="ucp-card">
-			<div class="ucp-card-body">
-				<div class="ucp-form-row">
-					<label class="ucp-form-label" for="lang">{L_LANGUAGE}</label>
-					<select class="ucp-form-select" name="lang" id="lang" data-action="change-language" title="{L_LANGUAGE}">{S_LANG_OPTIONS}</select>
+	<!-- IF S_LANG_OPTIONS -->
+		<form method="post" action="{S_UCP_ACTION}" id="register" class="ucp-form-grid">
+			<div class="ucp-card">
+				<div class="ucp-card-body">
+					<div class="ucp-form-row">
+						<label class="ucp-form-label" for="lang">{L_LANGUAGE}</label>
+						<select class="ucp-form-select" name="lang" id="lang" data-action="change-language" title="{L_LANGUAGE}">{S_LANG_OPTIONS}</select>
+					</div>
+					{S_HIDDEN_FIELDS}
 				</div>
-				{S_HIDDEN_FIELDS}
 			</div>
-		</div>
-	</form>
-<!-- ENDIF -->
+		</form>
+	<!-- ENDIF -->
 
 	<form method="post" action="{S_UCP_ACTION}" id="agreement" class="ucp-form-grid">
 		<div class="ucp-card">
