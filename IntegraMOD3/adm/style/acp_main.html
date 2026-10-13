@@ -28,7 +28,7 @@
 	<tbody>
 	<tr>
 		<td>{INTEGRA_NEWS}</td>
-		<td class="nuz">{IM_VERSION}</td>
+		<td class="nuz"><!-- IF U_LATEST_IM_VERSION --><a href="{U_LATEST_IM_VERSION}">{LATEST_IM_VERSION}</a><!-- ELSE -->{LATEST_IM_VERSION}<!-- ENDIF --></td>
 		<td class="nuz">{S_IMOD_VERSION}</td>
 
 	</tr>
@@ -153,12 +153,6 @@
 		<td><strong>{DATABASE_INFO}</strong></td>
 		<td>{L_GZIP_COMPRESSION}: </td>
 		<td><strong>{GZIP_COMPRESSION}</strong></td>
-	</tr>
-	<tr>
-		<td>{L_PHP_VERSION_INFO}: </td>
-		<td><strong>{PHP_VERSION_INFO}</strong></td>
-		<td>{L_ACM_CACHE_TYPE}: </td>
-		<td><strong>{ACM_CACHE_TYPE}</strong></td>
 	</tr>
 	<tr>
 		<td>{L_BOARD_VERSION}: </td>

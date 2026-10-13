@@ -119,7 +119,7 @@ adm_page_footer();
 */
 function adm_page_header($page_title)
 {
-	global $config, $db, $user, $template, $auth;
+	global $config, $db, $user, $template;
 	global $phpbb_root_path, $phpbb_admin_path, $phpEx, $SID, $_SID;
 
 	if (defined('HEADER_INC'))
@@ -128,11 +128,6 @@ function adm_page_header($page_title)
 	}
 
 	define('HEADER_INC', true);
-
-	if (!isset($user->lang['ACP_VIEW_ALL']))
-	{
-		$user->add_lang('acp/common');
-	}
 
 	// gzip_compression
 	if ($config['gzip_compress'])
@@ -155,7 +150,8 @@ if (!function_exists('im_get_remote_file'))
 		$data = $cache->get($cache_key);
 		if ($data !== false && is_string($data))
 		{
-			return $data;
+			// Recent failure marker: don't retry on every ACP page load
+			return ($data === '__IM_FETCH_FAILED__') ? '' : $data;
 		}
 
 		$data = '';
@@ -163,24 +159,49 @@ if (!function_exists('im_get_remote_file'))
 		// 2. Fetch using modern cURL (No fsockopen!)
 		if (function_exists('curl_init'))
 		{
-			$ch = @curl_init($url);
-			if ($ch)
+			$parts = parse_url($url);
+			$host = isset($parts['host']) ? $parts['host'] : '';
+			$port = (isset($parts['scheme']) && $parts['scheme'] === 'http') ? 80 : 443;
+
+			// Second attempt resolves the host to loopback for boards hosted on the same server as integramod.com
+			$attempts = array(array());
+			if ($host !== '' && defined('CURLOPT_RESOLVE'))
 			{
+				$attempts[] = array($host . ':' . $port . ':127.0.0.1');
+			}
+
+			foreach ($attempts as $resolve)
+			{
+				$ch = @curl_init($url);
+				if (!$ch)
+				{
+					break;
+				}
+
 				@curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				@curl_setopt($ch, CURLOPT_TIMEOUT, 3); // Fast 3-second timeout so ACP never hangs
 				@curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				@curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 				@curl_setopt($ch, CURLOPT_USERAGENT, 'IntegraMOD3 Version Checker');
-				
+				if (!empty($resolve))
+				{
+					@curl_setopt($ch, CURLOPT_RESOLVE, $resolve);
+				}
+
 				$response = @curl_exec($ch);
-				if ($response !== false)
+				$http_code = (int) @curl_getinfo($ch, CURLINFO_HTTP_CODE);
+				@curl_close($ch);
+
+				if ($response !== false && $http_code >= 200 && $http_code < 300 && trim((string) $response) !== '')
 				{
 					$data = (string) $response;
+					break;
 				}
-				@curl_close($ch);
 			}
 		}
-		// 3. Safe fallback if cURL is disabled on their host
-		elseif (ini_get('allow_url_fopen'))
+
+		// 3. Fallback if cURL is disabled or failed
+		if ($data === '' && ini_get('allow_url_fopen'))
 		{
 			$ctx = stream_context_create(array(
 				'http' => array('timeout' => 3),
@@ -200,6 +221,10 @@ if (!function_exists('im_get_remote_file'))
 		{
 			$cache->put($cache_key, $data, 86400);
 		}
+		else
+		{
+			$cache->put($cache_key, '__IM_FETCH_FAILED__', 900);
+		}
 
 		return $data;
 	}
@@ -215,9 +240,17 @@ if ($news === '')
 	$news = '<p>IntegraMOD News is currently unavailable.</p>';
 }
 
+// 3.0.x.txt uses the phpBB version file format: line 1 = latest version, line 2 = announcement URL
+$lver_url = '';
 if ($lver === '')
 {
 	$lver = 'Unavailable';
+}
+else
+{
+	$lver_lines = preg_split('/\r\n|\r|\n/', $lver);
+	$lver = trim($lver_lines[0]);
+	$lver_url = isset($lver_lines[1]) ? trim($lver_lines[1]) : '';
 }
 
 // Assign current version (falls back to phpBB version if IM3 specific version isn't in config)
@@ -226,6 +259,7 @@ $cver = isset($config['im_version']) ? (string) $config['im_version'] : (isset($
 $template->assign_vars(array(
 	'INTEGRA_NEWS'       => $news,
 	'LATEST_IM_VERSION'  => $lver,
+	'U_LATEST_IM_VERSION' => $lver_url,
 	'CURRENT_IM_VERSION' => $cver,
 ));
 
@@ -246,113 +280,9 @@ if ($result = $db->sql_query($sql))
 }
 ////// End Check for news from integramod
 
-	if (!function_exists('get_user_avatar'))
-	{
-		include_once($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-	}
-
-	$acp_avatar = get_user_avatar($user->data['user_avatar'], $user->data['user_avatar_type'], $user->data['user_avatar_width'], $user->data['user_avatar_height'], $user->data['username']);
-	$acp_pm_count = isset($user->data['user_unread_privmsg']) ? (int) $user->data['user_unread_privmsg'] : 0;
-	$acp_report_count = 0;
-
-	if ($auth->acl_get('a_') || $auth->acl_get('m_report'))
-	{
-		$sql = 'SELECT COUNT(report_id) AS total
-			FROM ' . REPORTS_TABLE . '
-			WHERE report_closed = 0
-				AND pm_id = 0';
-		$result = $db->sql_query($sql);
-		$acp_report_count = (int) $db->sql_fetchfield('total');
-		$db->sql_freeresult($result);
-
-		if ($acp_report_count)
-		{
-			$sql = 'SELECT r.report_id, r.report_time, rr.reason_title, u.username
-				FROM ' . REPORTS_TABLE . ' r, ' . REPORTS_REASONS_TABLE . ' rr, ' . USERS_TABLE . ' u
-				WHERE r.report_closed = 0
-					AND r.pm_id = 0
-					AND rr.reason_id = r.reason_id
-					AND r.user_id = u.user_id
-				ORDER BY r.report_time DESC';
-			$result = $db->sql_query_limit($sql, 5);
-			while ($row = $db->sql_fetchrow($result))
-			{
-				$template->assign_block_vars('acp_notify', array(
-					'TITLE'		=> $row['reason_title'],
-					'AUTHOR'	=> $row['username'],
-					'TIME'		=> $user->format_date($row['report_time']),
-					'U_VIEW'	=> append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=reports&mode=report_details&r=' . (int) $row['report_id']),
-				));
-			}
-			$db->sql_freeresult($result);
-		}
-	}
-
-	if ($acp_pm_count)
-	{
-		$sql = 'SELECT p.msg_id, p.message_subject, p.message_time, u.username
-			FROM ' . PRIVMSGS_TO_TABLE . ' t, ' . PRIVMSGS_TABLE . ' p, ' . USERS_TABLE . ' u
-			WHERE t.user_id = ' . (int) $user->data['user_id'] . '
-				AND t.pm_unread = 1
-				AND t.folder_id = ' . PRIVMSGS_INBOX . '
-				AND p.msg_id = t.msg_id
-				AND u.user_id = p.author_id
-			ORDER BY p.message_time DESC';
-		$result = $db->sql_query_limit($sql, 5);
-		while ($row = $db->sql_fetchrow($result))
-		{
-			$template->assign_block_vars('acp_pm', array(
-				'AUTHOR'	=> $row['username'],
-				'SUBJECT'	=> $row['message_subject'],
-				'TIME'		=> $user->format_date($row['message_time']),
-				'U_VIEW'	=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&mode=view&f=' . PRIVMSGS_INBOX . '&p=' . (int) $row['msg_id']),
-			));
-		}
-		$db->sql_freeresult($result);
-	}
-
-	$acp_docs_dir = $phpbb_root_path . 'docs/';
-	$acp_docs = array();
-	if (is_dir($acp_docs_dir))
-	{
-		$acp_docs_found = glob($acp_docs_dir . '*.html');
-		if (is_array($acp_docs_found))
-		{
-			foreach ($acp_docs_found as $acp_docs_file)
-			{
-				$acp_docs_name = basename($acp_docs_file);
-				if (substr(strtolower($acp_docs_name), -5) === '.html')
-				{
-					$acp_docs[$acp_docs_name] = $acp_docs_name;
-				}
-			}
-			if (defined('SORT_NATURAL'))
-			{
-				ksort($acp_docs, SORT_NATURAL | SORT_FLAG_CASE);
-			}
-			else
-			{
-				uksort($acp_docs, 'strnatcasecmp');
-			}
-			foreach ($acp_docs as $acp_docs_name)
-			{
-				$template->assign_block_vars('acp_docs', array(
-					'TITLE'	=> $acp_docs_name,
-					'U_VIEW'	=> $acp_docs_dir . rawurlencode($acp_docs_name),
-				));
-			}
-		}
-	}
-
 	$template->assign_vars(array(
 		'PAGE_TITLE'			=> $page_title,
 		'USERNAME'				=> $user->data['username'],
-		'CURRENT_USER_AVATAR'	=> $acp_avatar,
-		'ACP_NOTIFY_COUNT'		=> $acp_report_count,
-		'ACP_PM_COUNT'			=> $acp_pm_count,
-		'U_DOCS'				=> $acp_docs_dir,
-		'U_ACP_REPORTS'			=> append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=reports&mode=reports'),
-		'U_ACP_PM'				=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=pm&folder=inbox'),
 
 		'SID'					=> $SID,
 		'_SID'					=> $_SID,
