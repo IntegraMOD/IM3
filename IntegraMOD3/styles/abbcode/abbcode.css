@@ -94,19 +94,53 @@ hr.hrdotted {
 }
 #abbc3posttable tr, #abbc3posttable td, #abbc3posttable div {
 	border: 1px solid #C0C0C0;
-	height: 29px;
+	height: 38px;
 	margin: 0;
 	padding: 0 0 0 2px;
-	vertical-align: top;
+	vertical-align: middle;
 }
 
 #abbc3posttable .btnbbcode3, #abbc3posttable .option.genmed {
-	height: 20px;
-	vertical-align: top;
-	margin: 3px 0 4px 0;
+	height: 28px;
+	width: auto;
+	vertical-align: middle;
+	margin: 3px 1px 4px 1px;
 	cursor: pointer;
 	background-color: transparent !important;
-	padding: 1px;
+	padding: 2px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	transition: background-color .15s ease, border-color .15s ease;
+}
+
+#abbc3posttable .btnbbcode3:hover {
+	background-color: rgba(0, 0, 0, 0.08) !important;
+	border-color: #BC2A4D;
+}
+
+/* SVG toolbar icons (FA assets): constrain to the button box */
+#abbc3posttable img.btnbbcode3[src$=".svg"] {
+	width: 20px;
+	height: 20px;
+	object-fit: contain;
+}
+
+/* Compact dropdown uses a background-image slot; size SVGs to fit it */
+.ul_selector li[style*=".svg"] {
+	background-size: 16px 16px;
+}
+
+/* The divider dots should stay small and unstyled */
+#abbc3posttable .btnbbcode3.dot {
+	height: auto;
+	border: 0 none;
+	border-radius: 0;
+	background-color: transparent !important;
+}
+
+#abbc3posttable .btnbbcode3.dot:hover {
+	background-color: transparent !important;
+	border: 0 none;
 }
 
 #abbc3posttable .button2 {

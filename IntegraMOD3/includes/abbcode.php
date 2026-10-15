@@ -1552,7 +1552,7 @@ class abbcode
 			),
 			'dailymotion.com' => array(
 				'id'		=> 6,
-				'image'		=> 'dailymotion.gif',
+				'image'		=> '../../../assets/svgs/brands/dailymotion.svg',
 				'example'	=> 'https://www.dailymotion.com/video/x4ez1x_alberto-contra-el-heliocentrismo_sport',
 				'match'		=> '#https?:\/\/(?:.*?)dailymotion.com(?:.*?)\/video\/(([^[_]*)?([^[]*)?)?#si',
 				'replace'	=> '<iframe frameborder="0" width="{WIDTH}" height="{HEIGHT}" src="//www.dailymotion.com/embed/video/$2"></iframe>',
@@ -1573,14 +1573,14 @@ class abbcode
 			),
 			'facebook.com' => array(
 				'id'		=> 50,
-				'image'		=> 'facebook.gif',
+				'image'		=> '../../../assets/svgs/brands/facebook.svg',
 				'example'	=> 'https://www.facebook.com/photo.php?v=2031763147233',
 				'match'		=> '#https?://www.facebook.com/(?:.*)(video|photo).php\?v=([0-9A-Za-z-_]+)?(?:[^[]*)?#si',
 				'replace'	=> '<iframe src="https://www.facebook.com/video/embed?video_id=$2" width="{WIDTH}" height="{HEIGHT}" frameborder="0"></iframe>',
 			),
 			'flickr.com' => array(
 				'id'		=> 19,
-				'image'		=> 'flickr.gif',
+				'image'		=> '../../../assets/svgs/brands/flickr.svg',
 				'example'	=> 'http://www.flickr.com/photos/chrismar/3071009125',
 				'match'		=> '#http://((.*?)?)flickr.com/(.*?)/(.*?)/([0-9]+)([^[]*)?#si',
 				'replace'	=> 'http://www.flickr.com/services/oembed/?url=$0&format=json',
@@ -1754,7 +1754,7 @@ class abbcode
 			),
 			'scribd.com' => array(
 				'id'		=> 45,
-				'image'		=> 'scribd.gif',
+				'image'		=> '../../../assets/svgs/brands/scribd.svg',
 				'example'	=> 'http://www.scribd.com/doc/26886617/Dexter-Investigating-Cutting-Edge-Television',
 				'match'		=> '#https?:\/\/(?:www\.)?scribd\.com\/(mobile\/documents|doc)\/(.*?)\/([^[]*)?#si',
 				'replace'	=> 'http://www.scribd.com/services/oembed?url=$0&format=json',
@@ -1769,7 +1769,7 @@ class abbcode
 			),
 			'slideshare.net' => array(
 				'id'		=> 55,
-				'image'		=> 'slideshare.gif',
+				'image'		=> '../../../assets/svgs/brands/slideshare.svg',
 				'example'	=> 'http://www.slideshare.net/chrisbrogan/social-media-for-publishers-presentation',
 				'match'		=> '#http://www.slideshare.net/(.*?)/([^[]*)?#si',
 				'replace'	=> 'http://www.slideshare.net/api/oembed/2?url=$0&format=json',
@@ -1835,7 +1835,7 @@ class abbcode
 			),
 			'twitch.tv' => array(
 				'id'		=> 57,
-				'image'		=> 'twitch.gif',
+				'image'		=> '../../../assets/svgs/brands/twitch.svg',
 				'example'	=> 'http://www.twitch.tv/rzn732',
 				'match'		=> '#http://(.*?)twitch.tv/([^[]*)?#si',
 				'replace'	=> 'http://www.twitch.tv/widgets/live_embed_player.swf?channel=$2',
@@ -1902,7 +1902,7 @@ class abbcode
 			),
 			'vimeo.com' => array(
 				'id'		=> 38,
-				'image'		=> 'vimeo.gif',
+				'image'		=> '../../../assets/svgs/brands/vimeo.svg',
 				'example'	=> 'http://vimeo.com/3759030',
 				'match'		=> '#https?://(?:.*?)vimeo.com(?:/groups/(?:.*)/videos/|/)([^[]*)?#si',
 				'replace'	=> '<iframe src="//player.vimeo.com/video/$1" width="{WIDTH}" height="{HEIGHT}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>',
@@ -1939,14 +1939,14 @@ class abbcode
 			),
 			'youtube.com' => array(
 				'id'		=> 43,
-				'image'		=> 'youtube.gif',
+				'image'		=> '../../../assets/svgs/brands/youtube.svg',
 				'example'	=> 'http://www.youtube.com/watch?v=sP4NMoJcFd4',
 				'match'		=> '#https?://(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube\.com\S*[^\w\-\s])([\w\-]{11})(?=[^\w\-]|$)([^[]*)?#i', // matches every youtube URL
 				'replace'	=> '<iframe width="{WIDTH}" height="{HEIGHT}" src="//www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>',
 			),
 			'youtu.be' => array(
 				'id'		=> 49,
-				'image'		=> 'youtube.gif',
+				'image'		=> '../../../assets/svgs/brands/youtube.svg',
 				'example'	=> 'http://youtu.be/sP4NMoJcFd4',
 				'match'		=> '#https?://(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube\.com\S*[^\w\-\s])([\w\-]{11})(?=[^\w\-]|$)([^[]*)?#i', // matches every youtube URL
 				'replace'	=> '<iframe width="{WIDTH}" height="{HEIGHT}" src="//www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>',
@@ -1956,14 +1956,14 @@ class abbcode
 			'file' => array(),
 			'(mpg|mpeg)' => array(
 				'id'		=> 201,
-				'image'		=> 'mpg.gif',
+				'image'		=> '../../../assets/svgs/solid/film.svg',
 				'example'	=> 'http://www.ray3d.com/video/trn_anaglyph_adj.mpg',
 				'match'		=> '#([^[]+)?\.(mpg|mpeg)#si',
 				'replace'	=> (strpos(strtolower($user->browser), 'mac') ? '<object height="{HEIGHT}" width="{WIDTH}" type="video/quicktime" data="$0"><param name="src" value="$0" /><param name="scale" value="tofit" /><param name="controller" value="true" /><param name="autoplay" value="false" /></object>' : '<object height="{HEIGHT}" width="{WIDTH}" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"><param name="autostart" value="false" /><param name="uimode" value="full" /><param name="showcontrols" value="true" /><param name="url" value="$0" /><!--[if !IE]>--><object height="{HEIGHT}" width="{WIDTH}" type="video/x-ms-wmv" data="$0"><param name="autostart" value="false" /><param name="showcontrols" value="true" /><param name="url" value="$0" /></object><!--<![endif]--></object>'),
 			),
 			'swf' => array(
 				'id'		=> 202,
-				'image'		=> 'flash.gif',
+				'image'		=> '../../../assets/svgs/solid/film.svg',
 				'example'	=> 'http://flash-clocks.com/free-flash-clocks-blog-topics/free-flash-clock-177.swf',
 				'match'		=> '#([^[]+)?\.swf#si',
 				'replace'	=> '$0',
@@ -1971,7 +1971,7 @@ class abbcode
 			),
 			'flv' => array(
 				'id'		=> 203,
-				'image'		=> 'flashflv.gif',
+				'image'		=> '../../../assets/svgs/solid/film.svg',
 				'example'	=> 'http://www.mediacollege.com/video-gallery/testclips/20051210-w50s.flv',
 				'match'		=> '#([^[]+)?\.flv#si',
 				'replace'	=> './flashplayer/flashplayer.swf',
@@ -1980,21 +1980,21 @@ class abbcode
 			),
 			'(avi|wmv)' => array(
 				'id'		=> 204,
-				'image'		=> 'wmv.gif',
+				'image'		=> '../../../assets/svgs/solid/film.svg',
 				'example'	=> 'http://www.mediacollege.com/video/format/windows-media/streaming/videofilename.wmv',
 				'match'		=> '#([^[]+)?\.(avi|wmv)#si',
 				'replace'	=> (strpos(strtolower($user->browser), 'mac') ? '<object height="{HEIGHT}" width="{WIDTH}" type="video/quicktime" data="$0"><param name="src" value="$0" /><param name="scale" value="tofit" /><param name="controller" value="true" /><param name="autoplay" value="false" /></object>' : '<object height="{HEIGHT}" width="{WIDTH}" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6"><param name="autostart" value="false" /><param name="uimode" value="full" /><param name="showcontrols" value="true" /><param name="url" value="$0" /><!--[if !IE]>--><object height="{HEIGHT}" width="{WIDTH}" type="video/x-ms-wmv" data="$0"><param name="autostart" value="false" /><param name="showcontrols" value="true" /><param name="url" value="$0" /></object><!--<![endif]--></object>'),
 			),
 			'(mov|dv|qt)' => array(
 				'id'		=> 205,
-				'image'		=> 'mov.gif',
+				'image'		=> '../../../assets/svgs/solid/film.svg',
 				'example'	=> 'http://trailers.apple.com/movies/wb/suckerpunch/suckerpunch-tlr2_480p.mov',
 				'match'		=> '#([^[]+)?\.(mov|dv|qt)#si',
 				'replace'	=> '<object height="{HEIGHT}" width="{WIDTH}" ' . (strpos(strtolower($user->browser), 'msie') ? 'classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab#version=6,0,2,0"' : 'type="video/quicktime" data="$0"') . '><param name="src" value="$0" /><param name="scale" value="tofit" /><param name="controller" value="true" /><param name="autoplay" value="false" /></object>',
 			),
 			'(mid|midi)' => array(
 				'id'		=> 206,
-				'image'		=> 'quicktime.gif',
+				'image'		=> '../../../assets/svgs/solid/film.svg',
 				'example'	=> 'http://www.notz.com/music/jazz/midi/lazybird.mid',
 				'match'		=> '#([^[]+)?\.(mid|midi)#si',
 				'replace'	=> '<object width="{WIDTH}" height="27" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"><param name="src" value="$0" /><param name="controller" value="true" /><param name="autoplay" value="false" /><param name="loop" value="false" /><!--[if !IE]>--><object width="{WIDTH}" height="27" type="audio/midi" data="$0"><param name="src" value="$0" /><param name="controller" value="true" /><param name="autoplay" value="false" /><param name="loop" value="false" /></object><!--<![endif]--></object>'
@@ -2015,7 +2015,7 @@ class abbcode
 // 			),
 			'(mp4|m4v)' => array(
 				'id'		=> 209,
-				'image'		=> 'mov.gif',
+				'image'		=> '../../../assets/svgs/solid/film.svg',
 				'example'	=> 'http://www.mediacollege.com/video/format/mpeg4/videofilename.mp4',
 				'match'		=> '#([^[]+)?\.(mp4|m4v)#si',
 				'replace'	=> './flashplayer/flashplayer.swf',
