@@ -416,7 +416,7 @@ function abbcode_wizards($abbcode_bbcode, $form_name, $text_name, $in_admin)
 	}
 
 	// Output page ...
-	page_header($user->lang[$abbcode_name . '_MOVER']);
+	page_header(isset($user->lang[$abbcode_name . '_MOVER']) ? $user->lang[$abbcode_name . '_MOVER'] : '');
 
 	if ($in_admin)
 	{

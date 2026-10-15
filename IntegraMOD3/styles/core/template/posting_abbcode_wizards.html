@@ -17,6 +17,7 @@
 	<!-- IF S_ABBC3_IN_WIZARD -->
 		<form id="abbcode_wizards" action="{S_ABBC3_WIZARD_PAGE}" method="post" enctype="multipart/form-data">
 
+			<!-- IF S_WIZARD_TABLE -->
 			<section class="ucp-card posting-abbcode-wizard">
 				<div class="ucp-card-body">
 					<h2 class="form-title">{L_ABBC3_TABLE_MOVER}</h2>
@@ -277,7 +278,7 @@
 </div>
 
 <div id="page-footer">
-	<div class="copyright">{L_ABBC3_HELP_ABOUT}</div>
+	<div class="copyright">{L_ABBC3_HELP_ABOUT}<br />{CREDIT_LINE}</div>
 </div>
 <!-- MOD : MSSTI ABBC3 wizards (v{S_ABBC3_VERSION}) - END //-->
 </body>
