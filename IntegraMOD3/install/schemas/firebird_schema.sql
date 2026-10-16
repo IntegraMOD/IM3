@@ -611,6 +611,19 @@ BEGIN
 END;;
 
 
+# Table: 'phpbb_blog_search_wordmatch'
+CREATE TABLE phpbb_blog_search_wordmatch (
+	blog_id INTEGER DEFAULT 0 NOT NULL,
+	reply_id INTEGER DEFAULT 0 NOT NULL,
+	word_id INTEGER DEFAULT 0 NOT NULL,
+	title_match INTEGER DEFAULT 0 NOT NULL
+);;
+
+CREATE UNIQUE INDEX phpbb_blog_search_wordmatch_unique_match ON phpbb_blog_search_wordmatch(blog_id, reply_id, word_id, title_match);;
+CREATE INDEX phpbb_blog_search_wordmatch_word_id ON phpbb_blog_search_wordmatch(word_id);;
+CREATE INDEX phpbb_blog_search_wordmatch_blog_id ON phpbb_blog_search_wordmatch(blog_id);;
+CREATE INDEX phpbb_blog_search_wordmatch_reply_id ON phpbb_blog_search_wordmatch(reply_id);;
+
 # Table: 'phpbb_bookmarks'
 CREATE TABLE phpbb_bookmarks (
 	topic_id INTEGER DEFAULT 0 NOT NULL,

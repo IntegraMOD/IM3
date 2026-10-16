@@ -447,6 +447,19 @@ CREATE TABLE phpbb_blog_search_wordlist (
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 
+# Table: 'phpbb_blog_search_wordmatch'
+CREATE TABLE phpbb_blog_search_wordmatch (
+	blog_id int UNSIGNED DEFAULT '0' NOT NULL,
+	reply_id int UNSIGNED DEFAULT '0' NOT NULL,
+	word_id int UNSIGNED DEFAULT '0' NOT NULL,
+	title_match tinyint UNSIGNED DEFAULT '0' NOT NULL,
+	UNIQUE unique_match (blog_id, reply_id, word_id, title_match),
+	KEY word_id (word_id),
+	KEY blog_id (blog_id),
+	KEY reply_id (reply_id)
+) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
+
+
 # Table: 'phpbb_bookmarks'
 CREATE TABLE phpbb_bookmarks (
 	topic_id int UNSIGNED DEFAULT '0' NOT NULL,

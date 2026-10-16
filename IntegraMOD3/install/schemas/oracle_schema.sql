@@ -836,6 +836,25 @@ END;
 
 
 /*
+	Table: 'phpbb_blog_search_wordmatch'
+*/
+CREATE TABLE phpbb_blog_search_wordmatch (
+	blog_id number(10) DEFAULT '0' NOT NULL,
+	reply_id number(10) DEFAULT '0' NOT NULL,
+	word_id number(10) DEFAULT '0' NOT NULL,
+	title_match number(1) DEFAULT '0' NOT NULL,
+	CONSTRAINT u_phpbb_unique_match UNIQUE (blog_id, reply_id, word_id, title_match)
+)
+/
+
+CREATE INDEX phpbb_blog_search_wordmatch_word_id ON phpbb_blog_search_wordmatch (word_id)
+/
+CREATE INDEX phpbb_blog_search_wordmatch_blog_id ON phpbb_blog_search_wordmatch (blog_id)
+/
+CREATE INDEX phpbb_blog_search_wordmatch_reply_id ON phpbb_blog_search_wordmatch (reply_id)
+/
+
+/*
 	Table: 'phpbb_bookmarks'
 */
 CREATE TABLE phpbb_bookmarks (

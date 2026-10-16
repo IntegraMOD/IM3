@@ -447,6 +447,19 @@ CREATE TABLE phpbb_blog_search_wordlist (
 );
 
 
+# Table: 'phpbb_blog_search_wordmatch'
+CREATE TABLE phpbb_blog_search_wordmatch (
+	blog_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	reply_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	word_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	title_match tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	UNIQUE unique_match (blog_id, reply_id, word_id, title_match),
+	KEY word_id (word_id),
+	KEY blog_id (blog_id),
+	KEY reply_id (reply_id)
+);
+
+
 # Table: 'phpbb_bookmarks'
 CREATE TABLE phpbb_bookmarks (
 	topic_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
@@ -1027,7 +1040,7 @@ CREATE TABLE phpbb_forums (
 	forum_last_post_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
 	forum_last_poster_name varchar(255) DEFAULT '' NOT NULL,
 	forum_last_poster_colour varchar(6) DEFAULT '' NOT NULL,
-	forum_flags smallint(5) UNSIGNED DEFAULT '32' NOT NULL,
+	forum_flags smallint(4) UNSIGNED DEFAULT '32' NOT NULL,
 	forum_options int(20) UNSIGNED DEFAULT '0' NOT NULL,
 	forum_share_enable tinyint(1) UNSIGNED DEFAULT '1' NOT NULL,
 	display_subforum_list tinyint(1) UNSIGNED DEFAULT '1' NOT NULL,

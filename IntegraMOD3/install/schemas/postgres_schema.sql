@@ -606,6 +606,21 @@ CREATE UNIQUE INDEX phpbb_blog_search_wordlist_word_text ON phpbb_blog_search_wo
 CREATE INDEX phpbb_blog_search_wordlist_word_count ON phpbb_blog_search_wordlist (word_count);
 
 /*
+	Table: 'phpbb_blog_search_wordmatch'
+*/
+CREATE TABLE phpbb_blog_search_wordmatch (
+	blog_id INT4 DEFAULT '0' NOT NULL CHECK (blog_id >= 0),
+	reply_id INT4 DEFAULT '0' NOT NULL CHECK (reply_id >= 0),
+	word_id INT4 DEFAULT '0' NOT NULL CHECK (word_id >= 0),
+	title_match INT2 DEFAULT '0' NOT NULL CHECK (title_match >= 0)
+);
+
+CREATE UNIQUE INDEX phpbb_blog_search_wordmatch_unique_match ON phpbb_blog_search_wordmatch (blog_id, reply_id, word_id, title_match);
+CREATE INDEX phpbb_blog_search_wordmatch_word_id ON phpbb_blog_search_wordmatch (word_id);
+CREATE INDEX phpbb_blog_search_wordmatch_blog_id ON phpbb_blog_search_wordmatch (blog_id);
+CREATE INDEX phpbb_blog_search_wordmatch_reply_id ON phpbb_blog_search_wordmatch (reply_id);
+
+/*
 	Table: 'phpbb_bookmarks'
 */
 CREATE TABLE phpbb_bookmarks (
@@ -1311,7 +1326,7 @@ CREATE TABLE phpbb_forums (
 	forum_last_post_time INT4 DEFAULT '0' NOT NULL CHECK (forum_last_post_time >= 0),
 	forum_last_poster_name varchar(255) DEFAULT '' NOT NULL,
 	forum_last_poster_colour varchar(6) DEFAULT '' NOT NULL,
-	forum_flags INT2 DEFAULT '32' NOT NULL,
+	forum_flags INT2 DEFAULT '32' NOT NULL CHECK (forum_flags >= 0),
 	forum_options INT4 DEFAULT '0' NOT NULL CHECK (forum_options >= 0),
 	forum_share_enable INT2 DEFAULT '1' NOT NULL CHECK (forum_share_enable >= 0),
 	display_subforum_list INT2 DEFAULT '1' NOT NULL CHECK (display_subforum_list >= 0),

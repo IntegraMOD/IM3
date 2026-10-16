@@ -807,6 +807,37 @@ GO
 
 
 /*
+	Table: 'phpbb_blog_search_wordmatch'
+*/
+CREATE TABLE [phpbb_blog_search_wordmatch] (
+	[blog_id] [int] DEFAULT (0) NOT NULL ,
+	[reply_id] [int] DEFAULT (0) NOT NULL ,
+	[word_id] [int] DEFAULT (0) NOT NULL ,
+	[title_match] [int] DEFAULT (0) NOT NULL ,
+	[mssqlindex] [int] IDENTITY (1, 1) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_blog_search_wordmatch] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_blog_search_wordmatch] PRIMARY KEY  CLUSTERED 
+	(
+		[mssqlindex]
+	)
+GO
+
+CREATE  UNIQUE  INDEX [unique_match] ON [phpbb_blog_search_wordmatch]([blog_id], [reply_id], [word_id], [title_match])
+GO
+
+CREATE  INDEX [word_id] ON [phpbb_blog_search_wordmatch]([word_id])
+GO
+
+CREATE  INDEX [blog_id] ON [phpbb_blog_search_wordmatch]([blog_id])
+GO
+
+CREATE  INDEX [reply_id] ON [phpbb_blog_search_wordmatch]([reply_id])
+GO
+
+
+/*
 	Table: 'phpbb_bookmarks'
 */
 CREATE TABLE [phpbb_bookmarks] (
