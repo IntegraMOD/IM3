@@ -277,7 +277,7 @@ $lang = array_merge($lang, array(
 
 // Index page
 $lang = array_merge($lang, array(
-	'ADMIN_INTRO'	=> 'Дякуємо вам за те, що ви обрали phpBB в якості рішення для вашого форуму. Ця сторінка надає вам можливість швидко переглянути статистику вашого форуму. Меню з лівої сторони екрану дозволяє вам контролювати усі можливості вашого форуму. На кожній сторінці ви знайдете інструкції з користування інструментами.',
+	'ADMIN_INTRO'	=> 'Дякуємо вам за те, що ви обрали IntegraMOD в якості рішення для вашого форуму. Ця сторінка надає вам можливість швидко переглянути статистику вашого форуму. Меню з лівої сторони екрану дозволяє вам контролювати усі можливості вашого форуму. На кожній сторінці ви знайдете інструкції з користування інструментами.',
 	'ADMIN_LOG'	=> 'Дії адміністраторів',
 	'ADMIN_LOG_INDEX_EXPLAIN'	=> 'Ця сторінка надає вам можливість перегляду останніх п\'яти дій, виконаних адміністраторами. Усі логи можна переглянути з відповідного пункту меню або перейшовши за посиланням, вказаним нижче.',
 	'AVATAR_DIR_SIZE'	=> 'Розмір директорії аватарів',
@@ -306,7 +306,7 @@ $lang = array_merge($lang, array(
 	'NUMBER_USERS'	=> 'Кількість учасників',
 	'NUMBER_ORPHAN'	=> 'Загублених файлів',
 
- 	'PHP_VERSION_OLD'	=> 'Версія PHP на цьому сервері більше не буде підтримуватись майбутніми версіями of phpBB. %sДокладніше%s',
+ 	'PHP_VERSION_OLD'	=> 'Версія PHP на цьому сервері більше не буде підтримуватись майбутніми версіями of IntegraMOD. %sДокладніше%s',
 
 	'POSTS_PER_DAY'	=> 'Повідомлень за день',
 	'PURGE_CACHE'	=> 'Очистити кеш',
@@ -340,7 +340,7 @@ $lang = array_merge($lang, array(
  	'VERSIONCHECK_FORCE_UPDATE' => 'Перевірити ще раз',
 	'VIEW_ADMIN_LOG'	=> 'Переглянути логи адміністраторів',
 	'VIEW_INACTIVE_USERS'	=> 'Переглянути неактивних учасників',
-	'WELCOME_PHPBB'	=> 'Ласкаво просимо до phpBB',
+	'WELCOME_PHPBB'	=> 'Ласкаво просимо до IntegraMOD',
 	'WRITABLE_CONFIG'      => 'Ваш файл конфігурації (config.php) наразі є доступний для запису усім. Ми рекомендуємо вам змінити права доступу на 640 або принаймі на 644 (наприклад: <a href="http://en.wikipedia.org/wiki/Chmod" rel="external">chmod</a> 640 config.php).',
 ));
 
@@ -527,8 +527,8 @@ $lang = array_merge($lang, array(
 	'LOG_INACTIVE_ACTIVATE'	=> '<strong>Активовано неактивних користувачів</strong><br />» %s',
 	'LOG_INACTIVE_DELETE'	=> '<strong>Видалено неактивних користувачів</strong><br />» %s',
 	'LOG_INACTIVE_REMIND'	=> '<strong>Відіслано листи e-mails з нагадуванням неактивним користувачам</strong><br />» %s',
-	'LOG_INSTALL_CONVERTED'	=> '<strong>Клнвертовано з %1$s до phpBB %2$s</strong>',
-	'LOG_INSTALL_INSTALLED'	=> '<strong>Встановлено phpBB %s</strong>',
+	'LOG_INSTALL_CONVERTED'	=> '<strong>Клнвертовано з %1$s до IntegraMOD %2$s</strong>',
+	'LOG_INSTALL_INSTALLED'	=> '<strong>Встановлено IntegraMOD %s</strong>',
 	'LOG_IP_BROWSER_FORWARDED_CHECK'	=> '<strong>Перевірка сесії IP/браузера/X_FORWARDED_FOR не вдала</strong><br />»IP Користувача“<em>%1$s</em>” порівнювалась з IP сесії “<em>%2$s</em>”, стрічка браузера користувача “<em>%3$s</em>” порівнювалась з стрічкою браузера сесії “<em>%4$s</em>”, та стрічка користувача X_FORWARDED_FOR “<em>%5$s</em>” порівнювалась з стрічкою сесії X_FORWARDED_FOR “<em>%6$s</em>”.',
 	'LOG_JAB_CHANGED'	=> '<strong>Змінено налаштування облікового запису Jabber</strong>',
 	'LOG_JAB_PASSCHG'	=> '<strong>Змінено пароль Jabber</strong>',
@@ -610,7 +610,7 @@ $lang = array_merge($lang, array(
 	'LOG_THEME_EXPORT'	=> '<strong>Експортовано тему</strong><br />» %s',
 	'LOG_THEME_REFRESHED'	=> '<strong>Оновлено тему</strong><br />» %s',
 	'LOG_UPDATE_DATABASE'	=> '<strong>Оновлено базу даних з версії %1$s до версії %2$s</strong>',
-	'LOG_UPDATE_PHPBB'	=> '<strong>Оновлено phpBB з версії %1$s до версії %2$s</strong>',
+	'LOG_UPDATE_PHPBB'	=> '<strong>Оновлено IntegraMOD з версії %1$s до версії %2$s</strong>',
 	'LOG_USER_ACTIVE'	=> '<strong>Користувач активувався</strong><br />» %s',
 	'LOG_USER_BAN_USER'	=> '<strong>Заблоковано користувача через панель керування користувачами</strong> з причини “<em>%1$s</em>”<br />» %2$s',
 	'LOG_USER_BAN_IP'	=> '<strong>Заблоковано IP via user management</strong> з причини “<em>%1$s</em>”<br />» %2$s',

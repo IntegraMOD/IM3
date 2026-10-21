@@ -319,7 +319,7 @@ $lang = array_merge($lang, array(
 
 // Index page
 $lang = array_merge($lang, array(
-	'ADMIN_INTRO'				=> 'Nous vous remercions d’utiliser le logiciel phpBB comme solution pour votre forum de discussions. Cette page vous offre un aperçu des nombreuses statistiques de votre forum. Les liens situés sur le volet à gauche de cette page vous permettent de personnaliser tous les aspects de votre forum. Chaque page contient des instructions vous informant sur l’utilisation des outils disponibles.',
+	'ADMIN_INTRO'				=> 'Nous vous remercions d’utiliser le logiciel IntegraMOD comme solution pour votre forum de discussions. Cette page vous offre un aperçu des nombreuses statistiques de votre forum. Les liens situés sur le volet à gauche de cette page vous permettent de personnaliser tous les aspects de votre forum. Chaque page contient des instructions vous informant sur l’utilisation des outils disponibles.',
 	'ADMIN_LOG'					=> 'Historique des dernières opérations des administrateurs',
 	'ADMIN_LOG_INDEX_EXPLAIN'	=> 'Cet historique vous affiche les cinq dernières opérations effectuées par les administrateurs de ce forum. Vous pouvez consulter la totalité de cet historique depuis le menu approprié ou en cliquant sur le lien disponible ci-dessous.',
 	'AVATAR_DIR_SIZE'			=> 'Taille du répertoire des avatars',
@@ -354,7 +354,7 @@ $lang = array_merge($lang, array(
 	'NUMBER_USERS'		=> 'Nombre d’utilisateurs',
 	'NUMBER_ORPHAN'		=> 'Nombre de pièces jointes orphelines',
 
-	'PHP_VERSION_OLD'	=> 'La version de PHP de ce serveur ne sera pas compatible avec les futures versions de phpBB. %sPlus d’informations%s',
+	'PHP_VERSION_OLD'	=> 'La version de PHP de ce serveur ne sera pas compatible avec les futures versions de IntegraMOD. %sPlus d’informations%s',
 
 	'POSTS_PER_DAY'		=> 'Moyenne de messages par jour',
 
@@ -395,7 +395,7 @@ $lang = array_merge($lang, array(
 	'VIEW_ADMIN_LOG'			=> 'Consulter l’historique des administrateurs',
 	'VIEW_INACTIVE_USERS'		=> 'Consulter la liste des utilisateurs inactifs',
 
-	'WELCOME_PHPBB'			=> 'Bienvenue sur phpBB',
+	'WELCOME_PHPBB'			=> 'Bienvenue sur IntegraMOD',
 	'WRITABLE_CONFIG'		=> 'Votre fichier de configuration (config.php) est actuellement inscriptible par tout le monde. Nous vous encourageons fortement à modifier vos permissions en 640 (<a href="http://fr.wikipedia.org/wiki/Chmod" rel="external">chmod</a> 640 config.php) ou, le cas échéant, en 644.',
 ));
 
@@ -606,8 +606,8 @@ $lang = array_merge($lang, array(
 	'LOG_INACTIVE_ACTIVATE'	=> '<strong>Activation d’utilisateurs inactifs</strong><br />» %s',
 	'LOG_INACTIVE_DELETE'	=> '<strong>Suppression d’utilisateurs inactifs</strong><br />» %s',
 	'LOG_INACTIVE_REMIND'	=> '<strong>Envoi d’un courrier électronique de rappel aux utilisateurs inactifs</strong><br />» %s',
-	'LOG_INSTALL_CONVERTED'	=> '<strong>Conversion de phpBB %1$s vers phpBB %2$s</strong>',
-	'LOG_INSTALL_INSTALLED'	=> '<strong>Installation de phpBB %s</strong>',
+	'LOG_INSTALL_CONVERTED'	=> '<strong>Conversion de IntegraMOD %1$s vers IntegraMOD %2$s</strong>',
+	'LOG_INSTALL_INSTALLED'	=> '<strong>Installation de IntegraMOD %s</strong>',
 
 	'LOG_IP_BROWSER_FORWARDED_CHECK'	=> '<strong>Échec de la vérification de la session IP, du navigateur ou de X_FORWARDED_FOR</strong><br />»L’adresse IP de l’utilisateur « <em>%1$s</em> » a été comparée à la session IP « <em>%2$s</em> », la chaîne du navigateur de l’utilisateur « <em>%3$s</em> » a été comparée à la chaîne de la session du navigateur « <em>%4$s</em> » et la chaîne X_FORWARDED_FOR de l’utilisateur « <em>%5$s</em> » a été comparée à la chaîne X_FORWARDED_FOR de la session « <em>%6$s</em> ».',
 
@@ -707,7 +707,7 @@ $lang = array_merge($lang, array(
 	'LOG_THEME_REFRESHED'		=> '<strong>Rafraîchissement d’un ensemble de thèmes</strong><br />» %s',
 
 	'LOG_UPDATE_DATABASE'	=> '<strong>Mise à jour de la base de données de la version %1$s à la version %2$s</strong>',
-	'LOG_UPDATE_PHPBB'		=> '<strong>Mise à jour de phpBB de la version %1$s à la version %2$s</strong>',
+	'LOG_UPDATE_PHPBB'		=> '<strong>Mise à jour de IntegraMOD de la version %1$s à la version %2$s</strong>',
 
 	'LOG_USER_ACTIVE'		=> '<strong>Activation du compte d’un utilisateur</strong><br />» %s',
 	'LOG_USER_BAN_USER'		=> '<strong>Bannissement du compte d’un utilisateur depuis la gestion des utilisateurs</strong> en spécifiant comme raison « <em>%1$s</em> »<br />» %2$s',

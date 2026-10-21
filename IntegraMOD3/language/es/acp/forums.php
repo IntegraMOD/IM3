@@ -96,7 +96,7 @@ $lang = array_merge($lang, array(
 	'ENABLE_TOPIC_ICONS'		=> 'Habilitar iconos para el tema',
 
 	'FORUM_ADMIN'			=> 'Administración de Foros',
-	'FORUM_ADMIN_EXPLAIN'		=> 'En phpBB3 todo está basado en foro. Una categoría es un tipo especial de foro. Cada foro puede tener ilimitados subforos y puede determinar en cuales se puede publicar o no (esto actuaría como una categoría). Aquí puede añadir, editar, borrar, bloquear o desbloquear foros individuales como también definir controles adicionales. Si los mensajes y temas se desfasaron, puede resincronizarlos. <strong>Tiene que copiar o establecer los permisos apropiados para los nuevos foros, de lo contrario no serán mostrados.</strong>',
+	'FORUM_ADMIN_EXPLAIN'		=> 'En IntegraMOD todo está basado en foro. Una categoría es un tipo especial de foro. Cada foro puede tener ilimitados subforos y puede determinar en cuales se puede publicar o no (esto actuaría como una categoría). Aquí puede añadir, editar, borrar, bloquear o desbloquear foros individuales como también definir controles adicionales. Si los mensajes y temas se desfasaron, puede resincronizarlos. <strong>Tiene que copiar o establecer los permisos apropiados para los nuevos foros, de lo contrario no serán mostrados.</strong>',
 	'FORUM_AUTO_PRUNE'		=> 'Habilitar auto-purga',
 	'FORUM_AUTO_PRUNE_EXPLAIN'	=> 'Purga los temas del foro, defina la frecuencia/antiguedad debajo.',
 	'FORUM_CREATED'			=> 'Foro creado correctamente.',

@@ -342,7 +342,7 @@ $lang = array_merge($lang, array(
 
 // Index page
 $lang = array_merge($lang, array(
-	'ADMIN_INTRO'			=> 'Gracias por elegir phpBB como su foro. Esta pantalla le proporciona una visión general de las estadísticas del Sitio. Los enlaces a la izquierda le permiten un control completo del mismo. Cada página tiene instrucciones de cómo emplear las distintas herramientas.',
+	'ADMIN_INTRO'			=> 'Gracias por elegir IntegraMOD como su foro. Esta pantalla le proporciona una visión general de las estadísticas del Sitio. Los enlaces a la izquierda le permiten un control completo del mismo. Cada página tiene instrucciones de cómo emplear las distintas herramientas.',
 	'ADMIN_LOG'			=> 'Movimientos de los Administradores',
 	'ADMIN_LOG_INDEX_EXPLAIN'	=> 'Visión general de las últimas cinco acciones llevadas a cabo por los administradores del Sitio. Puede ver el registro completo en el menú correspondiente o siguiendo el enlace de abajo.',
 	'AVATAR_DIR_SIZE'		=> 'Tamaño de la carpeta de avatares',
@@ -375,7 +375,7 @@ $lang = array_merge($lang, array(
 	'NUMBER_TOPICS'			=> 'Número de temas',
 	'NUMBER_USERS'			=> 'Número de usuarios',
 	'NUMBER_ORPHAN'			=> 'Adjuntos huérfanos',
-	'PHP_VERSION_OLD'		=> 'La versión de PHP en este servidor no recibirá soporte en futuras versiones de phpBB. %sDetalles%s',
+	'PHP_VERSION_OLD'		=> 'La versión de PHP en este servidor no recibirá soporte en futuras versiones de IntegraMOD. %sDetalles%s',
 
 	'POSTS_PER_DAY'			=> 'Mensajes por día',
 
@@ -415,7 +415,7 @@ $lang = array_merge($lang, array(
 	'VIEW_ADMIN_LOG'		=> 'Ver log de administradores',
 	'VIEW_INACTIVE_USERS'		=> 'Ver usuarios inactivos',
 
-	'WELCOME_PHPBB'			=> 'Bienvenido a phpBB',
+	'WELCOME_PHPBB'			=> 'Bienvenido a IntegraMOD',
 	'WRITABLE_CONFIG'		=> 'En este momento su archivo de configuración (config.php) permite escritura a todos. Le recomendamos de forma especial que cambie los permisos a 640 ó al menos 644 (por ejemplo: <a href="http://es.wikipedia.org/wiki/Chmod" rel="external">chmod</a> 644 config.php).',
 ));
 
@@ -627,8 +627,8 @@ $lang = array_merge($lang, array(
 	'LOG_INACTIVE_ACTIVATE'		=> '<strong>Activados: usuarios inactivos</strong><br />» %1$s',
 	'LOG_INACTIVE_DELETE'		=> '<strong>Borrado: usuarios inactivos</strong><br />» %1$s',
 	'LOG_INACTIVE_REMIND'		=> '<strong>Enviado email recordatorio a usuarios inactivos</strong><br />» %1$s',
-	'LOG_INSTALL_CONVERTED'		=> '<strong>Migrado de %1$s a phpBB %2$s</strong>',
-	'LOG_INSTALL_INSTALLED'		=> '<strong>Instalado phpBB %1$s</strong>',
+	'LOG_INSTALL_CONVERTED'		=> '<strong>Migrado de %1$s a IntegraMOD %2$s</strong>',
+	'LOG_INSTALL_INSTALLED'		=> '<strong>Instalado IntegraMOD %1$s</strong>',
 
 	'LOG_IP_BROWSER_FORWARDED_CHECK' => '<strong>Falló identificación de sesión IP/browser/X_FORWARDED_FOR </strong><br />»IP de usuario "<em>%1$s</em>" verificada contra sesión "<em>%2$s</em>", navegador de usuario "<em>%3$s</em>" verificado contra sesión "<em>%4$s</em>"  usuario X_FORWARDED_FOR "<em>%5$s</em>" verificado contra sesión X_FORWARDED_FOR  "<em>%6$s</em>".',
 
@@ -727,7 +727,7 @@ $lang = array_merge($lang, array(
 	'LOG_THEME_REFRESHED'		=> '<strong>Actualizado: tema</strong><br />» %1$s',
 
 	'LOG_UPDATE_DATABASE'		=> '<strong>Actualizado: Base de datos de versión %1$s a versión %2$s</strong>',
-	'LOG_UPDATE_PHPBB'		=> '<strong>Actualizado: phpBB de versión %1$s a versión %2$s</strong>',
+	'LOG_UPDATE_PHPBB'		=> '<strong>Actualizado: IntegraMOD de versión %1$s a versión %2$s</strong>',
 
 	'LOG_USER_ACTIVE'		=> '<strong>Activado: usuario</strong><br />» %1$s',
 	'LOG_USER_BAN_USER'		=> '<strong>Excluido: usuario, vía administración de usuarios</strong> por razón "<em>%1$s</em>"<br />» %2$s',

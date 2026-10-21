@@ -107,6 +107,7 @@ $lang = array_merge($lang, array(
 
 	'REGISTERED'				=> 'Registrado',
 	'REGISTERED_IP'				=> 'Registrado desde IP',
+	'LAST_LOGIN_IP'				=> 'IP del último acceso',
 	'RETAIN_POSTS'				=> 'Retener mensajes',
 
 	'SELECT_FORM'				=> 'Seleccionar formulario',

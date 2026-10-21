@@ -86,6 +86,7 @@ $lang = array_merge($lang, array(
 
 	'REGISTERED'			=> 'Geregistreerd',
 	'REGISTERED_IP'			=> 'Geregistreerd op IP',
+	'LAST_LOGIN_IP'			=> 'IP van laatste login',
 	'RETAIN_POSTS'			=> 'Laat berichten staan',
 
 	'SELECT_FORM'			=> 'Selecteer formulier',

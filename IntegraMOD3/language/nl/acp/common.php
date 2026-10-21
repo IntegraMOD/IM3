@@ -319,7 +319,7 @@ $lang = array_merge($lang, array(
 
 // Index page
 $lang = array_merge($lang, array(
-	'ADMIN_INTRO'				=> 'Bedankt dat je phpBB als jouw forumsoftware hebt gekozen! Dit scherm geeft een overzicht van allerlei statistieken van je forum. Aan de linkerkant vind je links die het mogelijk maken om alle instellingen van je forum te wijzigen. Iedere pagina bevat de nodige uitleg over hoe je de functies kunt gebruiken.',
+	'ADMIN_INTRO'				=> 'Bedankt dat je IntegraMOD als jouw forumsoftware hebt gekozen! Dit scherm geeft een overzicht van allerlei statistieken van je forum. Aan de linkerkant vind je links die het mogelijk maken om alle instellingen van je forum te wijzigen. Iedere pagina bevat de nodige uitleg over hoe je de functies kunt gebruiken.',
 	'ADMIN_LOG'					=> 'Gelogde beheerdersacties',
 	'ADMIN_LOG_INDEX_EXPLAIN'	=> 'Dit geeft een overzicht van de 5 laatste acties die door de beheerder(s) zijn uitgevoerd. Je kunt de volledige lijst bekijken door op het bijhorende menu-item of op de link hieronder te klikken.',
 	'AVATAR_DIR_SIZE'			=> 'Grootte avatarmap',
@@ -354,7 +354,7 @@ $lang = array_merge($lang, array(
 	'NUMBER_USERS'		=> 'Aantal gebruikers',
 	'NUMBER_ORPHAN'		=> 'Berichtloze bijlagen',
 
-	'PHP_VERSION_OLD'	=> 'De versie van PHP op deze server zal in toekomstige versies van phpBB niet langer worden ondersteunt. %sDetails%s',
+	'PHP_VERSION_OLD'	=> 'De versie van PHP op deze server zal in toekomstige versies van IntegraMOD niet langer worden ondersteunt. %sDetails%s',
 
 	'POSTS_PER_DAY'		=> 'Berichten per dag',
 
@@ -395,7 +395,7 @@ $lang = array_merge($lang, array(
 	'VIEW_ADMIN_LOG'			=> 'Toon beheerderslog',
 	'VIEW_INACTIVE_USERS'		=> 'Toon inactieve gebruikers',
 
-	'WELCOME_PHPBB'			=> 'Welkom bij phpBB',
+	'WELCOME_PHPBB'			=> 'Welkom bij IntegraMOD',
 	'WRITABLE_CONFIG'		=> 'Je configuratiebestand (config.php) is op dit moment beschrijfbaar. We raden je sterk aan de permissies te veranderen naar 640 of ten minste 644(bijvoorbeeld: <a href="http://en.wikipedia.org/wiki/Chmod" rel="external">chmod</a> 640 config.php).',
 ));
 
@@ -607,8 +607,8 @@ $lang = array_merge($lang, array(
 	'LOG_INACTIVE_ACTIVATE'	=> '<strong>Inactieve gebruiker(s) geactiveerd</strong><br />» %s',
 	'LOG_INACTIVE_DELETE'	=> '<strong>Inactieve gebruiker(s) verwijderd</strong><br />» %s',
 	'LOG_INACTIVE_REMIND'	=> '<strong>Herinnerings e-mails naar inactieve gebruiker(s) gestuurd</strong><br />» %s',
-	'LOG_INSTALL_CONVERTED'	=> '<strong>Geconverteerd van %1$s naar phpBB %2$s</strong>',
-	'LOG_INSTALL_INSTALLED'	=> '<strong>phpBB %s geïnstalleerd</strong>',
+	'LOG_INSTALL_CONVERTED'	=> '<strong>Geconverteerd van %1$s naar IntegraMOD %2$s</strong>',
+	'LOG_INSTALL_INSTALLED'	=> '<strong>IntegraMOD %s geïnstalleerd</strong>',
 
 	'LOG_IP_BROWSER_FORWARDED_CHECK'	=> '<strong>Sessie IP/browser/X_FORWARDED_FOR controle mislukt</strong><br />»IP-gebruiker "<em>%1$s</em>" vergeleken met sessie-IP "<em>%2$s</em>", browser waarde gebruiker "<em>%3$s</em>" vergeleken met browser waarde sessie "<em>%4$s</em>" en X_FORWARDED_FOR waarde gebruiker "<em>%5$s</em>" vergeleken met X_FORWARDED_FOR waarde sessie "<em>%6$s</em>".',
 
@@ -708,7 +708,7 @@ $lang = array_merge($lang, array(
 	'LOG_THEME_REFRESHED'		=> '<strong>Thema vernieuwd</strong><br />» %s',
 
 	'LOG_UPDATE_DATABASE'	=> '<strong>Databaseversie geüpdate van %1$s naar %2$s</strong>',
-	'LOG_UPDATE_PHPBB'		=> '<strong>phpBB-versie geüpdate van %1$s naar %2$s</strong>',
+	'LOG_UPDATE_PHPBB'		=> '<strong>IntegraMOD-versie geüpdate van %1$s naar %2$s</strong>',
 
 	'LOG_USER_ACTIVE'		=> '<strong>Gebruiker geactiveerd</strong><br />» %s',
 	'LOG_USER_BAN_USER'		=> '<strong>Gebruiker verbannen via gebruikersbeheer</strong>, wegens "<em>%1$s</em>"<br />» %2$s',

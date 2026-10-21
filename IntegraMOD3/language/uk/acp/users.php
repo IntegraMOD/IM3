@@ -86,6 +86,7 @@ $lang = array_merge($lang, array(
 
 	'REGISTERED'			=> 'Зареєстрований',
 	'REGISTERED_IP'			=> 'Зареєстрований з IP-адреси',
+	'LAST_LOGIN_IP'			=> 'IP останнього входу',
 	'RETAIN_POSTS'			=> 'Залишити повідомлення',
 
 	'SELECT_FORM'			=> 'Обрати форму',

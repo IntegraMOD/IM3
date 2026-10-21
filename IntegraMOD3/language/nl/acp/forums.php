@@ -74,7 +74,7 @@ $lang = array_merge($lang, array(
 	'ENABLE_TOPIC_ICONS'			=> 'Schakel onderwerp-iconen in',
 
 	'FORUM_ADMIN'						=> 'Forumbeheer',
-	'FORUM_ADMIN_EXPLAIN'				=> 'In phpBB3 is alles forumgebaseerd. Een categorie is een speciaal soort forum. Elk forum kan een onbeperkt aantal subforums bevatten en je kunt aangeven waar wel in gepost mag worden en waar niet (het werkt hetzelfde als een oude categorie). Hier kun je toevoegen, bewerken, verwijderen, sluiten en heropenen van individuele forums en toegevoegde opties instellen. Als je berichten en onderwerpen niet meer synchroon zijn, kun je het forum synchroniseren. <strong>Je moet permissies gekopieerd of ingesteld hebben om nieuw aangemaakte forums te kunnen zien.</strong>',
+	'FORUM_ADMIN_EXPLAIN'				=> 'In IntegraMOD is alles forumgebaseerd. Een categorie is een speciaal soort forum. Elk forum kan een onbeperkt aantal subforums bevatten en je kunt aangeven waar wel in gepost mag worden en waar niet (het werkt hetzelfde als een oude categorie). Hier kun je toevoegen, bewerken, verwijderen, sluiten en heropenen van individuele forums en toegevoegde opties instellen. Als je berichten en onderwerpen niet meer synchroon zijn, kun je het forum synchroniseren. <strong>Je moet permissies gekopieerd of ingesteld hebben om nieuw aangemaakte forums te kunnen zien.</strong>',
 	'FORUM_AUTO_PRUNE'					=> 'Schakel automatisch opruimen in',
 	'FORUM_AUTO_PRUNE_EXPLAIN'			=> 'Om forums automatisch op te ruimen, stel je de frequentie- en leeftijdparameters hieronder in.',
 	'FORUM_CREATED'						=> 'Forum is succesvol aangemaakt.',
