@@ -282,7 +282,7 @@ class template
 		}
 		else if ($config['load_tplcompile'])
 		{
-			if (STARGATE)
+			if (defined('STARGATE') && STARGATE)
 			{
 				// Stargate Common files Mod. http://stargate-portal.com/forum/viewtopic.php?p=3438#p3438
 				// Force this code to look in the common folder when comparing file times.
