@@ -945,6 +945,11 @@ class session
 			$db->sql_query($sql);
 		}
 
+		if (!$bot && (int) $this->data['user_id'] !== ANONYMOUS && $this->ip)
+		{
+			im3_store_user_last_ip($this->data['user_id'], $this->ip);
+		}
+
 		if ($this->data['user_id'] != ANONYMOUS || $acm_guest)
 		{
 

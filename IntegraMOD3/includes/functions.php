@@ -6603,4 +6603,110 @@ function get_random_image($dir_path, $add_link = false, $token = '', $raw = fals
 	return($rand_image);
 }
 
+/**
+* Make sure phpbb_users.user_last_ip exists on boards created before the column was added.
+*/
+function im3_ensure_user_last_ip_column()
+{
+	global $config, $db, $phpbb_root_path, $phpEx;
+
+	if (!empty($config['im3_user_last_ip']))
+	{
+		return true;
+	}
+
+	if (!class_exists('phpbb_db_tools'))
+	{
+		include($phpbb_root_path . 'includes/db/db_tools.' . $phpEx);
+	}
+
+	$db_tools = new phpbb_db_tools($db);
+	if (!$db_tools->sql_column_exists(USERS_TABLE, 'user_last_ip'))
+	{
+		$db_tools->sql_column_add(USERS_TABLE, 'user_last_ip', array('VCHAR:40', ''));
+	}
+
+	set_config('im3_user_last_ip', '1', true);
+	$config['im3_user_last_ip'] = '1';
+
+	return true;
+}
+
+/**
+* Store the IP used for a real login or autologin session.
+*/
+function im3_store_user_last_ip($user_id, $ip)
+{
+	global $db;
+
+	$user_id = (int) $user_id;
+	$ip = trim((string) $ip);
+
+	if ($user_id <= ANONYMOUS || $ip === '')
+	{
+		return;
+	}
+
+	im3_ensure_user_last_ip_column();
+
+	$sql = 'UPDATE ' . USERS_TABLE . "
+		SET user_last_ip = '" . $db->sql_escape($ip) . "'
+		WHERE user_id = " . $user_id;
+	$db->sql_query($sql);
+}
+
+/**
+* Last login IP, falling back to the newest session or autologin key.
+*/
+function im3_user_last_login_ip($user_id)
+{
+	global $db;
+
+	$user_id = (int) $user_id;
+	if ($user_id <= ANONYMOUS)
+	{
+		return '';
+	}
+
+	im3_ensure_user_last_ip_column();
+
+	$sql = 'SELECT user_last_ip
+		FROM ' . USERS_TABLE . '
+		WHERE user_id = ' . $user_id;
+	$result = $db->sql_query($sql);
+	$ip = (string) $db->sql_fetchfield('user_last_ip');
+	$db->sql_freeresult($result);
+
+	if ($ip !== '')
+	{
+		return $ip;
+	}
+
+	$sql = 'SELECT session_ip
+		FROM ' . SESSIONS_TABLE . '
+		WHERE session_user_id = ' . $user_id . '
+		ORDER BY session_time DESC';
+	$result = $db->sql_query_limit($sql, 1);
+	$ip = (string) $db->sql_fetchfield('session_ip');
+	$db->sql_freeresult($result);
+
+	if ($ip === '')
+	{
+		$sql = 'SELECT last_ip
+			FROM ' . SESSIONS_KEYS_TABLE . '
+			WHERE user_id = ' . $user_id . '
+			ORDER BY last_login DESC';
+		$result = $db->sql_query_limit($sql, 1);
+		$ip = (string) $db->sql_fetchfield('last_ip');
+		$db->sql_freeresult($result);
+	}
+
+	if ($ip !== '')
+	{
+		im3_store_user_last_ip($user_id, $ip);
+	}
+
+	return $ip;
+}
+
 /* Stargate functions ends */

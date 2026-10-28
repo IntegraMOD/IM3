@@ -20,10 +20,13 @@
 <!-- IF S_USER_IP -->
 <dl>
 	<dt><label>{L_REGISTERED_IP}:</label></dt>
-	<dd><a href="{U_SHOW_IP}">{REGISTERED_IP}</a></dd>
-	<dd>[ <a href="{U_WHOIS}" onclick="popup(this.href, 700, 500, '_whois'); return false;">{L_WHOIS}</a> ]</dd>
+	<dd><a href="{U_SHOW_IP}">{REGISTERED_IP}</a> [ <a href="{U_WHOIS}" onclick="popup(this.href, 700, 500, '_whois'); return false;">{L_WHOIS}</a> ]</dd>
 </dl>
 <!-- ENDIF -->
+<dl>
+	<dt><label>{L_LAST_LOGIN_IP}:</label></dt>
+	<dd><!-- IF USER_LAST_LOGIN_IP --><a href="{U_SHOW_IP}">{USER_LAST_LOGIN_IP}</a> [ <a href="{U_WHOIS_LAST_LOGIN}" onclick="popup(this.href, 700, 500, '_whois'); return false;">{L_WHOIS}</a> ]<!-- ELSE --><strong>-</strong><!-- ENDIF --></dd>
+</dl>
 <dl>
 	<dt><label>{L_LAST_ACTIVE}:</label></dt>
 	<dd><strong>{USER_LASTACTIVE}</strong></dd>

@@ -988,6 +988,7 @@ class acp_users
 				}
 
 				$last_visit = (!empty($user_row['session_time'])) ? $user_row['session_time'] : $user_row['user_lastvisit'];
+				$last_login_ip = im3_user_last_login_ip($user_id);
 
 				$inactive_reason = '';
 				if ($user_row['user_type'] == USER_INACTIVE)
@@ -1063,6 +1064,8 @@ class acp_users
 					// Start Ultimate Points
 					'USER_POINTS'		=> $user_row['user_points'],
 					// End Ultimate Points
+					'USER_LAST_LOGIN_IP'	=> ($last_login_ip) ? (($ip == 'hostname') ? gethostbyaddr($last_login_ip) : $last_login_ip) : '',
+					'U_WHOIS_LAST_LOGIN'	=> ($last_login_ip) ? $this->u_action . '&amp;action=whois&amp;user_ip=' . urlencode($last_login_ip) : '',
 				));
 
 			break;
