@@ -1,4 +1,6 @@
+<!-- IF not S_INFINITE_FRAGMENT -->
 <!-- INCLUDE overall_header.html -->
+<!-- ENDIF -->
 <!-- IF U_MCP --><p>[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ENDIF -->
 <h2><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a></h2>
 
@@ -188,6 +190,12 @@
 	</div>
 	<!-- ENDIF -->
 <!-- END topicrow -->
+
+<!-- IF NEXT_PAGE and not S_IS_BOT -->
+<div class="infinite-scroll-trigger" data-infinite-scroll data-next-url="{NEXT_PAGE}" data-list-selector="ul.topiclist.topics" data-row-selector="li.row" data-insert="list" hidden="hidden">
+	<a rel="next" href="{NEXT_PAGE}">{L_NEXT}</a>
+</div>
+<!-- ENDIF -->
 
 <!-- IF S_SELECT_SORT_DAYS and not S_DISPLAY_ACTIVE -->
 	<form method="post" action="{S_FORUM_ACTION}">

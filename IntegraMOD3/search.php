@@ -677,8 +677,8 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 	$u_show_results = '&amp;sr=' . $show_results;
 	$u_search_forum = implode('&amp;fid%5B%5D=', $search_forum);
 
-	$u_search = append_sid("{$phpbb_root_path}search.$phpEx", $u_sort_param . $u_show_results);
-	$u_search .= ($search_id) ? '&amp;search_id=' . $search_id : '';
+	$u_search_params = $u_sort_param . $u_show_results . (($search_id) ? '&amp;search_id=' . $search_id : '');
+	$u_search = append_sid("{$phpbb_root_path}search.$phpEx", $u_search_params);
 	$u_author_u = request_var('u', 0);
 	$u_search .= ($search_id == 'user_likes' && $u_author_u) ? '&amp;u=' . $u_author_u : '';
 	$u_search .= ($search_id == 'user_likes_sent' && $u_author_u) ? '&amp;u=' . $u_author_u : '';
@@ -686,7 +686,7 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 	$u_search .= ($search_terms != 'all') ? '&amp;terms=' . $search_terms : '';
 	$u_search .= ($topic_id) ? '&amp;t=' . $topic_id : '';
 	$u_search .= ($author) ? '&amp;author=' . urlencode(htmlspecialchars_decode($author, ENT_COMPAT)) : '';
-	$u_search .= ($author_id) ? '&amp;author_id=' . $author_id : '';
+	$u_search .= ($author_id && $search_id !== 'egosearch') ? '&amp;author_id=' . $author_id : '';
 	$u_search .= ($u_search_forum) ? '&amp;fid%5B%5D=' . $u_search_forum : '';
 	$u_search .= (!$search_child) ? '&amp;sc=0' : '';
 	$u_search .= ($search_fields != 'all') ? '&amp;sf=' . $search_fields : '';
@@ -1002,6 +1002,16 @@ if ($keywords || $author || $author_id || $search_id || $submit)
 			else
 			{
 				$u_forum_id = $forum_id;
+			}
+
+			if (function_exists('im3_seo_register'))
+			{
+				im3_seo_register('t', $result_topic_id, $topic_title);
+
+				if ($forum_id)
+				{
+					im3_seo_register('f', $forum_id, $row['forum_name']);
+				}
 			}
 
 			$view_topic_url_params = "f=$u_forum_id&amp;t=$result_topic_id" . (($u_hilit) ? "&amp;hilit=$u_hilit" : '');

@@ -144,10 +144,7 @@ $feed->close();
 // gzip_compression
 if ($config['gzip_compress'])
 {
-	if (@extension_loaded('zlib') && !headers_sent())
-	{
-		ob_start('ob_gzhandler');
-	}
+	phpbb_start_ob_gzhandler();
 }
 
 // IF debug extra is enabled and admin want to "explain" the page we need to set other headers...

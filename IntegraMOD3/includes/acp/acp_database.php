@@ -539,9 +539,9 @@ class base_extractor
 				break;
 
 				case 'gzip':
-					if ((isset($_SERVER['HTTP_ACCEPT_ENCODING']) && strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false) && strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'msie') === false)
+					if ((isset($_SERVER['HTTP_ACCEPT_ENCODING']) && strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false) && strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'msie') === false && phpbb_start_ob_gzhandler())
 					{
-						ob_start('ob_gzhandler');
+						// Response compressed by ob_gzhandler.
 					}
 					else
 					{

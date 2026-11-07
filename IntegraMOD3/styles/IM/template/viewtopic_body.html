@@ -1,4 +1,6 @@
+<!-- IF not S_INFINITE_FRAGMENT -->
 <!-- INCLUDE overall_header.html -->
+<!-- ENDIF -->
 <!-- IF U_MCP --><p>[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ENDIF -->
 <h2><a href="{U_VIEW_TOPIC}">{TOPIC_TITLE}</a></h2>
 <!-- NOTE: remove the style="display: none" when you want to have the forum description on the topic body -->
@@ -340,6 +342,11 @@
 	</div>
 	<!-- ENDIF -->
 <!-- END postrow -->
+<!-- IF NEXT_PAGE and not S_IS_BOT -->
+<div class="infinite-scroll-trigger" data-infinite-scroll data-next-url="{NEXT_PAGE}" data-row-selector="div.post[id]" data-insert="before-trigger" hidden="hidden">
+	<a rel="next" href="{NEXT_PAGE}">{L_NEXT}</a>
+</div>
+<!-- ENDIF -->
 <!-- IF S_QUICK_REPLY and not S_K_QUICK_REPLY -->
 	<!-- INCLUDE quickreply_editor.html -->
 <!-- ENDIF -->
@@ -425,4 +432,6 @@ jQuery(function() {
 </script>
 	<div id="ajaxlike-dialog" title="{L_AL_PEOPLE_LIKE_THIS_TEXT}"></div>
 <!-- ajaxlike -->
+<!-- IF not S_INFINITE_FRAGMENT -->
 <!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->

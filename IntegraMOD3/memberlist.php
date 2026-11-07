@@ -477,6 +477,11 @@ switch ($mode)
 
 		$user_id = (int) $member['user_id'];
 
+		if (function_exists('im3_seo_finalize'))
+		{
+			im3_seo_finalize('u', $user_id, $member['username'], $start);
+		}
+
 		// Get group memberships
 		// Also get visiting user's groups to determine hidden group memberships if necessary.
 		$auth_hidden_groups = ($user_id === (int) $user->data['user_id'] || $auth->acl_gets('a_group', 'a_groupadd', 'a_groupdel')) ? true : false;

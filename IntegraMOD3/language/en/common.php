@@ -992,7 +992,7 @@ $lang = array_merge($lang, array(
 
 $lang = array_merge($lang, array(
 	// ajaxlike
-	'AL_LIKE_NEW'					    => '&nbsp;new like(s) received',	// header link message
+	'AL_LIKE_NEW'					    => ' new like(s) received',	// header link message
 	'AL_LIKE_NEW_TITLE'				    => 'List of new likes',				// notification dialog title
     'AL_LIKE_INFO'					    => 'Likes your&nbsp;',				// userX `likes your` post
 	'AL_LIKE_SELF'				        => 'View your post',

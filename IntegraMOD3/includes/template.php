@@ -205,6 +205,11 @@ class template
 	{
 		global $user, $phpbb_hook;
 
+		if ($handle === 'body' && !empty($GLOBALS['im3_seo_route']['type']) && ($GLOBALS['im3_seo_route']['type'] === 'f' || $GLOBALS['im3_seo_route']['type'] === 'u') && function_exists('im3_seo_web_root'))
+		{
+			ob_start();
+		}
+
 		if (!empty($phpbb_hook) && $phpbb_hook->call_hook(array(__CLASS__, __FUNCTION__), $handle, $include_once, $this))
 		{
 			if ($phpbb_hook->hook_return(array(__CLASS__, __FUNCTION__)))
@@ -228,6 +233,14 @@ class template
 		else
 		{
 			eval(' ?>' . $this->compiled_code[$handle] . '<?php ');
+		}
+
+		if ($handle === 'body' && !empty($GLOBALS['im3_seo_route']['type']) && ($GLOBALS['im3_seo_route']['type'] === 'f' || $GLOBALS['im3_seo_route']['type'] === 'u') && function_exists('im3_seo_web_root'))
+		{
+			$contents = ob_get_clean();
+			$root = im3_seo_web_root();
+			$contents = str_replace(array('href="./', 'src="./', "href='./", "src='./"), array('href="' . $root, 'src="' . $root, "href='" . $root, "src='" . $root), $contents);
+			echo $contents;
 		}
 
 		return true;
@@ -282,7 +295,7 @@ class template
 		}
 		else if ($config['load_tplcompile'])
 		{
-			if (defined('STARGATE') && STARGATE)
+			if (STARGATE)
 			{
 				// Stargate Common files Mod. http://stargate-portal.com/forum/viewtopic.php?p=3438#p3438
 				// Force this code to look in the common folder when comparing file times.

@@ -957,7 +957,7 @@ $lang = array_merge($lang, array(
 
 $lang = array_merge($lang, array(
 	// ajaxlike
-	'AL_LIKE_NEW'					    => '&nbsp;отримано нових лайків',	// header link message
+	'AL_LIKE_NEW'					    => ' отримано нових лайків',	// header link message
 	'AL_LIKE_NEW_TITLE'				    => 'Список нових лайків',				// notification dialog title
     'AL_LIKE_INFO'					    => 'лайкає ваш&nbsp;',				// userX `likes your` post
 	'AL_LIKE_SELF'				        => 'Перегляньте свою публікацію',

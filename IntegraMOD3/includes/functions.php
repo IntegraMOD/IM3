@@ -2594,6 +2594,16 @@ function append_sid($url, $params = false, $is_amp = true, $session_id = false)
 		$anchor = '#' . $anchor;
 	}
 
+	if (function_exists('im3_seo_rewrite'))
+	{
+		$im3_seo_url = im3_seo_rewrite($url, $params, $is_amp, $session_id, $anchor);
+
+		if ($im3_seo_url !== null)
+		{
+			return $im3_seo_url;
+		}
+	}
+
 	// Handle really simple cases quickly
 	if ($_SID == '' && $session_id === false && empty($_EXTRA_URL) && !$params_is_array && !$anchor)
 	{
@@ -5178,6 +5188,48 @@ function phpbb_http_login($param)
 }
 
 /**
+* True when PHP/the server is already compressing output.
+* ob_gzhandler conflicts with zlib.output_compression and must not be stacked on it.
+*/
+function phpbb_zlib_output_compression_enabled()
+{
+	if (!@extension_loaded('zlib'))
+	{
+		return false;
+	}
+
+	$zlib = strtolower(trim((string) @ini_get('zlib.output_compression')));
+	if ($zlib !== '' && $zlib !== '0' && $zlib !== 'off' && $zlib !== 'false')
+	{
+		return true;
+	}
+
+	return (strtolower((string) @ini_get('output_handler')) === 'ob_gzhandler');
+}
+
+/**
+* Start ob_gzhandler only when it will not conflict with an existing compressor or buffer.
+*
+* @return bool
+*/
+function phpbb_start_ob_gzhandler()
+{
+	if (!@extension_loaded('zlib') || phpbb_zlib_output_compression_enabled() || headers_sent())
+	{
+		return false;
+	}
+
+	// One empty buffer can come from php.ini output_buffering. A nested or
+	// non-empty buffer already holds plaintext and must not be gzip-wrapped.
+	if (ob_get_level() > 1 || ob_get_length())
+	{
+		return false;
+	}
+
+	return (bool) @ob_start('ob_gzhandler');
+}
+
+/**
 * Generate page header
 */
 function page_header($page_title = '', $display_online_list = true, $item_id = 0, $item = 'forum')
@@ -5212,27 +5264,8 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		//    by PHP/server configuration
 		//
 
-		$zlib_enabled = false;
-
-		if (@extension_loaded('zlib'))
-		{
-			$zlib_enabled = (
-				@ini_get('zlib.output_compression')
-				|| strtolower(@ini_get('output_handler')) === 'ob_gzhandler'
-			);
-		}
-
-		if (
-			@extension_loaded('zlib')
-			&& !$zlib_enabled
-			&& !headers_sent()
-			&& ob_get_level() <= 1
-			&& ob_get_length() == 0
-		)
-		{
-			@ob_start('ob_gzhandler');
-		}
-	}	
+		phpbb_start_ob_gzhandler();
+	}
 
 	// Generate logged in/logged out status
 	if ($user->data['user_id'] != ANONYMOUS)
@@ -5374,6 +5407,13 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 	// Determine board url - we may need it later
 	$board_url = generate_board_url() . '/';
 	$web_path = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? $board_url : $phpbb_root_path;
+
+	// A trailing-slash pretty URL is a directory to the browser. phpBB records
+	// "./" at a vhost root, so derive the real path from the request.
+	if (!empty($GLOBALS['im3_seo_route']['type']) && ($GLOBALS['im3_seo_route']['type'] === 'f' || $GLOBALS['im3_seo_route']['type'] === 'u') && function_exists('im3_seo_web_root'))
+	{
+		$web_path = im3_seo_web_root();
+	}
 
 
 	// Download MOD 6
@@ -5855,7 +5895,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'SID'				=> $SID,
 		'_SID'				=> $_SID,
 		'SESSION_ID'		=> $user->session_id,
-		'ROOT_PATH'			=> $phpbb_root_path,
+		'ROOT_PATH'			=> (!empty($GLOBALS['im3_seo_route']['type']) && ($GLOBALS['im3_seo_route']['type'] === 'f' || $GLOBALS['im3_seo_route']['type'] === 'u') && function_exists('im3_seo_web_root')) ? im3_seo_web_root() : $web_path,
 		'BOARD_URL'			=> $board_url,
 
 		'L_LOGIN_LOGOUT'	=> $l_login_logout,
@@ -5991,9 +6031,10 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 	));
 //-- mod : Paypal Donation --------------------------------------------------------
 //-- add
+	$donate_allowed = !empty($config['donation_enable']) && $auth->acl_get('u_pdm_use');
 	$template->assign_vars(array(
-		'U_DONATE'			=> $auth->acl_get('u_pdm_use') ? append_sid("{$phpbb_root_path}donate.$phpEx") : '',
-		'S_DONATE_ENABLED'	=> $auth->acl_get('u_pdm_use'),
+		'U_DONATE'			=> $donate_allowed ? append_sid("{$phpbb_root_path}donate.$phpEx") : '',
+		'S_DONATE_ENABLED'	=> $donate_allowed,
 	));
 //-- end : Paypal Donation --------------------------------------------------------
 	if (!function_exists('get_user_avatar'))
@@ -6207,6 +6248,33 @@ function im3_credit_line_present($html)
 	return (bool) preg_match('/<a\b[^>]*href=["\']https?:\/\/(?:www\.)?integramod\.com[^"\']*["\'][^>]*>[^<]*integramod/i', $html);
 }
 
+function im3_is_ajax_request()
+{
+	return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower((string) $_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+}
+
+function im3_offset_block_row_count($blockname, $start)
+{
+	global $template;
+
+	$start = (int) $start;
+	if ($start < 1 || empty($template->_tpldata[$blockname]) || !is_array($template->_tpldata[$blockname]))
+	{
+		return;
+	}
+
+	foreach ($template->_tpldata[$blockname] as $index => $row)
+	{
+		if (!is_array($row))
+		{
+			continue;
+		}
+
+		$template->_tpldata[$blockname][$index]['S_ROW_COUNT'] = $index + $start;
+		$template->_tpldata[$blockname][$index]['S_FIRST_ROW'] = false;
+	}
+}
+
 function im3_display_checked_body()
 {
 	global $template;
@@ -6215,7 +6283,7 @@ function im3_display_checked_body()
 	$template->display('body');
 	$page_html = ob_get_clean();
 
-	$ajax_request = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower((string) $_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+	$ajax_request = im3_is_ajax_request();
 	$skip_check = defined('IN_INSTALL') || defined('IN_CRON') || defined('IN_LOGIN') || defined('IN_ADMIN') || $ajax_request || (bool) im3_template_var('MCHAT_READ_MODE') || (bool) im3_template_var('S_ABBC3_IN_WIZARD');
 	if (!$skip_check && !im3_credit_line_present($page_html))
 	{

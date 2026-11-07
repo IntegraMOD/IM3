@@ -82,6 +82,7 @@ fieldset dt span,
 .css-icon-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .css-icon { display: inline-block; width: 1.25em; height: 1.25em; line-height: 1; vertical-align: -0.2em; color: currentColor; fill: currentColor; flex: 0 0 auto; }
 .css-icon-feed { color: var(--feed-accent); }
+.css-icon-coins { width: 0.85em; height: 0.85em; vertical-align: -0.05em; }
 .forum-icon .css-icon,
 .topic-icon .css-icon {
     width: 2em;
@@ -692,8 +693,8 @@ ul.linklist { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap:
 
 .site-footer { background: var(--bg-header); margin-top: 20px; }
 .site-footer-inner { padding-top: 0; padding-bottom: 10px; }
-.footer-nav { width: 100%; margin: 0 0 10px; padding: 0 15px; box-sizing: border-box; border-top: 1px solid var(--surface-border); border-bottom: 1px solid var(--surface-border); background: var(--bg-ad-panel); }
-.footer-navlist { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.footer-nav { width: 100%; margin: 0 0 10px; padding: 0; box-sizing: border-box; border-top: 1px solid var(--surface-border); border-bottom: 1px solid var(--surface-border); background: var(--bg-ad-panel); }
+.footer-navlist { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; max-width: 1200px; margin: 0 auto; padding: 0 30px; box-sizing: border-box; list-style: none; }
 .footer-navlist li:not(.footer-arrow)::before { content: '•'; margin-right: 8px; color: var(--text-secondary); }
 .footer-navlist li:first-child + li::before { content: ''; margin-right: 0; }
 .footer-navlist a { display: inline-flex; align-items: center; gap: 4px; padding: 6px 4px; color: var(--link-color); text-decoration: none; }
@@ -742,6 +743,26 @@ ul.linklist { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap:
 .theme-swatch-orange-light .theme-swatch-center { background: #FFFFFF; color: #E96308; }
 .theme-swatch-orange-dark { border-color: #E96308; }
 .theme-swatch-orange-dark .theme-swatch-center { background: #3d3d3d; color: #E96308; }
+.theme-swatch-green-light { border-color: #1C7D44; }
+.theme-swatch-green-light .theme-swatch-center { background: #FFFFFF; color: #1C7D44; }
+.theme-swatch-green-dark { border-color: #1C7D44; }
+.theme-swatch-green-dark .theme-swatch-center { background: #3d3d3d; color: #1C7D44; }
+.theme-swatch-sky-light { border-color: #0ea5e9; }
+.theme-swatch-sky-light .theme-swatch-center { background: #FFFFFF; color: #0ea5e9; }
+.theme-swatch-sky-dark { border-color: #0ea5e9; }
+.theme-swatch-sky-dark .theme-swatch-center { background: #3d3d3d; color: #0ea5e9; }
+.theme-swatch-purple-light { border-color: #8b5cf6; }
+.theme-swatch-purple-light .theme-swatch-center { background: #FFFFFF; color: #8b5cf6; }
+.theme-swatch-purple-dark { border-color: #8b5cf6; }
+.theme-swatch-purple-dark .theme-swatch-center { background: #3d3d3d; color: #8b5cf6; }
+.theme-swatch-cyan-light { border-color: #06b6d4; }
+.theme-swatch-cyan-light .theme-swatch-center { background: #FFFFFF; color: #06b6d4; }
+.theme-swatch-cyan-dark { border-color: #06b6d4; }
+.theme-swatch-cyan-dark .theme-swatch-center { background: #3d3d3d; color: #06b6d4; }
+.theme-swatch-gray-light { border-color: #2c3e50; }
+.theme-swatch-gray-light .theme-swatch-center { background: #ecf0f1; color: #2c3e50; }
+.theme-swatch-gray-dark { border-color: #95a5a6; }
+.theme-swatch-gray-dark .theme-swatch-center { background: #1b242a; color: #2c3e50; }
 div.buttons div.post-icon,
 div.buttons div.reply-icon,
 div.buttons div.qreply-icon,

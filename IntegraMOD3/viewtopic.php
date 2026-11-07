@@ -472,18 +472,19 @@ if ($topic_data['forum_password'])
 if (isset($_GET['e']))
 {
 	$jump_to = request_var('e', 0);
-
-	$redirect_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id");
+	$notify_post = ($post_id) ? $post_id : $jump_to;
+	$notify_params = "f=$forum_id&amp;t=$topic_id&amp;e=$jump_to" . (($notify_post) ? "&amp;p=$notify_post" : '');
+	$redirect_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", $notify_params);
 
 	if ($user->data['user_id'] == ANONYMOUS)
 	{
-		login_box($redirect_url . "&amp;p=$post_id&amp;e=$jump_to", $user->lang['LOGIN_NOTIFY_TOPIC']);
+		login_box($redirect_url, $user->lang['LOGIN_NOTIFY_TOPIC']);
 	}
 
 	if ($jump_to > 0)
 	{
 		// We direct the already logged in user to the correct post...
-		redirect($redirect_url . ((!$post_id) ? "&amp;p=$jump_to" : "&amp;p=$post_id") . "#p$jump_to");
+		redirect($redirect_url . '#p' . $jump_to);
 	}
 }
 
@@ -565,6 +566,13 @@ if ($hilit_words)
 if ($start < 0 || $start >= $total_posts)
 {
 	$start = ($start < 0) ? 0 : floor(($total_posts - 1) / $config['posts_per_page']) * $config['posts_per_page'];
+}
+
+if (function_exists('im3_seo_register'))
+{
+	im3_seo_register('t', $topic_id, $topic_data['topic_title']);
+	im3_seo_register('f', $forum_id, $topic_data['forum_name']);
+	im3_seo_finalize_topic($topic_id, $topic_data['topic_title'], $start, $forum_id, $post_id);
 }
 
 // General Viewtopic URL for return links
@@ -1876,7 +1884,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 		'U_REPORT'			=> ($auth->acl_get('f_report', $forum_id)) ? append_sid("{$phpbb_root_path}report.$phpEx", 'f=' . $forum_id . '&amp;p=' . $row['post_id']) : '',
 		'U_MCP_REPORT'		=> ($auth->acl_get('m_report', $forum_id)) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=reports&amp;mode=report_details&amp;f=' . $forum_id . '&amp;p=' . $row['post_id'], true, $user->session_id) : '',
 		'U_MCP_APPROVE'		=> ($auth->acl_get('m_approve', $forum_id)) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=queue&amp;mode=approve_details&amp;f=' . $forum_id . '&amp;p=' . $row['post_id'], true, $user->session_id) : '',
-		'U_MINI_POST'		=> append_sid("{$phpbb_root_path}viewtopic.$phpEx", 'p=' . $row['post_id']) . (($topic_data['topic_type'] == POST_GLOBAL) ? '&amp;f=' . $forum_id : '') . '#p' . $row['post_id'],
+		'U_MINI_POST'		=> append_sid("{$phpbb_root_path}viewtopic.$phpEx", 'p=' . $row['post_id'] . (($topic_data['topic_type'] == POST_GLOBAL) ? '&amp;f=' . $forum_id : '')) . '#p' . $row['post_id'],
 		'U_NEXT_POST_ID'	=> ($i < $i_total && isset($rowset[$post_list[$i + 1]])) ? $rowset[$post_list[$i + 1]]['post_id'] : '',
 		'U_PREV_POST_ID'	=> $prev_post_id,
 		'U_NOTES'			=> ($auth->acl_getf_global('m_')) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=notes&amp;mode=user_notes&amp;u=' . $poster_id, true, $user->session_id) : '',
@@ -2196,5 +2204,11 @@ $template->set_filenames(array(
 	'body' => ($view == 'print') ? 'viewtopic_print.html' : 'viewtopic_body.html')
 );
 make_jumpbox(append_sid("{$phpbb_root_path}viewforum.$phpEx"), $forum_id);
+
+if ($view != 'print' && im3_is_ajax_request())
+{
+	im3_offset_block_row_count('postrow', $start);
+	$template->assign_var('S_INFINITE_FRAGMENT', true);
+}
 
 page_footer();

@@ -15,7 +15,7 @@
     }
 
     var savedColor = readCookie('style_color');
-    var color = (savedColor === 'orange' || savedColor === 'green') ? savedColor : 'blue';
+    var color = savedColor && /^[a-z0-9_-]+$/.test(savedColor) ? savedColor : 'blue';
     var mode = readCookie('style_mode') === 'dark' ? 'dark' : 'light';
     
     document.documentElement.setAttribute('data-style-color', color);

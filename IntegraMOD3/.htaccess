@@ -55,9 +55,11 @@
 		</Files>
 	</IfModule>
 </IfModule>
-
-<IfModule mod_headers.c>
-	Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
+# Deny access to version control metadata (.git, .svn, .hg) and other dotfiles.
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule (^|/)\.(git|svn|hg|bzr)(/|$) - [F,L]
+RewriteRule (^|/)\.(env|htpasswd|gitignore|gitattributes)$ - [F,L]
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -66,7 +68,7 @@ RewriteEngine on
 Rewriterule ^blog/(.+)/(.+).html$		./blog/view/blog.php?page=$1&mode=$2 [NC]
 Rewriterule ^blog/(.+).html$			./blog/blog.php?page=$1 [NC]
 Rewriterule ^blog/(.+)/$				./blog/view/blog.php?page=$1 [NC]
-Rewriterule ^blog/$					./blog/blog.php [NC]
+Rewriterule ^blog/$						./blog/blog.php [NC]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 Rewriterule ^blog/(.+)/(.+)$		./blog/view/blog.php?page=$1&mode=$2 [NC]
@@ -92,6 +94,24 @@ RewriteCond %{HTTP_USER_AGENT} "Go-http-client" [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} "Java/" [NC]
 
 RewriteRule .* - [F,L]
+</IfModule>
+
+# Pretty URLs. Prefix rules only, so missing CSS and images stay real 404s.
+# Placed after the bot block so a forbidden user agent is rejected first.
+# Nginx (Webuzo vhost, not applied from this tree):
+# location / {
+#     try_files $uri $uri/ @im3_seo;
+# }
+# location @im3_seo {
+#     rewrite "^/(f|t|u|p)[0-9]" /im3_seo_router.php last;
+#     rewrite "^/search-(newposts|egosearch|unanswered|unreadposts|active-topics)\.html$" /im3_seo_router.php last;
+# }
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(f|t|u|p)[0-9] im3_seo_router.php [QSA,L]
+RewriteRule ^search-(newposts|egosearch|unanswered|unreadposts|active-topics)\.html$ im3_seo_router.php [QSA,L]
 </IfModule>
 
 # Block known malicious bots by signature

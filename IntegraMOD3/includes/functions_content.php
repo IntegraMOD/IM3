@@ -166,6 +166,11 @@ function make_jumpbox($action, $forum_id = false, $select_all = false, $acl_list
 			continue;
 		}
 
+		if (function_exists('im3_seo_register'))
+		{
+			im3_seo_register('f', $row['forum_id'], $row['forum_name']);
+		}
+
 		if (!$display_jumpbox)
 		{
 			$template->assign_block_vars('jumpbox_forums', array(
@@ -1366,7 +1371,18 @@ function get_username_string($mode, $user_id, $username, $username_colour = '', 
 			// For anonymous the link leads to a login page.
 			if ($user_id && $user_id != ANONYMOUS && ($user->data['user_id'] == ANONYMOUS || $auth->acl_get('u_viewprofile')))
 			{
-				$profile_url = ($custom_profile_url !== false) ? $custom_profile_url . '&amp;u=' . (int) $user_id : str_replace(array('={USER_ID}', '=%7BUSER_ID%7D'), '=' . (int) $user_id, $_profile_cache['base_url']);
+				if ($custom_profile_url !== false)
+				{
+					$profile_url = $custom_profile_url . '&amp;u=' . (int) $user_id;
+				}
+				else if (function_exists('im3_seo_profile_url'))
+				{
+					$profile_url = im3_seo_profile_url($user_id, $username);
+				}
+				else
+				{
+					$profile_url = str_replace(array('={USER_ID}', '=%7BUSER_ID%7D'), '=' . (int) $user_id, $_profile_cache['base_url']);
+				}
 			}
 			else
 			{

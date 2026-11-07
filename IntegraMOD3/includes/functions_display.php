@@ -323,6 +323,11 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 	$last_catless = true;
 	foreach ($forum_rows as $row)
 	{
+		if (function_exists('im3_seo_register'))
+		{
+			im3_seo_register('f', $row['forum_id'], $row['forum_name']);
+		}
+
 		// Empty category
 		if ($row['parent_id'] == $root_data['forum_id'] && $row['forum_type'] == FORUM_CAT)
 		{
@@ -381,6 +386,11 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 
 				if ($subforum_row['display'] && $subforum_row['name'])
 				{
+					if (function_exists('im3_seo_register'))
+					{
+						im3_seo_register('f', $subforum_id, $subforum_row['name']);
+					}
+
 					$subforums_list[] = array(
 						'link'		=> append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $subforum_id),
 						'name'		=> $subforum_row['name'],
@@ -617,6 +627,11 @@ function generate_forum_nav(&$forum_data)
 				continue;
 			}
 
+			if (function_exists('im3_seo_register'))
+			{
+				im3_seo_register('f', $parent_forum_id, $parent_name);
+			}
+
 			$template->assign_block_vars('navlinks', array(
 				'S_IS_CAT'		=> ($parent_type == FORUM_CAT) ? true : false,
 				'S_IS_LINK'		=> ($parent_type == FORUM_LINK) ? true : false,
@@ -626,6 +641,11 @@ function generate_forum_nav(&$forum_data)
 				'U_VIEW_FORUM'	=> append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $parent_forum_id))
 			);
 		}
+	}
+
+	if (function_exists('im3_seo_register'))
+	{
+		im3_seo_register('f', $forum_data['forum_id'], $forum_data['forum_name']);
 	}
 
 	$template->assign_block_vars('navlinks', array(
@@ -704,11 +724,12 @@ function topic_generate_pagination($replies, $url)
 	{
 		$total_pages = ceil(($replies + 1) / $per_page);
 		$pagination = '';
+		$url_delim = (strpos($url, '?') === false) ? '?' : '&amp;';
 
 		$times = 1;
 		for ($j = 0; $j < $replies + 1; $j += $per_page)
 		{
-			$pagination .= '<a href="' . $url . ($j == 0 ? '' : '&amp;start=' . $j) . '">' . $times . '</a>';
+			$pagination .= '<a href="' . $url . ($j == 0 ? '' : $url_delim . 'start=' . $j) . '">' . $times . '</a>';
 			if ($times == 1 && $total_pages > 5)
 			{
 				$pagination .= '<span class="page-dots"> ... </span>';
@@ -1396,6 +1417,11 @@ function display_user_activity(&$userdata)
 		$active_t_id = $active_t_row['topic_id'];
 		$active_t_count = $active_t_row['num_posts'];
 		$active_t_pct = ($userdata['user_posts']) ? ($active_t_count / $userdata['user_posts']) * 100 : 0;
+
+		if (function_exists('im3_seo_register'))
+		{
+			im3_seo_register('t', $active_t_id, $active_t_name);
+		}
 	}
 
 	$l_active_pct = ($userdata['user_id'] != ANONYMOUS && $userdata['user_id'] == $user->data['user_id']) ? $user->lang['POST_PCT_ACTIVE_OWN'] : $user->lang['POST_PCT_ACTIVE'];

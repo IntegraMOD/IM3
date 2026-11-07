@@ -145,6 +145,11 @@ else
 	}
 }
 
+if (function_exists('im3_seo_finalize'))
+{
+	im3_seo_finalize('f', $forum_id, $forum_data['forum_name'], $start);
+}
+
 // Dump out the page header and load viewforum template
 page_header($user->lang['VIEW_FORUM'] . ' - ' . $forum_data['forum_name'], true, $forum_id);
 
@@ -686,6 +691,11 @@ if (sizeof($topic_list))
 		topic_status($row, $replies, $unread_topic, $folder_img, $folder_alt, $topic_type);
 
 		// Generate all the URIs ...
+		if (function_exists('im3_seo_register'))
+		{
+			im3_seo_register('t', $topic_id, $row['topic_title']);
+		}
+
 		$view_topic_url_params = 'f=' . $topic_forum_id . '&amp;t=' . $topic_id;
 		$view_topic_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", $view_topic_url_params);
 
@@ -778,6 +788,12 @@ if (sizeof($topic_list))
 if ($forum_data['forum_type'] == FORUM_POST && sizeof($topic_list) && $mark_forum_read)
 {
 	update_forum_tracking_info($forum_id, $forum_data['forum_last_post_time'], false, $mark_time_forum);
+}
+
+if (im3_is_ajax_request())
+{
+	im3_offset_block_row_count('topicrow', $start);
+	$template->assign_var('S_INFINITE_FRAGMENT', true);
 }
 
 page_footer();

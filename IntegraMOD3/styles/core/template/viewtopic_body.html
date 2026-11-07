@@ -1,4 +1,6 @@
+<!-- IF not S_INFINITE_FRAGMENT -->
 <!-- INCLUDE overall_header.html -->
+<!-- ENDIF -->
 <!-- IF U_MCP --><p>[&nbsp;<a href="{U_MCP}">{L_MCP}</a>&nbsp;]</p><!-- ENDIF -->
 <h2><a href="{U_VIEW_TOPIC}">{TOPIC_TITLE}</a></h2>
 <!-- IF FORUM_DESC --><div class="forum-description is-hidden">{FORUM_DESC}</div><!-- ENDIF -->
@@ -281,7 +283,7 @@
 									<!-- ELSE -->
 										{postrow.POSTER_POINTS}
 										<!-- IF USE_IMAGES_POINTS -->
-											<img src="{T_THEME_PATH}/images/money.png" width="11" height="11" alt="" />
+											<svg class="css-icon css-icon-coins" aria-hidden="true" focusable="false"><use href="#icon-coins"></use></svg>
 										<!-- ELSE -->
 											{P_NAME}
 										<!-- ENDIF -->
@@ -301,7 +303,7 @@
 										<!-- ELSE -->
 											{postrow.BANK_GOLD}
 											<!-- IF USE_IMAGES_POINTS -->
-												<img src="{T_THEME_PATH}/images/money.png" width="11" height="11" alt="" />
+												<svg class="css-icon css-icon-coins" aria-hidden="true" focusable="false"><use href="#icon-coins"></use></svg>
 											<!-- ELSE -->
 												{P_NAME}
 											<!-- ENDIF -->
@@ -685,6 +687,12 @@
 <!-- ENDIF -->
 <!-- END postrow -->
 
+<!-- IF NEXT_PAGE and not S_IS_BOT -->
+<div class="infinite-scroll-trigger" data-infinite-scroll data-next-url="{NEXT_PAGE}" data-row-selector="article.post-row:not(.ad-row)" data-insert="before-trigger" hidden="hidden">
+	<a rel="next" href="{NEXT_PAGE}">{L_NEXT}</a>
+</div>
+<!-- ENDIF -->
+
 <!-- IF S_QUICK_REPLY and not S_K_QUICK_REPLY -->
 	<!-- INCLUDE quickreply_editor.html -->
 <!-- ENDIF -->
@@ -785,4 +793,6 @@
 <div id="ajaxlike-dialog" title="{L_AL_PEOPLE_LIKE_THIS_TEXT}"></div>
 <!-- ajaxlike -->
 
+<!-- IF not S_INFINITE_FRAGMENT -->
 <!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->

@@ -81,7 +81,8 @@
     #page-width,
     #page-body,
     #page-content { max-width: 100%; min-width: 0; box-sizing: border-box; }
-    .footer-nav { width: 100%; max-width: 100%; margin: 0 0 10px; padding-left: 5px; padding-right: 5px; transform: none; }
+    .footer-nav { width: 100%; max-width: 100%; margin: 0 0 10px; padding-left: 0; padding-right: 0; }
+    .footer-navlist { max-width: 100%; padding-left: 10px; padding-right: 10px; }
     .post-row > .viewtopic-post-inner,
     .viewtopic-post-inner { display: block; width: 100%; max-width: 100%; }
     .post-profile {
@@ -170,8 +171,8 @@
     #site-description { flex-direction: column; gap: 5px; width: 100%; }
     #site-description .site-text { align-items: center; }
     .search-toggle-container { position: absolute; right: 15px; top: 15px; margin: 0; }
-    .footer-nav { padding-left: 5px; padding-right: 5px; }
-    .footer-navlist { justify-content: center; }
+    .footer-nav { padding-left: 0; padding-right: 0; }
+    .footer-navlist { justify-content: center; padding-left: 10px; padding-right: 10px; }
     .footer-arrow-end { margin-left: 0; }
     .footer-meta { justify-content: center; }
 }
