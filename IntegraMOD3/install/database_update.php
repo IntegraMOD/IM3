@@ -2324,10 +2324,6 @@ function change_database_data(&$no_updates, $version)
 			set_config('cookie_samesite', 'Strict');
 			set_config('cookie_partitioned', '1');
 			set_config('cookie_secure_admin', '1');
-			set_config('cookie_consent_enabled', '1');
-			set_config('cookie_consent_text', 'This website uses cookies to improve your experience.');
-			set_config('cookie_consent_confirm', 'Accept Cookies');
-			set_config('cookie_consent_decline', 'Decline Cookies');
 			set_config('cookie_consent_enable', '1');
 			set_config('cookie_consent_title', 'Cookie Notice');
 			set_config('cookie_consent_message', 'This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our use of cookies.');
@@ -2339,6 +2335,10 @@ function change_database_data(&$no_updates, $version)
 			set_config('jab_verify_peer_name', '0');
 			set_config('recaptcha_v2_pubkey', '1');
 			set_config('recaptcha_v2_privkey', '1');
+			set_config('gcloud_fd_sitekey', '');
+			set_config('gcloud_fd_apikey', '');
+			set_config('gcloud_fd_project', '');
+			set_config('gcloud_fd_score', '0.50');
 
 			$no_updates = false;
 		break;
