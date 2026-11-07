@@ -550,6 +550,7 @@ class install_install extends module
 			'eaccelerator'	=> extension_loaded('eaccelerator'),
 			'file'			=> true,
 			'memcache'		=> (extension_loaded('memcache') || class_exists('Memcache')),
+			'memcached'		=> (extension_loaded('memcached') || class_exists('Memcached')),
 			'redis'			=> (extension_loaded('redis') || class_exists('Redis')),
 			'wincache'		=> extension_loaded('wincache'),
 			'xcache'		=> extension_loaded('xcache'),
