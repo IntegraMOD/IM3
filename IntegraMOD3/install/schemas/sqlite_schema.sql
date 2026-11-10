@@ -1857,6 +1857,26 @@ CREATE TABLE phpbb_pages (
 );
 
 
+# Table: 'phpbb_nav_links'
+CREATE TABLE phpbb_nav_links (
+	nav_id INTEGER PRIMARY KEY NOT NULL ,
+	nav_order INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	nav_active INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	nav_url varchar(255) NOT NULL DEFAULT '',
+	nav_page_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	nav_title varchar(255) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_nav_link_lang'
+CREATE TABLE phpbb_nav_link_lang (
+	nav_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_iso varchar(30) NOT NULL DEFAULT '',
+	nav_title varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (nav_id, lang_iso)
+);
+
+
 # Table: 'phpbb_points_bank'
 CREATE TABLE phpbb_points_bank (
 	id INTEGER PRIMARY KEY NOT NULL ,
@@ -2891,6 +2911,7 @@ CREATE TABLE phpbb_users (
 	user_posts INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	user_permissions mediumtext(16777215) NOT NULL DEFAULT '',
 	user_ip varchar(40) NOT NULL DEFAULT '',
+	user_last_ip varchar(40) NOT NULL DEFAULT '',
 	user_birthday varchar(10) NOT NULL DEFAULT '',
 	user_lastpage varchar(200) NOT NULL DEFAULT '',
 	user_last_confirm_key varchar(10) NOT NULL DEFAULT '',

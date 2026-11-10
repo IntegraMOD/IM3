@@ -2770,6 +2770,40 @@ CREATE TABLE phpbb_pages (
 ALTER TABLE phpbb_pages ADD PRIMARY KEY (page_id);;
 
 
+# Table: 'phpbb_nav_links'
+CREATE TABLE phpbb_nav_links (
+	nav_id INTEGER NOT NULL,
+	nav_order INTEGER DEFAULT 0 NOT NULL,
+	nav_active INTEGER DEFAULT 1 NOT NULL,
+	nav_url VARCHAR(255) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	nav_page_id INTEGER DEFAULT 0 NOT NULL,
+	nav_title VARCHAR(255) CHARACTER SET UTF8 DEFAULT '' NOT NULL COLLATE UNICODE
+);;
+
+ALTER TABLE phpbb_nav_links ADD PRIMARY KEY (nav_id);;
+
+
+CREATE GENERATOR phpbb_nav_links_gen;;
+SET GENERATOR phpbb_nav_links_gen TO 0;;
+
+CREATE TRIGGER t_phpbb_nav_links FOR phpbb_nav_links
+BEFORE INSERT
+AS
+BEGIN
+	NEW.nav_id = GEN_ID(phpbb_nav_links_gen, 1);
+END;;
+
+
+# Table: 'phpbb_nav_link_lang'
+CREATE TABLE phpbb_nav_link_lang (
+	nav_id INTEGER DEFAULT 0 NOT NULL,
+	lang_iso VARCHAR(30) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	nav_title VARCHAR(255) CHARACTER SET UTF8 DEFAULT '' NOT NULL COLLATE UNICODE
+);;
+
+ALTER TABLE phpbb_nav_link_lang ADD PRIMARY KEY (nav_id, lang_iso);;
+
+
 # Table: 'phpbb_points_bank'
 CREATE TABLE phpbb_points_bank (
 	id INTEGER NOT NULL,
@@ -4378,6 +4412,7 @@ CREATE TABLE phpbb_users (
 	user_posts INTEGER DEFAULT 0 NOT NULL,
 	user_permissions BLOB SUB_TYPE TEXT CHARACTER SET NONE DEFAULT '' NOT NULL,
 	user_ip VARCHAR(40) CHARACTER SET NONE DEFAULT '' NOT NULL,
+	user_last_ip VARCHAR(40) CHARACTER SET NONE DEFAULT '' NOT NULL,
 	user_birthday VARCHAR(10) CHARACTER SET NONE DEFAULT '' NOT NULL,
 	user_lastpage VARCHAR(200) CHARACTER SET UTF8 DEFAULT '' NOT NULL COLLATE UNICODE,
 	user_last_confirm_key VARCHAR(10) CHARACTER SET NONE DEFAULT '' NOT NULL,

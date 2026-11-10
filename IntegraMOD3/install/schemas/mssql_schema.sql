@@ -3217,6 +3217,44 @@ GO
 
 
 /*
+	Table: 'phpbb_nav_links'
+*/
+CREATE TABLE [phpbb_nav_links] (
+	[nav_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[nav_order] [int] DEFAULT (0) NOT NULL ,
+	[nav_active] [int] DEFAULT (1) NOT NULL ,
+	[nav_url] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[nav_page_id] [int] DEFAULT (0) NOT NULL ,
+	[nav_title] [nvarchar] (255) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_nav_links] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_nav_links] PRIMARY KEY  CLUSTERED 
+	(
+		[nav_id]
+	)
+GO
+
+
+/*
+	Table: 'phpbb_nav_link_lang'
+*/
+CREATE TABLE [phpbb_nav_link_lang] (
+	[nav_id] [int] DEFAULT (0) NOT NULL ,
+	[lang_iso] [varchar] (30) DEFAULT ('') NOT NULL ,
+	[nav_title] [nvarchar] (255) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_nav_link_lang] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_nav_link_lang] PRIMARY KEY  CLUSTERED 
+	(
+		[nav_id],
+		[lang_iso]
+	)
+GO
+
+
+/*
 	Table: 'phpbb_points_bank'
 */
 CREATE TABLE [phpbb_points_bank] (
@@ -5123,6 +5161,7 @@ CREATE TABLE [phpbb_users] (
 	[user_posts] [int] DEFAULT (0) NOT NULL ,
 	[user_permissions] [varchar] (max) DEFAULT ('') NOT NULL ,
 	[user_ip] [varchar] (40) DEFAULT ('') NOT NULL ,
+	[user_last_ip] [varchar] (40) DEFAULT ('') NOT NULL ,
 	[user_birthday] [varchar] (10) DEFAULT ('') NOT NULL ,
 	[user_lastpage] [nvarchar] (200) DEFAULT ('') NOT NULL ,
 	[user_last_confirm_key] [varchar] (10) DEFAULT ('') NOT NULL ,

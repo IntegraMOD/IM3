@@ -547,12 +547,14 @@ class install_install extends module
 		));
 
 		$cache_backends = array(
-			'eaccelerator'	=> extension_loaded('eaccelerator'),
 			'file'			=> true,
 			'memcache'		=> (extension_loaded('memcache') || class_exists('Memcache')),
+			'memcached'		=> (extension_loaded('memcached') || class_exists('Memcached')),
 			'redis'			=> (extension_loaded('redis') || class_exists('Redis')),
+			'apc'			=> (extension_loaded('apc') || extension_loaded('apcu')),
 			'wincache'		=> extension_loaded('wincache'),
 			'xcache'		=> extension_loaded('xcache'),
+			'eaccelerator'	=> extension_loaded('eaccelerator'),
 		);
 
 		foreach ($cache_backends as $acm_type => $available)

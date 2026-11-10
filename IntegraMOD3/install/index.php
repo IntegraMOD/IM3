@@ -13,6 +13,11 @@
 */
 define('IN_PHPBB', true);
 define('IN_INSTALL', true);
+// Portal is not available during install. Define this before templates compile.
+if (!defined('STARGATE'))
+{
+	define('STARGATE', false);
+}
 /**#@-*/
 
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './../';

@@ -3539,6 +3539,49 @@ CREATE TABLE phpbb_pages (
 
 
 /*
+	Table: 'phpbb_nav_links'
+*/
+CREATE TABLE phpbb_nav_links (
+	nav_id number(8) NOT NULL,
+	nav_order number(8) DEFAULT '0' NOT NULL,
+	nav_active number(1) DEFAULT '1' NOT NULL,
+	nav_url varchar2(255) DEFAULT '' ,
+	nav_page_id number(8) DEFAULT '0' NOT NULL,
+	nav_title varchar2(765) DEFAULT '' ,
+	CONSTRAINT pk_phpbb_nav_links PRIMARY KEY (nav_id)
+)
+/
+
+
+CREATE SEQUENCE phpbb_nav_links_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_nav_links
+BEFORE INSERT ON phpbb_nav_links
+FOR EACH ROW WHEN (
+	new.nav_id IS NULL OR new.nav_id = 0
+)
+BEGIN
+	SELECT phpbb_nav_links_seq.nextval
+	INTO :new.nav_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_nav_link_lang'
+*/
+CREATE TABLE phpbb_nav_link_lang (
+	nav_id number(8) DEFAULT '0' NOT NULL,
+	lang_iso varchar2(30) DEFAULT '' ,
+	nav_title varchar2(765) DEFAULT '' ,
+	CONSTRAINT pk_phpbb_nav_link_lang PRIMARY KEY (nav_id, lang_iso)
+)
+/
+
+
+/*
 	Table: 'phpbb_points_bank'
 */
 CREATE TABLE phpbb_points_bank (
@@ -5624,6 +5667,7 @@ CREATE TABLE phpbb_users (
 	user_posts number(10) DEFAULT '0' NOT NULL,
 	user_permissions clob DEFAULT '' ,
 	user_ip varchar2(40) DEFAULT '' ,
+	user_last_ip varchar2(40) DEFAULT '' ,
 	user_birthday varchar2(10) DEFAULT '' ,
 	user_lastpage varchar2(600) DEFAULT '' ,
 	user_last_confirm_key varchar2(10) DEFAULT '' ,

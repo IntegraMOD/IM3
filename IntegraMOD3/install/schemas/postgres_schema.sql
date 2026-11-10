@@ -2383,6 +2383,33 @@ CREATE TABLE phpbb_pages (
 
 
 /*
+	Table: 'phpbb_nav_links'
+*/
+CREATE SEQUENCE phpbb_nav_links_seq;
+
+CREATE TABLE phpbb_nav_links (
+	nav_id INT4 DEFAULT nextval('phpbb_nav_links_seq'),
+	nav_order INT4 DEFAULT '0' NOT NULL CHECK (nav_order >= 0),
+	nav_active INT2 DEFAULT '1' NOT NULL CHECK (nav_active >= 0),
+	nav_url varchar(255) DEFAULT '' NOT NULL,
+	nav_page_id INT4 DEFAULT '0' NOT NULL CHECK (nav_page_id >= 0),
+	nav_title varchar(255) DEFAULT '' NOT NULL,
+	PRIMARY KEY (nav_id)
+);
+
+
+/*
+	Table: 'phpbb_nav_link_lang'
+*/
+CREATE TABLE phpbb_nav_link_lang (
+	nav_id INT4 DEFAULT '0' NOT NULL CHECK (nav_id >= 0),
+	lang_iso varchar(30) DEFAULT '' NOT NULL,
+	nav_title varchar(255) DEFAULT '' NOT NULL,
+	PRIMARY KEY (nav_id, lang_iso)
+);
+
+
+/*
 	Table: 'phpbb_points_bank'
 */
 CREATE SEQUENCE phpbb_points_bank_seq;
@@ -3685,6 +3712,7 @@ CREATE TABLE phpbb_users (
 	user_posts INT4 DEFAULT '0' NOT NULL CHECK (user_posts >= 0),
 	user_permissions TEXT DEFAULT '' NOT NULL,
 	user_ip varchar(40) DEFAULT '' NOT NULL,
+	user_last_ip varchar(40) DEFAULT '' NOT NULL,
 	user_birthday varchar(10) DEFAULT '' NOT NULL,
 	user_lastpage varchar(200) DEFAULT '' NOT NULL,
 	user_last_confirm_key varchar(10) DEFAULT '' NOT NULL,

@@ -1612,6 +1612,7 @@ INSERT INTO phpbb_k_resources VALUES (3, '{PORTAL_BUILD}', 'V');
 INSERT INTO phpbb_k_resources VALUES (4, '{VERSION}', 'V');
 INSERT INTO phpbb_k_resources VALUES (5, '{SITENAME}', 'V');
 INSERT INTO phpbb_k_resources VALUES (6, '{PREMOD_VERSION}', 'V');
+INSERT INTO phpbb_k_resources VALUES (7, '{IMOD_VERSION}', 'V');
 
 # -- phpbb_mchat_config
 INSERT INTO phpbb_mchat_config VALUES('archive_limit', '25');
