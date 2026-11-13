@@ -47,7 +47,7 @@
 
 	<form id="acp_pages" method="post" action="{U_ACTION}">
 	
-	<fieldset>
+	<fieldset id="acp-pages-edit">
 		<legend>{L_ACP_PAGES}</legend>
 	<!-- IF not S_ADD -->
 	<dl>
@@ -64,12 +64,41 @@
 		<dd><input name="desc" type="text" id="desc" value="{PAGE_DESC}" maxlength="255" size="50" /></dd>
 	</dl>
 	<dl>
+		<dt><label for="seo_title">{L_PAGE_SEO_TITLE}:</label><br /><span>{L_PAGE_SEO_TITLE_EXPLAIN}</span></dt>
+		<dd><input name="seo_title" type="text" id="seo_title" value="{PAGE_SEO_TITLE}" maxlength="70" size="50" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="og_image">{L_PAGE_OG_IMAGE}:</label><br /><span>{L_PAGE_OG_IMAGE_EXPLAIN}</span></dt>
+		<dd><input name="og_image" type="text" id="og_image" value="{PAGE_OG_IMAGE}" maxlength="255" size="50" /></dd>
+	</dl>
+	<dl>
 		<dt><label for="url">{L_PAGE_URL}:</label><br /><span>{L_PAGE_URL_EXPLAIN}</span></dt>
 		<dd><input name="url" type="text" id="url" value="{PAGE_URL}" maxlength="255" size="30" /></dd>
 	</dl>
+	<!-- IF not S_ADD -->
+	<dl>
+		<dt><label>{L_PAGE_PORTAL_KEY}:</label><br /><span>{L_PAGE_PORTAL_KEY_EXPLAIN}</span></dt>
+		<dd><input type="text" value="{U_PORTAL_PAGE_KEY}" readonly="readonly" /></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_PAGE_PUBLIC_URL}:</label></dt>
+		<dd><a href="{U_PAGE_PUBLIC}">{U_PAGE_PUBLIC}</a></dd>
+	</dl>
+	<!-- ENDIF -->
+	<dl>
+		<dt><label for="content_format">{L_PAGE_CONTENT_FORMAT}:</label><br /><span>{L_PAGE_CONTENT_FORMAT_EXPLAIN}</span></dt>
+		<dd><select name="content_format" id="content_format">
+			<option value="bbcode"<!-- IF not S_PAGE_HTML --> selected="selected"<!-- ENDIF -->>{L_PAGE_FORMAT_BBCODE}</option>
+			<option value="html"<!-- IF S_PAGE_HTML --> selected="selected"<!-- ENDIF -->>{L_PAGE_FORMAT_HTML}</option>
+		</select></dd>
+	</dl>
 	<dl>
 		<dt><label for="content">{L_PAGE_CONTENT}:</label></dt>
-		<dd><div id="format-buttons">
+		<dd>
+		<!-- IF S_ABBC3_MOD and not S_ABBC3_DISABLED and not S_PAGE_HTML -->
+			<!-- INCLUDE posting_abbcode_buttons.html -->
+		<!-- ELSE -->
+		<div id="format-buttons">
 			<input type="button" class="button2" accesskey="b" name="addbbcode0" value=" B " style="font-weight:bold; width: 30px;" onclick="bbstyle(0)" onmouseover="helpline('b')" onmouseout="helpline('tip')" />
 			<input type="button" class="button2" accesskey="i" name="addbbcode2" value=" i " style="font-style:italic; width: 30px;" onclick="bbstyle(2)" onmouseover="helpline('i')" onmouseout="helpline('tip')" />
 			<input type="button" class="button2" accesskey="u" name="addbbcode4" value=" u " style="text-decoration: underline; width: 30px;" onclick="bbstyle(4)" onmouseover="helpline('u')" onmouseout="helpline('tip')" />
@@ -98,9 +127,10 @@
 		<!-- ENDIF -->
 
 		</div>
-
 		<p><input type="text" class="text full" style="border: 0; background: none;" name="helpbox" value="{L_STYLES_TIP}" /></p>
-		<textarea name="content" id="content" rows="40" cols="75" style="width: 95%; padding: 5px; overflow: scroll;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" >{PAGE_CONTENT}</textarea></dd>
+		<!-- ENDIF -->
+
+		<textarea name="content" id="content" rows="40" cols="75" style="width: 95%; height: 28em; padding: 5px; overflow: scroll;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" >{PAGE_CONTENT}</textarea></dd>
 	</dl>
 	<div id="posts">
 		<dl>
@@ -108,14 +138,19 @@
 			<dd><input name="order" type="text" id="order" maxlength="10" value="{PAGE_ORDER}" /></dd>
 		</dl>
 		<dl>
-				<dt><label for=display">{L_PAGE_DISPLAY}:</label><br /><span>{L_PAGE_DISPLAY_EXPLAIN}</span></dt>
-				<dd><label><input type="radio" class="radio" name="display" value="1"<!-- IF S_PAGE_DISPLAY --> id="display" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-				<label><input type="radio" class="radio" name="display" value="0"<!-- IF not S_PAGE_DISPLAY --> id="display" checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+				<dt><label for="display">{L_PAGE_DISPLAY}:</label><br /><span>{L_PAGE_DISPLAY_EXPLAIN}</span></dt>
+				<dd><label><input type="radio" class="radio" id="display" name="display" value="1"<!-- IF S_PAGE_DISPLAY --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="display" value="0"<!-- IF not S_PAGE_DISPLAY --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
 		</dl>
 		<dl>
-				<dt><label for=display_guests">{L_PAGE_DISPLAY_GUESTS}:</label><br /><span>{L_PAGE_DISPLAY_GUESTS_EXPLAIN}</span></dt>
-				<dd><label><input type="radio" class="radio" name="display_guests" value="1"<!-- IF S_PAGE_DISPLAY_GUESTS --> id="display" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-				<label><input type="radio" class="radio" name="display_guests" value="0"<!-- IF not S_PAGE_DISPLAY_GUESTS --> id="display" checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+				<dt><label for="show_title">{L_PAGE_SHOW_TITLE}:</label><br /><span>{L_PAGE_SHOW_TITLE_EXPLAIN}</span></dt>
+				<dd><label><input type="radio" class="radio" id="show_title" name="show_title" value="1"<!-- IF S_PAGE_SHOW_TITLE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="show_title" value="0"<!-- IF not S_PAGE_SHOW_TITLE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+		</dl>
+		<dl>
+				<dt><label for="display_guests">{L_PAGE_DISPLAY_GUESTS}:</label><br /><span>{L_PAGE_DISPLAY_GUESTS_EXPLAIN}</span></dt>
+				<dd><label><input type="radio" class="radio" id="display_guests" name="display_guests" value="1"<!-- IF S_PAGE_DISPLAY_GUESTS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="display_guests" value="0"<!-- IF not S_PAGE_DISPLAY_GUESTS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
 		</dl>
 	</div>
 
@@ -135,6 +170,25 @@
 
 	<p>{L_ACP_PAGES_EXPLAIN}</p>
 
+	<form id="acp_pages_settings" method="post" action="{U_ACTION}">
+	<fieldset>
+		<legend>{L_STATIC_PAGES_SETTINGS}</legend>
+		<dl>
+			<dt><label for="static_pages_seo_urls">{L_STATIC_PAGES_SEO_URLS}:</label><br /><span>{L_STATIC_PAGES_SEO_URLS_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" class="radio" id="static_pages_seo_urls" name="static_pages_seo_urls" value="1"<!-- IF S_STATIC_PAGES_SEO_URLS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="static_pages_seo_urls" value="0"<!-- IF not S_STATIC_PAGES_SEO_URLS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="static_pages_og_image">{L_STATIC_PAGES_OG_IMAGE}:</label><br /><span>{L_STATIC_PAGES_OG_IMAGE_EXPLAIN}</span></dt>
+			<dd><input type="text" id="static_pages_og_image" name="static_pages_og_image" value="{STATIC_PAGES_OG_IMAGE}" maxlength="255" size="50" /></dd>
+		</dl>
+		<p class="submit-buttons">
+			<input class="button1" type="submit" name="submit_settings" value="{L_SUBMIT}" />
+			{S_FORM_TOKEN}
+		</p>
+	</fieldset>
+	</form>
+
 	<form id="acp_ranks" method="post" action="{U_ACTION}">
 	<fieldset class="tabulated">
 	<legend>{L_ACP_MANAGE_PAGES}</legend>
@@ -153,11 +207,11 @@
 	<tbody>
 	<!-- BEGIN pages -->
 		<!-- IF pages.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
-		<td style="text-align: center;"><a href="{pages.U_EDIT}">{pages.PAGE_TITLE}</a></td>
-		<td style="text-align: center;">{pages.PAGE_DESC}</td>
-		<td style="text-align: center;">{pages.PAGE_AUTHOR}</td>
-		<td style="text-align: center;"><a href="{pages.U_DISPLAY}">{pages.PAGE_SWITCH_DISPLAY}</a></td>
-		<td style="text-align: center;"><a href="{pages.U_PAGE}">{L_GO_TO_PAGE}</a></td>
+		<td><a href="{pages.U_EDIT}">{pages.PAGE_TITLE}</a></td>
+		<td>{pages.PAGE_DESC}</td>
+		<td>{pages.PAGE_AUTHOR}</td>
+		<td><a href="{pages.U_DISPLAY}">{pages.PAGE_SWITCH_DISPLAY}</a></td>
+		<td><a href="{pages.U_PAGE}">{L_GO_TO_PAGE}</a></td>
 		<td style="text-align: center;"><a href="{pages.U_EDIT}">{ICON_EDIT}</a> <a href="{pages.U_DELETE}">{ICON_DELETE}</a></td>
 	</tr>
 	<!-- END pages -->

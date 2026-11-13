@@ -1,0 +1,21 @@
+<!-- IF not OA_SOCIAL_LOGIN_DISABLE -->
+    <section class="oasl-profile">
+        <h3 class="oasl-profile-title">{L_OASL_PROFILE_TITLE}</h3>
+        <p class="oasl-profile-desc">{L_OASL_PROFILE_DESC}</p>
+        <!-- IF OA_SOCIAL_LOGIN_ERROR -->
+            <div class="oasl-error" role="alert">{L_OASL_PROFILE_TITLE}: {OA_SOCIAL_LOGIN_ERROR}</div>
+        <!-- ELSE -->
+            <!-- IF OA_SOCIAL_LINK_ERROR -->
+                <div class="oasl-error" role="alert">{OA_SOCIAL_LINK_ERROR}</div>
+            <!-- ENDIF -->
+            <span class="oneall_social_login_providers oasl-link"
+                id="oneall_social_login_profile_{OA_SOCIAL_LOGIN_RAND}"
+                data-oasl-mode="social_link"
+                data-oasl-library="{OA_SOCIAL_LOGIN_LIBRARY}"
+                data-oasl-providers="{OA_SOCIAL_LOGIN_PROVIDERS}"
+                data-oasl-container="oneall_social_login_profile_{OA_SOCIAL_LOGIN_RAND}"
+                data-oasl-user-token="{OA_SOCIAL_LOGIN_USER_TOKEN}"
+                data-oasl-callback-uri="{OA_SOCIAL_LOGIN_CALLBACK_URI}"></span>
+        <!-- ENDIF -->
+    </section>
+<!-- ENDIF -->

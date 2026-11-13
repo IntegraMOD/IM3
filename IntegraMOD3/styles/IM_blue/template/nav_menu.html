@@ -4,10 +4,9 @@
   <input type="checkbox" class="responsive-menu" onclick="updatemenu()"><label></label>
   <ul>
   	<li class="menu-item genarrow arrows"><a href="#bottom" title="{L_BOTTOM}"><i class="fa-solid fa-arrow-down"></i></a></li>
-    <!-- IF STARGATE -->
-	<li<!-- IF S_IS_PORTAL --> class="activetab"<!-- ENDIF -->><a href="{U_PORTAL}" title="{PORTAL_LABEL}">{PORTAL_LABEL}</a></li>
-    <!-- ENDIF -->
-    <li<!-- IF S_IS_INDEX --> class="activetab"<!-- ENDIF -->><a href="{U_INDEX}" title="{FORUM_LABEL}">{FORUM_LABEL}</a></li>
+	<!-- BEGIN nav_primary -->
+	<li<!-- IF nav_primary.S_ACTIVE --> class="activetab"<!-- ENDIF -->><a href="{nav_primary.U_LINK}" title="{nav_primary.LINK_LABEL}"<!-- IF nav_primary.S_INDEX --> accesskey="h"<!-- ENDIF -->>{nav_primary.LINK_LABEL}</a></li>
+	<!-- END nav_primary -->
 
 	<!-- IF S_DISPLAY_SEARCH -->
     <li><a class="dropdown-arrow" href="#"> {L_SEARCH} </a>

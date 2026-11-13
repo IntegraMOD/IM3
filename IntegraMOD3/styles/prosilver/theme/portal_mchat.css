@@ -1,0 +1,60 @@
+/*
+* Portal mChat block
+* Makes the index mChat markup fit both a narrow side column and a full width center column.
+*/
+.portal-mchat-block {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.portal-mchat-block .forabg,
+.portal-mchat-block .inner,
+.portal-mchat-block .postbody,
+.portal-mchat-block div.mChatBodyFix {
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.portal-mchat-block div.mChatRowLimit,
+.portal-mchat-block div.mChatRowLimitCustom,
+.portal-mchat-block #mChatmain {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.portal-mchat-block .mChatPanel {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+.portal-mchat-block input.mChatText,
+.portal-mchat-block textarea.mChatText {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 6px;
+}
+
+.portal-mchat-block textarea.mChatText {
+    height: 4em;
+    min-height: 4em;
+    resize: vertical;
+}
+
+.portal-mchat-block .mChatPanel .button2 {
+    margin: 2px 2px 2px 0;
+    white-space: normal;
+}
+
+.portal-mchat-block .mChatStats,
+.portal-mchat-block .mChatStatic {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

@@ -1,0 +1,466 @@
+/* core download module */
+.dl-layout {
+    display: grid;
+    gap: 1rem;
+}
+
+.dl-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.dl-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dl-nav a {
+    display: inline-block;
+    padding: 0.45rem 0.75rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.dl-nav a.is-active,
+.dl-nav .is-active a,
+.dl-nav a[aria-current="page"] {
+    background: var(--color-primary);
+    color: var(--on-primary-text);
+    font-weight: 600;
+}
+
+.dl-layout .forum-icon img,
+.dl-layout .topic-icon img {
+    max-width: 2rem;
+    height: auto;
+}
+
+.dl-layout .forum-subforums {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.85rem;
+    margin-top: 0.4rem;
+    font-size: 0.9em;
+}
+
+.dl-layout .display-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.dl-detail-meta {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.dl-detail-meta > div {
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--surface-border);
+    border-radius: 6px;
+    background: var(--bg-ad-panel);
+}
+
+@media (min-width: 981px) {
+    .dl-layout .forum-header.dl-cat-header,
+    .dl-layout .forum-category:not(.topic-category) .forum-row {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr) 80px 200px;
+        align-items: center;
+        column-gap: 0;
+    }
+
+    .dl-layout .forum-header.dl-file-header,
+    .dl-layout .topic-category .forum-row {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr) 80px 80px 200px;
+        align-items: center;
+        column-gap: 0;
+    }
+
+    .dl-layout .forum-header.dl-cat-header .forum-title,
+    .dl-layout .forum-header.dl-file-header .forum-title {
+        grid-column: 2;
+        margin-left: 0;
+        min-width: 0;
+    }
+
+    .dl-layout .forum-header.dl-cat-header .forum-stats-header.topics,
+    .dl-layout .forum-header.dl-file-header .forum-stats-header.posts {
+        grid-column: 3;
+        text-align: center;
+        transform: none;
+    }
+
+    .dl-layout .forum-header.dl-file-header .forum-stats-header.views {
+        grid-column: 4;
+        text-align: center;
+        transform: none;
+    }
+
+    .dl-layout .forum-header.dl-cat-header .forum-stats-header.last-post {
+        grid-column: 4;
+        text-align: left;
+        transform: none;
+    }
+
+    .dl-layout .forum-header.dl-file-header .forum-stats-header.last-post {
+        grid-column: 5;
+        text-align: left;
+        transform: none;
+    }
+
+    .dl-layout .forum-row .forum-icon,
+    .dl-layout .forum-row .topic-icon {
+        grid-column: 1;
+    }
+
+    .dl-layout .forum-row .forum-details {
+        grid-column: 2;
+        min-width: 0;
+    }
+
+    .dl-layout .forum-row .forum-stats-grid {
+        display: contents;
+    }
+
+    .dl-layout .forum-row .stat-topics,
+    .dl-layout .forum-row .stat-replies {
+        grid-column: 3;
+        width: auto;
+        text-align: center;
+    }
+
+    .dl-layout .topic-category .forum-row .stat-views {
+        grid-column: 4;
+        width: auto;
+        text-align: center;
+    }
+
+    .dl-layout .forum-category:not(.topic-category) .forum-row .stat-lastpost {
+        grid-column: 4;
+        width: auto;
+        text-align: left;
+    }
+
+    .dl-layout .topic-category .forum-row .stat-lastpost {
+        grid-column: 5;
+        width: auto;
+        text-align: left;
+    }
+}
+
+.dl-subpanel {
+    display: none;
+}
+
+.dl-subpanel.is-active {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.dl-meta-grid,
+.dl-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 0.75rem;
+}
+
+.dl-thumb-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: 0.75rem;
+}
+
+.dl-thumb-list img {
+    max-width: 100%;
+    height: auto;
+}
+
+.dl-file-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.dl-help-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.dl-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.dl-list-head,
+.dl-list-row,
+.dl-cat-row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) auto auto auto;
+    gap: 0.75rem;
+    align-items: start;
+}
+
+.dl-stats-table {
+    display: grid;
+    gap: 0;
+    padding: 0;
+}
+
+.dl-stats-head,
+.dl-stats-row {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr) minmax(12rem, 16rem);
+    gap: 0.75rem 0.85rem;
+    align-items: center;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--surface-border, #bdc3c7);
+}
+
+.dl-stats-table-user-time .dl-stats-head,
+.dl-stats-table-user-time .dl-stats-row {
+    grid-template-columns: 3.25rem minmax(0, 1fr) minmax(7.5rem, 10rem) minmax(11rem, 14rem);
+}
+
+.dl-stats-head {
+    font-size: 0.82em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--on-primary-text);
+    background: var(--color-primary);
+}
+
+.dl-stats-row:nth-child(odd) {
+    background: color-mix(in srgb, var(--surface-card, #fff) 92%, #000 8%);
+}
+
+.dl-stats-row:last-child {
+    border-bottom: none;
+}
+
+.dl-stats-head > :first-child,
+.dl-stats-row > :first-child {
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+
+.dl-stats-head > :last-child,
+.dl-stats-row > :last-child,
+.dl-stats-meta,
+.dl-stats-time {
+    text-align: right;
+    min-width: 0;
+}
+
+.dl-stats-author {
+    text-align: left;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dl-stats-time,
+.dl-stats-meta {
+    white-space: nowrap;
+}
+
+.dl-cat-row {
+    grid-template-columns: minmax(0, 2fr) auto minmax(10rem, 1fr);
+}
+
+.dl-sublevel {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+}
+
+.dl-sublevel-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem;
+}
+
+.dl-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 0.65rem 1rem;
+}
+
+.dl-legend-item,
+.dl-footer-nav {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.dl-legend-item {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+.dl-footer-nav {
+    flex-wrap: wrap;
+}
+
+.dl-legend-item img {
+    display: none;
+}
+
+.dl-legend-item span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.dl-legend-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.15em;
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+}
+
+.dl-legend-icon-red { color: var(--state-locked); }
+.dl-legend-icon-green { color: var(--state-sticky); }
+.dl-legend-icon-blue { color: var(--color-primary); }
+.dl-legend-icon-yellow { color: var(--state-hot); }
+.dl-legend-icon-grey { color: var(--state-moved); }
+.dl-legend-icon-white {
+    color: var(--bg-main);
+    background: var(--surface-border);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.dl-legend-icon-new { color: var(--state-sticky); }
+.dl-legend-icon-edit { color: var(--state-hot); }
+
+.dl-status-icon {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-right: 0.4em;
+    border-radius: 50%;
+    border: 1px solid var(--surface-border, currentColor);
+    background: var(--bg-main, transparent);
+    vertical-align: middle;
+    flex: 0 0 auto;
+}
+
+.dl-status-icon.dl-red { background: #c0392b; border-color: #922b21; }
+.dl-status-icon.dl-green { background: #27ae60; border-color: #1e8449; }
+.dl-status-icon.dl-blue { background: #2980b9; border-color: #1f618d; }
+.dl-status-icon.dl-yellow { background: #f1c40f; border-color: #b7950b; }
+.dl-status-icon.dl-white { background: #ffffff; border-color: #bdc3c7; }
+.dl-status-icon.dl-grey,
+.dl-status-icon.dl-banlist { background: #7f8c8d; border-color: #566573; }
+.dl-status-icon.dl-file-new,
+.dl-status-icon.dl-new {
+    border-radius: 0.15rem;
+    background: #27ae60;
+    border-color: #1e8449;
+}
+.dl-status-icon.dl-file-edit,
+.dl-status-icon.dl-edit {
+    border-radius: 0.15rem;
+    background: #f39c12;
+    border-color: #b9770e;
+}
+.dl-status-icon.dl-new-edit {
+    border-radius: 0.15rem;
+    background: linear-gradient(90deg, #27ae60 50%, #f39c12 50%);
+    border-color: #566573;
+}
+.dl-status-icon.dl-default {
+    border-radius: 0.15rem;
+    background: var(--surface-muted, #ecf0f1);
+    border-color: var(--surface-border, #bdc3c7);
+}
+.dl-status-icon.dl-rate-yes,
+.dl-status-icon.dl-rate-no {
+    width: 0.95rem;
+    height: 0.95rem;
+    border-radius: 0.15rem;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    border: 0;
+}
+.dl-status-icon.dl-rate-yes { background: #f1c40f; }
+.dl-status-icon.dl-rate-no { background: #bdc3c7; }
+
+.dl-download-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.dl-download-button .css-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.dl-footer-nav {
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.dl-footer-meta {
+    display: grid;
+    gap: 0.4rem;
+    justify-items: center;
+    text-align: center;
+}
+
+.dl-footer-meta p {
+    margin: 0;
+    max-width: 42rem;
+    line-height: 1.45;
+}
+
+.dl-footer-copy {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+@media (max-width: 40rem) {
+    .dl-file-row,
+    .dl-list-head,
+    .dl-list-row,
+    .dl-cat-row,
+    .dl-sublevel-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .dl-list-head {
+        display: none;
+    }
+
+    .dl-stats-head,
+    .dl-stats-row,
+    .dl-stats-table-user-time .dl-stats-head,
+    .dl-stats-table-user-time .dl-stats-row {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+    }
+
+    .dl-stats-head > :nth-child(n+3),
+    .dl-stats-row > :nth-child(n+3),
+    .dl-stats-meta,
+    .dl-stats-author,
+    .dl-stats-time {
+        grid-column: 2;
+        text-align: left;
+        white-space: normal;
+    }
+}

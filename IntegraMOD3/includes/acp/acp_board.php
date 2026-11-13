@@ -34,7 +34,8 @@ class acp_board
 		$user->add_lang('acp/board');
 
 		$action	= request_var('action', '');
-		$submit = (isset($_POST['submit']) || isset($_POST['allow_quick_reply_enable'])) ? true : false;
+		$add_nav_link = isset($_POST['add_nav_link']);
+		$submit = (isset($_POST['submit']) || isset($_POST['allow_quick_reply_enable']) || $add_nav_link) ? true : false;
 
 		$form_key = 'acp_board';
 		add_form_key($form_key);
@@ -64,8 +65,6 @@ class acp_board
 						'default_style'			=> array('lang' => 'DEFAULT_STYLE',			'validate' => 'int',	'type' => 'select', 'function' => 'style_select', 'params' => array('{CONFIG_VALUE}', false), 'explain' => false),
 						'override_user_style'	=> array('lang' => 'OVERRIDE_STYLE',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 
-						'forum_name'			=> array('lang' => 'FORUM_NAME',			'validate' => 'string',	'type' => 'text:20:255', 'explain' => true),
-						'portal_name'			=> array('lang' => 'PORTAL_NAME',			'validate' => 'string',	'type' => 'text:20:255', 'explain' => true),
 						'portal_enabled'		=> array('lang' => 'ENABLE_PORTAL',			'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 
 						'legend2'				=> 'WARNINGS',
@@ -112,72 +111,12 @@ class acp_board
 
 				ksort($languages);
 
-				$translation_vars = array();
-
-				if ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal') || (isset($config['forum_name']) && $config['forum_name'] !== 'Forum'))
+				if (!function_exists('im3_nav_apply_settings_vars'))
 				{
-					$translation_vars['legend_portal_lang'] = 'LOCALIZED_NAMES';
-
-					foreach ($languages as $lang_iso => $lang_name)
-					{
-						if (isset($config['portal_name']) && $config['portal_name'] !== 'Portal')
-						{
-							$translation_vars['portal_name_' . $lang_iso] = array(
-								'lang'		=> sprintf($user->lang['PORTAL_NAME_LANG'], $lang_name),
-								'validate'	=> 'string',
-								'type'		=> 'text:20:255',
-								'explain'	=> false,
-							);
-						}
-
-						if (isset($config['forum_name']) && $config['forum_name'] !== 'Forum')
-						{
-							$translation_vars['forum_name_' . $lang_iso] = array(
-								'lang'		=> sprintf($user->lang['FORUM_NAME_LANG'], $lang_name),
-								'validate'	=> 'string',
-								'type'		=> 'text:20:255',
-								'explain'	=> false,
-							);
-						}
-					}
-
-					$temp_vars = $display_vars['vars'];
-					$display_vars['vars'] = array();
-
-					foreach ($temp_vars as $key => $value)
-					{
-						$display_vars['vars'][$key] = $value;
-
-						if ($key === 'forum_name' && isset($config['forum_name']) && $config['forum_name'] !== 'Forum')
-						{
-							foreach ($languages as $lang_iso => $lang_name)
-							{
-								$display_vars['vars']['forum_name_' . $lang_iso] = array(
-									'lang'		=> sprintf($user->lang['FORUM_NAME_LANG'], $lang_name),
-									'validate'	=> 'string',
-									'type'		=> 'text:20:255',
-									'explain'	=> false,
-									'localized'	=> true,
-								);
-							}
-						}
-
-						if ($key === 'portal_name' && isset($config['portal_name']) && $config['portal_name'] !== 'Portal')
-						{
-							foreach ($languages as $lang_iso => $lang_name)
-							{
-							$display_vars['vars']['portal_name_' . $lang_iso] = array(
-								'lang'		=> sprintf($user->lang['PORTAL_NAME_LANG'], $lang_name),
-								'validate'	=> 'string',
-								'type'		=> 'text:20:255',
-								'explain'	=> false,
-								'localized'	=> true,
-							);
-							}
-						}
-					}
-
+					include($phpbb_root_path . 'includes/functions_nav.' . $phpEx);
 				}
+
+				im3_nav_apply_settings_vars($display_vars, $languages);
 
 			break;
 
@@ -1234,6 +1173,15 @@ class acp_board
 		}
 
 		$this->new_config = $config;
+
+		if ($mode == 'settings')
+		{
+			foreach (im3_nav_form_defaults() as $nav_key => $nav_value)
+			{
+				$this->new_config[$nav_key] = $nav_value;
+			}
+		}
+
 		$cfg_array = (isset($_REQUEST['config'])) ? utf8_normalize_nfc(request_var('config', array('' => ''), true)) : $this->new_config;
 
 		if ($submit && $mode == 'settings')
@@ -1270,6 +1218,12 @@ class acp_board
 		{
 			$error[] = $user->lang['FORM_INVALID'];
 		}
+
+		if ($submit && $mode == 'settings' && !$add_nav_link && !im3_nav_orders_valid(im3_nav_posted_orders($cfg_array)))
+		{
+			$error[] = $user->lang['NAV_LINK_ORDER_INVALID'];
+		}
+
 		// Do not write values if there is an error
 		if (sizeof($error))
 		{
@@ -1290,6 +1244,11 @@ class acp_board
 			}
 
 			$this->new_config[$config_name] = $config_value = $cfg_array[$config_name];
+
+			if (strpos($config_name, 'navlink_') === 0)
+			{
+				continue;
+			}
 
 			if ($config_name == 'email_function_name')
 			{
@@ -1423,6 +1382,11 @@ class acp_board
 
 		if ($submit)
 		{
+			if ($mode == 'settings')
+			{
+				im3_nav_save_posted($cfg_array, $add_nav_link);
+			}
+
 			add_log('admin', 'LOG_CONFIG_' . strtoupper($mode));
 
 	        // Begin Digest Mod
@@ -1965,6 +1929,17 @@ class acp_board
 			trigger_error($user->lang['CONFIG_UPDATED'] . $custom_message . adm_back_link($this->u_action));
 		}
 
+		if ($mode == 'settings')
+		{
+			foreach ($cfg_array as $nav_key => $nav_value)
+			{
+				if (strpos($nav_key, 'navlink_') === 0 && substr($nav_key, -8) === '_page_id')
+				{
+					$this->new_config[$nav_key] = (int) $nav_value;
+				}
+			}
+		}
+
 		$this->tpl_name = 'acp_board';
 		$this->page_title = $display_vars['title'];
 
@@ -1978,6 +1953,7 @@ class acp_board
 			'S_BALANCE_LOAD'		=> ($mode == 'digest_balance_load') ? true : false,
 			'S_DIGESTS'				=> ($mode == 'digest_general' || $mode == 'digest_user_defaults' || $mode == 'digest_edit_subscribers' || $mode == 'digest_balance_load' || $mode == 'digest_mass_subscribe_unsubscribe') ? true : false,
 			'S_EDIT_SUBSCRIBERS'	=> ($mode == 'digest_edit_subscribers') ? true : false,
+			'S_NAV_LINKS'			=> ($mode == 'settings') ? true : false,
 			'L_DIGEST_VERSION_INFO'	=> isset($digest_version_info) ? $digest_version_info : '',
 			// End Digest Mod
 
@@ -2021,12 +1997,36 @@ class acp_board
 				continue;
 			}
 
+			$nav_group = '';
+			$nav_start = false;
+
+			if (preg_match('/^(portal|forum)_name$/', $config_key, $nav_match))
+			{
+				$nav_group = $nav_match[1];
+				$nav_start = true;
+			}
+			else if (preg_match('/^navlink_([0-9]+)_title$/', $config_key, $nav_match))
+			{
+				$nav_group = 'link' . $nav_match[1];
+				$nav_start = true;
+			}
+			else if (preg_match('/^(portal|forum)_/', $config_key, $nav_match))
+			{
+				$nav_group = $nav_match[1];
+			}
+			else if (preg_match('/^navlink_([0-9]+)_/', $config_key, $nav_match))
+			{
+				$nav_group = 'link' . $nav_match[1];
+			}
+
 			$template->assign_block_vars('options', array(
 				'KEY'			=> $config_key,
 				'TITLE'			=> (isset($user->lang[$vars['lang']])) ? $user->lang[$vars['lang']] : $vars['lang'],
 				'S_EXPLAIN'		=> $vars['explain'],
 				'TITLE_EXPLAIN'	=> $l_explain,
 				'CONTENT'		=> $content,
+				'NAV_GROUP'		=> $nav_group,
+				'S_NAV_START'	=> $nav_start,
 				)
 			);
 
@@ -2057,6 +2057,17 @@ class acp_board
 				}
 			}
 		}
+	}
+
+	/**
+	* URL field for an extra navigation page, with the Pages MOD list.
+	*/
+	function nav_url_field($value, $key)
+	{
+		$page_key = str_replace('_url', '_page_id', $key);
+		$page_id = (isset($this->new_config[$page_key])) ? $this->new_config[$page_key] : 0;
+
+		return im3_nav_url_field($value, $key, $page_id);
 	}
 
 	/**

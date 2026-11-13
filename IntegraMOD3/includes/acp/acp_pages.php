@@ -26,10 +26,11 @@ class acp_pages
 
 	function main($id, $mode)
 	{
-		global $db, $user, $auth, $template;
+		global $db, $user, $auth, $template, $cache;
 		global $config, $phpbb_root_path, $phpEx;
 
-    include($phpbb_root_path . 'includes/acp/info/acp_pages.' . $phpEx);
+	include($phpbb_root_path . 'includes/acp/info/acp_pages.' . $phpEx);
+		include($phpbb_root_path . 'includes/functions_pages.' . $phpEx);
     
     // MOD language file gets added automatically
 		$user->add_lang(array('posting'));
@@ -106,6 +107,27 @@ class acp_pages
 				$page_order 	= request_var('order', 0);
 				$page_display = (bool) request_var('display', 0);
 				$page_display_guests = (bool) request_var('display_guests', 0);
+				$page_show_title = (bool) request_var('show_title', 1);
+				$page_seo_title = trim(utf8_normalize_nfc(request_var('seo_title', '', true)));
+				$page_og_image = trim(request_var('og_image', ''));
+				$page_html = (request_var('content_format', 'bbcode') === 'html') ? 1 : 0;
+
+				// request_var encodes HTML and collapses line breaks, so HTML pages use the raw field
+				if ($page_html && isset($_POST['content']) && is_string($_POST['content']))
+				{
+					$page_content = str_replace("\0", '', $_POST['content']);
+					$page_content = utf8_normalize_nfc($page_content);
+				}
+
+				if (utf8_strlen($page_seo_title) > 70)
+				{
+					$page_seo_title = utf8_substr($page_seo_title, 0, 70);
+				}
+
+				if ($page_og_image !== '' && !preg_match('#^https?://#i', $page_og_image))
+				{
+					trigger_error($user->lang['PAGE_OG_IMAGE_INVALID'] . adm_back_link($this->u_action), E_USER_WARNING);
+				}
 
 				// Check the fields, we don't want empty ones
 				if (!$page_title)
@@ -147,6 +169,12 @@ class acp_pages
 					}
 				}
 				
+				// A page name that matches a real file or directory is served by the web server, not the page
+				if ($page_url !== '' && (is_file($phpbb_root_path . $page_url) || is_dir($phpbb_root_path . $page_url)))
+				{
+					trigger_error($user->lang['PAGE_URL_RESERVED'] . adm_back_link($this->u_action), E_USER_WARNING);
+				}
+
 				// Check for a duplicate page URL, if duplicate add suffix
 				// See if we are updating a page
 				$where_sql = '';
@@ -178,10 +206,17 @@ class acp_pages
 					$page_url = $alt_page_url;
 				}
 
-				// Prepare storage of content
+				// HTML bypasses the post parser. BBCode keeps the normal storage path.
 				$uid = $bitfield = $options = '';
-				$allow_bbcode = $allow_urls = $allow_smilies = true; // The function doesn't have the last three optional, we'll just feed it so it's happy
-				generate_text_for_storage($page_content, $uid, $bitfield, $options, $allow_bbcode, $allow_urls, $allow_smilies);
+				if ($page_html)
+				{
+					$page_content = preg_replace('#<\?(?:php)?|\?>|<script\b[^>]*>.*?</script>#isu', '', $page_content);
+				}
+				else
+				{
+					$allow_bbcode = $allow_urls = $allow_smilies = true; // The function doesn't have the last three optional, we'll just feed it so it's happy
+					generate_text_for_storage($page_content, $uid, $bitfield, $options, $allow_bbcode, $allow_urls, $allow_smilies);
+				}
 				
 				// Prepare the storage SQL array
 				$sql_ary = array(
@@ -194,12 +229,24 @@ class acp_pages
 					'page_author'       => $user->data['user_id'],
 					'page_display'			=> (int) $page_display,
 					'page_display_guests'			=> (int) $page_display_guests,
+					'page_show_title'		=> (int) $page_show_title,
+					'page_seo_title'		=> $page_seo_title,
+					'page_og_image'			=> $page_og_image,
+					'page_updated'			=> time(),
 					'page_order'				=> $page_order,
+					'page_html'					=> $page_html,
 				);
-				
+
 				// Update or new page?
 				if ($page_id)
 				{
+					$sql = 'SELECT page_url
+						FROM ' . PAGES_TABLE . '
+						WHERE page_id = ' . $page_id;
+					$result = $db->sql_query($sql);
+					$old_page_url = (string) $db->sql_fetchfield('page_url');
+					$db->sql_freeresult($result);
+
 					$sql = 'UPDATE ' . PAGES_TABLE . ' SET ' . $db->sql_build_array('UPDATE', $sql_ary) . " WHERE page_id = $page_id";
 					$message = $user->lang['PAGE_UPDATED'];
 
@@ -207,6 +254,13 @@ class acp_pages
 				}
 				else
 				{
+					// Keep page ids sequential even when the column has no auto increment
+					$sql = 'SELECT MAX(page_id) AS max_page_id
+						FROM ' . PAGES_TABLE;
+					$result = $db->sql_query($sql);
+					$sql_ary['page_id'] = (int) $db->sql_fetchfield('max_page_id') + 1;
+					$db->sql_freeresult($result);
+
 					$sql = 'INSERT INTO ' . PAGES_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary);
 					$message = $user->lang['PAGE_ADDED'];
 
@@ -214,6 +268,12 @@ class acp_pages
 				}
 				$db->sql_query($sql);
 
+				if ($page_id && $old_page_url !== '' && $old_page_url !== $page_url)
+				{
+					$this->sync_portal_page($old_page_url, $page_url);
+				}
+
+				$cache->destroy('sql', PAGES_TABLE);
 				trigger_error($message . adm_back_link($this->u_action));
 
 			break;
@@ -229,17 +289,25 @@ class acp_pages
 				// Confirm deletion
 				if (confirm_box(true))
 				{
-					$sql = 'SELECT page_title
+					$sql = 'SELECT page_title, page_url
 						FROM ' . PAGES_TABLE . '
 						WHERE page_id = ' . $page_id;
 					$result = $db->sql_query($sql);
-					$page_title = (string) $db->sql_fetchfield('page_title');
+					$row = $db->sql_fetchrow($result);
 					$db->sql_freeresult($result);
+					$page_title = (!empty($row['page_title'])) ? $row['page_title'] : '';
+					$page_url = (!empty($row['page_url'])) ? $row['page_url'] : '';
 
 					$sql = 'DELETE FROM ' . PAGES_TABLE . "
 						WHERE page_id = $page_id";
 					$db->sql_query($sql);
 
+					if ($page_url !== '')
+					{
+						$this->sync_portal_page($page_url);
+					}
+
+					$cache->destroy('sql', PAGES_TABLE);
 					add_log('admin', 'LOG_PAGE_REMOVED', $page_title);
 				}
 				else
@@ -275,7 +343,14 @@ class acp_pages
 					if ($action == 'edit' && $page_id == $row['page_id'])
 					{
 						$pages = $row;
-						decode_message($pages['page_content'], $pages['bbcode_uid']);
+						if (empty($pages['page_html']))
+						{
+							decode_message($pages['page_content'], $pages['bbcode_uid']);
+						}
+						else
+						{
+							$pages['page_content'] = htmlspecialchars($pages['page_content'], ENT_COMPAT, 'UTF-8');
+						}
 					}
 				}
 				$db->sql_freeresult($result);
@@ -294,8 +369,15 @@ class acp_pages
 					'PAGE_ORDER'				=> (isset($pages['page_order'])) ? $pages['page_order'] : 0,
 					'S_PAGE_DISPLAY'		=> (!empty($pages['page_display'])) ? true : false,
 					'S_PAGE_DISPLAY_GUESTS'		=> (!empty($pages['page_display_guests'])) ? true : false,
-					
-					'U_PAGE'					=> ($action == 'add') ? '' : append_sid("{$phpbb_root_path}page.$phpEx", 'p=' . $pages['page_url']),
+					'S_PAGE_SHOW_TITLE'	=> (!isset($pages['page_show_title']) || !empty($pages['page_show_title'])) ? true : false,
+					'S_PAGE_HTML'			=> (!empty($pages['page_html'])) ? true : false,
+					'S_PAGE_HTML'			=> (!empty($pages['page_html'])) ? true : false,
+					'PAGE_SEO_TITLE'		=> (isset($pages['page_seo_title'])) ? $pages['page_seo_title'] : '',
+					'PAGE_OG_IMAGE'			=> (isset($pages['page_og_image'])) ? $pages['page_og_image'] : '',
+					'U_PORTAL_PAGE_KEY'	=> (isset($pages['page_url'])) ? 'page&amp;p=' . $pages['page_url'] : '',
+					'U_PAGE_PUBLIC'			=> (isset($pages['page_id'])) ? static_page_url($pages['page_id'], $pages['page_title']) : '',
+
+					'U_PAGE'					=> ($action == 'add') ? '' : append_sid("{$phpbb_root_path}page.$phpEx", 'id=' . (int) $pages['page_id']),
 				));
 				
 				// Assigning custom bbcodes
@@ -305,9 +387,26 @@ class acp_pages
 			break;
 		}
 	
+		if (isset($_POST['submit_settings']) && check_form_key($form_name))
+		{
+			$seo_urls = (request_var('static_pages_seo_urls', 0)) ? 1 : 0;
+			$og_image = trim(request_var('static_pages_og_image', ''));
+
+			if ($og_image !== '' && !preg_match('#^https?://#i', $og_image))
+			{
+				trigger_error($user->lang['PAGE_OG_IMAGE_INVALID'] . adm_back_link($this->u_action), E_USER_WARNING);
+			}
+
+			set_config('static_pages_seo_urls', $seo_urls);
+			set_config('static_pages_og_image', $og_image);
+			trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
+		}
+
 		$template->assign_vars(array(
-			'U_ACTION'		=> $this->u_action)
-		);
+			'U_ACTION'					=> $this->u_action,
+			'S_STATIC_PAGES_SEO_URLS'	=> (!empty($config['static_pages_seo_urls'])) ? true : false,
+			'STATIC_PAGES_OG_IMAGE'		=> (isset($config['static_pages_og_image'])) ? $config['static_pages_og_image'] : '',
+		));
 
 		// Get all pages
 		$sql = 'SELECT p.page_id, p.page_title, p.page_desc, p.page_author, p.page_display, p.page_url, u.username, u.user_colour
@@ -329,12 +428,44 @@ class acp_pages
 				'U_EDIT'				=> $this->u_action . '&amp;action=edit&amp;id=' . $row['page_id'],
 				'U_DELETE'			=> $this->u_action . '&amp;action=delete&amp;id=' . $row['page_id'],
 				'U_DISPLAY'			=> $this->u_action . '&amp;action=display&amp;id=' . $row['page_id'],
-				'U_PAGE'				=> append_sid("{$phpbb_root_path}page.$phpEx", 'p=' . $row['page_url']),
+				'U_PAGE'				=> append_sid("{$phpbb_root_path}page.$phpEx", 'id=' . (int) $row['page_id']),
 			));
 		}
 		$db->sql_freeresult($result);
 	}
 	
+	/**
+	* Keep a renamed or deleted static page aligned with its Portal entry.
+	*/
+	function sync_portal_page($old_url, $new_url = '')
+	{
+		global $db, $cache;
+
+		if ($old_url === '' || !defined('K_PAGES_TABLE'))
+		{
+			return;
+		}
+
+		$old_name = 'page&p=' . $old_url;
+
+		if ($new_url !== '' && $new_url !== $old_url)
+		{
+			$sql = 'UPDATE ' . K_PAGES_TABLE . "
+				SET page_name = '" . $db->sql_escape('page&p=' . $new_url) . "'
+				WHERE page_name = '" . $db->sql_escape($old_name) . "'";
+			$db->sql_query($sql);
+		}
+		else if ($new_url === '')
+		{
+			$sql = 'DELETE FROM ' . K_PAGES_TABLE . "
+				WHERE page_name = '" . $db->sql_escape($old_name) . "'";
+			$db->sql_query($sql);
+		}
+
+		$cache->destroy('sql', K_PAGES_TABLE);
+		$cache->destroy('k_pages');
+	}
+
 	/**
 	* Helper function for page_url sanitization
 	*

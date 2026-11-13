@@ -1,0 +1,1 @@
+<div id="blog-config" hidden="hidden" data-grey-star="{UA_GREY_STAR_SRC}" data-green-star="{UA_GREEN_STAR_SRC}" data-red-star="{UA_RED_STAR_SRC}" data-orange-star="{UA_ORANGE_STAR_SRC}" data-max-rating="{UA_MAX_RATING}" data-min-rating="{UA_MIN_RATING}"></div>

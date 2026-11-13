@@ -1053,31 +1053,6 @@ function get_schema_struct()
 		),
 	);
 
-	$schema_data['phpbb_k_links_queue'] = array(
-		'COLUMNS'		=> array(
-			'queue_id'			=> array('UINT:10', NULL, 'auto_increment'),
-			'post_id'			=> array('UINT:10', 0),
-			'topic_id'			=> array('UINT:10', 0),
-			'forum_id'			=> array('UINT:10', 0),
-			'user_id'			=> array('UINT:10', 0),
-			'logo_original'		=> array('VCHAR:255', ''),
-			'logo_tmp'			=> array('VCHAR:255', ''),
-			'logo_final'		=> array('VCHAR:255', ''),
-			'logo_ext'			=> array('VCHAR:10', ''),
-			'logo_size'			=> array('UINT:10', 0),
-			'logo_status'		=> array('BOOL', 0),
-			'upload_time'		=> array('TIMESTAMP', 0),
-			'approved_time'		=> array('TIMESTAMP', 0),
-			'approved_by'		=> array('UINT:10', 0),
-		),
-		'PRIMARY_KEY'	=> 'queue_id',
-		'KEYS'			=> array(
-			'post_id'			=> array('INDEX', 'post_id'),
-			'topic_id'			=> array('INDEX', 'topic_id'),
-			'status_forum'		=> array('INDEX', array('logo_status', 'forum_id')),
-		),
-	);
-
 	$schema_data['phpbb_ads'] = array(
 		'COLUMNS'				=> array(
 			'ad_id'				=> array('UINT', NULL, 'auto_increment'),
@@ -1465,20 +1440,20 @@ function get_schema_struct()
 		),
 	);
 	
-		$schema_data['phpbb_bookmarks'] = array(
-		'COLUMNS'		=> array(
-			'blog_id'			=> array('UINT', 0),
-			'reply_id'			=> array('UINT', 0),
-			'word_id'			=> array('UINT', 0),
-			'title_match'		=> array('BOOL', 0),
-		),
-		'KEYS'			=> array(
-			'unique_match'		=> array('UNIQUE', array('blog_id', 'reply_id', 'word_id', 'title_match')),
-			'word_id'			=> array('INDEX', 'word_id'),
-			'blog_id'			=> array('INDEX', 'blog_id'),
-			'reply_id'			=> array('INDEX', 'reply_id'),
-		),
-	);
+		$schema_data['phpbb_blog_search_wordmatch'] = array(
+			'COLUMNS'		=> array(
+				'blog_id'			=> array('UINT', 0),
+				'reply_id'			=> array('UINT', 0),
+				'word_id'			=> array('UINT', 0),
+				'title_match'		=> array('BOOL', 0),
+			),
+			'KEYS'			=> array(
+				'unique_match'		=> array('UNIQUE', array('blog_id', 'reply_id', 'word_id', 'title_match')),
+				'word_id'			=> array('INDEX', 'word_id'),
+				'blog_id'			=> array('INDEX', 'blog_id'),
+				'reply_id'			=> array('INDEX', 'reply_id'),
+			),
+		);
 
 	$schema_data['phpbb_bookmarks'] = array(
 		'COLUMNS'		=> array(
@@ -2705,6 +2680,31 @@ function get_schema_struct()
 		'PRIMARY_KEY'	=> 'm_id',
 	);
 	
+	$schema_data['phpbb_k_links_queue'] = array(
+		'COLUMNS'		=> array(
+			'queue_id'			=> array('UINT:10', NULL, 'auto_increment'),
+			'post_id'			=> array('UINT:10', 0),
+			'topic_id'			=> array('UINT:10', 0),
+			'forum_id'			=> array('UINT:10', 0),
+			'user_id'			=> array('UINT:10', 0),
+			'logo_original'		=> array('VCHAR:255', ''),
+			'logo_tmp'			=> array('VCHAR:255', ''),
+			'logo_final'		=> array('VCHAR:255', ''),
+			'logo_ext'			=> array('VCHAR:10', ''),
+			'logo_size'			=> array('UINT:10', 0),
+			'logo_status'		=> array('BOOL', 0),
+			'upload_time'		=> array('TIMESTAMP', 0),
+			'approved_time'		=> array('TIMESTAMP', 0),
+			'approved_by'		=> array('UINT:10', 0),
+		),
+		'PRIMARY_KEY'	=> 'queue_id',
+		'KEYS'			=> array(
+			'post_id'			=> array('INDEX', 'post_id'),
+			'topic_id'			=> array('INDEX', 'topic_id'),
+			'status_forum'		=> array('INDEX', array('logo_status', 'forum_id')),
+		),
+	);
+	
 	$schema_data['phpbb_k_pages'] = array(
 		'COLUMNS'		=> array(
 			'page_id'				=> array('UINT', NULL, 'auto_increment'),
@@ -2974,6 +2974,27 @@ function get_schema_struct()
 		),
 	);
 
+	$schema_data['phpbb_nav_links'] = array(
+		'COLUMNS'		=> array(
+			'nav_id'				=> array('UINT:8', NULL, 'auto_increment'),
+			'nav_order'				=> array('UINT:8', 0),
+			'nav_active'			=> array('BOOL', 1),
+			'nav_url'				=> array('VCHAR', ''),
+			'nav_page_id'			=> array('UINT:8', 0),
+			'nav_title'				=> array('VCHAR_UNI', ''),
+		),
+		'PRIMARY_KEY'	=> 'nav_id',
+	);
+
+	$schema_data['phpbb_nav_link_lang'] = array(
+		'COLUMNS'		=> array(
+			'nav_id'				=> array('UINT:8', 0),
+			'lang_iso'				=> array('VCHAR:30', ''),
+			'nav_title'				=> array('VCHAR_UNI', ''),
+		),
+		'PRIMARY_KEY'	=> array('nav_id', 'lang_iso'),
+	);
+	
 	$schema_data['phpbb_notes'] = array(
 		'COLUMNS'		=> array(
 			'note_id'				=> array('UINT:11', 0),
@@ -3011,7 +3032,7 @@ function get_schema_struct()
 		),
 		'PRIMARY_KEY'	=> 'page_id',		
 	);
-	
+
 	$schema_data['phpbb_points_bank'] = array(
 		'COLUMNS'		=> array(
 			'id'					=> array('UINT:10', NULL, 'auto_increment'),
@@ -4192,6 +4213,7 @@ function get_schema_struct()
 			'user_posts'					=> array('UINT', 0),
 			'user_permissions'				=> array('MTEXT', ''),
 			'user_ip'						=> array('VCHAR:40', ''),
+			'user_last_ip'					=> array('VCHAR:40', ''),
 			'user_birthday'					=> array('VCHAR:10', ''),
 			'user_lastpage'					=> array('VCHAR_UNI:200', ''),
 			'user_last_confirm_key'			=> array('VCHAR:10', ''),

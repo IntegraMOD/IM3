@@ -5,11 +5,9 @@
 					<use href="#icon-arrow-down"></use></svg></a>
 		</li>
 
-		<!-- IF STARGATE -->
-			<li class="nav-item <!-- IF S_IS_PORTAL -->is-active<!-- ENDIF -->"><a href="{U_PORTAL}" title="{PORTAL_LABEL}">{PORTAL_LABEL}</a></li>
-		<!-- ENDIF -->
-
-		<li class="nav-item <!-- IF S_IS_INDEX -->is-active<!-- ENDIF -->"><a href="{U_INDEX}" title="{FORUM_LABEL}">{FORUM_LABEL}</a></li>
+		<!-- BEGIN nav_primary -->
+		<li class="nav-item<!-- IF nav_primary.S_ACTIVE --> is-active<!-- ENDIF -->"><a href="{nav_primary.U_LINK}" title="{nav_primary.LINK_LABEL}"<!-- IF nav_primary.S_INDEX --> accesskey="h"<!-- ENDIF -->>{nav_primary.LINK_LABEL}</a></li>
+		<!-- END nav_primary -->
 
 		<!-- IF S_DISPLAY_SEARCH -->
 			<li class="nav-item has-dropdown">

@@ -1,0 +1,17 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- IF S_PAGE_HIDDEN -->
+	<section class="post-rules">
+		<p>{L_PAGE_HIDDEN}</p>
+	</section>
+<!-- ENDIF -->
+
+<section class="ucp-card" id="message">
+	<div class="ucp-card-body">
+		<h1 class="page-title<!-- IF not S_PAGE_SHOW_TITLE --> visually-hidden<!-- ENDIF -->">{PAGE_TITLE}</h1>
+<!-- IF STARGATE --><!-- INCLUDE portal_center.html --><!-- ENDIF -->
+		<div class="page-content">{PAGE_CONTENT}</div>
+	</div>
+</section>
+
+<!-- INCLUDE overall_footer.html -->

@@ -160,10 +160,11 @@ class acp_k_pages
 			break;
 
 			case 'add':
-				if ($submit)
-				{
-					// drop extension
-					$tag_id = str_replace('.php', '', (string) $tag_id);
+			if ($submit)
+			{
+				// drop extension and keep the raw name, matching decodes stored values
+				$tag_id = str_replace('.php', '', (string) $tag_id);
+				$tag_id = html_entity_decode($tag_id, ENT_QUOTES, 'UTF-8');
 
 					// skip the spacer //
 					if ($tag_id == '..')
@@ -373,6 +374,26 @@ function get_all_available_files()
 			}
 		}
 		closedir($dirs->handle);
+	}
+
+	if (defined('PAGES_TABLE'))
+	{
+		$sql = 'SELECT page_url, page_title
+			FROM ' . PAGES_TABLE . "
+			WHERE page_url <> ''
+			ORDER BY page_order ASC, page_id ASC";
+		$result = $db->sql_query($sql);
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$temp = 'page.php&p=' . $row['page_url'];
+
+			if (!in_array($temp, $arr, true))
+			{
+				$dirslist .= $temp . ' ';
+			}
+		}
+		$db->sql_freeresult($result);
 	}
 
 	$dirslist = explode(" ", $dirslist);

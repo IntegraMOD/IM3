@@ -93,6 +93,8 @@ function hook_mchat(&$hook)
 		
 		$template->assign_vars(array(	
 			'U_MCHAT'				=> $auth->acl_get('u_mchat_view') && $config_mchat['custom_page'] ? append_sid("{$phpbb_root_path}mchat.$phpEx") : '',
+			// Portal pages need the chat assets even when the index chat is switched off
+			'S_MCHAT_PORTAL_PAGE'	=> ($page_name == 'portal') ? true : false,
 			'S_MCHAT_ON_INDEX'		=> ($config['mchat_on_index'] && !empty($user->data['user_mchat_index'])) ? true : false,
 //			'S_MCHAT_ON_PORTAL'		=> ($config['mchat_on_portal'] && !empty($user->data['user_mchat_portal'])) ? true : false,
 			'S_MCHAT_ENABLE'		=> true,

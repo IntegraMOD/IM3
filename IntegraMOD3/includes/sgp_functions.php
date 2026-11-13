@@ -583,12 +583,33 @@ if (!function_exists('get_page_id'))
 		if ($this_page_name == 'portal' && $portal_page)
 		{
 			$this_page_name = 'portal&page=' . $portal_page;
-			$this_page_name = htmlentities($this_page_name);
 		}
 
+		if ($this_page_name == 'page')
+		{
+			$static_page = request_var('p', '');
+
+			// The pretty URL carries the page id, so resolve the name it was saved under
+			if ($static_page === '' && request_var('id', 0) > 0 && defined('PAGES_TABLE'))
+			{
+				$sql = 'SELECT page_url
+					FROM ' . PAGES_TABLE . '
+					WHERE page_id = ' . (int) request_var('id', 0);
+				$result = $db->sql_query($sql);
+				$static_page = (string) $db->sql_fetchfield('page_url');
+				$db->sql_freeresult($result);
+			}
+
+			if ($static_page !== '')
+			{
+				$this_page_name = 'page&p=' . $static_page;
+			}
+		}
+
+		// Stored names may contain &amp; from older saves, so compare the decoded form
 		foreach ($k_pages as $page)
 		{
-			if ($page['page_name'] == $this_page_name)
+			if (html_entity_decode($page['page_name'], ENT_QUOTES, 'UTF-8') == $this_page_name)
 			{
 				return($page['page_id']);
 			}

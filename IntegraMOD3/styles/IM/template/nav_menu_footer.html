@@ -5,10 +5,9 @@
   <ul>
   	<div class="genarrow" style="float: {S_CONTENT_FLOW_BEGIN};"><a href="#top" title="{L_BACK_TO_TOP}"><i class="fa-solid fa-arrow-up"></i></a></div>
 
-    <!-- IF STARGATE -->
-	<li><a href="{U_PORTAL}" title="{PORTAL_LABEL}">{PORTAL_LABEL}</a></li>
-	<!-- ENDIF -->
-    &bull;<li><a href="{U_INDEX}" title="{FORUM_LABEL}">{FORUM_LABEL}</a></li>
+	<!-- BEGIN nav_primary -->
+	<!-- IF nav_primary.S_ROW_COUNT > 0 -->&bull;<!-- ENDIF --><li><a href="{nav_primary.U_LINK}" title="{nav_primary.LINK_LABEL}">{nav_primary.LINK_LABEL}</a></li>
+	<!-- END nav_primary -->
 	
 	<!-- IF U_ACP -->
 	&bull;<li><a href="{U_ACP}">{L_ACP}</a></li>

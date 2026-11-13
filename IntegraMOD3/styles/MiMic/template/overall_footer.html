@@ -24,7 +24,7 @@
 		<div class="inner">
 
 		<ul class="linklist">
-			<li class="icon-home"><!-- IF STARGATE --><a href="{U_PORTAL}">{PORTAL_LABEL}</a> &bull; <!-- ENDIF --><a href="{U_INDEX}" accesskey="h">{FORUM_LABEL}</a></li>
+			<li class="icon-home"><!-- BEGIN nav_primary --><!-- IF nav_primary.S_ROW_COUNT > 0 --> &bull; <!-- ENDIF --><a href="{nav_primary.U_LINK}"<!-- IF nav_primary.S_INDEX --> accesskey="h"<!-- ENDIF -->>{nav_primary.LINK_LABEL}</a><!-- END nav_primary --></li>
 				<!-- IF not S_IS_BOT -->
 					<!-- IF S_WATCH_FORUM_LINK --><li <!-- IF S_WATCHING_FORUM -->class="icon-unsubscribe"<!-- ELSE -->class="icon-subscribe"<!-- ENDIF -->><a href="{S_WATCH_FORUM_LINK}" title="{S_WATCH_FORUM_TITLE}">{S_WATCH_FORUM_TITLE}</a></li><!-- ENDIF -->
 					<!-- IF U_WATCH_TOPIC --><li <!-- IF S_WATCHING_TOPIC -->class="icon-unsubscribe"<!-- ELSE -->class="icon-subscribe"<!-- ENDIF -->><a href="{U_WATCH_TOPIC}" title="{L_WATCH_TOPIC}">{L_WATCH_TOPIC}</a></li><!-- ENDIF -->

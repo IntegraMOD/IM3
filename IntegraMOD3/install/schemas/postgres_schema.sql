@@ -162,33 +162,6 @@ CREATE INDEX phpbb_acl_users_auth_option_id ON phpbb_acl_users (auth_option_id);
 CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users (auth_role_id);
 
 /*
-	Table: 'phpbb_k_links_queue'
-*/
-CREATE SEQUENCE phpbb_k_links_queue_seq;
-
-CREATE TABLE phpbb_k_links_queue (
-	queue_id INT4 DEFAULT nextval('phpbb_k_links_queue_seq'),
-	post_id INT4 DEFAULT '0' NOT NULL CHECK (post_id >= 0),
-	topic_id INT4 DEFAULT '0' NOT NULL CHECK (topic_id >= 0),
-	forum_id INT4 DEFAULT '0' NOT NULL CHECK (forum_id >= 0),
-	user_id INT4 DEFAULT '0' NOT NULL CHECK (user_id >= 0),
-	logo_original varchar(255) DEFAULT '' NOT NULL,
-	logo_tmp varchar(255) DEFAULT '' NOT NULL,
-	logo_final varchar(255) DEFAULT '' NOT NULL,
-	logo_ext varchar(10) DEFAULT '' NOT NULL,
-	logo_size INT4 DEFAULT '0' NOT NULL CHECK (logo_size >= 0),
-	logo_status INT2 DEFAULT '0' NOT NULL CHECK (logo_status >= 0),
-	upload_time INT4 DEFAULT '0' NOT NULL CHECK (upload_time >= 0),
-	approved_time INT4 DEFAULT '0' NOT NULL CHECK (approved_time >= 0),
-	approved_by INT4 DEFAULT '0' NOT NULL CHECK (approved_by >= 0),
-	PRIMARY KEY (queue_id)
-);
-
-CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id);
-CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id);
-CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id);
-
-/*
 	Table: 'phpbb_ads'
 */
 CREATE SEQUENCE phpbb_ads_seq;
@@ -2032,6 +2005,33 @@ CREATE TABLE phpbb_k_menus (
 
 
 /*
+	Table: 'phpbb_k_links_queue'
+*/
+CREATE SEQUENCE phpbb_k_links_queue_seq;
+
+CREATE TABLE phpbb_k_links_queue (
+	queue_id INT4 DEFAULT nextval('phpbb_k_links_queue_seq'),
+	post_id INT4 DEFAULT '0' NOT NULL CHECK (post_id >= 0),
+	topic_id INT4 DEFAULT '0' NOT NULL CHECK (topic_id >= 0),
+	forum_id INT4 DEFAULT '0' NOT NULL CHECK (forum_id >= 0),
+	user_id INT4 DEFAULT '0' NOT NULL CHECK (user_id >= 0),
+	logo_original varchar(255) DEFAULT '' NOT NULL,
+	logo_tmp varchar(255) DEFAULT '' NOT NULL,
+	logo_final varchar(255) DEFAULT '' NOT NULL,
+	logo_ext varchar(10) DEFAULT '' NOT NULL,
+	logo_size INT4 DEFAULT '0' NOT NULL CHECK (logo_size >= 0),
+	logo_status INT2 DEFAULT '0' NOT NULL CHECK (logo_status >= 0),
+	upload_time INT4 DEFAULT '0' NOT NULL CHECK (upload_time >= 0),
+	approved_time INT4 DEFAULT '0' NOT NULL CHECK (approved_time >= 0),
+	approved_by INT4 DEFAULT '0' NOT NULL CHECK (approved_by >= 0),
+	PRIMARY KEY (queue_id)
+);
+
+CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id);
+CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id);
+CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id);
+
+/*
 	Table: 'phpbb_k_pages'
 */
 CREATE SEQUENCE phpbb_k_pages_seq;
@@ -2344,6 +2344,33 @@ CREATE INDEX phpbb_modules_module_enabled ON phpbb_modules (module_enabled);
 CREATE INDEX phpbb_modules_class_left_id ON phpbb_modules (module_class, left_id);
 
 /*
+	Table: 'phpbb_nav_links'
+*/
+CREATE SEQUENCE phpbb_nav_links_seq;
+
+CREATE TABLE phpbb_nav_links (
+	nav_id INT4 DEFAULT nextval('phpbb_nav_links_seq'),
+	nav_order INT4 DEFAULT '0' NOT NULL CHECK (nav_order >= 0),
+	nav_active INT2 DEFAULT '1' NOT NULL CHECK (nav_active >= 0),
+	nav_url varchar(255) DEFAULT '' NOT NULL,
+	nav_page_id INT4 DEFAULT '0' NOT NULL CHECK (nav_page_id >= 0),
+	nav_title varchar(255) DEFAULT '' NOT NULL,
+	PRIMARY KEY (nav_id)
+);
+
+
+/*
+	Table: 'phpbb_nav_link_lang'
+*/
+CREATE TABLE phpbb_nav_link_lang (
+	nav_id INT4 DEFAULT '0' NOT NULL CHECK (nav_id >= 0),
+	lang_iso varchar(30) DEFAULT '' NOT NULL,
+	nav_title varchar(255) DEFAULT '' NOT NULL,
+	PRIMARY KEY (nav_id, lang_iso)
+);
+
+
+/*
 	Table: 'phpbb_notes'
 */
 CREATE TABLE phpbb_notes (
@@ -2379,33 +2406,6 @@ CREATE TABLE phpbb_pages (
 	page_display_guests INT2 DEFAULT '0' NOT NULL CHECK (page_display_guests >= 0),
 	page_author INT4 DEFAULT '0' NOT NULL CHECK (page_author >= 0),
 	PRIMARY KEY (page_id)
-);
-
-
-/*
-	Table: 'phpbb_nav_links'
-*/
-CREATE SEQUENCE phpbb_nav_links_seq;
-
-CREATE TABLE phpbb_nav_links (
-	nav_id INT4 DEFAULT nextval('phpbb_nav_links_seq'),
-	nav_order INT4 DEFAULT '0' NOT NULL CHECK (nav_order >= 0),
-	nav_active INT2 DEFAULT '1' NOT NULL CHECK (nav_active >= 0),
-	nav_url varchar(255) DEFAULT '' NOT NULL,
-	nav_page_id INT4 DEFAULT '0' NOT NULL CHECK (nav_page_id >= 0),
-	nav_title varchar(255) DEFAULT '' NOT NULL,
-	PRIMARY KEY (nav_id)
-);
-
-
-/*
-	Table: 'phpbb_nav_link_lang'
-*/
-CREATE TABLE phpbb_nav_link_lang (
-	nav_id INT4 DEFAULT '0' NOT NULL CHECK (nav_id >= 0),
-	lang_iso varchar(30) DEFAULT '' NOT NULL,
-	nav_title varchar(255) DEFAULT '' NOT NULL,
-	PRIMARY KEY (nav_id, lang_iso)
 );
 
 

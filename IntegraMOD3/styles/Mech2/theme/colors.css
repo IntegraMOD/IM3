@@ -1,0 +1,83 @@
+/*
+ * Mech2 Theme Colors
+ *
+ * Faithful 1:1 port of the legacy phpBB 3.0.15 subsilver2-based Mech2
+ * style's actual theme/default.css values (not an approximation):
+ *   body / chrome:      #2F2F2F
+ *   row1 / row2 / row3: #515151 / #434343 / #5D5D5D
+ *   catdiv (dark bar):  #111111 (bbg.gif texture), borders #000000/#383838
+ *   cat (header bar):   #C7D0D7 (cellpic1.gif texture) - light, NOT dark
+ *   post/content body:  #FFFFFF (post), #FAFAFA (quote/code content)
+ *   links:              #006597 / visited #005784 / hover #D46400 (underline)
+ *   accent gold:        #CEA500 (forumrules, th a, headings only)
+ * Mech2 is a single look (no blue/orange variants in the legacy style), so
+ * all style-color/bs-theme combinations resolve to this same palette.
+ */
+
+:root,
+:root[data-style-color="blue"],
+:root[data-style-color="orange"],
+:root[data-style-color="blue"][data-bs-theme="dark"],
+:root[data-style-color="orange"][data-bs-theme="dark"],
+body[data-style-color="blue"],
+body[data-style-color="orange"],
+body[data-style-color="blue"][data-bs-theme="dark"],
+body[data-style-color="orange"][data-bs-theme="dark"] {
+    /* Global Colors */
+    --color-primary: #CEA500;
+    --color-secondary: #006597;
+    --bg-main: #2F2F2F;
+    --text-primary: #cccccc;
+    --text-secondary: #999999;
+
+    /* Header & Navigation (catdiv dark bar) */
+    --bg-header: #111111;
+    --header-text: #CEA500;
+    --nav-bg: #2F2F2F;
+    --nav-text: #cccccc;
+    --nav-hover-bg: #515151;
+
+    /* Off-Canvas Menu */
+    --off-canvas-bg: #111111;
+    --off-canvas-text: #cccccc;
+    --off-canvas-border: #383838;
+    --off-canvas-overlay: rgba(0, 0, 0, 0.7);
+
+    /* Search Component */
+    --search-bg: #FAFAFA;
+    --search-border: #2F2F2F;
+    --search-text: #333333;
+    --search-icon: #CEA500;
+
+    /* Buttons & Links */
+    --btn-bg: #2F2F2F;
+    --btn-text: #cccccc;
+    --btn-border: #2F2F2F;
+    --link-color: #006597;
+    --link-hover: #D46400;
+
+    /* Shared Surfaces & Accents */
+    --surface-border: #383838;
+    --row-divider: #434343;
+    --on-primary-text: #111111;
+    --feed-accent: #CEA500;
+    --state-locked: #e74c3c;
+    --state-hot: #f39c12;
+    --state-announce: #e74c3c;
+    --state-sticky: #27ae60;
+    --state-moved: #777777;
+
+    /* Ads & Banners */
+    --bg-ad-panel: #111111;
+    --border-ad-panel: #383838;
+
+    /* Mech2-specific extras (not part of core's base variable set) */
+    --mech2-row1: #515151;
+    --mech2-row2: #434343;
+    --mech2-row3: #5D5D5D;
+    --mech2-cat-bg: #C7D0D7;
+    --mech2-post-bg: #FFFFFF;
+    --mech2-content-bg: #FAFAFA;
+    --mech2-content-text: #333333;
+    --mech2-link-visited: #005784;
+}

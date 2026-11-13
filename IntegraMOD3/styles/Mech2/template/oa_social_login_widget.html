@@ -1,0 +1,18 @@
+<!-- IF not S_USER_LOGGED_IN and S_REGISTER_ENABLED -->
+    <!-- IF not OA_SOCIAL_LOGIN_DISABLE -->
+        <!-- IF OA_SOCIAL_LOGIN_ERROR -->
+            <div class="oasl-error" role="alert">{L_OASL_PROFILE_TITLE}: {OA_SOCIAL_LOGIN_ERROR}</div>
+        <!-- ELSE -->
+            <section class="oasl-widget"
+                data-oasl-mode="social_login"
+                data-oasl-library="{OA_SOCIAL_LOGIN_LIBRARY}"
+                data-oasl-providers="{OA_SOCIAL_LOGIN_PROVIDERS}"
+                data-oasl-container="oneall_social_login_providers_{OA_SOCIAL_LOGIN_RAND}"
+                <!-- IF OA_SOCIAL_LOGIN_CSS_THEME -->data-oasl-css="{OA_SOCIAL_LOGIN_CSS_THEME}"<!-- ENDIF -->
+                data-oasl-version="{OA_SOCIAL_LOGIN_VERSION}">
+                <span class="oasl-widget-title">{L_OASL_WIDGET_TITLE}</span>
+                <span class="oneall_social_login_providers" id="oneall_social_login_providers_{OA_SOCIAL_LOGIN_RAND}"></span>
+            </section>
+        <!-- ENDIF -->
+    <!-- ENDIF -->
+<!-- ENDIF -->

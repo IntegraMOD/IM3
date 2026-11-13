@@ -185,6 +185,12 @@ function im3_seo_path($kind, $id, $slug)
 		return 't' . $id . $slug . '.html';
 	}
 
+	if ($kind === 'page')
+	{
+		// Static pages use their name, for example chat, not page123-title
+		return ($slug !== '') ? ltrim($slug, '-') : 'page' . $id;
+	}
+
 	return 'p' . $id;
 }
 
@@ -320,6 +326,11 @@ function im3_seo_rewrite($url, $params, $is_amp, $session_id, $anchor)
 	if ($script === 'search.php')
 	{
 		return im3_seo_rewrite_search($url, $params, $is_amp, $anchor, $style_extra);
+	}
+
+	if ($script === 'page.php')
+	{
+		return im3_seo_rewrite_page($url, $params, $is_amp, $anchor, $style_extra);
 	}
 
 	if (!in_array($script, array('viewforum.php', 'viewtopic.php', 'memberlist.php'), true))
@@ -600,9 +611,14 @@ function im3_seo_can_redirect()
 		return false;
 	}
 
-	if ($_SID !== '' || request_var('sid', '') !== '')
+	if (empty($GLOBALS['im3_seo_force_redirect']) && ($_SID !== '' || request_var('sid', '') !== ''))
 	{
 		return false;
+	}
+
+	if (!empty($GLOBALS['im3_seo_force_redirect']))
+	{
+		return im3_seo_query_is_clean();
 	}
 
 	$guest = ((int) $user->data['user_id'] === ANONYMOUS);
@@ -625,7 +641,20 @@ function im3_seo_already_canonical($kind, $id, $slug)
 
 	$route = $GLOBALS['im3_seo_route'];
 
-	if (!isset($route['type']) || $route['type'] !== $kind || (int) $route['id'] !== (int) $id)
+	if (!isset($route['type']))
+	{
+		return false;
+	}
+
+	// Name-based static pages carry no numeric id in the route
+	if ($kind === 'page' && $route['type'] === 'page-name')
+	{
+		$requested = isset($route['slug']) ? strtolower((string) $route['slug']) : '';
+
+		return ($requested === strtolower((string) $slug));
+	}
+
+	if ($route['type'] !== $kind || (int) $route['id'] !== (int) $id)
 	{
 		return false;
 	}
@@ -648,7 +677,7 @@ function im3_seo_web_root()
 		$path = '/';
 	}
 
-	if (preg_match('#^(.*?)/(?:f|t|u|p)[0-9]#', $path, $match))
+	if (preg_match('#^(.*?)/(?:(?:f|t|u|p|page)[0-9]|[a-z0-9][a-z0-9+-]*)#', $path, $match))
 	{
 		$path = ($match[1] === '') ? '/' : $match[1] . '/';
 	}
@@ -710,14 +739,14 @@ function im3_seo_finalize($kind, $id, $title, $start = 0, $forum_id = 0)
 	$start = (int) $start;
 	$forum_id = (int) $forum_id;
 
-	if ($id < 1 || !in_array($kind, array('f', 't', 'u', 'p'), true))
+	if ($id < 1 || !in_array($kind, array('f', 't', 'u', 'p', 'page'), true))
 	{
 		return;
 	}
 
-	$slug = ($kind === 'p') ? '' : im3_seo_slug($title);
+	$slug = ($kind === 'p') ? '' : (($kind === 'page') ? (string) $title : im3_seo_slug($title));
 
-	if ($kind !== 'p')
+	if ($kind !== 'p' && $kind !== 'page')
 	{
 		im3_seo_register($kind, $id, $title);
 	}
@@ -749,6 +778,66 @@ function im3_seo_finalize($kind, $id, $title, $start = 0, $forum_id = 0)
 	}
 
 	redirect($absolute);
+}
+
+/**
+* Rewrite page.php?id=N into the ID-stable static page URL.
+*/
+function im3_seo_rewrite_page($url, $params, $is_amp, $anchor, $style_extra)
+{
+	$merged = im3_seo_parse_params($url, $params);
+	$page_id = isset($merged['id']) ? im3_seo_id($merged['id']) : 0;
+
+	if (!$page_id || (isset($merged['p']) && $merged['p'] !== ''))
+	{
+		return null;
+	}
+
+	foreach ($merged as $key => $value)
+	{
+		if ($value === '' || $value === null || $value === false || $key === 'id')
+		{
+			continue;
+		}
+
+		return null;
+	}
+
+	$slug = im3_seo_lookup('page', $page_id);
+
+	if ($slug === null)
+	{
+		global $db;
+
+		if (!isset($db) || !is_object($db) || !defined('PAGES_TABLE'))
+		{
+			return null;
+		}
+
+		$sql = 'SELECT page_title
+			FROM ' . PAGES_TABLE . '
+			WHERE page_id = ' . $page_id;
+		$result = $db->sql_query($sql);
+		$title = $db->sql_fetchfield('page_title');
+		$db->sql_freeresult($result);
+
+		if ($title === false || $title === null)
+		{
+			return null;
+		}
+
+		im3_seo_register('page', $page_id, $title);
+		$slug = im3_seo_lookup('page', $page_id);
+	}
+
+	$pretty = im3_seo_prefix($url) . im3_seo_path('page', $page_id, $slug);
+
+	if ($style_extra !== '')
+	{
+		$pretty .= '?' . $style_extra;
+	}
+
+	return $pretty . $anchor;
 }
 
 /**

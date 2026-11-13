@@ -8,7 +8,8 @@
 
 <section class="ucp-card" id="message">
 	<div class="ucp-card-body">
-		<h2>{PAGE_TITLE}</h2>
+		<h1 class="page-title<!-- IF not S_PAGE_SHOW_TITLE --> visually-hidden<!-- ENDIF -->">{PAGE_TITLE}</h1>
+<!-- IF STARGATE --><!-- INCLUDE portal_center.html --><!-- ENDIF -->
 		<div class="page-content">{PAGE_CONTENT}</div>
 	</div>
 </section>

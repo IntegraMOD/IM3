@@ -1,0 +1,28 @@
+<!-- INCLUDE overall_header.html -->
+
+<form action="{S_PROFILE_ACTION}" method="post" id="resend" class="ucp-form-grid">
+	<div class="ucp-card">
+		<div class="ucp-card-body">
+			<h2>{L_UCP_RESEND}</h2>
+			<div class="ucp-form-grid">
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="username">{L_USERNAME}</label>
+					<input class="inputbox narrow ucp-form-input" type="text" name="username" id="username" size="25" />
+				</div>
+				<div class="ucp-form-row">
+					<label class="ucp-form-label" for="email">{L_EMAIL_ADDRESS}</label>
+					<p class="ucp-form-help">{L_EMAIL_REMIND}</p>
+					<input class="inputbox narrow ucp-form-input" type="text" name="email" id="email" size="25" maxlength="100" />
+				</div>
+				<div class="ucp-actions">
+					{S_HIDDEN_FIELDS}
+					{S_FORM_TOKEN}
+					<input type="submit" name="submit" id="submit" class="button1" value="{L_SUBMIT}" tabindex="2" />
+					<input type="reset" value="{L_RESET}" name="reset" class="button2" />
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

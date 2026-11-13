@@ -1,0 +1,52 @@
+<!-- INCLUDE dl_mod/dl_header.html -->
+
+<form action="{S_DL_SEARCH_ACTION}" method="post">
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_SEARCH_FOR}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="search_keywords">{L_SEARCH_KEYWORDS}</label>
+				<input type="text" class="inputbox ucp-form-input" id="search_keywords" name="search_keywords" size="50" maxlength="255" value="" />
+			</div>
+			<div class="ucp-form-row">
+				<label class="ucp-form-label" for="search_author">{L_DL_SEARCH_AUTHOR}</label>
+				<input type="text" class="inputbox ucp-form-input" id="search_author" name="search_author" size="50" maxlength="255" value="" />
+			</div>
+		</div>
+	</section>
+
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_SEARCH_OPTIONS}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_DL_CAT_NAME}</span>
+				<div class="ucp-form-content">{S_DL_CATEGORY_OPTIONS}</div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_SEARCH_WITHIN}</span>
+				<div class="ucp-form-content">{S_DL_SORT_OPTIONS}</div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_DL_ORDER}</span>
+				<div class="ucp-form-content">{S_DL_SORT_ORDER}</div>
+			</div>
+			<div class="ucp-form-row">
+				<span class="ucp-form-label">{L_DL_SEARCH_TYPE}</span>
+				<div class="ucp-form-content">
+					<label><input type="radio" name="search_type" value="0" checked="checked" /> {L_DL_SEARCH_TYPE_ALL}</label>
+					<label><input type="radio" name="search_type" value="1" /> {L_DL_SEARCH_TYPE_SINGLE}</label>
+				</div>
+			</div>
+			<div class="ucp-actions">
+				<input class="button1" type="submit" name="submit" value="{L_SEARCH}" />
+				{S_FORM_TOKEN}
+			</div>
+		</div>
+	</section>
+</form>
+
+<!-- INCLUDE dl_mod/dl_footer.html -->

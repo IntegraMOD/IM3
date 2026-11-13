@@ -1,0 +1,49 @@
+<div id="blog-friends-config" hidden="hidden" data-limit="{ZEBRA_LIST_LIMIT}"></div>
+
+<!-- IF S_MENU_ZEBRA_ENABLED -->
+	<section class="ucp-card">
+		<div class="ucp-card-header">
+			<h3 class="ucp-card-title">{L_FRIENDS}</h3>
+		</div>
+		<div class="ucp-card-body">
+			<p class="blog-friends-status-online"><strong>{L_FRIENDS_ONLINE}</strong></p>
+			<!-- BEGIN menu_friends_online -->
+				<div id="online_friends_{menu_friends_online.S_ROW_COUNT}" class="blog-friends-row<!-- IF menu_friends_online.S_ROW_COUNT >= ZEBRA_LIST_LIMIT --> blog-hidden<!-- ENDIF -->">
+					<span>{menu_friends_online.USERNAME_FULL}</span>
+					<a href="{menu_friends_online.U_VIEW_BLOG}">{L_VIEW_BLOG}</a>
+				</div>
+			<!-- BEGINELSE -->
+				<p>{L_NO_FRIENDS_ONLINE}</p>
+			<!-- END menu_friends_online -->
+			<!-- IF S_SHOW_NEXT_ONLINE -->
+				<div class="blog-friends-nav">
+					<div id="previous_online" class="blog-hidden">
+						<a href="javascript:void(0)" data-action="blog-friends-page" data-field="online" data-direction="previous">{L_PREVIOUS}</a>
+					</div>
+					<div id="next_online">
+						<a href="javascript:void(0)" data-action="blog-friends-page" data-field="online" data-direction="next">{L_NEXT}</a>
+					</div>
+				</div>
+			<!-- ENDIF -->
+			<p class="blog-friends-status-offline"><strong>{L_FRIENDS_OFFLINE}</strong></p>
+			<!-- BEGIN menu_friends_offline -->
+				<div id="offline_friends_{menu_friends_offline.S_ROW_COUNT}" class="blog-friends-row<!-- IF menu_friends_offline.S_ROW_COUNT >= ZEBRA_LIST_LIMIT --> blog-hidden<!-- ENDIF -->">
+					<span>{menu_friends_offline.USERNAME_FULL}</span>
+					<a href="{menu_friends_offline.U_VIEW_BLOG}">{L_VIEW_BLOG}</a>
+				</div>
+			<!-- BEGINELSE -->
+				<p>{L_NO_FRIENDS_OFFLINE}</p>
+			<!-- END menu_friends_offline -->
+			<!-- IF S_SHOW_NEXT_OFFLINE -->
+				<div class="blog-friends-nav">
+					<div id="previous_offline" class="blog-hidden">
+						<a href="javascript:void(0)" data-action="blog-friends-page" data-field="offline" data-direction="previous">{L_PREVIOUS}</a>
+					</div>
+					<div id="next_offline">
+						<a href="javascript:void(0)" data-action="blog-friends-page" data-field="offline" data-direction="next">{L_NEXT}</a>
+					</div>
+				</div>
+			<!-- ENDIF -->
+		</div>
+	</section>
+<!-- ENDIF -->

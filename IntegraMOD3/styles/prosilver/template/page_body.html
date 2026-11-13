@@ -8,7 +8,8 @@
 <!-- ENDIF -->
 <div class="panel" id="message">
 	<div class="inner"><span class="corners-top"><span></span></span>
-	<h2>{PAGE_TITLE}</h2>
+	<h1 class="page-title<!-- IF not S_PAGE_SHOW_TITLE --> visually-hidden<!-- ENDIF -->">{PAGE_TITLE}</h1>
+<!-- IF STARGATE --><!-- INCLUDE portal_center.html --><!-- ENDIF -->
 	<div class="content" style="font-size: 1.25em">
 		{PAGE_CONTENT}
 	</div>

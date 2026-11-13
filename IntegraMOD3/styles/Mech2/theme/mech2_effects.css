@@ -1,0 +1,433 @@
+/*
+ * Mech2 Style Effects
+ *
+ * Faithful port of the legacy phpBB 3.0.15 subsilver2-based Mech2 style's
+ * actual texture/background/color values from theme/default.css and
+ * Mech2.css, applied to core's real semantic classes (no tables). Also
+ * replaces the Flash assets (htl_.swf header banner, and the
+ * nav_li.swf/nav_lo.swf nav bar - both of which shared the same
+ * background art, now a single static nav.jpg - and the
+ * horizontal_scroller/horizontal_date_scroller jQuery.Scroller ticker)
+ * with CSS/vanilla JS equivalents.
+ */
+
+:root {
+    --mech2-bg: #313131;
+    --mech2-dark-bar: #111111;
+    --mech2-row1: #515151;
+    --mech2-row2: #434343;
+    --mech2-row3: #5D5D5D;
+    --mech2-cat-bg: #C7D0D7;
+    --mech2-post-bg: #FFFFFF;
+    --mech2-content-bg: #FAFAFA;
+    --mech2-content-text: #333333;
+    --mech2-gold: #CEA500;
+    --mech2-gold-bright: #e6c247;
+    --mech2-border-dark: #000000;
+    --mech2-border-light: #383838;
+    --mech2-text: #cccccc;
+    --mech2-link: #006597;
+    --mech2-link-hover: #D46400;
+    --mech2-ticker-duration: 30s;
+}
+
+/* Page-wide Mech2 chrome (legacy body/#wrapnav background #2F2F2F) */
+body {
+    background-color: var(--mech2-bg);
+    color: var(--mech2-text);
+}
+
+.site-header,
+.site-footer {
+    background-color: var(--mech2-bg);
+    border-color: var(--mech2-border-light);
+}
+
+#wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: var(--mech2-bg);
+}
+
+/* Legacy frame structure was actually two nested rails, not one flat set of
+   side strips:
+   - Outer: mleft/mright - plain 15px side rails (left.jpg/right.jpg),
+     repeat-y only, no top/bottom caps.
+   - Inner: tl/tr - 13px side rails (tl.jpg/tr.jpg), repeat-y, but capped
+     top and bottom by tt.jpg/tb.jpg (repeat-x) to close the frame.
+   .mech2-content-rails is the outer rail; .mech2-content-rails-inner is the
+   inner capped rail wrapping the actual nav/content. */
+.mech2-content-rails {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 15px;
+    background-color: var(--mech2-bg);
+    background-image:
+        url("./images/left.jpg"),
+        url("./images/right.jpg");
+    background-repeat: repeat-y, repeat-y;
+    background-position: left top, right top;
+    background-size: 15px calc(100% + 10px), 15px calc(100% + 10px);
+}
+
+.mech2-content-rails-inner {
+    position: relative;
+    box-sizing: border-box;
+    padding: 37px 13px 61px;
+    margin-bottom: 0;
+    background-color: var(--mech2-bg);
+    background-image:
+        url("./images/ttl.jpg"),
+        url("./images/ttr.jpg"),
+        url("./images/tbl.jpg"),
+        url("./images/tbr.jpg"),
+        url("./images/tb.jpg"),
+        url("./images/tl.jpg"),
+        url("./images/tr.jpg"),
+        url("./images/tt.jpg");
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat-x, repeat-y, repeat-y, repeat-x;
+    background-position: left top, right top, left bottom, right bottom, left bottom, left top, right top, left top;
+    background-size: 22px 37px, 22px 37px, 22px 61px, 22px 61px, auto 61px, 13px auto, 13px auto, auto 37px;
+}
+
+/* Header chrome: reproduce the legacy htl/htr banner row, hm divider,
+   search.jpg strip and hbl_/hbr_ bottom bar using the real Mech2 assets
+   (legacy #wrapheader is 729px: 398px left column + 331px right column).
+   Each column is a fixed 278px self-contained block (181px banner/description
+   + 47px search band + 50px bottom band) so the frame no longer depends on
+   conditional content (search box, login state) to stay aligned. */
+.site-header .site-header-inner {
+    position: relative;
+    width: 90%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+    height: 278px;
+    min-height: 278px;
+    padding: 0;
+    background-image: url("./images/hm_.jpg");
+    background-repeat: repeat-x;
+    background-position: left top;
+}
+
+.mech2-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 398px;
+    height: 278px;
+    box-sizing: border-box;
+    background-image:
+        url("./images/htl.jpg"),
+        url("./images/nav.jpg"),
+        url("./images/hbl_.jpg");
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: top left, left 181px, left bottom;
+}
+
+.site-header #site-description {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 331px;
+    height: 278px;
+    box-sizing: border-box;
+    display: block;
+    background-image:
+        url("./images/htr.jpg"),
+        url("./images/search.jpg"),
+        url("./images/hbr_.jpg");
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: top left, left 181px, left bottom;
+    background-color: var(--mech2-bg);
+}
+
+.site-header #site-description .logo-container,
+.site-header #site-description .site-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 331px;
+    max-width: 331px;
+    min-height: 181px;
+    box-sizing: border-box;
+}
+
+#search-box {
+    position: absolute;
+    top: 181px;
+    right: 0;
+    width: 331px;
+    height: 47px;
+    box-sizing: border-box;
+}
+
+/* Footer chrome: reproduce the legacy fl(194)/fm(190)/fmm(fill)/fr(345) strip (height 197px) */
+.site-footer .site-footer-inner {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    min-height: 197px;
+    padding: 0;
+    box-sizing: border-box;
+    background-image:
+        url("./images/fl.jpg"),
+        url("./images/fr.jpg"),
+        url("./images/fmm.jpg");
+    background-repeat: no-repeat, no-repeat, repeat-x;
+    background-position: left top, right top, 194px top;
+}
+
+.navbar {
+    background-color: var(--mech2-bg);
+    border-top: 1px solid var(--mech2-border-light);
+    border-bottom: 1px solid var(--mech2-border-dark);
+    margin-bottom: 0;
+}
+
+.site-footer {
+    background-color: var(--mech2-bg) !important;
+    background-image: none;
+    margin-top: 0 !important;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.footer-nav {
+    position: static;
+    display: block;
+    width: calc(100% - 30px);
+    max-width: calc(100% - 30px);
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-align: center;
+    z-index: auto;
+}
+
+.footer-navlist {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100%;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+.footer-navlist li {
+    display: block;
+}
+
+.footer-navlist li:not(.footer-arrow)::before {
+    content: none;
+}
+
+.footer-meta,
+.copyright {
+    position: static;
+    width: auto;
+    max-width: none;
+    margin: 0 15px 0;
+    text-align: center;
+    box-sizing: border-box;
+    z-index: auto;
+    color: var(--mech2-text);
+}
+
+.footer-meta {
+    top: 145px;
+}
+
+.copyright {
+    top: 168px;
+}
+
+/* One fluid shell only. Inner nav/content/footer containers fill that shell
+   instead of applying another 90% and leaving gaps beside the rails. */
+.site-header-inner,
+.mech2-content-rails,
+.site-footer,
+.site-footer-inner {
+    max-width: none;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar-inner,
+#page-content {
+    max-width: none;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+@media (max-width: 768px) {
+    .site-header-inner,
+    .mech2-content-rails,
+    .navbar-inner,
+    #page-content,
+    .site-footer-inner,
+    .site-header .site-header-inner,
+    .site-footer .site-footer-inner {
+        width: 100%;
+    }
+}
+
+.site-nav {
+    background-color: var(--mech2-bg);
+}
+
+.navbar-inner {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#page-content {
+    box-sizing: border-box;
+    background-color: var(--mech2-bg);
+}
+
+/* Category/forum-group headers (legacy .cat / .catdiv: light cellpic1.gif bar) */
+.forum-header,
+.forum-list-header {
+    background-color: var(--mech2-cat-bg);
+    background-image: url("./images/cellpic1.gif");
+    color: #000000;
+}
+
+.forum-title {
+    color: #000000;
+    font-weight: bold;
+}
+
+/* Forum/topic rows reuse the legacy row1/row2/row3 flat colors */
+.forum-row {
+    border: 1px solid var(--mech2-border-light);
+    border-bottom-color: var(--mech2-border-dark);
+    border-right-color: var(--mech2-border-dark);
+    color: var(--mech2-text);
+}
+
+.forum-row.bg1 {
+    background-color: var(--mech2-row1);
+}
+
+.forum-row.bg2 {
+    background-color: var(--mech2-row2);
+}
+
+/* Post body (legacy .post: white; postbody text is dark on white) */
+.post-content {
+    background-color: var(--mech2-post-bg);
+    color: var(--mech2-content-text);
+}
+
+/* Quote/code blocks (legacy .quotecontent/.codecontent: #FAFAFA, dark text) */
+blockquote,
+.codebox {
+    background-color: var(--mech2-content-bg);
+    color: var(--mech2-content-text);
+    border-color: var(--mech2-bg);
+}
+
+.codeheader {
+    background-color: var(--mech2-bg);
+    color: #333333;
+}
+
+a {
+    color: var(--mech2-link);
+}
+
+a:hover {
+    color: var(--mech2-link-hover);
+    text-decoration: underline;
+}
+
+/* Ticker sits in the left bottom scrolling-text bar (hbl_.jpg), below the header buttons. */
+.mech2-banner .mech2-ticker {
+    position: absolute;
+    top: 239px;
+    left: calc(1em + 32px);
+    width: 232px;
+    height: 46px;
+    overflow: hidden;
+    white-space: nowrap;
+    background: transparent;
+    color: var(--mech2-gold);
+    border: 0;
+    border-radius: 0;
+    padding: 14px 8px 0 18px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.mech2-ticker-track {
+    display: inline-block;
+    padding-left: 100%;
+    animation: mech2-ticker-scroll var(--mech2-ticker-duration) linear infinite;
+}
+
+.mech2-ticker:hover .mech2-ticker-track {
+    animation-play-state: paused;
+}
+
+@keyframes mech2-ticker-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Nav buttons (replaces nav_li.swf/nav_lo.swf) */
+.site-nav .navlist > .nav-item > a {
+    background: var(--mech2-bg);
+    color: var(--mech2-text);
+    border: 1px solid var(--mech2-border-light);
+    border-bottom-color: var(--mech2-border-dark);
+    border-radius: 3px;
+    transition: color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.site-nav .navlist > .nav-item > a:hover,
+.site-nav .navlist > .nav-item.is-active > a {
+    color: var(--mech2-gold-bright);
+    box-shadow: 0 0 6px rgba(206, 165, 0, 0.5) inset;
+}
+
+.site-nav .navlist > .nav-item .sub-menu {
+    background: var(--mech2-bg);
+    border: 1px solid var(--mech2-border-light);
+}
+
+.site-nav .navlist > .nav-item .sub-menu a {
+    color: var(--mech2-text);
+}
+
+.site-nav .navlist > .nav-item .sub-menu a:hover {
+    color: var(--mech2-gold-bright);
+}
+
+.footer-nav,
+.footer-nav .footer-navlist {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+}

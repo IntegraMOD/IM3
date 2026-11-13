@@ -18,6 +18,32 @@ abbr {
 	text-decoration: none;
 }
 
+#acp-pages-edit dl {
+	display: grid;
+	grid-template-columns: minmax(0, 28%) minmax(0, 1fr);
+	gap: .75rem;
+	margin-bottom: .75rem;
+}
+
+#acp-pages-edit dt,
+#acp-pages-edit dd {
+	float: none;
+	width: auto;
+	margin: 0;
+}
+
+#acp-pages-edit textarea,
+#acp-pages-edit input[type="text"] {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+	#acp-pages-edit dl {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
 body, div, p, th, td, li, dd {
 	font-size: x-small;
 	voice-family: "\"}\"";

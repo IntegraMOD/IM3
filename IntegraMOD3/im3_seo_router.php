@@ -96,6 +96,18 @@ else if (preg_match('#^/u([0-9]{1,8})(?:-([^/]*))?/?$#', $path, $match))
 	$id = (int) $match[1];
 	$slug = isset($match[2]) ? strtolower($match[2]) : '';
 }
+else if (preg_match('#^/page([0-9]{1,8})(?:-([^/]*))?/?$#', $path, $match))
+{
+	$type = 'page';
+	$id = (int) $match[1];
+	$slug = isset($match[2]) ? strtolower($match[2]) : '';
+}
+else if (preg_match('#^/([a-z0-9][a-z0-9+-]{0,79})/?$#', $path, $match))
+{
+	// Name-based static page address, for example /chat
+	$type = 'page-name';
+	$slug = strtolower($match[1]);
+}
 else if (preg_match('#^/search-(newposts|egosearch|unanswered|unreadposts|active-topics)\.html$#', $path, $match))
 {
 	$type = 's';
@@ -117,10 +129,13 @@ if ($type === 's')
 		im3_seo_router_404();
 	}
 }
-else if (!$type || $id < 1 || $id > 16777215 || strpos($slug, '..') !== false)
+else if ($type !== 'page-name' && (!$type || $id < 1 || $id > 16777215 || strpos($slug, '..') !== false))
 {
 	im3_seo_router_404();
 }
+
+// A bare name such as /chat is handed to page.php, which 404s names that are not pages.
+// No lookup happens here, so the database class is only loaded once.
 
 $targets = array(
 	'f' => 'viewforum.php',
@@ -128,6 +143,8 @@ $targets = array(
 	'p' => 'viewtopic.php',
 	'u' => 'memberlist.php',
 	's' => 'search.php',
+	'page' => 'page.php',
+	'page-name' => 'page.php',
 );
 $target = $targets[$type];
 $target_path = __DIR__ . DIRECTORY_SEPARATOR . $target;
@@ -174,6 +191,14 @@ else if ($type === 'u')
 {
 	$inject['u'] = (string) $id;
 	$inject['mode'] = 'viewprofile';
+}
+else if ($type === 'page')
+{
+	$inject['id'] = (string) $id;
+}
+else if ($type === 'page-name')
+{
+	$inject['p'] = $slug;
 }
 else
 {

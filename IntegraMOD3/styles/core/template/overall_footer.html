@@ -16,14 +16,11 @@
 					<a href="#top" title="{L_BACK_TO_TOP}"><svg class="css-icon css-icon-arrow-up" aria-hidden="true" focusable="false">
 							<use href="#icon-arrow-up"></use></svg></a>
 				</li>
-				<!-- IF STARGATE -->
-					<li<!-- IF S_IS_PORTAL --> class="is-active"<!-- ENDIF -->>
-						<a href="{U_PORTAL}" title="{PORTAL_LABEL}">{PORTAL_LABEL}</a>
-					</li>
-				<!-- ENDIF -->
-				<li<!-- IF S_IS_INDEX --> class="is-active"<!-- ENDIF -->>
-					<a href="{U_INDEX}" title="{FORUM_LABEL}" accesskey="h">{FORUM_LABEL}</a>
+				<!-- BEGIN nav_primary -->
+				<li<!-- IF nav_primary.S_ACTIVE --> class="is-active"<!-- ENDIF -->>
+					<a href="{nav_primary.U_LINK}" title="{nav_primary.LINK_LABEL}"<!-- IF nav_primary.S_INDEX --> accesskey="h"<!-- ENDIF -->>{nav_primary.LINK_LABEL}</a>
 				</li>
+				<!-- END nav_primary -->
 				<!-- IF U_ACP --><li><a href="{U_ACP}">{L_ACP}</a></li><!-- ENDIF -->
 				<!-- IF not S_IS_BOT -->
 					<li><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a></li>

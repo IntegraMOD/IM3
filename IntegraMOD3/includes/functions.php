@@ -5815,6 +5815,13 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 
 	$portal_label = (!empty($config['portal_name_' . $user_lang])) ? $config['portal_name_' . $user_lang] : ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal') ? $config['portal_name'] : $user->lang['PORTAL']);
 	$forum_label = (!empty($config['forum_name_' . $user_lang])) ? $config['forum_name_' . $user_lang] : ((isset($config['forum_name']) && $config['forum_name'] !== 'Forum') ? $config['forum_name'] : $user->lang['FORUM']);
+
+	if (!function_exists('im3_nav_assign'))
+	{
+		include($phpbb_root_path . 'includes/functions_nav.' . $phpEx);
+	}
+
+	im3_nav_assign();
     
 	
     assign_cookie_consent_vars();

@@ -1,4 +1,17 @@
 <!-- INCLUDE overall_header.html -->
+<style type="text/css">
+#nav-order-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.nav-order-item { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 7px 14px; border: 1px solid #8fb4d9; border-radius: 999px; background: #eef6fd; color: #12324d; font-weight: 600; line-height: 1.2; cursor: grab; user-select: none; box-shadow: 0 1px 2px rgba(18, 50, 77, 0.12); }
+.nav-order-item:active { cursor: grabbing; }
+.nav-order-item.is-dragging { opacity: 0.45; }
+.nav-order-item.is-over { border-color: #1d6fbf; box-shadow: inset 3px 0 0 #1d6fbf; }
+.nav-order-item.is-off { background: #f3f4f6; border-color: #d0d5dd; color: #98a2b3; box-shadow: none; }
+.nav-order-grip { width: 10px; height: 12px; background: radial-gradient(circle, currentColor 1px, transparent 1.4px) 0 0 / 5px 4px; opacity: 0.7; }
+dl.nav-link-group { margin: 0; padding: 8px 12px; border-left: 4px solid transparent; }
+dl.nav-link-start { margin-top: 14px; border-top: 1px solid rgba(18, 50, 77, 0.12); }
+dl.nav-link-portal, dl.nav-link-link1, dl.nav-link-link3, dl.nav-link-link5, dl.nav-link-link7, dl.nav-link-link9 { background: #eef6fd; border-left-color: #1d6fbf; }
+dl.nav-link-forum, dl.nav-link-link2, dl.nav-link-link4, dl.nav-link-link6, dl.nav-link-link8, dl.nav-link-link10 { background: #f4f1ea; border-left-color: #9a6b2f; }
+</style>
 <!-- IF S_EDIT_SUBSCRIBERS -->
 <script>
 	// <![CDATA[
@@ -76,7 +89,17 @@
 			<legend>{options.LEGEND}</legend>
 	<!-- ELSE -->
 
-		<dl>
+		<!-- IF options.KEY == 'portal_enabled' && S_NAV_LINKS -->
+		<dl class="nav-order-row">
+			<dt><label>{L_NAV_LINK_SORT}:</label><br /><span>{L_NAV_LINK_SORT_EXPLAIN}</span></dt>
+			<dd>
+				<p style="margin:0 0 8px;"><input class="button2" type="submit" id="add_nav_link" name="add_nav_link" value="{L_NAV_LINK_ADD}" /></p>
+				{NAV_ORDER_BUTTONS}
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+
+		<dl<!-- IF options.NAV_GROUP --> class="nav-link-group nav-link-{options.NAV_GROUP}<!-- IF options.S_NAV_START --> nav-link-start<!-- ENDIF -->"<!-- ENDIF -->>
 			<dt><label for="{options.KEY}">{options.TITLE}:</label><!-- IF options.S_EXPLAIN --><br /><span>{options.TITLE_EXPLAIN}</span><!-- ENDIF --></dt>
 			<dd>{options.CONTENT}</dd>
 		</dl>
@@ -351,7 +374,7 @@
 	</p>
 <!-- ELSE -->
 	<p class="submit-buttons">
-        <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
 		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
 	</p>
 <!-- ENDIF -->
@@ -365,6 +388,7 @@ window.onload = function()
 	var rows = document.getElementsByTagName('dl');
 	var forum_visible = false;
 	var portal_visible = false;
+	var title_visible = {};
 
 	function set_rows(prefix, visible)
 	{
@@ -379,29 +403,370 @@ window.onload = function()
 		}
 	}
 
-	set_rows('forum_name', false);
-	set_rows('portal_name', false);
-
-	var forum = document.getElementById('forum_name');
-	var portal = document.getElementById('portal_name');
-
-	if (forum)
+	function bind_title(id, prefix)
 	{
-		forum.onclick = function()
+		var field = document.getElementById(id);
+
+		if (!field)
 		{
-			forum_visible = !forum_visible;
-			set_rows('forum_name', forum_visible);
+			return;
+		}
+
+		title_visible[prefix] = false;
+		set_rows(prefix, false);
+		field.onclick = function()
+		{
+			title_visible[prefix] = !title_visible[prefix];
+			set_rows(prefix, title_visible[prefix]);
 		};
 	}
 
-	if (portal)
+	function order_deleted(id)
 	{
-		portal.onclick = function()
+		var radios = document.getElementsByName('config[navlink_' + id + '_delete]');
+
+		for (var i = 0; i < radios.length; i++)
 		{
-			portal_visible = !portal_visible;
-			set_rows('portal_name', portal_visible);
+			if (radios[i].value == '1' && radios[i].checked)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	function nav_items()
+	{
+		var bar = document.getElementById('nav-order-bar');
+
+		if (!bar)
+		{
+			return [];
+		}
+
+		return bar.getElementsByTagName('span');
+	}
+
+	function write_nav_order()
+	{
+		var items = nav_items();
+		var position = 1;
+
+		for (var i = 0; i < items.length; i++)
+		{
+			if (items[i].className.indexOf('nav-order-item') === -1 || items[i].style.display == 'none')
+			{
+				continue;
+			}
+
+			var fields = items[i].getElementsByTagName('input');
+
+			if (fields.length)
+			{
+				fields[0].value = position;
+				position++;
+			}
+		}
+	}
+
+	function paint_nav_item(item, on)
+	{
+		var name = 'nav-order-item' + (on ? '' : ' is-off');
+
+		if (item.className.indexOf('is-dragging') !== -1)
+		{
+			name += ' is-dragging';
+		}
+
+		item.className = name;
+	}
+
+	function sync_nav_active()
+	{
+		var items = nav_items();
+
+		for (var i = 0; i < items.length; i++)
+		{
+			if (items[i].className.indexOf('nav-order-item') === -1)
+			{
+				continue;
+			}
+
+			var key = items[i].getAttribute('data-nav-key');
+			var name = (key.indexOf('navlink_') === 0) ? 'config[' + key + '_active]' : 'config[' + key + '_nav_active]';
+			var inputs = document.getElementsByTagName('input');
+			var on = true;
+
+			for (var n = 0; n < inputs.length; n++)
+			{
+				if (inputs[n].name == name && inputs[n].checked)
+				{
+					on = (inputs[n].value == '1');
+				}
+			}
+
+			paint_nav_item(items[i], on);
+		}
+	}
+
+	function hide_page_lists(except)
+	{
+		var lists = document.getElementsByTagName('div');
+
+		for (var i = 0; i < lists.length; i++)
+		{
+			if (lists[i].className.indexOf('nav-page-list') !== -1 && lists[i] !== except)
+			{
+				lists[i].style.display = 'none';
+			}
+		}
+	}
+
+	bind_title('forum_name', 'forum_name');
+	bind_title('portal_name', 'portal_name');
+
+	var titles = document.getElementsByTagName('input');
+
+	for (var t = 0; t < titles.length; t++)
+	{
+		if (/^navlink_[0-9]+_title$/.test(titles[t].id))
+		{
+			bind_title(titles[t].id, titles[t].id);
+		}
+	}
+
+	var radios = document.getElementsByTagName('input');
+
+	for (var r = 0; r < radios.length; r++)
+	{
+		if (/^config\[(portal_nav_active|forum_nav_active|navlink_[0-9]+_active)\]$/.test(radios[r].name))
+		{
+			radios[r].onclick = sync_nav_active;
+		}
+
+		if (/^config\[navlink_[0-9]+_delete\]$/.test(radios[r].name))
+		{
+			radios[r].onclick = function()
+			{
+				var match = this.name.match(/navlink_([0-9]+)_delete/);
+				var items = nav_items();
+
+				if (!match)
+				{
+					return;
+				}
+
+				for (var i = 0; i < items.length; i++)
+				{
+					if (items[i].getAttribute('data-nav-key') == 'navlink_' + match[1])
+					{
+						items[i].style.display = (this.value == '1' && this.checked) ? 'none' : '';
+					}
+				}
+
+				write_nav_order();
+			};
+		}
+	}
+
+	var urls = document.getElementsByTagName('input');
+
+	for (var u = 0; u < urls.length; u++)
+	{
+		if (urls[u].className.indexOf('nav-url') === -1)
+		{
+			continue;
+		}
+
+		urls[u].onclick = (function(field)
+		{
+			return function()
+			{
+				var list = field.parentNode.getElementsByTagName('div')[0];
+				hide_page_lists(list);
+
+				if (list)
+				{
+					list.style.display = (list.style.display == 'none') ? '' : 'none';
+				}
+			};
+		})(urls[u]);
+
+		urls[u].onkeyup = (function(field)
+		{
+			return function()
+			{
+				var hidden = field.parentNode.getElementsByTagName('input');
+
+				for (var h = 0; h < hidden.length; h++)
+				{
+					if (hidden[h].className.indexOf('nav-page-id') !== -1)
+					{
+						hidden[h].value = '0';
+					}
+				}
+			};
+		})(urls[u]);
+	}
+
+	var selects = document.getElementsByTagName('select');
+
+	for (var s = 0; s < selects.length; s++)
+	{
+		if (selects[s].className.indexOf('nav-page-select') === -1)
+		{
+			continue;
+		}
+
+		selects[s].onclick = (function(select)
+		{
+			return function()
+			{
+				var option = select.options[select.selectedIndex];
+				var box = select.parentNode.parentNode;
+				var field = null;
+				var hidden = null;
+				var inputs = box.getElementsByTagName('input');
+
+				for (var i = 0; i < inputs.length; i++)
+				{
+					if (inputs[i].className.indexOf('nav-url') !== -1)
+					{
+						field = inputs[i];
+					}
+
+					if (inputs[i].className.indexOf('nav-page-id') !== -1)
+					{
+						hidden = inputs[i];
+					}
+				}
+
+				if (!field || !option)
+				{
+					return;
+				}
+
+				if (!option.value)
+				{
+					if (hidden)
+					{
+						hidden.value = '0';
+					}
+				}
+				else
+				{
+					field.value = option.getAttribute('data-url') || '';
+
+					if (hidden)
+					{
+						hidden.value = option.value;
+					}
+				}
+
+				select.parentNode.style.display = 'none';
+			};
+		})(selects[s]);
+	}
+
+	var dragged = null;
+	var items = nav_items();
+
+	for (var d = 0; d < items.length; d++)
+	{
+		if (items[d].className.indexOf('nav-order-item') === -1)
+		{
+			continue;
+		}
+
+		items[d].ondragstart = function(e)
+		{
+			dragged = this;
+			this.className += ' is-dragging';
+
+			if (e.dataTransfer)
+			{
+				e.dataTransfer.effectAllowed = 'move';
+				e.dataTransfer.setData('text', this.getAttribute('data-nav-key'));
+			}
+		};
+
+		items[d].ondragend = function()
+		{
+			this.className = this.className.replace(' is-dragging', '').replace(' is-over', '');
+			dragged = null;
+			write_nav_order();
+		};
+
+		items[d].ondragenter = function()
+		{
+			if (dragged && dragged !== this && this.className.indexOf('is-over') === -1)
+			{
+				this.className += ' is-over';
+			}
+		};
+
+		items[d].ondragleave = function()
+		{
+			this.className = this.className.replace(' is-over', '');
+		};
+
+		items[d].ondragover = function(e)
+		{
+			if (e.preventDefault)
+			{
+				e.preventDefault();
+			}
+
+			return false;
+		};
+
+		items[d].ondrop = function(e)
+		{
+			if (e.preventDefault)
+			{
+				e.preventDefault();
+			}
+
+			if (!dragged || dragged === this)
+			{
+				return false;
+			}
+
+			var bar = document.getElementById('nav-order-bar');
+			var all = nav_items();
+			var dragged_at = -1;
+			var target_at = -1;
+
+			for (var i = 0; i < all.length; i++)
+			{
+				if (all[i] === dragged)
+				{
+					dragged_at = i;
+				}
+
+				if (all[i] === this)
+				{
+					target_at = i;
+				}
+			}
+
+			if (dragged_at < target_at)
+			{
+				bar.insertBefore(dragged, this.nextSibling);
+			}
+			else
+			{
+				bar.insertBefore(dragged, this);
+			}
+
+			write_nav_order();
+			return false;
 		};
 	}
+
+	sync_nav_active();
+	write_nav_order();
 };
 </script>
 
