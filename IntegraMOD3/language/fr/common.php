@@ -811,7 +811,7 @@ $lang = array_merge($lang, array(
 		'November'	=> 'Novembre',
 		'December'	=> 'Décembre',
 
-		'Jan'		=> 'Jan',
+		'Jan'		=> 'Janv',
 		'Feb'		=> 'Fév',
 		'Mar'		=> 'Mars',
 		'Apr'		=> 'Avr',
@@ -819,7 +819,7 @@ $lang = array_merge($lang, array(
 		'Jun'		=> 'Juin',
 		'Jul'		=> 'Juil',
 		'Aug'		=> 'Août',
-		'Sep'		=> 'Sep',
+		'Sep'		=> 'Sept',
 		'Oct'		=> 'Oct',
 		'Nov'		=> 'Nov',
 		'Dec'		=> 'Déc',
@@ -908,8 +908,8 @@ $lang = array_merge($lang, array(
 		'11.5'	=> '[UTC+11:30] Île Norfolk',
 		'12'	=> '[UTC+12] Nouvelle Zélande, Fiji, Kamchatka',
 		'12.75'	=> '[UTC+12:45] Îles Chatham',
-		'13'	=> '[UTC+13] Tongo, Îles Phoenix',
-		'14'	=> '[UTC+14] Île de Wight',
+		'13'	=> '[UTC+13] Tonga, Îles Phoenix',
+		'14'	=> '[UTC+14] Îles de la Ligne',
 	),
 
 	// The value is only an example and will get replaced by the current time on view

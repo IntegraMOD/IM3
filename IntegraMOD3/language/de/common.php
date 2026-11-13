@@ -334,7 +334,7 @@ $lang = array_merge($lang, array(
 	'MARK_SUBFORUMS_READ'	=> 'Unterforen als gelesen markieren',
 	'MB'					=> 'MB',
 	'MIB'					=> 'MiB',
-	'MEETINGS'				=> 'Meetings',
+	'MEETINGS'				=> 'Treffen',
 	'MCP'					=> 'Moderator-Kontrollzentrum',
 	'MEMBERLIST'			=> 'Mitglieder',
 	'MEMBERLIST_EXPLAIN'	=> 'Vollständige Mitgliederliste ansehen',
@@ -522,7 +522,7 @@ $lang = array_merge($lang, array(
 	'RETURN_TOPIC'				=> '%sZurück zum zuletzt besuchten Thema%s',
 	'RETURN_TO'					=> 'Zurück zu',
 	'FEED'						=> 'Feed',
-	'FEED_NEWS'					=> 'News',
+	'FEED_NEWS'					=> 'Neuigkeiten',
 	'FEED_TOPICS_ACTIVE'		=> 'Aktive Themen',
 	'FEED_TOPICS_NEW'			=> 'Neue Themen',
 	'RULES_ATTACH_CAN'			=> 'Sie <strong>können</strong> Anhänge in diesem Forum posten',
@@ -866,7 +866,7 @@ $lang = array_merge($lang, array(
 		'12.75'	=> 'UTC + 12:45 Stunden',
 		'13'	=> 'UTC + 13 Stunden',
 		'14'	=> 'UTC + 14 Stunden',
-		'dst'	=> '[ <abbr title="Daylight Saving Time">DST</abbr> ]',
+		'dst'	=> '[ <abbr title="Sommerzeit">SZ</abbr> ]',
 	),
 
 	'tz_zones'	=> array(
@@ -933,8 +933,8 @@ $lang = array_merge($lang, array(
 $lang = array_merge($lang, array(
 	'ACP_CAT_IMOD'					=> 'Integramod',
 	'ACP_IMOD_CONFIG'				=> 'Integramod-Konfiguration',
-	'ACP_IMOD_KB'					=> 'Knowledge Base',
-	'ACP_IMOD_DOWNLOADS'			=> 'Downloads Mod',
+	'ACP_IMOD_KB'					=> 'Wissensdatenbank',
+	'ACP_IMOD_DOWNLOADS'			=> 'Download-Mod',
 	'ACP_IMOD_ALBUM'				=> 'phpBB Galerie','CONNECT_SOCKET_ERROR_INTEGRA'   => 'Fehler beim Verbinden mit dem IntegraMod News-Feed',
 	'ACP_SHORT'						=> 'ACP',
 	'BOTTOM' 						=> 'Zum Seitenende springen',
@@ -947,7 +947,7 @@ $lang = array_merge($lang, array(
 	'FAST_REPLY'					=> 'schnell<h6>antworten</h6>',
 	'IFS' 							=> 'Downloads',
 	'IFS_EXPLAIN' 					=> 'IntegraFileShare',
-	'INTEGRA_NEWS'					=> 'News',
+	'INTEGRA_NEWS'					=> 'Neuigkeiten',
 	'INTEGRA_TITLE'					=> '<a href="http://www.integramod.com">News von IntegraMOD</a>',
 	'INTEGRA_WELCOME'				=> 'Willkommen bei IntegraMOD3',
 	'LANG_CALENDAR'					=> 'Kalender',
@@ -1041,11 +1041,11 @@ $lang = array_merge($lang, array(
 	'COOKIE_CONSENT_SAVE_PREFERENCES' => 'Einstellungen speichern',
 
 	// Missing variables
-	'DIGESTS'					=> 'Digests',
+	'DIGESTS'					=> 'Zusammenfassungen',
 	'FIRST_POST_SHOW'			=> 'Auf jeder Seite oben anzeigen',
 	'KB_SHORT'					=> 'KB',
 	'MY_WEBSITE'				=> 'Website %s',
-	'KNOWLEDGE_BASE'			=> 'Knowledge Base',
+	'KNOWLEDGE_BASE'			=> 'Wissensdatenbank',
 	'STYLE_LIGHT'				=> 'Heller Stil',
 	'STYLE_DARK'				=> 'Dunkler Stil',
 ));
