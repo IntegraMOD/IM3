@@ -1,0 +1,113 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h1>{L_TITLE}</h1>
+
+<p>{L_TITLE_EXPLAIN}</p>
+
+<!-- IF S_SETTINGS -->
+<form id="acp_mod_undo" method="post" action="{U_ACTION}">
+    <fieldset>
+        <legend>{L_ACP_MOD_UNDO_SETTINGS}</legend>
+        <dl>
+            <dt><label for="mod_undo_enable">{L_MOD_UNDO_ENABLE}:</label><br /><span>{L_MOD_UNDO_ENABLE_EXPLAIN}</span></dt>
+            <dd>
+                <label><input type="radio" class="radio" id="mod_undo_enable" name="mod_undo_enable" value="1"<!-- IF S_ENABLE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                <label><input type="radio" class="radio" name="mod_undo_enable" value="0"<!-- IF not S_ENABLE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+            </dd>
+        </dl>
+        <dl>
+            <dt><label for="mod_undo_admins">{L_MOD_UNDO_ADMINS}:</label><br /><span>{L_MOD_UNDO_ADMINS_EXPLAIN}</span></dt>
+            <dd>
+                <label><input type="radio" class="radio" id="mod_undo_admins" name="mod_undo_admins" value="1"<!-- IF S_ADMINS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+                <label><input type="radio" class="radio" name="mod_undo_admins" value="0"<!-- IF not S_ADMINS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+            </dd>
+        </dl>
+        <dl>
+            <dt><label for="mod_undo_days">{L_MOD_UNDO_DAYS}:</label><br /><span>{L_MOD_UNDO_DAYS_EXPLAIN}</span></dt>
+            <dd><input type="number" id="mod_undo_days" name="mod_undo_days" min="0" max="3650" value="{UNDO_DAYS}" /> {L_DAYS}</dd>
+        </dl>
+    </fieldset>
+
+    <fieldset class="submit-buttons">
+        <input class="button1" type="submit" name="submit" value="{L_SUBMIT}" />
+        {S_FORM_TOKEN}
+    </fieldset>
+</form>
+<!-- ENDIF -->
+
+<!-- IF S_LIST -->
+<!-- IF not S_ENABLED -->
+<div class="errorbox"><p>{L_MOD_UNDO_DISABLED}</p></div>
+<!-- ENDIF -->
+
+<form id="mod_undo_list" method="post" action="{U_ACTION}">
+
+    <fieldset class="display-options">
+        <label for="filter_user">{L_MOD_UNDO_FILTER_USER}:</label>
+        <input type="text" id="filter_user" name="filter_user" value="{FILTER_USER}" />
+        <select name="filter_status">
+            <option value="0"<!-- IF FILTER_STATUS == 0 --> selected="selected"<!-- ENDIF -->>{L_MOD_UNDO_PENDING}</option>
+            <option value="1"<!-- IF FILTER_STATUS == 1 --> selected="selected"<!-- ENDIF -->>{L_MOD_UNDO_RESTORED_ON}</option>
+            <option value="-1"<!-- IF FILTER_STATUS == -1 --> selected="selected"<!-- ENDIF -->>{L_MOD_UNDO_ALL}</option>
+        </select>
+        <input type="submit" class="button2" name="filter" value="{L_GO}" />
+    </fieldset>
+
+    <!-- IF .undo -->
+    <table cellspacing="1">
+        <thead>
+        <tr>
+            <th>{L_TIME}</th>
+            <th>{L_MOD_UNDO_MODERATOR}</th>
+            <th>{L_ACTION}</th>
+            <th>{L_MOD_UNDO_SUMMARY}</th>
+            <th>{L_MOD_UNDO_STATUS}</th>
+            <th>{L_MARK}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- BEGIN undo -->
+        <!-- IF undo.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+            <td>{undo.DATE}</td>
+            <td>{undo.MODERATOR}</td>
+            <td>{undo.ACTION}</td>
+            <td>{undo.SUMMARY}<!-- IF undo.U_VIEW --><br /><a href="{undo.U_VIEW}">{L_MOD_UNDO_VIEW}</a><!-- ENDIF --></td>
+            <td><!-- IF undo.S_PENDING -->{L_MOD_UNDO_PENDING}<!-- ELSE -->{L_MOD_UNDO_RESTORED_ON}: {undo.RESTORED_DATE}<!-- ENDIF --></td>
+            <td><!-- IF undo.S_PENDING --><input type="checkbox" class="radio" name="mark[]" value="{undo.ID}" /><!-- ENDIF --></td>
+        </tr>
+        <!-- END undo -->
+        </tbody>
+    </table>
+
+    <!-- IF PAGINATION -->
+    <div class="pagination">{S_ON_PAGE} &bull; <span>{PAGINATION}</span></div>
+    <!-- ENDIF -->
+
+    <fieldset class="quick">
+        <input class="button1" type="submit" name="restore_marked" value="{L_MOD_UNDO_RESTORE_MARKED}" />
+    </fieldset>
+    <!-- ELSE -->
+    <div class="errorbox"><p>{L_MOD_UNDO_NO_ENTRIES}</p></div>
+    <!-- ENDIF -->
+
+    <fieldset>
+        <legend>{L_MOD_UNDO_REVERT_USER}</legend>
+        <p>{L_MOD_UNDO_REVERT_USER_EXPLAIN}</p>
+        <dl>
+            <dt><label for="revert_name">{L_USERNAME}:</label></dt>
+            <dd><input type="text" id="revert_name" name="revert_name" value="" /></dd>
+        </dl>
+        <dl>
+            <dt><label for="revert_days">{L_MOD_UNDO_REVERT_DAYS}:</label></dt>
+            <dd><input type="number" id="revert_days" name="revert_days" min="1" max="3650" value="7" /></dd>
+        </dl>
+        <p class="quick"><input class="button2" type="submit" name="revert_user" value="{L_MOD_UNDO_REVERT}" /></p>
+    </fieldset>
+
+    {S_FORM_TOKEN}
+</form>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->
