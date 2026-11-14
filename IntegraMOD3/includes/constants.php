@@ -387,6 +387,7 @@ define('NOTES_TABLE',				$table_prefix . 'notes');
 define('PAGES_TABLE',				$table_prefix . 'pages');
 define('NAV_LINKS_TABLE',			$table_prefix . 'nav_links');
 define('NAV_LINK_LANG_TABLE',		$table_prefix . 'nav_link_lang');
+define('MOD_UNDO_TABLE',			$table_prefix . 'mod_undo');
 
 // Download MOD 6
 define('DL_AUTH_TABLE',				$table_prefix . 'dl_auth');

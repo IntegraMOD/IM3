@@ -54,14 +54,14 @@ class umil_frontend extends umil
 	* @param bool $force_display_results Allows you to force this to automatically display all results
 	* @param object|bool $db Allows you to use your own $db object instead of the global $db
 	*/
-	function umil_frontend($title = '', $auto_display_results = false, $force_display_results = false, $db = false)
+	function __construct($title = '', $auto_display_results = false, $force_display_results = false, $db = false)
 	{
 		global $phpbb_root_path, $phpEx, $template, $user;
 
 		$this->title = $title;
 
 		// we must call the main constructor
-		$this->umil(false, $db);
+		parent::__construct(false, $db);
 		$this->auto_display_results = $auto_display_results;
 		$this->force_display_results = $force_display_results;
 

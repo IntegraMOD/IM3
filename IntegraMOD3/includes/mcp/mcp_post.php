@@ -404,6 +404,9 @@ function change_poster(&$post_info, $userdata)
 
 	$post_id = $post_info['post_id'];
 
+	include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+	im3_mod_undo_change_poster($post_info, $userdata);
+
 	$sql = 'UPDATE ' . POSTS_TABLE . "
 		SET poster_id = {$userdata['user_id']}
 		WHERE post_id = $post_id";

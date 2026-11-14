@@ -248,10 +248,18 @@ function lock_unlock($action, $ids)
 
 	if (confirm_box(true))
 	{
+		include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+		$im3_undo = im3_mod_undo_lock_before($action, $ids);
+
 		$sql = "UPDATE $table
 			SET $set_id = " . (($action == 'lock' || $action == 'lock_post') ? ITEM_LOCKED : ITEM_UNLOCKED) . '
 			WHERE ' . $db->sql_in_set($sql_id, $ids);
 		$db->sql_query($sql);
+
+		if ($im3_undo)
+		{
+			im3_mod_undo_lock_after($im3_undo);
+		}
 
 		$data = ($action == 'lock' || $action == 'unlock') ? get_topic_data($ids) : get_post_data($ids);
 
@@ -654,6 +662,9 @@ function mcp_move_topic($topic_ids)
 
 		$db->sql_transaction('begin');
 
+		include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+		$im3_undo = im3_mod_undo_move_before($topic_ids, $to_forum_id);
+
 		$sync_sql = array();
 
 		if ($topic_posts_added)
@@ -761,6 +772,11 @@ function mcp_move_topic($topic_ids)
 
 		$db->sql_transaction('commit');
 
+		if ($im3_undo)
+		{
+			im3_mod_undo_move_after($im3_undo);
+		}
+
 		sync('forum', 'forum_id', array($forum_id, $to_forum_id));
 	}
 	else
@@ -835,7 +851,12 @@ function mcp_delete_topic($topic_ids)
 			}
 		}
 
+		include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+		im3_mod_undo_begin('delete_topic');
+
 		$return = delete_topics('topic_id', $topic_ids);
+
+		im3_mod_undo_end();
 	}
 	else
 	{
@@ -921,7 +942,12 @@ function mcp_delete_post($post_ids)
 		}
 
 		// Now delete the posts, topics and forums are automatically resync'ed
+		include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+		im3_mod_undo_begin('delete_post');
+
 		delete_posts('post_id', $post_ids);
+
+		im3_mod_undo_end();
 
 		$sql = 'SELECT COUNT(topic_id) AS topics_left
 			FROM ' . TOPICS_TABLE . '

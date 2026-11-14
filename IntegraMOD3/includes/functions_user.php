@@ -673,7 +673,10 @@ function user_active_flip($mode, $user_id_ary, $reason = INACTIVE_MANUAL)
 */
 function user_ban($mode, mixed $ban, $ban_len, $ban_len_other, $ban_exclude, $ban_reason, $ban_give_reason = '')
 {
-    global $db, $user, $auth, $cache;
+    global $db, $user, $auth, $cache, $phpbb_root_path, $phpEx;
+
+    include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+    $im3_undo = im3_mod_undo_ban_snapshot();
 
     // Delete stale bans
     $sql = 'DELETE FROM ' . BANLIST_TABLE . '
@@ -1007,6 +1010,8 @@ function user_ban($mode, mixed $ban, $ban_len, $ban_len_other, $ban_exclude, $ba
 
         $cache->destroy('sql', BANLIST_TABLE);
 
+        im3_mod_undo_ban_record('ban', $im3_undo, $ban_list_log);
+
         return true;
     }
 
@@ -1021,7 +1026,10 @@ function user_ban($mode, mixed $ban, $ban_len, $ban_len_other, $ban_exclude, $ba
 */
 function user_unban($mode, $ban)
 {
-    global $db, $user, $auth, $cache;
+    global $db, $user, $auth, $cache, $phpbb_root_path, $phpEx;
+
+    include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+    $im3_undo = im3_mod_undo_ban_snapshot();
 
     // Delete stale bans
     $sql = 'DELETE FROM ' . BANLIST_TABLE . '
@@ -1081,6 +1089,8 @@ function user_unban($mode, $ban)
                 add_log('user', $user_id, 'LOG_UNBAN_' . strtoupper((string) $mode), $l_unban_list);
             }
         }
+
+        im3_mod_undo_ban_record('unban', $im3_undo, $l_unban_list);
     }
 
     $cache->destroy('sql', BANLIST_TABLE);

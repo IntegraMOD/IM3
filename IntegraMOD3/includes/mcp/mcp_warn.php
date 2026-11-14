@@ -490,6 +490,11 @@ function add_warning($user_row, $warning, $send_pm = true, $post_id = 0)
 	);
 
 	$db->sql_query('INSERT INTO ' . WARNINGS_TABLE . ' ' . $db->sql_build_array('INSERT', $sql_ary));
+	$im3_warning_id = (int) $db->sql_nextid();
+
+	include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+	global $points_values;
+	im3_mod_undo_warning($im3_warning_id, $user_row, $post_id, (!empty($config['points_enable']) && isset($points_values['points_per_warn'])) ? $points_values['points_per_warn'] : 0);
 
 	$sql = 'UPDATE ' . USERS_TABLE . '
 		SET user_warnings = user_warnings + 1,

@@ -136,6 +136,43 @@ GO
 
 
 /*
+	Table: 'phpbb_k_links_queue'
+*/
+CREATE TABLE [phpbb_k_links_queue] (
+	[queue_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[post_id] [int] DEFAULT (0) NOT NULL ,
+	[topic_id] [int] DEFAULT (0) NOT NULL ,
+	[forum_id] [int] DEFAULT (0) NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[logo_original] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_tmp] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_final] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_ext] [varchar] (10) DEFAULT ('') NOT NULL ,
+	[logo_size] [int] DEFAULT (0) NOT NULL ,
+	[logo_status] [int] DEFAULT (0) NOT NULL ,
+	[upload_time] [int] DEFAULT (0) NOT NULL ,
+	[approved_time] [int] DEFAULT (0) NOT NULL ,
+	[approved_by] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_k_links_queue] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_k_links_queue] PRIMARY KEY  CLUSTERED 
+	(
+		[queue_id]
+	)
+GO
+
+CREATE  INDEX [post_id] ON [phpbb_k_links_queue]([post_id])
+GO
+
+CREATE  INDEX [topic_id] ON [phpbb_k_links_queue]([topic_id])
+GO
+
+CREATE  INDEX [status_forum] ON [phpbb_k_links_queue]([logo_status], [forum_id])
+GO
+
+
+/*
 	Table: 'phpbb_ads'
 */
 CREATE TABLE [phpbb_ads] (
@@ -2683,43 +2720,6 @@ GO
 
 
 /*
-	Table: 'phpbb_k_links_queue'
-*/
-CREATE TABLE [phpbb_k_links_queue] (
-	[queue_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[post_id] [int] DEFAULT (0) NOT NULL ,
-	[topic_id] [int] DEFAULT (0) NOT NULL ,
-	[forum_id] [int] DEFAULT (0) NOT NULL ,
-	[user_id] [int] DEFAULT (0) NOT NULL ,
-	[logo_original] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[logo_tmp] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[logo_final] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[logo_ext] [varchar] (10) DEFAULT ('') NOT NULL ,
-	[logo_size] [int] DEFAULT (0) NOT NULL ,
-	[logo_status] [int] DEFAULT (0) NOT NULL ,
-	[upload_time] [int] DEFAULT (0) NOT NULL ,
-	[approved_time] [int] DEFAULT (0) NOT NULL ,
-	[approved_by] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_k_links_queue] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_k_links_queue] PRIMARY KEY  CLUSTERED 
-	(
-		[queue_id]
-	)
-GO
-
-CREATE  INDEX [post_id] ON [phpbb_k_links_queue]([post_id])
-GO
-
-CREATE  INDEX [topic_id] ON [phpbb_k_links_queue]([topic_id])
-GO
-
-CREATE  INDEX [status_forum] ON [phpbb_k_links_queue]([logo_status], [forum_id])
-GO
-
-
-/*
 	Table: 'phpbb_k_pages'
 */
 CREATE TABLE [phpbb_k_pages] (
@@ -3130,6 +3130,42 @@ GO
 
 
 /*
+	Table: 'phpbb_mod_undo'
+*/
+CREATE TABLE [phpbb_mod_undo] (
+	[undo_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[undo_token] [varchar] (32) DEFAULT ('') NOT NULL ,
+	[undo_action] [varchar] (30) DEFAULT ('') NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[forum_id] [int] DEFAULT (0) NOT NULL ,
+	[topic_id] [int] DEFAULT (0) NOT NULL ,
+	[post_id] [int] DEFAULT (0) NOT NULL ,
+	[undo_time] [int] DEFAULT (0) NOT NULL ,
+	[undo_summary] [nvarchar] (255) DEFAULT ('') NOT NULL ,
+	[undo_data] [nvarchar] (max) DEFAULT ('') NOT NULL ,
+	[undo_status] [int] DEFAULT (0) NOT NULL ,
+	[restored_by] [int] DEFAULT (0) NOT NULL ,
+	[restored_time] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_mod_undo] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_mod_undo] PRIMARY KEY  CLUSTERED 
+	(
+		[undo_id]
+	)
+GO
+
+CREATE  INDEX [user_id] ON [phpbb_mod_undo]([user_id])
+GO
+
+CREATE  INDEX [undo_time] ON [phpbb_mod_undo]([undo_time])
+GO
+
+CREATE  INDEX [undo_status] ON [phpbb_mod_undo]([undo_status])
+GO
+
+
+/*
 	Table: 'phpbb_modules'
 */
 CREATE TABLE [phpbb_modules] (
@@ -3160,44 +3196,6 @@ CREATE  INDEX [module_enabled] ON [phpbb_modules]([module_enabled])
 GO
 
 CREATE  INDEX [class_left_id] ON [phpbb_modules]([module_class], [left_id])
-GO
-
-
-/*
-	Table: 'phpbb_nav_links'
-*/
-CREATE TABLE [phpbb_nav_links] (
-	[nav_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[nav_order] [int] DEFAULT (0) NOT NULL ,
-	[nav_active] [int] DEFAULT (1) NOT NULL ,
-	[nav_url] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[nav_page_id] [int] DEFAULT (0) NOT NULL ,
-	[nav_title] [nvarchar] (255) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_nav_links] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_nav_links] PRIMARY KEY  CLUSTERED 
-	(
-		[nav_id]
-	)
-GO
-
-
-/*
-	Table: 'phpbb_nav_link_lang'
-*/
-CREATE TABLE [phpbb_nav_link_lang] (
-	[nav_id] [int] DEFAULT (0) NOT NULL ,
-	[lang_iso] [varchar] (30) DEFAULT ('') NOT NULL ,
-	[nav_title] [nvarchar] (255) DEFAULT ('') NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_nav_link_lang] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_nav_link_lang] PRIMARY KEY  CLUSTERED 
-	(
-		[nav_id],
-		[lang_iso]
-	)
 GO
 
 
@@ -3250,6 +3248,44 @@ ALTER TABLE [phpbb_pages] WITH NOCHECK ADD
 	CONSTRAINT [PK_phpbb_pages] PRIMARY KEY  CLUSTERED 
 	(
 		[page_id]
+	)
+GO
+
+
+/*
+	Table: 'phpbb_nav_links'
+*/
+CREATE TABLE [phpbb_nav_links] (
+	[nav_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[nav_order] [int] DEFAULT (0) NOT NULL ,
+	[nav_active] [int] DEFAULT (1) NOT NULL ,
+	[nav_url] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[nav_page_id] [int] DEFAULT (0) NOT NULL ,
+	[nav_title] [nvarchar] (255) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_nav_links] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_nav_links] PRIMARY KEY  CLUSTERED 
+	(
+		[nav_id]
+	)
+GO
+
+
+/*
+	Table: 'phpbb_nav_link_lang'
+*/
+CREATE TABLE [phpbb_nav_link_lang] (
+	[nav_id] [int] DEFAULT (0) NOT NULL ,
+	[lang_iso] [varchar] (30) DEFAULT ('') NOT NULL ,
+	[nav_title] [nvarchar] (255) DEFAULT ('') NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_nav_link_lang] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_nav_link_lang] PRIMARY KEY  CLUSTERED 
+	(
+		[nav_id],
+		[lang_iso]
 	)
 GO
 

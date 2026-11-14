@@ -408,7 +408,11 @@ function merge_topics($forum_id, $topic_ids, $to_topic_id)
 	{
 		$to_forum_id = $topic_data['forum_id'];
 
+		include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+		im3_mod_undo_merge_begin($post_id_list, $to_topic_id);
 		move_posts($post_id_list, $to_topic_id);
+		im3_mod_undo_end();
+
 		add_log('mod', $to_forum_id, $to_topic_id, 'LOG_MERGE', $topic_data['topic_title']);
 
 		// Message and return links

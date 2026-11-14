@@ -164,6 +164,51 @@ CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users (auth_role_id)
 /
 
 /*
+	Table: 'phpbb_k_links_queue'
+*/
+CREATE TABLE phpbb_k_links_queue (
+	queue_id number(10) NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	logo_original varchar2(255) DEFAULT '' ,
+	logo_tmp varchar2(255) DEFAULT '' ,
+	logo_final varchar2(255) DEFAULT '' ,
+	logo_ext varchar2(10) DEFAULT '' ,
+	logo_size number(10) DEFAULT '0' NOT NULL,
+	logo_status number(1) DEFAULT '0' NOT NULL,
+	upload_time number(11) DEFAULT '0' NOT NULL,
+	approved_time number(11) DEFAULT '0' NOT NULL,
+	approved_by number(10) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_k_links_queue PRIMARY KEY (queue_id)
+)
+/
+
+CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id)
+/
+CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id)
+/
+CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id)
+/
+
+CREATE SEQUENCE phpbb_k_links_queue_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_k_links_queue
+BEFORE INSERT ON phpbb_k_links_queue
+FOR EACH ROW WHEN (
+	new.queue_id IS NULL OR new.queue_id = 0
+)
+BEGIN
+	SELECT phpbb_k_links_queue_seq.nextval
+	INTO :new.queue_id
+	FROM dual;
+END;
+/
+
+
+/*
 	Table: 'phpbb_ads'
 */
 CREATE TABLE phpbb_ads (
@@ -2966,51 +3011,6 @@ END;
 
 
 /*
-	Table: 'phpbb_k_links_queue'
-*/
-CREATE TABLE phpbb_k_links_queue (
-	queue_id number(10) NOT NULL,
-	post_id number(10) DEFAULT '0' NOT NULL,
-	topic_id number(10) DEFAULT '0' NOT NULL,
-	forum_id number(10) DEFAULT '0' NOT NULL,
-	user_id number(10) DEFAULT '0' NOT NULL,
-	logo_original varchar2(255) DEFAULT '' ,
-	logo_tmp varchar2(255) DEFAULT '' ,
-	logo_final varchar2(255) DEFAULT '' ,
-	logo_ext varchar2(10) DEFAULT '' ,
-	logo_size number(10) DEFAULT '0' NOT NULL,
-	logo_status number(1) DEFAULT '0' NOT NULL,
-	upload_time number(11) DEFAULT '0' NOT NULL,
-	approved_time number(11) DEFAULT '0' NOT NULL,
-	approved_by number(10) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_k_links_queue PRIMARY KEY (queue_id)
-)
-/
-
-CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id)
-/
-CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id)
-/
-CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id)
-/
-
-CREATE SEQUENCE phpbb_k_links_queue_seq
-/
-
-CREATE OR REPLACE TRIGGER t_phpbb_k_links_queue
-BEFORE INSERT ON phpbb_k_links_queue
-FOR EACH ROW WHEN (
-	new.queue_id IS NULL OR new.queue_id = 0
-)
-BEGIN
-	SELECT phpbb_k_links_queue_seq.nextval
-	INTO :new.queue_id
-	FROM dual;
-END;
-/
-
-
-/*
 	Table: 'phpbb_k_pages'
 */
 CREATE TABLE phpbb_k_pages (
@@ -3455,6 +3455,50 @@ END;
 
 
 /*
+	Table: 'phpbb_mod_undo'
+*/
+CREATE TABLE phpbb_mod_undo (
+	undo_id number(10) NOT NULL,
+	undo_token varchar2(32) DEFAULT '' ,
+	undo_action varchar2(30) DEFAULT '' ,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
+	undo_time number(11) DEFAULT '0' NOT NULL,
+	undo_summary varchar2(765) DEFAULT '' ,
+	undo_data clob DEFAULT '' ,
+	undo_status number(1) DEFAULT '0' NOT NULL,
+	restored_by number(10) DEFAULT '0' NOT NULL,
+	restored_time number(11) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_mod_undo PRIMARY KEY (undo_id)
+)
+/
+
+CREATE INDEX phpbb_mod_undo_user_id ON phpbb_mod_undo (user_id)
+/
+CREATE INDEX phpbb_mod_undo_undo_time ON phpbb_mod_undo (undo_time)
+/
+CREATE INDEX phpbb_mod_undo_undo_status ON phpbb_mod_undo (undo_status)
+/
+
+CREATE SEQUENCE phpbb_mod_undo_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_mod_undo
+BEFORE INSERT ON phpbb_mod_undo
+FOR EACH ROW WHEN (
+	new.undo_id IS NULL OR new.undo_id = 0
+)
+BEGIN
+	SELECT phpbb_mod_undo_seq.nextval
+	INTO :new.undo_id
+	FROM dual;
+END;
+/
+
+
+/*
 	Table: 'phpbb_modules'
 */
 CREATE TABLE phpbb_modules (
@@ -3497,6 +3541,48 @@ END;
 
 
 /*
+	Table: 'phpbb_notes'
+*/
+CREATE TABLE phpbb_notes (
+	note_id number(11) DEFAULT '0' NOT NULL,
+	note_user_id number(11) DEFAULT '0' NOT NULL,
+	note_subject varchar2(765) DEFAULT '' ,
+	note_text clob DEFAULT '' ,
+	note_time number(11) DEFAULT '0' NOT NULL,
+	note_uid char(8) DEFAULT '1' NOT NULL,
+	note_bitfield varchar2(255) DEFAULT '' ,
+	note_flags number(11) DEFAULT '0' NOT NULL,
+	note_mem number(11) DEFAULT '0' NOT NULL,
+	note_memx number(1) DEFAULT '1' NOT NULL,
+	CONSTRAINT pk_phpbb_notes PRIMARY KEY (note_id)
+)
+/
+
+CREATE INDEX phpbb_notes_note_user_id ON phpbb_notes (note_user_id)
+/
+
+/*
+	Table: 'phpbb_pages'
+*/
+CREATE TABLE phpbb_pages (
+	page_id number(11) DEFAULT '0' NOT NULL,
+	page_title varchar2(255) DEFAULT '' ,
+	page_desc clob DEFAULT '' ,
+	page_content clob DEFAULT '' ,
+	page_url varchar2(255) DEFAULT '' ,
+	bbcode_uid varchar2(8) DEFAULT '' ,
+	bbcode_bitfield varchar2(255) DEFAULT '' ,
+	page_time number(11) DEFAULT '0' NOT NULL,
+	page_order number(11) DEFAULT '0' NOT NULL,
+	page_display number(1) DEFAULT '0' NOT NULL,
+	page_display_guests number(1) DEFAULT '0' NOT NULL,
+	page_author number(10) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_pages PRIMARY KEY (page_id)
+)
+/
+
+
+/*
 	Table: 'phpbb_nav_links'
 */
 CREATE TABLE phpbb_nav_links (
@@ -3535,48 +3621,6 @@ CREATE TABLE phpbb_nav_link_lang (
 	lang_iso varchar2(30) DEFAULT '' ,
 	nav_title varchar2(765) DEFAULT '' ,
 	CONSTRAINT pk_phpbb_nav_link_lang PRIMARY KEY (nav_id, lang_iso)
-)
-/
-
-
-/*
-	Table: 'phpbb_notes'
-*/
-CREATE TABLE phpbb_notes (
-	note_id number(11) DEFAULT '0' NOT NULL,
-	note_user_id number(11) DEFAULT '0' NOT NULL,
-	note_subject varchar2(765) DEFAULT '' ,
-	note_text clob DEFAULT '' ,
-	note_time number(11) DEFAULT '0' NOT NULL,
-	note_uid char(8) DEFAULT '1' NOT NULL,
-	note_bitfield varchar2(255) DEFAULT '' ,
-	note_flags number(11) DEFAULT '0' NOT NULL,
-	note_mem number(11) DEFAULT '0' NOT NULL,
-	note_memx number(1) DEFAULT '1' NOT NULL,
-	CONSTRAINT pk_phpbb_notes PRIMARY KEY (note_id)
-)
-/
-
-CREATE INDEX phpbb_notes_note_user_id ON phpbb_notes (note_user_id)
-/
-
-/*
-	Table: 'phpbb_pages'
-*/
-CREATE TABLE phpbb_pages (
-	page_id number(11) DEFAULT '0' NOT NULL,
-	page_title varchar2(255) DEFAULT '' ,
-	page_desc clob DEFAULT '' ,
-	page_content clob DEFAULT '' ,
-	page_url varchar2(255) DEFAULT '' ,
-	bbcode_uid varchar2(8) DEFAULT '' ,
-	bbcode_bitfield varchar2(255) DEFAULT '' ,
-	page_time number(11) DEFAULT '0' NOT NULL,
-	page_order number(11) DEFAULT '0' NOT NULL,
-	page_display number(1) DEFAULT '0' NOT NULL,
-	page_display_guests number(1) DEFAULT '0' NOT NULL,
-	page_author number(10) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_pages PRIMARY KEY (page_id)
 )
 /
 

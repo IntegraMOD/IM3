@@ -67,6 +67,28 @@ CREATE INDEX phpbb_acl_users_user_id ON phpbb_acl_users (user_id);
 CREATE INDEX phpbb_acl_users_auth_option_id ON phpbb_acl_users (auth_option_id);
 CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users (auth_role_id);
 
+# Table: 'phpbb_k_links_queue'
+CREATE TABLE phpbb_k_links_queue (
+	queue_id INTEGER PRIMARY KEY NOT NULL ,
+	post_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	topic_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	forum_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	logo_original varchar(255) NOT NULL DEFAULT '',
+	logo_tmp varchar(255) NOT NULL DEFAULT '',
+	logo_final varchar(255) NOT NULL DEFAULT '',
+	logo_ext varchar(10) NOT NULL DEFAULT '',
+	logo_size INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	logo_status INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	upload_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	approved_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	approved_by INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id);
+CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id);
+CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id);
+
 # Table: 'phpbb_ads'
 CREATE TABLE phpbb_ads (
 	ad_id INTEGER PRIMARY KEY NOT NULL ,
@@ -1554,28 +1576,6 @@ CREATE TABLE phpbb_k_menus (
 );
 
 
-# Table: 'phpbb_k_links_queue'
-CREATE TABLE phpbb_k_links_queue (
-	queue_id INTEGER PRIMARY KEY NOT NULL ,
-	post_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	topic_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	forum_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	logo_original varchar(255) NOT NULL DEFAULT '',
-	logo_tmp varchar(255) NOT NULL DEFAULT '',
-	logo_final varchar(255) NOT NULL DEFAULT '',
-	logo_ext varchar(10) NOT NULL DEFAULT '',
-	logo_size INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	logo_status INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	upload_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	approved_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	approved_by INTEGER UNSIGNED NOT NULL DEFAULT '0'
-);
-
-CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id);
-CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id);
-CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id);
-
 # Table: 'phpbb_k_pages'
 CREATE TABLE phpbb_k_pages (
 	page_id INTEGER PRIMARY KEY NOT NULL ,
@@ -1803,6 +1803,27 @@ CREATE TABLE phpbb_mods_database (
 );
 
 
+# Table: 'phpbb_mod_undo'
+CREATE TABLE phpbb_mod_undo (
+	undo_id INTEGER PRIMARY KEY NOT NULL ,
+	undo_token varchar(32) NOT NULL DEFAULT '',
+	undo_action varchar(30) NOT NULL DEFAULT '',
+	user_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	forum_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	topic_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	post_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	undo_time INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	undo_summary varchar(255) NOT NULL DEFAULT '',
+	undo_data mediumtext(16777215) NOT NULL DEFAULT '',
+	undo_status tinyint(1) NOT NULL DEFAULT '0',
+	restored_by INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	restored_time INTEGER UNSIGNED NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX phpbb_mod_undo_user_id ON phpbb_mod_undo (user_id);
+CREATE INDEX phpbb_mod_undo_undo_time ON phpbb_mod_undo (undo_time);
+CREATE INDEX phpbb_mod_undo_undo_status ON phpbb_mod_undo (undo_status);
+
 # Table: 'phpbb_modules'
 CREATE TABLE phpbb_modules (
 	module_id INTEGER PRIMARY KEY NOT NULL ,
@@ -1821,26 +1842,6 @@ CREATE TABLE phpbb_modules (
 CREATE INDEX phpbb_modules_left_right_id ON phpbb_modules (left_id, right_id);
 CREATE INDEX phpbb_modules_module_enabled ON phpbb_modules (module_enabled);
 CREATE INDEX phpbb_modules_class_left_id ON phpbb_modules (module_class, left_id);
-
-# Table: 'phpbb_nav_links'
-CREATE TABLE phpbb_nav_links (
-	nav_id INTEGER PRIMARY KEY NOT NULL ,
-	nav_order INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	nav_active INTEGER UNSIGNED NOT NULL DEFAULT '1',
-	nav_url varchar(255) NOT NULL DEFAULT '',
-	nav_page_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	nav_title varchar(255) NOT NULL DEFAULT ''
-);
-
-
-# Table: 'phpbb_nav_link_lang'
-CREATE TABLE phpbb_nav_link_lang (
-	nav_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
-	lang_iso varchar(30) NOT NULL DEFAULT '',
-	nav_title varchar(255) NOT NULL DEFAULT '',
-	PRIMARY KEY (nav_id, lang_iso)
-);
-
 
 # Table: 'phpbb_notes'
 CREATE TABLE phpbb_notes (
@@ -1874,6 +1875,26 @@ CREATE TABLE phpbb_pages (
 	page_display_guests INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	page_author INTEGER UNSIGNED NOT NULL DEFAULT '0',
 	PRIMARY KEY (page_id)
+);
+
+
+# Table: 'phpbb_nav_links'
+CREATE TABLE phpbb_nav_links (
+	nav_id INTEGER PRIMARY KEY NOT NULL ,
+	nav_order INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	nav_active INTEGER UNSIGNED NOT NULL DEFAULT '1',
+	nav_url varchar(255) NOT NULL DEFAULT '',
+	nav_page_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	nav_title varchar(255) NOT NULL DEFAULT ''
+);
+
+
+# Table: 'phpbb_nav_link_lang'
+CREATE TABLE phpbb_nav_link_lang (
+	nav_id INTEGER UNSIGNED NOT NULL DEFAULT '0',
+	lang_iso varchar(30) NOT NULL DEFAULT '',
+	nav_title varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (nav_id, lang_iso)
 );
 
 

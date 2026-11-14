@@ -2063,6 +2063,7 @@ class install_install extends module
 				}
 			}
 
+
 			// Get the modules we want to add... returned sorted by name
 			$module_info = $_module->get_module_infos('', $module_class);
 
@@ -2881,6 +2882,7 @@ class install_install extends module
 			),
 			'ACP_CAT_MAINTENANCE'	=> array(
 				'ACP_FORUM_LOGS',
+				'ACP_MOD_UNDO',
 				'ACP_CAT_DATABASE',
 				'ACP_CAT_FILES',
 			),

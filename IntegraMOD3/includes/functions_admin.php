@@ -686,6 +686,12 @@ function delete_topics($where_type, $where_ids, $auto_sync = true, $post_count_s
 		$where_clause = $db->sql_in_set($where_type, $where_ids);
 	}
 
+	// IM3 moderator undo: snapshot topics before removal
+	if (!empty($GLOBALS['im3_mod_undo']['active']))
+	{
+		im3_mod_undo_capture_topics($where_clause);
+	}
+
 	// Making sure that delete_posts does not call delete_topics again...
 	$return = array(
 		'posts' => ($call_delete_posts) ? delete_posts($where_type, $where_ids, false, true, $post_count_sync, false) : 0,
@@ -841,6 +847,12 @@ function delete_posts($where_type, $where_ids, $auto_sync = true, $posted_sync =
 	if (!sizeof($post_ids))
 	{
 		return false;
+	}
+
+	// IM3 moderator undo: snapshot posts, reports and attachment files before removal
+	if (!empty($GLOBALS['im3_mod_undo']['active']))
+	{
+		im3_mod_undo_capture_posts($post_ids);
 	}
 
 	$db->sql_transaction('begin');

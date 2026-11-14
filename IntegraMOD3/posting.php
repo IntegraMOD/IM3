@@ -1456,6 +1456,14 @@ if ($submit || $preview || $refresh)
 				$data['force_approved_state'] = false;
 			}
 			// END Anti-Spam ACP
+
+			// IM3 moderator undo: keep the post as it was before another user edits it
+			if ($mode == 'edit')
+			{
+				include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+				im3_mod_undo_capture_edit((int) $post_id);
+			}
+
 			$redirect_url = submit_post($mode, $post_data['post_subject'], $post_author_name, $post_data['topic_type'], $poll, $data, $update_message, ($update_message || $update_subject) ? true : false);
 
 			if (function_exists('im3_process_mentions') && !empty($data['post_id']) && empty($GLOBALS['im3_mentions_sent'][(int) $data['post_id']]))
@@ -2156,7 +2164,19 @@ function handle_post_delete($forum_id, $topic_id, $post_id, &$post_data)
 			$db->sql_query($sql);
 			// End Ultimate Points
 
+			$im3_undo = false;
+			if ((int) $post_data['poster_id'] !== (int) $user->data['user_id'])
+			{
+				include_once($phpbb_root_path . 'includes/functions_mod_undo.' . $phpEx);
+				$im3_undo = im3_mod_undo_begin('delete_post');
+			}
+
 			$next_post_id = delete_post($forum_id, $topic_id, $post_id, $data);
+
+			if ($im3_undo)
+			{
+				im3_mod_undo_end();
+			}
 
 			// BEGIN mChat Mod Add-on
 			if (!empty($config['mchat_enable']) && !empty($config['mchat_new_posts']))
