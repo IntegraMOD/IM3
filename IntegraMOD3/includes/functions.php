@@ -5410,7 +5410,8 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 
 	// A trailing-slash pretty URL is a directory to the browser. phpBB records
 	// "./" at a vhost root, so derive the real path from the request.
-	if (!empty($GLOBALS['im3_seo_route']['type']) && ($GLOBALS['im3_seo_route']['type'] === 'f' || $GLOBALS['im3_seo_route']['type'] === 'u') && function_exists('im3_seo_web_root'))
+	// Applies to every SEO route, including name pages such as /chat/.
+	if (!empty($GLOBALS['im3_seo_route']['type']) && function_exists('im3_seo_web_root'))
 	{
 		$web_path = im3_seo_web_root();
 	}
@@ -5813,8 +5814,11 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
         ));
     }
 
-	$portal_label = (!empty($config['portal_name_' . $user_lang])) ? $config['portal_name_' . $user_lang] : ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal') ? $config['portal_name'] : $user->lang['PORTAL']);
-	$forum_label = (!empty($config['forum_name_' . $user_lang])) ? $config['forum_name_' . $user_lang] : ((isset($config['forum_name']) && $config['forum_name'] !== 'Forum') ? $config['forum_name'] : $user->lang['FORUM']);
+	// Per-language labels are keyed by language folder (en, fr...), set for guests and members in session::setup()
+	$label_lang = basename((string) $user->lang_name);
+
+	$portal_label = (!empty($config['portal_name_' . $label_lang])) ? $config['portal_name_' . $label_lang] : ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal') ? $config['portal_name'] : $user->lang['PORTAL']);
+	$forum_label = (!empty($config['forum_name_' . $label_lang])) ? $config['forum_name_' . $label_lang] : ((isset($config['forum_name']) && $config['forum_name'] !== 'Forum') ? $config['forum_name'] : $user->lang['FORUM']);
 
 	if (!function_exists('im3_nav_assign'))
 	{

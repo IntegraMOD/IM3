@@ -425,7 +425,8 @@ function im3_nav_assign()
 
 	im3_nav_ensure_schema();
 
-	$user_lang = $user->data['user_lang'];
+	// Guests use default_lang via session::setup(); the anonymous row's user_lang must not be used
+	$user_lang = basename((string) $user->lang_name);
 	$portal_label = (!empty($config['portal_name_' . $user_lang])) ? $config['portal_name_' . $user_lang] : ((isset($config['portal_name']) && $config['portal_name'] !== 'Portal') ? $config['portal_name'] : $user->lang['PORTAL']);
 	$forum_label = (!empty($config['forum_name_' . $user_lang])) ? $config['forum_name_' . $user_lang] : ((isset($config['forum_name']) && $config['forum_name'] !== 'Forum') ? $config['forum_name'] : $user->lang['FORUM']);
 	$items = array();
