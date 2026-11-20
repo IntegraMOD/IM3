@@ -677,7 +677,9 @@ function im3_seo_web_root()
 		$path = '/';
 	}
 
-	if (preg_match('#^(.*?)/(?:(?:f|t|u|p|page)[0-9]|[a-z0-9][a-z0-9+-]*)#', $path, $match))
+	// Match only the final route segment so a board sub-directory such as
+	// /im3work/ is not mistaken for a name-based page.
+	if (preg_match('#^(.*?)/(?:(?:f|u|page)[0-9]{1,8}(?:-[^/]*)?/?|t[0-9]{1,8}(?:-[^/]*)?\.html|p[0-9]{1,8}/?|search-[a-z-]+\.html|[a-z0-9][a-z0-9+-]{0,79}/?)$#', $path, $match))
 	{
 		$path = ($match[1] === '') ? '/' : $match[1] . '/';
 	}

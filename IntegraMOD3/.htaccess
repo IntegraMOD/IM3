@@ -3,10 +3,10 @@
 # HTTP authentication and it does not already work.
 # This could be required if you are for example using PHP via Apache CGI.
 #
-#<IfModule mod_rewrite.c>
-#RewriteEngine on
-#RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
-#</IfModule>
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+</IfModule>
 
 # With Apache 2.4 the "Order, Deny" syntax has been deprecated and moved from
 # module mod_authz_host to a new module called mod_access_compat (which may be
