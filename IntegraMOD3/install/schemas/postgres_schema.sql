@@ -162,33 +162,6 @@ CREATE INDEX phpbb_acl_users_auth_option_id ON phpbb_acl_users (auth_option_id);
 CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users (auth_role_id);
 
 /*
-	Table: 'phpbb_k_links_queue'
-*/
-CREATE SEQUENCE phpbb_k_links_queue_seq;
-
-CREATE TABLE phpbb_k_links_queue (
-	queue_id INT4 DEFAULT nextval('phpbb_k_links_queue_seq'),
-	post_id INT4 DEFAULT '0' NOT NULL CHECK (post_id >= 0),
-	topic_id INT4 DEFAULT '0' NOT NULL CHECK (topic_id >= 0),
-	forum_id INT4 DEFAULT '0' NOT NULL CHECK (forum_id >= 0),
-	user_id INT4 DEFAULT '0' NOT NULL CHECK (user_id >= 0),
-	logo_original varchar(255) DEFAULT '' NOT NULL,
-	logo_tmp varchar(255) DEFAULT '' NOT NULL,
-	logo_final varchar(255) DEFAULT '' NOT NULL,
-	logo_ext varchar(10) DEFAULT '' NOT NULL,
-	logo_size INT4 DEFAULT '0' NOT NULL CHECK (logo_size >= 0),
-	logo_status INT2 DEFAULT '0' NOT NULL CHECK (logo_status >= 0),
-	upload_time INT4 DEFAULT '0' NOT NULL CHECK (upload_time >= 0),
-	approved_time INT4 DEFAULT '0' NOT NULL CHECK (approved_time >= 0),
-	approved_by INT4 DEFAULT '0' NOT NULL CHECK (approved_by >= 0),
-	PRIMARY KEY (queue_id)
-);
-
-CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id);
-CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id);
-CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id);
-
-/*
 	Table: 'phpbb_ads'
 */
 CREATE SEQUENCE phpbb_ads_seq;
@@ -1306,7 +1279,7 @@ CREATE TABLE phpbb_forums (
 	forum_desc_options INT4 DEFAULT '7' NOT NULL CHECK (forum_desc_options >= 0),
 	forum_desc_uid varchar(8) DEFAULT '' NOT NULL,
 	forum_link varchar(255) DEFAULT '' NOT NULL,
-	forum_password varchar(40) DEFAULT '' NOT NULL,
+	forum_password varchar(255) DEFAULT '' NOT NULL,
 	forum_style INT4 DEFAULT '0' NOT NULL CHECK (forum_style >= 0),
 	forum_image varchar(255) DEFAULT '' NOT NULL,
 	forum_rules varchar(4000) DEFAULT '' NOT NULL,
@@ -2009,6 +1982,33 @@ CREATE TABLE phpbb_k_config_vars (
 CREATE INDEX phpbb_k_config_vars_is_dynamic ON phpbb_k_config_vars (is_dynamic);
 
 /*
+	Table: 'phpbb_k_links_queue'
+*/
+CREATE SEQUENCE phpbb_k_links_queue_seq;
+
+CREATE TABLE phpbb_k_links_queue (
+	queue_id INT4 DEFAULT nextval('phpbb_k_links_queue_seq'),
+	post_id INT4 DEFAULT '0' NOT NULL CHECK (post_id >= 0),
+	topic_id INT4 DEFAULT '0' NOT NULL CHECK (topic_id >= 0),
+	forum_id INT4 DEFAULT '0' NOT NULL CHECK (forum_id >= 0),
+	user_id INT4 DEFAULT '0' NOT NULL CHECK (user_id >= 0),
+	logo_original varchar(255) DEFAULT '' NOT NULL,
+	logo_tmp varchar(255) DEFAULT '' NOT NULL,
+	logo_final varchar(255) DEFAULT '' NOT NULL,
+	logo_ext varchar(10) DEFAULT '' NOT NULL,
+	logo_size INT4 DEFAULT '0' NOT NULL CHECK (logo_size >= 0),
+	logo_status INT2 DEFAULT '0' NOT NULL CHECK (logo_status >= 0),
+	upload_time INT4 DEFAULT '0' NOT NULL CHECK (upload_time >= 0),
+	approved_time INT4 DEFAULT '0' NOT NULL CHECK (approved_time >= 0),
+	approved_by INT4 DEFAULT '0' NOT NULL CHECK (approved_by >= 0),
+	PRIMARY KEY (queue_id)
+);
+
+CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id);
+CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id);
+CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id);
+
+/*
 	Table: 'phpbb_k_menus'
 */
 CREATE SEQUENCE phpbb_k_menus_seq;
@@ -2030,6 +2030,37 @@ CREATE TABLE phpbb_k_menus (
 	PRIMARY KEY (m_id)
 );
 
+
+/*
+	Table: 'phpbb_k_modules'
+*/
+CREATE SEQUENCE phpbb_k_modules_seq;
+
+CREATE TABLE phpbb_k_modules (
+	mod_id INT4 DEFAULT nextval('phpbb_k_modules_seq'),
+	mod_link_id INT4 DEFAULT '0' NOT NULL CHECK (mod_link_id >= 0),
+	mod_type varchar(50) DEFAULT '' NOT NULL,
+	mod_origin INT2 DEFAULT '0' NOT NULL CHECK (mod_origin >= 0),
+	mod_name varchar(255) DEFAULT '' NOT NULL,
+	mod_filename varchar(255) DEFAULT '' NOT NULL,
+	mod_author varchar(100) DEFAULT '' NOT NULL,
+	mod_link varchar(255) DEFAULT '' NOT NULL,
+	mod_author_co varchar(255) DEFAULT '' NOT NULL,
+	mod_support_link varchar(255) DEFAULT '' NOT NULL,
+	mod_copyright varchar(100) DEFAULT '' NOT NULL,
+	mod_thumb varchar(100) DEFAULT '' NOT NULL,
+	mod_last_update varchar(50) DEFAULT '' NOT NULL,
+	mod_details TEXT DEFAULT '' NOT NULL,
+	mod_download_count INT4 DEFAULT '0' NOT NULL CHECK (mod_download_count >= 0),
+	mod_status INT2 DEFAULT '0' NOT NULL CHECK (mod_status >= 0),
+	mod_version varchar(10) DEFAULT '' NOT NULL,
+	mod_bbcode_uid varchar(8) DEFAULT '' NOT NULL,
+	mod_bbcode_bitfield varchar(255) DEFAULT '' NOT NULL,
+	mod_bbcode_options INT4 DEFAULT '0' NOT NULL CHECK (mod_bbcode_options >= 0),
+	PRIMARY KEY (mod_id)
+);
+
+CREATE INDEX phpbb_k_modules_mod_name ON phpbb_k_modules (mod_name);
 
 /*
 	Table: 'phpbb_k_pages'
@@ -3729,7 +3760,7 @@ CREATE TABLE phpbb_users (
 	username varchar_ci DEFAULT '' NOT NULL,
 	username_clean varchar_ci DEFAULT '' NOT NULL,
 	user_regdate INT4 DEFAULT '0' NOT NULL CHECK (user_regdate >= 0),
-	user_password varchar(40) DEFAULT '' NOT NULL,
+	user_password varchar(255) DEFAULT '' NOT NULL,
 	user_email varchar(100) DEFAULT '' NOT NULL,
 	user_lang varchar(30) DEFAULT '' NOT NULL,
 	user_style INT4 DEFAULT '0' NOT NULL CHECK (user_style >= 0),

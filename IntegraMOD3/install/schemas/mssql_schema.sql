@@ -136,43 +136,6 @@ GO
 
 
 /*
-	Table: 'phpbb_k_links_queue'
-*/
-CREATE TABLE [phpbb_k_links_queue] (
-	[queue_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[post_id] [int] DEFAULT (0) NOT NULL ,
-	[topic_id] [int] DEFAULT (0) NOT NULL ,
-	[forum_id] [int] DEFAULT (0) NOT NULL ,
-	[user_id] [int] DEFAULT (0) NOT NULL ,
-	[logo_original] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[logo_tmp] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[logo_final] [varchar] (255) DEFAULT ('') NOT NULL ,
-	[logo_ext] [varchar] (10) DEFAULT ('') NOT NULL ,
-	[logo_size] [int] DEFAULT (0) NOT NULL ,
-	[logo_status] [int] DEFAULT (0) NOT NULL ,
-	[upload_time] [int] DEFAULT (0) NOT NULL ,
-	[approved_time] [int] DEFAULT (0) NOT NULL ,
-	[approved_by] [int] DEFAULT (0) NOT NULL 
-)GO
-
-ALTER TABLE [phpbb_k_links_queue] WITH NOCHECK ADD 
-	CONSTRAINT [PK_phpbb_k_links_queue] PRIMARY KEY  CLUSTERED 
-	(
-		[queue_id]
-	)
-GO
-
-CREATE  INDEX [post_id] ON [phpbb_k_links_queue]([post_id])
-GO
-
-CREATE  INDEX [topic_id] ON [phpbb_k_links_queue]([topic_id])
-GO
-
-CREATE  INDEX [status_forum] ON [phpbb_k_links_queue]([logo_status], [forum_id])
-GO
-
-
-/*
 	Table: 'phpbb_ads'
 */
 CREATE TABLE [phpbb_ads] (
@@ -1757,7 +1720,7 @@ CREATE TABLE [phpbb_forums] (
 	[forum_desc_options] [int] DEFAULT (7) NOT NULL ,
 	[forum_desc_uid] [varchar] (8) DEFAULT ('') NOT NULL ,
 	[forum_link] [nvarchar] (255) DEFAULT ('') NOT NULL ,
-	[forum_password] [nvarchar] (40) DEFAULT ('') NOT NULL ,
+	[forum_password] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[forum_style] [int] DEFAULT (0) NOT NULL ,
 	[forum_image] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[forum_rules] [nvarchar] (4000) DEFAULT ('') NOT NULL ,
@@ -2693,6 +2656,43 @@ GO
 
 
 /*
+	Table: 'phpbb_k_links_queue'
+*/
+CREATE TABLE [phpbb_k_links_queue] (
+	[queue_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[post_id] [int] DEFAULT (0) NOT NULL ,
+	[topic_id] [int] DEFAULT (0) NOT NULL ,
+	[forum_id] [int] DEFAULT (0) NOT NULL ,
+	[user_id] [int] DEFAULT (0) NOT NULL ,
+	[logo_original] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_tmp] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_final] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[logo_ext] [varchar] (10) DEFAULT ('') NOT NULL ,
+	[logo_size] [int] DEFAULT (0) NOT NULL ,
+	[logo_status] [int] DEFAULT (0) NOT NULL ,
+	[upload_time] [int] DEFAULT (0) NOT NULL ,
+	[approved_time] [int] DEFAULT (0) NOT NULL ,
+	[approved_by] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_k_links_queue] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_k_links_queue] PRIMARY KEY  CLUSTERED 
+	(
+		[queue_id]
+	)
+GO
+
+CREATE  INDEX [post_id] ON [phpbb_k_links_queue]([post_id])
+GO
+
+CREATE  INDEX [topic_id] ON [phpbb_k_links_queue]([topic_id])
+GO
+
+CREATE  INDEX [status_forum] ON [phpbb_k_links_queue]([logo_status], [forum_id])
+GO
+
+
+/*
 	Table: 'phpbb_k_menus'
 */
 CREATE TABLE [phpbb_k_menus] (
@@ -2716,6 +2716,43 @@ ALTER TABLE [phpbb_k_menus] WITH NOCHECK ADD
 	(
 		[m_id]
 	)
+GO
+
+
+/*
+	Table: 'phpbb_k_modules'
+*/
+CREATE TABLE [phpbb_k_modules] (
+	[mod_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[mod_link_id] [int] DEFAULT (0) NOT NULL ,
+	[mod_type] [varchar] (50) DEFAULT ('') NOT NULL ,
+	[mod_origin] [int] DEFAULT (0) NOT NULL ,
+	[mod_name] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[mod_filename] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[mod_author] [varchar] (100) DEFAULT ('') NOT NULL ,
+	[mod_link] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[mod_author_co] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[mod_support_link] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[mod_copyright] [varchar] (100) DEFAULT ('') NOT NULL ,
+	[mod_thumb] [varchar] (100) DEFAULT ('') NOT NULL ,
+	[mod_last_update] [varchar] (50) DEFAULT ('') NOT NULL ,
+	[mod_details] [nvarchar] (max) DEFAULT ('') NOT NULL ,
+	[mod_download_count] [int] DEFAULT (0) NOT NULL ,
+	[mod_status] [int] DEFAULT (0) NOT NULL ,
+	[mod_version] [varchar] (10) DEFAULT ('') NOT NULL ,
+	[mod_bbcode_uid] [varchar] (8) DEFAULT ('') NOT NULL ,
+	[mod_bbcode_bitfield] [varchar] (255) DEFAULT ('') NOT NULL ,
+	[mod_bbcode_options] [int] DEFAULT (0) NOT NULL 
+)GO
+
+ALTER TABLE [phpbb_k_modules] WITH NOCHECK ADD 
+	CONSTRAINT [PK_phpbb_k_modules] PRIMARY KEY  CLUSTERED 
+	(
+		[mod_id]
+	)
+GO
+
+CREATE  INDEX [mod_name] ON [phpbb_k_modules]([mod_name])
 GO
 
 
@@ -5188,7 +5225,7 @@ CREATE TABLE [phpbb_users] (
 	[username] [nvarchar] (255) DEFAULT ('') NOT NULL ,
 	[username_clean] [nvarchar] (255) DEFAULT ('') NOT NULL ,
 	[user_regdate] [int] DEFAULT (0) NOT NULL ,
-	[user_password] [nvarchar] (40) DEFAULT ('') NOT NULL ,
+	[user_password] [varchar] (255) DEFAULT ('') NOT NULL ,
 	[user_email] [nvarchar] (100) DEFAULT ('') NOT NULL ,
 	[user_lang] [varchar] (30) DEFAULT ('') NOT NULL ,
 	[user_style] [int] DEFAULT (0) NOT NULL ,

@@ -67,29 +67,6 @@ CREATE TABLE phpbb_acl_users (
 );
 
 
-# Table: 'phpbb_k_links_queue'
-CREATE TABLE phpbb_k_links_queue (
-	queue_id int(10) UNSIGNED NOT NULL auto_increment,
-	post_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
-	topic_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
-	forum_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
-	user_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
-	logo_original varchar(255) DEFAULT '' NOT NULL,
-	logo_tmp varchar(255) DEFAULT '' NOT NULL,
-	logo_final varchar(255) DEFAULT '' NOT NULL,
-	logo_ext varchar(10) DEFAULT '' NOT NULL,
-	logo_size int(10) UNSIGNED DEFAULT '0' NOT NULL,
-	logo_status tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
-	upload_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	approved_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	approved_by int(10) UNSIGNED DEFAULT '0' NOT NULL,
-	PRIMARY KEY (queue_id),
-	KEY post_id (post_id),
-	KEY topic_id (topic_id),
-	KEY status_forum (logo_status, forum_id)
-);
-
-
 # Table: 'phpbb_ads'
 CREATE TABLE phpbb_ads (
 	ad_id int(10) UNSIGNED NOT NULL auto_increment,
@@ -1020,7 +997,7 @@ CREATE TABLE phpbb_forums (
 	forum_desc_options int(11) UNSIGNED DEFAULT '7' NOT NULL,
 	forum_desc_uid varchar(8) DEFAULT '' NOT NULL,
 	forum_link varchar(255) DEFAULT '' NOT NULL,
-	forum_password varchar(40) DEFAULT '' NOT NULL,
+	forum_password varchar(255) DEFAULT '' NOT NULL,
 	forum_style int(10) UNSIGNED DEFAULT '0' NOT NULL,
 	forum_image varchar(255) DEFAULT '' NOT NULL,
 	forum_rules text NOT NULL,
@@ -1612,6 +1589,29 @@ CREATE TABLE phpbb_k_config_vars (
 );
 
 
+# Table: 'phpbb_k_links_queue'
+CREATE TABLE phpbb_k_links_queue (
+	queue_id int(10) UNSIGNED NOT NULL auto_increment,
+	post_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	topic_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	forum_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	user_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	logo_original varchar(255) DEFAULT '' NOT NULL,
+	logo_tmp varchar(255) DEFAULT '' NOT NULL,
+	logo_final varchar(255) DEFAULT '' NOT NULL,
+	logo_ext varchar(10) DEFAULT '' NOT NULL,
+	logo_size int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	logo_status tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	upload_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	approved_time int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	approved_by int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (queue_id),
+	KEY post_id (post_id),
+	KEY topic_id (topic_id),
+	KEY status_forum (logo_status, forum_id)
+);
+
+
 # Table: 'phpbb_k_menus'
 CREATE TABLE phpbb_k_menus (
 	m_id int(10) UNSIGNED NOT NULL auto_increment,
@@ -1628,6 +1628,33 @@ CREATE TABLE phpbb_k_menus (
 	soft_hr tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	sub_heading tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (m_id)
+);
+
+
+# Table: 'phpbb_k_modules'
+CREATE TABLE phpbb_k_modules (
+	mod_id int(10) UNSIGNED NOT NULL auto_increment,
+	mod_link_id int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	mod_type varchar(50) DEFAULT '' NOT NULL,
+	mod_origin tinyint(1) UNSIGNED DEFAULT '0' NOT NULL,
+	mod_name varchar(255) DEFAULT '' NOT NULL,
+	mod_filename varchar(255) DEFAULT '' NOT NULL,
+	mod_author varchar(100) DEFAULT '' NOT NULL,
+	mod_link varchar(255) DEFAULT '' NOT NULL,
+	mod_author_co varchar(255) DEFAULT '' NOT NULL,
+	mod_support_link varchar(255) DEFAULT '' NOT NULL,
+	mod_copyright varchar(100) DEFAULT '' NOT NULL,
+	mod_thumb varchar(100) DEFAULT '' NOT NULL,
+	mod_last_update varchar(50) DEFAULT '' NOT NULL,
+	mod_details mediumtext NOT NULL,
+	mod_download_count int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	mod_status smallint(4) UNSIGNED DEFAULT '0' NOT NULL,
+	mod_version varchar(10) DEFAULT '' NOT NULL,
+	mod_bbcode_uid varchar(8) DEFAULT '' NOT NULL,
+	mod_bbcode_bitfield varchar(255) DEFAULT '' NOT NULL,
+	mod_bbcode_options int(11) UNSIGNED DEFAULT '0' NOT NULL,
+	PRIMARY KEY (mod_id),
+	KEY mod_name (mod_name)
 );
 
 
@@ -3033,7 +3060,7 @@ CREATE TABLE phpbb_users (
 	username varchar(255) DEFAULT '' NOT NULL,
 	username_clean varchar(255) DEFAULT '' NOT NULL,
 	user_regdate int(11) UNSIGNED DEFAULT '0' NOT NULL,
-	user_password varchar(40) DEFAULT '' NOT NULL,
+	user_password varchar(255) DEFAULT '' NOT NULL,
 	user_email varchar(100) DEFAULT '' NOT NULL,
 	user_lang varchar(30) DEFAULT '' NOT NULL,
 	user_style int(10) UNSIGNED DEFAULT '0' NOT NULL,

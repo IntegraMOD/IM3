@@ -164,51 +164,6 @@ CREATE INDEX phpbb_acl_users_auth_role_id ON phpbb_acl_users (auth_role_id)
 /
 
 /*
-	Table: 'phpbb_k_links_queue'
-*/
-CREATE TABLE phpbb_k_links_queue (
-	queue_id number(10) NOT NULL,
-	post_id number(10) DEFAULT '0' NOT NULL,
-	topic_id number(10) DEFAULT '0' NOT NULL,
-	forum_id number(10) DEFAULT '0' NOT NULL,
-	user_id number(10) DEFAULT '0' NOT NULL,
-	logo_original varchar2(255) DEFAULT '' ,
-	logo_tmp varchar2(255) DEFAULT '' ,
-	logo_final varchar2(255) DEFAULT '' ,
-	logo_ext varchar2(10) DEFAULT '' ,
-	logo_size number(10) DEFAULT '0' NOT NULL,
-	logo_status number(1) DEFAULT '0' NOT NULL,
-	upload_time number(11) DEFAULT '0' NOT NULL,
-	approved_time number(11) DEFAULT '0' NOT NULL,
-	approved_by number(10) DEFAULT '0' NOT NULL,
-	CONSTRAINT pk_phpbb_k_links_queue PRIMARY KEY (queue_id)
-)
-/
-
-CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id)
-/
-CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id)
-/
-CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id)
-/
-
-CREATE SEQUENCE phpbb_k_links_queue_seq
-/
-
-CREATE OR REPLACE TRIGGER t_phpbb_k_links_queue
-BEFORE INSERT ON phpbb_k_links_queue
-FOR EACH ROW WHEN (
-	new.queue_id IS NULL OR new.queue_id = 0
-)
-BEGIN
-	SELECT phpbb_k_links_queue_seq.nextval
-	INTO :new.queue_id
-	FROM dual;
-END;
-/
-
-
-/*
 	Table: 'phpbb_ads'
 */
 CREATE TABLE phpbb_ads (
@@ -1897,7 +1852,7 @@ CREATE TABLE phpbb_forums (
 	forum_desc_options number(11) DEFAULT '7' NOT NULL,
 	forum_desc_uid varchar2(8) DEFAULT '' ,
 	forum_link varchar2(765) DEFAULT '' ,
-	forum_password varchar2(120) DEFAULT '' ,
+	forum_password varchar2(255) DEFAULT '' ,
 	forum_style number(10) DEFAULT '0' NOT NULL,
 	forum_image varchar2(255) DEFAULT '' ,
 	forum_rules clob DEFAULT '' ,
@@ -2973,6 +2928,51 @@ CREATE INDEX phpbb_k_config_vars_is_dynamic ON phpbb_k_config_vars (is_dynamic)
 /
 
 /*
+	Table: 'phpbb_k_links_queue'
+*/
+CREATE TABLE phpbb_k_links_queue (
+	queue_id number(10) NOT NULL,
+	post_id number(10) DEFAULT '0' NOT NULL,
+	topic_id number(10) DEFAULT '0' NOT NULL,
+	forum_id number(10) DEFAULT '0' NOT NULL,
+	user_id number(10) DEFAULT '0' NOT NULL,
+	logo_original varchar2(255) DEFAULT '' ,
+	logo_tmp varchar2(255) DEFAULT '' ,
+	logo_final varchar2(255) DEFAULT '' ,
+	logo_ext varchar2(10) DEFAULT '' ,
+	logo_size number(10) DEFAULT '0' NOT NULL,
+	logo_status number(1) DEFAULT '0' NOT NULL,
+	upload_time number(11) DEFAULT '0' NOT NULL,
+	approved_time number(11) DEFAULT '0' NOT NULL,
+	approved_by number(10) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_k_links_queue PRIMARY KEY (queue_id)
+)
+/
+
+CREATE INDEX phpbb_k_links_queue_post_id ON phpbb_k_links_queue (post_id)
+/
+CREATE INDEX phpbb_k_links_queue_topic_id ON phpbb_k_links_queue (topic_id)
+/
+CREATE INDEX phpbb_k_links_queue_status_forum ON phpbb_k_links_queue (logo_status, forum_id)
+/
+
+CREATE SEQUENCE phpbb_k_links_queue_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_k_links_queue
+BEFORE INSERT ON phpbb_k_links_queue
+FOR EACH ROW WHEN (
+	new.queue_id IS NULL OR new.queue_id = 0
+)
+BEGIN
+	SELECT phpbb_k_links_queue_seq.nextval
+	INTO :new.queue_id
+	FROM dual;
+END;
+/
+
+
+/*
 	Table: 'phpbb_k_menus'
 */
 CREATE TABLE phpbb_k_menus (
@@ -3005,6 +3005,53 @@ FOR EACH ROW WHEN (
 BEGIN
 	SELECT phpbb_k_menus_seq.nextval
 	INTO :new.m_id
+	FROM dual;
+END;
+/
+
+
+/*
+	Table: 'phpbb_k_modules'
+*/
+CREATE TABLE phpbb_k_modules (
+	mod_id number(10) NOT NULL,
+	mod_link_id number(10) DEFAULT '0' NOT NULL,
+	mod_type varchar2(50) DEFAULT '' ,
+	mod_origin number(1) DEFAULT '0' NOT NULL,
+	mod_name varchar2(255) DEFAULT '' ,
+	mod_filename varchar2(255) DEFAULT '' ,
+	mod_author varchar2(100) DEFAULT '' ,
+	mod_link varchar2(255) DEFAULT '' ,
+	mod_author_co varchar2(255) DEFAULT '' ,
+	mod_support_link varchar2(255) DEFAULT '' ,
+	mod_copyright varchar2(100) DEFAULT '' ,
+	mod_thumb varchar2(100) DEFAULT '' ,
+	mod_last_update varchar2(50) DEFAULT '' ,
+	mod_details clob DEFAULT '' ,
+	mod_download_count number(10) DEFAULT '0' NOT NULL,
+	mod_status number(4) DEFAULT '0' NOT NULL,
+	mod_version varchar2(10) DEFAULT '' ,
+	mod_bbcode_uid varchar2(8) DEFAULT '' ,
+	mod_bbcode_bitfield varchar2(255) DEFAULT '' ,
+	mod_bbcode_options number(11) DEFAULT '0' NOT NULL,
+	CONSTRAINT pk_phpbb_k_modules PRIMARY KEY (mod_id)
+)
+/
+
+CREATE INDEX phpbb_k_modules_mod_name ON phpbb_k_modules (mod_name)
+/
+
+CREATE SEQUENCE phpbb_k_modules_seq
+/
+
+CREATE OR REPLACE TRIGGER t_phpbb_k_modules
+BEFORE INSERT ON phpbb_k_modules
+FOR EACH ROW WHEN (
+	new.mod_id IS NULL OR new.mod_id = 0
+)
+BEGIN
+	SELECT phpbb_k_modules_seq.nextval
+	INTO :new.mod_id
 	FROM dual;
 END;
 /
@@ -5702,7 +5749,7 @@ CREATE TABLE phpbb_users (
 	username varchar2(255) DEFAULT '' ,
 	username_clean varchar2(255) DEFAULT '' ,
 	user_regdate number(11) DEFAULT '0' NOT NULL,
-	user_password varchar2(120) DEFAULT '' ,
+	user_password varchar2(255) DEFAULT '' ,
 	user_email varchar2(300) DEFAULT '' ,
 	user_lang varchar2(30) DEFAULT '' ,
 	user_style number(10) DEFAULT '0' NOT NULL,

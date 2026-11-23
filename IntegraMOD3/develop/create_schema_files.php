@@ -2038,7 +2038,7 @@ function get_schema_struct()
 			'forum_desc_options'	=> array('UINT:11', 7),
 			'forum_desc_uid'		=> array('VCHAR:8', ''),
 			'forum_link'			=> array('VCHAR_UNI', ''),
-			'forum_password'		=> array('VCHAR_UNI:40', ''),
+			'forum_password'		=> array('VCHAR', ''),
 			'forum_style'			=> array('UINT', 0),
 			'forum_image'			=> array('VCHAR', ''),
 			'forum_rules'			=> array('TEXT_UNI', ''),
@@ -2661,25 +2661,6 @@ function get_schema_struct()
 		),			
 	);
 	
-	$schema_data['phpbb_k_menus'] = array(
-		'COLUMNS'		=> array(
-			'm_id'					=> array('UINT', NULL, 'auto_increment'),
-			'ndx'					=> array('UINT', '0'),
-			'menu_type'				=> array('USINT', '0'),
-			'name'					=> array('VCHAR:50', ''),
-			'link_to'				=> array('VCHAR', ''),
-			'extern'				=> array('BOOL', '0'),
-			'menu_icon'				=> array('VCHAR:30', 'none.gif'),
-			'append_sid'			=> array('BOOL', '1'),
-			'append_uid'			=> array('BOOL', '0'),
-			'view_all'				=> array('BOOL', '1'),
-			'view_groups'			=> array('VCHAR:100', ''),
-			'soft_hr'				=> array('BOOL', '0'),
-			'sub_heading'			=> array('BOOL', '0'),
-		),
-		'PRIMARY_KEY'	=> 'm_id',
-	);
-	
 	$schema_data['phpbb_k_links_queue'] = array(
 		'COLUMNS'		=> array(
 			'queue_id'			=> array('UINT:10', NULL, 'auto_increment'),
@@ -2702,6 +2683,54 @@ function get_schema_struct()
 			'post_id'			=> array('INDEX', 'post_id'),
 			'topic_id'			=> array('INDEX', 'topic_id'),
 			'status_forum'		=> array('INDEX', array('logo_status', 'forum_id')),
+		),
+	);
+	
+	$schema_data['phpbb_k_menus'] = array(
+		'COLUMNS'		=> array(
+			'm_id'					=> array('UINT', NULL, 'auto_increment'),
+			'ndx'					=> array('UINT', '0'),
+			'menu_type'				=> array('USINT', '0'),
+			'name'					=> array('VCHAR:50', ''),
+			'link_to'				=> array('VCHAR', ''),
+			'extern'				=> array('BOOL', '0'),
+			'menu_icon'				=> array('VCHAR:30', 'none.gif'),
+			'append_sid'			=> array('BOOL', '1'),
+			'append_uid'			=> array('BOOL', '0'),
+			'view_all'				=> array('BOOL', '1'),
+			'view_groups'			=> array('VCHAR:100', ''),
+			'soft_hr'				=> array('BOOL', '0'),
+			'sub_heading'			=> array('BOOL', '0'),
+		),
+		'PRIMARY_KEY'	=> 'm_id',
+	);
+	
+	$schema_data['phpbb_k_modules'] = array(
+		'COLUMNS'		=> array(
+			'mod_id'				=> array('UINT', NULL, 'auto_increment'),
+			'mod_link_id'			=> array('UINT', '0'),
+			'mod_type'				=> array('VCHAR:50', ''),
+			'mod_origin'			=> array('BOOL', '0'),
+			'mod_name'				=> array('VCHAR', ''),
+			'mod_filename'			=> array('VCHAR', ''),
+			'mod_author'			=> array('VCHAR:100', ''),
+			'mod_link'				=> array('VCHAR', ''),
+			'mod_author_co'			=> array('VCHAR', ''),
+			'mod_support_link'		=> array('VCHAR', ''),
+			'mod_copyright'			=> array('VCHAR:100', ''),
+			'mod_thumb'				=> array('VCHAR:100', ''),
+			'mod_last_update'		=> array('VCHAR:50', ''),
+			'mod_details'			=> array('MTEXT_UNI', ''),
+			'mod_download_count'	=> array('UINT', '0'),
+			'mod_status'			=> array('USINT', '0'),
+			'mod_version'			=> array('VCHAR:10', ''),
+			'mod_bbcode_uid'		=> array('VCHAR:8', ''),
+			'mod_bbcode_bitfield'	=> array('VCHAR', ''),
+			'mod_bbcode_options'	=> array('UINT:11', '0'),
+		),
+		'PRIMARY_KEY'	=> 'mod_id',
+		'KEYS'			=> array(
+			'mod_name'	=> array('INDEX', 'mod_name'),
 		),
 	);
 	
@@ -2952,6 +2981,30 @@ function get_schema_struct()
 		'PRIMARY_KEY'	=> 'mod_id'		
 	);
 
+	$schema_data['phpbb_mod_undo'] = array(
+		'COLUMNS'		=> array(
+			'undo_id'				=> array('UINT', NULL, 'auto_increment'),
+			'undo_token'			=> array('VCHAR:32', ''),
+			'undo_action'			=> array('VCHAR:30', ''),
+			'user_id'				=> array('UINT', 0),
+			'forum_id'				=> array('UINT', 0),
+			'topic_id'				=> array('UINT', 0),
+			'post_id'				=> array('UINT', 0),
+			'undo_time'				=> array('TIMESTAMP', 0),
+			'undo_summary'			=> array('VCHAR_UNI', ''),
+			'undo_data'				=> array('MTEXT_UNI', ''),
+			'undo_status'			=> array('TINT:1', 0),
+			'restored_by'			=> array('UINT', 0),
+			'restored_time'			=> array('TIMESTAMP', 0),
+		),
+		'PRIMARY_KEY'	=> 'undo_id',
+		'KEYS'			=> array(
+			'user_id'				=> array('INDEX', 'user_id'),
+			'undo_time'				=> array('INDEX', 'undo_time'),
+			'undo_status'			=> array('INDEX', 'undo_status'),
+		),
+	);
+
 	$schema_data['phpbb_modules'] = array(
 		'COLUMNS'		=> array(
 			'module_id'				=> array('UINT', NULL, 'auto_increment'),
@@ -2974,27 +3027,6 @@ function get_schema_struct()
 		),
 	);
 
-	$schema_data['phpbb_nav_links'] = array(
-		'COLUMNS'		=> array(
-			'nav_id'				=> array('UINT:8', NULL, 'auto_increment'),
-			'nav_order'				=> array('UINT:8', 0),
-			'nav_active'			=> array('BOOL', 1),
-			'nav_url'				=> array('VCHAR', ''),
-			'nav_page_id'			=> array('UINT:8', 0),
-			'nav_title'				=> array('VCHAR_UNI', ''),
-		),
-		'PRIMARY_KEY'	=> 'nav_id',
-	);
-
-	$schema_data['phpbb_nav_link_lang'] = array(
-		'COLUMNS'		=> array(
-			'nav_id'				=> array('UINT:8', 0),
-			'lang_iso'				=> array('VCHAR:30', ''),
-			'nav_title'				=> array('VCHAR_UNI', ''),
-		),
-		'PRIMARY_KEY'	=> array('nav_id', 'lang_iso'),
-	);
-	
 	$schema_data['phpbb_notes'] = array(
 		'COLUMNS'		=> array(
 			'note_id'				=> array('UINT:11', 0),
@@ -3031,6 +3063,27 @@ function get_schema_struct()
 			'page_author'			=> array('UINT', 0),
 		),
 		'PRIMARY_KEY'	=> 'page_id',		
+	);
+
+	$schema_data['phpbb_nav_links'] = array(
+		'COLUMNS'		=> array(
+			'nav_id'				=> array('UINT:8', NULL, 'auto_increment'),
+			'nav_order'				=> array('UINT:8', 0),
+			'nav_active'			=> array('BOOL', 1),
+			'nav_url'				=> array('VCHAR', ''),
+			'nav_page_id'			=> array('UINT:8', 0),
+			'nav_title'				=> array('VCHAR_UNI', ''),
+		),
+		'PRIMARY_KEY'	=> 'nav_id',
+	);
+
+	$schema_data['phpbb_nav_link_lang'] = array(
+		'COLUMNS'		=> array(
+			'nav_id'				=> array('UINT:8', 0),
+			'lang_iso'				=> array('VCHAR:30', ''),
+			'nav_title'				=> array('VCHAR_UNI', ''),
+		),
+		'PRIMARY_KEY'	=> array('nav_id', 'lang_iso'),
 	);
 
 	$schema_data['phpbb_points_bank'] = array(
@@ -4204,7 +4257,7 @@ function get_schema_struct()
 			'username'						=> array('VCHAR_CI', ''),
 			'username_clean'				=> array('VCHAR_CI', ''),
 			'user_regdate'					=> array('TIMESTAMP', 0),
-			'user_password'					=> array('VCHAR_UNI:40', ''),
+			'user_password'					=> array('VCHAR', ''),
 			'user_email'					=> array('VCHAR_UNI:100', ''),
 			'user_lang'						=> array('VCHAR:30', ''),
 			'user_style'					=> array('UINT', 0),
