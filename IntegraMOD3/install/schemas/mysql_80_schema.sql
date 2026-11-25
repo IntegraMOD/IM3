@@ -1431,7 +1431,7 @@ CREATE TABLE phpbb_kb_article (
 	rating int UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (article_id),
 	KEY activ (activ),
-	KEY titel_fulltext (titel)
+	FULLTEXT KEY titel_fulltext (titel)
 ) CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 
 

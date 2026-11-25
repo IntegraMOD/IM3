@@ -2401,9 +2401,6 @@ GO
 CREATE  INDEX [activ] ON [phpbb_kb_article]([activ])
 GO
 
-CREATE  INDEX [titel_fulltext] ON [phpbb_kb_article]([titel])
-GO
-
 
 /*
 	Table: 'phpbb_kb_article_diff'

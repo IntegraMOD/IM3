@@ -1431,7 +1431,7 @@ CREATE TABLE phpbb_kb_article (
 	rating int(10) UNSIGNED DEFAULT '0' NOT NULL,
 	PRIMARY KEY (article_id),
 	KEY activ (activ),
-	KEY titel_fulltext (titel)
+	FULLTEXT KEY titel_fulltext (titel)
 );
 
 

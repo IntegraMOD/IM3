@@ -2034,7 +2034,6 @@ CREATE TABLE phpbb_kb_article (
 ALTER TABLE phpbb_kb_article ADD PRIMARY KEY (article_id);;
 
 CREATE INDEX phpbb_kb_article_activ ON phpbb_kb_article(activ);;
-CREATE INDEX phpbb_kb_article_titel_fulltext ON phpbb_kb_article(titel);;
 
 CREATE GENERATOR phpbb_kb_article_gen;;
 SET GENERATOR phpbb_kb_article_gen TO 0;;

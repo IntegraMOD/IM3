@@ -1789,7 +1789,6 @@ CREATE TABLE phpbb_kb_article (
 );
 
 CREATE INDEX phpbb_kb_article_activ ON phpbb_kb_article (activ);
-CREATE INDEX phpbb_kb_article_titel_fulltext ON phpbb_kb_article (titel);
 
 /*
 	Table: 'phpbb_kb_article_diff'
