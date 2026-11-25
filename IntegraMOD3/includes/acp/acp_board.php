@@ -35,7 +35,7 @@ class acp_board
 
 		$action	= request_var('action', '');
 		$add_nav_link = isset($_POST['add_nav_link']);
-		$submit = (isset($_POST['submit']) || isset($_POST['allow_quick_reply_enable']) || $add_nav_link) ? true : false;
+		$submit = (isset($_POST['submit']) || isset($_POST['allow_quick_reply_enable']) || isset($_POST['allow_mentions_enable']) || $add_nav_link) ? true : false;
 
 		$form_key = 'acp_board';
 		add_form_key($form_key);

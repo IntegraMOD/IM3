@@ -60,6 +60,7 @@ INSERT INTO phpbb_config VALUES('allow_pm_attach', '0', 0);
 INSERT INTO phpbb_config VALUES('allow_pm_report', '1', 0);
 INSERT INTO phpbb_config VALUES('allow_post_flash', '1', 0);
 INSERT INTO phpbb_config VALUES('allow_post_links', '1', 0);
+INSERT INTO phpbb_config VALUES('allow_mentions', '1', 0);
 INSERT INTO phpbb_config VALUES('allow_privmsg', '1', 0);
 INSERT INTO phpbb_config VALUES('allow_quick_reply', '1', 0);
 INSERT INTO phpbb_config VALUES('allow_sig', '1', 0);
