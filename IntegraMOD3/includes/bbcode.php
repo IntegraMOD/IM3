@@ -38,6 +38,7 @@ class bbcode extends abbcode
 
 	var $template_bitfield;
 	var $template_filename = '';
+	var $template_filename2 = '';
 
 	/**
 	* Constructor
