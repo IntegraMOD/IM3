@@ -792,9 +792,10 @@ foreach ($supported_dbms as $dbms)
 					case 'mysql_80':
 						$line .= ($key_data[0] == 'INDEX') ? "\tKEY" : '';
 						$line .= ($key_data[0] == 'UNIQUE') ? "\tUNIQUE" : '';
+						$line .= ($key_data[0] == 'FULLTEXT') ? "\tFULLTEXT KEY" : '';
 						foreach ($key_data[1] as $key => $col_name)
 						{
-							if (isset($modded_array[$col_name]))
+							if ($key_data[0] != 'FULLTEXT' && isset($modded_array[$col_name]))
 							{
 								switch ($modded_array[$col_name])
 								{
@@ -809,6 +810,10 @@ foreach ($supported_dbms as $dbms)
 					break;
 
 					case 'firebird':
+						if ($key_data[0] == 'FULLTEXT')
+						{
+							continue 2;
+						}
 						$line .= ($key_data[0] == 'INDEX') ? 'CREATE INDEX' : '';
 						$line .= ($key_data[0] == 'UNIQUE') ? 'CREATE UNIQUE INDEX' : '';
 
@@ -816,6 +821,10 @@ foreach ($supported_dbms as $dbms)
 					break;
 
 					case 'mssql':
+						if ($key_data[0] == 'FULLTEXT')
+						{
+							continue 2;
+						}
 						$line .= ($key_data[0] == 'INDEX') ? 'CREATE  INDEX' : '';
 						$line .= ($key_data[0] == 'UNIQUE') ? 'CREATE  UNIQUE  INDEX' : '';
 						$line .= " [{$key_name}] ON [{$table_name}]([" . implode('], [', $key_data[1]) . "])\n";
@@ -823,7 +832,7 @@ foreach ($supported_dbms as $dbms)
 					break;
 
 					case 'oracle':
-						if ($key_data[0] == 'UNIQUE')
+						if ($key_data[0] == 'UNIQUE' || $key_data[0] == 'FULLTEXT')
 						{
 							continue 2;
 						}
@@ -835,6 +844,10 @@ foreach ($supported_dbms as $dbms)
 					break;
 
 					case 'sqlite':
+						if ($key_data[0] == 'FULLTEXT')
+						{
+							continue 2;
+						}
 						$line .= ($key_data[0] == 'INDEX') ? 'CREATE INDEX' : '';
 						$line .= ($key_data[0] == 'UNIQUE') ? 'CREATE UNIQUE INDEX' : '';
 
@@ -842,6 +855,10 @@ foreach ($supported_dbms as $dbms)
 					break;
 
 					case 'postgres':
+						if ($key_data[0] == 'FULLTEXT')
+						{
+							continue 2;
+						}
 						$line .= ($key_data[0] == 'INDEX') ? 'CREATE INDEX' : '';
 						$line .= ($key_data[0] == 'UNIQUE') ? 'CREATE UNIQUE INDEX' : '';
 
@@ -2495,7 +2512,7 @@ function get_schema_struct()
 		'PRIMARY_KEY'	=> 'article_id',
 		'KEYS'			=> array(
 			'activ'	         => array('INDEX', 'activ'),
-			'titel_fulltext' => array('INDEX', 'titel'),
+			'titel_fulltext' => array('FULLTEXT', 'titel'),
 		),	
 	);
 	
